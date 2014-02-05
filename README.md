@@ -1,6 +1,8 @@
 dunno
 =======
 
+This is the backend app that implements dashboard to teachers, managers and admins and supports iOS App.
+
 ## How to run this project?
 
 1. ```git clone REPO_URL```
@@ -49,3 +51,27 @@ This task will run all tasks described on 'jumpup.rake' file, check the file and
 ## Configuring domain on Heroku
 
 Check out this [wiki](https://github.com/Helabs/pah/wiki/Configuring-domain-on-Heroku) with detailed instruction of how to use the canonical_host to redirect your naked domain to your real app.
+
+## Generating ERD
+
+1. Install the graphviz lib.
+
+		$ brew install graphviz
+
+	or
+
+		$ sudo port install graphviz
+
+	or
+
+		$ sudo aptitude install graphviz
+
+2. Run bundle to install rails-erd gem that is already on Gemfile.
+
+		$ bundle install
+
+3. Now just run `rake erd`.
+
+		$ rake erd
+
+4. Grab the file and be happy!
