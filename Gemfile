@@ -23,7 +23,7 @@ end
 
 group :development do
   gem 'foreman',              '0.63.0'
-  gem 'jumpup',               '0.0.2'
+  gem 'jumpup',               '0.0.3'
   gem 'jumpup-heroku',        github: 'Helabs/jumpup-heroku'
   gem 'better_errors',        '1.0.1'
   gem 'binding_of_caller',    '0.7.2'
