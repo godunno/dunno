@@ -16,6 +16,7 @@ gem 'uglifier',               '2.3.2'
 gem 'rack-canonical-host',    '0.0.8'
 gem 'bourbon',                '3.1.8'
 gem 'simple_form',            '3.0.1'
+gem 'party_foul',             '1.5.2'
 
 group :production do
   gem 'rails_12factor',       '0.0.2'
