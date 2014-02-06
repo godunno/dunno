@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :timeline_user_message do
-    content "I am really liking this"
-    timeline
+    content "I really like that"
   end
 end
