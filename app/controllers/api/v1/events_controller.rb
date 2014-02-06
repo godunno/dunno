@@ -8,6 +8,6 @@ class Api::V1::EventsController < ApplicationController
 
   private
     def organization
-      @organization ||= Organization.where(id: params[:organization_id]).first!
+      @organization ||= Organization.where(uuid: params[:organization_id]).first!
     end
 end

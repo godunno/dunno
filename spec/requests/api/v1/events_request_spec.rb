@@ -17,17 +17,17 @@ describe Api::V1::EventsController do
       let!(:event_from_another_organization) { create(:event) }
 
       def do_action
-        get "/api/v1/organizations/#{organization.id}/events.xml"
+        get "/api/v1/organizations/#{organization.uuid}/events.xml"
       end
 
       it_behaves_like "request invalid content type XML"
 
       context "valid content type" do
 
-        context "when receives valid organization id" do
+        context "when receives valid organization uuid" do
 
           before(:each) do
-            get "/api/v1/organizations/#{organization.id}/events.json"
+            get "/api/v1/organizations/#{organization.uuid}/events.json"
           end
 
           it { expect(response).to be_success }
@@ -36,7 +36,7 @@ describe Api::V1::EventsController do
           it { expect(json[0]["organization_id"]).to eq(organization.id) }
         end
 
-        context "when receives an invalid organization id" do
+        context "when receives an invalid organization uuid" do
 
           it do
             expect { get '/api/v1/organizations/999/events.json' }.to raise_error(ActiveRecord::RecordNotFound)
