@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Timeline do
 
   describe "association" do
-    it { should belong_to(:interaction) }
     it { should belong_to(:event) }
   end
 
