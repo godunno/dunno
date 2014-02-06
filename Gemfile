@@ -18,9 +18,7 @@ gem 'bourbon',                '3.1.8'
 gem 'simple_form',            '3.0.1'
 gem 'party_foul',             '1.5.2'
 
-group :production do
-  gem 'rails_12factor',       '0.0.2'
-end
+gem 'rails_12factor',       '0.0.2', group: [:production, :staging]
 
 group :development do
   gem 'foreman',              '0.63.0'
