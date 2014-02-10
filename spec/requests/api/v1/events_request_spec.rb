@@ -2,17 +2,14 @@ require 'spec_helper'
 
 describe Api::V1::EventsController do
 
+  let!(:organization) { create(:organization) }
+  let!(:event) { create(:event, title: "New event", organization: organization) }
+
   describe "GET /api/v1/organizations/1/events" do
 
     it_behaves_like "API authentication required"
 
     context "authenticated" do
-
-      let!(:organization) do
-        create(:organization)
-      end
-
-      let!(:event) { create(:event, title: "New event", organization: organization) }
 
       let!(:event_from_another_organization) { create(:event) }
 
@@ -44,5 +41,39 @@ describe Api::V1::EventsController do
         end
       end
     end
+
+  describe "GET /api/v1/organizations/1/events/1/attend" do
+
+    it_behaves_like "API authentication required"
+
+    context "authenticated" do
+
+      def do_action
+        get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.xml"
+      end
+
+      it_behaves_like "request invalid content type XML"
+
+      context "valid content type" do
+
+        before(:each) do
+          get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.json"
+        end
+
+        subject { json }
+
+        it { expect(subject["channel"]).to eq event.channel }
+        it { expect(subject["student_message_event"]).to eq event.student_message_event }
+        it { expect(subject["up_down_vote_message_event"]).to eq event.up_down_vote_message_event }
+        it { expect(subject["receive_poll_event"]).to eq event.receive_poll_event }
+        it { expect(subject["receive_rating_event"]).to eq event.receive_rating_event }
+        it { expect(subject["timeline"]["interactions"]).to eq [] }
+
+        # The approach bellow is necessary due to approximation errors
+        it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }
+        it { expect(Time.parse(subject["timeline"]["updated_at"]).to_i).to eq event.timeline.updated_at.to_i }
+      end
+    end
+  end
   end
 end
