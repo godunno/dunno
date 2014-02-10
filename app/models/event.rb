@@ -7,6 +7,8 @@ class Event < ActiveRecord::Base
     receive_rating: "receive_rating"
   }
 
+  STATUSES = %w(draft available opened closed)
+
   belongs_to :organization
   has_one :timeline
 

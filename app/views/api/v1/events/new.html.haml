@@ -1,0 +1,8 @@
+%h1 Novo evento
+
+= simple_form_for @event, url: api_v1_organization_events_path(@event.organization.uuid) do |f|
+  = f.hidden_field :organization_id
+  = f.input :title
+  = f.input :start_at
+  = f.input :status, collection: Event::STATUSES
+  = f.button :submit

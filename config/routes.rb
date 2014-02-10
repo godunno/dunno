@@ -4,7 +4,7 @@ Dunno::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :organizations, only:[] do
-        resources :events, only: [:index, :create] do
+        resources :events, only: [:index, :create, :new] do
           member do
             get :attend
           end

@@ -1,9 +1,14 @@
 class Api::V1::EventsController < ApplicationController
   respond_to :json
+  respond_to :html, only: [:new, :index]
 
   def index
     @events = organization.events
     respond_with @events
+  end
+
+  def new
+    @event = Event.new(organization: organization)
   end
 
   def create

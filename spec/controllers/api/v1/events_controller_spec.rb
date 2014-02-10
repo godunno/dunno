@@ -12,4 +12,12 @@ describe Api::V1::EventsController do
       expect(Event.first.title).to be_eql event[:title]
     end
   end
+
+  describe "GET #new" do
+    before do
+      get :new, organization_id: organization.uuid
+    end
+
+    it { expect(response).to render_template('new') }
+  end
 end
