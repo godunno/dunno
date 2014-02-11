@@ -2,5 +2,9 @@
 
 FactoryGirl.define do
   factory :student do
+    sequence(:email) { |n| "user#{n}@gmail.com" };
+    password "thatsecret"
+    password_confirmation { |u| u.password }
+    organization
   end
 end
