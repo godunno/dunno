@@ -32,4 +32,14 @@ describe Api::V1::EventsController do
     it { expect(response).to render_template('edit') }
     it { expect(assigns[:event]).to eq event }
   end
+
+  describe "PATCH #update" do
+    before do
+      event.save!
+      event.title = "NEW TITLE"
+      patch :update, organization_id: organization.uuid, id: event.uuid, event: event.attributes
+    end
+
+    it { expect(Event.first.title).to eq event.title }
+  end
 end

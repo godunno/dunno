@@ -21,6 +21,12 @@ class Api::V1::EventsController < ApplicationController
     @event = event
   end
 
+  def update
+    @event = event
+    @event.update_attributes(event_params)
+    redirect_to action: :index
+  end
+
   def attend
     respond_with event
   end
