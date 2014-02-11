@@ -10,7 +10,7 @@ describe Api::V1::EventsController do
     end
 
     it "should have created the event" do
-      expect(Event.first.title).to be_eql event[:title]
+      expect(Event.first.title).to eq event[:title]
     end
   end
 
@@ -20,6 +20,7 @@ describe Api::V1::EventsController do
     end
 
     it { expect(response).to render_template('new') }
+    it { expect(assigns[:event]).to be_a Event }
   end
 
   describe "GET #edit" do
