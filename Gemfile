@@ -18,6 +18,7 @@ gem 'bourbon',                '3.1.8'
 gem 'simple_form',            '3.0.1'
 gem 'party_foul',             '1.5.2'
 gem 'devise',                 '3.2.2'
+gem 'acts_as_votable',        '~> 0.8.0'
 
 gem 'rails_12factor',       '0.0.2', group: [:production, :staging]
 
