@@ -1,0 +1,32 @@
+class TimelineMessageCreator
+  include ActiveModel::Model
+
+  attr_accessor :timeline_id, :student_id, :content
+
+  def save!
+    ActiveRecord::Base.transaction do
+      create_timeline_user_message && create_timeline_interaction
+    end
+  end
+
+  def timeline_user_message
+    @timeline_user_message ||= TimelineUserMessage.new(content: @content, student: student)
+  end
+
+  private
+    def create_timeline_user_message
+      timeline_user_message.save
+    end
+
+    def create_timeline_interaction
+      TimelineInteraction.create(interaction: timeline_user_message, timeline: timeline)
+    end
+
+    def timeline
+      @timeline ||= Timeline.where(id: @timeline_id).first!
+    end
+
+    def student
+      @student ||= Student.where(id: @student_id).first!
+    end
+end
