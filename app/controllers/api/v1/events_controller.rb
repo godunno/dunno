@@ -27,6 +27,11 @@ class Api::V1::EventsController < ApplicationController
     redirect_to action: :index
   end
 
+  def destroy
+    event.destroy
+    redirect_to action: :index
+  end
+
   def attend
     respond_with event
   end
