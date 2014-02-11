@@ -1,6 +1,6 @@
 class Api::V1::EventsController < ApplicationController
   respond_to :json
-  respond_to :html, only: [:new, :index]
+  respond_to :html, only: [:new, :edit, :index]
 
   def index
     @events = organization.events
@@ -18,12 +18,11 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def edit
-    @event = event
+    event
   end
 
   def update
-    @event = event
-    @event.update_attributes(event_params)
+    event.update_attributes(event_params)
     redirect_to action: :index
   end
 
@@ -42,7 +41,7 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def event
-      organization.events.where(uuid: params[:id]).first!
+      @event ||= organization.events.where(uuid: params[:id]).first!
     end
 
     def event_params

@@ -54,4 +54,15 @@ describe Api::V1::EventsController do
       end.to change(Event, :count).by(-1)
     end
   end
+
+  describe "GET #index" do
+    before do
+      event.save!
+      get :index, organization_id: organization.uuid
+    end
+
+    it { expect(response).to render_template('index') }
+    it { expect(assigns[:events]).to eq [event] }
+    it { expect(assigns[:organization]).to eq organization }
+  end
 end
