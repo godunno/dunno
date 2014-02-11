@@ -17,6 +17,10 @@ class Api::V1::EventsController < ApplicationController
     redirect_to action: :index
   end
 
+  def edit
+    @event = event
+  end
+
   def attend
     respond_with event
   end
