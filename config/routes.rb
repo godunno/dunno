@@ -27,6 +27,7 @@ Dunno::Application.routes.draw do
         resources :events, only: [:index] do
           member do
             get :attend
+            get :timeline
           end
         end
       end

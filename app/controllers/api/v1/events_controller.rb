@@ -14,6 +14,10 @@ class Api::V1::EventsController < ApplicationController
     end
   end
 
+  def timeline
+    respond_with event
+  end
+
   private
     def organization
       @organization ||= Organization.where(uuid: params[:organization_id]).first!

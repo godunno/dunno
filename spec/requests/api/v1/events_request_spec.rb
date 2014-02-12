@@ -93,4 +93,46 @@ describe Api::V1::EventsController do
       end
     end
   end
+
+  describe "GET /api/v1/organizations/1/events/1/timeline" do
+
+    let(:message) { create :timeline_user_message }
+    let!(:timeline_interaction) { create(:timeline_interaction, timeline: event.timeline, interaction: message) }
+
+    it_behaves_like "API authentication required"
+
+    context "authenticated" do
+
+      let!(:event_from_another_organization) { create(:event) }
+
+      def do_action
+        get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/timeline.xml"
+      end
+
+      it_behaves_like "request invalid content type XML"
+
+      context "valid content type" do
+
+        context "when receives valid organization uuid and event uuid" do
+
+          before(:each) do
+            get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/timeline.json"
+          end
+
+          it { expect(response).to be_success }
+          it { expect(json.length).to eq(1) }
+          it { expect(json["event"]["title"]).to eq(event.title) }
+          it { expect(json["event"]["timeline"]["timeline_interactions"].length).to eq(1) }
+          it { expect(json["event"]["timeline"]["timeline_interactions"][0]["interaction_type"]).to eq(timeline_interaction.interaction_type) }
+        end
+
+        context "when receives an invalid event uuid" do
+
+          it do
+            expect { get "/api/v1/organizations/#{organization.uuid}/events/989898/timeline.json" }.to raise_error(ActiveRecord::RecordNotFound)
+          end
+        end
+      end
+    end
+  end
 end
