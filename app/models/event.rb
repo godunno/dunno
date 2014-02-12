@@ -37,14 +37,6 @@ class Event < ActiveRecord::Base
     PUSHER_EVENTS[:receive_rating]
   end
 
-  def to_json(options = {})
-    options = {
-      include: { timeline: { methods: :interactions }},
-      methods: [:channel] + PUSHER_EVENTS.map { |key, value| "#{key}_event" }
-    }.merge options
-    super(options)
-  end
-
   STATUSES.each do |status|
     define_method "#{status}?" do
       self.status == status
