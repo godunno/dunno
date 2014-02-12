@@ -45,6 +45,12 @@ class Event < ActiveRecord::Base
     super(options)
   end
 
+  STATUSES.each do |status|
+    define_method "#{status}?" do
+      self.status == status
+    end
+  end
+
   private
     def set_uuid
       UuidGenerator.new(self).generate!

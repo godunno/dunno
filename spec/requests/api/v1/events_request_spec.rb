@@ -58,7 +58,6 @@ describe Api::V1::EventsController do
           get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.xml"
         end
 
-        it_behaves_like "request invalid content type XML"
 
         context "valid content type" do
 
@@ -66,18 +65,30 @@ describe Api::V1::EventsController do
             get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.json"
           end
 
-          subject { json }
+          context "unopened event" do
+            let(:event) { create(:event, status: 'available', title: "New event", organization: organization) }
+            it { expect(response.status).to eq 403 }
+          end
 
-          it { expect(subject["channel"]).to eq event.channel }
-          it { expect(subject["student_message_event"]).to eq event.student_message_event }
-          it { expect(subject["up_down_vote_message_event"]).to eq event.up_down_vote_message_event }
-          it { expect(subject["receive_poll_event"]).to eq event.receive_poll_event }
-          it { expect(subject["receive_rating_event"]).to eq event.receive_rating_event }
-          it { expect(subject["timeline"]["interactions"]).to eq [message].map { |i| JSON.parse(i.to_json) } }
+          context "opened event" do
+            let(:event) { create(:event, status: 'opened', title: "New event", organization: organization) }
 
-          # The approach bellow is necessary due to approximation errors
-          it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }
-          it { expect(Time.parse(subject["timeline"]["updated_at"]).to_i).to eq event.timeline.updated_at.to_i }
+            subject { json }
+
+            it_behaves_like "request invalid content type XML"
+
+            it { expect(response).to be_success }
+            it { expect(subject["channel"]).to eq event.channel }
+            it { expect(subject["student_message_event"]).to eq event.student_message_event }
+            it { expect(subject["up_down_vote_message_event"]).to eq event.up_down_vote_message_event }
+            it { expect(subject["receive_poll_event"]).to eq event.receive_poll_event }
+            it { expect(subject["receive_rating_event"]).to eq event.receive_rating_event }
+            it { expect(subject["timeline"]["interactions"]).to eq [message].map { |i| JSON.parse(i.to_json) } }
+
+            # The approach bellow is necessary due to approximation errors
+            it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }
+            it { expect(Time.parse(subject["timeline"]["updated_at"]).to_i).to eq event.timeline.updated_at.to_i }
+          end
         end
       end
     end

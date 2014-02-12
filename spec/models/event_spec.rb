@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe Event do
 
+  let(:event) { build(:event) }
+
   describe "associations" do
     it { should have_one(:timeline) }
     it { should belong_to(:organization) }
@@ -17,7 +19,6 @@ describe Event do
     describe "after create" do
 
       let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
-      let(:event) { build(:event) }
 
       context "new event" do
         before(:each) do
@@ -49,6 +50,22 @@ describe Event do
             event.save!
           end.to_not change{ event.uuid }.from(uuid).to("new-uuid-generate-rencently-7cf25d610d4d")
         end
+      end
+    end
+  end
+
+  describe "statuses methods" do
+    Event::STATUSES.each do |status|
+
+      before do
+        event.status = nil
+      end
+
+      it { should respond_to "#{status}?" }
+      it "should be #{status}" do
+        expect do
+          event.status = status
+        end.to change{event.send("#{status}?")}.from(false).to(true)
       end
     end
   end
