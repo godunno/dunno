@@ -15,6 +15,7 @@ Dunno::Application.routes.draw do
         resources :messages, only: [:create] do
           member do
             post :up
+            post :down
           end
         end
       end

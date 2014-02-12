@@ -15,4 +15,10 @@ class Api::V1::MessagesController < ApplicationController
     message.up_by(Student.find(params[:user_id]))
     render nothing: true, status: 200
   end
+
+  def down
+    message = TimelineUserMessage.find(params[:id])
+    message.down_by(Student.find(params[:user_id]))
+    render nothing: true, status: 200
+  end
 end

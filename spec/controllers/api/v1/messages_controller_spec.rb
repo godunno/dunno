@@ -16,4 +16,16 @@ describe Api::V1::MessagesController do
       end.to change(message.up_votes, :count).by(1)
     end
   end
+
+  describe "POST #down" do
+    before do
+      create(:timeline_interaction, timeline: event.timeline, interaction: message)
+    end
+
+    it "should decrease the up votes" do
+      expect do
+        post :down, user_id: student.id, id: message.id
+      end.to change(message.down_votes, :count).by(1)
+    end
+  end
 end
