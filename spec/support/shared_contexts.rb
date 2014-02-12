@@ -6,6 +6,13 @@ shared_examples_for "API authentication required" do
   end
 end
 
+shared_examples_for "Dashboard authentication required" do
+
+  context "when not authenticated" do
+
+    pending "Authentication not implemented yet."
+  end
+end
 
 shared_examples_for "request invalid content type XML" do
 

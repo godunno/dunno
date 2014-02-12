@@ -2,5 +2,8 @@
 
 FactoryGirl.define do
   factory :teacher do
+    name { Faker::Name.name }
+    email { Faker::Internet.email }
+    password { SecureRandom.base64(8) }
   end
 end

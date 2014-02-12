@@ -37,6 +37,7 @@ group :test do
   gem 'email_spec',           '1.5.0'
   gem 'capybara',             '2.1.0'
   gem 'poltergeist',          '1.4.1'
+  gem 'faker'
 end
 
 group :development, :test do

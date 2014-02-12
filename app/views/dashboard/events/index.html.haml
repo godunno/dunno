@@ -1,0 +1,12 @@
+%h1 Eventos de #{@organization.name}
+
+= link_to 'Novo evento', new_dashboard_organization_event_path(@organization.uuid)
+
+%table
+  %tbody
+    - @events.each do |event|
+      %tr
+        %td= event.title
+        %td= event.start_at
+        %td= link_to 'Editar', edit_dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid)
+        %td= link_to 'Destruir', dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), method: :delete, confirm: 'Tem certeza?'
