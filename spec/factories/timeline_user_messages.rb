@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :timeline_user_message do
     content "I really like that"
+    student
   end
 end
