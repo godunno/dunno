@@ -9,4 +9,10 @@ class Api::V1::MessagesController < ApplicationController
       render json: message_creator.timeline_user_message.errors, status: :unprocessable_entity
     end
   end
+
+  def up
+    message = TimelineUserMessage.find(params[:id])
+    message.up_by(Student.find(params[:user_id]))
+    render nothing: true, status: 200
+  end
 end

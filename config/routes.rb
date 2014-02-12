@@ -12,7 +12,11 @@ Dunno::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :timeline, only: [] do
-        resources :messages, only: [:create]
+        resources :messages, only: [:create] do
+          member do
+            post :up
+          end
+        end
       end
       resources :organizations, only:[] do
         resources :events, only: [:index] do
