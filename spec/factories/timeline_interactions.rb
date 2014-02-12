@@ -3,6 +3,5 @@
 FactoryGirl.define do
   factory :timeline_interaction do
     timeline
-    interaction
   end
 end

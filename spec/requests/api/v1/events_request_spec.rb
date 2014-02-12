@@ -44,6 +44,12 @@ describe Api::V1::EventsController do
 
     describe "GET /api/v1/organizations/1/events/1/attend" do
 
+      let(:message) { create :timeline_user_message }
+
+      before do
+        create(:timeline_interaction, timeline: event.timeline, interaction: message)
+      end
+
       it_behaves_like "API authentication required"
 
       context "authenticated" do
@@ -67,7 +73,7 @@ describe Api::V1::EventsController do
           it { expect(subject["up_down_vote_message_event"]).to eq event.up_down_vote_message_event }
           it { expect(subject["receive_poll_event"]).to eq event.receive_poll_event }
           it { expect(subject["receive_rating_event"]).to eq event.receive_rating_event }
-          it { expect(subject["timeline"]["interactions"]).to eq [] }
+          it { expect(subject["timeline"]["interactions"]).to eq [message].map { |i| JSON.parse(i.to_json) } }
 
           # The approach bellow is necessary due to approximation errors
           it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }

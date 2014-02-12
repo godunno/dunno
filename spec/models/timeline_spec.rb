@@ -10,4 +10,15 @@ describe Timeline do
   describe "validations" do
     it { should validate_presence_of(:start_at) }
   end
+
+  describe "#interactions" do
+    let(:timeline) { create :timeline }
+    let(:message) { create :timeline_user_message }
+
+    before do
+      create(:timeline_interaction, timeline: timeline, interaction: message)
+    end
+
+    it { expect(timeline.interactions).to include message }
+  end
 end

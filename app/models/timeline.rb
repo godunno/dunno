@@ -5,6 +5,6 @@ class Timeline < ActiveRecord::Base
   validates :start_at, presence: true
 
   def interactions
-    []
+    timeline_interactions.map(&:interaction)
   end
 end
