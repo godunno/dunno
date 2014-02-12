@@ -105,4 +105,15 @@ describe Dashboard::EventsController do
       it { expect(assigns[:organization]).to eq organization }
     end
   end
+
+  describe "PATCH #open" do
+
+    let(:event) { create(:event, status: 'available', organization: organization) }
+
+    it "should open the event" do
+      expect do
+        patch :open, organization_id: organization.uuid, id: event.uuid
+      end.to change{event.reload.status}.from('available').to('opened')
+    end
+  end
 end

@@ -30,6 +30,11 @@ class Dashboard::EventsController < Dashboard::ApplicationController
     redirect_to action: :index
   end
 
+  def open
+    event.update_attributes(status: 'opened')
+    redirect_to action: :index
+  end
+
   private
     def organization
       @organization ||= Organization.where(uuid: params[:organization_id]).first!
