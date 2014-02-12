@@ -41,54 +41,54 @@ describe Api::V1::EventsController do
         end
       end
     end
+  end
 
-    describe "GET /api/v1/organizations/1/events/1/attend" do
+  describe "GET /api/v1/organizations/1/events/1/attend" do
 
-      let(:message) { create :timeline_user_message }
+    let(:message) { create :timeline_user_message }
 
-      before do
-        create(:timeline_interaction, timeline: event.timeline, interaction: message)
+    before do
+      create(:timeline_interaction, timeline: event.timeline, interaction: message)
+    end
+
+    it_behaves_like "API authentication required"
+
+    context "authenticated" do
+
+      def do_action
+        get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.xml"
       end
 
-      it_behaves_like "API authentication required"
 
-      context "authenticated" do
+      context "valid content type" do
 
-        def do_action
-          get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.xml"
+        before(:each) do
+          get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.json"
         end
 
+        context "unopened event" do
+          let(:event) { create(:event, status: 'available', title: "New event", organization: organization) }
+          it { expect(response.status).to eq 403 }
+        end
 
-        context "valid content type" do
+        context "opened event" do
+          let(:event) { create(:event, status: 'opened', title: "New event", organization: organization) }
 
-          before(:each) do
-            get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.json"
-          end
+          subject { json["event"] }
 
-          context "unopened event" do
-            let(:event) { create(:event, status: 'available', title: "New event", organization: organization) }
-            it { expect(response.status).to eq 403 }
-          end
+          it_behaves_like "request invalid content type XML"
 
-          context "opened event" do
-            let(:event) { create(:event, status: 'opened', title: "New event", organization: organization) }
+          it { expect(response).to be_success }
+          it { expect(subject["channel"]).to eq event.channel }
+          it { expect(subject["student_message_event"]).to eq event.student_message_event }
+          it { expect(subject["up_down_vote_message_event"]).to eq event.up_down_vote_message_event }
+          it { expect(subject["receive_poll_event"]).to eq event.receive_poll_event }
+          it { expect(subject["receive_rating_event"]).to eq event.receive_rating_event }
+          it { expect(subject["timeline"]["timeline_interactions"][0]["interaction"]["content"]).to eq(message.content)}
 
-            subject { json }
-
-            it_behaves_like "request invalid content type XML"
-
-            it { expect(response).to be_success }
-            it { expect(subject["channel"]).to eq event.channel }
-            it { expect(subject["student_message_event"]).to eq event.student_message_event }
-            it { expect(subject["up_down_vote_message_event"]).to eq event.up_down_vote_message_event }
-            it { expect(subject["receive_poll_event"]).to eq event.receive_poll_event }
-            it { expect(subject["receive_rating_event"]).to eq event.receive_rating_event }
-            it { expect(subject["timeline"]["interactions"]).to eq [message].map { |i| JSON.parse(i.to_json) } }
-
-            # The approach bellow is necessary due to approximation errors
-            it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }
-            it { expect(Time.parse(subject["timeline"]["updated_at"]).to_i).to eq event.timeline.updated_at.to_i }
-          end
+          # The approach bellow is necessary due to approximation errors
+          it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }
+          it { expect(Time.parse(subject["timeline"]["updated_at"]).to_i).to eq event.timeline.updated_at.to_i }
         end
       end
     end
