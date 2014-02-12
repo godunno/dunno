@@ -26,8 +26,4 @@ class Api::V1::EventsController < ApplicationController
     def event
       @event ||= organization.events.where(uuid: params[:id]).first!
     end
-
-    def event_params
-      params.require(:event).permit(:title, :start_at, :organization_id, :status)
-    end
 end
