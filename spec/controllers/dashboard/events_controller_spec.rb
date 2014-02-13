@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe Dashboard::EventsController do
   let!(:organization) { create :organization }
-  let(:event) { build(:event, title: "TEST EVENT", organization: organization) }
+  let!(:teacher) { create :teacher }
+
+  let(:event) { build(:event, title: "TEST EVENT", teacher: teacher, organization: organization) }
 
   before do
     sign_in :teacher, create(:teacher)
@@ -14,12 +16,21 @@ describe Dashboard::EventsController do
 
     context "authenticated" do
 
-      before do
-        post :create, event: event.attributes, organization_id: event.organization
+      it do
+        expect do
+          post :create, event: event.attributes, organization_id: event.organization
+        end.to change{ Event.count}.from(0).to(1)
       end
 
-      it "should have created the event" do
-        expect(Event.first.title).to eq event[:title]
+      context "context" do
+        before do
+          post :create, event: event.attributes, organization_id: event.organization
+        end
+
+        subject { Event.first }
+
+        it { expect(subject.title).to eq(event[:title]) }
+        it { expect(subject.teacher.name).to eq(teacher.name) }
       end
     end
   end

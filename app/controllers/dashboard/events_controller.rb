@@ -45,6 +45,6 @@ class Dashboard::EventsController < Dashboard::ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:title, :start_at, :organization_id, :status)
+      params.require(:event).permit(:title, :start_at, :organization_id, :teacher_id, :status)
     end
 end
