@@ -23,6 +23,12 @@ describe EventPusher do
         { content: message.content }
       )
     end
+
+    it "should call this method after creating a TimelineUserMessage" do
+      message = "Message"
+      EventPusher.any_instance.should_receive(:student_message).with(message)
+      create :timeline_user_message, content: message, timeline_interaction: (build :timeline_interaction)
+    end
   end
 
   describe "#up_down_vote_message" do
