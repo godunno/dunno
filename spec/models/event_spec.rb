@@ -7,11 +7,13 @@ describe Event do
   describe "associations" do
     it { should have_one(:timeline) }
     it { should belong_to(:organization) }
+    it { should belong_to(:teacher) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:title) }
-    it { should validate_presence_of(:start_at) }
+    [:title, :start_at, :teacher].each do |attr|
+      it { should validate_presence_of(attr) }
+    end
   end
 
   describe "callbacks" do

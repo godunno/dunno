@@ -10,9 +10,10 @@ class Event < ActiveRecord::Base
   STATUSES = %w(draft available opened closed)
 
   belongs_to :organization
+  belongs_to :teacher
   has_one :timeline
 
-  validates :title, :start_at, presence: true
+  validates :title, :start_at, :teacher, presence: true
 
   after_create :set_uuid
   after_create :set_timeline
