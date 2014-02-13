@@ -31,6 +31,7 @@ describe Api::V1::EventsController do
           it { expect(json.length).to eq(1) }
           it { expect(json[0]["title"]).to eq(event.title) }
           it { expect(json[0]["organization_id"]).to eq(organization.id) }
+          it { expect(json[0]["teacher"]["name"]).to eq(event.teacher.name) }
         end
 
         context "when receives an invalid organization uuid" do
