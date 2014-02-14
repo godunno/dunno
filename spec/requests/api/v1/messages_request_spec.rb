@@ -64,7 +64,7 @@ describe Api::V1::MessagesController do
               post "/api/v1/timeline/messages.json", message_params
             end
 
-            it { expect(json["content"]).to include("não pode ficar em branco") }
+            it { expect(json["errors"]["content"]).to include("não pode ficar em branco") }
           end
         end
 

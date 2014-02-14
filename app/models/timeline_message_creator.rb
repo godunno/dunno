@@ -6,6 +6,7 @@ class TimelineMessageCreator
   def save!
     ActiveRecord::Base.transaction do
       create_timeline_user_message && create_timeline_interaction
+      EventPusher.new(timeline.event).student_message(content)
     end
   end
 
