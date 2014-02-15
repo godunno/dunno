@@ -48,6 +48,8 @@ group :development, :test do
   gem 'pry-rails',            '0.3.2'
   gem 'dotenv-rails',         '0.9.0'
   gem 'awesome_print',        '1.2.0'
+  gem 'vcr',                  '2.8.0'
+  gem 'webmock',              '1.17.3'
 end
 
 group :doc do
