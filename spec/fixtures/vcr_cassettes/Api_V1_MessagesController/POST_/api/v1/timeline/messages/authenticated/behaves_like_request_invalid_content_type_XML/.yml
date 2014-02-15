@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=be275848cf015859c14b61a038a624dbcfaf5378c5a9982c4a3d01a53f0923e0&auth_timestamp=1392494565&auth_version=1.0&body_md5=3ead54177b051bd3a81b158989855ba2
+    body:
+      encoding: UTF-8
+      string: "{\"name\":\"student_message\",\"channels\":[\"event_958ed3ce-e373-4e06-a70f-c1737129dbcb\"],\"data\":\"{\\\"content\\\":\\\"Some
+        message here\\\"}\"}"
+    headers:
+      User-Agent:
+      - HTTPClient/1.0 (2.3.4.1, ruby 2.1.0 (2013-12-25))
+      Accept:
+      - "*/*"
+      Date:
+      - Sat, 15 Feb 2014 20:02:45 GMT
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/html;charset=utf-8
+      Server:
+      - thin 1.6.1 codename Death Proof
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "{}"
+    http_version: 
+  recorded_at: Sat, 15 Feb 2014 20:02:45 GMT
+recorded_with: VCR 2.8.0

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Api::V1::MessagesController do
 
-  describe "POST /api/v1/timeline/messages" do
+  describe "POST /api/v1/timeline/messages", vcr: { match_requests_on: [:method, :host, :path]} do
 
     it_behaves_like "API authentication required"
 
