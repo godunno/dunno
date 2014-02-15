@@ -5,7 +5,7 @@ describe TimelineMessageCreator do
   let!(:student) { create(:student) }
   let(:message_creator) { TimelineMessageCreator.new(attributes) }
 
-  describe "#save" do
+  describe "#save", vcr: { match_requests_on: [:method, :host, :path]} do
 
     context "valid attributes" do
       let!(:attributes) do
