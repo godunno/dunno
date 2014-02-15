@@ -13,12 +13,14 @@ class Api::V1::MessagesController < ApplicationController
   def up
     message = TimelineUserMessage.find(params[:id])
     message.up_by(Student.find(params[:user_id]))
+    EventPusher.new(message.timeline.event).up_down_vote_message(message.up_votes.count, message.down_votes.count)
     render nothing: true, status: 200
   end
 
   def down
     message = TimelineUserMessage.find(params[:id])
     message.down_by(Student.find(params[:user_id]))
+    EventPusher.new(message.timeline.event).up_down_vote_message(message.up_votes.count, message.down_votes.count)
     render nothing: true, status: 200
   end
 end
