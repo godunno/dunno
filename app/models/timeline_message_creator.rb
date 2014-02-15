@@ -5,8 +5,7 @@ class TimelineMessageCreator
 
   def save!
     ActiveRecord::Base.transaction do
-      create_timeline_user_message && create_timeline_interaction
-      EventPusher.new(timeline.event).student_message(content)
+      create_timeline_user_message && create_timeline_interaction && sends_pusher_notification
     end
   end
 
@@ -29,5 +28,9 @@ class TimelineMessageCreator
 
     def student
       @student ||= Student.where(id: @student_id).first!
+    end
+
+    def sends_pusher_notification
+      EventPusher.new(timeline.event).student_message(content)
     end
 end
