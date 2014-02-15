@@ -6,7 +6,7 @@ class Api::V1::MessagesController < ApplicationController
     if message_creator.save!
       respond_with message_creator.timeline_user_message, location: nil
     else
-      render json: message_creator.timeline_user_message.errors, status: :unprocessable_entity
+      render json: { errors: message_creator.timeline_user_message.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
