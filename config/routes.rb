@@ -23,7 +23,7 @@ Dunno::Application.routes.draw do
           end
         end
       end
-      resources :organizations, only:[] do
+      resources :organizations, only:[:index] do
         resources :events, only: [:index] do
           member do
             get :attend
