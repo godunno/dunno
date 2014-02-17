@@ -2,17 +2,17 @@
 http_interactions:
 - request:
     method: post
-    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=4a554787a556e7d1fc65ea6fca2bbcf6136fe5f32c8d189212f676706babb289&auth_timestamp=1392494032&auth_version=1.0&body_md5=7da187bc3ba87f49e570bbd644f637ea
+    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=d28ad89fe55857807c1538c6d928acfea90924ffad49e1ee5447f694a996562a&auth_timestamp=1392642199&auth_version=1.0&body_md5=8edd5d5b9375dabe4b364656a80a985e
     body:
       encoding: UTF-8
-      string: "{\"name\":\"up_down_vote_message\",\"channels\":[\"event_2c604c5d-0ff7-4a59-8fb4-fa969e59bdaa\"],\"data\":\"{\\\"up\\\":0,\\\"down\\\":1}\"}"
+      string: "{\"name\":\"up_down_vote_message\",\"channels\":[\"event_7e843ca4-1459-4de8-9c1c-b156cc56f774\"],\"data\":\"{\\\"up\\\":0,\\\"down\\\":1}\"}"
     headers:
       User-Agent:
       - HTTPClient/1.0 (2.3.4.1, ruby 2.1.0 (2013-12-25))
       Accept:
       - "*/*"
       Date:
-      - Sat, 15 Feb 2014 19:53:52 GMT
+      - Mon, 17 Feb 2014 13:03:19 GMT
       Content-Type:
       - application/json
   response:
@@ -32,5 +32,5 @@ http_interactions:
       encoding: UTF-8
       string: "{}"
     http_version: 
-  recorded_at: Sat, 15 Feb 2014 19:53:52 GMT
+  recorded_at: Mon, 17 Feb 2014 13:03:20 GMT
 recorded_with: VCR 2.8.0
