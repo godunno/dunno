@@ -11,16 +11,23 @@ class Api::V1::MessagesController < ApplicationController
   end
 
   def up
-    message = TimelineUserMessage.find(params[:id])
-    message.up_by(Student.find(params[:student_id]))
+    message.up_by(student)
     EventPusher.new(message.timeline.event).up_down_vote_message(message.up_votes.count, message.down_votes.count)
     render nothing: true, status: 200
   end
 
   def down
-    message = TimelineUserMessage.find(params[:id])
-    message.down_by(Student.find(params[:student_id]))
+    message.down_by(student)
     EventPusher.new(message.timeline.event).up_down_vote_message(message.up_votes.count, message.down_votes.count)
     render nothing: true, status: 200
   end
+
+  private
+    def message
+      @message ||= TimelineUserMessage.find(params[:id])
+    end
+
+    def student
+      Student.find(params[:student_id])
+    end
 end
