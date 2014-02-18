@@ -1,0 +1,8 @@
+%h1 Editing topic
+
+= simple_form_for @topic, url: dashboard_topic_path(@topic) do |f|
+  = render 'form', f: f
+
+= link_to 'Show', dashboard_topic_path(@topic)
+\|
+= link_to 'Back', dashboard_topics_path

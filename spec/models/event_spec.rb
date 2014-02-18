@@ -8,6 +8,7 @@ describe Event do
     it { should have_one(:timeline) }
     it { should belong_to(:organization) }
     it { should belong_to(:teacher) }
+    it { should have_many(:topics) }
   end
 
   describe "validations" do

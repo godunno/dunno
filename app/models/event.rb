@@ -12,6 +12,7 @@ class Event < ActiveRecord::Base
   belongs_to :organization
   belongs_to :teacher
   has_one :timeline
+  has_many :topics
 
   validates :title, :start_at, :teacher, presence: true
 

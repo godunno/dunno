@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Text:
+  = @topic.text
+%p
+  %b Event:
+  = @topic.event
+
+= link_to 'Edit', edit_dashboard_topic_path(@topic)
+\|
+= link_to 'Back', dashboard_topics_path

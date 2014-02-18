@@ -1,11 +1,11 @@
 Dunno::Application.routes.draw do
 
-  resources :topics
 
   devise_for :teachers
   devise_for :students
 
   namespace :dashboard do
+    resources :topics
     resources :organizations, only: [] do
       resources :events do
         member do

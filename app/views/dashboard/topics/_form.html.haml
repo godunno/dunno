@@ -1,0 +1,10 @@
+- if @topic.errors.any?
+  #error_explanation
+    %h2= "#{pluralize(@topic.errors.count, "error")} prohibited this topic from being saved:"
+    %ul
+      - @topic.errors.full_messages.each do |msg|
+        %li= msg
+
+= f.input :text
+= f.association :event
+= f.button :submit
