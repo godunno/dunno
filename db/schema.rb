@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215205635) do
+ActiveRecord::Schema.define(version: 20140218195106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,15 @@ ActiveRecord::Schema.define(version: 20140215205635) do
   end
 
   add_index "timelines", ["event_id"], name: "index_timelines_on_event_id", using: :btree
+
+  create_table "topics", force: true do |t|
+    t.string   "text"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "topics", ["event_id"], name: "index_topics_on_event_id", using: :btree
 
   create_table "votes", force: true do |t|
     t.integer  "votable_id"
