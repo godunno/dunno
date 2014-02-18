@@ -1,5 +1,7 @@
 Dunno::Application.routes.draw do
 
+  resources :topics
+
   devise_for :teachers
   devise_for :students
 
