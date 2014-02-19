@@ -2,7 +2,7 @@
 
 %table
   %tr
-    %th Text
+    %th Description
     %th Event
     %th
     %th
@@ -10,7 +10,7 @@
 
   - @topics.each do |topic|
     %tr
-      %td= topic.text
+      %td= topic.description
       %td= topic.event
       %td= link_to 'Show', dashboard_topic_path(topic)
       %td= link_to 'Edit', edit_dashboard_topic_path(topic)

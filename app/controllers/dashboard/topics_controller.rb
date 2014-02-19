@@ -69,6 +69,6 @@ class Dashboard::TopicsController < Dashboard::ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def topic_params
-      params.require(:topic).permit(:text, :event_id)
+      params.require(:topic).permit(:description, :event_id)
     end
 end

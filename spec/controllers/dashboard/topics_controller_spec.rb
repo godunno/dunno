@@ -27,7 +27,7 @@ describe Dashboard::TopicsController do
   # This should return the minimal set of attributes required to create a valid
   # Topic. As you add validations to Topic, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "text" => "MyString" } }
+  let(:valid_attributes) { { "description" => "MyString" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -89,14 +89,14 @@ describe Dashboard::TopicsController do
       it "assigns a newly created but unsaved topic as @topic" do
         # Trigger the behavior that occurs when invalid params are submitted
         Topic.any_instance.stub(:save).and_return(false)
-        post :create, {:topic => { "text" => "invalid value" }}, valid_session
+        post :create, {:topic => { "description" => "invalid value" }}, valid_session
         expect(assigns(:topic)).to be_a_new(Topic)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Topic.any_instance.stub(:save).and_return(false)
-        post :create, {:topic => { "text" => "invalid value" }}, valid_session
+        post :create, {:topic => { "description" => "invalid value" }}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -110,8 +110,8 @@ describe Dashboard::TopicsController do
         # specifies that the Topic created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Topic.any_instance.should_receive(:update).with({ "text" => "MyString" })
-        put :update, {:id => topic.to_param, :topic => { "text" => "MyString" }}, valid_session
+        Topic.any_instance.should_receive(:update).with({ "description" => "MyString" })
+        put :update, {:id => topic.to_param, :topic => { "description" => "MyString" }}, valid_session
       end
 
       it "assigns the requested topic as @topic" do
@@ -132,7 +132,7 @@ describe Dashboard::TopicsController do
         topic = Topic.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Topic.any_instance.stub(:save).and_return(false)
-        put :update, {:id => topic.to_param, :topic => { "text" => "invalid value" }}, valid_session
+        put :update, {:id => topic.to_param, :topic => { "description" => "invalid value" }}, valid_session
         expect(assigns(:topic)).to eq(topic)
       end
 
@@ -140,7 +140,7 @@ describe Dashboard::TopicsController do
         topic = Topic.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Topic.any_instance.stub(:save).and_return(false)
-        put :update, {:id => topic.to_param, :topic => { "text" => "invalid value" }}, valid_session
+        put :update, {:id => topic.to_param, :topic => { "description" => "invalid value" }}, valid_session
         expect(response).to render_template("edit")
       end
     end
