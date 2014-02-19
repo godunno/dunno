@@ -87,7 +87,7 @@ describe Api::V1::EventsController do
           it { expect(subject["receive_poll_event"]).to eq event.receive_poll_event }
           it { expect(subject["receive_rating_event"]).to eq event.receive_rating_event }
           it { expect(subject["timeline"]["timeline_interactions"][0]["interaction"]["content"]).to eq(message.content)}
-          it { expect(subject["topics"]).to include({"description" => topic.description}) }
+          it { expect(subject["topics"]).to include({"id" => topic.id, "description" => topic.description}) }
 
           # The approach bellow is necessary due to approximation errors
           it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }
