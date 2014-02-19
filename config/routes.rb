@@ -19,6 +19,9 @@ Dunno::Application.routes.draw do
       resource :students, only: [] do
         post :login
       end
+      resources :topics, only: [] do
+        post :rating, on: :collection
+      end
       resource :timeline, only: [] do
         resources :messages, only: [:create] do
           member do
