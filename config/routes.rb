@@ -3,6 +3,7 @@ Dunno::Application.routes.draw do
   devise_for :teachers
   devise_for :students
 
+
   namespace :dashboard do
     resources :topics
     resources :organizations, only: [] do
@@ -16,6 +17,9 @@ Dunno::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resource :students, only: [] do
+        post :login
+      end
       resource :timeline, only: [] do
         resources :messages, only: [:create] do
           member do

@@ -11,6 +11,8 @@ if Rails.env.development? || Rails.env.staging?
     org = Organization.new(name: "Dunno Test")
     org.save!
 
+    Student.create(name: "John Doe", email: "dow@dunno.vc", avatar: "http://lorempixel.com/100/100/people/", password: "#dunnovc", password_confirmation: "#dunnovc", organization: org)
+
     teacher = Teacher.new(name: "Prof. Example", email: "prof@dunno.vc", password: "#dunnovc", password_confirmation: "#dunnovc")
     teacher.organizations << org
 
