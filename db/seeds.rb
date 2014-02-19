@@ -22,6 +22,11 @@ if Rails.env.development? || Rails.env.staging?
       Event.new(title: "3th class",start_at: 5.days.from_now, teacher: teacher, organization: org, status: "available").save!
       Event.new(title: "4th class",start_at: 7.days.from_now, teacher: teacher, organization: org, status: "available").save!
       Event.new(title: "5th class",start_at: 9.days.from_now, teacher: teacher, organization: org, status: "available").save!
+
+
+      Topic.new(description: "Machine Learning", event: Event.first).save!
+      Topic.new(description: "AI", event: Event.first).save!
+      Topic.new(description: "Visual Computing", event: Event.first).save!
     end
   end
 end
