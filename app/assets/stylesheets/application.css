@@ -10,4 +10,10 @@
  *
  *= require_self
  *= require_tree .
+ *= require css/bootstrap.min.css
+ *= require css/bootstrap-reset.css
+ *= require css/owl.carousel.css
+ *= require css/style.css
+ *= require css/style-responsive.css
+ *= require assets/font-awesome/scss/font-awesome
  */

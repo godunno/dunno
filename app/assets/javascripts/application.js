@@ -13,6 +13,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require js/bootstrap.min.js
+//= require js/jquery.dcjqaccordion.2.7.js
+//= require js/jquery.scrollTo.min.js
+//= require js/jquery.nicescroll.js
+//= require js/jquery.sparkline.js
+//= require js/common-scripts.js
+//= require js/owl.carousel.js
 
 function ready() {
 

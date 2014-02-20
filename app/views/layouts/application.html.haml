@@ -4,6 +4,8 @@
     %meta{:charset => "utf-8"}
     %meta{:name => "keywords", :content => ""}
     %meta{:name => "description", :content => ""}
+    %meta{:name => "author", :content => ""}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
 
     %title= yield(:title) + "Titulo aqui"
 
@@ -16,6 +18,7 @@
 
     /[if lt IE 9]
       %script{:src => "http://html5shim.googlecode.com/svn/trunk/html5.js"}
+      %script{:src => "js/respond.min.js"}
 
     :plain
       <script type="text/javascript">
@@ -33,29 +36,28 @@
       </script>
 
   %body{:id => controller.controller_name}
-    #wrap
-      %header
-        #masthead
-          /- if current_user
-          /  %p
-          /    = "Bem-vindo <strong>#{current_user.name}</strong> &bull; ".html_safe
-          /    = link_to "Sair", logout_path
-          /- else
-          /  %p
-          /    = link_to "Acesse com Facebook", "/auth/facebook", :id => "facebook-connect"
-
-        #logo<
-          = link_to "Logo", "/"
-        = render 'flash_messages'
-
-      .holder
-        %section{:role => "main"}
-          = yield
-
-        - if content_for?(:sidebar)
-          %aside
+    %header.header.white-bg
+      .sidebar-toggle-box
+        .fa.fa-bars.tooltips{ "data-original-title" => "Toggle Navigation", "data-placement" => "right" }
+      %a.logo
+        Dunno
+        %span App
+      #top_menu.nav.notify-row
+      .top-nav
+    %aside
+      #sidebar.nav-collapse
+        %ul#nav-accordion.sidebar-menu
+          %li
+            = link_to 'Tópicos', dashboard_topics_path
+          - if content_for?(:sidebar)
             = yield(:sidebar)
+    %section#main-content
+      %section.wrapper
+        = render 'flash_messages'
+        .holder
+          %section{:role => "main"}
+            = yield
 
-      %footer
-        %p
-          = "Copyright &copy; #{Time.zone.now.year} App".html_safe
+      %footer.site-footer
+        .text-center
+          = "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe

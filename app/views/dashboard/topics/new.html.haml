@@ -1,6 +1,8 @@
-%h1 New topic
+%section.panel
+  %header.panel-heading New topic
 
-= simple_form_for @topic, url: dashboard_topics_path do |f|
-  = render 'form', f: f
+  .panel-body
+    = simple_form_for @topic, url: dashboard_topics_path do |f|
+      = render 'form', f: f
 
-= link_to 'Back', dashboard_topics_path
+    = link_to 'Back', dashboard_topics_path
