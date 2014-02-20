@@ -1,5 +1,5 @@
 class StudentSerializer < ActiveModel::Serializer
-  attributes :name, :email, :avatar
+  attributes :id, :name, :email, :avatar
 
   has_one :organization
 end
