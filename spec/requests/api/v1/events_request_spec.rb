@@ -86,7 +86,7 @@ describe Api::V1::EventsController do
           it { expect(subject["up_down_vote_message_event"]).to eq event.up_down_vote_message_event }
           it { expect(subject["receive_poll_event"]).to eq event.receive_poll_event }
           it { expect(subject["receive_rating_event"]).to eq event.receive_rating_event }
-          it { expect(subject["timeline"]["timeline_interactions"][0]["interaction"]["content"]).to eq(message.content)}
+          it { expect(subject["timeline"]["messages"][0]["content"]).to eq(message.content)}
           it { expect(subject["topics"]).to include({"id" => topic.id, "description" => topic.description}) }
 
           # The approach bellow is necessary due to approximation errors
@@ -125,8 +125,7 @@ describe Api::V1::EventsController do
           it { expect(response).to be_success }
           it { expect(json.length).to eq(1) }
           it { expect(json["event"]["title"]).to eq(event.title) }
-          it { expect(json["event"]["timeline"]["timeline_interactions"].length).to eq(1) }
-          it { expect(json["event"]["timeline"]["timeline_interactions"][0]["interaction_type"]).to eq(timeline_interaction.interaction_type) }
+          it { expect(json["event"]["timeline"]["messages"].length).to eq(1) }
         end
 
         context "when receives an invalid event uuid" do
