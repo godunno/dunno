@@ -6,7 +6,7 @@ describe Api::V1::OrganizationsController do
   describe "GET /api/v1/organizations" do
 
     def do_action
-      get "/api/v1/organizations.xml"
+      get "/api/v1/organizations.xml", auth_params
     end
 
     it_behaves_like "request invalid content type XML"
@@ -14,7 +14,7 @@ describe Api::V1::OrganizationsController do
     context "valid content type" do
       before do
 
-        get "/api/v1/organizations.json"
+        get "/api/v1/organizations.json", auth_params
       end
 
       it { expect(response).to be_success }

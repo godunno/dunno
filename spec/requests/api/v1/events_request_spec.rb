@@ -14,7 +14,7 @@ describe Api::V1::EventsController do
       let!(:event_from_another_organization) { create(:event) }
 
       def do_action
-        get "/api/v1/organizations/#{organization.uuid}/events.xml"
+        get "/api/v1/organizations/#{organization.uuid}/events.xml", auth_params
       end
 
       it_behaves_like "request invalid content type XML"
@@ -24,7 +24,7 @@ describe Api::V1::EventsController do
         context "when receives valid organization uuid" do
 
           before(:each) do
-            get "/api/v1/organizations/#{organization.uuid}/events.json"
+            get "/api/v1/organizations/#{organization.uuid}/events.json", auth_params
           end
 
           it { expect(response).to be_success }
@@ -37,7 +37,7 @@ describe Api::V1::EventsController do
         context "when receives an invalid organization uuid" do
 
           it do
-            expect { get '/api/v1/organizations/999/events.json' }.to raise_error(ActiveRecord::RecordNotFound)
+            expect { get '/api/v1/organizations/999/events.json', auth_params }.to raise_error(ActiveRecord::RecordNotFound)
           end
         end
       end
@@ -57,14 +57,14 @@ describe Api::V1::EventsController do
     context "authenticated" do
 
       def do_action
-        get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.xml"
+        get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.xml", auth_params
       end
 
 
       context "valid content type" do
 
         before(:each) do
-          get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.json"
+          get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.json", auth_params
         end
 
         context "unopened event" do
@@ -109,7 +109,7 @@ describe Api::V1::EventsController do
       let!(:event_from_another_organization) { create(:event) }
 
       def do_action
-        get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/timeline.xml"
+        get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/timeline.xml", auth_params
       end
 
       it_behaves_like "request invalid content type XML"
@@ -119,7 +119,7 @@ describe Api::V1::EventsController do
         context "when receives valid organization uuid and event uuid" do
 
           before(:each) do
-            get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/timeline.json"
+            get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/timeline.json", auth_params
           end
 
           it { expect(response).to be_success }
@@ -132,7 +132,7 @@ describe Api::V1::EventsController do
         context "when receives an invalid event uuid" do
 
           it do
-            expect { get "/api/v1/organizations/#{organization.uuid}/events/989898/timeline.json" }.to raise_error(ActiveRecord::RecordNotFound)
+            expect { get "/api/v1/organizations/#{organization.uuid}/events/989898/timeline.json", auth_params }.to raise_error(ActiveRecord::RecordNotFound)
           end
         end
       end

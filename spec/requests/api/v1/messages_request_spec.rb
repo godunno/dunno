@@ -20,7 +20,7 @@ describe Api::V1::MessagesController do
           }
         }
 
-        post "/api/v1/timeline/messages.xml", params
+        post "/api/v1/timeline/messages.xml", params.merge(auth_params)
       end
 
       it_behaves_like "request invalid content type XML"
@@ -41,7 +41,7 @@ describe Api::V1::MessagesController do
             end
 
             before(:each) do
-              post "/api/v1/timeline/messages.json", message_params
+              post "/api/v1/timeline/messages.json", message_params.merge(auth_params)
             end
 
             it { expect(response.status).to eq(201) }
@@ -61,7 +61,7 @@ describe Api::V1::MessagesController do
             end
 
             before(:each) do
-              post "/api/v1/timeline/messages.json", message_params
+              post "/api/v1/timeline/messages.json", message_params.merge(auth_params)
             end
 
             it { expect(json["errors"]).to eq(["Content não pode ficar em branco"]) }
@@ -79,7 +79,7 @@ describe Api::V1::MessagesController do
             }
           end
           it do
-            expect { post "/api/v1/timeline/messages.json", message_params }.to raise_error(ActiveRecord::RecordNotFound)
+            expect { post "/api/v1/timeline/messages.json", message_params.merge(auth_params) }.to raise_error(ActiveRecord::RecordNotFound)
           end
         end
       end
@@ -101,7 +101,7 @@ describe Api::V1::MessagesController do
       end
 
       def do_action(message_id = message.id, student_id = student.id)
-        post "/api/v1/timeline/messages/#{message_id}/up.json", student_id: student_id
+        post "/api/v1/timeline/messages/#{message_id}/up.json", { student_id: student_id }.merge(auth_params)
       end
 
       context "valid message id and student id" do
@@ -158,7 +158,7 @@ describe Api::V1::MessagesController do
       end
 
       def do_action(message_id = message.id, student_id = student.id)
-        post "/api/v1/timeline/messages/#{message_id}/down.json", student_id: student_id
+        post "/api/v1/timeline/messages/#{message_id}/down.json", { student_id: student_id }.merge(auth_params)
       end
 
       context "valid message id and student id" do

@@ -1,4 +1,4 @@
-class Api::V1::StudentsController < ApplicationController
+class Api::V1::StudentsController < Api::V1::ApplicationController
   protect_from_forgery :except => [:login]
 
   def login

@@ -1,8 +1,7 @@
 Dunno::Application.routes.draw do
 
   devise_for :teachers
-  devise_for :students
-
+  devise_for :students, path: 'api/v1/students', controllers: { sessions: 'api/v1/sessions' }
 
   namespace :dashboard do
     resources :topics
