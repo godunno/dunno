@@ -2,7 +2,7 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
   respond_to :json
 
   def create
-    message_creator = TimelineMessageCreator.new(params[:timeline_user_message])
+    message_creator = TimelineMessageCreator.new(timeline_id: params[:timeline_id], student_id:params[:student_id], content:params[:content])
     if message_creator.save!
       respond_with message_creator.timeline_user_message, location: nil
     else
