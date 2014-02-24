@@ -19,6 +19,8 @@ class Event < ActiveRecord::Base
   after_create :set_uuid
   after_create :set_timeline
 
+  accepts_nested_attributes_for :topics, allow_destroy: true
+
   def channel
     "event_#{uuid}"
   end

@@ -16,21 +16,25 @@ describe Dashboard::EventsController do
 
     context "authenticated" do
 
-      it do
+      it "should create the event" do
         expect do
           post :create, event: event.attributes, organization_id: event.organization
         end.to change{ Event.count}.from(0).to(1)
       end
 
-      context "context" do
+      context "creating an event" do
+        let(:topic) { build :topic, event: event }
+
         before do
-          post :create, event: event.attributes, organization_id: event.organization
+          post :create, event: event.attributes.merge(topics_attributes: { "0" => topic.attributes }),
+            organization_id: event.organization
         end
 
         subject { Event.first }
 
         it { expect(subject.title).to eq(event[:title]) }
         it { expect(subject.teacher.name).to eq(teacher.name) }
+        it { expect(subject.topics.first.description).to eq topic.description }
       end
     end
   end

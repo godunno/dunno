@@ -8,6 +8,7 @@ class Dashboard::EventsController < Dashboard::ApplicationController
 
   def new
     @event = Event.new(organization: organization)
+    @event.topics.build
   end
 
   def create
@@ -45,6 +46,6 @@ class Dashboard::EventsController < Dashboard::ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:title, :start_at, :organization_id, :teacher_id, :status)
+      params.require(:event).permit(:title, :start_at, :organization_id, :teacher_id, :status, topics_attributes: [:id, :description, :_destroy])
     end
 end
