@@ -16,9 +16,6 @@ Dunno::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resource :students, only: [] do
-        post :login
-      end
       resources :topics, only: [] do
         post :rating, on: :collection
       end
