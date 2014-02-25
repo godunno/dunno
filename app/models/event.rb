@@ -13,13 +13,14 @@ class Event < ActiveRecord::Base
   belongs_to :teacher
   has_one :timeline
   has_many :topics
+  has_many :thermometers, inverse_of: :event
 
   validates :title, :start_at, :teacher, presence: true
 
   after_create :set_uuid
   after_create :set_timeline
 
-  accepts_nested_attributes_for :topics, allow_destroy: true
+  accepts_nested_attributes_for :topics, :thermometers, allow_destroy: true
 
   def channel
     "event_#{uuid}"

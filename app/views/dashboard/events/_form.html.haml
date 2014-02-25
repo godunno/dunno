@@ -2,6 +2,14 @@
 = f.input :title
 = f.input :start_at
 = f.input :status, collection: Event::STATUSES
-= f.fields_for :topics
-= f.link_to_add t(:add_topic), :topics, class: 'btn btn-success'
+.panel
+  .panel-heading= t(:topics)
+  .panel-body
+    = f.fields_for :topics
+    = f.link_to_add t(:add_topic), :topics, class: 'btn btn-success'
+.panel
+  .panel-heading= t(:thermometers)
+  .panel-body
+    = f.fields_for :thermometers
+    = f.link_to_add t(:add_thermometer), :thermometers, class: 'btn btn-success'
 = f.button :submit

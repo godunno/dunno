@@ -9,6 +9,7 @@ describe Event do
     it { should belong_to(:organization) }
     it { should belong_to(:teacher) }
     it { should have_many(:topics) }
+    it { should have_many(:thermometers) }
   end
 
   describe "validations" do
