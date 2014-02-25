@@ -7,7 +7,7 @@ describe Dashboard::EventsController do
   let(:event) { build(:event, title: "TEST EVENT", teacher: teacher, organization: organization) }
 
   before do
-    sign_in :teacher, create(:teacher)
+    sign_in :teacher, teacher
   end
 
   describe "POST #create" do
@@ -114,14 +114,19 @@ describe Dashboard::EventsController do
 
     context "authenticated" do
 
+      let!(:event_from_another_organization) { create(:event, teacher: teacher, organization: create(:organization)) }
+      let!(:event_from_another_teacher) { create(:event, teacher: create(:teacher), organization: organization) }
+
       before do
         event.save!
         get :index, organization_id: organization.uuid
       end
 
       it { expect(response).to render_template('index') }
-      it { expect(assigns[:events]).to eq [event] }
       it { expect(assigns[:organization]).to eq organization }
+      it { expect(assigns[:events]).to include event }
+      it { expect(assigns[:events]).not_to include event_from_another_organization }
+      it { expect(assigns[:events]).not_to include event_from_another_teacher }
     end
   end
 

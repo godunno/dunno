@@ -2,7 +2,7 @@ class Dashboard::EventsController < Dashboard::ApplicationController
   respond_to :html, only: [:new, :edit, :index]
 
   def index
-    @events = organization.events
+    @events = organization.events.where(teacher_id: current_teacher.id)
     respond_with @events
   end
 
