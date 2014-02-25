@@ -1,12 +1,18 @@
-%h1 Eventos de #{@organization.name}
+.panel
+  .panel-heading Eventos de #{@organization.name}
+  .panel-body
+    %table.table.table-striped.table-advance.table-hover
+      %tbody
+        - @events.each do |event|
+          %tr
+            %td= event.title
+            %td= l event.start_at, format: :short
+            %td= list(event.topics.map(&:description))
+            %td= list(event.thermometers.map(&:content))
+            %td
+              = link_to edit_dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), class: 'btn btn-primary btn-xs' do
+                %i.fa.fa-pencil
+              = link_to dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-danger btn-xs' do
+                %i.fa.fa-trash-o
 
-= link_to 'Novo evento', new_dashboard_organization_event_path(@organization.uuid)
-
-%table
-  %tbody
-    - @events.each do |event|
-      %tr
-        %td= event.title
-        %td= event.start_at
-        %td= link_to t(:edit), edit_dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid)
-        %td= link_to t(:destroy), dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), method: :delete, data: { confirm: 'Tem certeza?' }
+    = link_to 'Novo evento', new_dashboard_organization_event_path(@organization.uuid), class: 'btn btn-primary'
