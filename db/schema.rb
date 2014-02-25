@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219212956) do
+ActiveRecord::Schema.define(version: 20140225145957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,15 @@ ActiveRecord::Schema.define(version: 20140219212956) do
 
   add_index "teachers", ["email"], name: "index_teachers_on_email", unique: true, using: :btree
   add_index "teachers", ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true, using: :btree
+
+  create_table "thermometers", force: true do |t|
+    t.integer  "event_id"
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "thermometers", ["event_id"], name: "index_thermometers_on_event_id", using: :btree
 
   create_table "timeline_interactions", force: true do |t|
     t.integer  "interaction_id",   null: false
