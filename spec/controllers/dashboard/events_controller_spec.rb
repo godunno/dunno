@@ -25,9 +25,11 @@ describe Dashboard::EventsController do
       context "creating an event" do
         let(:topic) { build :topic, event: event }
         let(:thermometer) { build :thermometer, event: event }
+        let(:start_at) { event.start_at.strftime('%d/%m/%Y %H:%M') }
 
         before do
           post :create, event: event.attributes.merge(
+              "start_at" => start_at,
               topics_attributes: { "0" => topic.attributes },
               thermometers_attributes: { "0" => thermometer.attributes }
             ), organization_id: event.organization
@@ -39,7 +41,9 @@ describe Dashboard::EventsController do
         it { expect(subject.teacher.name).to eq(teacher.name) }
         it { expect(subject.topics.first.description).to eq topic.description }
         it { expect(subject.thermometers.first.content).to eq thermometer.content }
+        it { expect(subject.start_at.strftime('%d/%m/%Y %H:%M')).to eq(start_at) }
       end
+
     end
   end
 

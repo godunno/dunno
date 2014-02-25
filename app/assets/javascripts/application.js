@@ -21,6 +21,9 @@
 //= require js/jquery.sparkline.js
 //= require js/common-scripts.js
 //= require js/owl.carousel.js
+//= require assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js
+//= require assets/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.pt-BR.js
+//= require events.js
 
 function ready() {
 

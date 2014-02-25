@@ -19,6 +19,7 @@ class Event < ActiveRecord::Base
 
   after_create :set_uuid
   after_create :set_timeline
+  after_initialize :set_start_at
 
   accepts_nested_attributes_for :topics, :thermometers, allow_destroy: true
 
@@ -55,5 +56,9 @@ class Event < ActiveRecord::Base
 
     def set_timeline
       self.timeline = Timeline.create!(start_at: start_at)
+    end
+
+    def set_start_at
+      self[:start_at] ||= DateTime.now
     end
 end
