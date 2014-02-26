@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
     student_message: "student_message",
     up_down_vote_message: "up_down_vote_message",
     receive_poll: "receive_poll",
-    receive_thermometer: "receive_thermometer"
+    receive_rating: "receive_rating"
   }
 
   STATUSES = %w(draft available opened closed)
@@ -39,8 +39,8 @@ class Event < ActiveRecord::Base
     PUSHER_EVENTS[:receive_poll]
   end
 
-  def receive_thermometer_event
-    PUSHER_EVENTS[:receive_thermometer]
+  def receive_rating_event
+    PUSHER_EVENTS[:receive_rating]
   end
 
   STATUSES.each do |status|

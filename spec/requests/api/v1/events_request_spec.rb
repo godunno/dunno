@@ -76,7 +76,7 @@ describe Api::V1::EventsController do
           let(:topic) { build(:topic) }
           let(:event) { create(:event, status: 'opened', title: "New event", organization: organization, topics: [topic]) }
 
-          subject { json }
+          subject { json["event"] }
 
           it_behaves_like "request invalid content type XML"
 
@@ -85,7 +85,7 @@ describe Api::V1::EventsController do
           it { expect(subject["student_message_event"]).to eq event.student_message_event }
           it { expect(subject["up_down_vote_message_event"]).to eq event.up_down_vote_message_event }
           it { expect(subject["receive_poll_event"]).to eq event.receive_poll_event }
-          it { expect(subject["receive_thermometer_event"]).to eq event.receive_thermometer_event }
+          it { expect(subject["receive_rating_event"]).to eq event.receive_rating_event }
           it { expect(subject["timeline"]["messages"][0]["content"]).to eq(message.content)}
           it { expect(subject["topics"]).to include({"id" => topic.id, "description" => topic.description}) }
 

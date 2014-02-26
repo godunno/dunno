@@ -81,7 +81,7 @@ describe EventPusher do
     it "should have received the correct parameters" do
       expect(Pusher).to have_received(:trigger).with(
         event.channel,
-        event.receive_thermometer_event,
+        event.receive_rating_event,
         {}
       )
     end
