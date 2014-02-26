@@ -25,6 +25,8 @@ gem 'nested_form',            '0.3.2'
 
 gem 'rails_12factor',       '0.0.2', group: [:production, :staging]
 
+gem 'database_cleaner',     '1.2.0'
+
 group :development do
   gem 'foreman',              '0.63.0'
   gem 'jumpup',               '0.0.3'
@@ -51,7 +53,6 @@ group :development, :test do
   gem 'awesome_print',        '1.2.0'
   gem 'vcr',                  '2.8.0'
   gem 'webmock',              '1.17.3'
-  gem 'database_cleaner',     '1.2.0'
   gem 'timecop',              '0.7.1'
 end
 
