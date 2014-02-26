@@ -51,7 +51,8 @@ group :development, :test do
   gem 'awesome_print',        '1.2.0'
   gem 'vcr',                  '2.8.0'
   gem 'webmock',              '1.17.3'
-  gem 'database_cleaner'
+  gem 'database_cleaner',     '1.2.0'
+  gem 'timecop',              '0.7.1'
 end
 
 group :doc do

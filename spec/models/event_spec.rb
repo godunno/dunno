@@ -12,6 +12,14 @@ describe Event do
     it { should have_many(:thermometers) }
   end
 
+  describe "defaults" do
+    before do
+      Timecop.freeze
+    end
+
+    its(:start_at) { should eq(DateTime.now) }
+  end
+
   describe "validations" do
     [:title, :start_at, :teacher].each do |attr|
       it { should validate_presence_of(attr) }

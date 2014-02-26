@@ -1,6 +1,6 @@
 = f.hidden_field :organization_id
 = f.input :title
-= f.input :start_at
+= f.input :start_at, as: :string, input_html: { class: 'datetimepicker', value: f.object.start_at.strftime('%d/%m/%Y %H:%M') }
 = f.input :status, collection: Event::STATUSES
 .panel
   .panel-heading= t(:topics)
@@ -13,3 +13,4 @@
     = f.fields_for :thermometers
     = f.link_to_add t(:add_thermometer), :thermometers, class: 'btn btn-success'
 = f.button :submit
+= link_to t(:back), :back, class: 'btn'

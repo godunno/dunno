@@ -28,14 +28,16 @@ describe Api::V1::SessionsController do
       it { expect(json["authentication_token"]).to eq(student.authentication_token) }
       it { expect(controller.current_student).to eq(student) }
 
-      describe "organization data" do
+      describe "timeline data" do
         let(:timeline) do
           json["organization"]["events"][0]["timeline"]
         end
 
-        it { expect(timeline["messages"].size).to eq(2) }
-        it { expect(timeline["messages"][0]["content"]).to eq("First message") }
-        it { expect(timeline["messages"][1]["content"]).to eq("Second message") }
+        subject { timeline["messages"] }
+
+        it { expect(subject.size).to eq(2) }
+        it { expect(subject[0]["content"]).to eq(message_one.content) }
+        it { expect(subject[1]["content"]).to eq(message_two.content) }
       end
 
       it "should allow access with authentication_token after the sign in" do
