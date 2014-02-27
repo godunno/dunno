@@ -33,11 +33,11 @@ describe Api::V1::SessionsController do
           json["organization"]["events"][0]["timeline"]
         end
 
-        subject { timeline["messages"] }
+        subject { timeline["messages"].map { |message| message["content"] } }
 
         it { expect(subject.size).to eq(2) }
-        it { expect(subject[0]["content"]).to eq(message_one.content) }
-        it { expect(subject[1]["content"]).to eq(message_two.content) }
+        it { expect(subject).to include(message_one.content) }
+        it { expect(subject).to include(message_two.content) }
       end
 
       it "should allow access with authentication_token after the sign in" do

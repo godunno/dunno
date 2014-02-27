@@ -76,7 +76,7 @@ describe Api::V1::EventsController do
           let(:topic) { build(:topic) }
           let(:event) { create(:event, status: 'opened', title: "New event", organization: organization, topics: [topic]) }
 
-          subject { json["event"] }
+          subject { json }
 
           it_behaves_like "request invalid content type XML"
 
