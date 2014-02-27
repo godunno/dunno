@@ -31,6 +31,6 @@ class TimelineMessageCreator
     end
 
     def sends_pusher_notification
-      EventPusher.new(timeline.event).student_message(content)
+      EventPusher.new(timeline.event).student_message(@timeline_user_message)
     end
 end
