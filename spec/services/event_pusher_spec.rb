@@ -15,22 +15,29 @@ describe EventPusher do
     let(:student) { create :student }
 
     before do
-      @event_pusher.student_message(message.content)
+      @event_pusher.student_message(message)
     end
 
     it "should have received the correct parameters" do
       expect(Pusher).to have_received(:trigger).with(
         event.channel,
         event.student_message_event,
-        { content: message.content }
+        @event_pusher.pusher_message_json(message)
       )
     end
 
-    it "should call this method after creating a TimelineUserMessage" do
-      message = "Message"
-      EventPusher.any_instance.should_receive(:student_message).with(message)
-      TimelineMessageCreator.new(timeline_id: timeline.id, student_id: student.id, content: message).save!
+    describe "#pusher_message_json" do
+      let(:pusher_expected_message_json) { @event_pusher.pusher_message_json(message) }
+
+      it "should return full attributes from student associated" do
+        message_hash = JSON.parse(pusher_expected_message_json)
+
+        expect(message_hash["student"]).to_not be_nil
+        expect(message_hash["student"]["id"]).to_not be_nil
+        expect(message_hash["student"]["email"]).to_not be_nil
+      end
     end
+
   end
 
   describe "#up_down_vote_message" do
