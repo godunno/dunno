@@ -35,7 +35,8 @@
 
       </script>
 
-  %body{:id => controller.controller_name}
+  !-- TODO: Fazer o JS funcionar com TurboLinks
+  %body{:id => controller.controller_name, 'data-no-turbolink' => true}
     %header.header.white-bg
       .sidebar-toggle-box
         .fa.fa-bars.tooltips{ "data-original-title" => "Toggle Navigation", "data-placement" => "right" }

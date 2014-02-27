@@ -1,7 +1,7 @@
 class AddDurationToEvent < ActiveRecord::Migration
   def change
     change_table :events do |t|
-      t.time :duration
+      t.text :duration
     end
   end
 end

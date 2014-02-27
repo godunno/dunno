@@ -22,6 +22,7 @@ gem 'acts_as_votable',        '~> 0.8.0'
 gem 'active_model_serializers', '0.8.1'
 gem 'pusher',                   '0.12.0'
 gem 'nested_form',            '0.3.2'
+gem 'tod',                    '1.3.0'
 
 gem 'rails_12factor',       '0.0.2', group: [:production, :staging]
 

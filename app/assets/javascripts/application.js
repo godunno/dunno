@@ -23,6 +23,7 @@
 //= require js/owl.carousel.js
 //= require assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js
 //= require assets/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.pt-BR.js
+//= require assets/bootstrap-timepicker/js/bootstrap-timepicker.js
 //= require events.js
 
 function ready() {

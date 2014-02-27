@@ -48,8 +48,8 @@ class Dashboard::EventsController < Dashboard::ApplicationController
 
     def event_params
       params.require(:event).permit(
-        :title, :start_at, :organization_id,
-        :teacher_id, :status,
+        :title, :start_at, :duration,
+        :organization_id, :teacher_id, :status,
         topics_attributes: [:id, :description, :_destroy],
         thermometers_attributes: [:id, :content, :_destroy]
       )

@@ -1,5 +1,7 @@
 class Event < ActiveRecord::Base
 
+  serialize :duration, Tod::TimeOfDay
+
   PUSHER_EVENTS = {
     student_message: "student_message",
     up_down_vote_message: "up_down_vote_message",
@@ -7,7 +9,7 @@ class Event < ActiveRecord::Base
     receive_rating: "receive_rating"
   }
 
-  STATUSES = %w(draft available opened closed)
+  STATUSES = %w(available opened closed)
 
   belongs_to :organization
   belongs_to :teacher
@@ -15,7 +17,7 @@ class Event < ActiveRecord::Base
   has_many :topics
   has_many :thermometers, inverse_of: :event
 
-  validates :title, :start_at, :teacher, presence: true
+  validates :title, :start_at, :duration, :teacher, presence: true
 
   after_create :set_uuid
   after_create :set_timeline

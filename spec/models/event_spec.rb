@@ -21,7 +21,7 @@ describe Event do
   end
 
   describe "validations" do
-    [:title, :start_at, :teacher].each do |attr|
+    [:title, :start_at, :duration, :teacher].each do |attr|
       it { should validate_presence_of(attr) }
     end
   end
@@ -80,5 +80,18 @@ describe Event do
         end.to change{event.send("#{status}?")}.from(false).to(true)
       end
     end
+  end
+
+  describe "#duration" do
+
+    before do
+      event.duration = '2:30'
+      event.save!
+    end
+
+    subject { event }
+
+    its(:duration) { should be_a TimeOfDay }
+    its(:duration) { should eq TimeOfDay.new(2, 30) }
   end
 end
