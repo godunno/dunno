@@ -15,15 +15,15 @@ This is the backend app that implements dashboard to teachers, managers and admi
 
 ### Aditional config
 
-You still need to configure Pusher ENV vars, used by Pusher. I recommend put them on . bash file.
+You still need to configure Pusher ENV vars, used by Pusher. I recommend put them on . bash file. (this examnple uses a dunno account at Pusher)
 
-  $ export PUSHER_KEY=eb2e8026ff09c08e1081
+   ```$ export PUSHER=true ```
 
-  $ export PUSHER=true
+   ```$ export PUSHER_APP_ID=65975 ```
+   
+   ```$ export PUSHER_KEY=eb2e8026ff09c08e1081 ```
 
-  $ export PUSHER_APP_ID=65975
-
-  $ export PUSHER_SECRET=45f4a6e227c92884dc2a
+   ```$ export PUSHER_SECRET=45f4a6e227c92884dc2a ```
 
 ## Sanity check!
 
