@@ -4,4 +4,11 @@ class Thermometer < ActiveRecord::Base
 
   validates :event, presence: true
   validates :content, presence: true
+
+  after_create :set_uuid
+
+  private
+    def set_uuid
+      UuidGenerator.new(self).generate!
+    end
 end

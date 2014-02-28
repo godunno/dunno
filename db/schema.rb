@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227185152) do
+ActiveRecord::Schema.define(version: 20140228200009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,9 +104,11 @@ ActiveRecord::Schema.define(version: 20140227185152) do
     t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "uuid"
   end
 
   add_index "thermometers", ["event_id"], name: "index_thermometers_on_event_id", using: :btree
+  add_index "thermometers", ["uuid"], name: "index_thermometers_on_uuid", unique: true, using: :btree
 
   create_table "timeline_interactions", force: true do |t|
     t.integer  "interaction_id",   null: false

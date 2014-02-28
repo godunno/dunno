@@ -16,9 +16,7 @@ Dunno::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :topics, only: [] do
-        post :rating, on: :collection
-      end
+      resources :ratings, only: :create
       resource :timeline, only: [] do
         resources :messages, only: [:create] do
           member do
