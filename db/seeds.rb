@@ -11,7 +11,7 @@ if Rails.env.development? || Rails.env.staging?
 
   Student.create(name: "John Doe", email: "dow@dunno.vc", authentication_token: "svyZww54cxoE3nE8Hqgo", avatar: "http://lorempixel.com/100/100/people/", password: "#dunnovc", password_confirmation: "#dunnovc", organization: org)
 
-  teacher = Teacher.new(name: "Prof. Example", email: "prof@dunno.vc", password: "#dunnovc", password_confirmation: "#dunnovc")
+  teacher = Teacher.new(name: "Prof. Example", email: "prof@dunno.vc", password: "#dunnovc", password_confirmation: "#dunnovc", avatar: "http://lorempixel.com/100/100/people/")
   teacher.organizations << org
 
   Event.new(title: "1st class (opened)",start_at: 1.days.from_now, duration: "2:00", teacher: teacher, organization: org, status: "opened").save!
