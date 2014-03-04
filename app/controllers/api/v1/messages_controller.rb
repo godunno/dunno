@@ -13,13 +13,13 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
   def up
     message.up_by(student)
     EventPusher.new(message.timeline.event).up_down_vote_message(message.up_votes.count, message.down_votes.count)
-    render nothing: true, status: 200
+    render json: "{}", status: 200
   end
 
   def down
     message.down_by(student)
     EventPusher.new(message.timeline.event).up_down_vote_message(message.up_votes.count, message.down_votes.count)
-    render nothing: true, status: 200
+    render json: "{}", status: 200
   end
 
   private
