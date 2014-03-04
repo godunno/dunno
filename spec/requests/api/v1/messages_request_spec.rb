@@ -113,7 +113,7 @@ describe Api::V1::MessagesController do
         end
 
         it "triggers pusher event to notify pusher" do
-          EventPusher.any_instance.should_receive(:up_down_vote_message).with(1, 0).once
+          EventPusher.any_instance.should_receive(:up_down_vote_message).with(message).once
           do_action
         end
 
@@ -170,7 +170,7 @@ describe Api::V1::MessagesController do
         end
 
         it "triggers pusher event to notify pusher" do
-          EventPusher.any_instance.should_receive(:up_down_vote_message).with(0, 1).once
+          EventPusher.any_instance.should_receive(:up_down_vote_message).with(message).once
           do_action
         end
 

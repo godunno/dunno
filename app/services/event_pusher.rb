@@ -8,13 +8,16 @@ class EventPusher
     trigger(event.student_message_event, pusher_message_json(message))
   end
 
-  def up_down_vote_message(up, down)
-    trigger(event.up_down_vote_message_event, { up: up, down: down })
+  def up_down_vote_message(message)
+    puts message.to_json
+    trigger(event.up_down_vote_message_event, pusher_message_json(message))
   end
 
   def pusher_message_json(message)
     Jbuilder.encode do |json|
       json.(message, :id, :created_at, :updated_at, :content)
+      json.up_votes message.upvotes.size
+      json.down_votes message.downvotes.size
       json.student(message.student, :id, :name, :email, :avatar)
     end
   end

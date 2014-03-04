@@ -31,10 +31,11 @@ describe EventPusher do
 
       it "should return full attributes from student associated" do
         message_hash = JSON.parse(pusher_expected_message_json)
-
         expect(message_hash["student"]).to_not be_nil
         expect(message_hash["student"]["id"]).to_not be_nil
         expect(message_hash["student"]["email"]).to_not be_nil
+        expect(message_hash["up_votes"]).to_not be_nil
+        expect(message_hash["down_votes"]).to_not be_nil
       end
     end
 
@@ -42,18 +43,17 @@ describe EventPusher do
 
   describe "#up_down_vote_message" do
 
-    let(:up) { 1 }
-    let(:down) { 2 }
+    let(:message) { create :timeline_user_message }
 
     before do
-      @event_pusher.up_down_vote_message(up, down)
+      @event_pusher.up_down_vote_message(message)
     end
 
     it "should have received the correct parameters" do
       expect(Pusher).to have_received(:trigger).with(
         event.channel,
         event.up_down_vote_message_event,
-        { up: up, down: down }
+        @event_pusher.pusher_message_json(message)
       )
     end
   end
