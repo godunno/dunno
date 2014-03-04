@@ -8,7 +8,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
 
   def attend
     if event.opened?
-      respond_with event, root: false
+      @event
     else
       render nothing: true, status: 403
     end
