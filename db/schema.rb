@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20140304204628) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uuid"
-    t.time     "duration"
+    t.text     "duration"
     t.integer  "teacher_id",                            null: false
   end
 
