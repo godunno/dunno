@@ -15,7 +15,10 @@ json.timeline do
     json.up_votes interaction.upvotes.size
     json.down_votes interaction.downvotes.size
     json.student interaction.student
-    json.already_voted interaction.votes.where(voter_id: current_student.id, voter_type: "Student").any?
+    vote = interaction.votes.where(voter_id: current_student.id, voter_type: "Student").first
+    if vote
+      json.already_voted vote.vote_flag ? "up" : "down"
+    end
   end
 end
 
