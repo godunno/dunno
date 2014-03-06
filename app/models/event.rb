@@ -6,7 +6,8 @@ class Event < ActiveRecord::Base
     student_message: "student_message",
     up_down_vote_message: "up_down_vote_message",
     receive_poll: "receive_poll",
-    receive_rating: "receive_rating"
+    receive_rating: "receive_rating",
+    close: "close"
   }
 
   STATUSES = %w(available opened closed)
@@ -43,6 +44,10 @@ class Event < ActiveRecord::Base
 
   def receive_rating_event
     PUSHER_EVENTS[:receive_rating]
+  end
+
+  def close_event
+    PUSHER_EVENTS[:close]
   end
 
   STATUSES.each do |status|

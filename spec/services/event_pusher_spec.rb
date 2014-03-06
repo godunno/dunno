@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe EventPusher do
+
   let(:event) { create :event }
 
   before do
@@ -90,6 +91,21 @@ describe EventPusher do
         event.channel,
         event.receive_rating_event,
         {}
+      )
+    end
+  end
+
+  describe "#close" do
+
+    before do
+      @event_pusher.close
+    end
+
+    it "should have received the correct parameters" do
+      expect(Pusher).to have_received(:trigger).with(
+        event.channel,
+        event.close_event,
+        event
       )
     end
   end

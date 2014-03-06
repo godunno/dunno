@@ -34,6 +34,9 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
+  config.filter_run wip: true
+  config.run_all_when_everything_filtered = true
+
   # Use the new rspec expect syntax
   config.expect_with :rspec do |c|
     c.syntax = :expect

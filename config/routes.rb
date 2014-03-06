@@ -9,6 +9,7 @@ Dunno::Application.routes.draw do
       resources :events do
         member do
           patch :open
+          patch :close
         end
       end
     end

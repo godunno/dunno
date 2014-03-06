@@ -144,4 +144,16 @@ describe Dashboard::EventsController do
       end.to change{event.reload.status}.from('available').to('opened')
     end
   end
+
+  describe "PATCH #close" do
+
+    let(:event) { create(:event, status: 'opened', organization: organization) }
+
+    before do
+      EventPusher.any_instance.should_receive(:close).once
+      patch :close, organization_id: organization.uuid, id: event.uuid
+    end
+
+    it { expect(event.reload.status).to eq 'closed' }
+  end
 end

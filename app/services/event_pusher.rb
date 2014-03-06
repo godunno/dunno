@@ -1,5 +1,7 @@
 class EventPusher
+
   attr_reader :event
+
   def initialize(event)
     @event = event
   end
@@ -9,8 +11,11 @@ class EventPusher
   end
 
   def up_down_vote_message(message)
-    puts message.to_json
     trigger(event.up_down_vote_message_event, pusher_message_json(message))
+  end
+
+  def close
+    trigger(event.close_event, event)
   end
 
   def pusher_message_json(message)

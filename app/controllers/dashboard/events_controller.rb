@@ -37,6 +37,12 @@ class Dashboard::EventsController < Dashboard::ApplicationController
     redirect_to action: :index
   end
 
+  def close
+    event.update_attributes(status: 'closed')
+    EventPusher.new(event).close
+    redirect_to action: :index
+  end
+
   private
     def organization
       @organization ||= Organization.where(uuid: params[:organization_id]).first!
