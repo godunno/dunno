@@ -86,12 +86,25 @@ describe Api::V1::EventsController do
           it { expect(subject["up_down_vote_message_event"]).to eq event.up_down_vote_message_event }
           it { expect(subject["receive_poll_event"]).to eq event.receive_poll_event }
           it { expect(subject["receive_rating_event"]).to eq event.receive_rating_event }
+          it { expect(subject["close_event"]).to eq event.close_event }
           it { expect(subject["timeline"]["messages"][0]["content"]).to eq(message.content)}
+          it { expect(subject["timeline"]["messages"][0]["already_voted"]).to eq false }
           it { expect(subject["topics"]).to include({"id" => topic.id, "description" => topic.description}) }
 
           # The approach bellow is necessary due to approximation errors
           it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }
           it { expect(Time.parse(subject["timeline"]["updated_at"]).to_i).to eq event.timeline.updated_at.to_i }
+
+          context "student already voted on the message" do
+
+            before do
+              student = create(:student)
+              message.up_by(student)
+              get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.json", auth_params(student)
+            end
+
+            it { expect(subject["timeline"]["messages"][0]["already_voted"]).to eq true }
+          end
         end
       end
     end
