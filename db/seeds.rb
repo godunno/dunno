@@ -8,6 +8,7 @@ if Rails.env.development? || Rails.env.staging?
 
   org = Organization.new(name: "Dunno Test")
   org.save!
+  org.update_attribute(:uuid, "65bcc7ce-0ea0-44cd-8d9d-74a43ac02e3d")
 
   Student.create(name: "John Doe", email: "dow@dunno.vc", authentication_token: "svyZww54cxoE3nE8Hqgo", avatar: "http://lorempixel.com/100/100/people/", password: "#dunnovc", password_confirmation: "#dunnovc", organization: org)
 

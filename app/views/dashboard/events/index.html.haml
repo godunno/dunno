@@ -12,8 +12,12 @@
             %td
               %span{ class: "label #{status_label(event.status)} label-mini" }= event.status
             %td
-              = link_to open_dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), method: :patch, class: 'btn btn-success btn-xs' do
-                %i.fa.fa-play
+              - if event.available?
+                = link_to open_dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), method: :patch, class: 'btn btn-success btn-xs' do
+                  %i.fa.fa-play
+              - elsif event.opened?
+                = link_to close_dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), method: :patch, class: 'btn btn-danger btn-xs' do
+                  %i.fa.fa-stop
               = link_to edit_dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), class: 'btn btn-primary btn-xs' do
                 %i.fa.fa-pencil
               = link_to dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-danger btn-xs' do
