@@ -57,7 +57,10 @@ class Dashboard::EventsController < Dashboard::ApplicationController
         :title, :start_at, :duration,
         :organization_id, :teacher_id, :status,
         topics_attributes: [:id, :description, :_destroy],
-        thermometers_attributes: [:id, :content, :_destroy]
+        thermometers_attributes: [:id, :content, :_destroy],
+        polls_attributes: [:id, :content, :_destroy,
+          options_attributes: [:id, :content, :_destroy]
+        ]
       )
     end
 end

@@ -17,6 +17,7 @@ class Event < ActiveRecord::Base
   has_one :timeline
   has_many :topics
   has_many :thermometers, inverse_of: :event
+  has_many :polls
 
   validates :title, :start_at, :duration, :teacher, presence: true
 
@@ -24,7 +25,7 @@ class Event < ActiveRecord::Base
   after_create :set_timeline
   after_initialize :set_start_at
 
-  accepts_nested_attributes_for :topics, :thermometers, allow_destroy: true
+  accepts_nested_attributes_for :topics, :thermometers, :polls, allow_destroy: true
 
   def channel
     "event_#{uuid}"

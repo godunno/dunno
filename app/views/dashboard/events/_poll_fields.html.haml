@@ -1,0 +1,8 @@
+.row
+  = f.input :content, label: false, wrapper_html: { class: 'col-lg-8' }
+  = f.link_to_remove '&times;'.html_safe
+  .panel
+    .panel-heading= t(:options)
+    .panel-body
+      = f.fields_for :options
+      = f.link_to_add t(:add_option), :options, class: 'btn btn-success'

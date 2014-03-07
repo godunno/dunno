@@ -22,16 +22,21 @@ describe Dashboard::EventsController do
         end.to change{ Event.count}.from(0).to(1)
       end
 
-      context "creating an event" do
+      context "creating an event", wip: true do
         let(:topic) { build :topic, event: event }
         let(:thermometer) { build :thermometer, event: event }
+        let(:poll) { build :poll, event: event }
+        let(:option) { build :option, poll: poll }
         let(:start_at) { event.start_at.strftime('%d/%m/%Y %H:%M') }
 
         before do
           post :create, event: event.attributes.merge(
               "start_at" => start_at,
               topics_attributes: { "0" => topic.attributes },
-              thermometers_attributes: { "0" => thermometer.attributes }
+              thermometers_attributes: { "0" => thermometer.attributes },
+              polls_attributes: { "0" => poll.attributes.merge(
+                options_attributes: { "0" => option.attributes }
+              ) }
             ), organization_id: event.organization
         end
 
@@ -40,7 +45,13 @@ describe Dashboard::EventsController do
         it { expect(subject.title).to eq(event[:title]) }
         it { expect(subject.teacher.name).to eq(teacher.name) }
         it { expect(subject.topics.first.description).to eq topic.description }
+        it { expect(subject.topics.count).to eq 1 }
         it { expect(subject.thermometers.first.content).to eq thermometer.content }
+        it { expect(subject.thermometers.count).to eq 1 }
+        it { expect(subject.polls.first.content).to eq poll.content }
+        it { expect(subject.polls.count).to eq 1 }
+        it { expect(subject.polls.first.options.first.content).to eq option.content }
+        it { expect(subject.polls.first.options.count).to eq 1 }
         it { expect(subject.start_at.strftime('%d/%m/%Y %H:%M')).to eq(start_at) }
       end
 
