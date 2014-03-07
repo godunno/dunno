@@ -15,7 +15,7 @@ class EventPusher
   end
 
   def close
-    trigger(event.close_event, event)
+    trigger(event.close_event, pusher_close_event_json)
   end
 
   def pusher_message_json(message)
@@ -24,6 +24,14 @@ class EventPusher
       json.up_votes message.upvotes.size
       json.down_votes message.downvotes.size
       json.student(message.student, :id, :name, :email, :avatar)
+    end
+  end
+
+  def pusher_close_event_json
+    Jbuilder.encode do |json|
+      json.(@event, :uuid)
+      json.teacher(@event.teacher, :id, :name, :email, :avatar)
+      json.thermometers(@event.thermometers, :uuid, :content)
     end
   end
 

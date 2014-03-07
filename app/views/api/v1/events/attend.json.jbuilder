@@ -1,8 +1,11 @@
 json.(@event, :id, :uuid, :organization_id, :title, :start_at)
 json.duration(@event.duration.second_of_day / 60)
 json.(@event, :channel, :student_message_event, :up_down_vote_message_event, :receive_poll_event, :receive_rating_event, :close_event)
+
 json.teacher(@event.teacher, :id, :name, :email, :avatar)
 json.topics(@event.topics, :id, :description)
+json.thermometers(@event.thermometers, :uuid, :content)
+
 json.timeline do
   json.(@event.timeline, :id, :start_at, :created_at, :updated_at)
 
