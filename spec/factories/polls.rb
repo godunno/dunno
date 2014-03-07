@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :poll do
     content "MyString"
-    event nil
+    event
   end
 end

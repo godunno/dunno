@@ -22,7 +22,7 @@ describe Dashboard::EventsController do
         end.to change{ Event.count}.from(0).to(1)
       end
 
-      context "creating an event", wip: true do
+      context "creating an event" do
         let(:topic) { build :topic, event: event }
         let(:thermometer) { build :thermometer, event: event }
         let(:poll) { build :poll, event: event }

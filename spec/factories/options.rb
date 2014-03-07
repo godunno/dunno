@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :option do
     content "MyString"
-    poll nil
+    poll
   end
 end

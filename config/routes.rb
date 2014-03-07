@@ -18,6 +18,7 @@ Dunno::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :ratings, only: :create
+      resources :answers, only: :create
       resource :timeline, only: [] do
         resources :messages, only: [:create] do
           member do
