@@ -105,7 +105,7 @@ describe EventPusher do
       expect(Pusher).to have_received(:trigger).with(
         event.channel,
         event.close_event,
-        event
+        @event_pusher.pusher_close_event_json
       )
     end
   end

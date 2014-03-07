@@ -15,7 +15,7 @@ describe Api::V1::RatingsController do
         let!(:thermometer) { create :thermometer }
 
         before do
-          post '/api/v1/ratings', rating.attributes.merge(
+          post '/api/v1/ratings', { rating: rating.attributes }.merge(
             { thermometer_id: thermometer.uuid }).merge(
             auth_params(student))
         end
