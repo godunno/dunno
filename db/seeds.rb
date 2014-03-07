@@ -15,7 +15,10 @@ if Rails.env.development? || Rails.env.staging?
   teacher = Teacher.new(name: "Prof. Example", email: "prof@dunno.vc", password: "#dunnovc", password_confirmation: "#dunnovc", avatar: "http://lorempixel.com/100/100/people/")
   teacher.organizations << org
 
-  Event.new(title: "1st class (opened)",start_at: 1.days.from_now, duration: "2:00", teacher: teacher, organization: org, status: "opened").save!
+  e = Event.create!(title: "1st class (opened)",start_at: 1.days.from_now, duration: "2:00", teacher: teacher, organization: org, status: "opened")
+  Thermometer.new(uuid: "65bcc7ce-0ea0-44cd-8d9d-74a43ac666666", content: "lineaer algebra", event_id: e.id).save!
+  Thermometer.new(uuid: "65bcc7ce-0ea0-44cd-8d9d-44444444444", content: "big data - data science", event_id: e.id).save!
+
   Event.new(title: "2nd class",start_at: 3.days.from_now, duration: "2:00", teacher: teacher, organization: org, status: "available").save!
   Event.new(title: "3th class",start_at: 5.days.from_now, duration: "2:00", teacher: teacher, organization: org, status: "available").save!
   Event.new(title: "4th class (opened)",start_at: 7.days.from_now, duration: "2:00", teacher: teacher, organization: org, status: "opened").save!
