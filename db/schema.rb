@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140304204628) do
+ActiveRecord::Schema.define(version: 20140307195324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "option_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answers", ["option_id"], name: "index_answers_on_option_id", using: :btree
+  add_index "answers", ["student_id"], name: "index_answers_on_student_id", using: :btree
 
   create_table "events", force: true do |t|
     t.string   "title"
@@ -31,6 +41,15 @@ ActiveRecord::Schema.define(version: 20140304204628) do
   add_index "events", ["teacher_id"], name: "index_events_on_teacher_id", using: :btree
   add_index "events", ["uuid"], name: "index_events_on_uuid", unique: true, using: :btree
 
+  create_table "options", force: true do |t|
+    t.string   "content"
+    t.integer  "poll_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "options", ["poll_id"], name: "index_options_on_poll_id", using: :btree
+
   create_table "organizations", force: true do |t|
     t.string   "name"
     t.string   "uuid"
@@ -44,6 +63,15 @@ ActiveRecord::Schema.define(version: 20140304204628) do
     t.integer "organization_id", null: false
     t.integer "teacher_id",      null: false
   end
+
+  create_table "polls", force: true do |t|
+    t.string   "content"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "polls", ["event_id"], name: "index_polls_on_event_id", using: :btree
 
   create_table "ratings", force: true do |t|
     t.float    "value",         default: 0.0
