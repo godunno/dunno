@@ -18,6 +18,10 @@ class EventPusher
     trigger(event.close_event, pusher_close_event_json)
   end
 
+  def release_poll(poll)
+    trigger(event.release_poll_event, poll.uuid)
+  end
+
   def pusher_message_json(message)
     Jbuilder.encode do |json|
       json.(message, :id, :created_at, :updated_at, :content)

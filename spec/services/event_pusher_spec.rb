@@ -109,4 +109,21 @@ describe EventPusher do
       )
     end
   end
+
+  describe "#release_poll" do
+
+    let(:poll) { create :poll, event: event }
+
+    before do
+      @event_pusher.release_poll(poll)
+    end
+
+    it "should have received the correct parameters" do
+      expect(Pusher).to have_received(:trigger).with(
+        event.channel,
+        event.release_poll_event,
+        poll.uuid
+      )
+    end
+  end
 end
