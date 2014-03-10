@@ -5,6 +5,14 @@ json.(@event, :channel, :student_message_event, :up_down_vote_message_event, :re
 json.teacher(@event.teacher, :id, :name, :email, :avatar)
 json.topics(@event.topics, :id, :description)
 json.thermometers(@event.thermometers, :uuid, :content)
+json.polls @event.polls do |poll|
+  json.uuid poll.uuid
+  json.content poll.content
+  json.options poll.options do |option|
+    json.uuid option.uuid
+    json.content option.content
+  end
+end
 
 json.timeline do
   json.(@event.timeline, :id, :start_at, :created_at, :updated_at)

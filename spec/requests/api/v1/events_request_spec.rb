@@ -73,8 +73,10 @@ describe Api::V1::EventsController do
         end
 
         context "opened event" do
+          let(:event) { create(:event, status: 'opened', title: "New event", organization: organization, topics: [topic], polls: [poll]) }
           let(:topic) { build(:topic) }
-          let(:event) { create(:event, status: 'opened', title: "New event", organization: organization, topics: [topic]) }
+          let(:poll) { create(:poll, options: [option]) }
+          let(:option) { create(:option) }
 
           subject { json }
 
@@ -90,6 +92,12 @@ describe Api::V1::EventsController do
           it { expect(subject["timeline"]["messages"][0]["content"]).to eq(message.content)}
           it { expect(subject["timeline"]["messages"][0]["already_voted"]).to be_nil }
           it { expect(subject["topics"]).to include({"id" => topic.id, "description" => topic.description}) }
+          it { expect(subject["polls"].count).to eq 1 }
+          it { expect(subject["polls"][0]["uuid"]).to eq poll.uuid }
+          it { expect(subject["polls"][0]["content"]).to eq poll.content }
+          it { expect(subject["polls"][0]["options"].count).to eq 1 }
+          it { expect(subject["polls"][0]["options"][0]["uuid"]).to eq option.uuid }
+          it { expect(subject["polls"][0]["options"][0]["content"]).to eq option.content }
 
           # The approach bellow is necessary due to approximation errors
           it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }
