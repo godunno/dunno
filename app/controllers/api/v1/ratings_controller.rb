@@ -6,7 +6,7 @@ class Api::V1::RatingsController < Api::V1::ApplicationController
     rating.student = current_student
     rating.rateable = thermometer
     rating.save
-    render nothing: true, status: 201
+    render json: "{}", status: 201
   end
 
   private
