@@ -5,7 +5,6 @@ class Event < ActiveRecord::Base
   PUSHER_EVENTS = {
     student_message: "student_message",
     up_down_vote_message: "up_down_vote_message",
-    receive_poll: "receive_poll",
     receive_rating: "receive_rating",
     close: "close",
     release_poll: "release_poll"
@@ -38,10 +37,6 @@ class Event < ActiveRecord::Base
 
   def up_down_vote_message_event
     PUSHER_EVENTS[:up_down_vote_message]
-  end
-
-  def receive_poll_event
-    PUSHER_EVENTS[:receive_poll]
   end
 
   def receive_rating_event

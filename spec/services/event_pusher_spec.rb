@@ -59,24 +59,6 @@ describe EventPusher do
     end
   end
 
-  describe "#receive_poll" do
-
-    let(:poll) { {} }
-
-    before do
-      pending "Preencher com os dados que o Pusher deve receber"
-      @event_pusher.receive_poll(poll)
-    end
-
-    it "should have received the correct parameters" do
-      expect(Pusher).to have_received(:trigger).with(
-        event.channel,
-        event.receive_poll_event,
-        {}
-      )
-    end
-  end
-
   describe "#receive_rating" do
 
     let(:rating) { {} }
