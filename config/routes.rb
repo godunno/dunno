@@ -5,6 +5,11 @@ Dunno::Application.routes.draw do
 
   namespace :dashboard do
     resources :topics
+    resources :polls, only: [] do
+      member do
+        patch :release
+      end
+    end
     resources :organizations, only: [] do
       resources :events do
         member do

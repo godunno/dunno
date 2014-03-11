@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140307212403) do
+ActiveRecord::Schema.define(version: 20140310192647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,9 +71,12 @@ ActiveRecord::Schema.define(version: 20140307212403) do
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
+    t.string   "uuid"
   end
 
   add_index "polls", ["event_id"], name: "index_polls_on_event_id", using: :btree
+  add_index "polls", ["uuid"], name: "index_polls_on_uuid", unique: true, using: :btree
 
   create_table "ratings", force: true do |t|
     t.float    "value",         default: 0.0
