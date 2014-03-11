@@ -5,8 +5,11 @@ class Api::V1::RatingsController < Api::V1::ApplicationController
     rating = Rating.new(rating_params)
     rating.student = current_student
     rating.rateable = thermometer
-    rating.save
-    render json: "{}", status: 201
+    if rating.save
+      render json: "{}", status: 201
+    else
+      render json: { errors: rating.errors.full_messages }, status: 400
+    end
   end
 
   private

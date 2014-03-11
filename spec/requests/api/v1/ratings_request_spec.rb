@@ -26,6 +26,17 @@ describe Api::V1::RatingsController do
         it { expect(subject.value).to eq rating.value }
         it { expect(subject.rateable).to eq thermometer }
         it { expect(subject.student).to eq student }
+
+        context "second rating with the same thermometer and student" do
+          before do
+            post '/api/v1/ratings', { rating: rating.attributes }.merge(
+              { thermometer_id: thermometer.uuid }).merge(
+              auth_params(student))
+          end
+
+          it { expect(response.code).to eq '400' }
+          it { expect(json["errors"]).to include "Student já está em uso" }
+        end
       end
 
       context "with any invalid thermometer id" do
