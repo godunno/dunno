@@ -16,8 +16,11 @@ if Rails.env.development? || Rails.env.staging?
   teacher.organizations << org
 
   e = Event.create!(title: "1st class",start_at: 1.days.from_now, duration: "2:00", teacher: teacher, organization: org, status: "opened")
-  Thermometer.new(uuid: "65bcc7ce-0ea0-44cd-8d9d-74a43ac666666", content: "lineaer algebra", event_id: e.id).save!
-  Thermometer.new(uuid: "65bcc7ce-0ea0-44cd-8d9d-44444444444", content: "big data - data science", event_id: e.id).save!
+  Thermometer.new(content: "lineaer algebra", event_id: e.id).save!
+  Thermometer.new(content: "big data - data science", event_id: e.id).save!
+  o1 = Option.new(content: "jiban")
+  o2 = Option.new(content: "jyraia")
+  Poll.create!(content: "what do you watched on Manchete channel?", options: [o1, o2], event: e, status: "available")
 
   Event.new(title: "2nd class",start_at: 3.days.from_now, duration: "2:00", teacher: teacher, organization: org, status: "available").save!
   Event.new(title: "3th class",start_at: 5.days.from_now, duration: "2:00", teacher: teacher, organization: org, status: "available").save!
