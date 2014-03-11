@@ -13,6 +13,10 @@ describe Poll do
     it { should ensure_inclusion_of(:status).in_array(Poll::STATUSES) }
   end
 
+  describe "defaults" do
+    its(:status) { should eq("available") }
+  end
+
   describe "callbacks" do
 
     describe "after create" do
