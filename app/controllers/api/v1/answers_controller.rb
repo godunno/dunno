@@ -6,7 +6,7 @@ class Api::V1::AnswersController < Api::V1::ApplicationController
     answer.student = current_student
     answer.option = option
     answer.save
-    render nothing: true, status: 201
+    render json: "{}", status: 201
   end
 
   private
