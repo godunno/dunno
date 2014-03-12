@@ -19,7 +19,7 @@ describe Dashboard::EventsController do
       it "should create the event" do
         expect do
           post :create, event: event.attributes, organization_id: event.organization
-        end.to change{ Event.count}.from(0).to(1)
+        end.to change{ Event.count }.from(0).to(1)
       end
 
       context "creating an event" do

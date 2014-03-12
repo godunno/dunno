@@ -13,13 +13,23 @@ describe Dashboard::PollsController do
       let(:poll) { create :poll }
 
       before do
-        EventPusher.any_instance.should_receive(:release_poll).with(poll).once
+        expect_any_instance_of(EventPusher).to receive(:release_poll).with(poll)
         patch :release, id: poll.uuid
         poll.reload
       end
 
       it "should update the poll status to released" do
         expect(poll.status).to eq "released"
+      end
+
+
+      context "releasing the same poll again" do
+        before do
+          EventPusher.any_instance.stub(:release_poll)
+          patch :release, id: poll.uuid
+        end
+
+        it { expect(response.code).to eq '400' }
       end
     end
 

@@ -1,8 +1,12 @@
 class Dashboard::PollsController < Dashboard::ApplicationController
   def release
-    poll.update(status: "released")
-    EventPusher.new(poll.event).release_poll(poll)
-    redirect_to dashboard_organization_events_path(poll.event.organization.uuid)
+    if poll.status == "available"
+      poll.update(status: "released")
+      EventPusher.new(poll.event).release_poll(poll)
+      redirect_to dashboard_organization_events_path(poll.event.organization.uuid)
+    else
+      render json: { errors: [I18n.t('errors.already_released')] }, status: 400
+    end
   end
 
   private
