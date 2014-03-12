@@ -104,7 +104,7 @@ describe EventPusher do
       expect(Pusher).to have_received(:trigger).with(
         event.channel,
         event.release_poll_event,
-        poll.uuid
+        @event_pusher.pusher_poll_json(poll)
       )
     end
   end

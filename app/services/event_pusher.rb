@@ -19,7 +19,16 @@ class EventPusher
   end
 
   def release_poll(poll)
-    trigger(event.release_poll_event, poll.uuid)
+    trigger(event.release_poll_event, pusher_poll_json(poll))
+  end
+
+def pusher_message_json(poll)
+    Jbuilder.encode do |json|
+      json.(poll, :id, :uuid, :created_at, :updated_at, :content)
+      json.up_votes message.upvotes.size
+      json.down_votes message.downvotes.size
+      json.student(message.student, :id, :name, :email, :avatar)
+    end
   end
 
   def pusher_message_json(message)
@@ -36,6 +45,14 @@ class EventPusher
       json.(@event, :uuid, :start_at, :title)
       json.teacher(@event.teacher, :id, :name, :email, :avatar)
       json.thermometers(@event.thermometers, :uuid, :content)
+    end
+  end
+
+  def pusher_poll_json(poll)
+    Jbuilder.encode do |json|
+      json.(poll, :uuid, :content)
+      json.event(poll.event, :uuid)
+      json.options(poll.options, :uuid, :content)
     end
   end
 
