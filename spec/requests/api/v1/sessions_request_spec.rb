@@ -48,19 +48,23 @@ describe Api::V1::SessionsController do
     end
   end
 
-  context "incorrect password" do
+  shared_examples "incorrect sign in" do
+
     before(:each) do
-      post "/api/v1/students/sign_in", { student: { email: student.email, password: 'abcdefgh' } }
+      post "/api/v1/students/sign_in.json", student_hash
     end
 
     it { expect(response.code).to eq "401" }
+    it { expect(json["errors"].count).to eq 1 }
+  end
+
+  context "incorrect password" do
+    let(:student_hash) { { student: { email: student.email, password: 'abcdefgh' } } }
+    it_behaves_like "incorrect sign in"
   end
 
   context "incorrect email" do
-    before(:each) do
-      post "/api/v1/students/sign_in", { student: { email: "incorrect.email@gmail.com", password: password } }
-    end
-
-    it { expect(response.code).to eq "401" }
+    let(:student_hash) { { student: { email: "incorrect.email@gmail.com", password: password } } }
+    it_behaves_like "incorrect sign in"
   end
 end
