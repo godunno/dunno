@@ -29,6 +29,7 @@ describe Dashboard::EventsController do
         let(:correct_option) { build :option, content: "Correct Option", correct: true, poll: poll }
         let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false, poll: poll }
         let(:options) { [correct_option, incorrect_option] }
+        let(:personal_note) { build :personal_note }
         let(:start_at) { event.start_at.strftime('%d/%m/%Y %H:%M') }
 
         before do
@@ -41,7 +42,8 @@ describe Dashboard::EventsController do
                   "0" => correct_option.attributes,
                   "1" => incorrect_option.attributes
                 }
-              )}
+              )},
+              personal_notes_attributes: { "0" => personal_note.attributes }
             ), organization_id: event.organization
         end
 
@@ -58,6 +60,9 @@ describe Dashboard::EventsController do
         it { expect(subject.polls.first.options.count).to eq 2 }
         it { expect(subject.polls.first.options.map(&:content)).to match_array options.map(&:content) }
         it { expect(subject.polls.first.options.map(&:correct)).to match_array options.map(&:correct) }
+        it { expect(subject.personal_notes.count).to eq 1 }
+        it { expect(subject.personal_notes.first.content).to eq personal_note.content }
+        it { expect(subject.personal_notes.first.done).to be_nil }
         it { expect(subject.start_at.strftime('%d/%m/%Y %H:%M')).to eq(start_at) }
       end
 

@@ -10,6 +10,7 @@ describe Event do
     it { should belong_to(:teacher) }
     it { should have_many(:topics) }
     it { should have_many(:thermometers) }
+    it { should have_many(:personal_notes) }
   end
 
   describe "defaults" do

@@ -17,5 +17,10 @@
   .panel-body
     = f.fields_for :polls
     = f.link_to_add t(:add_poll), :polls, class: 'btn btn-success'
+.panel
+  .panel-heading= t(:personal_notes)
+  .panel-body
+    = f.fields_for :personal_notes
+    = f.link_to_add t(:add_personal_note), :personal_notes, class: 'btn btn-success'
 = f.button :submit
 = link_to t(:back), :back, class: 'btn'
