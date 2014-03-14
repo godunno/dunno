@@ -4,6 +4,8 @@ class Answer < ActiveRecord::Base
 
   validate :validate_uniqueness_per_student_per_poll
 
+  delegate :correct?, to: :option
+
   private
     def validate_uniqueness_per_student_per_poll
       if Answer.joins(option: :poll).where(student: student, options: { poll_id: option.poll }).any?

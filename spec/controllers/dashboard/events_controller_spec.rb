@@ -26,7 +26,9 @@ describe Dashboard::EventsController do
         let(:topic) { build :topic, event: event }
         let(:thermometer) { build :thermometer, event: event }
         let(:poll) { build :poll, event: event }
-        let(:option) { build :option, poll: poll }
+        let(:correct_option) { build :option, content: "Correct Option", correct: true, poll: poll }
+        let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false, poll: poll }
+        let(:options) { [correct_option, incorrect_option] }
         let(:start_at) { event.start_at.strftime('%d/%m/%Y %H:%M') }
 
         before do
@@ -35,8 +37,11 @@ describe Dashboard::EventsController do
               topics_attributes: { "0" => topic.attributes },
               thermometers_attributes: { "0" => thermometer.attributes },
               polls_attributes: { "0" => poll.attributes.merge(
-                options_attributes: { "0" => option.attributes }
-              ) }
+                options_attributes: {
+                  "0" => correct_option.attributes,
+                  "1" => incorrect_option.attributes
+                }
+              )}
             ), organization_id: event.organization
         end
 
@@ -50,8 +55,9 @@ describe Dashboard::EventsController do
         it { expect(subject.thermometers.count).to eq 1 }
         it { expect(subject.polls.first.content).to eq poll.content }
         it { expect(subject.polls.count).to eq 1 }
-        it { expect(subject.polls.first.options.first.content).to eq option.content }
-        it { expect(subject.polls.first.options.count).to eq 1 }
+        it { expect(subject.polls.first.options.count).to eq 2 }
+        it { expect(subject.polls.first.options.map(&:content)).to match_array options.map(&:content) }
+        it { expect(subject.polls.first.options.map(&:correct)).to match_array options.map(&:correct) }
         it { expect(subject.start_at.strftime('%d/%m/%Y %H:%M')).to eq(start_at) }
       end
 

@@ -5,4 +5,12 @@
     display: inline-block;
     color: red;
   }
+
+  .event_polls_options_correct label.checkbox {
+    margin-top: 0px;
+
+    input[type="checkbox"] {
+      margin-top: 0px;
+    }
+  }
 }
