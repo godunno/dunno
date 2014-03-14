@@ -6,6 +6,8 @@ class Student < ActiveRecord::Base
 
   belongs_to :organization
 
+  validates :name, presence: true
+
   before_save :ensure_authentication_token
 
   private

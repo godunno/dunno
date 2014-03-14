@@ -5,6 +5,12 @@ describe Student do
     it { should belong_to(:organization) }
   end
 
+  describe "validations" do
+    [:name, :email, :password].each do |attr|
+      it { should validate_presence_of(attr) }
+    end
+  end
+
   describe "callbacks" do
     describe "before save" do
       describe "ensures authentication token" do
