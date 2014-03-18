@@ -2,7 +2,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   respond_to :json
 
   def index
-    @events = organization.events
+    @events = Event.all
     respond_with @events, root: false
   end
 
@@ -19,11 +19,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   end
 
   private
-    def organization
-      @organization ||= Organization.where(uuid: params[:organization_id]).first!
-    end
-
     def event
-      @event ||= organization.events.where(uuid: params[:id]).first!
+      @event ||= Event.where(uuid: params[:id]).first!
     end
 end

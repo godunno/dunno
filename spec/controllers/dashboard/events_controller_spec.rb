@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 describe Dashboard::EventsController do
-  let!(:organization) { create :organization }
   let!(:teacher) { create :teacher }
 
-  let(:event) { build(:event, title: "TEST EVENT", teacher: teacher, organization: organization) }
+  let(:event) { build(:event, title: "TEST EVENT", teacher: teacher) }
 
   before do
     sign_in :teacher, teacher
@@ -18,7 +17,7 @@ describe Dashboard::EventsController do
 
       it "should create the event" do
         expect do
-          post :create, event: event.attributes, organization_id: event.organization
+          post :create, event: event.attributes
         end.to change{ Event.count }.from(0).to(1)
       end
 
@@ -44,7 +43,7 @@ describe Dashboard::EventsController do
                 }
               )},
               personal_notes_attributes: { "0" => personal_note.attributes }
-            ), organization_id: event.organization
+            )
         end
 
         subject { Event.first }
@@ -76,7 +75,7 @@ describe Dashboard::EventsController do
     context "authenticated" do
 
       before do
-        get :new, organization_id: organization.uuid
+        get :new
       end
 
       it { expect(response).to render_template('new') }
@@ -92,7 +91,7 @@ describe Dashboard::EventsController do
 
       before do
         event.save!
-        get :edit, organization_id: organization.uuid, id: event.uuid
+        get :edit, id: event.uuid
       end
 
       it { expect(response).to render_template('edit') }
@@ -109,7 +108,7 @@ describe Dashboard::EventsController do
       before do
         event.save!
         event.title = "NEW TITLE"
-        patch :update, organization_id: organization.uuid, id: event.uuid, event: event.attributes
+        patch :update, id: event.uuid, event: event.attributes
       end
 
       it { expect(Event.first.title).to eq event.title }
@@ -128,7 +127,7 @@ describe Dashboard::EventsController do
 
       it "should destroy the event" do
         expect do
-          delete :destroy, organization_id: organization.uuid, id: event.uuid
+          delete :destroy, id: event.uuid
         end.to change(Event, :count).by(-1)
       end
     end
@@ -140,40 +139,37 @@ describe Dashboard::EventsController do
 
     context "authenticated" do
 
-      let!(:event_from_another_organization) { create(:event, teacher: teacher, organization: create(:organization)) }
-      let!(:event_from_another_teacher) { create(:event, teacher: create(:teacher), organization: organization) }
+      let!(:event_from_another_teacher) { create(:event, teacher: create(:teacher)) }
 
       before do
         event.save!
-        get :index, organization_id: organization.uuid
+        get :index
       end
 
       it { expect(response).to render_template('index') }
-      it { expect(assigns[:organization]).to eq organization }
       it { expect(assigns[:events]).to include event }
-      it { expect(assigns[:events]).not_to include event_from_another_organization }
       it { expect(assigns[:events]).not_to include event_from_another_teacher }
     end
   end
 
   describe "PATCH #open" do
 
-    let(:event) { create(:event, status: 'available', organization: organization) }
+    let(:event) { create(:event, status: 'available') }
 
     it "should open the event" do
       expect do
-        patch :open, organization_id: organization.uuid, id: event.uuid
+        patch :open, id: event.uuid
       end.to change{event.reload.status}.from('available').to('opened')
     end
   end
 
   describe "PATCH #close" do
 
-    let(:event) { create(:event, status: 'opened', organization: organization) }
+    let(:event) { create(:event, status: 'opened') }
 
     before do
       EventPusher.any_instance.should_receive(:close).once
-      patch :close, organization_id: organization.uuid, id: event.uuid
+      patch :close, id: event.uuid
     end
 
     it { expect(event.reload.status).to eq 'closed' }

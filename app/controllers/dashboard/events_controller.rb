@@ -2,12 +2,12 @@ class Dashboard::EventsController < Dashboard::ApplicationController
   respond_to :html, only: [:new, :edit, :index]
 
   def index
-    @events = organization.events.where(teacher_id: current_teacher.id)
+    @events = current_teacher.events
     respond_with @events
   end
 
   def new
-    @event = Event.new(organization: organization)
+    @event = Event.new(teacher: current_teacher)
     @event.topics.build
     @event.thermometers.build
   end
@@ -44,18 +44,15 @@ class Dashboard::EventsController < Dashboard::ApplicationController
   end
 
   private
-    def organization
-      @organization ||= Organization.where(uuid: params[:organization_id]).first!
-    end
 
     def event
-      @event ||= organization.events.where(uuid: params[:id]).first!
+      @event ||= Event.where(uuid: params[:id]).first!
     end
 
     def event_params
       params.require(:event).permit(
         :title, :start_at, :duration,
-        :organization_id, :teacher_id, :status,
+        :teacher_id, :status,
         topics_attributes: [:id, :description, :_destroy],
         thermometers_attributes: [:id, :content, :_destroy],
         polls_attributes: [:id, :content, :status, :_destroy,

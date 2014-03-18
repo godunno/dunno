@@ -11,13 +11,13 @@ Dunno::Application.routes.draw do
         patch :release
       end
     end
-    resources :organizations, only: [] do
-      resources :events do
-        member do
-          patch :open
-          patch :close
-        end
+    resources :events do
+      member do
+        patch :open
+        patch :close
       end
+    end
+    resources :organizations, only: [] do
     end
   end
 
@@ -33,13 +33,13 @@ Dunno::Application.routes.draw do
           end
         end
       end
-      resources :organizations, only:[:index] do
-        resources :events, only: [:index] do
-          member do
-            get :attend
-            get :timeline
-          end
+      resources :events, only: [:index] do
+        member do
+          get :attend
+          get :timeline
         end
+      end
+      resources :organizations, only:[:index] do
       end
     end
   end

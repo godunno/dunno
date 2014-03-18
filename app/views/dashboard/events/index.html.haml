@@ -1,5 +1,5 @@
 .panel
-  .panel-heading Eventos de #{@organization.name}
+  .panel-heading Eventos
   .panel-body
     %table.table.table-striped.table-advance.table-hover
       %tbody
@@ -17,14 +17,14 @@
                   %i.fa.fa-share
             %td
               - if event.available?
-                = link_to open_dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), method: :patch, class: 'btn btn-success btn-xs' do
+                = link_to open_dashboard_event_path(id: event.uuid), method: :patch, class: 'btn btn-success btn-xs' do
                   %i.fa.fa-play
               - elsif event.opened?
-                = link_to close_dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), method: :patch, class: 'btn btn-danger btn-xs' do
+                = link_to close_dashboard_event_path(id: event.uuid), method: :patch, class: 'btn btn-danger btn-xs' do
                   %i.fa.fa-stop
-              = link_to edit_dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), class: 'btn btn-primary btn-xs' do
+              = link_to edit_dashboard_event_path(id: event.uuid), class: 'btn btn-primary btn-xs' do
                 %i.fa.fa-pencil
-              = link_to dashboard_organization_event_path(organization_id: @organization.uuid, id: event.uuid), method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-danger btn-xs' do
+              = link_to dashboard_event_path(id: event.uuid), method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-danger btn-xs' do
                 %i.fa.fa-trash-o
 
-    = link_to 'Novo evento', new_dashboard_organization_event_path(@organization.uuid), class: 'btn btn-primary'
+    = link_to 'Novo evento', new_dashboard_event_path, class: 'btn btn-primary'

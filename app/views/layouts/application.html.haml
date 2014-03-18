@@ -48,8 +48,6 @@
     %aside
       #sidebar.nav-collapse
         %ul#nav-accordion.sidebar-menu
-          - current_teacher && current_teacher.organizations.each do |organization|
-            %li= link_to organization.name, dashboard_organization_events_path(organization.uuid)
           - if content_for?(:sidebar)
             = yield(:sidebar)
     %section#main-content

@@ -6,7 +6,6 @@ FactoryGirl.define do
     start_at "2014-02-05 16:00:01"
     duration "2:00"
     status "scheduled"
-    organization
     teacher
   end
 end

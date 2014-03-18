@@ -2,49 +2,36 @@ require 'spec_helper'
 
 describe Api::V1::EventsController do
 
-  let!(:organization) { create(:organization) }
-  let!(:event) { create(:event, title: "New event", organization: organization) }
+  let!(:event) { create(:event, title: "New event") }
 
-  describe "GET /api/v1/organizations/1/events" do
+  describe "GET /api/v1/events" do
 
     it_behaves_like "API authentication required"
 
     context "authenticated" do
 
-      let!(:event_from_another_organization) { create(:event) }
-
       def do_action
-        get "/api/v1/organizations/#{organization.uuid}/events.xml", auth_params
+        get "/api/v1/events.xml", auth_params
       end
 
       it_behaves_like "request invalid content type XML"
 
       context "valid content type" do
 
-        context "when receives valid organization uuid" do
 
-          before(:each) do
-            get "/api/v1/organizations/#{organization.uuid}/events.json", auth_params
-          end
-
-          it { expect(response).to be_success }
-          it { expect(json.length).to eq(1) }
-          it { expect(json[0]["title"]).to eq(event.title) }
-          it { expect(json[0]["organization_id"]).to eq(organization.id) }
-          it { expect(json[0]["teacher"]["name"]).to eq(event.teacher.name) }
+        before(:each) do
+          get "/api/v1/events.json", auth_params
         end
 
-        context "when receives an invalid organization uuid" do
-
-          it do
-            expect { get '/api/v1/organizations/999/events.json', auth_params }.to raise_error(ActiveRecord::RecordNotFound)
-          end
-        end
+        it { expect(response).to be_success }
+        it { expect(json.length).to eq(1) }
+        it { expect(json[0]["title"]).to eq(event.title) }
+        it { expect(json[0]["teacher"]["name"]).to eq(event.teacher.name) }
       end
     end
   end
 
-  describe "GET /api/v1/organizations/1/events/1/attend" do
+  describe "GET /api/v1/events/1/attend" do
 
     let(:message) { create :timeline_user_message }
 
@@ -57,23 +44,23 @@ describe Api::V1::EventsController do
     context "authenticated" do
 
       def do_action
-        get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.xml", auth_params
+        get "/api/v1/events/#{event.uuid}/attend.xml", auth_params
       end
 
 
       context "valid content type" do
 
         before(:each) do
-          get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.json", auth_params
+          get "/api/v1/events/#{event.uuid}/attend.json", auth_params
         end
 
         context "unopened event" do
-          let(:event) { create(:event, status: 'available', title: "New event", organization: organization) }
+          let(:event) { create(:event, status: 'available', title: "New event") }
           it { expect(response.status).to eq 403 }
         end
 
         context "opened event" do
-          let(:event) { create(:event, status: 'opened', title: "New event", organization: organization, topics: [topic], polls: [poll]) }
+          let(:event) { create(:event, status: 'opened', title: "New event", topics: [topic], polls: [poll]) }
           let(:topic) { build(:topic) }
           let(:poll) { create(:poll, options: [option]) }
           let(:option) { create(:option) }
@@ -110,7 +97,7 @@ describe Api::V1::EventsController do
             context "up" do
               before do
                 message.up_by(student)
-                get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.json", auth_params(student)
+                get "/api/v1/events/#{event.uuid}/attend.json", auth_params(student)
               end
 
               it { expect(subject["timeline"]["messages"][0]["already_voted"]).to eq "up" }
@@ -119,7 +106,7 @@ describe Api::V1::EventsController do
             context "down" do
               before do
                 message.down_by(student)
-                get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/attend.json", auth_params(student)
+                get "/api/v1/events/#{event.uuid}/attend.json", auth_params(student)
               end
 
               it { expect(subject["timeline"]["messages"][0]["already_voted"]).to eq "down" }
@@ -130,7 +117,7 @@ describe Api::V1::EventsController do
     end
   end
 
-  describe "GET /api/v1/organizations/1/events/1/timeline" do
+  describe "GET /api/v1/events/1/timeline" do
 
     let(:message) { create :timeline_user_message }
     let!(:timeline_interaction) { create(:timeline_interaction, timeline: event.timeline, interaction: message) }
@@ -139,33 +126,26 @@ describe Api::V1::EventsController do
 
     context "authenticated" do
 
-      let!(:event_from_another_organization) { create(:event) }
-
       def do_action
-        get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/timeline.xml", auth_params
+        get "/api/v1/events/#{event.uuid}/timeline.xml", auth_params
       end
 
       it_behaves_like "request invalid content type XML"
 
       context "valid content type" do
 
-        context "when receives valid organization uuid and event uuid" do
-
-          before(:each) do
-            get "/api/v1/organizations/#{organization.uuid}/events/#{event.uuid}/timeline.json", auth_params
-          end
-
-          it { expect(response).to be_success }
-          it { expect(json.length).to eq(1) }
-          it { expect(json["event"]["title"]).to eq(event.title) }
-          it { expect(json["event"]["timeline"]["messages"].length).to eq(1) }
+        before(:each) do
+          get "/api/v1/events/#{event.uuid}/timeline.json", auth_params
         end
 
-        context "when receives an invalid event uuid" do
+        it { expect(response).to be_success }
+        it { expect(json.length).to eq(1) }
+        it { expect(json["event"]["title"]).to eq(event.title) }
+        it { expect(json["event"]["timeline"]["messages"].length).to eq(1) }
 
-          it do
-            expect { get "/api/v1/organizations/#{organization.uuid}/events/989898/timeline.json", auth_params }.to raise_error(ActiveRecord::RecordNotFound)
-          end
+
+        it do
+            expect { get "/api/v1/events/989898/timeline.json", auth_params }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end

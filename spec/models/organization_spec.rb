@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Organization do
 
   describe "associations" do
-    it { should have_many(:events) }
     it { should have_many(:courses) }
     it { should have_and_belong_to_many(:teachers) }
   end

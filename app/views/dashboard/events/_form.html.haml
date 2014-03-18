@@ -1,4 +1,3 @@
-= f.hidden_field :organization_id
 = f.input :title
 = f.input :start_at, as: :string, input_html: { class: 'datetimepicker', value: f.object.start_at.strftime('%d/%m/%Y %H:%M') }
 = f.input :duration, as: :string, input_html: { class: 'timepicker', data: { 'show-meridian' => false, 'default-time' => 'value' } }

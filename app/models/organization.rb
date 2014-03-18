@@ -1,6 +1,5 @@
 class Organization < ActiveRecord::Base
 
-  has_many :events
   has_many :courses
   has_and_belongs_to_many :teachers
 

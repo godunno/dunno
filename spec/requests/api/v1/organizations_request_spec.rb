@@ -20,7 +20,6 @@ describe Api::V1::OrganizationsController do
       it { expect(response).to be_success }
       it { expect(json["name"]).to eq(organization.name) }
       it { expect(json["uuid"]).to_not be_nil }
-      it { expect(json["events"]).to be_an(Array) }
     end
   end
 end

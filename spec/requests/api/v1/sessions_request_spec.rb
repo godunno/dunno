@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe Api::V1::SessionsController do
   let(:password) { '12345678' }
-  let!(:organization) { create(:organization) }
-  let!(:student) { create(:student, organization: organization, password: password) }
-  let!(:event) { create(:event, organization: organization) }
+  let!(:student) { create(:student, password: password) }
+  let!(:event) { create(:event) }
   let!(:message_one) do
     message = create(:timeline_user_message, content: "First message")
     create(:timeline_interaction, timeline: event.timeline, interaction: message)
@@ -30,7 +29,7 @@ describe Api::V1::SessionsController do
 
       describe "timeline data" do
         let(:timeline) do
-          json["organization"]["events"][0]["timeline"]
+          json["events"][0]["timeline"]
         end
 
         subject { timeline["messages"].map { |message| message["content"] } }
@@ -41,7 +40,7 @@ describe Api::V1::SessionsController do
       end
 
       it "should allow access with authentication_token after the sign in" do
-        get "/api/v1/organizations/#{student.organization.uuid}/events.json",
+        get "/api/v1/events.json",
           { student_email: student.email, student_token: student.authentication_token }
         expect(controller.current_student).to eq(student)
       end
