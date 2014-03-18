@@ -4,8 +4,8 @@ class Student < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :organization
   has_and_belongs_to_many :courses
+  has_many :events, through: :courses
 
   validates :name, presence: true
 

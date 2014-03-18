@@ -6,6 +6,5 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password { SecureRandom.base64(8) }
     password_confirmation { |u| u.password }
-    organization
   end
 end

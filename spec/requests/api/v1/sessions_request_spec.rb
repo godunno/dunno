@@ -3,7 +3,8 @@ require 'spec_helper'
 describe Api::V1::SessionsController do
   let(:password) { '12345678' }
   let!(:student) { create(:student, password: password) }
-  let!(:event) { create(:event) }
+  let!(:course) { create(:course, students: [student]) }
+  let!(:event) { create(:event, course: course) }
   let!(:message_one) do
     message = create(:timeline_user_message, content: "First message")
     create(:timeline_interaction, timeline: event.timeline, interaction: message)
