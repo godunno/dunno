@@ -5,6 +5,7 @@ class Teacher < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_and_belongs_to_many :organizations
+  has_many :courses
 
   validates :name, presence: true
 end

@@ -8,6 +8,7 @@ describe Event do
     it { should have_one(:timeline) }
     it { should belong_to(:organization) }
     it { should belong_to(:teacher) }
+    it { should belong_to(:course) }
     it { should have_many(:topics) }
     it { should have_many(:thermometers) }
     it { should have_many(:personal_notes) }

@@ -5,6 +5,7 @@ class Student < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :organization
+  has_and_belongs_to_many :courses
 
   validates :name, presence: true
 

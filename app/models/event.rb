@@ -14,6 +14,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :organization
   belongs_to :teacher
+  belongs_to :course
   has_one :timeline
   has_many :topics
   has_many :thermometers, inverse_of: :event

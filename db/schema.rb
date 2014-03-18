@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140314222641) do
+ActiveRecord::Schema.define(version: 20140318003103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,25 @@ ActiveRecord::Schema.define(version: 20140314222641) do
   add_index "answers", ["option_id"], name: "index_answers_on_option_id", using: :btree
   add_index "answers", ["student_id"], name: "index_answers_on_student_id", using: :btree
 
+  create_table "courses", force: true do |t|
+    t.string   "name"
+    t.integer  "teacher_id"
+    t.integer  "organization_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "courses", ["organization_id"], name: "index_courses_on_organization_id", using: :btree
+  add_index "courses", ["teacher_id"], name: "index_courses_on_teacher_id", using: :btree
+
+  create_table "courses_students", id: false, force: true do |t|
+    t.integer "course_id"
+    t.integer "student_id"
+  end
+
+  add_index "courses_students", ["course_id"], name: "index_courses_students_on_course_id", using: :btree
+  add_index "courses_students", ["student_id"], name: "index_courses_students_on_student_id", using: :btree
+
   create_table "events", force: true do |t|
     t.string   "title"
     t.datetime "start_at"
@@ -36,8 +55,10 @@ ActiveRecord::Schema.define(version: 20140314222641) do
     t.string   "uuid"
     t.text     "duration"
     t.integer  "teacher_id",                            null: false
+    t.integer  "course_id"
   end
 
+  add_index "events", ["course_id"], name: "index_events_on_course_id", using: :btree
   add_index "events", ["teacher_id"], name: "index_events_on_teacher_id", using: :btree
   add_index "events", ["uuid"], name: "index_events_on_uuid", unique: true, using: :btree
 
@@ -114,10 +135,10 @@ ActiveRecord::Schema.define(version: 20140314222641) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_id"
     t.string   "authentication_token"
     t.string   "avatar"
     t.string   "name"
-    t.integer  "organization_id"
   end
 
   add_index "students", ["email"], name: "index_students_on_email", unique: true, using: :btree

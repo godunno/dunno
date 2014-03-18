@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Teacher do
   describe "associations" do
     it { should have_and_belong_to_many(:organizations) }
+    it { should have_many(:courses) }
   end
 
   describe "validations" do
