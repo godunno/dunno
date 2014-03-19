@@ -5,4 +5,11 @@ class Course < ActiveRecord::Base
   has_and_belongs_to_many :students
 
   validates :teacher, presence: true
+
+  after_create :set_uuid
+
+  private
+    def set_uuid
+      UuidGenerator.new(self).generate!
+    end
 end

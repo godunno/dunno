@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe Dashboard::EventsController do
-  let!(:teacher) { create :teacher }
 
-  let(:event) { build(:event, title: "TEST EVENT", teacher: teacher) }
+  let!(:teacher) { create :teacher }
+  let(:course) { create :course, teacher: teacher }
+  let(:event) { build(:event, title: "TEST EVENT", course: course) }
 
   before do
     sign_in :teacher, teacher
@@ -46,7 +47,7 @@ describe Dashboard::EventsController do
             )
         end
 
-        subject { Event.first }
+        subject { Event.last }
 
         it { expect(subject.title).to eq(event[:title]) }
         it { expect(subject.teacher.name).to eq(teacher.name) }
@@ -139,16 +140,18 @@ describe Dashboard::EventsController do
 
     context "authenticated" do
 
-      let!(:event_from_another_teacher) { create(:event, teacher: create(:teacher)) }
+      let!(:event_from_another_teacher) { create(:event, course: create(:course, teacher: create(:teacher))) }
+      let!(:event_from_another_course) { create(:event, course: create(:course, teacher: teacher)) }
 
       before do
         event.save!
-        get :index
+        get :index, course_id: course.uuid
       end
 
       it { expect(response).to render_template('index') }
       it { expect(assigns[:events]).to include event }
       it { expect(assigns[:events]).not_to include event_from_another_teacher }
+      it { expect(assigns[:events]).not_to include event_from_another_course }
     end
   end
 
