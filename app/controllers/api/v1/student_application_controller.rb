@@ -1,4 +1,4 @@
-class Api::V1::ApplicationController < ActionController::Base
+class Api::V1::StudentApplicationController < ActionController::Base
   before_filter :authenticate_student_from_token!
 
   private

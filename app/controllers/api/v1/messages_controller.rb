@@ -1,4 +1,4 @@
-class Api::V1::MessagesController < Api::V1::ApplicationController
+class Api::V1::MessagesController < Api::V1::StudentApplicationController
   respond_to :json
 
   def create
