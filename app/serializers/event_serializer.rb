@@ -3,5 +3,6 @@ class EventSerializer < ActiveModel::Serializer
              :up_down_vote_message_event, :release_poll_event, :receive_rating_event
 
   has_one :timeline
+  has_one :course
   has_many :topics
 end
