@@ -2,7 +2,7 @@ class Api::V1::EventsController < Api::V1::StudentApplicationController
   respond_to :json
 
   def index
-    @events = Event.all
+    @events = current_student.events
     respond_with @events, root: false
   end
 
