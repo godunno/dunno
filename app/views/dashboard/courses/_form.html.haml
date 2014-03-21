@@ -1,0 +1,10 @@
+= f.input :name
+= f.input :start_date
+= f.input :end_date
+= f.input :start_time
+= f.input :end_time
+= f.input :weekdays, as: :check_boxes, collection: (0..6).to_a
+= f.input :classroom
+= f.association :organization
+= f.button :submit
+= link_to t(:back), :back, class: 'btn'

@@ -11,6 +11,7 @@ Dunno::Application.routes.draw do
         patch :release
       end
     end
+    resources :courses
     resources :events do
       member do
         patch :open

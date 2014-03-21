@@ -1,4 +1,9 @@
 class Course < ActiveRecord::Base
+
+  serialize :start_time, Tod::TimeOfDay
+  serialize :end_time, Tod::TimeOfDay
+  serialize :weekdays, Array
+
   belongs_to :teacher
   belongs_to :organization
   has_many :events

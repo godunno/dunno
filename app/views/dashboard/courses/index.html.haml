@@ -1,0 +1,18 @@
+.panel
+  .panel-heading Matérias
+  .panel-body
+    %table.table.table-striped.table-advance.table-hover
+      %tbody
+        - @courses.each do |course|
+          %tr
+            %td= course.name
+            %td= course.start_date
+            %td= course.end_date
+            %td= course.start_time
+            %td= course.end_time
+            %td= course.weekdays
+            %td= course.classroom
+            %td
+              = link_to edit_dashboard_course_path(id: course.uuid), class: 'btn btn-primary btn-xs' do
+                %i.fa.fa-pencil
+    = link_to 'Nova matéria', new_dashboard_course_path, class: 'btn btn-primary'

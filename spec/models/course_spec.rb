@@ -50,4 +50,36 @@ describe Course do
       end
     end
   end
+
+  shared_examples "time of day" do |attribute|
+
+    before do
+      course.send("#{attribute}=", '2:30')
+      course.save!
+    end
+
+    subject { course.reload }
+
+    its(attribute) { should be_a TimeOfDay }
+    its(attribute) { should eq TimeOfDay.new(2, 30) }
+  end
+
+  [:start_time, :end_time].each do |attribute|
+    it_behaves_like "time of day", attribute
+  end
+
+  describe "#weekdays" do
+
+    let(:weekdays) { %w(1 3) }
+
+    before do
+      course.weekdays = weekdays
+      course.save!
+    end
+
+    subject { course.reload }
+
+    its(:weekdays) { should be_an Array }
+    its(:weekdays) { should eq weekdays }
+  end
 end
