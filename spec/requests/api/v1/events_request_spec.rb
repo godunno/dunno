@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe Api::V1::EventsController do
 
-  let!(:event) { create(:event, title: "New event") }
+  let(:student) { create(:student) }
+  let(:course) { create(:course, students: [student]) }
+  let!(:event) { create(:event, course: course) }
 
   describe "GET /api/v1/events" do
 
@@ -18,15 +20,29 @@ describe Api::V1::EventsController do
 
       context "valid content type" do
 
+        let!(:earlier_event) { create(:event, course: course, start_at: event.start_at - 1) }
+        let!(:event_from_another_course) { create(:event) }
 
         before(:each) do
-          get "/api/v1/events.json", auth_params
+          get "/api/v1/events.json", auth_params(student)
         end
 
         it { expect(response).to be_success }
-        it { expect(json.length).to eq(1) }
-        it { expect(json[0]["title"]).to eq(event.title) }
-        it { expect(json[0]["teacher"]["name"]).to eq(event.teacher.name) }
+        it { expect(json[0]["course"]["uuid"]).to eq(course.uuid) }
+
+        describe "events" do
+
+          subject do
+            json.map { |event| event["uuid"] }
+          end
+
+          it { expect(json.length).to eq(2) }
+          it { expect(subject).to include(event.uuid) }
+          it { expect(subject.last).to eq(event.uuid) }
+          it { expect(subject).to include(earlier_event.uuid) }
+          it { expect(subject.first).to eq(earlier_event.uuid) }
+          it { expect(subject).to_not include(event_from_another_course.uuid) }
+        end
       end
     end
   end
