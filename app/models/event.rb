@@ -21,6 +21,7 @@ class Event < ActiveRecord::Base
   has_many :personal_notes
 
   validates :title, :start_at, :duration, :teacher, presence: true
+  validates :closed_at, presence: true, if: :closed?
 
   after_create :set_uuid
   after_create :set_timeline

@@ -171,10 +171,12 @@ describe Dashboard::EventsController do
     let(:event) { create(:event, status: 'opened') }
 
     before do
+      Timecop.freeze
       EventPusher.any_instance.should_receive(:close).once
       patch :close, id: event.uuid
     end
 
     it { expect(event.reload.status).to eq 'closed' }
+    it { expect(event.reload.closed_at.to_i).to eq DateTime.now.to_i }
   end
 end

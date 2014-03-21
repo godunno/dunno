@@ -25,6 +25,20 @@ describe Event do
     [:title, :start_at, :duration, :teacher].each do |attr|
       it { should validate_presence_of(attr) }
     end
+
+    it "should validate presence of closed_at only if the event is closed" do
+      event.closed_at = nil
+      (Event::STATUSES - ["closed"]).each do |status|
+        event.status = status
+        expect(event).to have(0).error_on(:closed_at)
+      end
+
+      event.status = "closed"
+      expect(event).to have(1).errors_on(:closed_at)
+
+      event.closed_at = Time.now
+      expect(event).to have(0).error_on(:closed_at)
+    end
   end
 
   describe "callbacks" do
