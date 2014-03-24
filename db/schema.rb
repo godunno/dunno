@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140324182701) do
+ActiveRecord::Schema.define(version: 20140324222750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "answers", force: true do |t|
     t.integer  "student_id"
@@ -38,7 +39,7 @@ ActiveRecord::Schema.define(version: 20140324182701) do
     t.text     "end_time"
     t.text     "start_time"
     t.string   "classroom"
-    t.string   "weekdays"
+    t.string   "weekdays",        array: true
   end
 
   add_index "courses", ["organization_id"], name: "index_courses_on_organization_id", using: :btree
