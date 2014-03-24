@@ -15,10 +15,12 @@ class Dashboard::CoursesController < Dashboard::ApplicationController
     @course.teacher = current_teacher
     ActiveRecord::Base.transaction do
       @course.save
-      duration = TimeOfDay.new(0) + Shift.new(@course.start_time, @course.end_time).duration
+      start_time = TimeOfDay.parse(@course.start_time)
+      end_time = TimeOfDay.parse(@course.end_time)
+      duration = TimeOfDay.new(0) + Shift.new(start_time, end_time).duration
       schedule = Recurrence.new(every: :week, on: @course.weekdays, starts: @course.start_date, until: @course.end_date)
       schedule.each do |date|
-        time = date.to_time.change(hour: @course.start_time.hour, min: @course.start_time.minute)
+        time = date.to_time.change(hour: start_time.hour, min: start_time.minute)
         @course.events << Event.new(start_at: time, duration: duration, status: "available", title: @course.name)
       end
     end
