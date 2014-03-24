@@ -144,13 +144,29 @@ describe Dashboard::EventsController do
 
       before do
         event.save!
-        get :index, course_id: course.uuid
       end
 
-      it { expect(response).to render_template('index') }
-      it { expect(assigns[:events]).to include event }
-      it { expect(assigns[:events]).not_to include event_from_another_teacher }
-      it { expect(assigns[:events]).not_to include event_from_another_course }
+      describe "all courses" do
+        before do
+          get :index
+        end
+
+        it { expect(response).to render_template('index') }
+        it { expect(assigns[:events]).to include event }
+        it { expect(assigns[:events]).to include event_from_another_course }
+        it { expect(assigns[:events]).not_to include event_from_another_teacher }
+      end
+
+      describe "specifying course" do
+        before do
+          get :index, course_id: course.uuid
+        end
+
+        it { expect(response).to render_template('index') }
+        it { expect(assigns[:events]).to include event }
+        it { expect(assigns[:events]).not_to include event_from_another_teacher }
+        it { expect(assigns[:events]).not_to include event_from_another_course }
+      end
     end
   end
 

@@ -1,5 +1,8 @@
 .panel
-  .panel-heading Eventos
+  .panel-heading
+    Eventos
+    - if @course.present?
+      de #{@course.name}
   .panel-body
     %table.table.table-striped.table-advance.table-hover
       %tbody

@@ -2,7 +2,11 @@ class Dashboard::EventsController < Dashboard::ApplicationController
   respond_to :html, only: [:new, :edit, :index]
 
   def index
-    @events = course.events
+    @events = if course
+      course.events
+    else
+      current_teacher.events
+    end
     respond_with @events
   end
 
@@ -46,11 +50,11 @@ class Dashboard::EventsController < Dashboard::ApplicationController
   private
 
     def event
-      @event ||= Event.where(uuid: params[:id]).first!
+      @event ||= Event.where(uuid: params[:id]).first
     end
 
     def course
-      @course ||= Course.where(uuid: params[:course_id]).first!
+      @course ||= Course.where(uuid: params[:course_id]).first
     end
 
     def event_params

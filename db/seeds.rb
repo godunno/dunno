@@ -19,17 +19,17 @@ if Rails.env.development? || Rails.env.staging?
   student.courses << course
   student.save
 
-  e = Event.create!(title: "1st class",start_at: 1.days.from_now, duration: "2:00", teacher: teacher, status: "opened", course: course)
+  e = Event.create!(title: "1st class",start_at: 1.days.from_now, duration: "2:00", status: "opened", course: course)
   Thermometer.new(content: "lineaer algebra", event_id: e.id).save!
   Thermometer.new(content: "big data - data science", event_id: e.id).save!
   o1 = Option.new(content: "jiban")
   o2 = Option.new(content: "jyraia")
   Poll.create!(content: "what do you watched on Manchete channel?", options: [o1, o2], event: e, status: "available")
 
-  Event.new(title: "2nd class",start_at: 3.days.from_now, duration: "2:00", teacher: teacher, status: "available", course: course).save!
-  Event.new(title: "3th class",start_at: 5.days.from_now, duration: "2:00", teacher: teacher, status: "available", course: course).save!
-  Event.new(title: "4th class",start_at: 7.days.from_now, duration: "2:00", teacher: teacher, status: "opened", course: course).save!
-  Event.new(title: "5th class",start_at: 9.days.from_now, duration: "2:00", teacher: teacher, status: "available", course: course).save!
+  Event.new(title: "2nd class",start_at: 3.days.from_now, duration: "2:00", status: "available", course: course).save!
+  Event.new(title: "3th class",start_at: 5.days.from_now, duration: "2:00", status: "available", course: course).save!
+  Event.new(title: "4th class",start_at: 7.days.from_now, duration: "2:00", status: "opened", course: course).save!
+  Event.new(title: "5th class",start_at: 9.days.from_now, duration: "2:00", status: "available", course: course).save!
 
   Topic.new(description: "Machine Learning", event: Event.first).save!
   Topic.new(description: "AI", event: Event.first).save!

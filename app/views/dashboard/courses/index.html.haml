@@ -13,6 +13,8 @@
             %td= course.weekdays
             %td= course.classroom
             %td
+              = link_to dashboard_events_path(course_id: course.uuid), class: 'btw btn-primary btn-xs' do
+                %i.fa.fa-table
               = link_to edit_dashboard_course_path(id: course.uuid), class: 'btn btn-primary btn-xs' do
                 %i.fa.fa-pencil
     = link_to 'Nova matéria', new_dashboard_course_path, class: 'btn btn-primary'
