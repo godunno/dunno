@@ -7,14 +7,13 @@ class Dashboard::EventsController < Dashboard::ApplicationController
   end
 
   def new
-    @event = Event.new(teacher: current_teacher)
+    @event = Event.new
     @event.topics.build
     @event.thermometers.build
   end
 
   def create
     @event = Event.new(event_params)
-    @event.teacher = current_teacher
     @event.save
     redirect_to action: :index
   end
@@ -56,8 +55,7 @@ class Dashboard::EventsController < Dashboard::ApplicationController
 
     def event_params
       params.require(:event).permit(
-        :title, :start_at, :duration,
-        :teacher_id, :status,
+        :title, :start_at, :duration, :status,
         topics_attributes: [:id, :description, :_destroy],
         thermometers_attributes: [:id, :content, :_destroy],
         polls_attributes: [:id, :content, :status, :_destroy,

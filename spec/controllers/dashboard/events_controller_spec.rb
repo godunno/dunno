@@ -50,7 +50,6 @@ describe Dashboard::EventsController do
         subject { Event.last }
 
         it { expect(subject.title).to eq(event[:title]) }
-        it { expect(subject.teacher).to eq(teacher) }
         it { expect(subject.topics.first.description).to eq topic.description }
         it { expect(subject.topics.count).to eq 1 }
         it { expect(subject.thermometers.first.content).to eq thermometer.content }
