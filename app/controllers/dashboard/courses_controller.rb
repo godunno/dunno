@@ -21,7 +21,7 @@ class Dashboard::CoursesController < Dashboard::ApplicationController
       schedule = Recurrence.new(every: :week, on: @course.weekdays, starts: @course.start_date, until: @course.end_date)
       schedule.each do |date|
         time = date.to_time.change(hour: start_time.hour, min: start_time.minute)
-        @course.events << Event.new(start_at: time, duration: duration, status: "available", title: @course.name)
+        @course.events << Event.new(start_at: time, duration: duration.to_s, status: "available", title: @course.name)
       end
     end
     redirect_to action: :index

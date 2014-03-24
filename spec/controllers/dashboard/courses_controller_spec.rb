@@ -52,8 +52,8 @@ describe Dashboard::CoursesController do
           its(:count) { should eq(2) }
           it { expect(subject[0].start_at.to_i).to eq(Time.new(2014, 01, 7, 14, 00).to_i)}
           it { expect(subject[1].start_at.to_i).to eq(Time.new(2014, 01, 9, 14, 00).to_i)}
-          it { expect(subject[0].duration).to eq(TimeOfDay.parse("02:00"))}
-          it { expect(subject[1].duration).to eq(TimeOfDay.parse("02:00"))}
+          it { expect(subject[0].duration).to eq("02:00:00")}
+          it { expect(subject[1].duration).to eq("02:00:00")}
         end
       end
 

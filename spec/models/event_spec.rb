@@ -96,16 +96,4 @@ describe Event do
     end
   end
 
-  describe "#duration" do
-
-    before do
-      event.duration = '2:30'
-      event.save!
-    end
-
-    subject { event }
-
-    its(:duration) { should be_a TimeOfDay }
-    its(:duration) { should eq TimeOfDay.new(2, 30) }
-  end
 end

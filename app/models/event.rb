@@ -1,7 +1,5 @@
 class Event < ActiveRecord::Base
 
-  serialize :duration, Tod::TimeOfDay
-
   PUSHER_EVENTS = {
     student_message: "student_message",
     up_down_vote_message: "up_down_vote_message",
