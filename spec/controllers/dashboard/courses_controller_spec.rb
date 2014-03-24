@@ -25,6 +25,12 @@ describe Dashboard::CoursesController do
       context "creating an course" do
 
         before do
+          course.start_date = Date.new(2014, 01, 05)
+          course.end_date = Date.new(2014, 01, 11)
+          course.weekdays = %w(tuesday thursday)
+          course.start_time = "14:00"
+          course.end_time = "16:00"
+          course.save!
           post :create, course: course.attributes
         end
 
@@ -39,6 +45,16 @@ describe Dashboard::CoursesController do
         it { expect(subject.start_time).to eq(course.start_time) }
         it { expect(subject.end_time).to eq(course.end_time) }
         it { expect(subject.weekdays).to eq(course.weekdays) }
+
+        describe "#events" do
+          subject { Course.last.events }
+
+          its(:count) { should eq(2) }
+          it { expect(subject[0].start_at.to_i).to eq(Time.new(2014, 01, 7, 14, 00).to_i)}
+          it { expect(subject[1].start_at.to_i).to eq(Time.new(2014, 01, 9, 14, 00).to_i)}
+          it { expect(subject[0].duration).to eq(TimeOfDay.parse("02:00"))}
+          it { expect(subject[1].duration).to eq(TimeOfDay.parse("02:00"))}
+        end
       end
 
     end

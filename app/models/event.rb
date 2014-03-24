@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
   has_many :polls
   has_many :personal_notes
 
-  validates :title, :start_at, :duration, :teacher, presence: true
+  validates :title, :start_at, :duration, presence: true
   validates :closed_at, presence: true, if: :closed?
 
   after_create :set_uuid

@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(version: 20140321222804) do
     t.datetime "updated_at"
     t.string   "uuid"
     t.text     "duration"
-    t.integer  "teacher_id",                       null: false
     t.integer  "course_id"
     t.datetime "closed_at"
+    t.integer  "teacher_id"
   end
 
   add_index "events", ["course_id"], name: "index_events_on_course_id", using: :btree
