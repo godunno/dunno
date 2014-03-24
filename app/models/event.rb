@@ -12,7 +12,6 @@ class Event < ActiveRecord::Base
 
   STATUSES = %w(available opened closed)
 
-  belongs_to :teacher
   belongs_to :course
   has_one :timeline
   has_many :topics

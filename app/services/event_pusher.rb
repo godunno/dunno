@@ -43,7 +43,6 @@ def pusher_message_json(poll)
   def pusher_close_event_json
     Jbuilder.encode do |json|
       json.(@event, :uuid, :start_at, :title)
-      json.teacher(@event.teacher, :id, :name, :email, :avatar)
       json.thermometers(@event.thermometers, :uuid, :content)
     end
   end
