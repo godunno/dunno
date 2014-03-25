@@ -2,6 +2,16 @@ require 'spec_helper'
 
 describe Api::V1::MessagesController do
 
+  shared_examples_for "closed event" do
+
+    before(:each) do
+      event.close!
+      do_action
+    end
+
+    it { expect(response.status).to eq 403 }
+  end
+
   describe "POST /api/v1/timeline/messages", vcr: { match_requests_on: [:method, :host, :path]} do
 
     it_behaves_like "API authentication required"
@@ -51,15 +61,11 @@ describe Api::V1::MessagesController do
             it { expect(json["student_id"]).to eq(student.id) }
           end
 
-          context "closed event" do
-
-            before(:each) do
-              event.close!
-              post "/api/v1/timeline/messages.json", message_params.merge(auth_params)
-            end
-
-            it { expect(response.status).to eq 403 }
+          def do_action
+            post "/api/v1/timeline/messages.json", message_params.merge(auth_params)
           end
+
+          it_behaves_like "closed event"
 
           context "with invalid content" do
             let(:message_params) do
@@ -117,15 +123,7 @@ describe Api::V1::MessagesController do
         post "/api/v1/timeline/messages/#{message_id}/up.json", { student_id: student_id }.merge(auth_params)
       end
 
-      context "closed event" do
-
-        before(:each) do
-          event.close!
-          do_action
-        end
-
-        it { expect(response.status).to eq 403 }
-      end
+      it_behaves_like "closed event"
 
       context "valid message id and student id" do
 
@@ -183,6 +181,8 @@ describe Api::V1::MessagesController do
       def do_action(message_id = message.id, student_id = student.id)
         post "/api/v1/timeline/messages/#{message_id}/down.json", { student_id: student_id }.merge(auth_params)
       end
+
+      it_behaves_like "closed event"
 
       context "valid message id and student id" do
 

@@ -23,6 +23,9 @@ class Api::V1::MessagesController < Api::V1::StudentApplicationController
   end
 
   def down
+    if message.timeline.event.closed?
+      return render json: { errors: I18n.t('errors.event.closed') }, status: 403
+    end
     message.down_by(student)
     EventPusher.new(message.timeline.event).up_down_vote_message(message)
     render json: "{}", status: 200
