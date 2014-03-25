@@ -29,16 +29,17 @@ describe Api::V1::MessagesController do
 
         context "when receives valid timeline id" do
 
-          context "valid content" do
-            let(:message_params) do
-              {
-                timeline_user_message: {
-                  timeline_id: timeline.id,
-                  student_id: student.id,
-                  content: "Some message here"
-                }
+          let(:message_params) do
+            {
+              timeline_user_message: {
+                timeline_id: timeline.id,
+                student_id: student.id,
+                content: "Some message here"
               }
-            end
+            }
+          end
+
+          context "valid content" do
 
             before(:each) do
               post "/api/v1/timeline/messages.json", message_params.merge(auth_params)
@@ -47,6 +48,18 @@ describe Api::V1::MessagesController do
             it { expect(response.status).to eq(201) }
             it { expect(json["content"]).to eq("Some message here") }
             it { expect(json["student_id"]).to eq(student.id) }
+          end
+
+          context "closed event" do
+
+            before(:each) do
+              event = timeline.event
+              event.close!
+
+              post "/api/v1/timeline/messages.json", message_params.merge(auth_params)
+            end
+
+            it { expect(response.status).to eq 403 }
           end
 
           context "with invalid content" do
@@ -78,6 +91,7 @@ describe Api::V1::MessagesController do
               }
             }
           end
+
           it do
             expect { post "/api/v1/timeline/messages.json", message_params.merge(auth_params) }.to raise_error(ActiveRecord::RecordNotFound)
           end

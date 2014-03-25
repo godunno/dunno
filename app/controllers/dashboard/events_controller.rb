@@ -42,7 +42,7 @@ class Dashboard::EventsController < Dashboard::ApplicationController
   end
 
   def close
-    event.update_attributes(status: 'closed', closed_at: DateTime.now)
+    event.close!
     EventPusher.new(event).close
     redirect_to action: :index
   end

@@ -58,6 +58,12 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def close!
+    self.status = "closed"
+    self.closed_at = Time.now
+    save!
+  end
+
   private
     def set_uuid
       UuidGenerator.new(self).generate!
