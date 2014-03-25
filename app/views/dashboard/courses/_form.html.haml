@@ -1,9 +1,9 @@
 = f.input :name
-= f.input :start_date
-= f.input :end_date
-= f.input :start_time
-= f.input :end_time
-= f.input :weekdays, as: :check_boxes, collection: (0..6).to_a
+= date_picker(f, :start_date)
+= date_picker(f, :end_date)
+= time_picker(f, :start_time)
+= time_picker(f, :end_time)
+= f.input :weekdays, as: :check_boxes, collection: Course::WEEKDAYS, item_wrapper_class: 'checkbox-inline'
 = f.input :classroom
 = f.association :organization
 = f.button :submit

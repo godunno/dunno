@@ -4,4 +4,16 @@ module ApplicationHelper
       items.map { |item| concat(content_tag(:li, item)) }
     end
   end
+
+  def date_picker(f, field)
+    f.input field, as: :string, input_html: { class: 'datepicker col-lg-2', value: f.object.send(field).try(:strftime, '%d/%m/%Y') }
+  end
+
+  def time_picker(f, field)
+    f.input field, input_html: { class: 'timepicker', data: { 'show-meridian' => false, 'default-time' => 'value' } }
+  end
+
+  def datetime_picker(f, field)
+    f.input field, as: :string, input_html: { class: 'datetimepicker', value: f.object.send(field).try(:strftime, '%d/%m/%Y %H:%M') }
+  end
 end

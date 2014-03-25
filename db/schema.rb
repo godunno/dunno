@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140324232820) do
+ActiveRecord::Schema.define(version: 20140325185307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 20140324232820) do
     t.string   "uuid"
     t.date     "start_date"
     t.date     "end_date"
-    t.text     "end_time"
-    t.text     "start_time"
+    t.string   "end_time"
+    t.string   "start_time"
     t.string   "classroom"
     t.string   "weekdays",        array: true
   end

@@ -12,12 +12,23 @@ describe Course do
   end
 
   describe "validations" do
-    [:teacher].each do |attr|
+    [:teacher, :weekdays, :start_date, :end_date, :start_time, :end_time].each do |attr|
       it { should validate_presence_of(attr) }
     end
   end
 
   describe "callbacks" do
+
+    describe "before save" do
+
+      it "should strip away empty elements" do
+        course.weekdays = ["tue", "thu", ""]
+        expect(course.weekdays.count).to eq(3)
+
+        course.save!
+        expect(course.reload.weekdays.count).to eq(2)
+      end
+    end
 
     describe "after create" do
 
@@ -53,7 +64,7 @@ describe Course do
 
   describe "#weekdays" do
 
-    let(:weekdays) { %w(1 3) }
+    let(:weekdays) { %w(tue thu) }
 
     before do
       course.weekdays = weekdays

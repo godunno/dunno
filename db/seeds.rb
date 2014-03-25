@@ -16,6 +16,7 @@ if Rails.env.development? || Rails.env.staging?
   teacher.organizations << org
 
   course = Course.new(name: "Programming I", teacher: teacher)
+  course.weekdays = %w(tue thu)
   course.start_date = 1.day.ago
   course.start_time = "08:00"
   course.end_date = Time.now + 3.days
