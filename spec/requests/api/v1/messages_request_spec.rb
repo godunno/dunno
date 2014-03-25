@@ -2,16 +2,6 @@ require 'spec_helper'
 
 describe Api::V1::MessagesController do
 
-  shared_examples_for "closed event" do
-
-    before(:each) do
-      event.close!
-      do_action
-    end
-
-    it { expect(response.status).to eq 403 }
-  end
-
   describe "POST /api/v1/timeline/messages", vcr: { match_requests_on: [:method, :host, :path]} do
 
     it_behaves_like "API authentication required"

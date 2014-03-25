@@ -5,16 +5,23 @@ describe Api::V1::AnswersController do
 
     let(:student) { create(:student) }
     let(:option) { create(:option) }
+    let(:event) { option.poll.event }
 
     it_behaves_like "API authentication required"
 
     context "authenticated" do
 
+      def do_action
+        post '/api/v1/answers', { option_id: option.uuid }.merge(
+          auth_params(student))
+      end
+
+      it_behaves_like "closed event"
+
       context "with valid option id" do
 
         before do
-          post '/api/v1/answers', { option_id: option.uuid }.merge(
-            auth_params(student))
+          do_action
         end
 
         subject { Answer.first }

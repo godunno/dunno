@@ -20,3 +20,13 @@ shared_examples_for "request invalid content type XML" do
     expect { do_action }.to raise_error(ActionController::UnknownFormat)
   end
 end
+
+shared_examples_for "closed event" do
+
+  before(:each) do
+    event.close!
+    do_action
+  end
+
+  it { expect(response.status).to eq 403 }
+end

@@ -10,7 +10,7 @@ class Api::V1::EventsController < Api::V1::StudentApplicationController
     if event.opened?
       respond_with @event
     else
-      render nothing: true, status: 403
+      return render json: { errors: I18n.t('errors.event.closed') }, status: 403
     end
   end
 

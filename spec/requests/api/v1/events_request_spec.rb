@@ -59,21 +59,33 @@ describe Api::V1::EventsController do
 
     context "authenticated" do
 
-      def do_action
-        get "/api/v1/events/#{event.uuid}/attend.xml", auth_params
-      end
+      describe "request invalid content type" do
+        def do_action
+          event.status = "opened"
+          event.save!
+          get "/api/v1/events/#{event.uuid}/attend.xml", auth_params
+        end
 
+        it_behaves_like "request invalid content type XML"
+      end
 
       context "valid content type" do
 
-        before(:each) do
+        def do_action
           get "/api/v1/events/#{event.uuid}/attend.json", auth_params
         end
+
+        before(:each) do
+          do_action
+        end
+
+        it_behaves_like "closed event"
 
         context "unopened event" do
           let(:event) { create(:event, status: 'available', title: "New event") }
           it { expect(response.status).to eq 403 }
         end
+
 
         context "opened event" do
           let(:event) { create(:event, status: 'opened', title: "New event", topics: [topic], polls: [poll]) }
@@ -82,8 +94,6 @@ describe Api::V1::EventsController do
           let(:option) { create(:option) }
 
           subject { json }
-
-          it_behaves_like "request invalid content type XML"
 
           it { expect(response).to be_success }
           it { expect(subject["channel"]).to eq event.channel }
