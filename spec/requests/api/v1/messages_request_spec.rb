@@ -9,6 +9,7 @@ describe Api::V1::MessagesController do
     context "authenticated" do
 
       let!(:timeline) { create(:timeline) }
+      let(:event) { timeline.event }
       let!(:student) { create(:student) }
 
       def do_action
@@ -53,9 +54,7 @@ describe Api::V1::MessagesController do
           context "closed event" do
 
             before(:each) do
-              event = timeline.event
               event.close!
-
               post "/api/v1/timeline/messages.json", message_params.merge(auth_params)
             end
 
@@ -116,6 +115,16 @@ describe Api::V1::MessagesController do
 
       def do_action(message_id = message.id, student_id = student.id)
         post "/api/v1/timeline/messages/#{message_id}/up.json", { student_id: student_id }.merge(auth_params)
+      end
+
+      context "closed event" do
+
+        before(:each) do
+          event.close!
+          do_action
+        end
+
+        it { expect(response.status).to eq 403 }
       end
 
       context "valid message id and student id" do
