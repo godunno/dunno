@@ -30,3 +30,13 @@ shared_examples_for "closed event" do
 
   it { expect(response.status).to eq 403 }
 end
+
+shared_examples_for "incorrect sign in" do
+
+  before(:each) do
+    do_action
+  end
+
+  it { expect(response.code).to eq "401" }
+  it { expect(json["errors"].count).to eq 1 }
+end

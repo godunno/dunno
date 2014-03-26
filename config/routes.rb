@@ -3,6 +3,9 @@ Dunno::Application.routes.draw do
   devise_for :teachers
   devise_for :students, path: 'api/v1/students', controllers: { sessions: 'api/v1/sessions' }, only: :sessions
   devise_for :students, skip: :sessions
+  devise_scope :teacher do
+    post 'api/v1/teachers/sign_in' => 'api/v1/sessions#create'
+  end
 
   namespace :dashboard do
     resources :topics
