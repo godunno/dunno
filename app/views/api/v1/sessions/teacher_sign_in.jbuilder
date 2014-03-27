@@ -1,4 +1,4 @@
-json.(@resource, :name, :email, :avatar, :authentication_token)
+json.(@resource, :id, :name, :email, :avatar, :authentication_token)
 
 json.courses @resource.courses do |course|
   json.(course, :uuid)
