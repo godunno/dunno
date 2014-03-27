@@ -34,6 +34,11 @@ Dunno::Application.routes.draw do
             patch :close
           end
         end
+        resources :polls, only: [] do
+          member do
+            patch :release
+          end
+        end
       end
       resources :ratings, only: :create
       resources :answers, only: :create
