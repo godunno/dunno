@@ -9,6 +9,8 @@ json.events @resource.events do |event|
     json.(event.timeline, :id, :start_at)
     json.messages event.timeline.timeline_interactions.messages.map(&:interaction) do |message|
       json.(message, :id, :content, :created_at)
+      json.up_votes(message.up_votes.count)
+      json.down_votes(message.down_votes.count)
     end
   end
 

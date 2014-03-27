@@ -9,6 +9,7 @@ describe Api::V1::SessionsController do
   let!(:message_one) do
     message = create(:timeline_user_message, content: "First message")
     create(:timeline_interaction, timeline: event.timeline, interaction: message)
+    message.vote_by(create(:student))
     message
   end
   let!(:message_two) do
@@ -46,6 +47,9 @@ describe Api::V1::SessionsController do
           it { expect(subject.size).to eq(2) }
           it { expect(subject).to include(message_one.content) }
           it { expect(subject).to include(message_two.content) }
+
+          it { expect(timeline["messages"][0]["up_votes"]).to eq(1) }
+          it { expect(timeline["messages"][1]["down_votes"]).to eq(0) }
         end
 
         it "should allow access with authentication_token after the sign in" do
