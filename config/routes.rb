@@ -27,6 +27,14 @@ Dunno::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      namespace :teacher do
+        resources :events, only: [] do
+          member do
+            patch :open
+            patch :close
+          end
+        end
+      end
       resources :ratings, only: :create
       resources :answers, only: :create
       resource :timeline, only: [] do

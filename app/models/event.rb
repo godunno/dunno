@@ -64,6 +64,12 @@ class Event < ActiveRecord::Base
     save!
   end
 
+  def open!
+    self.status = "opened"
+    self.opened_at = Time.now
+    save!
+  end
+
   private
     def set_uuid
       UuidGenerator.new(self).generate!

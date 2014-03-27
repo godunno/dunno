@@ -105,4 +105,13 @@ describe Event do
     it { expect {event.close!}.to change(event, :closed_at).from(nil).to(Time.now) }
   end
 
+  describe "#open!" do
+    before do
+      Timecop.freeze
+    end
+
+    it { expect {event.open!}.to change(event, :status).from("available").to("opened") }
+    it { expect {event.open!}.to change(event, :opened_at).from(nil).to(Time.now) }
+  end
+
 end
