@@ -1,5 +1,6 @@
 class Api::V1::TeacherApplicationController < ActionController::Base
   before_filter :authenticate_teacher_from_token!
+  before_filter :authenticate_teacher!
 
   private
 

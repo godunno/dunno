@@ -10,7 +10,7 @@ describe Api::V1::Teacher::PollsController do
       let(:poll) { create :poll }
 
       def do_action
-        patch "/api/v1/teacher/polls/#{poll.uuid}/release", auth_params
+        patch "/api/v1/teacher/polls/#{poll.uuid}/release", auth_params(:teacher)
       end
 
       before do

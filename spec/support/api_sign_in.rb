@@ -1,5 +1,8 @@
 
-def auth_params(student = nil)
-  student ||= create(:student)
-  { student_email: student.email, student_token: student.authentication_token }
+def auth_params(model = :student)
+  unless model.is_a? ActiveRecord::Base
+    model = create(model)
+  end
+  name = model.class.name.downcase
+  { "#{name}_email" => model.email, "#{name}_token" => model.authentication_token }
 end
