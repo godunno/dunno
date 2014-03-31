@@ -38,18 +38,19 @@ describe Api::V1::SessionsController do
         it { expect(json["authentication_token"]).to eq(student.authentication_token) }
 
         describe "timeline data" do
-          let(:timeline) do
-            json["events"][0]["timeline"]
-          end
+          let(:messages) { json["events"][0]["timeline"]["messages"] }
+          let(:response_message_one) { messages.find { |msg| msg["id"] == message_one.id } }
+          let(:response_message_two) { messages.find { |msg| msg["id"] == message_two.id } }
 
-          subject { timeline["messages"].map { |message| message["content"] } }
+          it { expect(messages.count).to eq(2) }
+          it { expect(response_message_one["content"]).to eq(message_one.content) }
+          it { expect(response_message_two["content"]).to eq(message_two.content) }
 
-          it { expect(subject.size).to eq(2) }
-          it { expect(subject).to include(message_one.content) }
-          it { expect(subject).to include(message_two.content) }
+          it { expect(response_message_one["up_votes"]).to eq(1) }
+          it { expect(response_message_one["down_votes"]).to eq(0) }
 
-          it { expect(timeline["messages"][0]["up_votes"]).to eq(1) }
-          it { expect(timeline["messages"][1]["down_votes"]).to eq(0) }
+          it { expect(response_message_two["up_votes"]).to eq(0) }
+          it { expect(response_message_two["down_votes"]).to eq(0) }
         end
 
         it "should allow access with authentication_token after the sign in" do
