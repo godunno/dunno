@@ -24,6 +24,7 @@ gem 'pusher',                   '0.12.0'
 gem 'nested_form',            '0.3.2'
 gem 'tod',                    '1.3.0'
 gem 'recurrence',             '1.2.0'
+gem 'font-awesome-sass',      '4.0.3.1'
 
 gem 'rails_12factor',       '0.0.2', group: [:production, :staging]
 

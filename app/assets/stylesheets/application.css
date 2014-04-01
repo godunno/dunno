@@ -10,12 +10,12 @@
  *
  *= require_self
  *= require_tree .
+ *= require font-awesome
  *= require css/bootstrap.min.css
  *= require css/bootstrap-reset.css
  *= require css/owl.carousel.css
  *= require css/style.css
  *= require css/style-responsive.css
- *= require assets/font-awesome/scss/font-awesome
  *= require assets/bootstrap-datetimepicker/css/datetimepicker.css
  *= require assets/bootstrap-timepicker/compiled/timepicker.css
  *= require assets/bootstrap-datepicker/css/datepicker.css
