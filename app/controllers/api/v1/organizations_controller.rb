@@ -3,6 +3,6 @@ class Api::V1::OrganizationsController < Api::V1::StudentApplicationController
 
   def index
     @organization = Organization.first
-    respond_with @organization, root: false
+    respond_with @organization
   end
 end
