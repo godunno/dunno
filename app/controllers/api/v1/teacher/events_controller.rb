@@ -2,8 +2,12 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   respond_to :json
 
   def open
-    event.open!
-    render json: "{}", status: 200
+    if event.opened?
+      render nothing: true, status: 304
+    else
+      event.open!
+      respond_with event
+    end
   end
 
   def close

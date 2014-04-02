@@ -9,7 +9,7 @@ describe Api::V1::Teacher::EventsController do
   describe "PATCH #open" do
 
     def do_action
-      patch "/api/v1/teacher/events/#{event.uuid}/open", auth_params(teacher)
+      patch "/api/v1/teacher/events/#{event.uuid}/open.json", auth_params(teacher)
     end
 
     before do
@@ -17,8 +17,20 @@ describe Api::V1::Teacher::EventsController do
       do_action
     end
 
+    it { expect(response.status).to eq(200) }
+    it { expect(json["uuid"]).to eq(event.uuid) }
     it { expect(event.reload.status).to eq('opened') }
     it { expect(event.reload.opened_at.to_i).to eq(Time.now.to_i) }
+
+    context "opening event again" do
+      before do
+        Timecop.freeze(Time.now + 1)
+        do_action
+      end
+
+      it { expect(response.status).to eq(304) }
+      it { expect(event.reload.opened_at.to_i).not_to eq(Time.now.to_i) }
+    end
   end
 
   describe "PATCH #close" do
