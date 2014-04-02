@@ -3,7 +3,7 @@ class Api::V1::EventsController < Api::V1::StudentApplicationController
 
   def index
     @events = current_student.events
-    respond_with @events, root: false
+    respond_with(@events)
   end
 
   def attend
