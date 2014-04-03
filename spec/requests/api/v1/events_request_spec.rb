@@ -4,7 +4,15 @@ describe Api::V1::EventsController do
 
   let(:student) { create(:student) }
   let(:course) { create(:course, students: [student]) }
-  let!(:event) { create(:event, course: course) }
+  let(:topic) { create(:topic) }
+  let(:thermometer) { create(:thermometer) }
+  let(:poll) { create(:poll) }
+  let!(:event) do
+    create(:event, course: course,
+           topics: [topic],
+           thermometers: [thermometer],
+           polls: [poll])
+  end
 
   describe "GET /api/v1/events" do
 
@@ -28,7 +36,29 @@ describe Api::V1::EventsController do
         end
 
         it { expect(response).to be_success }
-        it { expect(json[0]["course"]["uuid"]).to eq(course.uuid) }
+
+        describe "event" do
+
+          subject { json[1] }
+
+          %w(id title uuid duration channel student_message_event
+          up_down_vote_message_event release_poll_event receive_rating_event
+          close_event status).each do |attribute|
+            describe "##{attribute}" do
+              it { expect(subject[attribute]).to eq(event.send(attribute)) }
+            end
+          end
+
+          it { expect(subject["start_at"]).to eq(event.start_at.to_json.gsub('"', '')) }
+          it { expect(subject["course"]["uuid"]).to eq(course.uuid) }
+          it { expect(subject["topics"][0]["id"]).to eq(topic.id) }
+          it { expect(subject["topics"][0]["description"]).to eq(topic.description) }
+          it { expect(subject["thermometers"][0]["uuid"]).to eq(thermometer.uuid) }
+          it { expect(subject["thermometers"][0]["content"]).to eq(thermometer.content) }
+          it { expect(subject["polls"][0]["uuid"]).to eq(poll.uuid) }
+          it { expect(subject["polls"][0]["content"]).to eq(poll.content) }
+          it { expect(subject["polls"][0]["status"]).to eq(poll.status) }
+        end
 
         describe "events" do
 
