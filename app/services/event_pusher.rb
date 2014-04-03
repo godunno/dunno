@@ -7,22 +7,22 @@ class EventPusher
   end
 
   def student_message(message)
-    trigger(event.student_message_event, pusher_message_json(message))
+    trigger(StudentPusherEvents.new.student_message_event, pusher_message_json(message))
   end
 
   def up_down_vote_message(message)
-    trigger(event.up_down_vote_message_event, pusher_message_json(message))
+    trigger(StudentPusherEvents.new.up_down_vote_message_event, pusher_message_json(message))
   end
 
   def close
-    trigger(event.close_event, pusher_close_event_json)
+    trigger(TeacherPusherEvents.new.close_event, pusher_close_event_json)
   end
 
   def release_poll(poll)
-    trigger(event.release_poll_event, pusher_poll_json(poll))
+    trigger(TeacherPusherEvents.new.release_poll_event, pusher_poll_json(poll))
   end
 
-def pusher_message_json(poll)
+  def pusher_message_json(poll)
     Jbuilder.encode do |json|
       json.(poll, :id, :uuid, :created_at, :updated_at, :content)
       json.up_votes message.upvotes.size
@@ -57,7 +57,7 @@ def pusher_message_json(poll)
 
   private
 
-    def trigger(event_name, content)
-      Pusher.trigger(event.channel, event_name, content)
-    end
+  def trigger(event_name, content)
+    Pusher.trigger(event.channel, event_name, content)
+  end
 end

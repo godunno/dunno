@@ -2,8 +2,10 @@ json.(@resource, :id, :name, :email, :avatar, :authentication_token)
 
 json.events @resource.events do |event|
   json.(event, :uuid, :title, :start_at, :status, :duration,
-       :channel, :student_message_event, :up_down_vote_message_event,
-       :release_poll_event, :receive_rating_event)
+       :channel)
+
+  pusher_events = StudentPusherEvents.new
+  json.(pusher_events, *pusher_events.events)
 
   json.timeline do
     json.(event.timeline, :id, :start_at)
