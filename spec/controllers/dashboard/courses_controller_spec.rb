@@ -27,7 +27,7 @@ describe Dashboard::CoursesController do
         before do
           course.start_date = Date.new(2014, 01, 05)
           course.end_date = Date.new(2014, 01, 11)
-          course.weekdays = %w(tuesday thursday)
+          course.weekdays = [2, 4]
           course.start_time = "14:00"
           course.end_time = "16:00"
           course.save!

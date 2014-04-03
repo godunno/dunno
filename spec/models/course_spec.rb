@@ -64,7 +64,7 @@ describe Course do
 
   describe "#weekdays" do
 
-    let(:weekdays) { %w(tue thu) }
+    let(:weekdays) { [2, 4] }
 
     before do
       course.weekdays = weekdays

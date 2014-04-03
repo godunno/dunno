@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :course do
     name "MyString"
     teacher
-    weekdays [:monday]
+    weekdays [1]
     start_date { Date.today }
     end_date { Date.tomorrow }
     start_time "14:00"
