@@ -4,22 +4,24 @@ class EventPusher
 
   def initialize(event)
     @event = event
+    @student_pusher_events = PusherEvents.new(Student.new)
+    @teacher_pusher_events = PusherEvents.new(Teacher.new)
   end
 
   def student_message(message)
-    trigger(StudentPusherEvents.new.student_message_event, pusher_message_json(message))
+    trigger(@student_pusher_events.student_message_event, pusher_message_json(message))
   end
 
   def up_down_vote_message(message)
-    trigger(StudentPusherEvents.new.up_down_vote_message_event, pusher_message_json(message))
+    trigger(@student_pusher_events.up_down_vote_message_event, pusher_message_json(message))
   end
 
   def close
-    trigger(TeacherPusherEvents.new.close_event, pusher_close_event_json)
+    trigger(@teacher_pusher_events.close_event, pusher_close_event_json)
   end
 
   def release_poll(poll)
-    trigger(TeacherPusherEvents.new.release_poll_event, pusher_poll_json(poll))
+    trigger(@teacher_pusher_events.release_poll_event, pusher_poll_json(poll))
   end
 
   def pusher_message_json(poll)

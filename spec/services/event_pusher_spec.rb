@@ -3,6 +3,8 @@ require 'spec_helper'
 describe EventPusher do
 
   let(:event) { create :event }
+  let(:student_pusher_events) { PusherEvents.new(create(:student)) }
+  let(:teacher_pusher_events) { PusherEvents.new(create(:teacher)) }
 
   before do
     Pusher.stub(:trigger)
@@ -22,7 +24,7 @@ describe EventPusher do
     it "should have received the correct parameters" do
       expect(Pusher).to have_received(:trigger).with(
         event.channel,
-        StudentPusherEvents.new.student_message_event,
+        student_pusher_events.student_message_event,
         @event_pusher.pusher_message_json(message)
       )
     end
@@ -53,7 +55,7 @@ describe EventPusher do
     it "should have received the correct parameters" do
       expect(Pusher).to have_received(:trigger).with(
         event.channel,
-        StudentPusherEvents.new.up_down_vote_message_event,
+        student_pusher_events.up_down_vote_message_event,
         @event_pusher.pusher_message_json(message)
       )
     end
@@ -71,7 +73,7 @@ describe EventPusher do
     it "should have received the correct parameters" do
       expect(Pusher).to have_received(:trigger).with(
         event.channel,
-        StudentPusherEvents.new.receive_rating_event,
+        student_pusher_events.receive_rating_event,
         {}
       )
     end
@@ -86,7 +88,7 @@ describe EventPusher do
     it "should have received the correct parameters" do
       expect(Pusher).to have_received(:trigger).with(
         event.channel,
-        TeacherPusherEvents.new.close_event,
+        teacher_pusher_events.close_event,
         @event_pusher.pusher_close_event_json
       )
     end
@@ -103,7 +105,7 @@ describe EventPusher do
     it "should have received the correct parameters" do
       expect(Pusher).to have_received(:trigger).with(
         event.channel,
-        TeacherPusherEvents.new.release_poll_event,
+        teacher_pusher_events.release_poll_event,
         @event_pusher.pusher_poll_json(poll)
       )
     end

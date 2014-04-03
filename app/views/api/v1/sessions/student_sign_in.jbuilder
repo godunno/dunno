@@ -4,7 +4,6 @@ json.events @resource.events do |event|
   json.(event, :uuid, :title, :start_at, :status, :duration,
        :channel)
 
-  pusher_events = StudentPusherEvents.new
   json.(pusher_events, *pusher_events.events)
 
   json.timeline do

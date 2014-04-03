@@ -14,6 +14,8 @@ describe Api::V1::EventsController do
            polls: [poll])
   end
 
+  let(:pusher_events) { PusherEvents.new(student) }
+
   describe "GET /api/v1/events" do
 
     it_behaves_like "API authentication required"
@@ -47,9 +49,9 @@ describe Api::V1::EventsController do
             end
           end
 
-          it { expect(subject["up_down_vote_message_event"]).to eq(StudentPusherEvents.new.up_down_vote_message_event) }
-          it { expect(subject["receive_rating_event"]).to eq(StudentPusherEvents.new.receive_rating_event) }
-          it { expect(subject["student_message_event"]).to eq(StudentPusherEvents.new.student_message_event) }
+          it { expect(subject["up_down_vote_message_event"]).to eq(pusher_events.up_down_vote_message_event) }
+          it { expect(subject["receive_rating_event"]).to eq(pusher_events.receive_rating_event) }
+          it { expect(subject["student_message_event"]).to eq(pusher_events.student_message_event) }
           it { expect(subject["close_event"]).to be_nil }
           it { expect(subject["release_poll_event"]).to be_nil }
 
@@ -131,9 +133,9 @@ describe Api::V1::EventsController do
 
           it { expect(response).to be_success }
           it { expect(subject["channel"]).to eq event.channel }
-          it { expect(subject["student_message_event"]).to eq StudentPusherEvents.new.student_message_event }
-          it { expect(subject["up_down_vote_message_event"]).to eq StudentPusherEvents.new.up_down_vote_message_event }
-          it { expect(subject["receive_rating_event"]).to eq StudentPusherEvents.new.receive_rating_event }
+          it { expect(subject["student_message_event"]).to eq pusher_events.student_message_event }
+          it { expect(subject["up_down_vote_message_event"]).to eq pusher_events.up_down_vote_message_event }
+          it { expect(subject["receive_rating_event"]).to eq pusher_events.receive_rating_event }
           it { expect(subject["release_poll_event"]).to be_nil }
           it { expect(subject["close_event"]).to be_nil }
           it { expect(subject["timeline"]["messages"][0]["content"]).to eq(message.content)}

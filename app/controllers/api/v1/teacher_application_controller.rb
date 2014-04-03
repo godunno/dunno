@@ -1,4 +1,4 @@
-class Api::V1::TeacherApplicationController < ActionController::Base
+class Api::V1::TeacherApplicationController < ApplicationController
   before_filter :authenticate_teacher_from_token!
   before_filter :authenticate_teacher!
 

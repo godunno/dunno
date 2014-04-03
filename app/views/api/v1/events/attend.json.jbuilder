@@ -1,7 +1,6 @@
 json.(@event, :id, :uuid, :title, :start_at, :status, :channel)
 json.duration(TimeOfDay.parse(@event.duration).second_of_day / 60)
 
-pusher_events = StudentPusherEvents.new
 json.(pusher_events, *pusher_events.events)
 
 json.topics(@event.topics, :id, :description)
