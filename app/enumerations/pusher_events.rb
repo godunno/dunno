@@ -8,8 +8,9 @@ class PusherEvents
     release_poll_event: "release_poll"
   }
 
-  STUDENT_EVENTS = [:student_message_event, :up_down_vote_message_event, :receive_rating_event]
-  TEACHER_EVENTS = [:student_message_event, :up_down_vote_message_event, :close_event, :release_poll_event]
+
+  STUDENT_EVENTS = [:student_message_event, :up_down_vote_message_event, :receive_rating_event, :release_poll_event, :close_event]
+  TEACHER_EVENTS = [:student_message_event, :up_down_vote_message_event]
 
   def initialize(user)
     @user = user

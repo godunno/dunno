@@ -49,11 +49,12 @@ describe Api::V1::EventsController do
             end
           end
 
-          it { expect(subject["up_down_vote_message_event"]).to eq(pusher_events.up_down_vote_message_event) }
-          it { expect(subject["receive_rating_event"]).to eq(pusher_events.receive_rating_event) }
-          it { expect(subject["student_message_event"]).to eq(pusher_events.student_message_event) }
-          it { expect(subject["close_event"]).to be_nil }
-          it { expect(subject["release_poll_event"]).to be_nil }
+          it { expect(subject["channel"]).to eq event.channel }
+          it { expect(subject["student_message_event"]).to eq pusher_events.student_message_event }
+          it { expect(subject["up_down_vote_message_event"]).to eq pusher_events.up_down_vote_message_event }
+          it { expect(subject["receive_rating_event"]).to eq pusher_events.receive_rating_event }
+          it { expect(subject["release_poll_event"]).to eq pusher_events.release_poll_event }
+          it { expect(subject["close_event"]).to eq pusher_events.close_event }
 
           it { expect(subject["start_at"]).to eq(event.start_at.to_json.gsub('"', '')) }
           it { expect(subject["course"]["uuid"]).to eq(course.uuid) }
@@ -136,8 +137,9 @@ describe Api::V1::EventsController do
           it { expect(subject["student_message_event"]).to eq pusher_events.student_message_event }
           it { expect(subject["up_down_vote_message_event"]).to eq pusher_events.up_down_vote_message_event }
           it { expect(subject["receive_rating_event"]).to eq pusher_events.receive_rating_event }
-          it { expect(subject["release_poll_event"]).to be_nil }
-          it { expect(subject["close_event"]).to be_nil }
+          it { expect(subject["release_poll_event"]).to eq pusher_events.release_poll_event }
+          it { expect(subject["close_event"]).to eq pusher_events.close_event }
+
           it { expect(subject["timeline"]["messages"][0]["content"]).to eq(message.content)}
           it { expect(subject["timeline"]["messages"][0]["already_voted"]).to be_nil }
           it { expect(subject["topics"]).to include({"id" => topic.id, "description" => topic.description}) }
