@@ -7,8 +7,8 @@ gem 'unicorn-worker-killer',  '0.4.2'
 gem 'secure_headers',         '1.1.0'
 gem 'jquery-rails',           '3.0.4'
 gem 'turbolinks',             '2.0.0'
-gem 'jbuilder',               '1.5.3'
 gem 'haml-rails',             '0.5.2'
+gem 'jbuilder',               '1.5.3'
 gem 'pg',                     '0.17.0'
 gem 'sass-rails',             '4.0.1'
 gem 'coffee-rails',           '4.0.1'
@@ -25,6 +25,7 @@ gem 'nested_form',            '0.3.2'
 gem 'tod',                    '1.3.0'
 gem 'recurrence',             '1.2.0'
 gem 'font-awesome-sass',      '4.0.3.1'
+gem 'carrierwave',            '0.10.0'
 
 gem 'rails_12factor',       '0.0.2', group: [:production, :staging]
 

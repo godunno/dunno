@@ -14,6 +14,8 @@ class Media < ActiveRecord::Base
 
   after_create :set_uuid
 
+  mount_uploader :file, FileUploader
+
   private
     def set_uuid
       UuidGenerator.new(self).generate!
