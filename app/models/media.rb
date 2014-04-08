@@ -10,7 +10,8 @@ class Media < ActiveRecord::Base
 
   validates :title, presence: true
   validates :category, presence: true, inclusion: { in: CATEGORIES }
-  validates :url, format: URI::regexp(:http)
+  validates :url, format: URI::regexp(:http), allow_blank: true
+  validate :mutually_exclusive_url_and_file
 
   after_create :set_uuid
 
@@ -19,5 +20,11 @@ class Media < ActiveRecord::Base
   private
     def set_uuid
       UuidGenerator.new(self).generate!
+    end
+
+    def mutually_exclusive_url_and_file
+      if self.url && self.file.file.try(:exists?)
+        errors.add(:url)
+      end
     end
 end
