@@ -31,13 +31,19 @@ if Rails.env.development? || Rails.env.staging?
   o2 = Option.new(content: "jyraia")
   Poll.create!(content: "what do you watched on Manchete channel?", options: [o1, o2], event: e, status: "available")
 
-  Event.new(title: "2nd class",start_at: 3.days.from_now, duration: "2:00", status: "available", course: course).save!
-  Event.new(title: "3th class",start_at: 5.days.from_now, duration: "2:00", status: "available", course: course).save!
-  Event.new(title: "4th class",start_at: 7.days.from_now, duration: "2:00", status: "opened", course: course).save!
-  Event.new(title: "5th class",start_at: 9.days.from_now, duration: "2:00", status: "available", course: course).save!
+  Event.new(title: "2nd class",start_at: 3.days.from_now, duration: "2:00", status: "available", course: course)
+  e2 = Event.create!(title: "3th class",start_at: 5.days.from_now, duration: "2:00", status: "available", course: course)
+  e3 = Event.create!(title: "4th class",start_at: 7.days.from_now, duration: "2:00", status: "opened", course: course)
+  e4 = Event.create!(title: "5th class",start_at: 9.days.from_now, duration: "2:00", status: "available", course: course)
 
   Topic.new(description: "Machine Learning", event: Event.first).save!
   Topic.new(description: "AI", event: Event.first).save!
   Topic.new(description: "Visual Computing", event: Event.first).save!
+
+  Poll.create!(content: "what do you watched on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e2, status: "available")
+  Poll.create!(content: "what do you watched on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e2, status: "available")
+  Poll.create!(content: "what do you watched on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e3, status: "available")
+  Poll.create!(content: "what do you watched on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e4, status: "available")
+
 
 end
