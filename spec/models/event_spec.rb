@@ -10,6 +10,7 @@ describe Event do
     it { should have_many(:topics) }
     it { should have_many(:thermometers) }
     it { should have_many(:personal_notes) }
+    it { should have_many(:medias) }
   end
 
   describe "defaults" do

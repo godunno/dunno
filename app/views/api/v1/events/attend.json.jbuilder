@@ -14,6 +14,10 @@ json.polls @event.polls do |poll|
   end
 end
 
+json.medias @event.medias do |media|
+  json.(media, :uuid, :title, :description, :category, :url)
+end
+
 json.timeline do
   json.(@event.timeline, :id, :start_at, :created_at, :updated_at)
 

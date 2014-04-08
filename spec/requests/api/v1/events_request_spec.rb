@@ -11,8 +11,10 @@ describe Api::V1::EventsController do
     create(:event, course: course,
            topics: [topic],
            thermometers: [thermometer],
-           polls: [poll])
+           polls: [poll],
+           medias: [media])
   end
+  let(:media) { create(:media) }
 
   let(:pusher_events) { PusherEvents.new(student) }
 
@@ -58,13 +60,22 @@ describe Api::V1::EventsController do
 
           it { expect(subject["start_at"]).to eq(event.start_at.to_json.gsub('"', '')) }
           it { expect(subject["course"]["uuid"]).to eq(course.uuid) }
+
           it { expect(subject["topics"][0]["id"]).to eq(topic.id) }
           it { expect(subject["topics"][0]["description"]).to eq(topic.description) }
+
           it { expect(subject["thermometers"][0]["uuid"]).to eq(thermometer.uuid) }
           it { expect(subject["thermometers"][0]["content"]).to eq(thermometer.content) }
+
           it { expect(subject["polls"][0]["uuid"]).to eq(poll.uuid) }
           it { expect(subject["polls"][0]["content"]).to eq(poll.content) }
           it { expect(subject["polls"][0]["status"]).to eq(poll.status) }
+
+          it { expect(subject["medias"][0]["uuid"]).to eq media.uuid }
+          it { expect(subject["medias"][0]["title"]).to eq media.title }
+          it { expect(subject["medias"][0]["description"]).to eq media.description }
+          it { expect(subject["medias"][0]["category"]).to eq media.category }
+          it { expect(subject["medias"][0]["url"]).to eq media.url }
         end
 
         describe "events" do
@@ -125,10 +136,11 @@ describe Api::V1::EventsController do
 
 
         context "opened event" do
-          let(:event) { create(:event, status: 'opened', title: "New event", topics: [topic], polls: [poll]) }
+          let(:event) { create(:event, status: 'opened', title: "New event", topics: [topic], polls: [poll], medias: [media]) }
           let(:topic) { build(:topic) }
           let(:poll) { create(:poll, options: [option]) }
           let(:option) { create(:option) }
+          let(:media) { create(:media) }
 
           subject { json }
 
@@ -142,13 +154,21 @@ describe Api::V1::EventsController do
 
           it { expect(subject["timeline"]["messages"][0]["content"]).to eq(message.content)}
           it { expect(subject["timeline"]["messages"][0]["already_voted"]).to be_nil }
+
           it { expect(subject["topics"]).to include({"id" => topic.id, "description" => topic.description}) }
+
           it { expect(subject["polls"].count).to eq 1 }
           it { expect(subject["polls"][0]["uuid"]).to eq poll.uuid }
           it { expect(subject["polls"][0]["content"]).to eq poll.content }
           it { expect(subject["polls"][0]["options"].count).to eq 1 }
           it { expect(subject["polls"][0]["options"][0]["uuid"]).to eq option.uuid }
           it { expect(subject["polls"][0]["options"][0]["content"]).to eq option.content }
+
+          it { expect(subject["medias"][0]["uuid"]).to eq media.uuid }
+          it { expect(subject["medias"][0]["title"]).to eq media.title }
+          it { expect(subject["medias"][0]["description"]).to eq media.description }
+          it { expect(subject["medias"][0]["category"]).to eq media.category }
+          it { expect(subject["medias"][0]["url"]).to eq media.url }
 
           # The approach bellow is necessary due to approximation errors
           it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }

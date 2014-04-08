@@ -8,6 +8,7 @@ class Event < ActiveRecord::Base
   has_many :thermometers, inverse_of: :event
   has_many :polls
   has_many :personal_notes
+  has_many :medias
 
   validates :title, :start_at, :duration, presence: true
   validates :closed_at, presence: true, if: :closed?

@@ -21,3 +21,7 @@ end
 json.polls event.polls do |poll|
   json.partial! 'models/poll', poll: poll
 end
+
+json.medias event.medias do |media|
+  json.partial! 'models/media', media: media
+end
