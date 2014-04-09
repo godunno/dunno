@@ -110,4 +110,21 @@ describe EventPusher do
       )
     end
   end
+
+  describe "#release_media" do
+
+    let(:media) { create :media, event: event }
+
+    before do
+      @event_pusher.release_media(media)
+    end
+
+    it "should have received the correct parameters" do
+      expect(Pusher).to have_received(:trigger).with(
+        event.channel,
+        teacher_pusher_events.release_media_event,
+        @event_pusher.pusher_media_json(media)
+      )
+    end
+  end
 end

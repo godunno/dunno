@@ -41,6 +41,11 @@ Dunno::Application.routes.draw do
             patch :release
           end
         end
+        resources :medias, only: [] do
+          member do
+            patch :release
+          end
+        end
       end
       resources :ratings, only: :create
       resources :answers, only: :create

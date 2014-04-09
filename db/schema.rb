@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140408225015) do
+ActiveRecord::Schema.define(version: 20140409145442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20140408225015) do
     t.datetime "updated_at"
     t.string   "uuid"
     t.string   "file"
+    t.string   "status",      default: "available"
   end
 
   add_index "medias", ["event_id"], name: "index_medias_on_event_id", using: :btree
