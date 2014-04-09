@@ -5,7 +5,7 @@ class Api::V1::Teacher::PollsController < Api::V1::TeacherApplicationController
     if poll.status == "available"
       poll.update(status: "released")
       EventPusher.new(poll.event).release_poll(poll)
-      render json: "{}", status: 200
+      render nothing: true, status: 200
     else
       render json: { errors: [I18n.t('errors.already_released')] }, status: 400
     end
