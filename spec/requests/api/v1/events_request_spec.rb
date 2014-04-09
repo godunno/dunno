@@ -150,6 +150,7 @@ describe Api::V1::EventsController do
           it { expect(subject["up_down_vote_message_event"]).to eq pusher_events.up_down_vote_message_event }
           it { expect(subject["receive_rating_event"]).to eq pusher_events.receive_rating_event }
           it { expect(subject["release_poll_event"]).to eq pusher_events.release_poll_event }
+          it { expect(subject["release_media_event"]).to eq pusher_events.release_media_event }
           it { expect(subject["close_event"]).to eq pusher_events.close_event }
 
           it { expect(subject["timeline"]["messages"][0]["content"]).to eq(message.content)}

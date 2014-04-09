@@ -24,6 +24,10 @@ class EventPusher
     trigger(@teacher_pusher_events.release_poll_event, pusher_poll_json(poll))
   end
 
+  def release_media(media)
+    trigger(@teacher_pusher_events.release_media_event, pusher_media_json(media))
+  end
+
   def pusher_message_json(poll)
     Jbuilder.encode do |json|
       json.(poll, :id, :uuid, :created_at, :updated_at, :content)
@@ -54,6 +58,13 @@ class EventPusher
       json.(poll, :uuid, :content)
       json.event(poll.event, :uuid)
       json.options(poll.options, :uuid, :content)
+    end
+  end
+
+  def pusher_media_json(media)
+    Jbuilder.encode do |json|
+      json.(media, :uuid, :title, :description, :url, :category)
+      json.event(media.event, :uuid)
     end
   end
 
