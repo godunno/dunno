@@ -6,15 +6,17 @@ describe Api::V1::EventsController do
   let(:course) { create(:course, students: [student]) }
   let(:topic) { create(:topic) }
   let(:thermometer) { create(:thermometer) }
-  let(:poll) { create(:poll) }
+  let(:poll) { create(:poll, options: [option]) }
+  let(:option) { create(:option) }
+  let(:media_with_url) { build(:media, url: "http://www.example.com", file: nil) }
+  let(:media_with_file) { build(:media, file: Tempfile.new("test"), url: nil) }
   let!(:event) do
     create(:event, course: course,
            topics: [topic],
            thermometers: [thermometer],
            polls: [poll],
-           medias: [media])
+           medias: [media_with_url, media_with_file])
   end
-  let(:media) { create(:media) }
 
   let(:pusher_events) { PusherEvents.new(student) }
 
@@ -43,6 +45,7 @@ describe Api::V1::EventsController do
 
         describe "event" do
 
+          let(:media) { media_with_url }
           subject { json[1] }
 
           %w(id title uuid duration channel status).each do |attribute|
@@ -51,31 +54,67 @@ describe Api::V1::EventsController do
             end
           end
 
-          it { expect(subject["channel"]).to eq event.channel }
-          it { expect(subject["student_message_event"]).to eq pusher_events.student_message_event }
-          it { expect(subject["up_down_vote_message_event"]).to eq pusher_events.up_down_vote_message_event }
-          it { expect(subject["receive_rating_event"]).to eq pusher_events.receive_rating_event }
-          it { expect(subject["release_poll_event"]).to eq pusher_events.release_poll_event }
-          it { expect(subject["close_event"]).to eq pusher_events.close_event }
-
           it { expect(subject["start_at"]).to eq(event.start_at.to_json.gsub('"', '')) }
-          it { expect(subject["course"]["uuid"]).to eq(course.uuid) }
 
-          it { expect(subject["topics"][0]["id"]).to eq(topic.id) }
-          it { expect(subject["topics"][0]["description"]).to eq(topic.description) }
+          it { expect(response).to be_success }
 
-          it { expect(subject["thermometers"][0]["uuid"]).to eq(thermometer.uuid) }
-          it { expect(subject["thermometers"][0]["content"]).to eq(thermometer.content) }
+          describe "event" do
+            let(:target) { event }
+            subject { json[1] }
+            it_behaves_like "request return check", %w(channel)
+          end
 
-          it { expect(subject["polls"][0]["uuid"]).to eq(poll.uuid) }
-          it { expect(subject["polls"][0]["content"]).to eq(poll.content) }
-          it { expect(subject["polls"][0]["status"]).to eq(poll.status) }
+          describe "pusher events" do
+            let(:target) { pusher_events }
+            subject { json[1] }
+            it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
+          end
 
-          it { expect(subject["medias"][0]["uuid"]).to eq media.uuid }
-          it { expect(subject["medias"][0]["title"]).to eq media.title }
-          it { expect(subject["medias"][0]["description"]).to eq media.description }
-          it { expect(subject["medias"][0]["category"]).to eq media.category }
-          it { expect(subject["medias"][0]["url"]).to eq media.url }
+          describe "course" do
+            let(:target) { course }
+            subject { json[1]["course"] }
+            it_behaves_like "request return check", %w(uuid)
+          end
+
+          describe "topic" do
+            let(:target) { topic }
+            subject { json[1]["topics"][0] }
+            it_behaves_like "request return check", %w(id description)
+          end
+
+          it { expect(subject["polls"].count).to eq 1 }
+          describe "poll" do
+            let(:target) { poll }
+            subject { json[1]["polls"][0] }
+            it_behaves_like "request return check", %w(uuid content)
+          end
+
+          it { expect(subject["polls"][0]["options"].count).to eq 1 }
+          describe "option" do
+            let(:target) { option }
+            subject { json[1]["polls"][0]["options"][0] }
+            it_behaves_like "request return check", %w(uuid content)
+          end
+
+          describe "thermometer" do
+            let(:target) { thermometer }
+            subject { json[1]["thermometers"][0] }
+            it_behaves_like "request return check", %w(uuid content)
+          end
+
+          describe "media with URL" do
+            let(:target) { media_with_url }
+            subject { json[1]["medias"].find { |m| m["uuid"] == target.uuid } }
+            it_behaves_like "request return check", %w(uuid title description category url)
+          end
+
+          describe "media with File" do
+            let(:target) { media_with_file }
+            subject { json[1]["medias"].find { |m| m["uuid"] == target.uuid } }
+            it_behaves_like "request return check", %w(uuid title description category)
+
+            it { expect(subject["url"]).to eq target.file.url }
+          end
         end
 
         describe "events" do
@@ -136,7 +175,7 @@ describe Api::V1::EventsController do
 
 
         context "opened event" do
-          let(:event) { create(:event, status: 'opened', title: "New event", topics: [topic], polls: [poll], medias: [media]) }
+          let(:event) { create(:event, status: 'opened', title: "New event", topics: [topic], polls: [poll], medias: [media_with_url, media_with_file]) }
           let(:topic) { build(:topic) }
           let(:poll) { create(:poll, options: [option]) }
           let(:option) { create(:option) }
@@ -145,31 +184,60 @@ describe Api::V1::EventsController do
           subject { json }
 
           it { expect(response).to be_success }
-          it { expect(subject["channel"]).to eq event.channel }
-          it { expect(subject["student_message_event"]).to eq pusher_events.student_message_event }
-          it { expect(subject["up_down_vote_message_event"]).to eq pusher_events.up_down_vote_message_event }
-          it { expect(subject["receive_rating_event"]).to eq pusher_events.receive_rating_event }
-          it { expect(subject["release_poll_event"]).to eq pusher_events.release_poll_event }
-          it { expect(subject["release_media_event"]).to eq pusher_events.release_media_event }
-          it { expect(subject["close_event"]).to eq pusher_events.close_event }
 
-          it { expect(subject["timeline"]["messages"][0]["content"]).to eq(message.content)}
-          it { expect(subject["timeline"]["messages"][0]["already_voted"]).to be_nil }
+          describe "event" do
+            let(:target) { event }
+            subject { json }
+            it_behaves_like "request return check", %w(channel)
+          end
 
-          it { expect(subject["topics"]).to include({"id" => topic.id, "description" => topic.description}) }
+          describe "pusher events" do
+            let(:target) { pusher_events }
+            subject { json }
+            it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
+          end
+
+          describe "message" do
+            let(:target) { message }
+            subject { json["timeline"]["messages"][0] }
+            it_behaves_like "request return check", %w(content)
+
+            it { expect(subject["already_voted"]).to be_nil }
+          end
+
+          describe "topic" do
+            let(:target) { topic }
+            subject { json["topics"][0] }
+            it_behaves_like "request return check", %w(id description)
+          end
 
           it { expect(subject["polls"].count).to eq 1 }
-          it { expect(subject["polls"][0]["uuid"]).to eq poll.uuid }
-          it { expect(subject["polls"][0]["content"]).to eq poll.content }
-          it { expect(subject["polls"][0]["options"].count).to eq 1 }
-          it { expect(subject["polls"][0]["options"][0]["uuid"]).to eq option.uuid }
-          it { expect(subject["polls"][0]["options"][0]["content"]).to eq option.content }
+          describe "poll" do
+            let(:target) { poll }
+            subject { json["polls"][0] }
+            it_behaves_like "request return check", %w(uuid content)
+          end
 
-          it { expect(subject["medias"][0]["uuid"]).to eq media.uuid }
-          it { expect(subject["medias"][0]["title"]).to eq media.title }
-          it { expect(subject["medias"][0]["description"]).to eq media.description }
-          it { expect(subject["medias"][0]["category"]).to eq media.category }
-          it { expect(subject["medias"][0]["url"]).to eq media.url }
+          it { expect(subject["polls"][0]["options"].count).to eq 1 }
+          describe "option" do
+            let(:target) { option }
+            subject { json["polls"][0]["options"][0] }
+            it_behaves_like "request return check", %w(uuid content)
+          end
+
+          describe "media with URL" do
+            let(:target) { media_with_url }
+            subject { json["medias"].find { |m| m["uuid"] == target.uuid } }
+            it_behaves_like "request return check", %w(uuid title description category url)
+          end
+
+          describe "media with File" do
+            let(:target) { media_with_file }
+            subject { json["medias"].find { |m| m["uuid"] == target.uuid } }
+            it_behaves_like "request return check", %w(uuid title description category)
+
+            it { expect(subject["url"]).to eq target.file.url }
+          end
 
           # The approach bellow is necessary due to approximation errors
           it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }

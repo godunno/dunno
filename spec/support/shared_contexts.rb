@@ -40,3 +40,11 @@ shared_examples_for "incorrect sign in" do
   it { expect(response.code).to eq "401" }
   it { expect(json["errors"].count).to eq 1 }
 end
+
+shared_examples_for "request return check" do |attributes|
+  attributes.each do |attribute|
+    describe "##{attribute}" do
+      it { expect(subject[attribute.to_s]).to eq target.send(attribute) }
+    end
+  end
+end

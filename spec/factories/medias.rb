@@ -7,5 +7,11 @@ FactoryGirl.define do
     category Media::IMAGE
     url "http://www.example.com/media.jpg"
     event nil
+    file nil
+
+    factory :media_with_file do
+      url nil
+      file Tempfile.new('test')
+    end
   end
 end

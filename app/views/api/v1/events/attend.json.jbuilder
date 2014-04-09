@@ -15,7 +15,7 @@ json.polls @event.polls do |poll|
 end
 
 json.medias @event.medias do |media|
-  json.(media, :uuid, :title, :description, :category, :url)
+  json.partial! 'models/media', media: media
 end
 
 json.timeline do
