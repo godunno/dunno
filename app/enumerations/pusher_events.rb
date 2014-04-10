@@ -11,7 +11,7 @@ class PusherEvents
   }
 
 
-  STUDENT_EVENTS = [:student_message_event, :up_down_vote_message_event, :receive_rating_event, :release_poll_event, :release_media_event, :close_event]
+  STUDENT_EVENTS = [:student_message_event, :up_down_vote_message_event, :receive_rating_event, :release_poll_event, :release_media_event, :close_event, :open_event]
   TEACHER_EVENTS = [:student_message_event, :up_down_vote_message_event]
 
   def initialize(user)

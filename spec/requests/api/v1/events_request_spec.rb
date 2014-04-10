@@ -67,7 +67,7 @@ describe Api::V1::EventsController do
           describe "pusher events" do
             let(:target) { pusher_events }
             subject { json[1] }
-            it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
+            it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event open_event)
           end
 
           describe "course" do
@@ -194,7 +194,7 @@ describe Api::V1::EventsController do
           describe "pusher events" do
             let(:target) { pusher_events }
             subject { json }
-            it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
+            it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event open_event)
           end
 
           describe "message" do
