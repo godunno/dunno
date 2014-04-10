@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
   after_create :set_timeline
   after_initialize :set_start_at
 
-  accepts_nested_attributes_for :topics, :thermometers, :polls, :personal_notes, allow_destroy: true
+  accepts_nested_attributes_for :topics, :thermometers, :polls, :personal_notes, :medias, allow_destroy: true
 
   default_scope { order(:start_at) }
 

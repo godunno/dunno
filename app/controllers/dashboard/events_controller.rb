@@ -65,7 +65,8 @@ class Dashboard::EventsController < Dashboard::ApplicationController
         polls_attributes: [:id, :content, :status, :_destroy,
           options_attributes: [:id, :content, :correct, :_destroy]
         ],
-        personal_notes_attributes: [:id, :content, :_destroy]
+        personal_notes_attributes: [:id, :content, :_destroy],
+        medias_attributes: [:id, :title, :description, :url, :category, :file, :_destroy]
       )
     end
 end

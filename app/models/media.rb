@@ -1,10 +1,6 @@
 class Media < ActiveRecord::Base
 
-  CATEGORIES = [
-    IMAGE = 0,
-    VIDEO = 1,
-    AUDIO = 2
-  ]
+  CATEGORIES = %w(image video audio)
 
   belongs_to :event
 

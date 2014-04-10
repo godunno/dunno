@@ -21,5 +21,10 @@
   .panel-body
     = f.fields_for :personal_notes
     = f.link_to_add t(:add_personal_note), :personal_notes, class: 'btn btn-success'
+.panel
+  .panel-heading= t(:medias)
+  .panel-body
+    = f.fields_for :medias
+    = f.link_to_add t(:add_media), :medias, class: 'btn btn-success'
 = f.button :submit
 = link_to t(:back), :back, class: 'btn'

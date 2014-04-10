@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :media do
     title "MyString"
     description "MyString"
-    category Media::IMAGE
+    category Media::CATEGORIES.first
     url "http://www.example.com/media.jpg"
     event nil
     file nil

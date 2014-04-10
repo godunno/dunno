@@ -30,6 +30,8 @@ describe Dashboard::EventsController do
         let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false, poll: poll }
         let(:options) { [correct_option, incorrect_option] }
         let(:personal_note) { build :personal_note }
+        let(:media_with_url) { build :media }
+        let(:media_with_file) { build :media_with_file }
         let(:start_at) { event.start_at.strftime('%d/%m/%Y %H:%M') }
 
         before do
@@ -43,25 +45,46 @@ describe Dashboard::EventsController do
                   "1" => incorrect_option.attributes
                 }
               )},
-              personal_notes_attributes: { "0" => personal_note.attributes }
+              personal_notes_attributes: { "0" => personal_note.attributes },
+              medias_attributes: {
+                "0" => media_with_url.attributes,
+                "1" => media_with_file.attributes.merge({ file: Rack::Test::UploadedFile.new(media_with_file.file.path) })
+              }
             )
         end
 
         subject { Event.last }
 
         it { expect(subject.title).to eq(event[:title]) }
+
         it { expect(subject.topics.first.description).to eq topic.description }
         it { expect(subject.topics.count).to eq 1 }
+
         it { expect(subject.thermometers.first.content).to eq thermometer.content }
         it { expect(subject.thermometers.count).to eq 1 }
+
         it { expect(subject.polls.first.content).to eq poll.content }
         it { expect(subject.polls.count).to eq 1 }
+
         it { expect(subject.polls.first.options.count).to eq 2 }
         it { expect(subject.polls.first.options.map(&:content)).to match_array options.map(&:content) }
         it { expect(subject.polls.first.options.map(&:correct)).to match_array options.map(&:correct) }
+
         it { expect(subject.personal_notes.count).to eq 1 }
         it { expect(subject.personal_notes.first.content).to eq personal_note.content }
         it { expect(subject.personal_notes.first.done).to be_nil }
+
+        it { expect(subject.medias.count).to eq 2 }
+        it { expect(subject.medias.first.title).to eq media_with_url.title }
+        it { expect(subject.medias.first.description).to eq media_with_url.description }
+        it { expect(subject.medias.first.category).to eq media_with_url.category }
+        it { expect(subject.medias.first.url).to eq media_with_url.url }
+
+        it { expect(subject.medias.last.title).to eq media_with_file.title }
+        it { expect(subject.medias.last.description).to eq media_with_file.description }
+        it { expect(subject.medias.last.category).to eq media_with_file.category }
+        it { expect(subject.medias.last.file.file.identifier).to eq media_with_file.file.file.identifier }
+
         it { expect(subject.start_at.strftime('%d/%m/%Y %H:%M')).to eq(start_at) }
       end
 
