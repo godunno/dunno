@@ -16,6 +16,7 @@ describe Api::V1::Teacher::EventsController do
 
     before do
       Timecop.freeze
+      EventPusher.any_instance.should_receive(:open).once
       do_action
     end
 

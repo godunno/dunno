@@ -94,6 +94,21 @@ describe EventPusher do
     end
   end
 
+  describe "#open" do
+
+    before do
+      @event_pusher.open
+    end
+
+    it "should have received the correct parameters" do
+      expect(Pusher).to have_received(:trigger).with(
+        event.channel,
+        teacher_pusher_events.open_event,
+        @event_pusher.pusher_open_event_json
+      )
+    end
+  end
+
   describe "#release_poll" do
 
     let(:poll) { create :poll, event: event }

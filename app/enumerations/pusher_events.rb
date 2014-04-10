@@ -4,9 +4,10 @@ class PusherEvents
     student_message_event: "student_message",
     up_down_vote_message_event: "up_down_vote_message",
     receive_rating_event: "receive_rating",
-    close_event: "close",
     release_poll_event: "release_poll",
-    release_media_event: "release_media"
+    release_media_event: "release_media",
+    close_event: "close",
+    open_event: "open",
   }
 
 

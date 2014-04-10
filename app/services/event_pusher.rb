@@ -20,6 +20,10 @@ class EventPusher
     trigger(@teacher_pusher_events.close_event, pusher_close_event_json)
   end
 
+  def open
+    trigger(@teacher_pusher_events.open_event, pusher_open_event_json)
+  end
+
   def release_poll(poll)
     trigger(@teacher_pusher_events.release_poll_event, pusher_poll_json(poll))
   end
@@ -50,6 +54,12 @@ class EventPusher
     Jbuilder.encode do |json|
       json.(@event, :uuid, :start_at, :title)
       json.thermometers(@event.thermometers, :uuid, :content)
+    end
+  end
+
+  def pusher_open_event_json
+    Jbuilder.encode do |json|
+      json.(@event, :uuid, :start_at, :title)
     end
   end
 
