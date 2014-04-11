@@ -3,7 +3,7 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
 
   def release
     if media.status == "available"
-      media.update(status: "released")
+      media.release!
       EventPusher.new(media.event).release_media(media)
       render json: "{}", status: 200
     else

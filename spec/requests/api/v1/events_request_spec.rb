@@ -18,6 +18,10 @@ describe Api::V1::EventsController do
            medias: [media_with_url, media_with_file])
   end
 
+  before do
+    [poll, media_with_url, media_with_file].each { |i| i.release! }
+  end
+
   let(:pusher_events) { PusherEvents.new(student) }
 
   describe "GET /api/v1/events" do
@@ -86,7 +90,7 @@ describe Api::V1::EventsController do
           describe "poll" do
             let(:target) { poll }
             subject { json[1]["polls"][0] }
-            it_behaves_like "request return check", %w(uuid content)
+            it_behaves_like "request return check", %w(uuid content released_at)
           end
 
           it { expect(subject["polls"][0]["options"].count).to eq 1 }
@@ -105,13 +109,13 @@ describe Api::V1::EventsController do
           describe "media with URL" do
             let(:target) { media_with_url }
             subject { json[1]["medias"].find { |m| m["uuid"] == target.uuid } }
-            it_behaves_like "request return check", %w(uuid title description category url)
+            it_behaves_like "request return check", %w(uuid title description category url released_at)
           end
 
           describe "media with File" do
             let(:target) { media_with_file }
             subject { json[1]["medias"].find { |m| m["uuid"] == target.uuid } }
-            it_behaves_like "request return check", %w(uuid title description category)
+            it_behaves_like "request return check", %w(uuid title description category released_at)
 
             it { expect(subject["url"]).to eq target.file.url }
           end
@@ -215,7 +219,7 @@ describe Api::V1::EventsController do
           describe "poll" do
             let(:target) { poll }
             subject { json["polls"][0] }
-            it_behaves_like "request return check", %w(uuid content)
+            it_behaves_like "request return check", %w(uuid content released_at)
           end
 
           it { expect(subject["polls"][0]["options"].count).to eq 1 }
@@ -228,13 +232,13 @@ describe Api::V1::EventsController do
           describe "media with URL" do
             let(:target) { media_with_url }
             subject { json["medias"].find { |m| m["uuid"] == target.uuid } }
-            it_behaves_like "request return check", %w(uuid title description category url)
+            it_behaves_like "request return check", %w(uuid title description category url released_at)
           end
 
           describe "media with File" do
             let(:target) { media_with_file }
             subject { json["medias"].find { |m| m["uuid"] == target.uuid } }
-            it_behaves_like "request return check", %w(uuid title description category)
+            it_behaves_like "request return check", %w(uuid title description category released_at)
 
             it { expect(subject["url"]).to eq target.file.url }
           end

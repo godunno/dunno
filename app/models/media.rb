@@ -13,6 +13,12 @@ class Media < ActiveRecord::Base
 
   mount_uploader :file, FileUploader
 
+  def release!
+    self.status = "released"
+    self.released_at = Time.now
+    save!
+  end
+
   private
     def set_uuid
       UuidGenerator.new(self).generate!

@@ -6,11 +6,9 @@ json.(pusher_events, *pusher_events.events)
 json.topics(@event.topics, :id, :description)
 json.thermometers(@event.thermometers, :uuid, :content)
 json.polls @event.polls do |poll|
-  json.uuid poll.uuid
-  json.content poll.content
+  json.(poll, :uuid, :content, :released_at)
   json.options poll.options do |option|
-    json.uuid option.uuid
-    json.content option.content
+    json.(option, :uuid, :content)
   end
 end
 

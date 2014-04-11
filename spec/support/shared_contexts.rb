@@ -44,7 +44,14 @@ end
 shared_examples_for "request return check" do |attributes|
   attributes.each do |attribute|
     describe "##{attribute}" do
-      it { expect(subject[attribute.to_s]).to eq target.send(attribute) }
+      it "should have the same value for #{attribute}" do
+        value = target.send(attribute)
+        value = case value
+                when Time then value.to_json.gsub('"', '')
+                else value
+                end
+        expect(subject[attribute.to_s]).to eq value
+      end
     end
   end
 end

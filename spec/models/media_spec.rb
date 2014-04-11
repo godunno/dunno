@@ -53,4 +53,13 @@ describe Media do
       end
     end
   end
+
+  describe "#release!" do
+    before do
+      Timecop.freeze
+    end
+
+    it { expect {media.release!}.to change(media, :status).from("available").to("released") }
+    it { expect {media.release!}.to change(media, :released_at).from(nil).to(Time.now) }
+  end
 end

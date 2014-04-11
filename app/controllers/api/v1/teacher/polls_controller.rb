@@ -3,7 +3,7 @@ class Api::V1::Teacher::PollsController < Api::V1::TeacherApplicationController
 
   def release
     if poll.status == "available"
-      poll.update(status: "released")
+      poll.release!
       EventPusher.new(poll.event).release_poll(poll)
       render nothing: true, status: 200
     else

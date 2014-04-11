@@ -10,14 +10,15 @@ describe Api::V1::Teacher::MediasController do
       end
 
       before do
+        Timecop.freeze
         expect_any_instance_of(EventPusher).to receive(:release_media).with(media)
         do_action
         media.reload
       end
 
-      it "should update the poll status to released" do
-        expect(media.status).to eq "released"
-      end
+      it { expect(response.status).to eq(200) }
+      it { expect(media.status).to eq "released" }
+      it { expect(media.released_at.to_i).to eq Time.now.to_i }
 
 
       context "releasing the same poll again" do

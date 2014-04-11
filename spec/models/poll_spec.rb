@@ -36,4 +36,13 @@ describe Poll do
       end
     end
   end
+
+  describe "#release!" do
+    before do
+      Timecop.freeze
+    end
+
+    it { expect {poll.release!}.to change(poll, :status).from("available").to("released") }
+    it { expect {poll.release!}.to change(poll, :released_at).from(nil).to(Time.now) }
+  end
 end
