@@ -40,10 +40,12 @@ if Rails.env.development? || Rails.env.staging?
   Topic.new(description: "AI", event: Event.first).save!
   Topic.new(description: "Visual Computing", event: Event.first).save!
 
-  Poll.create!(content: "what do you watched on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e2, status: "available")
-  Poll.create!(content: "what do you watched on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e2, status: "available")
-  Poll.create!(content: "what do you watched on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e3, status: "available")
-  Poll.create!(content: "what do you watched on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e4, status: "available")
+  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e2, status: "available")
+  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e2, status: "available")
+  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e3, status: "available")
+  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e4, status: "available")
 
+  Media.create!(event: e, title: 'LOLCAT VIDEO', category: 'video', url: 'http://www.youtube.com/watch?v=0000000000')
+  Media.create!(event: e, title: 'LOLCAT IMAGE', category: 'image', file: Tempfile.new('cat.jpg'))
 
 end
