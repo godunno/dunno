@@ -24,7 +24,7 @@ if Rails.env.development? || Rails.env.staging?
   student.courses << course
   student.save
 
-  e = Event.create!(title: "1st class",start_at: 1.days.from_now, duration: "2:00", status: "opened", course: course)
+  e = Event.create!(title: "1st class",start_at: 1.days.from_now, duration: "2:00", status: "available", course: course)
   Thermometer.new(content: "lineaer algebra", event_id: e.id).save!
   Thermometer.new(content: "big data - data science", event_id: e.id).save!
   o1 = Option.new(content: "jiban")
@@ -33,7 +33,7 @@ if Rails.env.development? || Rails.env.staging?
 
   Event.new(title: "2nd class",start_at: 3.days.from_now, duration: "2:00", status: "available", course: course)
   e2 = Event.create!(title: "3th class",start_at: 5.days.from_now, duration: "2:00", status: "available", course: course)
-  e3 = Event.create!(title: "4th class",start_at: 7.days.from_now, duration: "2:00", status: "opened", course: course)
+  e3 = Event.create!(title: "4th class",start_at: 7.days.from_now, duration: "2:00", status: "available", course: course)
   e4 = Event.create!(title: "5th class",start_at: 9.days.from_now, duration: "2:00", status: "available", course: course)
 
   Topic.new(description: "Machine Learning", event: Event.first).save!
