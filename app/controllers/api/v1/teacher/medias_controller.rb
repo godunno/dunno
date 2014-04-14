@@ -7,7 +7,7 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
       EventPusher.new(media.event).release_media(media)
       render json: "{}", status: 200
     else
-      render json: { errors: [I18n.t('errors.already_released')] }, status: 400
+      render json: { errors: [I18n.t('errors.already_released')] }, status: 304
     end
   end
 

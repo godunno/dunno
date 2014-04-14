@@ -7,7 +7,7 @@ class Api::V1::Teacher::PollsController < Api::V1::TeacherApplicationController
       EventPusher.new(poll.event).release_poll(poll)
       render nothing: true, status: 200
     else
-      render json: { errors: [I18n.t('errors.already_released')] }, status: 400
+      render json: { errors: [I18n.t('errors.already_released')] }, status: 304
     end
   end
 

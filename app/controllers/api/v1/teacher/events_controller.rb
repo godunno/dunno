@@ -11,9 +11,13 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   end
 
   def close
-    event.close!
-    EventPusher.new(event).close
-    render json: "{}", status: 200
+    if event.closed?
+      render nothing: true, status: 304
+    else
+      event.close!
+      EventPusher.new(event).close
+      render json: "{}", status: 200
+    end
   end
 
   private

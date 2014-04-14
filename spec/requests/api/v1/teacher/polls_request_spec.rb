@@ -30,7 +30,7 @@ describe Api::V1::Teacher::PollsController do
           do_action
         end
 
-        it { expect(response.code).to eq '400' }
+        it { expect(response.code).to eq '304' }
       end
     end
 

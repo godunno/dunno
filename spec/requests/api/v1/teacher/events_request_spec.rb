@@ -54,5 +54,16 @@ describe Api::V1::Teacher::EventsController do
 
     it { expect(event.reload.status).to eq 'closed' }
     it { expect(event.reload.closed_at.to_i).to eq DateTime.now.to_i }
+
+    context "closing event again" do
+      before do
+        Timecop.freeze(Time.now + 1)
+        EventPusher.any_instance.stub(:close)
+        do_action
+      end
+
+      it { expect(response.status).to eq(304) }
+      it { expect(event.reload.closed_at.to_i).not_to eq(Time.now.to_i) }
+    end
   end
 end
