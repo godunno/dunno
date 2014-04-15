@@ -2,8 +2,10 @@ json.(event, :id, :title, :uuid, :duration, :start_at, :channel, :status)
 
 json.(pusher_events, *pusher_events.events)
 
-json.course do
-  json.partial! 'models/course', course: event.course
+if show_course
+  json.course do
+    json.partial! 'models/course', course: event.course
+  end
 end
 
 json.timeline do

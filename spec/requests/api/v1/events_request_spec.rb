@@ -17,12 +17,11 @@ describe Api::V1::EventsController do
            polls: [poll],
            medias: [media_with_url, media_with_file])
   end
+  let(:pusher_events) { PusherEvents.new(student) }
 
   before do
     [poll, media_with_url, media_with_file].each { |i| i.release! }
   end
-
-  let(:pusher_events) { PusherEvents.new(student) }
 
   describe "GET /api/v1/events" do
 
@@ -49,24 +48,12 @@ describe Api::V1::EventsController do
 
         describe "event" do
 
+          let(:target) { event }
           let(:media) { media_with_url }
           subject { json[1] }
-
-          %w(id title uuid duration channel status).each do |attribute|
-            describe "##{attribute}" do
-              it { expect(subject[attribute]).to eq(event.send(attribute)) }
-            end
-          end
-
-          it { expect(subject["start_at"]).to eq(event.start_at.to_json.gsub('"', '')) }
+          it_behaves_like "request return check", %w(id title uuid duration channel status start_at)
 
           it { expect(response).to be_success }
-
-          describe "event" do
-            let(:target) { event }
-            subject { json[1] }
-            it_behaves_like "request return check", %w(channel)
-          end
 
           describe "pusher events" do
             let(:target) { pusher_events }

@@ -63,6 +63,7 @@ Dunno::Application.routes.draw do
           get :timeline
         end
       end
+      resources :courses, only: [:index]
       resources :organizations, only:[:index] do
       end
     end
