@@ -1,1 +1,0 @@
-json.(topic, :id, :description)

@@ -1,3 +1,4 @@
 json.array! @courses do |course|
-  json.partial! 'models/course', course: course
+  CourseBuilder.new(course).
+    build!(json, show_events: true, pusher_events: pusher_events)
 end

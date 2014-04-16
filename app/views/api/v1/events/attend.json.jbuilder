@@ -13,7 +13,7 @@ json.polls @event.polls do |poll|
 end
 
 json.medias @event.medias do |media|
-  json.partial! 'models/media', media: media
+  MediaBuilder.new(media).build!(json)
 end
 
 json.timeline do

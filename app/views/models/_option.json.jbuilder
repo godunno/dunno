@@ -1,1 +1,0 @@
-json.(option, :uuid, :content)

@@ -1,1 +1,0 @@
-json.(organization, :uuid, :name)

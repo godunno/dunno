@@ -1,1 +1,1 @@
-json.partial! 'models/organization', organization: @organization
+OrganizationBuilder.new(@organization).build!(json)
