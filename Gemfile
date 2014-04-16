@@ -27,7 +27,10 @@ gem 'recurrence',             '1.2.0'
 gem 'font-awesome-sass',      '4.0.3.1'
 gem 'carrierwave',            '0.10.0'
 
-gem 'rails_12factor',       '0.0.2', group: [:production, :staging]
+group :production, :staging do
+  gem 'rails_12factor',       '0.0.2'
+  gem 'fog',                  '1.21.0'
+end
 
 gem 'database_cleaner',     '1.2.0'
 
