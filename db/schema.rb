@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140411205500) do
     t.string   "end_time"
     t.string   "start_time"
     t.string   "classroom"
+    t.integer  "estimote_uuid"
     t.integer  "weekdays",        array: true
   end
 

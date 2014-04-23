@@ -30,15 +30,15 @@ describe Api::V1::SessionsController do
         it { expect(response).to be_successful }
         it { expect(controller.current_student).to eq(student) }
 
-        it { expect(json["events"][0]["course"]["uuid"]).to eq(course.uuid) }
-        it { expect(json["events"][0]["course"]["teacher"]["name"]).to eq(course.teacher.name) }
+        it { expect(json["courses"][0]["uuid"]).to eq(course.uuid) }
+        it { expect(json["courses"][0]["teacher"]["name"]).to eq(course.teacher.name) }
         it { expect(json["name"]).to eq(student.name) }
         it { expect(json["email"]).to eq(student.email) }
         it { expect(json["avatar"]).to eq(student.avatar) }
         it { expect(json["authentication_token"]).to eq(student.authentication_token) }
 
         describe "timeline data" do
-          let(:messages) { json["events"][0]["timeline"]["messages"] }
+          let(:messages) { json["courses"][0]["events"][0]["timeline"]["messages"] }
           let(:response_message_one) { messages.find { |msg| msg["id"] == message_one.id } }
           let(:response_message_two) { messages.find { |msg| msg["id"] == message_two.id } }
 
