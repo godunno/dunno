@@ -6,6 +6,7 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
       render nothing: true, status: 304
     else
       event.open!
+      CoursePusher.new(event).open
       respond_with event
     end
   end

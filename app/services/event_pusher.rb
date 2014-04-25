@@ -70,7 +70,7 @@ class EventPusher
 
   private
 
-  def trigger(event_name, content)
-    Pusher.trigger(event.channel, event_name, content)
-  end
+    def trigger(event_name, content)
+      Pusher.trigger(event.channel, event_name, content)
+    end
 end

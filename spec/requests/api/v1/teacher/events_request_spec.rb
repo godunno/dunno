@@ -16,6 +16,7 @@ describe Api::V1::Teacher::EventsController do
 
     before do
       Timecop.freeze
+      CoursePusher.any_instance.should_receive(:open).once
       do_action
     end
 
@@ -30,6 +31,7 @@ describe Api::V1::Teacher::EventsController do
     context "opening event again" do
       before do
         Timecop.freeze(Time.now + 1)
+        CoursePusher.any_instance.stub(:close)
         do_action
       end
 
