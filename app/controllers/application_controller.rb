@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
   helper_method :pusher_events
+  helper_method :course_pusher_events
 
   protected
 
@@ -18,6 +19,10 @@ class ApplicationController < ActionController::Base
   end
 
   def pusher_events
-    @pusher_events ||= PusherEvents.new(current_user)
+    @pusher_events ||= EventPusherEvents.new(current_user)
+  end
+
+  def course_pusher_events
+    @course_pusher_events ||= CoursePusherEvents.new(current_user)
   end
 end

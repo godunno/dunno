@@ -3,8 +3,8 @@ require 'spec_helper'
 describe EventPusher do
 
   let(:event) { create :event }
-  let(:student_pusher_events) { PusherEvents.new(create(:student)) }
-  let(:teacher_pusher_events) { PusherEvents.new(create(:teacher)) }
+  let(:student_pusher_events) { EventPusherEvents.new(create(:student)) }
+  let(:teacher_pusher_events) { EventPusherEvents.new(create(:teacher)) }
 
   before do
     Pusher.stub(:trigger)

@@ -1,4 +1,4 @@
-class PusherEvents
+class EventPusherEvents
 
   EVENTS = {
     student_message_event: "student_message",

@@ -17,6 +17,7 @@ describe Api::V1::SessionsController do
     create(:timeline_interaction, timeline: event.timeline, interaction: message)
     message
   end
+  let(:course_pusher_events) { CoursePusherEvents.new(student) }
 
   describe "student" do
     describe "POST /api/v1/students/sign_in" do
@@ -37,6 +38,12 @@ describe Api::V1::SessionsController do
         it { expect(json["email"]).to eq(student.email) }
         it { expect(json["avatar"]).to eq(student.avatar) }
         it { expect(json["authentication_token"]).to eq(student.authentication_token) }
+
+        describe "course pusher events" do
+          let(:target) { course_pusher_events }
+          subject { json }
+          it_behaves_like "request return check", %w(open_event)
+        end
 
         describe "timeline data" do
           let(:messages) { json["courses"][0]["events"][0]["timeline"]["messages"] }

@@ -17,7 +17,7 @@ describe Api::V1::EventsController do
            polls: [poll],
            medias: [media_with_url, media_with_file])
   end
-  let(:pusher_events) { PusherEvents.new(student) }
+  let(:pusher_events) { EventPusherEvents.new(student) }
 
   before do
     [poll, media_with_url, media_with_file].each { |i| i.release! }

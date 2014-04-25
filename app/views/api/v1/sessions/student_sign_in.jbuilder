@@ -1,5 +1,7 @@
 json.(@resource, :id, :name, :email, :avatar, :authentication_token)
 
+json.(course_pusher_events, *course_pusher_events.events)
+
 json.courses @resource.courses do |course|
 
   json.(course, :id, :uuid, :name, :weekdays, :start_date, :start_time, :end_date, :end_time, :channel)

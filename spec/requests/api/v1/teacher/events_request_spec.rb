@@ -6,7 +6,7 @@ describe Api::V1::Teacher::EventsController do
   let(:course) { create(:course, teacher: teacher) }
   let(:event) { create(:event, course: course) }
 
-  let(:pusher_events) { PusherEvents.new(teacher) }
+  let(:pusher_events) { EventPusherEvents.new(teacher) }
 
   describe "PATCH #open" do
 

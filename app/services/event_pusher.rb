@@ -4,8 +4,8 @@ class EventPusher
 
   def initialize(event)
     @event = event
-    @student_pusher_events = PusherEvents.new(Student.new)
-    @teacher_pusher_events = PusherEvents.new(Teacher.new)
+    @student_pusher_events = EventPusherEvents.new(Student.new)
+    @teacher_pusher_events = EventPusherEvents.new(Teacher.new)
   end
 
   def student_message(message)

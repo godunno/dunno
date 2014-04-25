@@ -4,7 +4,7 @@ class CoursePusherEvents
     open_event: "open_event"
   }
 
-  STUDENT_EVENTS = []
+  STUDENT_EVENTS = [:open_event]
   TEACHER_EVENTS = []
 
   def initialize(user)
