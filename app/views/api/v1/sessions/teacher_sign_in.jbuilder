@@ -5,6 +5,6 @@ json.courses @resource.courses do |course|
   json.events course.events do |event|
     json.(event, :uuid, :start_at, :status, :duration,
          :channel)
-    json.(pusher_events, *pusher_events.events)
+    json.(event_pusher_events, *event_pusher_events.events)
   end
 end

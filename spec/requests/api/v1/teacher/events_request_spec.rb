@@ -6,7 +6,7 @@ describe Api::V1::Teacher::EventsController do
   let(:course) { create(:course, teacher: teacher) }
   let(:event) { create(:event, course: course) }
 
-  let(:pusher_events) { EventPusherEvents.new(teacher) }
+  let(:event_pusher_events) { EventPusherEvents.new(teacher) }
 
   describe "PATCH #open" do
 
@@ -25,8 +25,8 @@ describe Api::V1::Teacher::EventsController do
     it { expect(event.reload.status).to eq('opened') }
     it { expect(event.reload.opened_at.to_i).to eq(Time.now.to_i) }
     it { expect(json["channel"]).to eq event.channel }
-    it { expect(json["student_message_event"]).to eq pusher_events.student_message_event }
-    it { expect(json["up_down_vote_message_event"]).to eq pusher_events.up_down_vote_message_event }
+    it { expect(json["student_message_event"]).to eq event_pusher_events.student_message_event }
+    it { expect(json["up_down_vote_message_event"]).to eq event_pusher_events.up_down_vote_message_event }
 
     context "opening event again" do
       before do

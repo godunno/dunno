@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   #ensure_security_headers # See more: https://github.com/twitter/secureheadere
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  helper_method :pusher_events
+  helper_method :event_pusher_events
   helper_method :course_pusher_events
 
   protected
@@ -18,8 +18,8 @@ class ApplicationController < ActionController::Base
     current_student || current_teacher
   end
 
-  def pusher_events
-    @pusher_events ||= EventPusherEvents.new(current_user)
+  def event_pusher_events
+    @event_pusher_events ||= EventPusherEvents.new(current_user)
   end
 
   def course_pusher_events

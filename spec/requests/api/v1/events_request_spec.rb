@@ -17,7 +17,7 @@ describe Api::V1::EventsController do
            polls: [poll],
            medias: [media_with_url, media_with_file])
   end
-  let(:pusher_events) { EventPusherEvents.new(student) }
+  let(:event_pusher_events) { EventPusherEvents.new(student) }
 
   before do
     [poll, media_with_url, media_with_file].each { |i| i.release! }
@@ -56,7 +56,7 @@ describe Api::V1::EventsController do
           it { expect(response).to be_success }
 
           describe "pusher events" do
-            let(:target) { pusher_events }
+            let(:target) { event_pusher_events }
             subject { json[1] }
             it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
           end
@@ -183,7 +183,7 @@ describe Api::V1::EventsController do
           end
 
           describe "pusher events" do
-            let(:target) { pusher_events }
+            let(:target) { event_pusher_events }
             subject { json }
             it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
           end

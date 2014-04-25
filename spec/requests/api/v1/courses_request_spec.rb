@@ -17,7 +17,7 @@ describe Api::V1::CoursesController do
            polls: [poll],
            medias: [media_with_url, media_with_file])
   end
-  let(:pusher_events) { EventPusherEvents.new(student) }
+  let(:event_pusher_events) { EventPusherEvents.new(student) }
 
   describe "GET /api/v1/courses" do
 
@@ -72,7 +72,7 @@ describe Api::V1::CoursesController do
             subject { event_json }
 
             describe "pusher events" do
-              let(:target) { pusher_events }
+              let(:target) { event_pusher_events }
               subject { event_json }
               it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
             end

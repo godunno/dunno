@@ -1,7 +1,7 @@
 json.(@event, :id, :uuid, :title, :start_at, :status, :channel)
 json.duration(TimeOfDay.parse(@event.duration).second_of_day / 60)
 
-json.(pusher_events, *pusher_events.events)
+json.(event_pusher_events, *event_pusher_events.events)
 
 json.topics(@event.topics, :id, :description)
 json.thermometers(@event.thermometers, :uuid, :content)

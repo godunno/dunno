@@ -11,7 +11,7 @@ json.courses @resource.courses do |course|
     json.(event, :uuid, :title, :start_at, :status, :duration,
           :channel)
 
-    json.(pusher_events, *pusher_events.events)
+    json.(event_pusher_events, *event_pusher_events.events)
 
     json.timeline do
       json.(event.timeline, :id, :start_at)
