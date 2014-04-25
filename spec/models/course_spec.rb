@@ -76,4 +76,12 @@ describe Course do
     its(:weekdays) { should be_an Array }
     its(:weekdays) { should eq weekdays }
   end
+
+  describe "#channel" do
+    before do
+      course.save!
+    end
+
+    it { expect(course.channel).to eq("course_#{course.uuid}") }
+  end
 end

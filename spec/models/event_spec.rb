@@ -115,4 +115,12 @@ describe Event do
     it { expect {event.open!}.to change(event, :opened_at).from(nil).to(Time.now) }
   end
 
+  describe "#channel" do
+    before do
+      event.save!
+    end
+
+    it { expect(event.channel).to eq("event_#{event.uuid}") }
+  end
+
 end

@@ -12,6 +12,10 @@ class Course < ActiveRecord::Base
   after_create :set_uuid
   before_save :prepare_weekdays
 
+  def channel
+    "course_#{uuid}"
+  end
+
   private
     def set_uuid
       UuidGenerator.new(self).generate!
