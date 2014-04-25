@@ -2,7 +2,7 @@ json.(@resource, :id, :name, :email, :avatar, :authentication_token)
 
 json.courses @resource.courses do |course|
 
-  json.(course, :id, :uuid, :name, :weekdays, :start_date, :start_time, :end_date, :end_time)
+  json.(course, :id, :uuid, :name, :weekdays, :start_date, :start_time, :end_date, :end_time, :channel)
   json.teacher(course.teacher, :id, :name, :email)
 
   json.events course.events do |event|

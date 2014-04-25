@@ -31,6 +31,7 @@ describe Api::V1::SessionsController do
         it { expect(controller.current_student).to eq(student) }
 
         it { expect(json["courses"][0]["uuid"]).to eq(course.uuid) }
+        it { expect(json["courses"][0]["channel"]).to eq(course.channel) }
         it { expect(json["courses"][0]["teacher"]["name"]).to eq(course.teacher.name) }
         it { expect(json["name"]).to eq(student.name) }
         it { expect(json["email"]).to eq(student.email) }
@@ -92,6 +93,7 @@ describe Api::V1::SessionsController do
         it { expect(controller.current_teacher).to eq(teacher) }
 
         it { expect(json["courses"][0]["uuid"]).to eq(course.uuid) }
+        it { expect(json["courses"][0]["channel"]).to eq(course.channel) }
         it { expect(json["courses"][0]["events"][0]["uuid"]).to eq(event.uuid) }
         it { expect(json["name"]).to eq(teacher.name) }
         it { expect(json["email"]).to eq(teacher.email) }
