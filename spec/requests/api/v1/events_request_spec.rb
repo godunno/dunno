@@ -10,12 +10,15 @@ describe Api::V1::EventsController do
   let(:option) { create(:option) }
   let(:media_with_url) { build(:media, url: "http://www.example.com", file: nil) }
   let(:media_with_file) { build(:media, file: Tempfile.new("test"), url: nil) }
+  let(:beacon) { create(:beacon) }
   let!(:event) do
     create(:event, course: course,
            topics: [topic],
            thermometers: [thermometer],
            polls: [poll],
-           medias: [media_with_url, media_with_file])
+           medias: [media_with_url, media_with_file],
+           beacon: beacon
+          )
   end
   let(:event_pusher_events) { EventPusherEvents.new(student) }
 
@@ -150,7 +153,7 @@ describe Api::V1::EventsController do
       context "valid content type" do
 
         def do_action
-          get "/api/v1/events/#{event.uuid}/attend.json", auth_params
+          get "/api/v1/events/#{event.uuid}/attend.json", auth_params(student)
         end
 
         before(:each) do
@@ -164,7 +167,6 @@ describe Api::V1::EventsController do
           it { expect(response.status).to eq 403 }
         end
 
-
         context "opened event" do
           let(:event) { create(:event, status: 'opened', title: "New event", topics: [topic], polls: [poll], medias: [media_with_url, media_with_file]) }
           let(:topic) { build(:topic) }
@@ -175,6 +177,13 @@ describe Api::V1::EventsController do
           subject { json }
 
           it { expect(response).to be_success }
+
+          describe "Attendance created" do
+            subject { Attendance.last }
+
+            it { expect(subject.event).to eq(event) }
+            it { expect(subject.student).to eq(student) }
+          end
 
           describe "event" do
             let(:target) { event }
@@ -292,6 +301,50 @@ describe Api::V1::EventsController do
             expect { get "/api/v1/events/989898/timeline.json", auth_params }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
+    end
+  end
+
+  describe "PATCH #validate_attendance" do
+
+    def beacon_hash(beacon)
+      { uuid: beacon.uuid, minor: beacon.minor, major: beacon.major, title: beacon.title }
+    end
+
+    let!(:attendance) { create(:attendance, event: event, student: student) }
+
+    context "correct beacon" do
+      def do_action
+        patch "/api/v1/events/#{event.uuid}/validate_attendance.json", auth_params(student).merge({
+          beacon: beacon_hash(beacon)
+        })
+      end
+
+      before do
+        do_action
+        attendance.reload
+      end
+
+      it { expect(response.status).to eq(200) }
+      it { expect(attendance.validated).to be_true }
+    end
+
+    context "incorrect beacon" do
+
+      let(:incorrect_beacon) { create(:beacon) }
+
+      def do_action
+        patch "/api/v1/events/#{event.uuid}/validate_attendance.json", auth_params(student).merge({
+          beacon: beacon_hash(incorrect_beacon)
+        })
+      end
+
+      before do
+        do_action
+        attendance.reload
+      end
+
+      it { expect(response.status).to eq(400) }
+      it { expect(attendance.validated).to be_false }
     end
   end
 end

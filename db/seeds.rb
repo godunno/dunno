@@ -12,6 +12,7 @@ if Rails.env.development? || Rails.env.staging?
 
   student = Student.create(name: "John Doe", email: "dow@dunno.vc", authentication_token: "svyZww54cxoE3nE8Hqgo", avatar: "http://lorempixel.com/100/100/people/", password: "#dunnovc", password_confirmation: "#dunnovc")
 
+  Teacher.create!(name: "Lucas Boscacci", email: "lucasboscacci@gmail.com", password: "MatteoLucas", password_confirmation: "MatteoLucas", avatar: "http://lorempixel.com/100/100/people/")
   teacher = Teacher.new(name: "Prof. Example", email: "prof@dunno.vc", password: "#dunnovc", password_confirmation: "#dunnovc", avatar: "http://lorempixel.com/100/100/people/")
   teacher.organizations << org
 

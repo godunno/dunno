@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140411205500) do
+ActiveRecord::Schema.define(version: 20140429220313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,28 @@ ActiveRecord::Schema.define(version: 20140411205500) do
   add_index "answers", ["option_id"], name: "index_answers_on_option_id", using: :btree
   add_index "answers", ["student_id"], name: "index_answers_on_student_id", using: :btree
 
+  create_table "attendances", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "event_id"
+    t.boolean  "validated",  default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "attendances", ["event_id"], name: "index_attendances_on_event_id", using: :btree
+  add_index "attendances", ["student_id"], name: "index_attendances_on_student_id", using: :btree
+
+  create_table "beacons", force: true do |t|
+    t.uuid     "uuid"
+    t.integer  "major",      limit: 8
+    t.integer  "minor",      limit: 8
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "beacons", ["uuid"], name: "index_beacons_on_uuid", unique: true, using: :btree
+
   create_table "courses", force: true do |t|
     t.string   "name"
     t.integer  "teacher_id"
@@ -39,7 +61,6 @@ ActiveRecord::Schema.define(version: 20140411205500) do
     t.string   "end_time"
     t.string   "start_time"
     t.string   "classroom"
-    t.integer  "estimote_uuid"
     t.integer  "weekdays",        array: true
   end
 
@@ -66,8 +87,10 @@ ActiveRecord::Schema.define(version: 20140411205500) do
     t.integer  "course_id"
     t.datetime "closed_at"
     t.datetime "opened_at"
+    t.integer  "beacon_id"
   end
 
+  add_index "events", ["beacon_id"], name: "index_events_on_beacon_id", using: :btree
   add_index "events", ["course_id"], name: "index_events_on_course_id", using: :btree
   add_index "events", ["uuid"], name: "index_events_on_uuid", unique: true, using: :btree
 

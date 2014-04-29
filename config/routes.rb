@@ -61,6 +61,7 @@ Dunno::Application.routes.draw do
         member do
           get :attend
           get :timeline
+          patch :validate_attendance
         end
       end
       resources :courses, only: [:index]

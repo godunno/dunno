@@ -11,6 +11,7 @@ describe Event do
     it { should have_many(:thermometers) }
     it { should have_many(:personal_notes) }
     it { should have_many(:medias) }
+    it { should belong_to(:beacon) }
   end
 
   describe "defaults" do

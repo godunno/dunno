@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
   has_many :polls
   has_many :personal_notes
   has_many :medias
+  belongs_to :beacon
 
   validates :title, :start_at, :duration, presence: true
   validates :closed_at, presence: true, if: :closed?
