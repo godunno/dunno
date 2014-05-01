@@ -1,7 +1,7 @@
 dunno
 =======
 
-This is the backend app that implements dashboard to teachers, managers and admins and supports iOS App.
+This is the backend app that implements dashboard to teachers, managers and admins and supports iOS App. 
 
 ## How to run this project?
 
