@@ -41,6 +41,7 @@ group :development do
   gem 'better_errors',        '1.0.1'
   gem 'binding_of_caller',    '0.7.2'
   gem 'letter_opener',        '1.1.2'
+  gem 'rails-erd'
 end
 
 group :test do
