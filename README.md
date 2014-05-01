@@ -8,10 +8,13 @@ This is the backend app that implements dashboard to teachers, managers and admi
 1. ```git clone REPO_URL```
 2. ```cd dunno```
 3. ```bundle```
-4. ```rake db:setup```
-5. ```rake db:seed```
-6. ```foreman start```
-7. Go to http://localhost:3000
+4. ```./bin/bootstrap```
+5. ```rake db:setup```
+6. ```rake db:seed```
+7. ```foreman start```
+8. Go to http://localhost:3000
+
+**Don't forget to run our bootstrap! It contains our team's workflow!**
 
 ### Aditional config
 
