@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "Checking git hooks"
+if [ -e .git/hooks/pre-commit ]; then
+  echo "You already have a pre-commit hook. Please merge it with ./git-hooks/pre-commit to maintain our team workflow."
+else
+  echo "Copying default pre-commit"
+  cp git-hooks/pre-commit .git/hooks
+fi

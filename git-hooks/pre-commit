@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "Generating class diagram..."
+
+bundle exec rake erd attributes=false notation=bachman filename='class_diagram' filetype=png
+git add class_diagram.png
