@@ -1,6 +1,22 @@
 #!/bin/sh
 
-echo "Generating class diagram..."
 
-bundle exec rake erd attributes=false notation=bachman filename='class_diagram' filetype=png
-git add class_diagram.png
+models=`git diff --cached --name-status --diff-filter=ACMR app/models`
+
+if [ -n "$models" ]
+then
+  echo "There were changes in models. Generating class diagram..."
+
+  bundle exec rake erd attributes=false notation=bachman filename='class_diagram' filetype=png
+  git add class_diagram.png
+fi
+
+requests=`git diff --cached --name-status --diff-filter=ACMR spec/requests`
+
+if [ -n "$requests" ]
+then
+  echo "There were changes in requests tests. Running tests and generating documentation..."
+
+  APIPIE_RECORD=examples bundle exec rake spec:requests
+  git add doc/apipie_examples.yml
+fi
