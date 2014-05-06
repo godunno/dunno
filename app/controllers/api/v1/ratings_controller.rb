@@ -1,6 +1,7 @@
 class Api::V1::RatingsController < Api::V1::StudentApplicationController
   respond_to :json
 
+  api :POST, '/api/v1/ratings', "Creates a rating for the given thermometer."
   def create
     rating = Rating.new(rating_params)
     rating.student = current_student

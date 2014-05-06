@@ -35,6 +35,9 @@ GEM
       tzinfo (~> 0.3.37)
     acts_as_votable (0.8.0)
     addressable (2.3.5)
+    apipie-rails (0.1.3)
+      json
+      rails (>= 3.0.10)
     arel (4.0.1)
     atomic (1.1.14)
     awesome_print (1.2.0)
@@ -301,6 +304,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (= 0.8.1)
   acts_as_votable (~> 0.8.0)
+  apipie-rails
   awesome_print (= 1.2.0)
   better_errors (= 1.0.1)
   binding_of_caller (= 0.7.2)
@@ -335,6 +339,7 @@ DEPENDENCIES
   rails_12factor (= 0.0.2)
   recurrence (= 1.2.0)
   rspec-rails (= 2.14.0)
+  safe_yaml (= 1.0.1)
   sass-rails (= 4.0.1)
   sdoc (= 0.3.20)
   secure_headers (= 1.1.0)

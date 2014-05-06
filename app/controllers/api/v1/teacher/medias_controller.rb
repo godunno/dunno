@@ -1,6 +1,7 @@
 class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   respond_to :json
 
+  api :PATCH, '/api/v1/teacher/medias/:id/release', "Releases the media on the timeline."
   def release
     if media.status == "available"
       media.release!

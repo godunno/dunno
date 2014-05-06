@@ -16,11 +16,10 @@ This is the backend app that implements dashboard to teachers, managers and admi
 
 **Don't forget to run our bootstrap! It contains our team's workflow!**
 
-### Aditional config
+### Additional config
 
-You still need to configure Pusher ENV vars, used by Pusher. I recommend put them on . bash file. (this examnple uses a dunno account at Pusher)
-
-   ```$ export PUSHER=true ```
+You still need to configure Pusher ENV vars, used by Pusher. It is
+recommended to put them on your .bash file. (this example uses a dunno account at Pusher)
 
    ```$ export PUSHER_APP_ID=65975 ```
    

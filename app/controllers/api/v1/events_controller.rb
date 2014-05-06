@@ -1,11 +1,13 @@
 class Api::V1::EventsController < Api::V1::StudentApplicationController
   respond_to :json
 
+  api :GET, '/api/v1/events', "Get the student's events list."
   def index
     @events = current_student.events
     respond_with(@events)
   end
 
+  api :GET, '/api/v1/events/:id/attend', "Get the event's data if it's opened and creates an Attendance."
   def attend
     if event.opened?
       respond_with @event
@@ -15,10 +17,12 @@ class Api::V1::EventsController < Api::V1::StudentApplicationController
       Attendance.create!(event: event, student: current_student)
   end
 
+  api :GET, '/api/v1/events/:id/timeline', "Get the event's data."
   def timeline
     respond_with event
   end
 
+  api :PATCH, '/api/v1/events/:id/validate_attendance', "Validates that the student has attended the event."
   def validate_attendance
     if Beacon.where(params[:beacon]).first == event.beacon
       attendance = Attendance.where(event: event, student: current_student).first!

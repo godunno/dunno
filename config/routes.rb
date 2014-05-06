@@ -1,5 +1,6 @@
 Dunno::Application.routes.draw do
 
+  apipie
   devise_for :teachers
   devise_for :students, path: 'api/v1/students', controllers: { sessions: 'api/v1/sessions' }, only: :sessions
   devise_for :students, skip: :sessions

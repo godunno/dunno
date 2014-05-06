@@ -1,6 +1,7 @@
 class Api::V1::MessagesController < Api::V1::StudentApplicationController
   respond_to :json
 
+  api :POST, '/api/v1/timeline/messages', "Creates a timeline message."
   def create
     if timeline.event.closed?
       return render json: { errors: I18n.t('errors.event.closed') }, status: 403
@@ -13,6 +14,7 @@ class Api::V1::MessagesController < Api::V1::StudentApplicationController
     end
   end
 
+  api :POST, '/api/v1/timeline/messages/:id/up', "Upvotes a timeline message."
   def up
     if message.timeline.event.closed?
       return render json: { errors: I18n.t('errors.event.closed') }, status: 403
@@ -22,6 +24,7 @@ class Api::V1::MessagesController < Api::V1::StudentApplicationController
     render json: "{}", status: 200
   end
 
+  api :POST, '/api/v1/timeline/messages/:id/down', "Upvotes a timeline message."
   def down
     if message.timeline.event.closed?
       return render json: { errors: I18n.t('errors.event.closed') }, status: 403
