@@ -1,5 +1,7 @@
 class Poll < ActiveRecord::Base
 
+  acts_as_heir_of :artifact
+
   STATUSES = %w(available released)
 
   belongs_to :event

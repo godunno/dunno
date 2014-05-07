@@ -55,3 +55,4 @@ shared_examples_for "request return check" do |attributes|
     end
   end
 end
+

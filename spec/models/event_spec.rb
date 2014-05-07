@@ -12,6 +12,7 @@ describe Event do
     it { should have_many(:personal_notes) }
     it { should have_many(:medias) }
     it { should belong_to(:beacon) }
+    it { should have_and_belong_to_many(:artifacts) }
   end
 
   describe "defaults" do

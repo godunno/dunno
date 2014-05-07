@@ -27,7 +27,8 @@ gem 'recurrence',             '1.2.0'
 gem 'font-awesome-sass',      '4.0.3.1'
 gem 'carrierwave',            '0.10.0'
 gem 'safe_yaml',              '1.0.1'
-gem 'apipie-rails'
+gem 'apipie-rails',           '0.1.3'
+gem 'cti',                    '0.1.1'
 
 group :production, :staging do
   gem 'rails_12factor',       '0.0.2'

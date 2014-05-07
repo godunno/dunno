@@ -1,5 +1,7 @@
 class Media < ActiveRecord::Base
 
+  acts_as_heir_of :artifact
+
   CATEGORIES = %w(image video audio)
 
   belongs_to :event

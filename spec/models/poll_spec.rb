@@ -4,6 +4,8 @@ describe Poll do
 
   let(:poll) { build(:poll) }
 
+  it_behaves_like "artifact"
+
   describe "associations" do
     it { should belong_to(:event) }
   end

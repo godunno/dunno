@@ -10,6 +10,7 @@ class Event < ActiveRecord::Base
   has_many :personal_notes
   has_many :medias
   belongs_to :beacon
+  has_and_belongs_to_many :artifacts
 
   validates :title, :start_at, :duration, presence: true
   validates :closed_at, presence: true, if: :closed?

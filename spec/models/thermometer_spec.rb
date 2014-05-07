@@ -4,6 +4,8 @@ describe Thermometer do
 
   let(:thermometer) { build(:thermometer) }
 
+  it_behaves_like "artifact"
+
   describe "associations" do
     it { should belong_to(:event) }
     it { should have_many(:ratings) }

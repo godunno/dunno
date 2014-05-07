@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140429220313) do
+ActiveRecord::Schema.define(version: 20140507223500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,25 @@ ActiveRecord::Schema.define(version: 20140429220313) do
 
   add_index "answers", ["option_id"], name: "index_answers_on_option_id", using: :btree
   add_index "answers", ["student_id"], name: "index_answers_on_student_id", using: :btree
+
+  create_table "artifacts", force: true do |t|
+    t.integer  "teacher_id"
+    t.integer  "heir_id"
+    t.string   "heir_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "artifacts", ["heir_id", "heir_type"], name: "index_artifacts_on_heir_id_and_heir_type", unique: true, using: :btree
+  add_index "artifacts", ["teacher_id"], name: "index_artifacts_on_teacher_id", using: :btree
+
+  create_table "artifacts_events", id: false, force: true do |t|
+    t.integer "artifact_id"
+    t.integer "event_id"
+  end
+
+  add_index "artifacts_events", ["artifact_id"], name: "index_artifacts_events_on_artifact_id", using: :btree
+  add_index "artifacts_events", ["event_id"], name: "index_artifacts_events_on_event_id", using: :btree
 
   create_table "attendances", force: true do |t|
     t.integer  "student_id"
