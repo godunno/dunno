@@ -56,3 +56,7 @@ shared_examples_for "request return check" do |attributes|
   end
 end
 
+shared_examples_for "creating an artifact" do
+  it { expect(subject.teacher).to eq teacher }
+  it { expect(subject.event).to eq event }
+end

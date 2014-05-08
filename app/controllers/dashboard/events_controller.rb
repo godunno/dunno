@@ -18,6 +18,9 @@ class Dashboard::EventsController < Dashboard::ApplicationController
 
   def create
     @event = Event.new(event_params)
+    %w(medias polls topics thermometers).each do |attr|
+      @event.send(attr).each { |a| a.teacher = current_teacher }
+    end
     @event.save
     redirect_to action: :index
   end

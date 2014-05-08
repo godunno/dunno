@@ -16,26 +16,28 @@ describe Dashboard::EventsController do
 
     context "authenticated" do
 
+      let(:event_template) { build(:event, title: "TEST EVENT", course: course) }
+
       it "should create the event" do
         expect do
-          post :create, event: event.attributes
+          post :create, event: event_template.attributes
         end.to change{ Event.count }.from(0).to(1)
       end
 
       context "creating an event" do
-        let(:topic) { build :topic, event: event }
-        let(:thermometer) { build :thermometer, event: event }
-        let(:poll) { build :poll, event: event }
+        let(:topic) { build :topic, event: event_template }
+        let(:thermometer) { build :thermometer, event: event_template }
+        let(:poll) { build :poll, event: event_template }
         let(:correct_option) { build :option, content: "Correct Option", correct: true, poll: poll }
         let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false, poll: poll }
         let(:options) { [correct_option, incorrect_option] }
         let(:personal_note) { build :personal_note }
         let(:media_with_url) { build :media }
         let(:media_with_file) { build :media_with_file }
-        let(:start_at) { event.start_at.strftime('%d/%m/%Y %H:%M') }
+        let(:start_at) { event_template.start_at.strftime('%d/%m/%Y %H:%M') }
 
         before do
-          post :create, event: event.attributes.merge(
+          post :create, event: event_template.attributes.merge(
               "start_at" => start_at,
               topics_attributes: { "0" => topic.attributes },
               thermometers_attributes: { "0" => thermometer.attributes },
@@ -53,18 +55,31 @@ describe Dashboard::EventsController do
             )
         end
 
-        subject { Event.last }
+        let(:event) { Event.last }
+        subject { event }
 
-        it { expect(subject.title).to eq(event[:title]) }
+        it { expect(subject.title).to eq(event_template[:title]) }
 
-        it { expect(subject.topics.first.description).to eq topic.description }
         it { expect(subject.topics.count).to eq 1 }
+        describe "topic" do
+          subject { event.topics.first }
+          it_behaves_like "creating an artifact"
+          it { expect(subject.description).to eq topic.description }
+        end
 
-        it { expect(subject.thermometers.first.content).to eq thermometer.content }
         it { expect(subject.thermometers.count).to eq 1 }
+        describe "thermometer" do
+          subject { event.thermometers.first }
+          it_behaves_like "creating an artifact"
+          it { expect(subject.content).to eq thermometer.content }
+        end
 
-        it { expect(subject.polls.first.content).to eq poll.content }
         it { expect(subject.polls.count).to eq 1 }
+        describe "poll" do
+          subject { event.polls.first }
+          it_behaves_like "creating an artifact"
+          it { expect(subject.content).to eq poll.content }
+        end
 
         it { expect(subject.polls.first.options.count).to eq 2 }
         it { expect(subject.polls.first.options.map(&:content)).to match_array options.map(&:content) }
@@ -75,15 +90,24 @@ describe Dashboard::EventsController do
         it { expect(subject.personal_notes.first.done).to be_nil }
 
         it { expect(subject.medias.count).to eq 2 }
-        it { expect(subject.medias.first.title).to eq media_with_url.title }
-        it { expect(subject.medias.first.description).to eq media_with_url.description }
-        it { expect(subject.medias.first.category).to eq media_with_url.category }
-        it { expect(subject.medias.first.url).to eq media_with_url.url }
 
-        it { expect(subject.medias.last.title).to eq media_with_file.title }
-        it { expect(subject.medias.last.description).to eq media_with_file.description }
-        it { expect(subject.medias.last.category).to eq media_with_file.category }
-        it { expect(subject.medias.last.file.file.identifier).to eq media_with_file.file.file.identifier }
+        describe "media with url" do
+          subject { event.medias.first }
+          it_behaves_like "creating an artifact"
+          it { expect(subject.title).to eq media_with_url.title }
+          it { expect(subject.description).to eq media_with_url.description }
+          it { expect(subject.category).to eq media_with_url.category }
+          it { expect(subject.url).to eq media_with_url.url }
+        end
+
+        describe "media with file" do
+          subject { event.medias.last }
+          it_behaves_like "creating an artifact"
+          it { expect(subject.title).to eq media_with_file.title }
+          it { expect(subject.description).to eq media_with_file.description }
+          it { expect(subject.category).to eq media_with_file.category }
+          it { expect(subject.file.file.identifier).to eq media_with_file.file.file.identifier }
+        end
 
         it { expect(subject.start_at.strftime('%d/%m/%Y %H:%M')).to eq(start_at) }
       end
