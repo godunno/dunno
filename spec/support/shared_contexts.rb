@@ -58,5 +58,5 @@ end
 
 shared_examples_for "creating an artifact" do
   it { expect(subject.teacher).to eq teacher }
-  it { expect(subject.event).to eq event }
+  it { expect(subject.events).to include event }
 end

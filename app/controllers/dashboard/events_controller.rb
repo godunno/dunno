@@ -3,25 +3,30 @@ class Dashboard::EventsController < Dashboard::ApplicationController
 
   def index
     @events = if course
-      course.events
-    else
-      current_teacher.events
-    end
+                course.events
+              else
+                current_teacher.events
+              end
     respond_with @events
   end
 
   def new
     @event = Event.new
-    @event.topics.build
-    @event.thermometers.build
   end
 
   def create
-    @event = Event.new(event_params)
-    %w(medias polls topics thermometers).each do |attr|
-      @event.send(attr).each { |a| a.teacher = current_teacher }
+    Event.transaction do
+      @event = Event.new(event_params)
+      %w(medias polls topics thermometers).each do |attr|
+        send("#{attr}_params")["#{attr}_attributes"].try(:each) do |i, artifact_params|
+          artifact = attr.singularize.capitalize.constantize.new(artifact_params)
+          artifact.events << @event
+          artifact.teacher = current_teacher
+          artifact.save!
+        end
+      end
+      @event.save
     end
-    @event.save
     redirect_to action: :index
   end
 
@@ -52,24 +57,35 @@ class Dashboard::EventsController < Dashboard::ApplicationController
 
   private
 
-    def event
-      @event ||= Event.where(uuid: params[:id]).first
-    end
+  def event
+    @event ||= Event.where(uuid: params[:id]).first
+  end
 
-    def course
-      @course ||= Course.where(uuid: params[:course_id]).first
-    end
+  def course
+    @course ||= Course.where(uuid: params[:course_id]).first
+  end
 
-    def event_params
-      params.require(:event).permit(
-        :title, :start_at, :duration, :status,
-        topics_attributes: [:id, :description, :_destroy],
-        thermometers_attributes: [:id, :content, :_destroy],
-        polls_attributes: [:id, :content, :status, :_destroy,
-          options_attributes: [:id, :content, :correct, :_destroy]
-        ],
-        personal_notes_attributes: [:id, :content, :_destroy],
-        medias_attributes: [:id, :title, :description, :url, :category, :file, :_destroy]
-      )
-    end
+  def topics_params
+    params[:event].permit(topics_attributes: [:id, :description, :_destroy])
+  end
+
+  def polls_params
+    params[:event].permit(polls_attributes: [:id, :content, :status, :_destroy,
+                          options_attributes: [:id, :content, :correct, :_destroy]])
+  end
+
+  def thermometers_params
+    params[:event].permit(thermometers_attributes: [:id, :content, :_destroy])
+  end
+
+  def medias_params
+    params[:event].permit(medias_attributes: [:id, :title, :description, :url, :category, :file, :_destroy])
+  end
+
+  def event_params
+    params.require(:event).permit(
+      :title, :start_at, :duration, :status,
+      personal_notes_attributes: [:id, :content, :_destroy]
+    )
+  end
 end

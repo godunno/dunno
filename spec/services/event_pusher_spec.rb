@@ -96,7 +96,7 @@ describe EventPusher do
 
   describe "#release_poll" do
 
-    let(:poll) { create :poll, event: event }
+    let(:poll) { create :poll, events: [event] }
 
     before do
       @event_pusher.release_poll(poll)
@@ -113,7 +113,7 @@ describe EventPusher do
 
   describe "#release_media" do
 
-    let(:media) { create :media, event: event }
+    let(:media) { create :media, events: [event] }
 
     before do
       @event_pusher.release_media(media)

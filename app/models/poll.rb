@@ -4,7 +4,6 @@ class Poll < ActiveRecord::Base
 
   STATUSES = %w(available released)
 
-  belongs_to :event
   has_many :options
 
   validates :content, presence: true

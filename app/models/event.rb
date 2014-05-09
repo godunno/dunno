@@ -4,13 +4,16 @@ class Event < ActiveRecord::Base
 
   belongs_to :course
   has_one :timeline
-  has_many :topics
   has_many :thermometers, inverse_of: :event
   has_many :polls
   has_many :personal_notes
   has_many :medias
   belongs_to :beacon
   has_and_belongs_to_many :artifacts
+  has_many :topics,       through: :artifacts, source: :heir, source_type: 'Topic'
+  has_many :polls,        through: :artifacts, source: :heir, source_type: 'Poll'
+  has_many :thermometers, through: :artifacts, source: :heir, source_type: 'Thermometer'
+  has_many :medias,       through: :artifacts, source: :heir, source_type: 'Media'
 
   validates :title, :start_at, :duration, presence: true
   validates :closed_at, presence: true, if: :closed?
@@ -43,6 +46,14 @@ class Event < ActiveRecord::Base
     self.status = "opened"
     self.opened_at = Time.now
     save!
+  end
+
+  %w(topics polls medias thermometers).each do |attr|
+    define_method "#{attr}=" do |artifacts|
+      artifacts.each do |artifact|
+        self.artifacts << artifact.predecessor
+      end
+    end
   end
 
   private

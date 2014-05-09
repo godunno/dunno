@@ -169,10 +169,10 @@ describe Api::V1::EventsController do
 
         context "opened event" do
           let(:event) { create(:event, status: 'opened', title: "New event", topics: [topic], polls: [poll], medias: [media_with_url, media_with_file]) }
-          let(:topic) { build(:topic) }
-          let(:poll) { create(:poll, options: [option]) }
+          let!(:topic) { create(:topic) }
+          let!(:poll) { create(:poll, options: [option]) }
           let(:option) { create(:option) }
-          let(:media) { create(:media) }
+          let!(:media) { create(:media) }
 
           subject { json }
 

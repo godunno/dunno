@@ -4,8 +4,9 @@ describe Api::V1::AnswersController do
   describe "POST /api/v1/answers" do
 
     let(:student) { create(:student) }
-    let(:option) { create(:option) }
-    let(:event) { option.poll.event }
+    let(:option) { create(:option, poll: poll) }
+    let(:poll) { create(:poll, events: [event]) }
+    let(:event) { create(:event) }
 
     it_behaves_like "API authentication required"
 

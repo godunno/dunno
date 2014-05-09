@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :thermometer do
-    event
     content "MyString"
   end
 end

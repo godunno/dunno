@@ -4,8 +4,6 @@ class Media < ActiveRecord::Base
 
   CATEGORIES = %w(image video audio)
 
-  belongs_to :event
-
   validates :title, presence: true
   validates :category, presence: true, inclusion: { in: CATEGORIES }
   validates :url, format: URI::regexp(:http), allow_blank: true

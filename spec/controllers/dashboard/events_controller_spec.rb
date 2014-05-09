@@ -25,9 +25,9 @@ describe Dashboard::EventsController do
       end
 
       context "creating an event" do
-        let(:topic) { build :topic, event: event_template }
-        let(:thermometer) { build :thermometer, event: event_template }
-        let(:poll) { build :poll, event: event_template }
+        let(:topic) { build :topic, events: [event_template] }
+        let(:thermometer) { build :thermometer, events: [event_template] }
+        let(:poll) { build :poll, events: [event_template] }
         let(:correct_option) { build :option, content: "Correct Option", correct: true, poll: poll }
         let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false, poll: poll }
         let(:options) { [correct_option, incorrect_option] }

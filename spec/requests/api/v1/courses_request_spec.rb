@@ -8,8 +8,8 @@ describe Api::V1::CoursesController do
   let(:thermometer) { create(:thermometer) }
   let(:poll) { create(:poll, options: [option]) }
   let(:option) { create(:option) }
-  let(:media_with_url) { build(:media, url: "http://www.example.com", file: nil) }
-  let(:media_with_file) { build(:media, file: Tempfile.new("test"), url: nil) }
+  let(:media_with_url) { create(:media, url: "http://www.example.com", file: nil) }
+  let(:media_with_file) { create(:media, file: Tempfile.new("test"), url: nil) }
   let!(:event) do
     create(:event, course: course,
            topics: [topic],

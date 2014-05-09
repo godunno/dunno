@@ -7,7 +7,6 @@ describe Media do
   it_behaves_like "artifact"
 
   describe "associations" do
-    it { should belong_to(:event) }
   end
 
   describe "validations" do
