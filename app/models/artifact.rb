@@ -4,4 +4,5 @@ class Artifact < ActiveRecord::Base
 
   belongs_to :teacher
   has_and_belongs_to_many :events
+  has_one :interaction, as: :interaction, class_name: 'TimelineInteraction'
 end

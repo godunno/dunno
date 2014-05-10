@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Artifact do
 
+  describe "associations" do
+    it { should have_one(:interaction) }
+  end
+
   shared_examples_for "artifact common examples" do
     it { should respond_to(:teacher) }
     it { should respond_to(:events) }
