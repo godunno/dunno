@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :thermometer do
+    timeline
     content "MyString"
   end
 end

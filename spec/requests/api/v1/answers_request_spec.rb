@@ -5,7 +5,7 @@ describe Api::V1::AnswersController do
 
     let(:student) { create(:student) }
     let(:option) { create(:option, poll: poll) }
-    let(:poll) { create(:poll, events: [event]) }
+    let(:poll) { create(:poll, timeline: event.timeline) }
     let(:event) { create(:event) }
 
     it_behaves_like "API authentication required"

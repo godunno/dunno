@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :media do
+    timeline
     title "MyString"
     description "MyString"
     category Media::CATEGORIES.first

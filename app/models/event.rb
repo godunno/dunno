@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   has_many :personal_notes
   has_many :medias
   belongs_to :beacon
-  has_and_belongs_to_many :artifacts
+  has_many :artifacts, through: :timeline
   has_many :topics,       through: :artifacts, source: :heir, source_type: 'Topic'
   has_many :polls,        through: :artifacts, source: :heir, source_type: 'Poll'
   has_many :thermometers, through: :artifacts, source: :heir, source_type: 'Thermometer'
@@ -19,12 +19,17 @@ class Event < ActiveRecord::Base
   validates :closed_at, presence: true, if: :closed?
 
   after_create :set_uuid
-  after_create :set_timeline
+  before_save :set_timeline
   after_initialize :set_start_at
 
   accepts_nested_attributes_for :topics, :thermometers, :polls, :personal_notes, :medias, allow_destroy: true
 
   default_scope { order(:start_at) }
+
+  def initialize(*args)
+    super
+    set_timeline
+  end
 
   def channel
     "event_#{uuid}"
@@ -51,7 +56,8 @@ class Event < ActiveRecord::Base
   %w(topics polls medias thermometers).each do |attr|
     define_method "#{attr}=" do |artifacts|
       artifacts.each do |artifact|
-        self.artifacts << artifact.predecessor
+        timeline.artifacts << artifact.predecessor
+        artifact.timeline = timeline
       end
     end
   end
@@ -62,7 +68,7 @@ class Event < ActiveRecord::Base
     end
 
     def set_timeline
-      self.timeline = Timeline.create!(start_at: start_at)
+      self.timeline ||= Timeline.new(start_at: start_at)
     end
 
     def set_start_at

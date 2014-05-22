@@ -12,7 +12,6 @@ describe Event do
     it { should have_many(:personal_notes) }
     it { should have_many(:medias) }
     it { should belong_to(:beacon) }
-    it { should have_and_belong_to_many(:artifacts) }
   end
 
   describe "defaults" do
@@ -45,6 +44,13 @@ describe Event do
 
   describe "callbacks" do
 
+    describe "after initialize" do
+
+      it "creates a new timeline" do
+        expect(Event.new.timeline).to_not be_nil
+      end
+    end
+
     describe "after create" do
 
       let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
@@ -58,12 +64,6 @@ describe Event do
           expect do
             event.save!
           end.to change{event.uuid}.from(nil).to(uuid)
-        end
-
-        it "creates a new timeline" do
-          expect do
-            event.save!
-          end.to change{event.timeline}.from(nil).to(Timeline)
         end
       end
 

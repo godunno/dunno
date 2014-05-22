@@ -56,7 +56,7 @@ class EventPusher
   def pusher_poll_json(poll)
     Jbuilder.encode do |json|
       json.(poll, :uuid, :content)
-      json.event(poll.events.first, :uuid)
+      json.event(poll.event, :uuid)
       json.options(poll.options, :uuid, :content)
     end
   end
@@ -64,7 +64,7 @@ class EventPusher
   def pusher_media_json(media)
     Jbuilder.encode do |json|
       json.(media, :uuid, :title, :description, :url, :category)
-      json.event(media.events.first, :uuid)
+      json.event(media.event, :uuid)
     end
   end
 

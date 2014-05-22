@@ -20,7 +20,7 @@ class Dashboard::EventsController < Dashboard::ApplicationController
       %w(medias polls topics thermometers).each do |attr|
         send("#{attr}_params")["#{attr}_attributes"].try(:each) do |i, artifact_params|
           artifact = attr.singularize.capitalize.constantize.new(artifact_params)
-          artifact.events << @event
+          artifact.timeline = @event.timeline
           artifact.teacher = current_teacher
           artifact.save!
         end

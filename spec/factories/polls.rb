@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :poll do
+    timeline
     content "MyString"
     status 'available'
   end

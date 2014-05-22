@@ -25,9 +25,9 @@ describe Dashboard::EventsController do
       end
 
       context "creating an event" do
-        let(:topic) { build :topic, events: [event_template] }
-        let(:thermometer) { build :thermometer, events: [event_template] }
-        let(:poll) { build :poll, events: [event_template] }
+        let(:topic) { build :topic, timeline: event_template.timeline }
+        let(:thermometer) { build :thermometer, timeline: event_template.timeline }
+        let(:poll) { build :poll, timeline: event_template.timeline }
         let(:correct_option) { build :option, content: "Correct Option", correct: true, poll: poll }
         let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false, poll: poll }
         let(:options) { [correct_option, incorrect_option] }
@@ -55,7 +55,7 @@ describe Dashboard::EventsController do
             )
         end
 
-        let(:event) { Event.last }
+        let(:event) { assigns(:event) }
         subject { event }
 
         it { expect(subject.title).to eq(event_template[:title]) }
