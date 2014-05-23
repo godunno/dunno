@@ -6,7 +6,7 @@ class Api::V1::MessagesController < Api::V1::StudentApplicationController
     if timeline.event.closed?
       return render json: { errors: I18n.t('errors.event.closed') }, status: 403
     end
-    message_creator = TimelineMessageCreator.new(params[:timeline_user_message])
+    message_creator = CreateTimelineMessage.new(params[:timeline_user_message])
     if message_creator.save!
       respond_with message_creator.timeline_user_message, location: nil
     else

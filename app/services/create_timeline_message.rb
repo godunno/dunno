@@ -1,4 +1,4 @@
-class TimelineMessageCreator
+class CreateTimelineMessage
   include ActiveModel::Model
 
   attr_accessor :timeline_id, :student_id, :content

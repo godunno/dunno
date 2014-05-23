@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe TimelineMessageCreator do
+describe CreateTimelineMessage do
   let!(:timeline) { create(:timeline) }
   let!(:student) { create(:student) }
-  let(:message_creator) { TimelineMessageCreator.new(attributes) }
+  let(:message_creator) { CreateTimelineMessage.new(attributes) }
 
   describe "#save", vcr: { match_requests_on: [:method, :host, :path]} do
 
