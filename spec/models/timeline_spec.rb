@@ -13,7 +13,7 @@ describe Timeline do
 
   describe "#interactions" do
     let(:timeline) { create :timeline }
-    let(:message) { create :timeline_user_message }
+    let(:message) { create :timeline_message }
 
     before do
       create(:timeline_interaction, timeline: timeline, interaction: message)

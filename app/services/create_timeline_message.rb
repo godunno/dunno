@@ -5,21 +5,21 @@ class CreateTimelineMessage
 
   def save!
     ActiveRecord::Base.transaction do
-      create_timeline_user_message && create_timeline_interaction && sends_pusher_notification
+      create_timeline_message && create_timeline_interaction && sends_pusher_notification
     end
   end
 
-  def timeline_user_message
-    @timeline_user_message ||= TimelineUserMessage.new(content: @content, student: student)
+  def timeline_message
+    @timeline_message ||= TimelineMessage.new(content: @content, student: student)
   end
 
   private
-    def create_timeline_user_message
-      timeline_user_message.save
+    def create_timeline_message
+      timeline_message.save
     end
 
     def create_timeline_interaction
-      TimelineInteraction.create(interaction: timeline_user_message, timeline: timeline)
+      TimelineInteraction.create(interaction: timeline_message, timeline: timeline)
     end
 
     def timeline
@@ -31,6 +31,6 @@ class CreateTimelineMessage
     end
 
     def sends_pusher_notification
-      EventPusher.new(timeline.event).student_message(@timeline_user_message)
+      EventPusher.new(timeline.event).student_message(@timeline_message)
     end
 end

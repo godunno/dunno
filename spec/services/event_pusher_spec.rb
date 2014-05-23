@@ -13,7 +13,7 @@ describe EventPusher do
 
   describe "#student_message" do
 
-    let(:message) { create :timeline_user_message }
+    let(:message) { create :timeline_message }
     let(:timeline) { create :timeline }
     let(:student) { create :student }
 
@@ -46,7 +46,7 @@ describe EventPusher do
 
   describe "#up_down_vote_message" do
 
-    let(:message) { create :timeline_user_message }
+    let(:message) { create :timeline_message }
 
     before do
       @event_pusher.up_down_vote_message(message)

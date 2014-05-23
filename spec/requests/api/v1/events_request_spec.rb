@@ -130,7 +130,7 @@ describe Api::V1::EventsController do
 
   describe "GET /api/v1/events/1/attend" do
 
-    let(:message) { create :timeline_user_message }
+    let(:message) { create :timeline_message }
 
     before do
       create(:timeline_interaction, timeline: event.timeline, interaction: message)
@@ -272,7 +272,7 @@ describe Api::V1::EventsController do
 
   describe "GET /api/v1/events/1/timeline" do
 
-    let(:message) { create :timeline_user_message }
+    let(:message) { create :timeline_message }
     let!(:timeline_interaction) { create(:timeline_interaction, timeline: event.timeline, interaction: message) }
 
     it_behaves_like "API authentication required"

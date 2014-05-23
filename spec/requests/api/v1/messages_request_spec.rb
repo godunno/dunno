@@ -14,7 +14,7 @@ describe Api::V1::MessagesController do
 
       def do_action
         params = {
-          timeline_user_message: {
+          timeline_message: {
             timeline_id: timeline.id,
             student_id: student.id,
             content: "Some message here"
@@ -32,7 +32,7 @@ describe Api::V1::MessagesController do
 
           let(:message_params) do
             {
-              timeline_user_message: {
+              timeline_message: {
                 timeline_id: timeline.id,
                 student_id: student.id,
                 content: "Some message here"
@@ -60,7 +60,7 @@ describe Api::V1::MessagesController do
           context "with invalid content" do
             let(:message_params) do
               {
-                timeline_user_message: {
+                timeline_message: {
                   timeline_id: timeline.id,
                   student_id: student.id,
                   content: ""
@@ -79,7 +79,7 @@ describe Api::V1::MessagesController do
         context "when does not receives valid timeline id" do
           let(:message_params) do
             {
-              timeline_user_message: {
+              timeline_message: {
                 timeline_id: "989898",
                 student_id: student.id,
                 content: "Some message here"
@@ -103,7 +103,7 @@ describe Api::V1::MessagesController do
 
       let(:event) { create(:event) }
       let(:student) { create(:student) }
-      let(:message) { create(:timeline_user_message) }
+      let(:message) { create(:timeline_message) }
 
       before do
         create(:timeline_interaction, timeline: event.timeline, interaction: message)
@@ -162,7 +162,7 @@ describe Api::V1::MessagesController do
 
       let(:event) { create(:event) }
       let(:student) { create(:student) }
-      let(:message) { create(:timeline_user_message) }
+      let(:message) { create(:timeline_message) }
 
       before do
         create(:timeline_interaction, timeline: event.timeline, interaction: message)

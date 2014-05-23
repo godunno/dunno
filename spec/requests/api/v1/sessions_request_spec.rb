@@ -7,13 +7,13 @@ describe Api::V1::SessionsController do
   let!(:course) { create(:course, students: [student], teacher: teacher) }
   let!(:event) { create(:event, course: course) }
   let!(:message_one) do
-    message = create(:timeline_user_message, content: "First message")
+    message = create(:timeline_message, content: "First message")
     create(:timeline_interaction, timeline: event.timeline, interaction: message)
     message.vote_by(create(:student))
     message
   end
   let!(:message_two) do
-    message = create(:timeline_user_message, content: "Second message")
+    message = create(:timeline_message, content: "Second message")
     create(:timeline_interaction, timeline: event.timeline, interaction: message)
     message
   end

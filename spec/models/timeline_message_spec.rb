@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TimelineUserMessage do
+describe TimelineMessage do
   describe "associations" do
     it { should belong_to(:student) }
     it { should have_one(:timeline_interaction) }

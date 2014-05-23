@@ -19,7 +19,7 @@ describe CreateTimelineMessage do
       it "creates a timeline user message" do
         expect do
           message_creator.save!
-        end.to change{TimelineUserMessage.count}.from(0).to(1)
+        end.to change{TimelineMessage.count}.from(0).to(1)
       end
 
       it "creates a timeline interaction" do
@@ -43,7 +43,7 @@ describe CreateTimelineMessage do
         it "does not save the timeline user message " do
           expect do
             message_creator.save!
-          end.to_not change{TimelineUserMessage.count}.from(0)
+          end.to_not change{TimelineMessage.count}.from(0)
         end
       end
 

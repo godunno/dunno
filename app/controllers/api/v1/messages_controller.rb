@@ -6,11 +6,11 @@ class Api::V1::MessagesController < Api::V1::StudentApplicationController
     if timeline.event.closed?
       return render json: { errors: I18n.t('errors.event.closed') }, status: 403
     end
-    message_creator = CreateTimelineMessage.new(params[:timeline_user_message])
+    message_creator = CreateTimelineMessage.new(params[:timeline_message])
     if message_creator.save!
-      respond_with message_creator.timeline_user_message, location: nil
+      respond_with message_creator.timeline_message, location: nil
     else
-      render json: { errors: message_creator.timeline_user_message.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: message_creator.timeline_message.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -37,11 +37,11 @@ class Api::V1::MessagesController < Api::V1::StudentApplicationController
   private
 
     def timeline
-      @timeline ||= Timeline.find(params[:timeline_user_message][:timeline_id])
+      @timeline ||= Timeline.find(params[:timeline_message][:timeline_id])
     end
 
     def message
-      @message ||= TimelineUserMessage.find(params[:id])
+      @message ||= TimelineMessage.find(params[:id])
     end
 
     def student
