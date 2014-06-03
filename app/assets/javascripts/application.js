@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require jquery_nested_form
 //= require js/bootstrap.min.js
 //= require js/jquery.dcjqaccordion.2.7.js
 //= require js/jquery.scrollTo.min.js
@@ -25,6 +23,10 @@
 //= require assets/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.pt-BR.js
 //= require assets/bootstrap-timepicker/js/bootstrap-timepicker.js
 //= require assets/bootstrap-datepicker/js/bootstrap-datepicker.js
+//= require angular
+//= require angular-resource
+//= require angular-route
+//= require_tree ./angular/
 //= require inputs.js
 
 function ready() {

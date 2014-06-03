@@ -7,7 +7,6 @@ class Event < ActiveRecord::Base
   has_many :thermometers, inverse_of: :event
   has_many :polls
   has_many :personal_notes
-  has_many :medias
   belongs_to :beacon
   has_many :artifacts, through: :timeline
   has_many :topics,       through: :artifacts, source: :heir, source_type: 'Topic'

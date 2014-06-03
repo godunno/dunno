@@ -21,7 +21,6 @@ gem 'devise',                 '3.2.2'
 gem 'acts_as_votable',        '~> 0.8.0'
 gem 'active_model_serializers', '0.8.1'
 gem 'pusher',                   '0.12.0'
-gem 'nested_form',            '0.3.2'
 gem 'tod',                    '1.3.0'
 gem 'recurrence',             '1.2.0'
 gem 'font-awesome-sass',      '4.0.3.1'
@@ -31,6 +30,10 @@ gem 'apipie-rails',           '0.1.3'
 gem 'cti',                    '0.1.1'
 gem 'forem',                  '1.0.0.beta1', github: 'radar/forem', branch: 'rails4'
 gem 'kaminari',               '0.15.1'
+gem 'bower-rails'
+
+group :assets do
+end
 
 group :production, :staging do
   gem 'rails_12factor',       '0.0.2'
@@ -47,10 +50,12 @@ group :development do
   gem 'binding_of_caller',    '0.7.2'
   gem 'letter_opener',        '1.1.2'
   gem 'rails-erd'
+  gem 'libnotify'
 end
 
 group :test do
-  gem 'shoulda-matchers',     '2.4.0'
+  gem 'rspec-rails',          '2.14.0'
+  gem 'shoulda-matchers',     '2.4.0', require: false
   gem 'simplecov',            '0.8.2', require: false
   gem 'email_spec',           '1.5.0'
   gem 'capybara',             '2.1.0'
@@ -59,7 +64,6 @@ group :test do
 end
 
 group :development, :test do
-  gem 'rspec-rails',          '2.14.0'
   gem 'factory_girl_rails',   '4.3.0'
   gem 'pry-rails',            '0.3.2'
   gem 'dotenv-rails',         '0.9.0'
@@ -67,6 +71,7 @@ group :development, :test do
   gem 'vcr',                  '2.8.0'
   gem 'webmock',              '1.17.3'
   gem 'timecop',              '0.7.1'
+  gem 'guard-rspec', require: false
 end
 
 group :doc do

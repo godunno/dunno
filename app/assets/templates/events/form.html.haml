@@ -1,0 +1,48 @@
+%form.event-form.simple_form.form-vertical{'ng-submit' => 'save(event)'}
+  %input{ :type => "hidden", :value => "{{event.course_id}}"}
+  .form-group.required
+    %label.required.control-label{:for => "event_title"} Title
+    .controls
+      %input.required.form-control{'ng-model' => 'event.title', :type => "text"}
+  .form-group.required
+    %label.required.control-label{:for => "event_start_at"} Start at
+    .controls
+      %input.required.form-control.datetimepicker{'ng-model' => 'event.start_at', :type => "text"}
+  .form-group.required
+    %label.required.control-label{:for => "event_duration"} Duration
+    .controls
+      %input.required.form-control.timepicker{'ng-model' => 'event.duration', "data-default-time" => "value", "data-show-meridian" => "false", :type => "text"}
+  .panel
+    .panel-heading Topics
+    .panel-body
+      .fields{'ng-repeat' => 'topic in event.topics'}
+        .row
+          .form-group.required.col-lg-8
+            .controls
+              %input.required.form-control{'ng-model' => 'topic.description', :type => "text"}
+          %a.remove_nested_fields{'ng-click' => 'remove(event.topics, topic)'} ×
+      %a.btn.btn-success{'ng-click' => 'newItem(event.topics)'} Add Topic
+  .panel
+    .panel-heading Thermometers
+    .panel-body
+      .fields{'ng-repeat' => 'thermometer in event.thermometers'}
+        .row
+          .form-group.required.col-lg-8
+            .controls
+              %input.required.form-control{'ng-model' => 'thermometer.content', :type => "text"}
+          %a.remove_nested_fields{'ng-click' => 'remove(event.thermometers, thermometer)'} ×
+      %a.btn.btn-success{'ng-click' => 'newItem(event.thermometers)'} Add Thermometer
+  .panel
+    .panel-heading Polls
+    .panel-body
+      %a.btn.btn-success{} Add Poll
+  .panel
+    .panel-heading Personal Notes
+    .panel-body
+      %a.btn.btn-success{} Add Personal Note
+  .panel
+    .panel-heading Medias
+    .panel-body
+      %a.btn.btn-success{} Add Media
+  %input.btn{:type => "submit", :value => "Criar Evento"}
+%a.btn{:href => "#/courses"} Back

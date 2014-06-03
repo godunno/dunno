@@ -2,15 +2,15 @@ require 'spec_helper'
 
 describe Api::V1::Teacher::PollsController do
 
-  describe "PATCH #release" do
+  describe "PATCH /api/v1/teacher/polls/:uuid/release.json" do
 
-    it_behaves_like "Dashboard authentication required"
+    it_behaves_like "API authentication required"
 
     context "authenticated" do
       let(:poll) { create :poll }
 
       def do_action
-        patch "/api/v1/teacher/polls/#{poll.uuid}/release", auth_params(:teacher)
+        patch "/api/v1/teacher/polls/#{poll.uuid}/release.json", auth_params(:teacher)
       end
 
       before do

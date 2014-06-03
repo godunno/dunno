@@ -25,7 +25,7 @@ class Media < ActiveRecord::Base
     end
 
     def mutually_exclusive_url_and_file
-      if self.url && self.file.file.try(:exists?)
+      if self.url.present? && self.file.file.try(:exists?)
         errors.add(:url)
       end
     end

@@ -8,30 +8,13 @@ Dunno::Application.routes.draw do
     post 'api/v1/teachers/sign_in' => 'api/v1/sessions#create'
   end
 
-  get '/', to: redirect('dashboard/courses')
-
-  namespace :dashboard do
-    resources :topics
-    resources :polls, only: [] do
-      member do
-        patch :release
-      end
-    end
-    resources :courses
-    resources :events do
-      member do
-        patch :open
-        patch :close
-      end
-    end
-    resources :organizations, only: [] do
-    end
-  end
+  root 'dashboard/application#index'
 
   namespace :api do
     namespace :v1 do
       namespace :teacher do
-        resources :events, only: [] do
+        resources :courses, only: [:index, :create, :update, :destroy, :show]
+        resources :events, only: [:index, :create, :update, :destroy, :show] do
           member do
             patch :open
             patch :close

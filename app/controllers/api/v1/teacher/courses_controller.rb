@@ -1,18 +1,28 @@
-class Dashboard::CoursesController < Dashboard::ApplicationController
-  respond_to :html, only: [:new, :edit, :index]
+class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationController
+  respond_to :json
 
   def index
     @courses = current_teacher.courses
-    respond_with @courses
+    respond_with @courses.to_json(root: false)
   end
 
-  def new
-    @course = Course.new(teacher: current_teacher)
+  def show
+    if course
+      respond_with course.to_json(include: :events)
+    else
+      render nothing: true, status: 404
+    end
+  end
+
+  def destroy
+    course.destroy
+    render nothing: true
   end
 
   def create
     @course = Course.new(course_params)
     @course.teacher = current_teacher
+
     ActiveRecord::Base.transaction do
       @course.save
       start_time = TimeOfDay.parse(@course.start_time)
@@ -24,30 +34,32 @@ class Dashboard::CoursesController < Dashboard::ApplicationController
         @course.events << Event.new(start_at: time, duration: duration.to_s, status: "available", title: @course.name)
       end
     end
-    redirect_to action: :index
-  end
-
-  def edit
-    course
+    @course.save
+    render nothing: true
   end
 
   def update
-    course.update_attributes(course_params)
-    redirect_to action: :index
+    course.update(course_params)
+    render nothing: true
   end
 
-  def destroy
-    course.destroy
-    redirect_to action: :index
-  end
 
   private
 
     def course
-      @course ||= Course.where(uuid: params[:id]).first!
+      @course ||= current_teacher.courses.
+        where(uuid: params[:id]).first
     end
 
     def course_params
-      params.require(:course).permit(:name, :organization_id, :start_date, :end_date, :start_time, :end_time, weekdays: [])
+      params.require(:course).
+        permit(:name,
+               :organization_id,
+               :start_date,
+               :end_date,
+               :start_time,
+               :end_time,
+               :classroom,
+               weekdays: [])
     end
 end

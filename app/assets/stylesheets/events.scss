@@ -1,9 +1,10 @@
 
-.edit_event, .new_event {
+.event-form {
   .remove_nested_fields {
     margin-top: 8px;
     display: inline-block;
     color: red;
+    cursor: pointer;
   }
 
   .event_polls_options_correct label.checkbox {

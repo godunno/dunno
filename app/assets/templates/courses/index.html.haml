@@ -1,0 +1,21 @@
+.panel
+  .panel-heading Matérias
+  .panel-body
+    %table.table.table-striped.table-advance.table-hover
+      %tbody
+        %tr{ 'ng-repeat' => 'course in courses' }
+          %td {{course.name}}
+          %td {{course.start_date}}
+          %td {{course.end_date}}
+          %td {{course.start_time}}
+          %td {{course.end_time}}
+          %td {{course.weekdays}}
+          %td {{course.classroom}}
+          %td
+            %a.btn.btn-primary.btn-xs{ 'href' => '#/courses/{{course.uuid}}' }
+              %i.fa.fa-table
+            %a.btn.btn-primary.btn-xs{ 'href' => '#/courses/{{course.uuid}}/edit' }
+              %i.fa.fa-pencil
+            %a.btn.btn-danger.btn-xs{ 'ng-click' => 'delete(course)' }
+              %i.fa.fa-trash-o
+    %a.btn.btn-primary{ 'href' => '#/courses/new' } Nova Matéria
