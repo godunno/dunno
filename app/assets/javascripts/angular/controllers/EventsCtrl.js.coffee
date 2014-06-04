@@ -5,6 +5,9 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils)->
   $scope.event = new Event()
   $scope.event = Event.get(id: $routeParams.id) if $routeParams.id
 
+  $scope.media_categories = ['image', 'video', 'audio']
+  $scope.media_types = [{value: 'url', name: 'URL'}, {value: 'file', name: 'File'}]
+
   $scope.save = (event)->
     promise = if event.id? then event.$update() else event.save()
     promise.then (response)->

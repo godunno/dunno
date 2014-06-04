@@ -8,7 +8,7 @@ describe Api::V1::Teacher::EventsController do
 
   let(:event_pusher_events) { EventPusherEvents.new(teacher) }
 
-  describe "GET /api/v1/teacher/events/:uuid.json", :wip do
+  describe "GET /api/v1/teacher/events/:uuid.json" do
 
     let(:topic) { create(:topic) }
     let(:thermometer) { create(:thermometer) }
@@ -17,12 +17,14 @@ describe Api::V1::Teacher::EventsController do
     let(:media_with_url) { create(:media, url: "http://www.example.com", file: nil) }
     let(:media_with_file) { create(:media, file: Tempfile.new("test"), url: nil) }
     let(:beacon) { create(:beacon) }
+    let(:personal_note) { create(:personal_note) }
     let!(:event) do
       create(:event,
              topics: [topic],
              thermometers: [thermometer],
              polls: [poll],
              medias: [media_with_url, media_with_file],
+             personal_notes: [personal_note],
              beacon: beacon
             )
     end
@@ -58,6 +60,12 @@ describe Api::V1::Teacher::EventsController do
             let(:target) { event_pusher_events }
             subject { json }
             it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event)
+          end
+
+          describe "peronal_note" do
+            let(:target) { personal_note }
+            subject { json["personal_notes"][0] }
+            it_behaves_like "request return check", %w(content)
           end
 
           describe "topic" do

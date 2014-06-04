@@ -4,5 +4,7 @@ DunnoApp.service 'Utils', ->
     index = list.indexOf(item)
     if index > -1
       list.splice(index, 1)
-  @newItem = (list)-> list.push({})
+  @newItem = (list, item)->
+    item ?= {}
+    list.push(item)
   @

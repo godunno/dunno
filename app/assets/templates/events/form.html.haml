@@ -35,14 +35,67 @@
   .panel
     .panel-heading Polls
     .panel-body
-      %a.btn.btn-success{} Add Poll
+      .fields{'ng-repeat' => 'poll in event.polls'}
+        .row
+          .form-group.required.col-lg-8
+            .controls
+              %input.required.form-control{'ng-model' => 'poll.content', type: "text"}
+          %a.remove_nested_fields{'ng-click' => 'remove(event.polls, poll)'} ×
+        .panel
+          .panel-heading Options
+          .panel-body
+            .fields{'ng-repeat' => 'option in poll.options'}
+              .row
+                .form-group.required.col-lg-6
+                  .controls
+                    %input.required.form-control{'ng-model' => 'option.content', type: "text"}
+                .form-group.col-lg-1
+                  .controls
+                    %label.checkbox
+                      %input.form-control{'ng-model' => 'option.correct', type: "checkbox", value: "1"}
+                %a.remove_nested_fields{'ng-click' => 'remove(poll.options, option)'} ×
+            %a.btn.btn-success{'ng-click' => 'newItem(poll.options)'} Add Option
+      %a.btn.btn-success{'ng-click' => 'newItem(event.polls, {options: []})'} Add Poll
   .panel
     .panel-heading Personal Notes
     .panel-body
-      %a.btn.btn-success{} Add Personal Note
+      .fields{'ng-repeat' => 'personal_note in event.personal_notes'}
+        .row
+          .form-group.col-lg-6
+            .controls
+              %input.form-control{'ng-model' => 'personal_note.content', :type => "text"}
+          %a.remove_nested_fields{'ng-click' => 'remove(event.personal_notes, personal_note)'} ×
+      %a.btn.btn-success{'ng-click' => 'newItem(event.personal_notes)'} Add Personal Note
   .panel
     .panel-heading Medias
     .panel-body
-      %a.btn.btn-success{} Add Media
+      .fields{'ng-repeat' => 'media in event.medias'}
+        .form-group.required
+          %label.required.control-label{for: "event_medias_attributes_1401808651390_title"} Title
+          .controls
+            %input.required.form-control{'ng-model' => 'media.title', :type => "text"}
+        .form-group
+          %label.control-label{for: "event_medias_attributes_1401808651390_description"} Description
+          .controls
+            %input.required.form-control{'ng-model' => 'media.description', :type => "text"}
+        .form-group.select.required
+          %label.select.required.control-label{for: "event_medias_attributes_1401808651390_category"} Category
+          .controls
+            %select.select.required.form-control{'ng-model' => 'media.category'}
+              %option{'ng-repeat' => 'category in media_categories', value: "{{category}}"} {{category}}
+        .form-group
+          %label.control-label{for: ""} Type
+          .controls
+            %input.form-control{'ng-repeat' => 'type in media_types', 'ng-model' => 'media.type', name: 'type', type: 'radio', value: '{{type.value}}'} {{type.name}}
+        .form-group.url{'ng-if' => 'media.type == "url"'}
+          %label.url.control-label{for: "event_medias_attributes_1401808651390_url"} Url
+          .controls
+            %input.url.form-control{'ng-model' => 'media.url', type: "url"}
+        .form-group.file{'ng-if' => 'media.type == "file"'}
+          %label.file.control-label{for: "event_medias_attributes_1401808651390_file"} File
+          .controls
+            %input.file.form-control{'ng-model' => 'media.file', type: "file"}
+        %a.remove_nested_fields{'ng-click' => 'remove(event.medias, media)'} Remove media
+      %a.btn.btn-success{'ng-click' => 'newItem(event.medias)'} Add Media
   %input.btn{:type => "submit", :value => "Criar Evento"}
 %a.btn{:href => "#/courses"} Back
