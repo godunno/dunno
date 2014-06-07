@@ -4,7 +4,8 @@
     "dependencies": {
       "angular": "latest",
       "angular-route": "latest",
-      "angular-resource": "latest"
+      "angular-resource": "latest",
+      "angularjs-rails-resource": "latest"
       // "threex"      : "git@github.com:rharriso/threex.git",
       // "gsvpano.js"  : "https://github.com/rharriso/GSVPano.js/blob/master/src/GSVPano.js"
     }

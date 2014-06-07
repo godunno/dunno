@@ -2,7 +2,7 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   respond_to :json
 
   def index
-    respond_with Event.all.to_json(root: false)
+    respond_with Event.all
   end
 
   def show

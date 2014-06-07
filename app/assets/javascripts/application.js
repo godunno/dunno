@@ -24,8 +24,9 @@
 //= require assets/bootstrap-timepicker/js/bootstrap-timepicker.js
 //= require assets/bootstrap-datepicker/js/bootstrap-datepicker.js
 //= require angular
-//= require angular-resource
 //= require angular-route
+//= require angular-resource
+//= require angularjs-rails-resource
 //= require_tree ./angular/
 //= require inputs.js
 

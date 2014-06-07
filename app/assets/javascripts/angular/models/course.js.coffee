@@ -1,4 +1,12 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoApp.factory 'Course', ($resource)->
-  Course = $resource('/api/v1/teacher/courses/:id.json', {id: '@uuid'}, {update: {method: 'PATCH'}})
-  Course
+
+DunnoApp.factory 'Course', ['RailsResource', (RailsResource)->
+  class Course extends RailsResource
+    @configure(
+      url: '/api/v1/teacher/courses'
+      name: 'course'
+      idAttribute: 'uuid'
+      updateMethod: 'patch'
+    )
+]
+

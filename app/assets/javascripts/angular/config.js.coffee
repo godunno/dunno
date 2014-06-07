@@ -1,4 +1,4 @@
-DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource']
+DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails']
 
 Router = ($routeProvider)->
   $routeProvider.
@@ -11,3 +11,7 @@ Router = ($routeProvider)->
     otherwise(redirectTo: '/courses')
 Router.$inject = ['$routeProvider', '$locationProvider']
 DunnoApp.config Router
+
+DunnoApp.config(["railsSerializerProvider", (railsSerializerProvider)->
+  railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
+])

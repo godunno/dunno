@@ -24,7 +24,7 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     @course.teacher = current_teacher
 
     ActiveRecord::Base.transaction do
-      @course.save
+      @course.save!
       start_time = TimeOfDay.parse(@course.start_time)
       end_time = TimeOfDay.parse(@course.end_time)
       duration = TimeOfDay.new(0) + Shift.new(start_time, end_time).duration
@@ -34,7 +34,6 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
         @course.events << Event.new(start_at: time, duration: duration.to_s, status: "available", title: @course.name)
       end
     end
-    @course.save
     render nothing: true
   end
 
@@ -52,6 +51,12 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     end
 
     def course_params
+      ###############################################
+      # TODO: Look for a bug fix on Rails           #
+      # This code fixes a bug on Request#deep_munge #
+      params[:course][:weekdays] ||= []
+      ###############################################
+
       params.require(:course).
         permit(:name,
                :organization_id,
