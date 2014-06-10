@@ -44,6 +44,7 @@ module Dunno
 
     config.to_prepare do
       Dir.glob(Rails.root + "app/decorators/**/*_decorator.rb").each { |d| require_dependency d }
+      Dir.glob(Rails.root + "app/form/*.rb").each { |d| require_dependency d }
     end
   end
 end

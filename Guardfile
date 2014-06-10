@@ -9,7 +9,7 @@ guard :rspec do#, cmd: 'zeus rspec' do
   # Rails example
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^app/(.*)(\.erb|\.haml|\.slim)$})          { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
-  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| binding.pry; ["spec/routing/#{m[1]}_routing_spec.rb", "spec/requests/**/#{m[1]}_request_spec.rb"] }
+  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/requests/**/#{m[1]}_request_spec.rb"] }
   watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
   watch('config/routes.rb')                           { "spec/requests" }
   watch('app/controllers/application_controller.rb')  { "spec/requests" }

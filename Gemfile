@@ -31,6 +31,7 @@ gem 'cti',                    '0.1.1'
 gem 'forem',                  '1.0.0.beta1', github: 'radar/forem', branch: 'rails4'
 gem 'kaminari',               '0.15.1'
 gem 'bower-rails'
+gem 'virtus'
 
 group :assets do
 end
