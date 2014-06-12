@@ -1,6 +1,7 @@
 module Form
   class ArtifactForm < Form::Base
     attr_accessor :timeline
+    attr_accessor :teacher
 
     validate :cannot_change_timeline
 
@@ -16,6 +17,7 @@ module Form
 
       def persist!
         model.timeline = timeline
+        model.teacher = teacher
       end
   end
 end

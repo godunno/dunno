@@ -6,7 +6,7 @@ describe Api::V1::Teacher::MediasController do
       let(:media) { create :media }
 
       def do_action
-        patch "/api/v1/teacher/medias/#{media.uuid}/release", auth_params(:teacher)
+        patch "/api/v1/teacher/medias/#{media.uuid}/release", auth_params(:teacher).to_json
       end
 
       before do
@@ -16,7 +16,7 @@ describe Api::V1::Teacher::MediasController do
         media.reload
       end
 
-      it { expect(response.status).to eq(200) }
+      it { expect(last_response.status).to eq(200) }
       it { expect(media.status).to eq "released" }
       it { expect(media.released_at.to_i).to eq Time.now.to_i }
 
@@ -27,7 +27,7 @@ describe Api::V1::Teacher::MediasController do
           do_action
         end
 
-        it { expect(response.code).to eq '304' }
+        it { expect(last_response.status).to eq(304) }
       end
     end
   end

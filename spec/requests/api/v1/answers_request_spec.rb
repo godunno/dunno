@@ -14,7 +14,7 @@ describe Api::V1::AnswersController do
 
       def do_action
         post '/api/v1/answers', { option_id: option.uuid }.merge(
-          auth_params(student))
+          auth_params(student)).to_json
       end
 
       it_behaves_like "closed event"
@@ -27,7 +27,7 @@ describe Api::V1::AnswersController do
 
         subject { Answer.first }
 
-        it { expect(response.code).to eq '201' }
+        it { expect(last_response.status).to eq(201) }
         it { expect(subject.option).to eq option }
         it { expect(subject.student).to eq student }
       end

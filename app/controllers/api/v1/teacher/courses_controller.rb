@@ -23,6 +23,7 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     @course = Course.new(course_params)
     @course.teacher = current_teacher
 
+    # TODO: extract to service!
     ActiveRecord::Base.transaction do
       @course.save!
       start_time = TimeOfDay.parse(@course.start_time)
@@ -31,7 +32,9 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
       schedule = Recurrence.new(every: :week, on: @course.weekdays, starts: @course.start_date, until: @course.end_date)
       schedule.each do |date|
         time = date.to_time.change(hour: start_time.hour, min: start_time.minute)
-        @course.events << Event.new(start_at: time, duration: duration.to_s, status: "available", title: @course.name)
+        event = Event.new(start_at: time, duration: duration.to_s, status: "available", title: @course.name)
+        event.course = @course
+        event.save!
       end
     end
     render nothing: true

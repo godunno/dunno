@@ -21,7 +21,7 @@ describe Api::V1::MessagesController do
           }
         }
 
-        post "/api/v1/timeline/messages.xml", params.merge(auth_params)
+        post "/api/v1/timeline/messages.xml", params.merge(auth_params).to_json
       end
 
       it_behaves_like "request invalid content type XML"
@@ -43,16 +43,16 @@ describe Api::V1::MessagesController do
           context "valid content" do
 
             before(:each) do
-              post "/api/v1/timeline/messages.json", message_params.merge(auth_params)
+              post "/api/v1/timeline/messages.json", message_params.merge(auth_params).to_json
             end
 
-            it { expect(response.status).to eq(201) }
+            it { expect(last_response.status).to eq(201) }
             it { expect(json["content"]).to eq("Some message here") }
             it { expect(json["student_id"]).to eq(student.id) }
           end
 
           def do_action
-            post "/api/v1/timeline/messages.json", message_params.merge(auth_params)
+            post "/api/v1/timeline/messages.json", message_params.merge(auth_params).to_json
           end
 
           it_behaves_like "closed event"
@@ -69,7 +69,7 @@ describe Api::V1::MessagesController do
             end
 
             before(:each) do
-              post "/api/v1/timeline/messages.json", message_params.merge(auth_params)
+              post "/api/v1/timeline/messages.json", message_params.merge(auth_params).to_json
             end
 
             it { expect(json["errors"]).to eq(["Content não pode ficar em branco"]) }
@@ -88,7 +88,7 @@ describe Api::V1::MessagesController do
           end
 
           it do
-            expect { post "/api/v1/timeline/messages.json", message_params.merge(auth_params) }.to raise_error(ActiveRecord::RecordNotFound)
+            expect { post "/api/v1/timeline/messages.json", message_params.merge(auth_params).to_json }.to raise_error(ActiveRecord::RecordNotFound)
           end
         end
       end
@@ -110,7 +110,7 @@ describe Api::V1::MessagesController do
       end
 
       def do_action(message_id = message.id, student_id = student.id)
-        post "/api/v1/timeline/messages/#{message_id}/up.json", { student_id: student_id }.merge(auth_params)
+        post "/api/v1/timeline/messages/#{message_id}/up.json", { student_id: student_id }.merge(auth_params).to_json
       end
 
       it_behaves_like "closed event"
@@ -130,7 +130,7 @@ describe Api::V1::MessagesController do
 
         it "responds with success" do
           do_action
-          expect(response).to be_success
+          expect(last_response.status).to eq(200)
         end
       end
 
@@ -169,7 +169,7 @@ describe Api::V1::MessagesController do
       end
 
       def do_action(message_id = message.id, student_id = student.id)
-        post "/api/v1/timeline/messages/#{message_id}/down.json", { student_id: student_id }.merge(auth_params)
+        post "/api/v1/timeline/messages/#{message_id}/down.json", { student_id: student_id }.merge(auth_params).to_json
       end
 
       it_behaves_like "closed event"
@@ -189,7 +189,7 @@ describe Api::V1::MessagesController do
 
         it "responds with success" do
           do_action
-          expect(response).to be_success
+          expect(last_response.status).to eq(200)
         end
       end
 

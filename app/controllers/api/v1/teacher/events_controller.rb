@@ -10,19 +10,8 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   end
 
   def create
-    # TODO: [URGENT] Extract to form object!
-    Event.transaction do
-      @event = Event.new(event_params)
-      %w(medias polls topics thermometers).each do |attr|
-        send("#{attr}_params")["#{attr}_attributes"].try(:each) do |i, artifact_params|
-          artifact = attr.singularize.capitalize.constantize.new(artifact_params)
-          artifact.timeline = @event.timeline
-          artifact.teacher = current_teacher
-          artifact.save!
-        end
-      end
-      @event.save
-    end
+    @event_form = Form::EventForm.new(params[:event])
+    @event_form.save
     render nothing: true
   end
 

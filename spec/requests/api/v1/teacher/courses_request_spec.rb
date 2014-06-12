@@ -6,6 +6,10 @@ describe Api::V1::Teacher::EventsController do
   let(:organization) { create :organization }
   let(:course) { build :course, teacher: teacher, organization: organization }
 
+  def last_course
+    Course.order('created_at desc').first
+  end
+
   let(:parameters) do
     params = {course: {}}
     %w(name start_date end_date start_time end_time classroom weekdays organization_id).each do |attr|
@@ -79,7 +83,7 @@ describe Api::V1::Teacher::EventsController do
 
       context "another teacher's course" do
         let!(:course) { create(:course, teacher: create(:teacher)) }
-        it { expect(response.status).to eq 404 }
+        it { expect(last_response.status).to eq 404 }
       end
     end
   end
@@ -91,7 +95,7 @@ describe Api::V1::Teacher::EventsController do
     context "authenticated" do
 
       def do_action
-        post "/api/v1/teacher/courses.json", parameters.merge(auth_params(teacher))
+        post "/api/v1/teacher/courses.json", parameters.merge(auth_params(teacher)).to_json
       end
 
       pending "invalid course"
@@ -110,11 +114,10 @@ describe Api::V1::Teacher::EventsController do
           course.start_time = "14:00"
           course.end_time = "16:00"
           course.classroom = "201"
-          course.save!
           do_action
         end
 
-        subject { assigns[:course] }
+        subject { last_course }
 
         it { expect(subject.name).to eq(course.name) }
         it { expect(subject.teacher).to eq(teacher) }
@@ -127,7 +130,7 @@ describe Api::V1::Teacher::EventsController do
         it { expect(subject.weekdays).to eq(course.weekdays) }
 
         describe "#events" do
-          subject { assigns[:course].events }
+          subject { last_course.events }
 
           its(:count) { should eq(2) }
           it { expect(subject[0].start_at.to_i).to eq(Time.new(2014, 01, 7, 14, 00).to_i)}
@@ -146,7 +149,7 @@ describe Api::V1::Teacher::EventsController do
     context "authenticated" do
 
       def do_action
-        patch "/api/v1/teacher/courses/#{course.uuid}.json", parameters.merge(auth_params(teacher))
+        patch "/api/v1/teacher/courses/#{course.uuid}.json", parameters.merge(auth_params(teacher)).to_json
       end
 
       pending "invalid course"
@@ -158,7 +161,7 @@ describe Api::V1::Teacher::EventsController do
         do_action
       end
 
-      it { expect(assigns[:course].name).to eq course.name }
+      it { expect(last_course.name).to eq course.name }
     end
   end
 
@@ -173,7 +176,7 @@ describe Api::V1::Teacher::EventsController do
       pending "another teacher's course"
 
       def do_action
-        delete "/api/v1/teacher/courses/#{course.uuid}.json", auth_params(teacher)
+        delete "/api/v1/teacher/courses/#{course.uuid}.json", auth_params(teacher).to_json
       end
 
       it "should destroy the course" do

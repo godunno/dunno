@@ -47,7 +47,7 @@ describe Api::V1::EventsController do
           get "/api/v1/events.json", auth_params(student)
         end
 
-        it { expect(response).to be_success }
+        it { expect(last_response.status).to eq(200) }
 
         describe "event" do
 
@@ -56,7 +56,7 @@ describe Api::V1::EventsController do
           subject { json[1] }
           it_behaves_like "request return check", %w(id title uuid duration channel status start_at)
 
-          it { expect(response).to be_success }
+          it { expect(last_response.status).to eq(200) }
 
           describe "pusher events" do
             let(:target) { event_pusher_events }
@@ -164,7 +164,7 @@ describe Api::V1::EventsController do
 
         context "unopened event" do
           let(:event) { create(:event, status: 'available', title: "New event") }
-          it { expect(response.status).to eq 403 }
+          it { expect(last_response.status).to eq 403 }
         end
 
         context "opened event" do
@@ -176,7 +176,7 @@ describe Api::V1::EventsController do
 
           subject { json }
 
-          it { expect(response).to be_success }
+          it { expect(last_response.status).to eq(200) }
 
           describe "Attendance created" do
             subject { Attendance.last }
@@ -291,7 +291,7 @@ describe Api::V1::EventsController do
           get "/api/v1/events/#{event.uuid}/timeline.json", auth_params
         end
 
-        it { expect(response).to be_success }
+        it { expect(last_response.status).to eq(200) }
         it { expect(json.length).to eq(1) }
         it { expect(json["event"]["title"]).to eq(event.title) }
         it { expect(json["event"]["timeline"]["messages"].length).to eq(1) }
@@ -310,40 +310,37 @@ describe Api::V1::EventsController do
       { uuid: beacon.uuid, minor: beacon.minor, major: beacon.major, title: beacon.title }
     end
 
+    def do_action
+      patch "/api/v1/events/#{event.uuid}/validate_attendance.json", auth_params(student).merge({
+        beacon: beacon_hash(current_beacon)
+      }).to_json
+    end
+
     let!(:attendance) { create(:attendance, event: event, student: student) }
 
     context "correct beacon" do
-      def do_action
-        patch "/api/v1/events/#{event.uuid}/validate_attendance.json", auth_params(student).merge({
-          beacon: beacon_hash(beacon)
-        })
-      end
+
+      let(:current_beacon) { beacon }
 
       before do
         do_action
         attendance.reload
       end
 
-      it { expect(response.status).to eq(200) }
+      it { expect(last_response.status).to eq(200) }
       it { expect(attendance.validated).to be_true }
     end
 
     context "incorrect beacon" do
 
-      let(:incorrect_beacon) { create(:beacon) }
-
-      def do_action
-        patch "/api/v1/events/#{event.uuid}/validate_attendance.json", auth_params(student).merge({
-          beacon: beacon_hash(incorrect_beacon)
-        })
-      end
+      let(:current_beacon) { create(:beacon) }
 
       before do
         do_action
         attendance.reload
       end
 
-      it { expect(response.status).to eq(400) }
+      it { expect(last_response.status).to eq(400) }
       it { expect(attendance.validated).to be_false }
     end
   end

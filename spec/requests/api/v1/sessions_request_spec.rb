@@ -25,10 +25,10 @@ describe Api::V1::SessionsController do
       context "correct authentication" do
 
         before(:each) do
-          post "/api/v1/students/sign_in", { student: { email: student.email, password: password } }
+          post "/api/v1/students/sign_in", { student: { email: student.email, password: password } }.to_json
         end
 
-        it { expect(response).to be_successful }
+        it { expect(last_response.status).to eq(200) }
         it { expect(controller.current_student).to eq(student) }
 
         it { expect(json["courses"][0]["uuid"]).to eq(course.uuid) }
@@ -71,7 +71,7 @@ describe Api::V1::SessionsController do
       context "incorrect authentication" do
 
         def do_action
-          post "/api/v1/students/sign_in.json", student_hash
+          post "/api/v1/students/sign_in.json", student_hash.to_json
         end
 
         context "incorrect password" do
@@ -93,10 +93,10 @@ describe Api::V1::SessionsController do
       context "correct authentication" do
 
         before(:each) do
-          post "/api/v1/teachers/sign_in", { teacher: { email: teacher.email, password: password } }
+          post "/api/v1/teachers/sign_in", { teacher: { email: teacher.email, password: password } }.to_json
         end
 
-        it { expect(response).to be_successful }
+        it { expect(last_response.status).to eq(200) }
         it { expect(controller.current_teacher).to eq(teacher) }
 
         it { expect(json["courses"][0]["uuid"]).to eq(course.uuid) }
@@ -118,7 +118,7 @@ describe Api::V1::SessionsController do
       context "incorrect authentication" do
 
         def do_action
-          post "/api/v1/teachers/sign_in.json", teacher_hash
+          post "/api/v1/teachers/sign_in.json", teacher_hash.to_json
         end
 
         context "incorrect password" do

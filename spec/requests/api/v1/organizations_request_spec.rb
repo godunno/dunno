@@ -17,7 +17,7 @@ describe Api::V1::OrganizationsController do
         get "/api/v1/organizations.json", auth_params
       end
 
-      it { expect(response).to be_success }
+      it { expect(last_response.status).to eq(200) }
       it { expect(json["name"]).to eq(organization.name) }
       it { expect(json["uuid"]).to_not be_nil }
     end

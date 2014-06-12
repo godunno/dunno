@@ -14,6 +14,8 @@ class Event < ActiveRecord::Base
   has_many :thermometers, through: :artifacts, source: :heir, source_type: 'Thermometer'
   has_many :medias,       through: :artifacts, source: :heir, source_type: 'Media'
 
+  delegate :teacher, to: :course
+
   validates :title, :start_at, :duration, presence: true
   validates :closed_at, presence: true, if: :closed?
 

@@ -2,13 +2,14 @@ require 'spec_helper'
 
 describe Form::EventForm do
   describe "validations" do
-    [:title, :start_at, :duration].each do |attr|
+    [:title, :start_at, :duration, :course].each do |attr|
       it { should validate_presence_of(attr) }
     end
   end
 
+  let(:course) { create(:course) }
   let(:event_form) { Form::EventForm.new(event) }
-  let(:valid_event_hash) { { title: "NEW EVENT", start_at: Time.now, duration: '2:00' } }
+  let(:valid_event_hash) { { course_id: course.id, title: "NEW EVENT", start_at: Time.now, duration: '2:00' } }
 
   describe "creating" do
 
@@ -17,6 +18,7 @@ describe Form::EventForm do
       before(:each) { event_form.save }
 
       it { expect(event_form).to be_valid }
+      it { expect(event_form.model).to be_persisted }
       it { expect(event_form.model.title).to eq(event[:title]) }
       it { expect(event_form.model.start_at).to eq(event[:start_at]) }
       it { expect(event_form.model.duration).to eq(event[:duration]) }

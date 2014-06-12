@@ -2,43 +2,51 @@
 
     model_class ::Event
 
+    attr_accessor :course
+
     attribute :title, String
-    attribute :start_at, DateTime
+    attribute :start_at, Time
     attribute :duration, String
 
-    validates :title, :start_at, :duration, presence: true
+    validates :title, :start_at, :duration, :course, presence: true
 
     def initialize(params = {})
       super(params.slice(:id, :title, :start_at, :duration))
+      self.course = model.course || Course.where(id: params[:course_id]).first
       @topics = populate_children(Form::TopicForm, params[:topics])
-      #@thermometers = populate(Form::ThermometerForm, params[:thermometers])
-      #@polls = populate(Form::PollForm, params[:polls])
-      #@medias = populate(Form::MediaForm, params[:medias])
-      #@personal_notes = populate(Form::PersonalNoteForm, params[:personal_notes])
-      artifacts.each { |artifact| artifact.timeline = model.timeline }
+      @thermometers = populate_children(Form::ThermometerForm, params[:thermometers])
+      @polls = populate_children(Form::PollForm, params[:polls])
+      @medias = populate_children(Form::MediaForm, params[:medias])
+      @personal_notes = populate_children(Form::PersonalNoteForm, params[:personal_notes])
+      artifacts.each do |artifact|
+        artifact.timeline = model.timeline
+        artifact.teacher = course.try(:teacher)
+      end
+      @personal_notes.each { |personal_note| personal_note.event = model }
     end
 
     def valid?
       result = super
-      #[@topics, @thermometers, @polls, @medias, @personal_notes].each do |associateds|
-      [@topics].each do |associates|
-        associates.each do |associated|
-          result &&= associated.valid?
-        end
+      associates.each do |associated|
+        result &&= associated.valid?
       end
       result
     end
 
     def errors
       result = super
-      artifacts.each do |artifact|
-        artifact.errors.each { |error, message| result.add error, message }
+      associates.each do |associated|
+        associated.errors.each { |error, message| result.add error, message }
       end
       result
     end
 
     def artifacts
       [@topics, @thermometers, @polls, @medias].compact.flatten
+    end
+
+    def associates
+      (artifacts + [@personal_notes]).compact.flatten
     end
 
     def event
@@ -49,13 +57,13 @@
 
       def persist!
         ActiveRecord::Base.transaction do
-          @model.title = title
-          @model.start_at = start_at
-          @model.duration = duration
-          @model.save!
+          model.title = title
+          model.start_at = start_at
+          model.duration = duration
+          model.save!
           #[@topics, @thermometers, @polls, @medias].each do |artifacts|
-          artifacts.each do |artifact|
-            artifact.save
+          associates.each do |associated|
+            associated.save
           end
 
           #@personal_notes.each do |personal_note|

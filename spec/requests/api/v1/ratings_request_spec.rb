@@ -17,12 +17,12 @@ describe Api::V1::RatingsController do
         before do
           post '/api/v1/ratings', { rating: rating.attributes }.merge(
             { thermometer_id: thermometer.uuid }).merge(
-            auth_params(student))
+            auth_params(student)).to_json
         end
 
         subject { Rating.first }
 
-        it { expect(response.code).to eq '201' }
+        it { expect(last_response.status).to eq(201) }
         it { expect(subject.value).to eq rating.value }
         it { expect(subject.rateable).to eq thermometer }
         it { expect(subject.student).to eq student }
@@ -31,10 +31,10 @@ describe Api::V1::RatingsController do
           before do
             post '/api/v1/ratings', { rating: rating.attributes }.merge(
               { thermometer_id: thermometer.uuid }).merge(
-              auth_params(student))
+              auth_params(student)).to_json
           end
 
-          it { expect(response.code).to eq '400' }
+          it { expect(last_response.status).to eq(400) }
           it { expect(json["errors"]).to include "Student já está em uso" }
         end
       end

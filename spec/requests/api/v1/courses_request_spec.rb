@@ -40,7 +40,7 @@ describe Api::V1::CoursesController do
           get "/api/v1/courses.json", auth_params(student)
         end
 
-        it { expect(response).to be_success }
+        it { expect(last_response.status).to eq(200) }
 
         describe "course" do
 
@@ -50,7 +50,7 @@ describe Api::V1::CoursesController do
           subject { course_json }
           it_behaves_like "request return check", %w(id name uuid start_date end_date start_time end_time classroom weekdays)
 
-          it { expect(response).to be_success }
+          it { expect(last_response.status).to eq(200) }
 
           describe "events" do
 

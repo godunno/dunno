@@ -14,6 +14,7 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils)->
   $scope.media_types = [{value: 'url', name: 'URL'}, {value: 'file', name: 'File'}]
 
   $scope.save = (event)->
+    event['teste[]'] = event.medias
     event.save().then ->
       $location.path '#/events'
 EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'Utils']
