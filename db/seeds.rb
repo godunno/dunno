@@ -5,7 +5,6 @@ if Rails.env.development? || Rails.env.staging?
   DatabaseCleaner.strategy = :truncation
   DatabaseCleaner.clean
 
-
   org = Organization.new(name: "Dunno Test")
   org.save!
   org.update_attribute(:uuid, "65bcc7ce-0ea0-44cd-8d9d-74a43ac02e3d")
@@ -25,28 +24,26 @@ if Rails.env.development? || Rails.env.staging?
   student.courses << course
   student.save
 
-  e = Event.create!(title: "1st class",start_at: 1.days.from_now, duration: "2:00", status: "available", course: course)
-  Thermometer.new(content: "lineaer algebra", event_id: e.id).save!
-  Thermometer.new(content: "big data - data science", event_id: e.id).save!
+  e1 = Form::EventForm.create(title: "1st class",start_at: 1.days.from_now, duration: "2:00", status: "available", course: course)
+  Thermometer.new(content: "lineaer algebra", timeline: e1.timeline).save!
+  Thermometer.new(content: "big data - data science", timeline: e1.timeline).save!
   o1 = Option.new(content: "jiban")
   o2 = Option.new(content: "jyraia")
-  Poll.create!(content: "what do you watched on Manchete channel?", options: [o1, o2], event: e, status: "available")
+  Poll.create!(content: "what do you watched on Manchete channel?", options: [o1, o2], timeline: e1.timeline, status: "available")
+  Media.create!(timeline: e1.timeline, title: 'LOLCAT VIDEO', category: 'video', url: 'http://www.youtube.com/watch?v=0000000000')
+  #Media.create!(event: e, title: 'LOLCAT IMAGE', category: 'image', file: Tempfile.new('cat.jpg'))
 
-  Event.new(title: "2nd class",start_at: 3.days.from_now, duration: "2:00", status: "available", course: course)
-  e2 = Event.create!(title: "3th class",start_at: 5.days.from_now, duration: "2:00", status: "available", course: course)
-  e3 = Event.create!(title: "4th class",start_at: 7.days.from_now, duration: "2:00", status: "available", course: course)
-  e4 = Event.create!(title: "5th class",start_at: 9.days.from_now, duration: "2:00", status: "available", course: course)
+  e2 = Form::EventForm.create(title: "2nd class",start_at: 5.days.from_now, duration: "2:00", status: "available", course: course)
+  e3 = Form::EventForm.create(title: "3th class",start_at: 7.days.from_now, duration: "2:00", status: "available", course: course)
+  e4 = Form::EventForm.create(title: "4th class",start_at: 9.days.from_now, duration: "2:00", status: "available", course: course)
 
-  Topic.new(description: "Machine Learning", event: Event.first).save!
-  Topic.new(description: "AI", event: Event.first).save!
-  Topic.new(description: "Visual Computing", event: Event.first).save!
+  Topic.new(description: "Machine Learning", timeline: e1.timeline).save!
+  Topic.new(description: "AI", timeline: e1.timeline).save!
+  Topic.new(description: "Visual Computing", timeline: e1.timeline).save!
 
-  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e2, status: "available")
-  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e2, status: "available")
-  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e3, status: "available")
-  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], event: e4, status: "available")
-
-  Media.create!(event: e, title: 'LOLCAT VIDEO', category: 'video', url: 'http://www.youtube.com/watch?v=0000000000')
-  Media.create!(event: e, title: 'LOLCAT IMAGE', category: 'image', file: Tempfile.new('cat.jpg'))
+  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], timeline: e2.timeline, status: "available")
+  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], timeline: e2.timeline, status: "available")
+  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], timeline: e3.timeline, status: "available")
+  Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], timeline: e4.timeline, status: "available")
 
 end

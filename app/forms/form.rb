@@ -33,6 +33,12 @@ module Form
       end
     end
 
+    def self.create(*args)
+      form = self.new(*args)
+      form.save
+      form.model
+    end
+
     def persist!
       raise NotImplementedError
     end
