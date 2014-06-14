@@ -4,9 +4,8 @@ class UuidGenerator
     @resource = resource
   end
 
-  def generate!
-    @resource.uuid = generate_uuid
-    @resource.save!
+  def generate
+    generate_uuid
   end
 
   private

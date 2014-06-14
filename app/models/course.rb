@@ -1,5 +1,7 @@
 class Course < ActiveRecord::Base
 
+  include HasUuid
+
   WEEKDAYS = (0..6).to_a
 
   belongs_to :teacher
@@ -9,7 +11,6 @@ class Course < ActiveRecord::Base
 
   validates :teacher, :weekdays, :start_date, :end_date, :start_time, :end_time, presence: true
 
-  after_create :set_uuid
   before_save :prepare_weekdays
 
   def channel
@@ -17,10 +18,6 @@ class Course < ActiveRecord::Base
   end
 
   private
-    def set_uuid
-      UuidGenerator.new(self).generate!
-    end
-
     def prepare_weekdays
       weekdays.reject!(&:blank?)
       self.weekdays = weekdays.map(&:to_i)

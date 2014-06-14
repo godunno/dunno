@@ -1,5 +1,7 @@
 class Event < ActiveRecord::Base
 
+  include HasUuid
+
   STATUSES = %w(available opened closed)
 
   belongs_to :course
@@ -18,8 +20,6 @@ class Event < ActiveRecord::Base
 
   validates :title, :start_at, :duration, presence: true
   validates :closed_at, presence: true, if: :closed?
-
-  after_create :set_uuid
 
   accepts_nested_attributes_for :topics, :thermometers, :polls, :personal_notes, :medias, allow_destroy: true
 
@@ -55,9 +55,4 @@ class Event < ActiveRecord::Base
       end
     end
   end
-
-  private
-    def set_uuid
-      UuidGenerator.new(self).generate!
-    end
 end

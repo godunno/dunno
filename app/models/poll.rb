@@ -1,5 +1,7 @@
 class Poll < ActiveRecord::Base
 
+  include HasUuid
+
   acts_as_heir_of :artifact
 
   STATUSES = %w(available released)
@@ -9,8 +11,6 @@ class Poll < ActiveRecord::Base
   validates :content, presence: true
   validates :status, inclusion: { in: STATUSES }
 
-  after_create :set_uuid
-
   accepts_nested_attributes_for :options
 
   def release!
@@ -18,9 +18,4 @@ class Poll < ActiveRecord::Base
     self.released_at = Time.now
     save!
   end
-
-  private
-    def set_uuid
-      UuidGenerator.new(self).generate!
-    end
 end
