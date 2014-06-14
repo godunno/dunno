@@ -20,17 +20,10 @@ class Event < ActiveRecord::Base
   validates :closed_at, presence: true, if: :closed?
 
   after_create :set_uuid
-  before_save :set_timeline
-  after_initialize :set_start_at
 
   accepts_nested_attributes_for :topics, :thermometers, :polls, :personal_notes, :medias, allow_destroy: true
 
   default_scope { order(:start_at) }
-
-  def initialize(*args)
-    super
-    set_timeline
-  end
 
   def channel
     "event_#{uuid}"
@@ -66,13 +59,5 @@ class Event < ActiveRecord::Base
   private
     def set_uuid
       UuidGenerator.new(self).generate!
-    end
-
-    def set_timeline
-      self.timeline ||= Timeline.new(start_at: start_at)
-    end
-
-    def set_start_at
-      self[:start_at] ||= DateTime.now
     end
 end

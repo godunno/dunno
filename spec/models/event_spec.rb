@@ -15,14 +15,6 @@ describe Event do
     it { should belong_to(:beacon) }
   end
 
-  describe "defaults" do
-    before do
-      Timecop.freeze
-    end
-
-    its(:start_at) { should eq(DateTime.now) }
-  end
-
   describe "validations" do
     pending "should belong to a course"
 
@@ -42,13 +34,6 @@ describe Event do
   end
 
   describe "callbacks" do
-
-    describe "after initialize" do
-
-      it "creates a new timeline" do
-        expect(Event.new.timeline).to_not be_nil
-      end
-    end
 
     describe "after create" do
 

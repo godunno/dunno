@@ -16,7 +16,8 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   end
 
   def update
-    event.update_attributes(event_params)
+    @event_form = Form::EventForm.new(params[:event].merge(uuid: params[:id]))
+    @event_form.save
     render nothing: true
   end
 
@@ -51,33 +52,5 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
 
     def event
       @event ||= Event.where(uuid: params[:id]).first
-    end
-
-    def course
-      @course ||= Course.where(uuid: params[:course_id]).first
-    end
-
-    def topics_params
-      params[:event].permit(topics_attributes: [:id, :description, :_destroy])
-    end
-
-    def polls_params
-      params[:event].permit(polls_attributes: [:id, :content, :status, :_destroy,
-                            options_attributes: [:id, :content, :correct, :_destroy]])
-    end
-
-    def thermometers_params
-      params[:event].permit(thermometers_attributes: [:id, :content, :_destroy])
-    end
-
-    def medias_params
-      params[:event].permit(medias_attributes: [:id, :title, :description, :url, :category, :file, :_destroy])
-    end
-
-    def event_params
-      params.require(:event).permit(
-        :title, :start_at, :duration, :status,
-        personal_notes_attributes: [:id, :content, :_destroy]
-      )
     end
 end

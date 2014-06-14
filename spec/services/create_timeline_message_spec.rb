@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe CreateTimelineMessage do
-  let!(:timeline) { create(:timeline) }
+  let(:event) { create(:event) }
+  let!(:timeline) { event.timeline }
   let!(:student) { create(:student) }
   let(:message_creator) { CreateTimelineMessage.new(attributes) }
 

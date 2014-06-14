@@ -71,7 +71,7 @@ describe Form::EventForm do
 
       context "trying to change nested model's timeline" do
         let(:existing_topic) { create(:topic) }
-        let(:topic) { {id: existing_topic.id, description: 'UPDATED DESCRIPTION'} }
+        let(:topic) { {uuid: existing_topic.uuid, description: 'UPDATED DESCRIPTION'} }
         let(:event) do
           valid_event_hash.merge({
             topics: [topic]
@@ -92,7 +92,7 @@ describe Form::EventForm do
     context "valid event" do
       let(:event) do
         valid_event_hash.merge({
-          id: existing_event.id,
+          uuid: existing_event.uuid,
           title: 'UPDATED TITLE',
         })
       end
@@ -103,10 +103,10 @@ describe Form::EventForm do
 
       context "with nested models" do
         let(:existing_topic) { create(:topic, timeline: existing_event.timeline) }
-        let(:topic) { {id: existing_topic.id, description: 'UPDATED DESCRIPTION'} }
+        let(:topic) { {uuid: existing_topic.uuid, description: 'UPDATED DESCRIPTION'} }
         let(:event) do
           valid_event_hash.merge({
-            id: existing_event.id,
+            uuid: existing_event.uuid,
             topics: [topic]
           })
         end
@@ -117,7 +117,7 @@ describe Form::EventForm do
     end
 
     context "invalid" do
-      let(:event) { {id: existing_event.id} }
+      let(:event) { {uuid: existing_event.uuid, title: nil, start_at: nil, duration: nil} }
 
       context "event" do
         before do
@@ -132,11 +132,11 @@ describe Form::EventForm do
 
       context "nested models" do
         let(:existing_topic) { create(:topic, timeline: existing_event.timeline) }
-        let(:topic) { {id: existing_topic.id} }
+        let(:topic) { {uuid: existing_topic.uuid} }
         let(:topic_error) { :topic_error }
         let(:event) do
           {
-            id: existing_event.id,
+            uuid: existing_event.uuid,
             title: 'UPDATED TITLE',
             topics: [topic]
           }
@@ -158,10 +158,10 @@ describe Form::EventForm do
 
       context "trying to change nested model's timeline" do
         let(:existing_topic) { create(:topic) }
-        let(:topic) { {id: existing_topic.id, description: 'UPDATED DESCRIPTION'} }
+        let(:topic) { {uuid: existing_topic.uuid, description: 'UPDATED DESCRIPTION'} }
         let(:event) do
           valid_event_hash.merge({
-            id: existing_event.id,
+            uuid: existing_event.uuid,
             topics: [topic]
           })
         end
@@ -176,10 +176,10 @@ describe Form::EventForm do
 
     context "destroying nested models" do
       let(:existing_topic) { create(:topic, timeline: existing_event.timeline) }
-      let(:topic) { {id: existing_topic.id, _destroy: true} }
+      let(:topic) { {uuid: existing_topic.uuid, _destroy: true} }
       let(:event) do
         valid_event_hash.merge({
-          id: existing_event.id,
+          uuid: existing_event.uuid,
           topics: [topic]
         })
       end

@@ -6,4 +6,10 @@ class Topic < ActiveRecord::Base
 
   validates :description, presence: true
 
+  after_create :set_uuid
+
+  private
+    def set_uuid
+      UuidGenerator.new(self).generate!
+    end
 end

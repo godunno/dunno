@@ -3,6 +3,8 @@ module Form
     include Virtus.model
     include ActiveModel::Model
 
+    RESERVED_ATTRIBUTES = [:uuid, :_destroy]
+
     def self.model_class(model_class)
       define_method :model_class do
         model_class
@@ -14,9 +16,10 @@ module Form
 
     def initialize(attributes)
       attributes = attributes.with_indifferent_access
-      id = attributes.delete(:id)
+      uuid = attributes.delete(:uuid)
+      @model = find_or_instantiate(uuid)
+      sync_from_model!
       super(attributes)
-      @model = find_or_instantiate(id)
     end
 
     def save
@@ -36,18 +39,23 @@ module Form
 
     private
 
-      def find_or_instantiate(id)
-        if id.present?
-          model_class.find(id)
+      def find_or_instantiate(uuid)
+        if uuid.present?
+          model_class.where(uuid: uuid).first
         else
           model_class.new
         end
       end
 
+      def sync_from_model!
+        self.attributes = model.attributes.with_indifferent_access.
+          slice(*self.attributes.keys)
+      end
+
     protected
 
       def attributes_list(*list)
-        [:id, :_destroy] + list
+        RESERVED_ATTRIBUTES + list
       end
 
       def populate_children(form, models)

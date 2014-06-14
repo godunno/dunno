@@ -11,8 +11,9 @@
     validates :title, :start_at, :duration, :course, presence: true
 
     def initialize(params = {})
-      super(params.slice(:id, :title, :start_at, :duration))
+      super(params.slice(*attributes_list(:id, :title, :start_at, :duration)))
       self.course = model.course || Course.where(id: params[:course_id]).first
+      model.timeline ||= Timeline.new(start_at: start_at)
       @topics = populate_children(Form::TopicForm, params[:topics])
       @thermometers = populate_children(Form::ThermometerForm, params[:thermometers])
       @polls = populate_children(Form::PollForm, params[:polls])
@@ -60,16 +61,11 @@
           model.title = title
           model.start_at = start_at
           model.duration = duration
+          model.timeline.save!
           model.save!
-          #[@topics, @thermometers, @polls, @medias].each do |artifacts|
           associates.each do |associated|
             associated.save
           end
-
-          #@personal_notes.each do |personal_note|
-          #  personal_note.event = event
-          #  personal_note.save!
-          #end
         end
       end
   end

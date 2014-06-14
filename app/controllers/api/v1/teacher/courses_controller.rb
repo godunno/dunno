@@ -45,7 +45,6 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     render nothing: true
   end
 
-
   private
 
     def course

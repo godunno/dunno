@@ -8,8 +8,8 @@ describe Api::V1::MessagesController do
 
     context "authenticated" do
 
-      let!(:timeline) { create(:timeline) }
-      let(:event) { timeline.event }
+      let!(:timeline) { event.timeline }
+      let(:event) { create(:event) }
       let!(:student) { create(:student) }
 
       def do_action
