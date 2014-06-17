@@ -1,0 +1,17 @@
+DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails']
+
+Router = ($routeProvider)->
+  $routeProvider.
+    when('/courses', controller: 'CoursesIndexCtrl', templateUrl: '<%= asset_path('/assets/courses/index.html') %>').
+    when('/courses/new', controller: 'CourseCtrl', templateUrl: '<%= asset_path('/assets/courses/form.html') %>').
+    when('/courses/:id', controller: 'CourseCtrl', templateUrl: '<%= asset_path('/assets/courses/show.html') %>').
+    when('/courses/:id/edit', controller: 'CourseCtrl', templateUrl: '<%= asset_path('/assets/courses/form.html') %>').
+    when('/events/new', controller: 'EventCtrl', templateUrl: '<%= asset_path('/assets/events/form.html') %>').
+    when('/events/:id/edit', controller: 'EventCtrl', templateUrl: '<%= asset_path('/assets/events/form.html') %>').
+    otherwise(redirectTo: '/courses')
+Router.$inject = ['$routeProvider', '$locationProvider']
+DunnoApp.config Router
+
+DunnoApp.config(["railsSerializerProvider", (railsSerializerProvider)->
+  railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
+])
