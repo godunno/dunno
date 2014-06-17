@@ -24,20 +24,27 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     @course.teacher = current_teacher
 
     # TODO: extract to service!
-    ActiveRecord::Base.transaction do
-      @course.save!
-      start_time = TimeOfDay.parse(@course.start_time)
-      end_time = TimeOfDay.parse(@course.end_time)
-      duration = TimeOfDay.new(0) + Shift.new(start_time, end_time).duration
-      schedule = Recurrence.new(every: :week, on: @course.weekdays, starts: @course.start_date, until: @course.end_date)
-      schedule.each do |date|
-        time = date.to_time.change(hour: start_time.hour, min: start_time.minute)
-        event = Event.new(start_at: time, duration: duration.to_s, status: "available", title: @course.name)
-        event.course = @course
-        event.save!
+    begin
+      ActiveRecord::Base.transaction do
+        @course.save!
+        start_time = TimeOfDay.parse(@course.start_time)
+        end_time = TimeOfDay.parse(@course.end_time)
+        duration = TimeOfDay.new(0) + Shift.new(start_time, end_time).duration
+        schedule = Recurrence.new(every: :week, on: @course.weekdays, starts: @course.start_date, until: @course.end_date)
+        schedule.each do |date|
+          time = date.to_time.change(hour: start_time.hour, min: start_time.minute)
+          event = Form::EventForm.new(course_id: @course.id, start_at: time, duration: duration.to_s, status: "available", title: @course.name)
+          unless event.save
+            @course.errors.add(:events, event.errors)
+            raise ActiveRecord::RecordInvalid.new(event)
+          end
+        end
       end
+    rescue ActiveRecord::RecordInvalid
+      render json: {errors: @course.errors}, status: 400
+    else
+      render nothing: true
     end
-    render nothing: true
   end
 
   def update
@@ -47,26 +54,26 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
 
   private
 
-    def course
-      @course ||= current_teacher.courses.
-        where(uuid: params[:id]).first
-    end
+  def course
+    @course ||= current_teacher.courses.
+      where(uuid: params[:id]).first
+  end
 
-    def course_params
-      ###############################################
-      # TODO: Look for a bug fix on Rails           #
-      # This code fixes a bug on Request#deep_munge #
-      params[:course][:weekdays] ||= []
-      ###############################################
+  def course_params
+    ###############################################
+    # TODO: Look for a bug fix on Rails           #
+    # This code fixes a bug on Request#deep_munge #
+    params[:course][:weekdays] ||= []
+    ###############################################
 
-      params.require(:course).
-        permit(:name,
-               :organization_id,
-               :start_date,
-               :end_date,
-               :start_time,
-               :end_time,
-               :classroom,
-               weekdays: [])
-    end
+    params.require(:course).
+      permit(:name,
+             :organization_id,
+             :start_date,
+             :end_date,
+             :start_time,
+             :end_time,
+             :classroom,
+             weekdays: [])
+  end
 end

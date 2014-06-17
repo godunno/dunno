@@ -9,7 +9,9 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils)->
     $scope.event = Event.get(uuid: $routeParams.id)
     $scope.event.then (event)->
       $scope.event = event
-
+  $scope.event.course_id ?= $routeParams.course_id
+  for collection, i in ['topics', 'thermometers', 'polls', 'personal_notes', 'medias']
+    $scope.event[collection] ?= []
   $scope.media_categories = ['image', 'video', 'audio']
   $scope.media_types = [{value: 'url', name: 'URL'}, {value: 'file', name: 'File'}]
 

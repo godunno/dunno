@@ -11,8 +11,11 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
 
   def create
     @event_form = Form::EventForm.new(params[:event])
-    @event_form.save
-    render nothing: true
+    if @event_form.save
+      render nothing: true
+    else
+      render json: {errors: @event_form.errors}, status: 400
+    end
   end
 
   def update

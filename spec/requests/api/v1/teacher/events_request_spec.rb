@@ -28,6 +28,7 @@ describe Api::V1::Teacher::EventsController do
              beacon: beacon
             )
     end
+
     it_behaves_like "API authentication required"
 
     context "authenticated" do
@@ -122,8 +123,6 @@ describe Api::V1::Teacher::EventsController do
 
     context "authenticated" do
 
-      pending "invalid event"
-      pending "trying to create event on another teacher's course"
       let(:event_template) { build(:event, title: "TEST EVENT", course: course) }
 
       let(:topic) { build :topic, timeline: event_template.timeline }
@@ -140,7 +139,7 @@ describe Api::V1::Teacher::EventsController do
       let(:params_hash) do
         {
           event: {
-            "course_id" => course.id,
+            "course_id" => event_template.course_id,
             "title" => event_template.title,
             "duration" => event_template.duration,
             "start_at" => start_at,
@@ -170,6 +169,19 @@ describe Api::V1::Teacher::EventsController do
           do_action
         end.to change{ Event.count }.from(0).to(1)
       end
+
+
+      context "trying to create an invalid event" do
+        before :each do
+          event_template.course = nil
+          do_action
+        end
+
+        it { expect(last_response.status).to eq(400) }
+        it { expect(json['errors']).to have_key('course') }
+      end
+
+      pending "trying to create event on another teacher's course"
 
       context "creating an event" do
 

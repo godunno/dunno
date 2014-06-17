@@ -18,6 +18,7 @@ class Event < ActiveRecord::Base
 
   delegate :teacher, to: :course
 
+  validates :course, presence: true
   validates :title, :start_at, :duration, presence: true
   validates :closed_at, presence: true, if: :closed?
 

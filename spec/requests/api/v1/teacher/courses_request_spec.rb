@@ -98,12 +98,20 @@ describe Api::V1::Teacher::EventsController do
         post "/api/v1/teacher/courses.json", parameters.merge(auth_params(teacher)).to_json
       end
 
-      pending "invalid course"
-
       it "should create the course" do
         expect do
           do_action
         end.to change{ Course.count }.from(0).to(1)
+      end
+
+      context "trying to create an invalid course" do
+        before :each do
+          course.start_date = nil
+          do_action
+        end
+
+        it { expect(last_response.status).to eq(400) }
+        it { expect(json['errors']).to have_key('start_date') }
       end
 
       context "creating an course" do
@@ -119,6 +127,7 @@ describe Api::V1::Teacher::EventsController do
 
         subject { last_course }
 
+        it { expect(last_response.status).to eq(200) }
         it { expect(subject.name).to eq(course.name) }
         it { expect(subject.teacher).to eq(teacher) }
         it { expect(subject.organization).to eq(organization) }

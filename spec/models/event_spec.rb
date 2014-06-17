@@ -16,7 +16,10 @@ describe Event do
   end
 
   describe "validations" do
-    pending "should belong to a course"
+
+    [:title, :start_at, :duration, :course].each do |attr|
+      it { should validate_presence_of(attr) }
+    end
 
     it "should validate presence of closed_at only if the event is closed" do
       event.closed_at = nil
