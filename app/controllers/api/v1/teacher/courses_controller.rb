@@ -1,11 +1,13 @@
 class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationController
   respond_to :json
 
+  api :GET, '/api/v1/teacher/courses', "Get the teacher's courses list."
   def index
     @courses = current_teacher.courses
     respond_with @courses.to_json(root: false)
   end
 
+  api :GET, '/api/v1/teacher/courses/:id', "Get the course's data."
   def show
     if course
       respond_with course.to_json(include: :events)
@@ -14,11 +16,13 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     end
   end
 
+  api :DELETE, '/api/v1/teacher/courses/:id', "Delete the course."
   def destroy
     course.destroy
     render nothing: true
   end
 
+  api :POST, '/api/v1/teacher/courses', "Create a course and schedule its events."
   def create
     @course = Course.new(course_params)
     @course.teacher = current_teacher
@@ -47,6 +51,7 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     end
   end
 
+  api :PATCH, '/api/v1/teacher/courses/:id', "Update a course."
   def update
     course.update(course_params)
     render nothing: true
