@@ -55,7 +55,6 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails',          '2.14.0'
   gem 'shoulda-matchers',     '2.4.0', require: false
   gem 'simplecov',            '0.8.2', require: false
   gem 'email_spec',           '1.5.0'
@@ -65,6 +64,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'rspec-rails',          '2.14.0'
   gem 'factory_girl_rails',   '4.3.0'
   gem 'pry-rails',            '0.3.2'
   gem 'dotenv-rails',         '0.9.0'
