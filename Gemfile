@@ -32,6 +32,7 @@ gem 'forem',                  '1.0.0.beta1', github: 'radar/forem', branch: 'rai
 gem 'kaminari',               '0.15.1'
 gem 'bower-rails'
 gem 'virtus'
+gem 'twilio-ruby'
 
 group :assets do
 end
