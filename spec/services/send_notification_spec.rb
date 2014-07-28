@@ -4,22 +4,22 @@ class SmsProvider
   def notify(*args); end
 end
 
-class NotificationMailer
+class NotificationMailer < ActionMailer::Base
   def notify(*args); end
 end
 
 describe SendNotification do
   let(:users) do
     [
-      stub(email: 'user1@email.com', phone_number: '+552199999997'),
-      stub(email: 'user2@email.com', phone_number: '+552199999998'),
-      stub(email: 'user3@email.com', phone_number: '+552199999999')
+      create(:student, email: 'user1@email.com', phone_number: '+552199999997'),
+      create(:student, email: 'user2@email.com', phone_number: '+552199999998'),
+      create(:student, email: 'user3@email.com', phone_number: '+552199999999')
     ]
   end
 
   let(:message) { "MESSAGE" }
-  let(:course) { stub(name: 'Calculus', students: users, teacher: teacher) }
-  let(:teacher) { stub(name: 'John Doe') }
+  let(:course) { create(:course, students: users) }
+  let(:teacher) { course.teacher }
 
   it "should notify all users with SMS" do
     SmsProvider.stub(:new).and_return(sms_provider = stub)
@@ -31,12 +31,13 @@ describe SendNotification do
   end
 
   it "should notify all users with e-mail" do
-    NotificationMailer.stub(:new).and_return(email_provider = stub)
-    expect(email_provider).to receive(:notify).with(
+    expect(NotificationMailer).to receive(:notify).with(
       message: message,
       subject: "Professor(a) #{teacher.name} da turma de #{course.name} enviou uma mensagem",
       to: users.map(&:email)
-    )
+    ).and_return(mail = stub(:mail))
+    expect(mail).to receive(:deliver)
+
     SendNotification.new(message: message, course: course).send!
   end
 end

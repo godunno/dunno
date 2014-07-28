@@ -4,16 +4,16 @@ class SendNotification
     @course = options.fetch(:course)
     @users = @course.students
     @sms_provider = SmsProvider.new
-    @email_provider = NotificationMailer.new
+    @email_provider = NotificationMailer
   end
 
   def send!
-    @sms_provider.notify(message: sms_message, to: @users.map(&:phone_number))
+    puts @sms_provider.notify(message: sms_message, to: @users.map(&:phone_number))
     @email_provider.notify(
       message: @message,
       to: @users.map(&:email),
       subject: email_subject
-    )
+    ).deliver
   end
 
   private
