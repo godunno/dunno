@@ -3,8 +3,8 @@ require 'spec_helper'
 describe SmsProvider do
 
   let(:message) { 'MESSAGE' }
-  let(:phone_numbers) { %w(+552199999999 +552199999998 +552199999997) }
-  let(:twilio_number) { '+552111111111' }
+  let(:phone_numbers) { ["+55 21 9999 9999", "+55 21 9999 9998", "+55 21 9999 9997"] }
+  let(:twilio_number) { '+55 21 1111 1111' }
   let(:account_sid) { '2389h879c2cbh236c' }
   let(:auth_token) { '20v25n27bv92yvcbhe29b' }
 

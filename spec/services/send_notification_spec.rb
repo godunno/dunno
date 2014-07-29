@@ -11,9 +11,9 @@ end
 describe SendNotification do
   let(:users) do
     [
-      create(:student, email: 'user1@email.com', phone_number: '+552199999997'),
-      create(:student, email: 'user2@email.com', phone_number: '+552199999998'),
-      create(:student, email: 'user3@email.com', phone_number: '+552199999999')
+      create(:student, email: 'user1@email.com', phone_number: '+55 21 9999 9997'),
+      create(:student, email: 'user2@email.com', phone_number: '+55 21 9999 9998'),
+      create(:student, email: 'user3@email.com', phone_number: '+55 21 9999 9999')
     ]
   end
 
