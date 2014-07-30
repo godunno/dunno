@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140726215214) do
+ActiveRecord::Schema.define(version: 20140730162351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,6 +218,13 @@ ActiveRecord::Schema.define(version: 20140726215214) do
 
   add_index "medias", ["event_id"], name: "index_medias_on_event_id", using: :btree
   add_index "medias", ["uuid"], name: "index_medias_on_uuid", unique: true, using: :btree
+
+  create_table "notifications", force: true do |t|
+    t.string  "message"
+    t.integer "course_id"
+  end
+
+  add_index "notifications", ["course_id"], name: "index_notifications_on_course_id", using: :btree
 
   create_table "options", force: true do |t|
     t.string   "content"
