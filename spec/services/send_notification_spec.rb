@@ -40,4 +40,11 @@ describe SendNotification do
 
     SendNotification.new(message: message, course: course).send!
   end
+
+  it "should record the notification" do
+    SendNotification.new(message: message, course: course).send!
+    last_notification = Notification.last
+    expect(last_notification.message).to eq(message)
+    expect(last_notification.course).to eq(course)
+  end
 end

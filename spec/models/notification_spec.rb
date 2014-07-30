@@ -33,16 +33,6 @@ describe Notification do
         notification.message = 'a' * 161
         expect(notification).not_to be_valid
       end
-
-      it "should begin with the header" do
-        notification.message = "Invalid message"
-        expect(notification).not_to be_valid
-      end
-
-      it "should allow a valid message" do
-        notification.message = "[Dunno] Valid message"
-        expect(notification).to be_valid
-      end
     end
   end
 end

@@ -8,7 +8,8 @@ class SendNotification
   end
 
   def send!
-    puts @sms_provider.notify(message: sms_message, to: @users.map(&:phone_number))
+    Notification.create!(message: @message, course: @course)
+    @sms_provider.notify(message: sms_message, to: @users.map(&:phone_number))
     @email_provider.notify(
       message: @message,
       to: @users.map(&:email),
