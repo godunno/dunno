@@ -1,0 +1,105 @@
+header.page-title
+  .row
+
+    .large-8.large-centered.vertical-center.columns
+      h1 CRIANDO DISCIPLINA 
+
+.create-course-page
+
+  .row
+
+    .form-container
+
+      .row
+        .large-12.columns
+          label Nome da disciplina
+          input.radius type="text"
+          span.help Matemática
+          
+      .row
+        .large-3.columns
+          label Nome da turma
+          input.radius type="text"
+          span.help Ex.: TR230
+
+        .large-4.columns
+          label Nível
+          select
+            optgroup label="Fundamental I"
+              option value="1" 1o ano
+              option value="1" 2o ano
+              option value="1" 3o ano
+              option value="1" 4o ano
+              option value="1" 5o ano
+            optgroup label="Fundamental II"              
+              option value="1" 6o ano
+              option value="1" 7o ano
+              option value="1" 8o ano
+              option value="1" 9o ano
+          span.help Superior
+
+        .large-5.columns
+          label Instituição
+          input.radius type="text"
+          span.help Colégio Padre Anchieta
+          
+      .row
+        .large-3.columns
+          label Data de início das aulas
+          input.radius type="text"
+        .large-3.columns
+          label Data de término das aulas
+          input.radius type="text"
+        .large-6.columns  
+
+  .row
+
+    h3.form-caption HORÁRIO DE AULAS
+
+    .form-container
+
+      .row
+        .large-12.columns
+          h4 Períodos desta turma na semana
+
+          .weekdays-container
+            .monday 
+              .day
+                .dashed SEGUNDA
+
+            .weekdays
+              .day
+                .dashed.has-period TERÇA
+                .day-form
+                  label Começa:
+                  input.radius type="text"
+                  label Termina:
+                  input.radius type="text"
+                  label Sala:
+                  input.radius type="text"
+
+                .add-period
+                  .dashed + Outro tempo
+
+              .day 
+                .dashed QUARTA
+              .day 
+                .dashed QUINTA
+              .day 
+                .dashed SEXTA
+              .day 
+                .dashed SÁBADO
+              .day 
+                .dashed DOMINGO
+
+  .row
+    .large-offset-8.columns
+    .large-2.columns
+      button.radius.btn-style-1 Cancelar
+    .large-2.columns
+      button.radius.btn-style-1 Salvar disciplina
+
+javascript:
+  $(document).ready(function(){
+    $("#select-level").chosen();
+  });

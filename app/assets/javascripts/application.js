@@ -12,38 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require js/bootstrap.min.js
-//= require js/jquery.dcjqaccordion.2.7.js
-//= require js/jquery.scrollTo.min.js
-//= require js/jquery.nicescroll.js
-//= require js/jquery.sparkline.js
-//= require js/common-scripts.js
-//= require js/owl.carousel.js
-//= require assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js
-//= require assets/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.pt-BR.js
-//= require assets/bootstrap-timepicker/js/bootstrap-timepicker.js
-//= require assets/bootstrap-datepicker/js/bootstrap-datepicker.js
+//= require foundation/foundation
+//= require foundation/foundation.magellan
+//= require foundation/foundation.dropdown
 //= require angular
 //= require angular-route
 //= require angular-resource
 //= require angularjs-rails-resource
-//= require_tree ./angular/
-//= require inputs.js
 
-function ready() {
+// require_tree ./angular/
 
-  /* Form: Focus and Hint */
-
-	$('input[type="text"], input[type="password"], textarea').focus(function() {
-    $(this).parent().find('.hint').show();
-		$(this).css("box-shadow", "#ccc 0 0 5px");
-	});
-	$('input[type="text"], input[type="password"], textarea').blur(function() {
-    $(this).parent().find('.hint').hide();
-		$(this).css("box-shadow", "none");
-	});
-
-}
-
-$(document).ready(ready);
-$(document).on('page:load', ready);
+$(function(){ $(document).foundation(); });

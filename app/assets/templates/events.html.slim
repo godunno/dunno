@@ -1,0 +1,53 @@
+header.page-title
+  .row
+    .large-4.large-centered.vertical-center.columns
+      h1 Aulas
+
+.events-page
+
+  .row
+    ul.events
+
+      li.event-card ng-repeat="event in events2"
+        div ng-class="'title scheme-' + event.klass.order"
+          h1 {{event.klass.name}}
+          span.subtitle {{event.klass.location}}
+
+        .day-month
+          .day {{event.day}}
+          .month {{event.month}}
+
+        .exam ng-if="event.has_exam" PROVA
+
+        .content
+          .weekday-hour {{event.weekday}} - {{event.time}}
+          .status
+            span.course {{event.course}}
+            .image
+              img ng-if="event.published" src="/images/check.png"
+              img ng-if="!event.published" src="/images/uncheck.png"
+          .notes ng-if="event.tasks.length > 0"
+            ul.note
+              li.task.vertical-cente ng-repeat="task in event.tasks" 
+                .image
+                  img src="/images/task-icon-1.png"
+                span {{task}}
+
+            .remaining Mais 2 tarefas
+
+          .planning ng-if="event.tasks.length == 0"
+            button.radius.vertical-center.btn-style-1 PLANEJAR
+
+    /li.card.event ng-repeat="event in events"
+    /  div ng-class="'title scheme-' + event.klass.order"
+    /    h1 {{event.klass.name}}
+    /    span.subtitle.secondary-color {{event.klass.location}}
+    /  div.status ng-class="'status scheme-' + event.klass.order"
+    /    .row.vertical-center
+    /      .large-9.columns.course {{event.name}}
+    /      .large-3.columns: a class="button radius timer" 0:30
+
+    /  .notes
+    /    ul.note
+    /      li ng-repeat="task in event.tasks" {{task}}
+

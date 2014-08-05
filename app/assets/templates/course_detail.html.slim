@@ -1,0 +1,100 @@
+header.page-title.scheme-1
+  .row
+    .large-2.columns.vertical-center style="float: right"
+      a class="button radius btn-style-2" 
+        span.icon-arrow-back.pos
+        | Editar disciplina
+
+    .large-8.large-centered.vertical-center.columns
+      h2 Tópicos em Psicologia do Trabalho 
+      p.subtitle-head TR230
+      p.secondary-color.subtitle-head Colégio Anchieta - 2ª série
+  
+.course-detail-page
+  .row
+    .large-8.columns
+
+      ul.dates
+        li.has-overlay ng-repeat="klass in klass_dates"
+          a.overlay.published.hide href="#/courses.html"
+            .button.btn-style-transparent-1.radius.vertical-center ver aula
+          span.weekday {{klass.weekday}} {{klass.time}}
+          .day-month ng-if="!klass.is_today"
+            span.day {{klass.day}}
+            span.month {{klass.month}}
+          .day-month.today ng-if="klass.is_today"
+            span.day {{klass.day}}
+            span.month {{klass.month}}
+          div
+            span.class {{klass.description}}
+            img.check ng-if="klass.is_completed" src="/images/check.png"
+            img.check ng-if="!klass.is_completed" src="/images/uncheck.png"
+
+          .exam ng-if="klass.has_exam" PROVA
+
+    .large-4.columns
+      div.code
+        span.title Código da Disciplina:
+        h3 ABC-012345
+        span.description Envie este código para os alunos entrarem nesta disciplina
+        
+      div.students
+        .top
+          strong 23 alunos
+          a class="button radius btn-style-1 btn-sm" Enviar mensagem
+        
+        ul
+          li
+            img src="http://lorempixel.com/40/40"
+            div
+              h3 Antonio Carlos Júnior
+              span 12 anos
+              
+          li
+            img src="http://lorempixel.com/40/40"
+            div
+              h3 Antonio Carlos Júnior
+              span 12 anos
+              
+          li
+            img src="http://lorempixel.com/40/40"
+            div
+              h3 Antonio Carlos Júnior
+              span 12 anos
+              
+          li
+            img src="http://lorempixel.com/40/40"
+            div
+              h3 Antonio Carlos Júnior
+              span 12 anos
+              
+          li
+            img src="http://lorempixel.com/40/40"
+            div
+              h3 Antonio Carlos Júnior
+              span 12 anos
+              
+          li
+            img src="http://lorempixel.com/40/40"
+            div
+              h3 Antonio Carlos Júnior
+              span 12 anos
+              
+          li
+            img src="http://lorempixel.com/40/40"
+            div
+              h3 Antonio Carlos Júnior
+              span 12 anos
+              
+          li
+            img src="http://lorempixel.com/40/40"
+            div
+              h3 Antonio Carlos Júnior
+              span 12 anos
+              
+          li
+            img src="http://lorempixel.com/40/40"
+            div
+              h3 Antonio Carlos Júnior
+              span 12 anos
+              

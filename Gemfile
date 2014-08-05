@@ -7,7 +7,7 @@ gem 'unicorn-worker-killer',  '0.4.2'
 gem 'secure_headers',         '1.1.0'
 gem 'jquery-rails',           '3.0.4'
 gem 'turbolinks',             '2.0.0'
-gem 'haml-rails',             '0.5.2'
+gem 'slim-rails'
 gem 'jbuilder',               '1.5.3'
 gem 'pg',                     '0.17.0'
 gem 'sass-rails',             '4.0.2'
@@ -33,6 +33,7 @@ gem 'kaminari',               '0.15.1'
 gem 'bower-rails'
 gem 'virtus'
 gem 'twilio-ruby'
+gem 'foundation-rails'
 
 group :assets do
 end

@@ -1,0 +1,35 @@
+/ test
+header.page-title
+  .row
+    .large-4.vertical-center.columns style="float: left"
+      button.radius.btn-style-1 Criar nova disciplina
+    .large-4.large-centered.vertical-center.columns
+      h1 Disciplinas
+
+.courses-page
+
+  .row
+
+    ul.courses
+      li.course-card.has-overlay ng-repeat="course in courses"
+        a.overlay.published.hide href="#/courses.html"
+          .button.btn-style-transparent-1.radius.vertical-center ver disciplina
+        div ng-class="'title scheme-' + course.order"
+          h2 {{course.course}}
+          .subtitle
+            span {{course.name}}
+            span.right {{course.location}} - {{course.department}} - {{course.room}}
+
+        .content
+          div
+            .period
+              img src="/images/calendar.png"
+              span {{course.period}}
+            .students
+              img src="/images/students.png"
+              span {{course.students}} Alunos
+          .dates
+            ul
+              li ng-repeat="date in course.dates"
+                span {{date}}
+
