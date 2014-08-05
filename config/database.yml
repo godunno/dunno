@@ -16,3 +16,13 @@ test:
   min_messages: WARNING
   host: localhost
   template: template0
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  database: dunno_production
+  pool: 5
+  username: postgres
+  min_messages: WARNING
+  host: localhost
+  template: template0

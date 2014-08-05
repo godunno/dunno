@@ -19,6 +19,7 @@
 //= require angular-route
 //= require angular-resource
 //= require angularjs-rails-resource
+//= require angular-scroll/angular-scroll.min
 
 // require_tree ./angular/
 
