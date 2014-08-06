@@ -1,3 +1,55 @@
+.diary-page
+
+  .vertical-container
+    display: table-cell
+    vertical-align: middle
+    
+    .vertical-center
+      display: inline-block
+      
+  .main-title
+    text-align: center
+    overflow: hidden
+    position: relative
+    background-color: #FECF16
+    border-bottom: 1px solid rbga(151,151,151,0.8)
+    margin-bottom: 40px
+    
+    .left
+      float: left
+      position: absolute
+      
+    .right
+      float: right  
+      position: absolute
+      
+    .button-transparent
+      color: #000000
+      border: 1px solid #2B3738
+      padding: 6px 18px
+      font-size: 14px
+      border-radius: 5px
+      
+    .title-container
+      padding: 20px 0
+      line-height: 1.0
+    
+      .title
+        font-size: 28px
+        font-weight: 300
+        margin-bottom: 10px
+      
+      .subtitle-1
+        font-size: 16px
+        font-weight: 700
+        margin-bottom: 5px
+        color: rgba(0,0,0,0.60)
+      
+      .subtitle-2
+        font-size: 13px
+        font-weight: 300
+        color: rgba(0,0,0,0.60)
+  
 $diary-container-width: 750px
 $diary-title-height: 90px
 $diary-card-border: 1px solid #ddd
@@ -21,7 +73,11 @@ $diary-card-border: 1px solid #ddd
     color: $primary-color
     text-align: center
     text-transform: uppercase
+    font-weight: 700
 
+  a
+    color: #979797
+    
   .arrow-left
     float: left
     font-size: 2rem
@@ -35,6 +91,12 @@ $diary-card-border: 1px solid #ddd
 .event-status
   margin: 20px auto
   width: $diary-container-width
+  
+  .white
+    background-color: #ffffff
+    
+  .status
+    text-align: right
 
 .container
   width: $diary-container-width
@@ -69,7 +131,7 @@ $diary-card-border: 1px solid #ddd
 
 
   .tasks
-    border-top: 1px solid black
+    border-top: 1px solid #d8d8d8
     padding: 0 30px
   
   .row
@@ -93,9 +155,11 @@ $diary-card-border: 1px solid #ddd
   margin-left: 10px
 
 .foot
-  border-top: 1px solid black 
   padding: 25px 30px
   position: relative
+  
+  a
+    color: #71797A
   
 .add
   position: absolute
@@ -112,3 +176,10 @@ $diary-card-border: 1px solid #ddd
 
 .notes
   border-color: red
+  background-color: #FFF7F6
+  
+  .tasks
+    border-top: 1px solid rgba(255,17,5,0.27)
+
+  .foot
+    border-top: 1px solid rgba(255,17,5,0.27) 

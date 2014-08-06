@@ -1,85 +1,88 @@
-header.page-title.scheme-1
-  .row
-    .large-3.columns.vertical-center
-      a class="button radius btn-style-2" 
-        span.icon-arrow-back.pos
-        | Ver todas as aulas
+.diary-page
 
-    .large-4.large-centered.vertical-center.columns
-      h1 TR230 
-      p.secondary-color.subtitle-head Colégio Anchieta - 2ª série
-
-.row.event-carousel
-  a class="icon-arrow-circle-left arrow-left vertical-center" 
-  a class="icon-arrow-circle-right arrow-right vertical-center" 
-  h1.vertical-center Aula 4
-
-.row.event-status
-  .large-5.columns
-    span.icon-calendar.pos
-    a class="button radius btn-style-2" 
-      | 12 de maio
-      | Segunda-Feira
-  .large-3.columns.offset-2
-    span.icon-clock.pos
-    a class="button radius btn-style-2" 
-      | 14:00
-    |   às   
-    a class="button radius btn-style-2" 
-      | 16:00
-  .large-1.columns
-    a class="button radius btn-style-2" 
-      span.icon-boy
-  .large-3.columns
-    a class="button radius btn-style-1"
-      | Aberta
-      span.icon-arrow-down
-
-.row.card.container
-  .title.diary-label
-    h1 Diário
-    span.subtitle.secondary-color Tarefas visíveis para os alunos
-
-  .tasks
+  .main-title
     .row
-      input type="checkbox" 
-      label Revisar temas de casa
-      .task-box
-        span.icon-quiz.pos
-        | Pergunta para a primeira enquente
-        a class="icon-trash task-icon-right"
-        a class="icon-eye task-icon-right"
-    .row  
-      input type="checkbox" 
-      label Revisar temas de casa
-      a class="icon-transfer task-icon-right"
+      .vertical-container
+          a.left.vertical-center.button-transparent
+            span.icon-arrow-back 
+              | &nbsp;VER TODAS AS AULAS
+          
+      .title-container
+        .title Tópicos em Psicologia do Trabalho
+        .subtitle-1 TR230
+        .subtitle-2 Colégio Anchieta - 2a série
 
-  .foot
-    a.icon-folder-add.add
-    input type="text" placeholder="Adicionar Tarefa"
-    
-    label Ex: Fazendo ditado
-
-.row.card.container.notes
-    .title.notes-label
-        
-      h1 <span class="icon-lock icon"></span> Anotações       
+  .row.event-carousel
+    a class="icon-arrow-circle-left arrow-left vertical-center" 
+    a class="icon-arrow-circle-right arrow-right vertical-center" 
+    h1.vertical-center Aula 4
+  
+  .row.event-status
+    .large-5.columns
+      .date
+        span.icon-calendar.pos
+        a.button.radius.btn-style-2.white
+          span 12 de maio
+          span Segunda-Feira
+    .large-4.columns.offset-2
+      .time
+        span.icon-clock.pos
+        a.button.radius.btn-style-2.white
+          | 14:00
+        |   às   
+        a.button.radius.btn-style-2.white 
+          | 16:00
+    .large-3.columns
+      .status
+        a.button.radius.btn-style-1
+          | Aberta
+          span.icon-arrow-down
+  
+  .row.card.container
+    .title.diary-label
+      h1 Diário
       span.subtitle.secondary-color Tarefas visíveis para os alunos
-
+  
     .tasks
       .row
         input type="checkbox" 
         label Revisar temas de casa
-        .task-box 
+        .task-box
+          span.icon-quiz.pos
           | Pergunta para a primeira enquente
           a class="icon-trash task-icon-right"
           a class="icon-eye task-icon-right"
-
-      .row ng-repeat="i in [1,2,3,4,5,6]"
+      .row  
         input type="checkbox" 
         label Revisar temas de casa
+        a class="icon-transfer task-icon-right"
+  
     .foot
-      input type="text" placeholder="Adicionar Anotação"
-      label Ex: fazendo ditado
+      a.icon-folder-add.add
+      input type="text" placeholder="Adicionar Tarefa"
+      
+      label Ex: Fazendo ditado
+  
+  .row.card.container.notes
+      .title.notes-label
+          
+        h1 <span class="icon-lock icon"></span> Anotações       
+        span.subtitle.secondary-color Tarefas visíveis para os alunos
+  
+      .tasks
+        .row
+          input type="checkbox" 
+          label Revisar temas de casa
+          .task-box 
+            | Pergunta para a primeira enquente
+            a class="icon-trash task-icon-right"
+            a class="icon-eye task-icon-right"
+  
+        .row ng-repeat="i in [1,2,3,4,5,6]"
+          input type="checkbox" 
+          label Revisar temas de casa
+      .foot
+        input type="text" placeholder="Adicionar Anotação"
+        label Ex: fazendo ditado
 
 
