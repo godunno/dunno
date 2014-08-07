@@ -1,7 +1,7 @@
 header.page-title
   .row
 
-    .large-8.large-centered.vertical-center.columns
+    .medium-8.medium-centered.vertical-center.columns
       h1 CRIANDO DISCIPLINA 
 
 .create-course-page
@@ -11,18 +11,25 @@ header.page-title
     .form-container
 
       .row
-        .large-12.columns
-          label Nome da disciplina
-          input.radius type="text"
-          span.help Matemática
+        .medium-12.columns
+          label 
+          | Nome da disciplina
+          span.warning *
+          input.radius type="text" placeholder="Ex: Matemática"
           
       .row
-        .large-3.columns
-          label Nome da turma
-          input.radius type="text"
-          span.help Ex.: TR230
+        .sep
+        
+      .row
+        .medium-3.columns
+          label 
+            | Nome da turma
+            span.warning *
+            
+          input.radius.input-error type="text" placeholder="Ex: TR230"
+          span.warning.label-error Nome da turma é obrigatório
 
-        .large-4.columns
+        .medium-4.columns
           label Nível
           select
             optgroup label="Fundamental I"
@@ -36,68 +43,95 @@ header.page-title
               option value="1" 7o ano
               option value="1" 8o ano
               option value="1" 9o ano
-          span.help Superior
 
-        .large-5.columns
+        .medium-5.columns
           label Instituição
-          input.radius type="text"
-          span.help Colégio Padre Anchieta
-          
-      .row
-        .large-3.columns
-          label Data de início das aulas
-          input.radius type="text"
-        .large-3.columns
-          label Data de término das aulas
-          input.radius type="text"
-        .large-6.columns  
+          input.radius type="text" placeholder="Ex: Colégio Padre Anchieta"
 
   .row
-
-    h3.form-caption HORÁRIO DE AULAS
+    h3.form-caption HORÁRIOS DE AULA
+    span.warning.label-error ATENÇÃO: Essas datas não poderão ser alteradas no futuro.
 
     .form-container
+    
+      .row
+        .medium-4.large-3.columns
+          label 
+            | Data de início das aulas
+            span.warning *
+          input.radius type="text" placeholder="Ex: 12/08/2014"
+        .medium-4.large-3.columns
+          label 
+            | Data de término das aulas
+            span.warning *
+          input.radius type="text" placeholder="Ex: 13/12/2014"
+        .medium-6.columns  
 
       .row
+        .sep
+        
+      .row
         .large-12.columns
-          h4 Períodos desta turma na semana
+          h4 
+          | Aulas desta disciplina na semana
+          span.warning *
+          
+      .box
+        .row
+          .medium-3.columns
+            label Dia da semana:
+            select.radius
+              option Segunda-feira
+              option Terça-feira
+              option Quarta-feira
+              option Quinta-feira
+              option Sexta-feira
+              option Sábado
+              option Domingo  
+          .medium-2.columns
+            label Começa às:
+            input.radius type="text" value="10 : 00"
+          .medium-2.columns
+            label Termina às:
+            input.radius type="text" value="12 : 00"
+          .medium-2.columns
+            label Sala / Prédio:
+            input.radius type="text" value="430"
+          .medium-3.columns.right
+            span.dunno-font x
 
-          .weekdays-container
-            .monday 
-              .day
-                .dashed SEGUNDA
+      .box
+        .row
+          .medium-3.columns
+            label Dia da semana:
+            select.radius
+              option Segunda-feira
+              option Terça-feira
+              option Quarta-feira
+              option Quinta-feira
+              option Sexta-feira
+              option Sábado
+              option Domingo  
+          .medium-2.columns
+            label Começa às:
+            input.radius type="text"
+          .medium-2.columns
+            label Termina às:
+            input.radius type="text"
+          .medium-2.columns
+            label Sala / Prédio:
+            input.radius type="text"
+          .medium-3.columns.right
+            span.dunno-font x
 
-            .weekdays
-              .day
-                .dashed.has-period TERÇA
-                .day-form
-                  label Começa:
-                  input.radius type="text"
-                  label Termina:
-                  input.radius type="text"
-                  label Sala:
-                  input.radius type="text"
-
-                .add-period
-                  .dashed + Outro tempo
-
-              .day 
-                .dashed QUARTA
-              .day 
-                .dashed QUINTA
-              .day 
-                .dashed SEXTA
-              .day 
-                .dashed SÁBADO
-              .day 
-                .dashed DOMINGO
+      a.btn-black.radius href="#"
+        span.plus A
+        span Adicionar tempo    
 
   .row
-    .large-offset-8.columns
-    .large-2.columns
-      button.radius.btn-style-1 Cancelar
-    .large-2.columns
-      button.radius.btn-style-1 Salvar disciplina
+    .medium-12.actions
+      a.radius.cancel Cancelar
+      a.radius.save Salvar disciplina
 
 javascript:
   $(document).ready(function(){
