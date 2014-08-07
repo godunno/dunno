@@ -17,6 +17,14 @@ class Course < ActiveRecord::Base
     "course_#{uuid}"
   end
 
+  def order
+    teacher.courses.order('created_at asc').index(self) + 1
+  end
+
+  def as_json(options = {})
+    super(options.merge(methods: [:order]))
+  end
+
   private
     def prepare_weekdays
       weekdays.reject!(&:blank?)

@@ -2,12 +2,14 @@ DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails']
 
 Router = ($routeProvider)->
   $routeProvider.
-    when('/courses', controller: 'CoursesIndexCtrl', templateUrl: '<%= asset_path('courses/index.html') %>').
-    when('/courses/new', controller: 'CourseCtrl', templateUrl: '<%= asset_path('courses/form.html') %>').
-    when('/courses/:id', controller: 'CourseCtrl', templateUrl: '<%= asset_path('courses/show.html') %>').
-    when('/courses/:id/edit', controller: 'CourseCtrl', templateUrl: '<%= asset_path('courses/form.html') %>').
-    when('/events/new', controller: 'EventCtrl', templateUrl: '<%= asset_path('events/form.html') %>').
-    when('/events/:id/edit', controller: 'EventCtrl', templateUrl: '<%= asset_path('events/form.html') %>').
+    when('/courses',          controller: 'CoursesIndexCtrl', templateUrl: '<%= asset_path('courses.html') %>').
+    when('/courses/new',      controller: 'CourseCtrl',       templateUrl: '<%= asset_path('create_course.html') %>').
+    when('/courses/:id/edit', controller: 'CourseCtrl',       templateUrl: '<%= asset_path('create_course.html') %>').
+    when('/courses/:id',      controller: 'CourseCtrl',       templateUrl: '<%= asset_path('course_details.html') %>').
+    when('/events',           controller: 'EventsIndexCtrl',  templateUrl: '<%= asset_path('events.html') %>').
+    when('/events/new',       controller: 'EventCtrl',        templateUrl: '<%= asset_path('diary.html') %>').
+    when('/events/:id/edit',  controller: 'EventCtrl',        templateUrl: '<%= asset_path('diary.html') %>').
+    when('/styleguide', templateUrl: '<%= asset_path('styleguide.html') %>').
     otherwise(redirectTo: '/courses')
 Router.$inject = ['$routeProvider', '$locationProvider']
 DunnoApp.config Router

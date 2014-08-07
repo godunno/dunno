@@ -84,4 +84,15 @@ describe Course do
 
     it { expect(course.channel).to eq("course_#{course.uuid}") }
   end
+
+  describe "#order" do
+    let(:second_course) { build :course, teacher: course.teacher }
+    before do
+      course.save!
+      second_course.save!
+    end
+
+    it { expect(course.order).to eq(1) }
+    it { expect(second_course.order).to eq(2) }
+  end
 end

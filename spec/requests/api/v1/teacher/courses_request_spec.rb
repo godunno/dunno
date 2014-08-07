@@ -71,6 +71,7 @@ describe Api::V1::Teacher::EventsController do
           it { expect(subject["uuid"]).to eq course.uuid }
 
           pending "course's attributes"
+          it { expect(subject["order"]).to eq course.order }
 
           describe "course's events" do
             subject { json["events"].map {|e| e["uuid"]} }

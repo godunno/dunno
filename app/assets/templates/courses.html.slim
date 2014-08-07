@@ -15,16 +15,16 @@ header.page-title
         a.overlay.published.hide href="#/courses.html"
           .button.btn-style-transparent-1.radius.vertical-center ver disciplina
         div ng-class="'title scheme-' + course.order"
-          h2 {{course.course}}
+          h2 {{course.name}}
           .subtitle
-            span {{course.name}}
-            span.right {{course.location}} - {{course.department}} - {{course.room}}
+            span {{course.class_name}}
+            span.right {{course.institution}} - Sala {{course.classroom}}
 
         .content
           div
             .period
               img src="/images/calendar.png"
-              span {{course.period}}
+              span {{course.start_date}} - {{course.end_date}}
             .students
               img src="/images/students.png"
               span {{course.students}} Alunos

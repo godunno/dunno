@@ -4,6 +4,7 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
   api :GET, '/api/v1/teacher/courses', "Get the teacher's courses list."
   def index
     @courses = current_teacher.courses
+    binding.pry
     respond_with @courses.to_json(root: false)
   end
 

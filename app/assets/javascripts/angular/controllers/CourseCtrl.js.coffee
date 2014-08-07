@@ -1,14 +1,5 @@
 DunnoApp = angular.module('DunnoApp')
 
-CoursesIndexCtrl = ($scope, Course, $routeParams)->
-  Course.query().then (courses)->
-    $scope.courses = courses
-  $scope.delete = (course)->
-    course.delete().then (response)->
-      $scope.courses.splice($scope.courses.indexOf(course), 1)
-CoursesIndexCtrl.$inject = ['$scope', 'Course', '$routeParams']
-DunnoApp.controller 'CoursesIndexCtrl', CoursesIndexCtrl
-
 CourseCtrl = ($scope, Course, $location, $routeParams)->
   $scope.course = new Course()
   if $routeParams.id
