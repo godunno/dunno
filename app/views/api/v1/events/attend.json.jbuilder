@@ -1,5 +1,4 @@
-json.(@event, :id, :uuid, :title, :start_at, :status, :channel)
-json.duration(TimeOfDay.parse(@event.duration).second_of_day / 60)
+json.(@event, :id, :uuid, :start_at, :end_at, :status, :channel)
 
 json.(event_pusher_events, *event_pusher_events.events)
 

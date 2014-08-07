@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807043443) do
+ActiveRecord::Schema.define(version: 20140807193535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,10 +71,7 @@ ActiveRecord::Schema.define(version: 20140807043443) do
     t.string   "uuid"
     t.date     "start_date"
     t.date     "end_date"
-    t.string   "end_time"
-    t.string   "start_time"
     t.string   "classroom"
-    t.integer  "weekdays",        array: true
     t.string   "class_name"
     t.string   "grade"
     t.string   "institution"
@@ -93,17 +90,16 @@ ActiveRecord::Schema.define(version: 20140807043443) do
   add_index "courses_students", ["student_id"], name: "index_courses_students_on_student_id", using: :btree
 
   create_table "events", force: true do |t|
-    t.string   "title"
     t.datetime "start_at"
     t.string   "status",     default: "available"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uuid"
-    t.string   "duration"
     t.integer  "course_id"
     t.datetime "closed_at"
     t.datetime "opened_at"
     t.integer  "beacon_id"
+    t.datetime "end_at"
   end
 
   add_index "events", ["beacon_id"], name: "index_events_on_beacon_id", using: :btree
@@ -423,5 +419,16 @@ ActiveRecord::Schema.define(version: 20140807043443) do
 
   add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
   add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
+
+  create_table "weekly_schedules", force: true do |t|
+    t.integer  "weekday"
+    t.string   "start_time"
+    t.string   "end_time"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "weekly_schedules", ["course_id"], name: "index_weekly_schedules_on_course_id", using: :btree
 
 end

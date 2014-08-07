@@ -1,6 +1,6 @@
 class EventBuilder < BaseBuilder
   def build(json = Jbuilder.new, options = {})
-    json.(event, :id, :title, :uuid, :duration, :start_at, :channel, :status)
+    json.(event, :id, :uuid, :start_at, :end_at, :channel, :status)
 
     event_pusher_events = options[:event_pusher_events]
     json.(event_pusher_events, *event_pusher_events.events)

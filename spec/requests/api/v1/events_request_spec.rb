@@ -54,7 +54,7 @@ describe Api::V1::EventsController do
           let(:target) { event }
           let(:media) { media_with_url }
           subject { json[1] }
-          it_behaves_like "request return check", %w(id title uuid duration channel status start_at)
+          it_behaves_like "request return check", %w(id uuid channel status start_at end_at)
 
           it { expect(last_response.status).to eq(200) }
 
@@ -163,12 +163,12 @@ describe Api::V1::EventsController do
         it_behaves_like "closed event"
 
         context "unopened event" do
-          let(:event) { create(:event, status: 'available', title: "New event") }
+          let(:event) { create(:event, status: 'available') }
           it { expect(last_response.status).to eq 403 }
         end
 
         context "opened event" do
-          let(:event) { create(:event, status: 'opened', title: "New event", topics: [topic], polls: [poll], medias: [media_with_url, media_with_file]) }
+          let(:event) { create(:event, status: 'opened', topics: [topic], polls: [poll], medias: [media_with_url, media_with_file]) }
           let!(:topic) { create(:topic) }
           let!(:poll) { create(:poll, options: [option]) }
           let(:option) { create(:option) }
@@ -293,9 +293,7 @@ describe Api::V1::EventsController do
 
         it { expect(last_response.status).to eq(200) }
         it { expect(json.length).to eq(1) }
-        it { expect(json["event"]["title"]).to eq(event.title) }
         it { expect(json["event"]["timeline"]["messages"].length).to eq(1) }
-
 
         it do
             expect { get "/api/v1/events/989898/timeline.json", auth_params }.to raise_error(ActiveRecord::RecordNotFound)

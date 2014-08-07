@@ -48,7 +48,7 @@ describe Api::V1::CoursesController do
           let(:media) { media_with_url }
           let(:course_json) { json[0] }
           subject { course_json }
-          it_behaves_like "request return check", %w(id name uuid start_date end_date start_time end_time classroom weekdays)
+          it_behaves_like "request return check", %w(id name uuid start_date end_date classroom)
 
           it { expect(last_response.status).to eq(200) }
 

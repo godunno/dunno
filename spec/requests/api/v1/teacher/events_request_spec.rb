@@ -57,7 +57,7 @@ describe Api::V1::Teacher::EventsController do
           let(:media) { media_with_url }
 
           subject { json }
-          it_behaves_like "request return check", %w(id title uuid duration channel status start_at)
+          it_behaves_like "request return check", %w(id uuid channel status start_at end_at)
 
           it { expect(last_response.status).to eq(200) }
 
@@ -123,7 +123,7 @@ describe Api::V1::Teacher::EventsController do
 
     context "authenticated" do
 
-      let(:event_template) { build(:event, title: "TEST EVENT", course: course) }
+      let(:event_template) { build(:event, course: course) }
 
       let(:topic) { build :topic, timeline: event_template.timeline }
       let(:thermometer) { build :thermometer, timeline: event_template.timeline }
@@ -135,14 +135,14 @@ describe Api::V1::Teacher::EventsController do
       let(:media_with_url) { build :media, timeline: event_template.timeline }
       #let(:media_with_file) { build :media_with_file, timeline: event_template.timeline }
       let(:start_at) { event_template.start_at.strftime('%d/%m/%Y %H:%M') }
+      let(:end_at) { event_template.end_at.strftime('%d/%m/%Y %H:%M') }
 
       let(:params_hash) do
         {
           event: {
             "course_id" => event_template.course_id,
-            "title" => event_template.title,
-            "duration" => event_template.duration,
             "start_at" => start_at,
+            "end_at" => end_at,
             topics: [topic.attributes],
             thermometers: [thermometer.attributes],
             polls: [poll.attributes.merge(
@@ -191,8 +191,6 @@ describe Api::V1::Teacher::EventsController do
 
         let(:event) { Event.order('created_at desc').first }
         subject { event }
-
-        it { expect(subject.title).to eq(event_template[:title]) }
 
         it { expect(subject.topics.count).to eq 1 }
         describe "topic" do
@@ -247,6 +245,7 @@ describe Api::V1::Teacher::EventsController do
         #end
 
         it { expect(subject.start_at.strftime('%d/%m/%Y %H:%M')).to eq(start_at) }
+        it { expect(subject.end_at.strftime('%d/%m/%Y %H:%M')).to eq(end_at) }
       end
 
     end
@@ -260,8 +259,8 @@ describe Api::V1::Teacher::EventsController do
 
       pending "invalid event"
 
-      let(:title) { "NEW TITLE" }
-      let(:params_hash) { { event: { title: title } } }
+      let(:start_at) { event.start_at + 1.hour }
+      let(:params_hash) { { event: { start_at: start_at } } }
 
       def do_action
         patch "/api/v1/teacher/events/#{event.uuid}.json", auth_params(teacher).merge(params_hash).to_json
@@ -272,7 +271,7 @@ describe Api::V1::Teacher::EventsController do
         do_action
       end
 
-      it { expect(event.reload.title).to eq title }
+      it { expect(event.reload.start_at).to eq start_at }
     end
   end
 

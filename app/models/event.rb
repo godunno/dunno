@@ -19,7 +19,7 @@ class Event < ActiveRecord::Base
   delegate :teacher, to: :course
 
   validates :course, presence: true
-  validates :title, :start_at, :duration, presence: true
+  validates :start_at, :end_at, presence: true
   validates :closed_at, presence: true, if: :closed?
 
   accepts_nested_attributes_for :topics, :thermometers, :polls, :personal_notes, :medias, allow_destroy: true

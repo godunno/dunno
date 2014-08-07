@@ -17,7 +17,7 @@ describe Event do
 
   describe "validations" do
 
-    [:title, :start_at, :duration, :course].each do |attr|
+    %w(start_at end_at course).each do |attr|
       it { should validate_presence_of(attr) }
     end
 

@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe Form::EventForm do
   describe "validations" do
-    [:title, :start_at, :duration, :course].each do |attr|
+    %w(start_at end_at course).each do |attr|
       it { should validate_presence_of(attr) }
     end
   end
 
   let(:course) { create(:course) }
   let(:event_form) { Form::EventForm.new(event) }
-  let(:valid_event_hash) { { course_id: course.id, title: "NEW EVENT", start_at: Time.now, duration: '2:00' } }
+  let(:valid_event_hash) { { course_id: course.id, start_at: Time.now, end_at: 2.hours.from_now} }
 
   describe "creating" do
 
@@ -19,9 +19,8 @@ describe Form::EventForm do
 
       it { expect(event_form).to be_valid }
       it { expect(event_form.model).to be_persisted }
-      it { expect(event_form.model.title).to eq(event[:title]) }
       it { expect(event_form.model.start_at).to eq(event[:start_at]) }
-      it { expect(event_form.model.duration).to eq(event[:duration]) }
+      it { expect(event_form.model.end_at).to eq(event[:end_at]) }
 
       context "with nested models" do
         let(:topic) { {description: "NEW DESCRIPTION"} }
@@ -43,9 +42,8 @@ describe Form::EventForm do
         end
 
         it { expect(event_form).not_to be_valid }
-        it { expect(event_form.errors).to include(:title) }
         it { expect(event_form.errors).to include(:start_at) }
-        it { expect(event_form.errors).to include(:duration) }
+        it { expect(event_form.errors).to include(:end_at) }
       end
 
       context "nested models" do
@@ -81,7 +79,6 @@ describe Form::EventForm do
 
         it { expect(event_form).not_to be_valid }
         it { expect(event_form.errors).to include(:timeline) }
-        it { expect(event_form.model.title).not_to eq(event[:title]) }
         it { expect(existing_topic.reload.description).not_to eq(topic[:description]) }
       end
     end
@@ -93,13 +90,13 @@ describe Form::EventForm do
       let(:event) do
         valid_event_hash.merge({
           uuid: existing_event.uuid,
-          title: 'UPDATED TITLE',
+          start_at: existing_event.start_at + 1.hour
         })
       end
       before(:each) { event_form.save }
 
       it { expect(event_form).to be_valid }
-      it { expect(existing_event.reload.title).to eq(event[:title]) }
+      it { expect(existing_event.reload.start_at).to eq(event[:start_at]) }
 
       context "with nested models" do
         let(:existing_topic) { create(:topic, timeline: existing_event.timeline) }
@@ -117,7 +114,7 @@ describe Form::EventForm do
     end
 
     context "invalid" do
-      let(:event) { {uuid: existing_event.uuid, title: nil, start_at: nil, duration: nil} }
+      let(:event) { {uuid: existing_event.uuid, start_at: nil, end_at: nil} }
 
       context "event" do
         before do
@@ -125,9 +122,8 @@ describe Form::EventForm do
         end
 
         it { expect(event_form).not_to be_valid }
-        it { expect(event_form.errors).to include(:title) }
         it { expect(event_form.errors).to include(:start_at) }
-        it { expect(event_form.errors).to include(:duration) }
+        it { expect(event_form.errors).to include(:end_at) }
       end
 
       context "nested models" do
@@ -137,7 +133,6 @@ describe Form::EventForm do
         let(:event) do
           {
             uuid: existing_event.uuid,
-            title: 'UPDATED TITLE',
             topics: [topic]
           }
         end
@@ -152,7 +147,6 @@ describe Form::EventForm do
 
         it { expect(event_form).not_to be_valid }
         it { expect(event_form.errors).to include(topic_error) }
-        it { expect(existing_event.reload.title).not_to eq(event[:title]) }
         it { expect(existing_topic.reload.description).not_to eq(topic[:description]) }
       end
 
@@ -169,7 +163,6 @@ describe Form::EventForm do
 
         it { expect(event_form).not_to be_valid }
         it { expect(event_form.errors).to include(:timeline) }
-        it { expect(existing_event.reload.title).not_to eq(event[:title]) }
         it { expect(existing_topic.reload.description).not_to eq(topic[:description]) }
       end
     end

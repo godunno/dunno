@@ -48,7 +48,7 @@ class EventPusher
 
   def pusher_close_event_json
     Jbuilder.encode do |json|
-      json.(@event, :uuid, :start_at, :title)
+      json.(@event, :uuid, :start_at, :end_at)
       json.thermometers(@event.thermometers, :uuid, :content)
     end
   end

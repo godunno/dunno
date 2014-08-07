@@ -16,7 +16,7 @@ class CoursePusher
   def pusher_open_event_json
     Jbuilder.encode do |json|
       json.(course, :uuid)
-      json.event(event, :uuid, :start_at, :title)
+      json.event(event, :uuid, :start_at, :end_at)
     end
   end
 

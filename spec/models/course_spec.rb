@@ -8,27 +8,17 @@ describe Course do
     it { should belong_to(:teacher) }
     it { should belong_to(:organization) }
     it { should have_many(:events) }
+    it { should have_many(:weekly_schedules) }
     it { should have_and_belong_to_many(:students) }
   end
 
   describe "validations" do
-    [:teacher, :weekdays, :start_date, :end_date, :start_time, :end_time].each do |attr|
+    [:teacher, :start_date, :end_date].each do |attr|
       it { should validate_presence_of(attr) }
     end
   end
 
   describe "callbacks" do
-
-    describe "before save" do
-
-      it "should strip away empty elements" do
-        course.weekdays = ["tue", "thu", ""]
-        expect(course.weekdays.count).to eq(3)
-
-        course.save!
-        expect(course.reload.weekdays.count).to eq(2)
-      end
-    end
 
     describe "after create" do
 
@@ -60,21 +50,6 @@ describe Course do
         end
       end
     end
-  end
-
-  describe "#weekdays" do
-
-    let(:weekdays) { [2, 4] }
-
-    before do
-      course.weekdays = weekdays
-      course.save!
-    end
-
-    subject { course.reload }
-
-    its(:weekdays) { should be_an Array }
-    its(:weekdays) { should eq weekdays }
   end
 
   describe "#channel" do

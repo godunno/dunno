@@ -4,14 +4,13 @@
 
     attr_accessor :course
 
-    attribute :title, String
     attribute :start_at, Time
-    attribute :duration, String
+    attribute :end_at, Time
 
-    validates :title, :start_at, :duration, :course, presence: true
+    validates :start_at, :end_at, :course, presence: true
 
     def initialize(params = {})
-      super(params.slice(*attributes_list(:title, :start_at, :duration)))
+      super(params.slice(*attributes_list(:start_at, :end_at, :duration)))
       self.course = model.course || Course.where(id: params[:course_id]).first
       model.timeline ||= Timeline.new(start_at: start_at)
       @topics = populate_children(Form::TopicForm, params[:topics])
@@ -59,9 +58,8 @@
       def persist!
         ActiveRecord::Base.transaction do
           model.course = course
-          model.title = title
           model.start_at = start_at
-          model.duration = duration
+          model.end_at = end_at
           model.timeline.save!
           model.save!
           associates.each do |associated|

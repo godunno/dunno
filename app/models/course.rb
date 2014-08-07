@@ -7,11 +7,10 @@ class Course < ActiveRecord::Base
   belongs_to :teacher
   belongs_to :organization
   has_many :events
+  has_many :weekly_schedules
   has_and_belongs_to_many :students
 
-  validates :teacher, :weekdays, :start_date, :end_date, :start_time, :end_time, presence: true
-
-  before_save :prepare_weekdays
+  validates :teacher, :start_date, :end_date, presence: true
 
   def channel
     "course_#{uuid}"
@@ -24,10 +23,4 @@ class Course < ActiveRecord::Base
   def as_json(options = {})
     super(options.merge(methods: [:order]))
   end
-
-  private
-    def prepare_weekdays
-      weekdays.reject!(&:blank?)
-      self.weekdays = weekdays.map(&:to_i)
-    end
 end

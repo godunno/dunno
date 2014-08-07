@@ -12,7 +12,7 @@ describe Api::V1::Teacher::EventsController do
 
   let(:parameters) do
     params = {course: {}}
-    %w(name start_date end_date start_time end_time classroom weekdays organization_id).each do |attr|
+    %w(name start_date end_date classroom organization_id).each do |attr|
       params[:course][attr] = course.send(attr)
     end
     params
@@ -105,6 +105,15 @@ describe Api::V1::Teacher::EventsController do
         end.to change{ Course.count }.from(0).to(1)
       end
 
+      it "should schedule it's events" do
+        course_scheduler = double("course_scheduler")
+        CourseScheduler.
+          should_receive(:new).
+          and_return(course_scheduler)
+        course_scheduler.should_receive(:schedule!)
+        do_action
+      end
+
       context "trying to create an invalid course" do
         before :each do
           course.start_date = nil
@@ -119,9 +128,6 @@ describe Api::V1::Teacher::EventsController do
         before do
           course.start_date = Date.new(2014, 01, 05)
           course.end_date = Date.new(2014, 01, 11)
-          course.weekdays = [2, 4]
-          course.start_time = "14:00"
-          course.end_time = "16:00"
           course.classroom = "201"
           do_action
         end
@@ -135,19 +141,6 @@ describe Api::V1::Teacher::EventsController do
         it { expect(subject.classroom).to eq(course.classroom) }
         it { expect(subject.start_date).to eq(course.start_date) }
         it { expect(subject.end_date).to eq(course.end_date) }
-        it { expect(subject.start_time).to eq(course.start_time) }
-        it { expect(subject.end_time).to eq(course.end_time) }
-        it { expect(subject.weekdays).to eq(course.weekdays) }
-
-        describe "#events" do
-          subject { last_course.events }
-
-          its(:count) { should eq(2) }
-          it { expect(subject[0].start_at.to_i).to eq(Time.new(2014, 01, 7, 14, 00).to_i)}
-          it { expect(subject[1].start_at.to_i).to eq(Time.new(2014, 01, 9, 14, 00).to_i)}
-          it { expect(subject[0].duration).to eq("02:00:00")}
-          it { expect(subject[1].duration).to eq("02:00:00")}
-        end
       end
     end
   end
