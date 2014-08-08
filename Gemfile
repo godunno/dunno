@@ -46,6 +46,7 @@ end
 gem 'database_cleaner',     '1.2.0'
 
 group :development do
+  gem 'sprockets_better_errors'
   gem 'foreman',              '0.63.0'
   gem 'jumpup',               '0.0.3'
   gem 'jumpup-heroku',        github: 'Helabs/jumpup-heroku'

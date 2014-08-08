@@ -32,4 +32,6 @@ Dunno::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   WebMock.allow_net_connect!
+
+  config.assets.raise_production_errors = true
 end
