@@ -1,5 +1,5 @@
 .login-page
-  img src="/images/dunno-logo.png"
+  = image_tag "dunno-logo.png"
   = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
     .login-container
       .email
