@@ -26,17 +26,19 @@
       overflow: hidden
       position: relative
       
-      span
+      .expand
         display: block
         width: 100%
         text-align: center
         
-      span.weekday
+      span.schedule
         font-size: 12px
         height: 30px
         background-color: #ECECEC
         color: #2B3738
         line-height: 30px
+        .weekday
+          text-transform: uppercase
         
       span.day
         font-size: 32px
@@ -47,21 +49,21 @@
       span.month
         font-size: 11px
       
-      div
+      .bottom
         margin: 0 10px
         border-top: 1px solid #D0D0D0
         
         span.class
           font-size: 12px
           width: 100%
-          margin-right: -12px
+          margin-right: -16px
           text-align: left
           color: #2B3738
           display: inline-block
-          
-        img.check
-          display: inline-block
-          width: 12px
+        .icon-check
+          color: $secondary-color
+        .icon-circle-small-outline
+          color: #D0D0D0
 
       .day-month
         width: 70px
@@ -118,11 +120,15 @@
       
       strong
         font-size: 15px
+
+      .send-message
+        margin-left: 16px
+        margin-bottom: 0
+        .icon
+          margin-right: 10px
       
       a.btn-sm
         padding: 0 10px
-        margin-left: 42px
-        margin-bottom: 0
     
     ul
       list-style: none

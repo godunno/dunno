@@ -57,7 +57,10 @@ describe Api::V1::Teacher::EventsController do
           let(:media) { media_with_url }
 
           subject { json }
-          it_behaves_like "request return check", %w(id uuid channel status start_at end_at)
+          it_behaves_like "request return check", %w(id uuid channel status order)
+
+          it { expect(subject["start_at"]).to eq(event.start_at.to_i) }
+          it { expect(subject["end_at"]).to eq(event.end_at.to_i) }
 
           it { expect(last_response.status).to eq(200) }
 

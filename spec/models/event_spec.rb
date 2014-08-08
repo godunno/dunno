@@ -112,4 +112,20 @@ describe Event do
     it { expect(event.channel).to eq("event_#{event.uuid}") }
   end
 
+  describe "#order" do
+    let(:second_event) do
+      build :event,
+        course: event.course,
+        start_at: event.start_at + 1.day
+    end
+
+    before do
+      event.save!
+      second_event.save!
+    end
+
+    it { expect(event.order).to eq(1) }
+    it { expect(second_event.order).to eq(2) }
+  end
+
 end

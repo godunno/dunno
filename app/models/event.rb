@@ -30,6 +30,10 @@ class Event < ActiveRecord::Base
     "event_#{uuid}"
   end
 
+  def order
+    course.events.order('start_at asc').index(self) + 1
+  end
+
   STATUSES.each do |status|
     define_method "#{status}?" do
       self.status == status
