@@ -33,6 +33,10 @@ module Form
       end
     end
 
+    def save!
+      save || raise(ActiveRecord::RecordInvalid.new(model))
+    end
+
     def self.create(*args)
       form = self.new(*args)
       form.save

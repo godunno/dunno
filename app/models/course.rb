@@ -10,7 +10,7 @@ class Course < ActiveRecord::Base
   has_many :weekly_schedules
   has_and_belongs_to_many :students
 
-  validates :teacher, :start_date, :end_date, presence: true
+  validates :teacher, :name, :start_date, :end_date, :class_name, presence: true
 
   def channel
     "course_#{uuid}"

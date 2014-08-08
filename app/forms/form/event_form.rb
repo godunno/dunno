@@ -10,7 +10,7 @@
     validates :start_at, :end_at, :course, presence: true
 
     def initialize(params = {})
-      super(params.slice(*attributes_list(:start_at, :end_at, :duration)))
+      super(params.slice(*attributes_list(:start_at, :end_at)))
       self.course = model.course || Course.where(id: params[:course_id]).first
       model.timeline ||= Timeline.new(start_at: start_at)
       @topics = populate_children(Form::TopicForm, params[:topics])
@@ -56,10 +56,11 @@
     private
 
       def persist!
+        model.course = course
+        model.start_at = start_at
+        model.end_at = end_at
+
         ActiveRecord::Base.transaction do
-          model.course = course
-          model.start_at = start_at
-          model.end_at = end_at
           model.timeline.save!
           model.save!
           associates.each do |associated|

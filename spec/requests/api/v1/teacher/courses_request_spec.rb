@@ -12,7 +12,7 @@ describe Api::V1::Teacher::EventsController do
 
   let(:parameters) do
     params = {course: {}}
-    %w(name start_date end_date classroom organization_id).each do |attr|
+    %w(name start_date end_date class_name grade institution organization_id).each do |attr|
       params[:course][attr] = course.send(attr)
     end
     params
@@ -54,6 +54,7 @@ describe Api::V1::Teacher::EventsController do
       let!(:event) { create(:event, course: course) }
       let!(:event_from_another_teacher) { create(:event, course: create(:course, teacher: create(:teacher))) }
       let!(:event_from_another_course) { create(:event, course: create(:course, teacher: teacher)) }
+      let!(:student) { create :student, courses: [course] }
 
       before do
         course.save!
@@ -67,14 +68,15 @@ describe Api::V1::Teacher::EventsController do
       context "teacher's course" do
 
         describe "resource" do
-          subject { json }
+          subject { json["course"] }
           it { expect(subject["uuid"]).to eq course.uuid }
 
           pending "course's attributes"
           it { expect(subject["order"]).to eq course.order }
+          it { expect(subject["students_count"]).to eq 1 }
 
           describe "course's events" do
-            subject { json["events"].map {|e| e["uuid"]} }
+            subject { json["course"]["events"].map {|e| e["uuid"]} }
             it { expect(subject).to include event.uuid }
             it { expect(subject).not_to include event_from_another_teacher.uuid }
             it { expect(subject).not_to include event_from_another_course.uuid }
@@ -128,7 +130,6 @@ describe Api::V1::Teacher::EventsController do
         before do
           course.start_date = Date.new(2014, 01, 05)
           course.end_date = Date.new(2014, 01, 11)
-          course.classroom = "201"
           do_action
         end
 
@@ -137,8 +138,7 @@ describe Api::V1::Teacher::EventsController do
         it { expect(last_response.status).to eq(200) }
         it { expect(subject.name).to eq(course.name) }
         it { expect(subject.teacher).to eq(teacher) }
-        it { expect(subject.organization).to eq(organization) }
-        it { expect(subject.classroom).to eq(course.classroom) }
+        #it { expect(subject.organization).to eq(organization) }
         it { expect(subject.start_date).to eq(course.start_date) }
         it { expect(subject.end_date).to eq(course.end_date) }
       end

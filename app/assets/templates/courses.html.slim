@@ -2,7 +2,7 @@
 header.page-title
   .row
     .large-4.vertical-center.columns style="float: left"
-      button.radius.btn-style-1 Criar nova disciplina
+      a.button.btn-style-1.radius href="#courses/new" Criar nova disciplina
     .large-4.large-centered.vertical-center.columns
       h1 Disciplinas
 
@@ -11,25 +11,27 @@ header.page-title
   .row
 
     ul.courses
-      li.course-card.has-overlay ng-repeat="course in courses"
-        a.overlay.published.hide href="#/courses.html"
+      li.card.course-card.has-overlay ng-repeat="course in courses"
+        a.overlay.published.hide href="#/courses/{{course.uuid}}"
           .button.btn-style-transparent-1.radius.vertical-center ver disciplina
         div ng-class="'title scheme-' + course.order"
           h2 {{course.name}}
           .subtitle
             span {{course.class_name}}
-            span.right {{course.institution}} - Sala {{course.classroom}}
+            span.right {{course.institution}}
 
         .content
           div
             .period
               img src="/images/calendar.png"
-              span {{course.start_date}} - {{course.end_date}}
+              span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
             .students
               img src="/images/students.png"
-              span {{course.students}} Alunos
+              span {{course.students_count}} Alunos
           .dates
             ul
-              li ng-repeat="date in course.dates"
-                span {{date}}
+              li ng-repeat="weekly_schedule in course.weekly_schedules"
+                span.weekday> {{weekly_schedule.weekday | weekday}}
+                span {{weekly_schedule.start_time | shortTime }}-
+                span {{weekly_schedule.end_time | shortTime }}h
 

@@ -1,139 +1,95 @@
 header.page-title
   .row
-
     .medium-8.medium-centered.vertical-center.columns
-      h1 CRIANDO DISCIPLINA 
+      h1 Criando disciplina
 
 .create-course-page
-
   .row
-
     .form-container
-
       .row
         .medium-12.columns
-          label 
+          label
           | Nome da disciplina
           span.warning *
-          input.radius type="text" placeholder="Ex: Matemática"
-          
+          input.radius ng-model="course.name" type="text" placeholder="Ex: Matemática"
+
       .row
         .sep
-        
+
       .row
         .medium-3.columns
-          label 
+          label
             | Nome da turma
             span.warning *
-            
-          input.radius.input-error type="text" placeholder="Ex: TR230"
+
+          input.radius.input-error ng-model="course.class_name" type="text" placeholder="Ex: TR230"
           span.warning.label-error Nome da turma é obrigatório
 
         .medium-4.columns
           label Nível
-          select
-            optgroup label="Fundamental I"
-              option value="1" 1o ano
-              option value="1" 2o ano
-              option value="1" 3o ano
-              option value="1" 4o ano
-              option value="1" 5o ano
-            optgroup label="Fundamental II"              
-              option value="1" 6o ano
-              option value="1" 7o ano
-              option value="1" 8o ano
-              option value="1" 9o ano
+          input.radius ng-model="course.grade" type="text" placeholder="Ex: 1º Fundamental"
 
         .medium-5.columns
           label Instituição
-          input.radius type="text" placeholder="Ex: Colégio Padre Anchieta"
+          input.radius ng-model="course.institution" type="text" placeholder="Ex: Colégio Padre Anchieta"
 
   .row
     h3.form-caption HORÁRIOS DE AULA
     span.warning.label-error ATENÇÃO: Essas datas não poderão ser alteradas no futuro.
 
     .form-container
-    
+
       .row
         .medium-4.large-3.columns
-          label 
+          label
             | Data de início das aulas
             span.warning *
-          input.radius type="text" placeholder="Ex: 12/08/2014"
+          input.radius ng-model="course.start_date" type="text" placeholder="Ex: 12/08/2014"
         .medium-4.large-3.columns
-          label 
+          label
             | Data de término das aulas
             span.warning *
-          input.radius type="text" placeholder="Ex: 13/12/2014"
-        .medium-6.columns  
+          input.radius ng-model="course.end_date" type="text" placeholder="Ex: 13/12/2014"
+        .medium-6.columns
 
       .row
         .sep
-        
+
       .row
         .large-12.columns
-          h4 
+          h4
           | Aulas desta disciplina na semana
           span.warning *
-          
-      .box
+
+      .box ng-repeat="weekly_schedule in course.weekly_schedules"
         .row
           .medium-3.columns
             label Dia da semana:
-            select.radius
-              option Segunda-feira
-              option Terça-feira
-              option Quarta-feira
-              option Quinta-feira
-              option Sexta-feira
-              option Sábado
-              option Domingo  
+            select.radius ng-model="weekly_schedule.weekday"
+              option value="0" Domingo
+              option value="1" Segunda-feira
+              option value="2" Terça-feira
+              option value="3" Quarta-feira
+              option value="4" Quinta-feira
+              option value="5" Sexta-feira
+              option value="6" Sábado
           .medium-2.columns
             label Começa às:
-            input.radius type="text" value="10 : 00"
+            input.radius ng-model="weekly_schedule.start_time" type="text" placeholder="Ex: 10:00"
           .medium-2.columns
             label Termina às:
-            input.radius type="text" value="12 : 00"
+            input.radius ng-model="weekly_schedule.end_time" type="text" placeholder="Ex: 12:00"
           .medium-2.columns
             label Sala / Prédio:
-            input.radius type="text" value="430"
+            input.radius ng-model="weekly_schedule.classroom" type="text" placeholder="Ex: Sala 430"
           .medium-3.columns.right
-            span.dunno-font x
+            a.dunno-font ng-click="remove(course.weekly_schedules, weekly_schedule)" x
 
-      .box
-        .row
-          .medium-3.columns
-            label Dia da semana:
-            select.radius
-              option Segunda-feira
-              option Terça-feira
-              option Quarta-feira
-              option Quinta-feira
-              option Sexta-feira
-              option Sábado
-              option Domingo  
-          .medium-2.columns
-            label Começa às:
-            input.radius type="text"
-          .medium-2.columns
-            label Termina às:
-            input.radius type="text"
-          .medium-2.columns
-            label Sala / Prédio:
-            input.radius type="text"
-          .medium-3.columns.right
-            span.dunno-font x
-
-      a.btn-black.radius href="#"
+      a.btn-black.radius ng-click="newItem(course.weekly_schedules, weekly_schedule)"
         span.plus A
-        span Adicionar tempo    
+        span Adicionar tempo
 
   .row
     .medium-12.actions
       a.radius.cancel Cancelar
-      a.radius.save Salvar disciplina
-
-javascript:
-  $(document).ready(function(){
-    $("#select-level").chosen();
-  });
+      a.radius.save ng-click="save(course)" Salvar disciplina

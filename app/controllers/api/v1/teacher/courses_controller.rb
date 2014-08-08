@@ -4,13 +4,13 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
   api :GET, '/api/v1/teacher/courses', "Get the teacher's courses list."
   def index
     @courses = current_teacher.courses
-    respond_with @courses.to_json(root: false)
+    respond_with @courses #.to_json(root: false)
   end
 
   api :GET, '/api/v1/teacher/courses/:id', "Get the course's data."
   def show
     if course
-      respond_with course.to_json(include: :events)
+      respond_with course
     else
       render nothing: true, status: 404
     end
@@ -24,16 +24,15 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
 
   api :POST, '/api/v1/teacher/courses', "Create a course and schedule its events."
   def create
-    @course = Course.new(course_params)
-    @course.teacher = current_teacher
+    course_form = Form::CourseForm.new(params[:course].merge(teacher: current_teacher))
 
     begin
       ActiveRecord::Base.transaction do
-        @course.save!
-        CourseScheduler.new(@course).schedule!
+        course_form.save!
+        CourseScheduler.new(course_form.model).schedule!
       end
     rescue ActiveRecord::RecordInvalid
-      render json: {errors: @course.errors}, status: 400
+      render json: {errors: course_form.errors}, status: 400
     else
       render nothing: true
     end
@@ -56,8 +55,8 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     params.require(:course).
       permit(:name,
              :organization_id,
-             :start_date,
-             :end_date,
-             :classroom)
+             :class_name,
+             :grade,
+             :institution)
   end
 end
