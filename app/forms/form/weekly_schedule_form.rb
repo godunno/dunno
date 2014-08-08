@@ -1,5 +1,4 @@
-module Form
-  class WeeklyScheduleForm < Form::Base
+class Form::WeeklyScheduleForm < Form::Base
     model_class ::WeeklySchedule
 
     attr_accessor :course
@@ -30,4 +29,3 @@ module Form
       end
 
   end
-end

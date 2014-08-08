@@ -22,8 +22,9 @@ header.page-title
             | Nome da turma
             span.warning *
 
-          input.radius.input-error ng-model="course.class_name" type="text" placeholder="Ex: TR230"
-          span.warning.label-error Nome da turma é obrigatório
+          input.radius ng-model="course.class_name" type="text" placeholder="Ex: TR230"
+          /input.radius.input-error ng-model="course.class_name" type="text" placeholder="Ex: TR230"
+          /span.warning.label-error Nome da turma é obrigatório
 
         .medium-4.columns
           label Nível
