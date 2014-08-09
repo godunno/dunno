@@ -8,7 +8,7 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
   $scope.course.weekly_schedules = [{}]
   if $routeParams.id
     Course.get(uuid: $routeParams.id).then (course)->
-      window.course = $scope.course = course
+      $scope.course = course
   $scope.save = (course)->
     course.save().then ->
       $location.path '#/courses'

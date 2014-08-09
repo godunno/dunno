@@ -8,6 +8,62 @@ describe Api::V1::Teacher::EventsController do
 
   let(:event_pusher_events) { EventPusherEvents.new(teacher) }
 
+  describe "GET /api/v1/teacher/events.json", :wip do
+
+    it_behaves_like "API authentication required"
+
+    context "authenticated" do
+
+      let!(:course_from_another_teacher) { create(:course, teacher: create(:teacher)) }
+      let!(:event_from_another_teacher) { create(:event, course: course_from_another_teacher) }
+
+      let(:events_json) { json }
+
+      def do_action
+        event.save!
+        get "/api/v1/teacher/events.json", auth_params(teacher)
+      end
+
+      describe "limit" do
+        before do
+          10.times { create(:event, course: course) }
+          do_action
+        end
+
+        subject { events_json }
+
+        it { expect(events_json.count).to eq(9) }
+      end
+
+      describe "collection" do
+
+        before do
+          do_action
+        end
+
+        describe "elements" do
+          subject { events_json.map {|event| event["uuid"]} }
+
+          it { expect(subject).to include event.uuid }
+          it { expect(subject).not_to include event_from_another_teacher.uuid }
+        end
+
+        describe "attributes" do
+          subject { events_json[0] }
+
+          it { expect(subject["start_at"]).to eq(event.start_at.to_i) }
+
+          describe "course" do
+            let(:target) { event.course }
+            subject { events_json[0]["course"] }
+            it_behaves_like "request return check", %w(name class_name order institution)
+          end
+        end
+      end
+    end
+
+  end
+
   describe "GET /api/v1/teacher/events/:uuid.json" do
 
     let(:topic) { create(:topic) }
@@ -64,13 +120,19 @@ describe Api::V1::Teacher::EventsController do
 
           it { expect(last_response.status).to eq(200) }
 
+          describe "course" do
+            let(:target) { event.course }
+            subject { json }
+            it_behaves_like "request return check", %w(name class_name order institution)
+          end
+
           describe "pusher events" do
             let(:target) { event_pusher_events }
             subject { json }
             it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event)
           end
 
-          describe "peronal_note" do
+          describe "personal_note" do
             let(:target) { personal_note }
             subject { json["personal_notes"][0] }
             it_behaves_like "request return check", %w(content)

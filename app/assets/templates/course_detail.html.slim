@@ -18,17 +18,17 @@ header.page-title.scheme-1
 
       ul.dates
         li.has-overlay ng-repeat="event in course.events | orderBy:'start_at'"
-          a.overlay.published.hide href="#/courses.html"
+          a.overlay.published.hide href="#/events/{{event.uuid}}/edit"
             .button.btn-style-transparent-1.radius.vertical-center ver aula
           span.expand.schedule
             span.weekday> {{asDate(event.start_at) | date:'EEE'}}
-            span.time {{asDate(event.start_at) | date:'HH:mm'}}h
+            span.time - {{asDate(event.start_at) | date:'HH:mm'}}h
           .day-month ng-class="today(event.start_at) ? 'today' : ''"
             span.expand.day {{asDate(event.start_at) | date:'dd'}}
             span.expand.month {{asDate(event.start_at) | date:'MMMM'}}
           .bottom
             span.class Aula {{event.order}}
-            i.icon ng-class="event.status == 'closed' ? 'icon-check' : 'icon-circle-small-outline'"
+            i.icon ng-class="'icon-' + event.status"
 
           .exam ng-if="event.has_exam" PROVA
 
@@ -40,63 +40,14 @@ header.page-title.scheme-1
 
       div.students
         .top
-          strong 23 alunos
+          strong {{course.students.length}} alunos
           a.send-message.button.radius.btn-style-1.btn-sm
             i.icon.icon-buzz
             span Enviar mensagem
 
         ul
-          li
+          li ng-repeat="student in course.students"
             img src="http://lorempixel.com/40/40"
             div
-              h3 Antonio Carlos Júnior
-              span 12 anos
-
-          li
-            img src="http://lorempixel.com/40/40"
-            div
-              h3 Antonio Carlos Júnior
-              span 12 anos
-
-          li
-            img src="http://lorempixel.com/40/40"
-            div
-              h3 Antonio Carlos Júnior
-              span 12 anos
-
-          li
-            img src="http://lorempixel.com/40/40"
-            div
-              h3 Antonio Carlos Júnior
-              span 12 anos
-
-          li
-            img src="http://lorempixel.com/40/40"
-            div
-              h3 Antonio Carlos Júnior
-              span 12 anos
-
-          li
-            img src="http://lorempixel.com/40/40"
-            div
-              h3 Antonio Carlos Júnior
-              span 12 anos
-
-          li
-            img src="http://lorempixel.com/40/40"
-            div
-              h3 Antonio Carlos Júnior
-              span 12 anos
-
-          li
-            img src="http://lorempixel.com/40/40"
-            div
-              h3 Antonio Carlos Júnior
-              span 12 anos
-
-          li
-            img src="http://lorempixel.com/40/40"
-            div
-              h3 Antonio Carlos Júnior
-              span 12 anos
-
+              h3 {{student.name}}
+              /span 12 anos

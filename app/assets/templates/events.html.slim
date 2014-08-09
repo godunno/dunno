@@ -8,35 +8,37 @@ header.page-title
   .row
     ul.events
 
-      li.event-card ng-repeat="event in events2"
-        div ng-class="'title scheme-' + event.klass.order"
-          h1 {{event.klass.name}}
-          span.subtitle {{event.klass.location}}
+      li.event-card ng-repeat="event in events"
+        div ng-class="'title scheme-' + event.course.order"
+          h1 {{event.course.class_name}}
+          span.subtitle {{event.course.institution}}
 
         .day-month
-          .day {{event.day}}
-          .month {{event.month}}
+          .day {{asDate(event.start_at) | date:'dd'}}
+          .month {{asDate(event.start_at) | date:'MMMM'}}
 
         .exam ng-if="event.has_exam" PROVA
 
         .content
-          .weekday-hour {{event.weekday}} - {{event.time}}
+          .weekday-hour
+            span.weekday> {{asDate(event.start_at) | date:'EEE'}}
+            span.time - {{asDate(event.start_at) | date:'HH:mm'}}h
           .status
-            span.course {{event.course}}
-            .image
-              img ng-if="event.published" src="/images/check.png"
-              img ng-if="!event.published" src="/images/uncheck.png"
-          .notes ng-if="event.tasks.length > 0"
+            span.course {{event.course.name}}
+            i.image.icon ng-class="'icon-' + event.status"
+          .notes ng-if="event.topics.length > 0"
             ul.note
-              li.task.vertical-cente ng-repeat="task in event.tasks" 
+              li.task.vertical-center ng-repeat="topic in event.topics | limitTo:3"
                 .image
-                  img src="/images/task-icon-1.png"
-                span {{task}}
+                  /img src="/images/task-icon-1.png"
+                span {{topic.description}}
 
-            .remaining Mais 2 tarefas
+            .remaining ng-if="event.topics.length > 3"
+              | Mais {{event.topics.length - 3}} tarefas
 
-          .planning ng-if="event.tasks.length == 0"
-            button.radius.vertical-center.btn-style-1 PLANEJAR
+          .planning ng-if="event.topics.length == 0"
+            a.button.radius.vertical-center.btn-style-1 href="#events/{{event.uuid}}/edit"
+              | PLANEJAR
 
     /li.card.event ng-repeat="event in events"
     /  div ng-class="'title scheme-' + event.klass.order"

@@ -1,10 +1,14 @@
 class CourseBuilder < BaseBuilder
   def build(json = Jbuilder.new, options = {})
     json.(course, :uuid, :name, :uuid, :start_date, :end_date, :class_name, :order)
-    json.students_count course.students.count
 
     json.weekly_schedules course.weekly_schedules do |weekly_schedule|
+      # TODO: move to builder
       json.(weekly_schedule, :weekday, :start_time, :end_time, :classroom)
+    end
+
+    json.students course.students do |student|
+      json.(student, :name)
     end
 
     if options[:show_events]

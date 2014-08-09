@@ -4,7 +4,8 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   api :GET, '/api/v1/teacher/events', "Get the teacher's events list."
   def index
     # TODO: get only the teacher's events
-    respond_with Event.all
+    @events = current_teacher.events.limit(9)
+    respond_with @events
   end
 
   api :GET, '/api/v1/teacher/events/:id', "Get the events's data."

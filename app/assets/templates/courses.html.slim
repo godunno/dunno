@@ -27,7 +27,7 @@ header.page-title
               span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
             .students
               img src="/images/students.png"
-              span {{course.students_count}} Alunos
+              span {{course.students.length}} Alunos
           .dates
             ul
               li ng-repeat="weekly_schedule in course.weekly_schedules"

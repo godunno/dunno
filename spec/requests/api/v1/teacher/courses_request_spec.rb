@@ -73,7 +73,8 @@ describe Api::V1::Teacher::EventsController do
 
           pending "course's attributes"
           it { expect(subject["order"]).to eq course.order }
-          it { expect(subject["students_count"]).to eq 1 }
+          it { expect(subject["students"][0]["name"]).to eq(student.name) }
+          it { expect(subject["students"].length).to eq 1 }
 
           describe "course's events" do
             subject { json["course"]["events"].map {|e| e["uuid"]} }

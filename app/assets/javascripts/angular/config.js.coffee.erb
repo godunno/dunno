@@ -1,3 +1,10 @@
+#= depend_on_asset "courses.html"
+#= depend_on_asset "create_course.html"
+#= depend_on_asset "course_detail.html"
+#= depend_on_asset "events.html"
+#= depend_on_asset "diary.html"
+#= depend_on_asset "styleguide.html"
+
 DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails']
 
 Router = ($routeProvider)->
