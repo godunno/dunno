@@ -8,7 +8,7 @@ describe Api::V1::Teacher::EventsController do
 
   let(:event_pusher_events) { EventPusherEvents.new(teacher) }
 
-  describe "GET /api/v1/teacher/events.json", :wip do
+  describe "GET /api/v1/teacher/events.json" do
 
     it_behaves_like "API authentication required"
 
@@ -122,7 +122,7 @@ describe Api::V1::Teacher::EventsController do
 
           describe "course" do
             let(:target) { event.course }
-            subject { json }
+            subject { json["course"] }
             it_behaves_like "request return check", %w(name class_name order institution)
           end
 
@@ -135,39 +135,39 @@ describe Api::V1::Teacher::EventsController do
           describe "personal_note" do
             let(:target) { personal_note }
             subject { json["personal_notes"][0] }
-            it_behaves_like "request return check", %w(content)
+            it_behaves_like "request return check", %w(content uuid)
           end
 
           describe "topic" do
             let(:target) { topic }
             subject { json["topics"][0] }
-            it_behaves_like "request return check", %w(id description)
+            it_behaves_like "request return check", %w(description uuid)
           end
 
           it { expect(subject["polls"].count).to eq 1 }
           describe "poll" do
             let(:target) { poll }
             subject { json["polls"][0] }
-            it_behaves_like "request return check", %w(uuid content released_at)
+            it_behaves_like "request return check", %w(content released_at uuid)
           end
 
           it { expect(subject["polls"][0]["options"].count).to eq 1 }
           describe "option" do
             let(:target) { option }
             subject { json["polls"][0]["options"][0] }
-            it_behaves_like "request return check", %w(uuid content)
+            it_behaves_like "request return check", %w(content uuid)
           end
 
           describe "thermometer" do
             let(:target) { thermometer }
             subject { json["thermometers"][0] }
-            it_behaves_like "request return check", %w(uuid content)
+            it_behaves_like "request return check", %w(content uuid)
           end
 
           describe "media with URL" do
             let(:target) { media_with_url }
             subject { json["medias"].find { |m| m["uuid"] == target.uuid } }
-            it_behaves_like "request return check", %w(uuid title description category url released_at)
+            it_behaves_like "request return check", %w(title description category url released_at uuid)
           end
 
           #describe "media with File" do
@@ -199,15 +199,15 @@ describe Api::V1::Teacher::EventsController do
       let(:personal_note) { build :personal_note }
       let(:media_with_url) { build :media, timeline: event_template.timeline }
       #let(:media_with_file) { build :media_with_file, timeline: event_template.timeline }
-      let(:start_at) { event_template.start_at.strftime('%d/%m/%Y %H:%M') }
-      let(:end_at) { event_template.end_at.strftime('%d/%m/%Y %H:%M') }
+      let(:start_at) { event_template.start_at.to_i * 1000 }
+      let(:end_at)   { event_template.end_at.to_i   * 1000 }
 
       let(:params_hash) do
         {
           event: {
             "course_id" => event_template.course_id,
             "start_at" => start_at,
-            "end_at" => end_at,
+            "end_at"   => end_at,
             topics: [topic.attributes],
             thermometers: [thermometer.attributes],
             polls: [poll.attributes.merge(
@@ -256,6 +256,9 @@ describe Api::V1::Teacher::EventsController do
 
         let(:event) { Event.order('created_at desc').first }
         subject { event }
+
+        it { expect(subject.start_at).to eq(event_template.start_at) }
+        it { expect(subject.end_at).to eq(event_template.end_at) }
 
         it { expect(subject.topics.count).to eq 1 }
         describe "topic" do
@@ -308,9 +311,6 @@ describe Api::V1::Teacher::EventsController do
         #  it { expect(subject.category).to eq media_with_file.category }
         #  it { expect(subject.file.file.identifier).to eq media_with_file.file.file.identifier }
         #end
-
-        it { expect(subject.start_at.strftime('%d/%m/%Y %H:%M')).to eq(start_at) }
-        it { expect(subject.end_at.strftime('%d/%m/%Y %H:%M')).to eq(end_at) }
       end
 
     end
@@ -325,7 +325,7 @@ describe Api::V1::Teacher::EventsController do
       pending "invalid event"
 
       let(:start_at) { event.start_at + 1.hour }
-      let(:params_hash) { { event: { start_at: start_at } } }
+      let(:params_hash) { { event: { start_at: start_at.to_i * 1000 } } }
 
       def do_action
         patch "/api/v1/teacher/events/#{event.uuid}.json", auth_params(teacher).merge(params_hash).to_json

@@ -1,88 +1,76 @@
+header.page-title ng-class="'scheme-' + event.course.order"
+  .row
+    .large-3.columns.vertical-center style="float: left"
+      a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
+        span.icon-arrow-back
+        span< VER TODAS AS AULAS
+
+    .large-7.large-centered.vertical-center.columns
+      h2 {{event.course.name}}
+      p.subtitle-head {{event.course.class_name}}
+      p.secondary-color.subtitle-head
+        span {{event.course.institution}}
+        span< ng-if="!!event.course.grade" - {{event.course.grade}}
+
 .diary-page
 
-  .main-title
-    .row
-      .vertical-container
-          a.left.vertical-center.button-transparent
-            span.icon-arrow-back 
-              | &nbsp;VER TODAS AS AULAS
-          
-      .title-container
-        .title Tópicos em Psicologia do Trabalho
-        .subtitle-1 TR230
-        .subtitle-2 Colégio Anchieta - 2a série
-
   .row.event-carousel
-    a class="icon-arrow-circle-left arrow-left vertical-center" 
-    a class="icon-arrow-circle-right arrow-right vertical-center" 
-    h1.vertical-center Aula 4
-  
+    a class="icon-arrow-circle-left arrow-left vertical-center"
+    a class="icon-arrow-circle-right arrow-right vertical-center"
+    h1.vertical-center Aula {{event.order}}
+
   .row.event-status
-    .medium-5.columns
-      .date
-        span.icon-calendar.pos
-        a.button.radius.btn-style-2.white
-          span 12 de maio
-          span Segunda-Feira
-    .medium-4.columns.offset-2
-      .time
-        span.icon-clock.pos
-        a.button.radius.btn-style-2.white
-          | 14:00
-        |   às   
-        a.button.radius.btn-style-2.white 
-          | 16:00
-    .medium-3.columns
-      .status
-        a.button.radius.btn-style-1
-          | Aberta
-          span.icon-arrow-down
-  
+    .large-4.columns
+      .row.date
+        .large-2.columns
+          label.icon.icon-calendar.pos.right for="date"
+        /a.button.radius.btn-style-2.white
+        .large-10.columns
+          input.radius id="date" ng-model="event.date" type="text" placeholder="Ex: 23/10/2014"
+    .large-6.columns.end
+      .row.time
+        .large-1.columns
+          label.icon.icon-clock.pos for="start_time"
+        .large-4.columns
+          input.radius id="start_time" ng-model="event.start_time" type="text" placeholder="Ex: 14:00"
+        .large-1.columns
+          label.to for="end_time" às
+        .large-4.columns.end
+          input.radius id="end_time" ng-model="event.end_time" type="text" placeholder="Ex: 16:30"
+
   .row.card.container
     .title.diary-label
       h1 Diário
       span.subtitle.secondary-color Tarefas visíveis para os alunos
-  
+
     .tasks
-      .row
-        input type="checkbox" 
-        label Revisar temas de casa
-        .task-box
-          span.icon-quiz.pos
-          | Pergunta para a primeira enquente
-          a class="icon-trash task-icon-right"
-          a class="icon-eye task-icon-right"
-      .row  
-        input type="checkbox" 
-        label Revisar temas de casa
-        a class="icon-transfer task-icon-right"
-  
+      .row ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
+        input type="checkbox"
+        label {{topic.description}}
+        a.icon-trash.task-icon-right ng-click="destroy(topic)"
+
     .foot
-      a.icon-folder-add.add
-      input type="text" placeholder="Adicionar Tarefa"
-      
-      label Ex: Fazendo ditado
-  
+      input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
+        ui-keydown="{'enter':'addTopic()'}"]
+      label Ex: Revisar aula passada. Introdução à raiz quadrada.
+
   .row.card.container.notes
       .title.notes-label
-          
-        h1 <span class="icon-lock icon"></span> Anotações       
-        span.subtitle.secondary-color Tarefas visíveis para os alunos
-  
+
+        h1
+          span.icon.icon-lock Anotações
+        span.subtitle.secondary-color Área visível somente para o professor
+
       .tasks
-        .row
-          input type="checkbox" 
-          label Revisar temas de casa
-          .task-box 
-            | Pergunta para a primeira enquente
-            a class="icon-trash task-icon-right"
-            a class="icon-eye task-icon-right"
-  
-        .row ng-repeat="i in [1,2,3,4,5,6]"
-          input type="checkbox" 
-          label Revisar temas de casa
+        .row ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
+          input type="checkbox"
+          label {{personal_note.content}}
+          a.icon-trash.task-icon-right ng-click="destroy(personal_note)"
       .foot
-        input type="text" placeholder="Adicionar Anotação"
-        label Ex: fazendo ditado
+        input[ng-model="newPersonalNote.content" type="text"
+          placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote()'}"]
+        label Ex: Fazer ditado surpresa. Rever comportamento do João.
 
-
+  .row
+    .large-3.columns.large-centered
+      a.button.btn-style-1.radius.save ng-click="save(event)" Salvar aula

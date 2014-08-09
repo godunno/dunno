@@ -1,5 +1,5 @@
 class TopicBuilder < BaseBuilder
   def build(json = Jbuilder.new, options = {})
-    json.(topic, :id, :description)
+    json.(topic, :uuid, :description)
   end
 end

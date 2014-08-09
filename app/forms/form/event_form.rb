@@ -11,6 +11,7 @@
 
     def initialize(params = {})
       super(params.slice(*attributes_list(:start_at, :end_at)))
+      parse_times(params)
       self.course = model.course || Course.where(id: params[:course_id]).first
       model.timeline ||= Timeline.new(start_at: start_at)
       @topics = populate_children(Form::TopicForm, params[:topics])
@@ -67,5 +68,14 @@
             associated.save
           end
         end
+      end
+
+      def parse_times(options)
+        format = /\A\d+\z/
+        start_at = options[:start_at]
+        end_at = options[:end_at]
+
+        self.start_at = Time.at(start_at.to_i / 1000) if start_at.to_s =~ format
+        self.end_at   = Time.at(end_at.to_i   / 1000) if end_at.to_s   =~ format
       end
   end

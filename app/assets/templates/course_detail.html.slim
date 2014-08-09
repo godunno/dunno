@@ -1,4 +1,4 @@
-header.page-title.scheme-1
+header.page-title ng-class="'scheme-' + course.order"
   .row
     .large-2.columns.vertical-center style="float: right"
       a class="button radius btn-style-2"
@@ -9,8 +9,8 @@ header.page-title.scheme-1
       h2 {{course.name}}
       p.subtitle-head {{course.class_name}}
       p.secondary-color.subtitle-head
-        span> {{course.institution}}
-        span ng-if="!!course.grade" - {{course.grade}}
+        span {{course.institution}}
+        span< ng-if="!!course.grade" - {{course.grade}}
 
 .course-detail-page
   .row

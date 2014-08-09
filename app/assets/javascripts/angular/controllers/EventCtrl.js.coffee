@@ -1,23 +1,54 @@
 DunnoApp = angular.module('DunnoApp')
 
-EventCtrl = ($scope, Event, $location, $routeParams, Utils)->
+EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils)->
   angular.extend($scope, Utils)
+  angular.extend($scope, DateUtils)
 
   $scope.event = new Event()
+  $scope.event.course_id = $routeParams.course_id
+  $scope.newTopic = {}
+  $scope.newPersonalNote = {}
+
+  formatToView = (event)->
+      start_time = $scope.asDate(event.start_at)
+      end_time   = $scope.asDate(event.end_at)
+
+      event.date       = $scope.formattedDate(start_time, 'dd/MM/yyyy')
+      event.start_time = $scope.formattedDate(start_time, 'HH:mm')
+      event.end_time   = $scope.formattedDate(end_time,   'HH:mm')
+      event
+
+  formatFromView = (event)->
+    # convert from brazilian locale
+    date       = event.date.split("/").reverse().join("/")
+    start_time = event.start_time
+    end_time   = event.end_time
+
+    event.start_at = Date.parse("#{date} #{start_time}")
+    event.end_at   = Date.parse("#{date} #{end_time}")
+    event
+
+
   # TODO: extract this get -> then -> assign to a service
   if $routeParams.id
-    $scope.event = Event.get(uuid: $routeParams.id)
-    $scope.event.then (event)->
-      $scope.event = event
-  $scope.event.course_id ?= $routeParams.course_id
-  for collection, i in ['topics', 'thermometers', 'polls', 'personal_notes', 'medias']
+    Event.get(uuid: $routeParams.id).then (event)->
+      $scope.event = formatToView(event)
+
+  for collection, i in ['topics', 'personal_notes'] #, 'thermometers', 'polls', 'medias']
     $scope.event[collection] ?= []
-  $scope.media_categories = ['image', 'video', 'audio']
-  $scope.media_types = [{value: 'url', name: 'URL'}, {value: 'file', name: 'File'}]
+  #$scope.media_categories = ['image', 'video', 'audio']
+  #$scope.media_types = [{value: 'url', name: 'URL'}, {value: 'file', name: 'File'}]
 
   $scope.save = (event)->
-    event['teste[]'] = event.medias
+    event = formatFromView(event)
     event.save().then ->
       $location.path '#/events'
-EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'Utils']
+  $scope.addTopic = ->
+    $scope.newItem($scope.event.topics, $scope.newTopic)
+    $scope.newTopic = {}
+  $scope.addPersonalNote = ->
+    $scope.newItem($scope.event.personal_notes, $scope.newPersonalNote)
+    $scope.newPersonalNote = {}
+
+EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'Utils', 'DateUtils']
 DunnoApp.controller 'EventCtrl', EventCtrl

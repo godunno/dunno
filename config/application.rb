@@ -20,6 +20,9 @@ module Dunno
       g.test_framework :rspec
     end
 
+    # add custom validators path
+    config.autoload_paths += %W["#{config.root}/app/validators/"]
+
     # Prevent initializing your application and connect to the database on assets precompile.
     config.assets.initialize_on_precompile = false
 

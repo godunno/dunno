@@ -3,8 +3,7 @@
 FactoryGirl.define do
   factory :weekly_schedule do
     weekday 1
-    start_time "MyString"
-    end_time "MyString"
-    course nil
+    start_time "09:00"
+    end_time "11:00"
   end
 end

@@ -3,10 +3,10 @@
   .vertical-container
     display: table-cell
     vertical-align: middle
-    
+
     .vertical-center
       display: inline-block
-      
+
   .main-title
     text-align: center
     overflow: hidden
@@ -14,42 +14,52 @@
     background-color: #FECF16
     border-bottom: 1px solid rbga(151,151,151,0.8)
     margin-bottom: 40px
-    
+
     .left
       float: left
       position: absolute
-      
+
     .right
-      float: right  
+      float: right
       position: absolute
-      
+
     .button-transparent
       color: #000000
       border: 1px solid #2B3738
       padding: 6px 18px
       font-size: 14px
       border-radius: 5px
-      
+
     .title-container
       padding: 20px 0
       line-height: 1.0
-    
+
       .title
         font-size: 28px
         font-weight: 300
         margin-bottom: 10px
-      
+
       .subtitle-1
         font-size: 16px
         font-weight: 700
         margin-bottom: 5px
         color: rgba(0,0,0,0.60)
-      
+
       .subtitle-2
         font-size: 13px
         font-weight: 300
         color: rgba(0,0,0,0.60)
-  
+
+  .notes
+    border-color: red
+    background-color: #FFF7F6
+
+    .tasks
+      border-top: 1px solid rgba(255,17,5,0.27)
+
+    .foot
+      border-top: 1px solid rgba(255,17,5,0.27)
+
 $diary-container-width: 750px
 $diary-title-height: 90px
 $diary-card-border: 1px solid #ddd
@@ -61,7 +71,7 @@ $diary-card-border: 1px solid #ddd
   margin: 0 auto
   width: $diary-container-width
   padding: 0 20px
-   
+
   h1
     font-size: 1.5rem
     color: $primary-color
@@ -71,7 +81,7 @@ $diary-card-border: 1px solid #ddd
 
   a
     color: #979797
-    
+
   .arrow-left
     float: left
     font-size: 2rem
@@ -85,10 +95,17 @@ $diary-card-border: 1px solid #ddd
 .event-status
   margin: 20px auto
   width: $diary-container-width
-  
+
+  label
+    &.to
+      font-size: 18px
+      color: $dark-grey-color
+    &.icon
+      font-size: 24px
+
   .white
     background-color: #ffffff
-    
+
   .status
     text-align: right
 
@@ -112,8 +129,8 @@ $diary-card-border: 1px solid #ddd
       text-transform: uppercase
       font-weight: bold
       margin-top: 0
-      
-      
+
+
     .subtitle
       font-size: 0.7rem
 
@@ -127,11 +144,11 @@ $diary-card-border: 1px solid #ddd
   .tasks
     border-top: 1px solid #d8d8d8
     padding: 0 30px
-  
+
   .row
     margin: 0 auto
     padding: 12px 0 6px
-    border-bottom: $diary-card-border    
+    border-bottom: $diary-card-border
 
   .task-box
     margin: 0 auto 10px
@@ -139,7 +156,7 @@ $diary-card-border: 1px solid #ddd
     border-radius: $global-radius
     padding: 15px
     font-size: 0.8rem
-      
+
 
 .task-icon-right
   font-size: 1.1rem
@@ -151,15 +168,15 @@ $diary-card-border: 1px solid #ddd
 .foot
   padding: 25px 30px
   position: relative
-  
+
   a
     color: #71797A
-  
+
 .add
   position: absolute
   margin-top: 7px
   margin-left: 655px
-  font-size: 1.5rem   
+  font-size: 1.5rem
 
 .pos
   margin-right: 10px
@@ -168,12 +185,3 @@ $diary-card-border: 1px solid #ddd
   font-size: 1rem
   line-height: 0.3rem
 
-.notes
-  border-color: red
-  //background-color: #FFF7F6
-  
-  .tasks
-    border-top: 1px solid rgba(255,17,5,0.27)
-
-  .foot
-    border-top: 1px solid rgba(255,17,5,0.27) 
