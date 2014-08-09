@@ -73,6 +73,7 @@ describe Api::V1::Teacher::EventsController do
 
           pending "course's attributes"
           it { expect(subject["order"]).to eq course.order }
+          it { expect(subject["access_code"]).to eq course.access_code }
           it { expect(subject["students"][0]["name"]).to eq(student.name) }
           it { expect(subject["students"].length).to eq 1 }
 

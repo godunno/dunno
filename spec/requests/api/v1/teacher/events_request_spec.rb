@@ -84,6 +84,8 @@ describe Api::V1::Teacher::EventsController do
              beacon: beacon
             )
     end
+    let!(:previous_event) { create :event, start_at: event.start_at - 1.day, course: event.course }
+    let!(:next_event)     { create :event, start_at: event.start_at + 1.day, course: event.course }
 
     it_behaves_like "API authentication required"
 
@@ -130,6 +132,18 @@ describe Api::V1::Teacher::EventsController do
             let(:target) { event_pusher_events }
             subject { json }
             it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event)
+          end
+
+          describe "previous" do
+            let(:target) { event.previous }
+            subject { json["previous"] }
+            it_behaves_like "request return check", %w(uuid)
+          end
+
+          describe "next" do
+            let(:target) { event.next }
+            subject { json["next"] }
+            it_behaves_like "request return check", %w(uuid)
           end
 
           describe "personal_note" do

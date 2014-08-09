@@ -15,8 +15,8 @@ header.page-title ng-class="'scheme-' + event.course.order"
 .diary-page
 
   .row.event-carousel
-    a class="icon-arrow-circle-left arrow-left vertical-center"
-    a class="icon-arrow-circle-right arrow-right vertical-center"
+    a.icon-arrow-circle-left.arrow-left.vertical-center   ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit"
+    a.icon-arrow-circle-right.arrow-right.vertical-center ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
     h1.vertical-center Aula {{event.order}}
 
   .row.event-status
@@ -45,8 +45,8 @@ header.page-title ng-class="'scheme-' + event.course.order"
 
     .tasks
       .row ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
-        input type="checkbox"
-        label {{topic.description}}
+        /input type="checkbox"
+        span {{topic.description}}
         a.icon-trash.task-icon-right ng-click="destroy(topic)"
 
     .foot
@@ -63,8 +63,8 @@ header.page-title ng-class="'scheme-' + event.course.order"
 
       .tasks
         .row ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
-          input type="checkbox"
-          label {{personal_note.content}}
+          /input type="checkbox"
+          span {{personal_note.content}}
           a.icon-trash.task-icon-right ng-click="destroy(personal_note)"
       .foot
         input[ng-model="newPersonalNote.content" type="text"

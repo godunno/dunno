@@ -11509,44 +11509,49 @@ li.event .timer {
 /* line 82, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .event-carousel a {
   color: #979797;
+  z-index: 999;
 }
 /* line 85, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+.event-carousel a:hover {
+  color: #70797a;
+}
+/* line 88, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .event-carousel .arrow-left {
   float: left;
   font-size: 2rem;
   line-height: 1rem;
 }
-/* line 90, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 93, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .event-carousel .arrow-right {
   float: right;
   font-size: 2rem;
   line-height: 1rem;
 }
 
-/* line 95, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 98, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .event-status {
   margin: 20px auto;
   width: 750px;
 }
-/* line 100, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 103, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .event-status label.to {
   font-size: 18px;
   color: #70797a;
 }
-/* line 103, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 106, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .event-status label.icon {
   font-size: 24px;
 }
-/* line 106, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 109, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .event-status .white {
   background-color: white;
 }
-/* line 109, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 112, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .event-status .status {
   text-align: right;
 }
 
-/* line 112, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 115, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .container {
   width: 750px;
   background: white;
@@ -11554,7 +11559,7 @@ li.event .timer {
   margin: 20px auto 20px;
   padding: 0;
 }
-/* line 119, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 122, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .container .title {
   height: 90px;
   position: relative;
@@ -11562,7 +11567,7 @@ li.event .timer {
   border-left-style: solid;
   padding: 30px 0 0 15px;
 }
-/* line 126, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 129, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .container .title h1 {
   font-size: 1.2rem;
   line-height: 0.5rem;
@@ -11570,30 +11575,30 @@ li.event .timer {
   font-weight: bold;
   margin-top: 0;
 }
-/* line 134, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 137, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .container .title .subtitle {
   font-size: 0.7rem;
 }
-/* line 137, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 140, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .container .diary-label {
   border-left-color: #1cc678;
 }
-/* line 140, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 143, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .container .notes-label {
   border-left-color: #ff5950;
 }
-/* line 144, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 147, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .container .tasks {
   border-top: 1px solid #d8d8d8;
   padding: 0 30px;
 }
-/* line 148, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 151, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .container .row {
   margin: 0 auto;
   padding: 12px 0 6px;
   border-bottom: 1px solid #dddddd;
 }
-/* line 153, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 156, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .container .task-box {
   margin: 0 auto 10px;
   background: #dddddd;
@@ -11602,7 +11607,7 @@ li.event .timer {
   font-size: 0.8rem;
 }
 
-/* line 161, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 164, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .task-icon-right {
   font-size: 1.1rem;
   color: #bbbbbb;
@@ -11611,17 +11616,17 @@ li.event .timer {
   margin-left: 10px;
 }
 
-/* line 168, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 171, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .foot {
   padding: 25px 30px;
   position: relative;
 }
-/* line 172, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 175, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .foot a {
   color: #71797a;
 }
 
-/* line 175, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 178, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .add {
   position: absolute;
   margin-top: 7px;
@@ -11629,12 +11634,12 @@ li.event .timer {
   font-size: 1.5rem;
 }
 
-/* line 181, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 184, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .pos {
   margin-right: 10px;
 }
 
-/* line 184, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
+/* line 187, /home/marcos/workspace/dunno/app/assets/stylesheets/pages/_diary.sass */
 .icon {
   font-size: 1rem;
   line-height: 0.3rem;

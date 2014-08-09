@@ -30,8 +30,20 @@ class Event < ActiveRecord::Base
     "event_#{uuid}"
   end
 
+  def neighbors
+    course.events.order('start_at asc')
+  end
+
   def order
-    course.events.order('start_at asc').index(self) + 1
+    @order ||= neighbors.index(self) + 1
+  end
+
+  def previous
+    neighbors[order - 1 - 1] if order > 1
+  end
+
+  def next
+    neighbors[order - 1 + 1] if order < neighbors.length
   end
 
   STATUSES.each do |status|

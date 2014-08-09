@@ -6,6 +6,13 @@ class EventBuilder < BaseBuilder
     event_pusher_events = options[:event_pusher_events]
     json.(event_pusher_events, *event_pusher_events.events)
 
+    json.previous do
+      json.uuid event.previous.try(:uuid)
+    end
+    json.next do
+      json.uuid event.next.try(:uuid)
+    end
+
     if options[:show_course]
       json.course do
         CourseBuilder.new(event.course).build!(json, show_events: false)

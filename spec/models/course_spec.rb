@@ -23,10 +23,12 @@ describe Course do
     describe "after create" do
 
       let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
+      let!(:access_code) { "bf7d" }
 
       context "new course" do
         before(:each) do
           SecureRandom.stub(:uuid).and_return(uuid)
+          SecureRandom.stub(:hex).and_return(access_code)
         end
 
         it "saves a new uuid" do
@@ -34,19 +36,33 @@ describe Course do
             course.save!
           end.to change{course.uuid}.from(nil).to(uuid)
         end
+
+        it "saves a new access_code" do
+          expect do
+            course.save!
+          end.to change{course.access_code}.from(nil).to(access_code)
+        end
       end
 
       context "existent course" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
           course.save!
         end
 
         it "does not saves new uuid" do
-          SecureRandom.stub(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
+          new_uuid = "new-uuid-generate-rencently-7cf25d610d4d"
+          SecureRandom.stub(:uuid).and_return(new_uuid)
           expect do
             course.save!
-          end.to_not change{course.uuid}.from(uuid).to("new-uuid-generate-rencently-7cf25d610d4d")
+          end.to_not change{course.uuid}.from(uuid).to(new_uuid)
+        end
+
+        it "does not saves new uuid" do
+          new_access_code = "ffff"
+          SecureRandom.stub(:hex).and_return(new_access_code)
+          expect do
+            course.save!
+          end.to_not change{course.access_code}.from(access_code).to(new_access_code)
         end
       end
     end
@@ -70,4 +86,5 @@ describe Course do
     it { expect(course.order).to eq(1) }
     it { expect(second_course.order).to eq(2) }
   end
+
 end

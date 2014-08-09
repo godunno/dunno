@@ -12,6 +12,8 @@ class Course < ActiveRecord::Base
 
   validates :teacher, :name, :start_date, :end_date, :class_name, presence: true
 
+  before_create :set_access_code
+
   def channel
     "course_#{uuid}"
   end
@@ -23,4 +25,12 @@ class Course < ActiveRecord::Base
   def as_json(options = {})
     super(options.merge(methods: [:order]))
   end
+
+  private
+    def set_access_code
+      loop do
+        self.access_code = SecureRandom.hex(2)
+        break unless Course.exists?(access_code: access_code)
+      end
+    end
 end
