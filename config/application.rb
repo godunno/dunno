@@ -25,6 +25,7 @@ module Dunno
 
     # Prevent initializing your application and connect to the database on assets precompile.
     config.assets.initialize_on_precompile = false
+    config.assets.precompile += %w( modernizr/modernizr )
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

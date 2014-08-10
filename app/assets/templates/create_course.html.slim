@@ -45,12 +45,12 @@ header.page-title
           label for="start_date"
             | Data de início das aulas
             span.warning *
-          input.radius id="start_date" ng-model="course.start_date" type="text" placeholder="Ex: 12/08/2014"
+          input.radius id="start_date" ng-model="course.start_date" mask="99/99/9999" type="text" placeholder="Ex: 12/08/2014"
         .medium-4.large-3.columns
           label for="end_date"
             | Data de término das aulas
             span.warning *
-          input.radius id="end_date" ng-model="course.end_date" type="text" placeholder="Ex: 13/12/2014"
+          input.radius id="end_date" ng-model="course.end_date" mask="99/99/9999" type="text" placeholder="Ex: 13/12/2014"
         .medium-6.columns
 
       .row
@@ -75,10 +75,10 @@ header.page-title
               option value="6" Sábado
           .medium-2.columns
             label Começa às:
-            input.radius ng-model="weekly_schedule.start_time" type="text" placeholder="Ex: 10:00"
+            input.radius ng-model="weekly_schedule.start_time" mask="99:99" type="text" placeholder="Ex: 10:00"
           .medium-2.columns
             label Termina às:
-            input.radius ng-model="weekly_schedule.end_time" type="text" placeholder="Ex: 12:00"
+            input.radius ng-model="weekly_schedule.end_time" mask="99:99" type="text" placeholder="Ex: 12:00"
           .medium-2.columns
             label Sala / Prédio:
             input.radius ng-model="weekly_schedule.classroom" type="text" placeholder="Ex: Sala 430"

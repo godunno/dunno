@@ -26,17 +26,17 @@ header.page-title ng-class="'scheme-' + event.course.order"
           label.icon.icon-calendar.pos.right for="date"
         /a.button.radius.btn-style-2.white
         .large-10.columns
-          input.radius id="date" ng-model="event.date" type="text" placeholder="Ex: 23/10/2014"
+          input.radius id="date" ng-model="event.date" mask="99/99/9999" type="text" placeholder="Ex: 23/10/2014"
     .large-6.columns.end
       .row.time
         .large-1.columns
           label.icon.icon-clock.pos for="start_time"
         .large-4.columns
-          input.radius id="start_time" ng-model="event.start_time" type="text" placeholder="Ex: 14:00"
+          input.radius id="start_time" ng-model="event.start_time" mask="99:99" type="text" placeholder="Ex: 14:00"
         .large-1.columns
           label.to for="end_time" às
         .large-4.columns.end
-          input.radius id="end_time" ng-model="event.end_time" type="text" placeholder="Ex: 16:30"
+          input.radius id="end_time" ng-model="event.end_time" mask="99:99" type="text" placeholder="Ex: 16:30"
 
   .row.card.container
     .title.diary-label
