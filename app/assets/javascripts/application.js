@@ -15,6 +15,7 @@
 //= require foundation/foundation
 //= require foundation/foundation.magellan
 //= require foundation/foundation.dropdown
+//= require foundation/foundation.reveal
 //= require angular
 //= require angular-route
 //= require angular-resource

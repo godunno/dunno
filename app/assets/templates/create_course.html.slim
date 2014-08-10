@@ -8,31 +8,31 @@ header.page-title
     .form-container
       .row
         .medium-12.columns
-          label
-          | Nome da disciplina
-          span.warning *
-          input.radius ng-model="course.name" type="text" placeholder="Ex: Matemática"
+          label for="name"
+            | Nome da disciplina
+            span.warning *
+          input.radius id="name" ng-model="course.name" type="text" placeholder="Ex: Matemática" required="" autofocus=""
 
       .row
         .sep
 
       .row
         .medium-3.columns
-          label
+          label for="class_name"
             | Nome da turma
             span.warning *
 
-          input.radius ng-model="course.class_name" type="text" placeholder="Ex: TR230"
+          input.radius id="class_name" ng-model="course.class_name" type="text" placeholder="Ex: TR230" required=""
           /input.radius.input-error ng-model="course.class_name" type="text" placeholder="Ex: TR230"
           /span.warning.label-error Nome da turma é obrigatório
 
         .medium-4.columns
-          label Nível
-          input.radius ng-model="course.grade" type="text" placeholder="Ex: 1º Fundamental"
+          label for="grade" Nível
+          input.radius id="grade" ng-model="course.grade" type="text" placeholder="Ex: 1º Fundamental"
 
         .medium-5.columns
-          label Instituição
-          input.radius ng-model="course.institution" type="text" placeholder="Ex: Colégio Padre Anchieta"
+          label for="institution" Instituição
+          input.radius id="institution" ng-model="course.institution" type="text" placeholder="Ex: Colégio Padre Anchieta"
 
   .row
     h3.form-caption HORÁRIOS DE AULA
@@ -42,15 +42,15 @@ header.page-title
 
       .row
         .medium-4.large-3.columns
-          label
+          label for="start_date"
             | Data de início das aulas
             span.warning *
-          input.radius ng-model="course.start_date" type="text" placeholder="Ex: 12/08/2014"
+          input.radius id="start_date" ng-model="course.start_date" type="text" placeholder="Ex: 12/08/2014"
         .medium-4.large-3.columns
-          label
+          label for="end_date"
             | Data de término das aulas
             span.warning *
-          input.radius ng-model="course.end_date" type="text" placeholder="Ex: 13/12/2014"
+          input.radius id="end_date" ng-model="course.end_date" type="text" placeholder="Ex: 13/12/2014"
         .medium-6.columns
 
       .row
@@ -59,8 +59,7 @@ header.page-title
       .row
         .large-12.columns
           h4
-          | Aulas desta disciplina na semana
-          span.warning *
+            | Aulas desta disciplina na semana
 
       .box ng-repeat="weekly_schedule in course.weekly_schedules"
         .row
@@ -92,5 +91,5 @@ header.page-title
 
   .row
     .medium-12.actions
-      a.radius.cancel Cancelar
+      a.radius.cancel href="#courses" Cancelar
       a.radius.save ng-click="save(course)" Salvar disciplina

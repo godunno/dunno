@@ -41,7 +41,7 @@ header.page-title ng-class="'scheme-' + course.order"
       div.students
         .top
           strong {{course.students.length}} alunos
-          a.send-message.button.radius.btn-style-1.btn-sm
+          a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
             i.icon.icon-buzz
             span Enviar mensagem
 
@@ -51,3 +51,10 @@ header.page-title ng-class="'scheme-' + course.order"
             div
               h3 {{student.name}}
               /span 12 anos
+
+.reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" id="send-notification" data-reveal=""
+  label for="message" Enviar mensagem
+  textarea id="message" ng-model="notification.message" rows="5" maxlength="{{limit}}" placeholder="Ex: A aula foi transferida para o laboratório."
+  span.counter Caracteres restantes: {{limit - notification.message.length}}
+  a.button.btn-style-1.right ng-click="save(notification)" Enviar mensagem
+  a class="close-reveal-modal" &#215;

@@ -19,6 +19,7 @@ Dunno::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       namespace :teacher do
+        resources :notifications, only: [:create]
         resources :courses, only: [:index, :create, :update, :destroy, :show]
         resources :events, only: [:index, :create, :update, :destroy, :show] do
           member do
