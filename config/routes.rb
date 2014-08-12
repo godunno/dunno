@@ -55,7 +55,11 @@ Dunno::Application.routes.draw do
           patch :validate_attendance
         end
       end
-      resources :courses, only: [:index]
+      resources :courses, only: [:index] do
+        member do
+          post :register
+        end
+      end
       resources :organizations, only:[:index] do
       end
     end

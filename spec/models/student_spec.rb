@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Student do
 
+  let(:student) { build :student }
+
+  it { expect(student).to be_valid }
+
   describe "association" do
     it { should have_many(:events) }
     it { should have_and_belong_to_many(:courses) }
@@ -12,9 +16,21 @@ describe Student do
       it { should validate_presence_of(attr) }
     end
 
-    describe "#phone_number" do
+    describe "#courses" do
 
-      let(:student) { build :student }
+      let(:course) { create :course }
+
+      before do
+        student.save!
+      end
+
+      it "should not allow associate to the same course more than once" do
+        expect{course.students << student}.not_to raise_error
+        expect{course.students << student}.to raise_error
+      end
+    end
+
+    describe "#phone_number" do
 
       it "should be valid with correct brazilian numbers" do
         ["+55 21 9999 9999", "+55 21 99999 9999"].each do |valid_number|

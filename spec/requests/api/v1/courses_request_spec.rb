@@ -26,7 +26,7 @@ describe Api::V1::CoursesController do
     context "authenticated" do
 
       def do_action
-        get "/api/v1/courses.xml", auth_params
+        get "/api/v1/courses.xml", auth_params(student)
       end
 
       it_behaves_like "request invalid content type XML"
@@ -34,7 +34,8 @@ describe Api::V1::CoursesController do
       context "valid content type" do
 
         let!(:earlier_event) { create(:event, course: course, start_at: event.start_at - 1) }
-        let!(:event_from_another_course) { create(:event) }
+        let!(:another_course) { create(:course) }
+        let!(:event_from_another_course) { create(:event, course: another_course) }
 
         before(:each) do
           get "/api/v1/courses.json", auth_params(student)
@@ -42,13 +43,21 @@ describe Api::V1::CoursesController do
 
         it { expect(last_response.status).to eq(200) }
 
+        describe "collection" do
+
+          subject { json.map {|course| course["uuid"]} }
+
+          it { expect(subject).to include course.uuid }
+          it { expect(subject).not_to include another_course.uuid }
+        end
+
         describe "course" do
 
           let(:target) { course }
           let(:media) { media_with_url }
           let(:course_json) { json[0] }
           subject { course_json }
-          it_behaves_like "request return check", %w(id name uuid start_date end_date classroom)
+          it_behaves_like "request return check", %w(name uuid start_date end_date)
 
           it { expect(last_response.status).to eq(200) }
 
@@ -80,7 +89,7 @@ describe Api::V1::CoursesController do
             describe "topic" do
               let(:target) { topic }
               subject { event_json["topics"][0] }
-              it_behaves_like "request return check", %w(id description)
+              it_behaves_like "request return check", %w(uuid description)
             end
 
             it { expect(subject["polls"].count).to eq 1 }
@@ -118,6 +127,56 @@ describe Api::V1::CoursesController do
             end
           end
 
+        end
+      end
+    end
+  end
+
+  describe "POST /api/v1/courses/:uuid/register" do
+
+    it_behaves_like "API authentication required"
+
+    context "authenticated" do
+
+      let(:new_course) { create :course }
+
+      it { expect(student.courses).not_to include(new_course)}
+      it { expect(new_course.students).to eq([]) }
+
+      context "valid content type" do
+
+        def do_action
+          post "/api/v1/courses/#{uuid}/register.json", auth_params(student).to_json
+        end
+
+        before do
+          do_action
+        end
+
+        context "existing course" do
+
+          let(:uuid) { new_course.uuid }
+
+          it { expect(last_response.status).to eq(200) }
+          it { expect(new_course.students).to eq([student]) }
+          it { expect(student.courses).to include(new_course) }
+        end
+
+        context "course not found" do
+          let(:uuid) { "non-existent" }
+
+          it { expect(last_response.status).to eq(404) }
+        end
+
+        context "already registered to course" do
+          let(:uuid) { new_course.uuid }
+
+          before do
+            do_action
+          end
+
+          it { expect(last_response.status).to eq(400) }
+          it { expect(new_course.students.reload).to eq([student]) }
         end
       end
     end
