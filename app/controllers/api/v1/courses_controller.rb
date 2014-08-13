@@ -7,6 +7,16 @@ class Api::V1::CoursesController < Api::V1::StudentApplicationController
     respond_with(@courses)
   end
 
+  api :GET, '/api/v1/courses/:identifier', "Get the course's information using its uuid or access_code"
+  def show
+    @course = Course.find_by_identifier(params[:id])
+    if @course
+      respond_with(@course)
+    else
+      render nothing: true, status: 404
+    end
+  end
+
   api :POST, '/api/v1/courses/:uuid/register', "Register the student to the course"
   def register
     course = Course.where(uuid: params[:id]).first

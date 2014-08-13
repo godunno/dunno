@@ -4,7 +4,9 @@ class EventBuilder < BaseBuilder
     json.start_at event.start_at.to_i
     json.end_at event.end_at.to_i
     event_pusher_events = options[:event_pusher_events]
-    json.(event_pusher_events, *event_pusher_events.events)
+    if event_pusher_events
+      json.(event_pusher_events, *event_pusher_events.events)
+    end
 
     json.previous do
       json.uuid event.previous.try(:uuid)

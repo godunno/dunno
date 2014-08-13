@@ -19,7 +19,7 @@ describe Api::V1::CoursesController do
   end
   let(:event_pusher_events) { EventPusherEvents.new(student) }
 
-  describe "GET /api/v1/courses" do
+  describe "GET /api/v1/courses.json" do
 
     it_behaves_like "API authentication required"
 
@@ -128,6 +128,49 @@ describe Api::V1::CoursesController do
           end
 
         end
+      end
+    end
+  end
+
+  describe "GET /api/v1/courses/:identifier.json" do
+
+    it_behaves_like "API authentication required"
+
+    context "authenticated" do
+
+      def do_action
+        get "/api/v1/courses/#{identifier}.json", auth_params(student)
+      end
+
+      before do
+        course.save!
+        do_action
+      end
+
+      context "searching with access_code" do
+        let(:identifier) { course.access_code }
+
+        subject { json["course"] }
+
+        it { expect(last_response.status).to eq(200) }
+        it { expect(subject["uuid"]).to eq(course.uuid) }
+        it { expect(subject["access_code"]).to eq(course.access_code) }
+      end
+
+      context "searching with uuid" do
+        let(:identifier) { course.uuid }
+
+        subject { json["course"] }
+
+        it { expect(last_response.status).to eq(200) }
+        it { expect(subject["uuid"]).to eq(course.uuid) }
+        it { expect(subject["access_code"]).to eq(course.access_code) }
+      end
+
+      context "course not found" do
+        let(:identifier) { 'not-found' }
+
+        it { expect(last_response.status).to eq(404) }
       end
     end
   end

@@ -26,6 +26,10 @@ class Course < ActiveRecord::Base
     super(options.merge(methods: [:order]))
   end
 
+  def self.find_by_identifier(identifier)
+    where('access_code = ? OR uuid = ?', identifier, identifier).first
+  end
+
   private
     def set_access_code
       loop do
