@@ -14,7 +14,8 @@ Dunno::Application.routes.draw do
     delete 'teachers/sign_out' => 'devise/sessions#destroy', as: :destroy_teacher_session
   end
 
-  root to: 'dashboard/application#index'
+  get 'dashboard' => 'dashboard/application#index'
+  get 'sign_in' => 'dashboard/application#sign_in'
 
   namespace :api do
     namespace :v1 do

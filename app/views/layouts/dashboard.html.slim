@@ -14,8 +14,21 @@ html lang="pt" ng-app="DunnoApp"
     = csrf_meta_tags
 
   body ng-controller="ApplicationCtrl"
+    nav class="top-bar" data-topbar=""
+      ul class="title-area"
+        li class="name"
+          h1
+            a class="icons icon-dunno-logo" href="#"
+      section class="top-bar-section"
+        ul class="left"
+          li
+            a href="#events" Aulas
+          li
+            a href="#courses" Disciplinas
 
-    = yield
+    .content ng-view=""
+
+    footer
+      /= "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe
 
     = javascript_include_tag "application"
-

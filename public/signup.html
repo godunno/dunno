@@ -1,0 +1,37 @@
+
+<div class="form-signup">
+	<h2>Crie seu cadastro no Dunno</h2>
+	<form action="" method="post" id="sign_up">
+		
+		<div class="form-element form-element-name">
+			<label for="name">Nome</label>
+			<input type="text" id="name" class="form-text depend-on-type" required>
+		</div>
+		<div class="form-element form-element-mail">
+			<label for="email">Email</label>
+			<input type="text" id="email" class="form-text depend-on-type" required>
+		</div>
+		<div class="form-element form-element-fone">
+			<label for="prefix">Telefone</label>
+			<input type="text" id="short_phone_number" class="form-text phone_number" required>
+			<input type="hidden" id="phone_number" class="form-text phone_number depend-on-type" required>
+		</div>
+		<div class="form-element form-element-name">
+			<label for="password">Senha</label>
+			<input type="text" id="password" class="form-text depend-on-type" required>
+		</div>
+		<div class="form-element form-element-radios">
+			<span class="radio-element"><label><input type="radio" class="form-radio" value="student" name="user_type" checked/>Sou Aluno</label></span>
+			<span class="radio-element"><label><input type="radio" class="form-radio" value="teacher" name="user_type"/>Sou Professor</label></span>
+			<span class="radio-element disabled"><label><input type="radio" class="form-radio" value="Sou Escola" disabled  name="tipo"/>Em breve para pais e gestores</label></span>
+		</div>
+		<div class="form-element form-element-buttons">
+			<input type="submit" class="form-submit" value="Criar cadastro" />
+			<!-- <input type="button" class="form-submit form-cancel fancybox-close" value="Cancelar" /> -->
+		</div>
+
+	</form>
+	<div class="clearfix"></div>
+</div>
+
+<script src="js/signup.js"></script>
