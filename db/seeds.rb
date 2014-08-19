@@ -13,16 +13,22 @@ if Rails.env.development? || Rails.env.staging?
 
   Teacher.create!(
     name: "Lucas Boscacci", email: "lucasboscacci@gmail.com", 
-    password: "MatteoLucas", password_confirmation: "MatteoLucas", 
+    password: "MatteoLucas", phone_number: "+55 21 99999 9999",
     avatar: "http://lorempixel.com/100/100/people/"
   )
 
   teacher = Teacher.create!(
-    authentication_token: "VfHCJUg1xTqhNPLyU5ym", name: "Prof. Example",
-    email: "prof@dunno.vc", password: "#dunnovc", password_confirmation: "#dunnovc",
+    authentication_token: "VfHCJUg1xTqhNPLyU5ym",
+    name: "Prof. Example", email: "prof@dunno.vc",
+    password: "#dunnovc", phone_number: "+55 21 99999 9999",
     avatar: "http://lorempixel.com/100/100/people/"
   )
   teacher.organizations << org
+
+  Student.create!(
+    name: "João da Silva", email: "joao@gmail.com",
+    password: "#dunnovc", phone_number: "+55 21 99999 9999"
+  )
 
   course = Form::CourseForm.create(
     name: "Programming I", class_name: "TR230", teacher: teacher,
@@ -32,6 +38,7 @@ if Rails.env.development? || Rails.env.staging?
       { weekday: 3, start_time: "14:00", end_time: "16:00" }
     ]
   )
+  course.update_attribute(:access_code, "5fd1")
 
   student.courses << course
   student.save
