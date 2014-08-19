@@ -1,0 +1,33 @@
+doctype 5
+html lang="pt" ng-app="DunnoAppStudent"
+  head
+    meta charset="utf-8" /
+    meta content="width=device-width, initial-scale=1.0" name="viewport" /
+
+    title Dunno
+
+    link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'
+
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "modernizr/modernizr"
+    = csrf_meta_tags
+
+  body ng-controller="ApplicationCtrl"
+    nav class="top-bar" data-topbar=""
+      ul class="title-area"
+        li class="name"
+          h1
+            a class="icons icon-dunno-logo" href="#"
+      section class="top-bar-section"
+        ul class="right"
+          li
+            a href="#courses/search" Adicionar disciplina
+          li
+            a href="#courses" Disciplinas
+
+    .content ng-view=""
+
+    footer
+      /= "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe
+
+    = javascript_include_tag "application"

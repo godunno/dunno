@@ -1,0 +1,52 @@
+.student-profile
+
+  .title
+    h2 EDITAR PERFIL
+    
+  form.medium-5.medium-centered.columns.white-form.profile-form.radius
+  
+    .form-group
+      .form-item
+        label Nome
+        input.radius type="text" placeholder="Fabiano Meneghetti"
+        
+    .form-group
+      .form-item.block
+        label Email
+        input.radius type="text" placeholder="fabiano@zee.com.br"
+        
+    .form-group
+      .form-item
+        label Telefone
+        input.radius.ddd type="text" placeholder="51"
+        input.radius.phone type="text" placeholder="9211.3570"
+
+    .form-line
+                
+    .form-group
+      .form-item
+        label Senha
+        input.radius type="password" placeholder="******"
+        
+    .form-line
+    
+    .form-group
+      .form-item.inline
+        label.ios-label Receber notificações por email
+        .toggle-container
+          input.ios-toggle.switch name="checkbox1" id="checkbox1" type="checkbox"
+          label.checkbox-label for="checkbox1" data-off="Não" data-on="Sim"
+        
+    .form-line
+    
+    .form-group
+      .form-item.inline
+        label.ios-label Receber notificações por SMS
+        .toggle-container
+          input.ios-toggle.switch name="checkbox2" id="checkbox2" type="checkbox"
+          label.checkbox-label for="checkbox2" data-off="Não" data-on="Sim"
+  
+    .form-line
+    
+  .medium-5.medium-centered.columns.actions
+    button.success.radius Atualizar perfil

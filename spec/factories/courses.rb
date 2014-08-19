@@ -7,5 +7,6 @@ FactoryGirl.define do
     start_date { Date.today }
     end_date { Date.tomorrow }
     class_name "Room 999"
+    institution "PUC-Rio"
   end
 end

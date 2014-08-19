@@ -1,9 +1,13 @@
 class Dashboard::ApplicationController < ApplicationController
   before_filter :authenticate_teacher!
-  skip_before_filter :authenticate_teacher!, only: [:sign_in]
+  skip_before_filter :authenticate_teacher!, only: [:sign_in, :student]
   layout :resolve_layout
 
-  def index
+  def teacher
+    render text: '', layout: true
+  end
+
+  def student
     render text: '', layout: true
   end
 
@@ -12,10 +16,6 @@ class Dashboard::ApplicationController < ApplicationController
 
   private
     def resolve_layout
-      case action_name.to_s
-      when "index" then "dashboard"
-      when "sign_in" then "sign_in"
-      else raise "Invalid action: #{action_name}"
-      end
+      action_name.to_s
     end
 end

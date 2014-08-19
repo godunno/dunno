@@ -2,7 +2,7 @@ Dunno::Application.routes.draw do
 
   apipie
   devise_for :teachers, skip: [:sessions]
-  devise_for :students, path: 'api/v1/students', controllers: { sessions: 'api/v1/sessions' }, only: :sessions
+  #devise_for :students, path: 'api/v1/students', controllers: { sessions: 'api/v1/sessions' }, only: :sessions
   devise_for :students, skip: :sessions
   #devise_scope :teachers do
   #  post 'api/v1/teachers/sign_in' => 'api/v1/sessions#create'
@@ -14,7 +14,15 @@ Dunno::Application.routes.draw do
     delete 'teachers/sign_out' => 'devise/sessions#destroy', as: :destroy_teacher_session
   end
 
-  get 'dashboard' => 'dashboard/application#index'
+  as :student do
+    post 'api/v1/students/sign_in' => 'api/v1/sessions#create'
+    get 'students/sign_in' => 'dashboard/sessions#new', as: :new_student_session
+    post 'students/sign_in' => 'devise/sessions#create', as: :student_session
+    delete 'students/sign_out' => 'devise/sessions#destroy', as: :destroy_student_session
+  end
+
+  get 'dashboard/teacher' => 'dashboard/application#teacher'
+  get 'dashboard/student' => 'dashboard/application#student'
   get 'sign_in' => 'dashboard/application#sign_in'
 
   namespace :api do

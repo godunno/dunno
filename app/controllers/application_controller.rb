@@ -16,7 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    dashboard_path
+    case resource_or_scope
+    when Teacher then dashboard_teacher_path
+    when Student then dashboard_student_path
+    else raise "Invalid resource: #{resource_or_scope.inspect}"
+    end
   end
 
   def current_user

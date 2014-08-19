@@ -4,6 +4,7 @@ describe Api::V1::CoursesController do
 
   let(:student) { create(:student) }
   let(:course) { create(:course, students: [student]) }
+  let(:teacher) { course.teacher }
   let(:topic) { create(:topic) }
   let(:thermometer) { create(:thermometer) }
   let(:poll) { create(:poll, options: [option]) }
@@ -51,15 +52,21 @@ describe Api::V1::CoursesController do
           it { expect(subject).not_to include another_course.uuid }
         end
 
-        describe "course" do
+        describe "course", :wip do
 
           let(:target) { course }
           let(:media) { media_with_url }
           let(:course_json) { json[0] }
           subject { course_json }
-          it_behaves_like "request return check", %w(name uuid start_date end_date)
+          it_behaves_like "request return check", %w(name uuid start_date end_date institution)
 
           it { expect(last_response.status).to eq(200) }
+
+          describe "teacher" do
+            let(:target) { teacher }
+            subject { course_json["teacher"] }
+            it_behaves_like "request return check", %w(name)
+          end
 
           describe "events" do
 

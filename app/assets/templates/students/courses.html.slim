@@ -1,0 +1,23 @@
+.student-courses
+
+  .title
+    h2 TURMAS CADASTRADAS
+
+  .wrapper
+    ul
+      li.student-card ng-repeat="course in courses"
+        .top
+          /ul.menu
+          /  li
+          /    a href="#"
+          /      span.icon-trash
+          h3 {{course.name}}
+
+        .body
+          .course-info
+            h3 {{course.class_name}}
+            /h4 {{course.code}}
+
+          .user-info
+            /img.border-white src="http://lorempixel.com/36/36"
+            span.text.small {{course.teacher.name}}

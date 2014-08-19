@@ -19,7 +19,8 @@ class Api::V1::CoursesController < Api::V1::StudentApplicationController
 
   api :POST, '/api/v1/courses/:uuid/register', "Register the student to the course"
   def register
-    course = Course.where(uuid: params[:id]).first
+    # TODO: test
+    course = Course.find_by_identifier(params[:id])
     if course
       begin
         course.students << current_student
