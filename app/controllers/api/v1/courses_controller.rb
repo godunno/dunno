@@ -33,4 +33,16 @@ class Api::V1::CoursesController < Api::V1::StudentApplicationController
     end
     render nothing: true, status: status
   end
+
+  api :DELETE, '/api/v1/courses/:uuid/unregister', "Unregister the student from the course"
+  def unregister
+    course = Course.find_by_identifier(params[:id])
+    if course
+      course.students.destroy(current_student)
+      status = 200
+    else
+      status = 404
+    end
+    render nothing: true, status: status
+  end
 end

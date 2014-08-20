@@ -8,8 +8,9 @@ DunnoApp.factory 'Course', ['RailsResource', (RailsResource)->
       idAttribute: 'access_code'
     )
 
-    #Course.prototype.register = ->
     register: ->
       this.$post(Course.resourceUrl(this) + '/register')
+    unregister: ->
+      this.$delete(Course.resourceUrl(this) + '/unregister')
 ]
 

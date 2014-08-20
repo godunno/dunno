@@ -67,6 +67,7 @@ Dunno::Application.routes.draw do
       resources :courses, only: [:index, :show] do
         member do
           post :register
+          delete :unregister
         end
       end
       resources :organizations, only:[:index] do

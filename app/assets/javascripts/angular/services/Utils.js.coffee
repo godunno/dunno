@@ -1,5 +1,5 @@
-DunnoApp = angular.module('DunnoApp')
-DunnoApp.service 'Utils', ->
+
+Utils = ->
   @remove = (list, item)->
     index = list.indexOf(item)
     if index > -1
@@ -13,3 +13,6 @@ DunnoApp.service 'Utils', ->
     list.push(item)
 
   @
+
+angular.module('DunnoApp').service 'Utils', Utils
+angular.module('DunnoAppStudent').service 'Utils', Utils

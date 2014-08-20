@@ -7,10 +7,10 @@
     ul
       li.student-card ng-repeat="course in courses"
         .top
-          /ul.menu
-          /  li
-          /    a href="#"
-          /      span.icon-trash
+          ul.menu
+            li
+              a ng-click="unregister(course)"
+                span.icon-trash
           h3 {{course.name}}
 
         .body
