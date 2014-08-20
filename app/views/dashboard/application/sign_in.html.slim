@@ -1,7 +1,7 @@
 .login-page ng-controller="SignInCtrl"
   = image_tag "dunno-logo.png"
   /= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  form action="{{form_action()}}" method="post" id="sign_in"
+  form name="sign_in" action="{{form_action()}}" method="post" id="sign_in"
     .login-container
       .email
         label for="email" Email
@@ -11,7 +11,7 @@
         input.radius id="password" name="{{field_name('password')}}" type="password"
         /a.help href="#" Esqueci minha senha
       .submit
-        input.button.radius.btn-style-1 type="submit" value="ENVIAR"
+        input.button.radius.btn-style-1 ng-class="{disabled: sign_in.$invalid}" type="submit" value="ENVIAR"
       .row.user-type
         .columns
           input ng-model="user_type" name="user_type" id="student_type" type="radio" value="student" required=""

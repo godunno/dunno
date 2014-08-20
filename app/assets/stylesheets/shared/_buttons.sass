@@ -2,7 +2,7 @@
 $btn-style-1-height: 38px
 $btn-style-1-bg-color: $secondary-color
 $btn-style-1-hover-bg-color: #149E5F
-$btn-style-1-inactive-bg-color: $inactive-color
+$btn-style-1-disabled-bg-color: $disabled-color
 
 $btn-style-transparent-height: 27px
 $btn-style-transparent-bg-color: transparent
@@ -23,8 +23,8 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color
 
   &:active, &:hover
     background-color: $btn-style-1-hover-bg-color
-  &.inactive
-    background-color: $btn-style-1-inactive-bg-color
+  &.disabled
+    background-color: $btn-style-1-disabled-bg-color
 
 .btn-style-2
   text-align: left !important
@@ -41,8 +41,8 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color
   &:active, &:hover
     background-color: $primary-color
     color: white
-  &.inactive
-    bg-color: $btn-style-1-inactive-bg-color
+  &.disabled
+    bg-color: $btn-style-1-disabled-bg-color
 
 
 %btn-style-transparent
