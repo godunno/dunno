@@ -14,9 +14,9 @@
         input.button.radius.btn-style-1 type="submit" value="ENVIAR"
       .row.user-type
         .columns
-          input ng-model="user_type" id="student_type" type="radio" value="student"
+          input ng-model="user_type" name="user_type" id="student_type" type="radio" value="student" required=""
           label for="student_type" Sou Aluno
-          input ng-model="user_type"  id="teacher_type"type="radio" value="teacher"
+          input ng-model="user_type" name="user_type" id="teacher_type"type="radio" value="teacher" required=""
           label for="teacher_type" Sou Professor
       / f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
 
