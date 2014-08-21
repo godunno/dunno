@@ -12,7 +12,7 @@
 			maxWidth    : 800,
 			fitToView	: false,
 			width		: '100%',
-			autoSize	: false,
+			autoSize	: true,
 			closeClick	: false,
 			openEffect	: 'none',
 			closeEffect	: 'none',
