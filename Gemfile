@@ -34,6 +34,7 @@ gem 'bower-rails'
 gem 'virtus'
 gem 'twilio-ruby'
 gem 'foundation-rails'
+gem 'roboto'
 
 group :assets do
 end

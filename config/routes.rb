@@ -1,5 +1,6 @@
 Dunno::Application.routes.draw do
 
+  mount_roboto
   apipie
   devise_for :teachers, skip: [:sessions]
   #devise_for :students, path: 'api/v1/students', controllers: { sessions: 'api/v1/sessions' }, only: :sessions
