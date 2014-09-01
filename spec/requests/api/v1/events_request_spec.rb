@@ -73,7 +73,7 @@ describe Api::V1::EventsController do
           describe "topic" do
             let(:target) { topic }
             subject { json[1]["topics"][0] }
-            it_behaves_like "request return check", %w(id description)
+            it_behaves_like "request return check", %w(description)
           end
 
           it { expect(subject["polls"].count).to eq 1 }
@@ -208,7 +208,7 @@ describe Api::V1::EventsController do
           describe "topic" do
             let(:target) { topic }
             subject { json["topics"][0] }
-            it_behaves_like "request return check", %w(id description)
+            it_behaves_like "request return check", %w(description)
           end
 
           it { expect(subject["polls"].count).to eq 1 }

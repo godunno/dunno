@@ -18,4 +18,8 @@ class BaseBuilder
     def build(json = Jbuilder.new, options = {})
       raise 'You should implement this method when subclassing.'
     end
+
+    def format_time(time)
+      time.try(:to_i)
+    end
 end
