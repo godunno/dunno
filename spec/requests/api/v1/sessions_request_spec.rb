@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Api::V1::SessionsController do
   let(:password) { '12345678' }
-  let!(:student) { create(:student, password: password) }
-  let!(:teacher) { create(:teacher, password: password) }
+  let!(:student) { create(:student, user: create(:user, password: password)) }
+  let!(:teacher) { create(:teacher, user: create(:user, password: password)) }
   let!(:course) { create(:course, students: [student], teacher: teacher) }
   let!(:event) { create(:event, course: course) }
   let!(:message_one) do
@@ -17,26 +17,25 @@ describe Api::V1::SessionsController do
     create(:timeline_interaction, timeline: event.timeline, interaction: message)
     message
   end
-  let(:course_pusher_events) { CoursePusherEvents.new(student) }
+  let(:course_pusher_events) { CoursePusherEvents.new(student.user) }
 
   describe "student" do
-    describe "POST /api/v1/students/sign_in" do
+    describe "POST /api/v1/users/sign_in" do
 
       context "correct authentication" do
 
         before(:each) do
-          post "/api/v1/students/sign_in", { student: { email: student.email, password: password } }.to_json
+          post "/api/v1/users/sign_in", { user: { email: student.email, password: password } }.to_json
         end
 
         it { expect(last_response.status).to eq(200) }
-        it { expect(controller.current_student).to eq(student) }
+        it { expect(controller.current_user).to eq(student.user) }
 
         it { expect(json["courses"][0]["uuid"]).to eq(course.uuid) }
         it { expect(json["courses"][0]["channel"]).to eq(course.channel) }
         it { expect(json["courses"][0]["teacher"]["name"]).to eq(course.teacher.name) }
         it { expect(json["name"]).to eq(student.name) }
         it { expect(json["email"]).to eq(student.email) }
-        it { expect(json["avatar"]).to eq(student.avatar) }
         it { expect(json["authentication_token"]).to eq(student.authentication_token) }
 
         describe "course pusher events" do
@@ -63,15 +62,15 @@ describe Api::V1::SessionsController do
 
         it "should allow access with authentication_token after the sign in" do
           get "/api/v1/events.json",
-            { student_email: student.email, student_token: student.authentication_token }
-          expect(controller.current_student).to eq(student)
+            { user_email: student.email, user_token: student.authentication_token }
+          expect(controller.current_user).to eq(student.user)
         end
       end
 
       context "incorrect authentication" do
 
         def do_action
-          post "/api/v1/students/sign_in.json", student_hash.to_json
+          post "/api/v1/users/sign_in.json", student_hash.to_json
         end
 
         context "incorrect password" do
@@ -88,46 +87,45 @@ describe Api::V1::SessionsController do
   end
 
   describe "teacher" do
-    describe "POST /api/v1/teachers/sign_in" do
+    describe "POST /api/v1/users/sign_in" do
 
       context "correct authentication" do
 
         before(:each) do
-          post "/api/v1/teachers/sign_in", { teacher: { email: teacher.email, password: password } }.to_json
+          post "/api/v1/users/sign_in", { user: { email: teacher.email, password: password } }.to_json
         end
 
         it { expect(last_response.status).to eq(200) }
-        it { expect(controller.current_teacher).to eq(teacher) }
+        it { expect(controller.current_user).to eq(teacher.user) }
 
         it { expect(json["courses"][0]["uuid"]).to eq(course.uuid) }
         it { expect(json["courses"][0]["channel"]).to eq(course.channel) }
         it { expect(json["courses"][0]["events"][0]["uuid"]).to eq(event.uuid) }
         it { expect(json["name"]).to eq(teacher.name) }
         it { expect(json["email"]).to eq(teacher.email) }
-        it { expect(json["avatar"]).to eq(teacher.avatar) }
         it { expect(json["authentication_token"]).to eq(teacher.authentication_token) }
 
         it "should allow access with authentication_token after the sign in" do
           pending "Implement some endpoint to test this feature"
           get "/api/v1/events.json",
-            { teacher_email: teacher.email, teacher_token: teacher.authentication_token }
-          expect(controller.current_teacher).to eq(teacher)
+            { user_email: teacher.email, user_token: teacher.authentication_token }
+          expect(controller.current_user).to eq(teacher.user)
         end
       end
 
       context "incorrect authentication" do
 
         def do_action
-          post "/api/v1/teachers/sign_in.json", teacher_hash.to_json
+          post "/api/v1/users/sign_in.json", teacher_hash.to_json
         end
 
         context "incorrect password" do
-          let(:teacher_hash) { { teacher: { email: teacher.email, password: 'abcdefgh' } } }
+          let(:teacher_hash) { { user: { email: teacher.email, password: 'abcdefgh' } } }
           it_behaves_like "incorrect sign in"
         end
 
         context "incorrect email" do
-          let(:teacher_hash) { { teacher: { email: "incorrect.email@gmail.com", password: password } } }
+          let(:teacher_hash) { { user: { email: "incorrect.email@gmail.com", password: password } } }
           it_behaves_like "incorrect sign in"
         end
       end

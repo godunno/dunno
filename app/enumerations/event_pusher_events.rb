@@ -14,7 +14,7 @@ class EventPusherEvents
   TEACHER_EVENTS = [:student_message_event, :up_down_vote_message_event]
 
   def initialize(user)
-    @user = user
+    @profile = user.profile
   end
 
   EVENTS.each do |event, value|
@@ -24,7 +24,7 @@ class EventPusherEvents
   end
 
   def events
-    case @user
+    case @profile
     when Student then STUDENT_EVENTS
     when Teacher then TEACHER_EVENTS
     end

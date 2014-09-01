@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140814214954) do
+ActiveRecord::Schema.define(version: 20140828224209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,50 +195,14 @@ ActiveRecord::Schema.define(version: 20140814214954) do
   add_index "ratings", ["student_id"], name: "index_ratings_on_student_id", using: :btree
 
   create_table "students", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "authentication_token"
-    t.string   "avatar"
-    t.string   "name"
-    t.string   "phone_number"
   end
-
-  add_index "students", ["authentication_token"], name: "index_students_on_authentication_token", unique: true, using: :btree
-  add_index "students", ["email"], name: "index_students_on_email", unique: true, using: :btree
-  add_index "students", ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true, using: :btree
 
   create_table "teachers", force: true do |t|
-    t.string   "name",                   default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar"
-    t.string   "authentication_token"
-    t.string   "phone_number"
   end
-
-  add_index "teachers", ["authentication_token"], name: "index_teachers_on_authentication_token", unique: true, using: :btree
-  add_index "teachers", ["email"], name: "index_teachers_on_email", unique: true, using: :btree
-  add_index "teachers", ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true, using: :btree
 
   create_table "thermometers", force: true do |t|
     t.integer  "event_id"
@@ -289,6 +253,32 @@ ActiveRecord::Schema.define(version: 20140814214954) do
 
   add_index "topics", ["event_id"], name: "index_topics_on_event_id", using: :btree
   add_index "topics", ["uuid"], name: "index_topics_on_uuid", unique: true, using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "name",                                null: false
+    t.string   "phone_number",                        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
+    t.integer  "profile_id"
+    t.string   "profile_type"
+  end
+
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["profile_id", "profile_type"], name: "index_users_on_profile_id_and_profile_type", using: :btree
+  add_index "users", ["profile_id"], name: "index_users_on_profile_id", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "votes", force: true do |t|
     t.integer  "votable_id"

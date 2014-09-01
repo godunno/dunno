@@ -4,8 +4,8 @@ describe CoursePusher do
 
   let(:course) { create :course }
   let(:event) { create :event, course: course }
-  let(:student_pusher_events) { CoursePusherEvents.new(create(:student)) }
-  let(:teacher_pusher_events) { CoursePusherEvents.new(create(:teacher)) }
+  let(:student_pusher_events) { CoursePusherEvents.new(create(:student).user) }
+  let(:teacher_pusher_events) { CoursePusherEvents.new(create(:teacher).user) }
 
   before do
     Pusher.stub(:trigger)

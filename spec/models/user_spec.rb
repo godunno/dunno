@@ -1,0 +1,54 @@
+require 'spec_helper'
+
+describe User do
+  let(:user) { build :user }
+  it { expect(user).to be_valid }
+
+  describe "association" do
+    it { should belong_to(:profile) }
+  end
+
+  describe "validations" do
+    [:name, :email, :phone_number, :password].each do |attr|
+      it { should validate_presence_of(attr) }
+    end
+
+    describe "#phone_number" do
+
+      it "should be valid with correct brazilian numbers" do
+        ["+55 21 9999 9999", "+55 21 99999 9999"].each do |valid_number|
+          user.phone_number = valid_number
+          expect(user).to have(0).errors_on(:phone_number)
+        end
+      end
+
+      it "should be invalid with incorrect brazilian numbers" do
+        ["+552199999999", "+55 21 9999-9999",
+         "+55 (21) 9999-9999", "+552199999999"].each do |invalid_number|
+          user.phone_number = invalid_number
+          expect(user).to have(1).errors_on(:phone_number)
+        end
+      end
+    end
+  end
+
+  describe "callbacks" do
+    describe "before save" do
+      describe "ensures authentication token" do
+        context "when user does not have a token" do
+          let(:user) { build(:user) }
+
+          it do
+            user.save
+            expect(user.authentication_token).to_not be_nil
+          end
+        end
+        context "when user already have a token" do
+          let!(:user) { create(:user) }
+
+          it { expect{ user.save }.to_not change{ user.reload.authentication_token } }
+        end
+      end
+    end
+  end
+end

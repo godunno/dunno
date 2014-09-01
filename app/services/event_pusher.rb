@@ -4,8 +4,8 @@ class EventPusher
 
   def initialize(event)
     @event = event
-    @student_pusher_events = EventPusherEvents.new(Student.new)
-    @teacher_pusher_events = EventPusherEvents.new(Teacher.new)
+    @student_pusher_events = EventPusherEvents.new(User.new(profile: Student.new))
+    @teacher_pusher_events = EventPusherEvents.new(User.new(profile: Teacher.new))
   end
 
   def student_message(message)
@@ -33,7 +33,7 @@ class EventPusher
       json.(poll, :id, :uuid, :created_at, :updated_at, :content)
       json.up_votes message.upvotes.size
       json.down_votes message.downvotes.size
-      json.student(message.student, :id, :name, :email, :avatar)
+      json.student(message.student, :id, :name, :email)
     end
   end
 
@@ -42,7 +42,7 @@ class EventPusher
       json.(message, :id, :created_at, :updated_at, :content)
       json.up_votes message.upvotes.size
       json.down_votes message.downvotes.size
-      json.student(message.student, :id, :name, :email, :avatar)
+      json.student(message.student, :id, :name, :email)
     end
   end
 

@@ -18,7 +18,7 @@ describe Api::V1::CoursesController do
            polls: [poll],
            medias: [media_with_url, media_with_file])
   end
-  let(:event_pusher_events) { EventPusherEvents.new(student) }
+  let(:event_pusher_events) { EventPusherEvents.new(student.user) }
 
   describe "GET /api/v1/courses.json" do
 

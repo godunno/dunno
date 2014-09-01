@@ -23,10 +23,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_user
-    current_student || current_teacher
-  end
-
   def event_pusher_events
     @event_pusher_events ||= EventPusherEvents.new(current_user)
   end

@@ -8,7 +8,7 @@ class CoursePusherEvents
   TEACHER_EVENTS = []
 
   def initialize(user)
-    @user = user
+    @profile = user.profile
   end
 
   EVENTS.each do |event, value|
@@ -18,7 +18,7 @@ class CoursePusherEvents
   end
 
   def events
-    case @user
+    case @profile
     when Student then STUDENT_EVENTS
     when Teacher then TEACHER_EVENTS
     end

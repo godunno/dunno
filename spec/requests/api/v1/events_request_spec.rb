@@ -20,7 +20,7 @@ describe Api::V1::EventsController do
            beacon: beacon
           )
   end
-  let(:event_pusher_events) { EventPusherEvents.new(student) }
+  let(:event_pusher_events) { EventPusherEvents.new(student.user) }
 
   before do
     [poll, media_with_url, media_with_file].each { |i| i.release! }

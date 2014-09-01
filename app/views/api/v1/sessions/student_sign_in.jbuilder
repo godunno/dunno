@@ -1,8 +1,8 @@
-json.(@resource, :id, :name, :email, :avatar, :authentication_token)
+json.(@resource, :id, :name, :email, :authentication_token)
 
 json.(course_pusher_events, *course_pusher_events.events)
 
-json.courses @resource.courses do |course|
+json.courses @resource.profile.courses do |course|
 
   json.(course, :id, :uuid, :name, :start_date, :end_date, :channel)
   json.teacher(course.teacher, :id, :name, :email)

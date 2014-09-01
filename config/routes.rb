@@ -1,25 +1,13 @@
 Dunno::Application.routes.draw do
 
+  devise_for :users, skip: :sessions
   mount_roboto
   apipie
-  devise_for :teachers, skip: [:sessions]
-  #devise_for :students, path: 'api/v1/students', controllers: { sessions: 'api/v1/sessions' }, only: :sessions
-  devise_for :students, skip: :sessions
-  #devise_scope :teachers do
-  #  post 'api/v1/teachers/sign_in' => 'api/v1/sessions#create'
-  #end
-  as :teacher do
-    post 'api/v1/teachers/sign_in' => 'api/v1/sessions#create'
-    get 'teachers/sign_in' => 'dashboard/sessions#new', as: :new_teacher_session
-    post 'teachers/sign_in' => 'devise/sessions#create', as: :teacher_session
-    delete 'teachers/sign_out' => 'devise/sessions#destroy', as: :destroy_teacher_session
-  end
-
-  as :student do
-    post 'api/v1/students/sign_in' => 'api/v1/sessions#create'
-    get 'students/sign_in' => 'dashboard/sessions#new', as: :new_student_session
-    post 'students/sign_in' => 'devise/sessions#create', as: :student_session
-    delete 'students/sign_out' => 'devise/sessions#destroy', as: :destroy_student_session
+  as :user do
+    post 'api/v1/users/sign_in' => 'api/v1/sessions#create'
+    get 'users/sign_in' => 'dashboard/sessions#new', as: :new_user_session
+    post 'users/sign_in' => 'devise/sessions#create', as: :user_session
+    delete 'users/sign_out' => 'devise/sessions#destroy', as: :destroy_user_session
   end
 
   get 'dashboard/teacher' => 'dashboard/application#teacher'

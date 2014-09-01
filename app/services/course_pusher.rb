@@ -5,8 +5,8 @@ class CoursePusher
 
   def initialize(event)
     @event = event
-    @student_pusher_events = CoursePusherEvents.new(Student.new)
-    @teacher_pusher_events = CoursePusherEvents.new(Teacher.new)
+    @student_pusher_events = CoursePusherEvents.new(User.new(profile: Student.new))
+    @teacher_pusher_events = CoursePusherEvents.new(User.new(profile: Teacher.new))
   end
 
   def open

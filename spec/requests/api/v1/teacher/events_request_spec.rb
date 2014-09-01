@@ -6,7 +6,7 @@ describe Api::V1::Teacher::EventsController do
   let(:course) { create(:course, teacher: teacher) }
   let(:event) { create(:event, course: course) }
 
-  let(:event_pusher_events) { EventPusherEvents.new(teacher) }
+  let(:event_pusher_events) { EventPusherEvents.new(teacher.user) }
 
   describe "GET /api/v1/teacher/events.json" do
 
