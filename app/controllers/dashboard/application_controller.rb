@@ -1,6 +1,6 @@
 class Dashboard::ApplicationController < ApplicationController
-  before_filter :authenticate_teacher!
-  skip_before_filter :authenticate_teacher!, only: [:sign_in, :student]
+  before_filter :authenticate_user!
+  skip_before_filter :authenticate_user!, only: [:sign_in]
   layout :resolve_layout
 
   def teacher
