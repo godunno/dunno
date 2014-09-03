@@ -12,6 +12,12 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
   $scope.save = (course)->
     course.save().then ->
       $location.path '#/courses'
+
+  $scope.delete = (course)->
+    if confirm("Deseja mesmo remover a disciplina #{course.name}? Esta operação não poderá ser desfeita.")
+      course.delete().then ->
+        $location.path '#/courses'
+
 CourseCtrl.$inject = [
   '$scope', 'Course', '$location', '$routeParams', 'Utils', 'DateUtils'
 ]

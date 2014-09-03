@@ -1,9 +1,13 @@
 header.page-title ng-class="'scheme-' + course.order"
   .row
+    .large-2.columns.vertical-center style="float: left"
+      a class="button radius btn-style-2 alert" ng-click="delete(course)"
+        | Remover
+
     .large-2.columns.vertical-center style="float: right"
       a class="button radius btn-style-2"
         span.icon-arrow-back.pos
-        | Editar disciplina
+        | Editar
 
     .large-8.large-centered.vertical-center.columns
       h2 {{course.name}}
