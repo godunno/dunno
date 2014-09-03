@@ -1,28 +1,28 @@
 
 <div class="form-signup">
 	<h2>Crie seu cadastro no Dunno</h2>
-	<form action="" method="post" id="sign_up">
+	<form action="/users" method="post" id="sign_up">
 		
 		<div class="form-element form-element-name">
 			<label for="name">Nome</label>
-			<input type="text" id="name" class="form-text depend-on-type" required autofocus>
+			<input type="text" id="name" name="user[name]" class="form-text" required autofocus>
 		</div>
 		<div class="form-element form-element-mail">
 			<label for="email">Email</label>
-			<input type="email" id="email" class="form-text depend-on-type" required>
+			<input type="email" id="email" name="user[email]" class="form-text" required>
 		</div>
 		<div class="form-element form-element-fone">
 			<label for="prefix">Telefone</label>
 			<input type="text" id="short_phone_number" class="form-text phone_number" required>
-			<input type="hidden" id="phone_number" class="form-text phone_number depend-on-type" required>
+			<input type="hidden" id="phone_number" name="user[phone_number]" class="form-text phone_number" required>
 		</div>
 		<div class="form-element form-element-name">
 			<label for="password">Senha</label>
-			<input type="password" id="password" class="form-text depend-on-type" required>
+			<input type="password" id="password" name="user[password]" class="form-text" required>
 		</div>
 		<div class="form-element form-element-radios">
-			<span class="radio-element"><label><input type="radio" class="form-radio" value="student" name="user_type" checked/>Sou Aluno</label></span>
-			<span class="radio-element"><label><input type="radio" class="form-radio" value="teacher" name="user_type"/>Sou Professor</label></span>
+			<span class="radio-element"><label><input type="radio" class="form-radio" value="student" name="user[profile]" checked/>Sou Aluno</label></span>
+			<span class="radio-element"><label><input type="radio" class="form-radio" value="teacher" name="user[profile]"/>Sou Professor</label></span>
 			<span class="radio-element disabled"><label><input type="radio" class="form-radio" value="Sou Escola" disabled  name="tipo"/>Em breve para pais e gestores</label></span>
 		</div>
 		<div class="form-element form-element-buttons">
