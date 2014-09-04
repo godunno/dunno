@@ -8,22 +8,22 @@ describe SendNotification do
   let(:message) { "MESSAGE" }
   let(:course) { create(:course, students: users) }
   let(:teacher) { course.teacher }
-  let(:sms_provider) { double("sms_provider", notify: nil) }
+  #let(:sms_provider) { double("sms_provider", notify: nil) }
   let(:mail) { double("mail", deliver: nil) }
 
   before do
-    SmsProvider.stub(:new).and_return(sms_provider)
+    #SmsProvider.stub(:new).and_return(sms_provider)
     NotificationMailer.stub(:notify).and_return(mail)
   end
 
-  it "should notify all users with SMS" do
-    SmsProvider.stub(:new).and_return(sms_provider)
-    expect(sms_provider).to receive(:notify).with(
-      message: "[Dunno] #{course.name} - #{message}",
-      to: users.map(&:phone_number)
-    )
-    SendNotification.new(message: message, course: course).send!
-  end
+  #it "should notify all users with SMS" do
+  #  SmsProvider.stub(:new).and_return(sms_provider)
+  #  expect(sms_provider).to receive(:notify).with(
+  #    message: "[Dunno] #{course.name} - #{message}",
+  #    to: users.map(&:phone_number)
+  #  )
+  #  SendNotification.new(message: message, course: course).send!
+  #end
 
   it "should notify all users with e-mail" do
     expect(NotificationMailer).to receive(:notify).with(
