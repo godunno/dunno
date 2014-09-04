@@ -10,10 +10,11 @@ class ApplicationController < ActionController::Base
 
   protected
     def after_sign_in_path_for(resource_or_scope)
-      case resource_or_scope.profile
+      profile = resource_or_scope.profile
+      case profile
       when Teacher then dashboard_teacher_path
       when Student then dashboard_student_path
-      else raise "Invalid resource: #{resource_or_scope.inspect}"
+      else raise "Invalid profile: #{profile.inspect}"
       end
     end
 

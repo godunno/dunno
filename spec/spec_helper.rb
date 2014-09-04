@@ -101,3 +101,7 @@ def reconsider_gc_deferment
     last_gc_run = Time.now
   end
 end
+
+def app
+  Rails.application
+end
