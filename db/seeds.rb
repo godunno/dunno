@@ -9,26 +9,29 @@ if Rails.env.development? || Rails.env.staging?
   org.save!
   org.update_attribute(:uuid, "65bcc7ce-0ea0-44cd-8d9d-74a43ac02e3d")
 
-  student = Student.create(name: "John Doe", email: "dow@dunno.vc", authentication_token: "svyZww54cxoE3nE8Hqgo", avatar: "http://lorempixel.com/100/100/people/", password: "#dunnovc", password_confirmation: "#dunnovc")
+  student = Student.create!(user: User.new(
+    name: "João da Silva",
+    email: "joao@gmail.com",
+    password: "#dunnovc",
+    phone_number: "+55 21 99999 9990",
+    authentication_token: "svyZww54cxoE3nE8Hqgo"
+  ))
 
-  Teacher.create!(
-    name: "Lucas Boscacci", email: "lucasboscacci@gmail.com", 
-    password: "MatteoLucas", phone_number: "+55 21 99999 9999",
-    avatar: "http://lorempixel.com/100/100/people/"
-  )
+  Teacher.create!(user: User.new(
+    name: "Lucas Boscacci",
+    email: "lucasboscacci@gmail.com",
+    password: "MatteoLucas",
+    phone_number: "+55 21 99999 9991"
+  ))
 
-  teacher = Teacher.create!(
-    authentication_token: "VfHCJUg1xTqhNPLyU5ym",
-    name: "Prof. Example", email: "prof@dunno.vc",
-    password: "#dunnovc", phone_number: "+55 21 99999 9999",
-    avatar: "http://lorempixel.com/100/100/people/"
-  )
+  teacher = Teacher.create!(user: User.new(
+    name: "Girafales",
+    email: "prof@dunno.vc",
+    password: "#dunnovc",
+    phone_number: "+55 21 99999 9992",
+    authentication_token: "VfHCJUg1xTqhNPLyU5ym"
+  ))
   teacher.organizations << org
-
-  Student.create!(
-    name: "João da Silva", email: "joao@gmail.com",
-    password: "#dunnovc", phone_number: "+55 21 99999 9999"
-  )
 
   course = Form::CourseForm.create(
     name: "Programming I", class_name: "TR230", teacher: teacher,
