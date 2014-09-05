@@ -18,6 +18,9 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
       course.delete().then ->
         $location.path '#/courses'
 
+  $scope.newRecord = ->
+    !$scope.course.uuid
+
 CourseCtrl.$inject = [
   '$scope', 'Course', '$location', '$routeParams', 'Utils', 'DateUtils'
 ]
