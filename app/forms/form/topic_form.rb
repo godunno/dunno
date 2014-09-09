@@ -4,9 +4,10 @@ module Form
     model_class ::Topic
 
     attribute :description, String
+    attribute :order, Integer
 
     def initialize(params)
-      super(params.slice(*attributes_list(:description)))
+      super(params.slice(*attributes_list(:description, :order)))
     end
 
     private
@@ -14,6 +15,7 @@ module Form
       def persist!
         super
         model.description = description
+        model.order = order
         model.save!
       end
   end

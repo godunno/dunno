@@ -7,5 +7,7 @@ DunnoApp.factory 'Event', ['RailsResource', (RailsResource)->
       idAttribute: 'uuid'
       updateMethod: 'patch'
     )
+
+    topics: []
 ]
 
