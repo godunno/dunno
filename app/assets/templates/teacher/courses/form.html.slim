@@ -1,7 +1,8 @@
-header.page-title
+header.page-title ng-class="newRecord() ? '' : 'scheme-' + course.order"
   .row
     .medium-8.medium-centered.vertical-center.columns
-      h1 Criando disciplina
+      h1 ng-if="newRecord()" Criando disciplina
+      h1 ng-if="!newRecord()" Editando disciplina
 
 .create-course-page
   .row

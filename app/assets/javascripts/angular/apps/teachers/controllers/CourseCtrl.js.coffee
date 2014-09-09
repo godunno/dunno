@@ -8,7 +8,7 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
   $scope.course.weekly_schedules = [{}]
   if $routeParams.id
     Course.get(uuid: $routeParams.id).then (course)->
-      $scope.course = course
+      $scope.course = formatToView(course)
   $scope.save = (course)->
     course.save().then ->
       $location.path '#/courses'
@@ -20,6 +20,12 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
 
   $scope.newRecord = ->
     !$scope.course.uuid
+
+  $scope.teste = "2014-11-30"
+  formatToView = (course)->
+      course.start_date = $scope.formattedDate(course.start_date, 'dd/MM/yyyy')
+      course.end_date   = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
+      course
 
 CourseCtrl.$inject = [
   '$scope', 'Course', '$location', '$routeParams', 'Utils', 'DateUtils'
