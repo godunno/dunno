@@ -50,5 +50,15 @@ describe Topic do
     it { expect(topic.order).to eq(2) }
     it { expect(next_topic.order).to eq(3) }
 
+    context "updating" do
+      before do
+        topic.description = 'Another description'
+        topic.save!
+      end
+
+      it "should not change the order" do
+        expect(topic.order).to eq(2)
+      end
+    end
   end
 end
