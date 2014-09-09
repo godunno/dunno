@@ -8,4 +8,11 @@ class Topic < ActiveRecord::Base
 
   validates :description, presence: true
 
+  before_create :set_order
+
+  private
+    def set_order
+      previous = timeline.topics.last.try(:order) || 0
+      self.order = previous + 1
+    end
 end

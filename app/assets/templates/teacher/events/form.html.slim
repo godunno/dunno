@@ -44,7 +44,7 @@ header.page-title ng-class="'scheme-' + event.course.order"
       span.subtitle.secondary-color Tarefas visíveis para os alunos
 
     .tasks
-      .row ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
+      .row ng-repeat="topic in event.topics | filter:{_destroy:'!true'} | orderBy:'order'"
         /input type="checkbox"
         span {{topic.description}}
         a.icon-trash.task-icon-right ng-click="destroy(topic)"

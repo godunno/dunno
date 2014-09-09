@@ -155,7 +155,7 @@ describe Api::V1::Teacher::EventsController do
           describe "topic" do
             let(:target) { topic }
             subject { json["topics"][0] }
-            it_behaves_like "request return check", %w(description uuid)
+            it_behaves_like "request return check", %w(description uuid order)
           end
 
           it { expect(subject["polls"].count).to eq 1 }

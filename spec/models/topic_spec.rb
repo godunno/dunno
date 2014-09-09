@@ -33,4 +33,22 @@ describe Topic do
       end
     end
   end
+
+  describe "#order" do
+    let(:timeline) { create :timeline }
+    let(:previous_topic) { build :topic, timeline: timeline }
+    let(:topic)          { build :topic, timeline: timeline }
+    let(:next_topic)     { build :topic, timeline: timeline }
+
+    before do
+      previous_topic.save!
+      topic.save!
+      next_topic.save!
+    end
+
+    it { expect(previous_topic.order).to eq(1) }
+    it { expect(topic.order).to eq(2) }
+    it { expect(next_topic.order).to eq(3) }
+
+  end
 end
