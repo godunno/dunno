@@ -9,5 +9,6 @@ DunnoApp.factory 'Event', ['RailsResource', (RailsResource)->
     )
 
     topics: []
+    personal_notes: []
 ]
 

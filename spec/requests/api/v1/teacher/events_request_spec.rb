@@ -66,14 +66,14 @@ describe Api::V1::Teacher::EventsController do
 
   describe "GET /api/v1/teacher/events/:uuid.json" do
 
-    let(:topic) { create(:topic) }
+    let(:topic) { create(:topic, order: 1) }
     let(:thermometer) { create(:thermometer) }
     let(:poll) { create(:poll, options: [option]) }
     let(:option) { create(:option) }
     let(:media_with_url) { create(:media, url: "http://www.example.com", file: nil) }
     #let(:media_with_file) { create(:media, file: Tempfile.new("test"), url: nil) }
     let(:beacon) { create(:beacon) }
-    let(:personal_note) { create(:personal_note) }
+    let(:personal_note) { create(:personal_note, order: 1) }
     let!(:event) do
       create(:event,
              topics: [topic],
@@ -149,7 +149,7 @@ describe Api::V1::Teacher::EventsController do
           describe "personal_note" do
             let(:target) { personal_note }
             subject { json["personal_notes"][0] }
-            it_behaves_like "request return check", %w(content uuid)
+            it_behaves_like "request return check", %w(content uuid order)
           end
 
           describe "topic" do
@@ -210,7 +210,7 @@ describe Api::V1::Teacher::EventsController do
       let(:correct_option) { build :option, content: "Correct Option", correct: true, poll: poll }
       let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false, poll: poll }
       let(:options) { [correct_option, incorrect_option] }
-      let(:personal_note) { build :personal_note }
+      let(:personal_note) { build :personal_note, order: 1 }
       let(:media_with_url) { build :media, timeline: event_template.timeline }
       #let(:media_with_file) { build :media_with_file, timeline: event_template.timeline }
       let(:start_at) { event_template.start_at.to_i * 1000 }
@@ -303,8 +303,12 @@ describe Api::V1::Teacher::EventsController do
         end
 
         it { expect(subject.personal_notes.count).to eq 1 }
-        it { expect(subject.personal_notes.first.content).to eq personal_note.content }
-        it { expect(subject.personal_notes.first.done).to be_nil }
+        describe "personal_notes" do
+          subject { event.personal_notes.first }
+          it { expect(subject.content).to eq personal_note.content }
+          it { expect(subject.order).to eq personal_note.order }
+          it { expect(subject.done).to be_nil }
+        end
 
         #it { expect(subject.medias.count).to eq 2 }
         it { expect(subject.medias.count).to eq 1 }

@@ -6,15 +6,17 @@ module Form
     attr_accessor :event
 
     attribute :content, String
+    attribute :order, Integer
 
     def initialize(params)
-      super(params.slice(*attributes_list(:content)))
+      super(params.slice(*attributes_list(:content, :order)))
     end
 
     private
 
       def persist!
         model.content = content
+        model.order = order
         model.event = event
         model.save!
       end

@@ -7,18 +7,17 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils)->
 
   $scope.event = new Event()
   $scope.event.course_id = $routeParams.course_id
-  generateTopic = ->
-    topics = $scope.event.topics
-    topics = topics.sort (a,b)-> a.order - b.order
-    last = topics[topics.length - 1]
+  generateOrderable = (list)->
+    list = list.sort (a,b)-> a.order - b.order
+    last = list[list.length - 1]
     if last?
       order = last.order + 1
     else
       order = 1
     { order: order }
 
-  $scope.newTopic = generateTopic()
-  $scope.newPersonalNote = {}
+  $scope.newTopic = generateOrderable($scope.event.topics)
+  $scope.newPersonalNote = generateOrderable($scope.event.personal_notes)
 
   formatToView = (event)->
       start_time = $scope.asDate(event.start_at)
@@ -43,7 +42,8 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils)->
   if $routeParams.id
     Event.get(uuid: $routeParams.id).then (event)->
       $scope.event = formatToView(event)
-      $scope.newTopic = generateTopic()
+      $scope.newTopic = generateOrderable(event.topics)
+      $scope.newPersonalNote = generateOrderable(event.personal_notes)
 
   for collection, i in ['topics', 'personal_notes'] #, 'thermometers', 'polls', 'medias']
     $scope.event[collection] ?= []
@@ -55,11 +55,13 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils)->
     event.save().then ->
       $location.path '#/events'
   $scope.addTopic = ->
-    $scope.newItem($scope.event.topics, $scope.newTopic)
-    $scope.newTopic = generateTopic()
+    topics = $scope.event.topics
+    $scope.newItem(topics, $scope.newTopic)
+    $scope.newTopic = generateOrderable(topics)
   $scope.addPersonalNote = ->
-    $scope.newItem($scope.event.personal_notes, $scope.newPersonalNote)
-    $scope.newPersonalNote = {}
+    personal_notes = $scope.event.personal_notes
+    $scope.newItem(personal_notes, $scope.newPersonalNote)
+    $scope.newPersonalNote = generateOrderable(personal_notes)
 
 EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'Utils', 'DateUtils']
 DunnoApp.controller 'EventCtrl', EventCtrl
