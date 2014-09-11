@@ -35,7 +35,6 @@ class CreateSchedule
 
   def schedule
     schedules = @weekly_schedules.map { |w| schedule_for(w) }.flatten
-    binding.pry
     schedules.sort_by { |schedule| schedule.begin }
   end
 end
