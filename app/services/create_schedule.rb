@@ -19,12 +19,12 @@ class CreateSchedule
     end_time = TimeOfDay.parse(weekly_schedule.end_time)
 
     schedule.map do |date|
-      range_start = date.to_time.change(
+      range_start = date.to_time_in_current_zone.change(
         hour: start_time.hour,
         min:  start_time.minute
       )
 
-      range_end = date.to_time.change(
+      range_end = date.to_time_in_current_zone.change(
         hour: end_time.hour,
         min:  end_time.minute
       )
@@ -35,6 +35,7 @@ class CreateSchedule
 
   def schedule
     schedules = @weekly_schedules.map { |w| schedule_for(w) }.flatten
+    binding.pry
     schedules.sort_by { |schedule| schedule.begin }
   end
 end
