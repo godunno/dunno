@@ -27,9 +27,9 @@ header.page-title
               .students.right
                 i.icon.icon-users.margin-right
                 span {{course.students.length}} Alunos
-            .dates
-              ul
-                li ng-repeat="weekly_schedule in course.weekly_schedules"
+            ul.dates.large-block-grid-4.thin-block-grid.margin-top
+              li ng-repeat="weekly_schedule in course.weekly_schedules"
+                .text-center.radius.label.label--large.secondary
                   span.weekday> {{weekly_schedule.weekday | weekday}}
                   span {{weekly_schedule.start_time | shortTime }}-
                   span {{weekly_schedule.end_time | shortTime }}h
