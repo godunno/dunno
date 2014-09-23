@@ -1,4 +1,3 @@
-/ test
 header.page-title
   .row
     .large-4.vertical-center.columns style="float: left"
@@ -9,29 +8,29 @@ header.page-title
 .courses-page
 
   .row
-
-    ul.courses
-      li.card.course-card.has-overlay ng-repeat="course in courses"
+    ul.list--courses
+      li.card.card--course.has-overlay ng-repeat="course in courses"
         a.overlay.published.hide href="#/courses/{{course.uuid}}"
           .button.btn-style-transparent-1.radius.vertical-center ver disciplina
-        div ng-class="'title scheme-' + course.order"
-          h2 {{course.name}}
-          .subtitle
-            span {{course.class_name}}
+        div.title.padding ng-class="'scheme-' + course.order"
+          h2.card-title {{course.name}}
+          .card-subtitle.translucent.padding-top
+            strong {{course.class_name}}
             span.right {{course.institution}}
 
-        .content
-          div
-            .period
-              img src="/images/calendar.png"
-              span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
-            .students
-              img src="/images/students.png"
-              span {{course.students.length}} Alunos
-          .dates
-            ul
-              li ng-repeat="weekly_schedule in course.weekly_schedules"
-                span.weekday> {{weekly_schedule.weekday | weekday}}
-                span {{weekly_schedule.start_time | shortTime }}-
-                span {{weekly_schedule.end_time | shortTime }}h
+        .card-content.padding
+          .translucent
+            .cf
+              .period.left
+                i.icon.icon-calendar.margin-right
+                span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
+              .students.right
+                i.icon.icon-users.margin-right
+                span {{course.students.length}} Alunos
+            .dates
+              ul
+                li ng-repeat="weekly_schedule in course.weekly_schedules"
+                  span.weekday> {{weekly_schedule.weekday | weekday}}
+                  span {{weekly_schedule.start_time | shortTime }}-
+                  span {{weekly_schedule.end_time | shortTime }}h
 

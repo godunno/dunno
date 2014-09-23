@@ -8,7 +8,7 @@ header.page-title ng-class="'scheme-' + event.course.order"
     .large-7.large-centered.vertical-center.columns
       h2 {{event.course.name}}
       p.subtitle-head {{event.course.class_name}}
-      p.secondary-color.subtitle-head
+      p.translucent.subtitle-head
         span {{event.course.institution}}
         span< ng-if="!!event.course.grade" - {{event.course.grade}}
 
@@ -41,7 +41,7 @@ header.page-title ng-class="'scheme-' + event.course.order"
   .row.card.container
     .title.diary-label
       h1 Diário
-      span.subtitle.secondary-color Tarefas visíveis para os alunos
+      span.subtitle.translucent Tarefas visíveis para os alunos
 
     .tasks
       .row ng-repeat="topic in event.topics | filter:{_destroy:'!true'} | orderBy:'order'"
@@ -59,7 +59,7 @@ header.page-title ng-class="'scheme-' + event.course.order"
 
         h1
           span.icon.icon-lock Anotações
-        span.subtitle.secondary-color Área visível somente para o professor
+        span.subtitle.translucent Área visível somente para o professor
 
       .tasks
         .row ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"

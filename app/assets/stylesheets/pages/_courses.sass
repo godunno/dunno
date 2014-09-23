@@ -1,86 +1,37 @@
-.courses-page
 
-  ul.courses
-    list-style: none
-    padding: 0
-    width: 100%
+.list--courses
+  list-style: none
+  padding: 0
+  width: 100%
 
-    li.course-card
-      width: 460px
-      height: 220px
-      display: inline-block
-      margin: 10px
-      float: left
-      border-radius: 5px
-      overflow: hidden
+.card--course
+  width: 460px
+  height: 220px
+  display: inline-block
+  margin: 10px
+  float: left
+  // TODO: usar radius do Compass
+  border-radius: 5px
+  overflow: hidden
 
-      .title
-        padding: 10px 20px
+  .card-content
+    .dates
+      padding: 10px 0 5px 0
+      ul
+        list-style: none
+        padding: 0
+        margin: 0
 
-        h2
-          font-size: 24px
-          padding: 15px 0
-
-        .subtitle
-          font-size: 14px
-          border-top: 1px solid rgba(0,0,0,0.18)
-          padding: 10px 0 0 0
-
-          span
-            width: 50%
-            display: inline-block
-            color: rgba(0,0,0,0.60)
-
-          span.right
-            text-align: right
-
-      .content
-        padding: 10px 20px
-        background-color: #ffffff
-        font-size: 14px
-
-        .period
+        li
           display: inline-block
-          width: 50%
-          line-height: 20px
-          color: rgba(0,0,0,0.50)
-
-          img
-            margin-right: 10px
-          span
-            display: inline-block
-            vertical-align: middle
-
-        .students
-          display: inline-block
-          width: 50%
-          text-align: right
-          line-height: 20px
-          color: rgba(0,0,0,0.50)
-
-          img
-            margin-right: 10px
-          span
-            display: inline-block
-            vertical-align: middle
-
-        .dates
-          padding: 10px 0 5px 0
-          ul
-            list-style: none
-            padding: 0
-            margin: 0
-
-            li
-              display: inline-block
-              padding: 2px 6px
-              font-size: 12px
-              color: rgba(0,0,0,0.61)
-              background-color: #D8D8D8
-              margin-right: 4px
-              border-radius: 2px
-              .weekday
-                text-transform: uppercase
+          padding: 2px 6px
+          font-size: 12px
+          color: rgba(0,0,0,0.61)
+          background-color: #D8D8D8
+          margin-right: 4px
+          border-radius: 2px
+          .weekday
+            text-transform: uppercase
 
 $course-card-width: 470px
 $course-card-title-height: 80px
