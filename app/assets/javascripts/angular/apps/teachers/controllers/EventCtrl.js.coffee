@@ -34,8 +34,8 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils)->
     start_time = event.start_time
     end_time   = event.end_time
 
-    event.start_at = Date.parse("#{date} #{start_time}")
-    event.end_at   = Date.parse("#{date} #{end_time}")
+    event.start_at = new Date(Date.parse("#{date} #{start_time}")).toISOString()
+    event.end_at   = new Date(Date.parse("#{date} #{end_time}")).toISOString()
     event
 
   # TODO: extract this get -> then -> assign to a service

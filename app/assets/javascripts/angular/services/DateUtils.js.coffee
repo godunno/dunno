@@ -2,7 +2,7 @@ DunnoApp = angular.module('DunnoApp')
 
 DateUtils = ($filter)->
   @asDate = (value)->
-    new Date(Number(value) * 1000)
+    new Date(value)
 
   @today = (value)->
     format = 'yyyy-MM-dd'
