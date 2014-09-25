@@ -6,7 +6,7 @@ header.page-title
 .events-page
 
   .row
-    ul.events
+    ul.events.large-block-grid-3
 
       li.event-card ng-repeat="event in events"
         div ng-class="'title scheme-' + event.course.order"
@@ -39,17 +39,4 @@ header.page-title
           .planning ng-if="event.topics.length == 0"
             a.button.radius.vertical-center.btn-style-1 href="#events/{{event.uuid}}/edit"
               | PLANEJAR
-
-    /li.card.event ng-repeat="event in events"
-    /  div ng-class="'title scheme-' + event.klass.order"
-    /    h1 {{event.klass.name}}
-    /    span.subtitle.secondary-color {{event.klass.location}}
-    /  div.status ng-class="'status scheme-' + event.klass.order"
-    /    .row.vertical-center
-    /      .large-9.columns.course {{event.name}}
-    /      .large-3.columns: a class="button radius timer" 0:30
-
-    /  .notes
-    /    ul.note
-    /      li ng-repeat="task in event.tasks" {{task}}
 

@@ -5,11 +5,7 @@ json.(event_pusher_events, *event_pusher_events.events)
 json.topics(@event.topics, :id, :description)
 json.thermometers(@event.thermometers, :uuid, :content)
 json.polls @event.polls do |poll|
-  json.(poll, :uuid, :content)
-  json.released_at(poll.released_at.try(:to_i))
-  json.options poll.options do |option|
-    json.(option, :uuid, :content)
-  end
+  PollBuilder.new(poll).build!(json)
 end
 
 json.medias @event.medias do |media|

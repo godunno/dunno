@@ -8,7 +8,7 @@ describe Api::V1::Teacher::EventsController do
 
   let(:event_pusher_events) { EventPusherEvents.new(teacher.user) }
 
-  describe "GET /api/v1/teacher/events.json" do
+    describe "GET /api/v1/teacher/events.json" do
 
     it_behaves_like "API authentication required"
 
@@ -51,7 +51,7 @@ describe Api::V1::Teacher::EventsController do
         describe "attributes" do
           subject { events_json[0] }
 
-          it { expect(subject["start_at"]).to eq(event.start_at.to_i) }
+          it { expect(subject["start_at"]).to eq(event.start_at.utc.iso8601) }
 
           describe "course" do
             let(:target) { event.course }
@@ -117,8 +117,8 @@ describe Api::V1::Teacher::EventsController do
           subject { json }
           it_behaves_like "request return check", %w(id uuid channel status order)
 
-          it { expect(subject["start_at"]).to eq(event.start_at.to_i) }
-          it { expect(subject["end_at"]).to eq(event.end_at.to_i) }
+          it { expect(subject["start_at"]).to eq(event.start_at.utc.iso8601) }
+          it { expect(subject["end_at"]).to eq(event.end_at.utc.iso8601) }
 
           it { expect(last_response.status).to eq(200) }
 
@@ -213,8 +213,8 @@ describe Api::V1::Teacher::EventsController do
       let(:personal_note) { build :personal_note, order: 1 }
       let(:media_with_url) { build :media, timeline: event_template.timeline }
       #let(:media_with_file) { build :media_with_file, timeline: event_template.timeline }
-      let(:start_at) { event_template.start_at.to_i * 1000 }
-      let(:end_at)   { event_template.end_at.to_i   * 1000 }
+      let(:start_at) { event_template.start_at.utc.iso8601 }
+      let(:end_at)   { event_template.end_at.utc.iso8601 }
 
       let(:params_hash) do
         {
@@ -344,7 +344,7 @@ describe Api::V1::Teacher::EventsController do
       pending "invalid event"
 
       let(:start_at) { event.start_at + 1.hour }
-      let(:params_hash) { { event: { start_at: start_at.to_i * 1000 } } }
+      let(:params_hash) { { event: { start_at: start_at.utc.iso8601 } } }
 
       def do_action
         patch "/api/v1/teacher/events/#{event.uuid}.json", auth_params(teacher).merge(params_hash).to_json
@@ -375,7 +375,7 @@ describe Api::V1::Teacher::EventsController do
     it { expect(last_response.status).to eq(200) }
     it { expect(json["uuid"]).to eq(event.uuid) }
     it { expect(event.reload.status).to eq('opened') }
-    it { expect(event.reload.opened_at.to_i).to eq(Time.now.to_i) }
+    it { expect(event.reload.opened_at.utc.iso8601).to eq(Time.now.utc.iso8601) }
     it { expect(json["channel"]).to eq event.channel }
     it { expect(json["student_message_event"]).to eq event_pusher_events.student_message_event }
     it { expect(json["up_down_vote_message_event"]).to eq event_pusher_events.up_down_vote_message_event }
@@ -388,7 +388,7 @@ describe Api::V1::Teacher::EventsController do
       end
 
       it { expect(last_response.status).to eq(304) }
-      it { expect(event.reload.opened_at.to_i).not_to eq(Time.now.to_i) }
+      it { expect(event.reload.opened_at).not_to eq(Time.now) }
     end
   end
 
@@ -408,7 +408,7 @@ describe Api::V1::Teacher::EventsController do
     end
 
     it { expect(event.reload.status).to eq 'closed' }
-    it { expect(event.reload.closed_at.to_i).to eq DateTime.now.to_i }
+    it { expect(event.reload.closed_at.utc.iso8601).to eq Time.now.utc.iso8601 }
 
     context "closing event again" do
       before do
@@ -418,7 +418,7 @@ describe Api::V1::Teacher::EventsController do
       end
 
       it { expect(last_response.status).to eq(304) }
-      it { expect(event.reload.closed_at.to_i).not_to eq(Time.now.to_i) }
+      it { expect(event.reload.closed_at).not_to eq(Time.now) }
     end
   end
 

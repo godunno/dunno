@@ -47,7 +47,7 @@ shared_examples_for "request return check" do |attributes|
       it "should have the same value for #{attribute}" do
         value = target.send(attribute)
         value = case value
-                when Time then value.to_i
+                when Time then value.utc.iso8601
                 when Date then value.to_json.gsub('"', '')
                 else value
                 end

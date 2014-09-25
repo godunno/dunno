@@ -20,6 +20,6 @@ class BaseBuilder
     end
 
     def format_time(time)
-      time.try(:to_i)
+      time.try(:utc).try(:iso8601)
     end
 end
