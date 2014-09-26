@@ -44,6 +44,7 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     render nothing: true
   end
 
+  api :GET, '/api/v1/teacher/courses/:id/students', "Get the course's students list."
   def students
     @students = course.students
   end
