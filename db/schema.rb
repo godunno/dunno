@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910180510) do
+ActiveRecord::Schema.define(version: 20140926001044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,6 +274,7 @@ ActiveRecord::Schema.define(version: 20140910180510) do
     t.string   "authentication_token"
     t.integer  "profile_id"
     t.string   "profile_type"
+    t.uuid     "uuid"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
@@ -281,6 +282,7 @@ ActiveRecord::Schema.define(version: 20140910180510) do
   add_index "users", ["profile_id", "profile_type"], name: "index_users_on_profile_id_and_profile_type", using: :btree
   add_index "users", ["profile_id"], name: "index_users_on_profile_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
 
   create_table "votes", force: true do |t|
     t.integer  "votable_id"

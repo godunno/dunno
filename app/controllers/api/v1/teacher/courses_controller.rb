@@ -44,19 +44,23 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     render nothing: true
   end
 
+  def students
+    @students = course.students
+  end
+
   private
 
-  def course
-    @course ||= current_teacher.courses.
-      where(uuid: params[:id]).first
-  end
+    def course
+      @course ||= current_teacher.courses.
+        where(uuid: params[:id]).first
+    end
 
-  def course_params
-    params.require(:course).
-      permit(:name,
-             :organization_id,
-             :class_name,
-             :grade,
-             :institution)
-  end
+    def course_params
+      params.require(:course).
+        permit(:name,
+               :organization_id,
+               :class_name,
+               :grade,
+               :institution)
+    end
 end

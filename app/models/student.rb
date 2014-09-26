@@ -3,5 +3,5 @@ class Student < ActiveRecord::Base
   has_and_belongs_to_many :courses
   has_many :events, through: :courses
 
-  delegate :email, :authentication_token, :name, :phone_number, to: :user
+  delegate :uuid, :avatar, :email, :authentication_token, :name, :phone_number, to: :user
 end

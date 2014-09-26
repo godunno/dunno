@@ -50,5 +50,22 @@ describe User do
         end
       end
     end
+
+    describe "after create" do
+
+      let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
+
+      context "new user" do
+        before(:each) do
+          SecureRandom.stub(:uuid).and_return(uuid)
+        end
+
+        it "saves a new uuid" do
+          expect do
+            user.save!
+          end.to change{user.uuid}.from(nil).to(uuid)
+        end
+      end
+    end
   end
 end

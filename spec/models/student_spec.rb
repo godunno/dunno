@@ -13,7 +13,7 @@ describe Student do
   end
 
   describe "delegation" do
-    %w(email authentication_token name phone_number).each do |attribute|
+    %w(uuid email authentication_token name phone_number).each do |attribute|
       it { should respond_to(attribute) }
     end
   end

@@ -93,6 +93,32 @@ describe Api::V1::Teacher::EventsController do
     end
   end
 
+  describe "GET /api/v1/teacher/courses/:uuid/students.json" do
+
+    it_behaves_like "API authentication required"
+
+    context "authenticated" do
+      let(:student) { create(:student) }
+
+      before do
+        course.students << student
+        course.save!
+        do_action
+      end
+
+      def do_action
+        get "/api/v1/teacher/courses/#{course.uuid}/students.json", auth_params(teacher)
+      end
+
+      describe "students" do
+        let(:target) { student }
+        subject { json[0] }
+        it_behaves_like "request return check", %w(uuid name email avatar)
+      end
+
+    end
+  end
+
   describe "POST /api/v1/teacher/courses.json" do
 
     it_behaves_like "API authentication required"

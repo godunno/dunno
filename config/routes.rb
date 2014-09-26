@@ -20,7 +20,11 @@ Dunno::Application.routes.draw do
       resource :config, only: :show
       namespace :teacher do
         resources :notifications, only: [:create]
-        resources :courses, only: [:index, :create, :update, :destroy, :show]
+        resources :courses, only: [:index, :create, :update, :destroy, :show] do
+          member do
+            get :students
+          end
+        end
         resources :events, only: [:index, :create, :update, :destroy, :show] do
           member do
             patch :open
