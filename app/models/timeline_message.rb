@@ -1,4 +1,5 @@
 class TimelineMessage < ActiveRecord::Base
+  include HasUuid
   belongs_to :student
   has_one :timeline_interaction, as: :interaction
   has_one :timeline, through: :timeline_interaction

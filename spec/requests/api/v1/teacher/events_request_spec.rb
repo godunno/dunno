@@ -74,6 +74,10 @@ describe Api::V1::Teacher::EventsController do
     #let(:media_with_file) { create(:media, file: Tempfile.new("test"), url: nil) }
     let(:beacon) { create(:beacon) }
     let(:personal_note) { create(:personal_note, order: 1) }
+
+    let(:student) { create(:student) }
+    let(:message) { create(:timeline_message, timeline: event.timeline, student: student) }
+
     let!(:event) do
       create(:event,
              topics: [topic],
@@ -87,6 +91,11 @@ describe Api::V1::Teacher::EventsController do
     let!(:previous_event) { create :event, start_at: event.start_at - 1.day, course: event.course }
     let!(:next_event)     { create :event, start_at: event.start_at + 1.day, course: event.course }
 
+    before do
+      message.up_by(create(:student))
+      message.down_by(create(:student))
+    end
+
     it_behaves_like "API authentication required"
 
     context "authenticated" do
@@ -98,6 +107,8 @@ describe Api::V1::Teacher::EventsController do
       it_behaves_like "request invalid content type XML"
 
       context "valid content type" do
+
+        let(:event_json) { json }
 
         def do_action
           get "/api/v1/teacher/events/#{event.uuid}.json", auth_params(teacher)
@@ -114,7 +125,7 @@ describe Api::V1::Teacher::EventsController do
           let(:target) { event }
           let(:media) { media_with_url }
 
-          subject { json }
+          subject { event_json }
           it_behaves_like "request return check", %w(id uuid channel status order)
 
           it { expect(subject["start_at"]).to eq(event.start_at.utc.iso8601) }
@@ -124,73 +135,93 @@ describe Api::V1::Teacher::EventsController do
 
           describe "course" do
             let(:target) { event.course }
-            subject { json["course"] }
+            subject { event_json["course"] }
             it_behaves_like "request return check", %w(name class_name order institution)
           end
 
           describe "pusher events" do
             let(:target) { event_pusher_events }
-            subject { json }
+            subject { event_json }
             it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event)
           end
 
           describe "previous" do
             let(:target) { event.previous }
-            subject { json["previous"] }
+            subject { event_json["previous"] }
             it_behaves_like "request return check", %w(uuid)
           end
 
           describe "next" do
             let(:target) { event.next }
-            subject { json["next"] }
+            subject { event_json["next"] }
             it_behaves_like "request return check", %w(uuid)
           end
 
           describe "personal_note" do
             let(:target) { personal_note }
-            subject { json["personal_notes"][0] }
+            subject { event_json["personal_notes"][0] }
             it_behaves_like "request return check", %w(content uuid order)
           end
 
           describe "topic" do
             let(:target) { topic }
-            subject { json["topics"][0] }
+            subject { event_json["topics"][0] }
             it_behaves_like "request return check", %w(description uuid order)
           end
 
           it { expect(subject["polls"].count).to eq 1 }
           describe "poll" do
             let(:target) { poll }
-            subject { json["polls"][0] }
+            subject { event_json["polls"][0] }
             it_behaves_like "request return check", %w(content released_at uuid)
           end
 
           it { expect(subject["polls"][0]["options"].count).to eq 1 }
           describe "option" do
             let(:target) { option }
-            subject { json["polls"][0]["options"][0] }
+            subject { event_json["polls"][0]["options"][0] }
             it_behaves_like "request return check", %w(content uuid)
           end
 
           describe "thermometer" do
             let(:target) { thermometer }
-            subject { json["thermometers"][0] }
+            subject { event_json["thermometers"][0] }
             it_behaves_like "request return check", %w(content uuid)
           end
 
           describe "media with URL" do
             let(:target) { media_with_url }
-            subject { json["medias"].find { |m| m["uuid"] == target.uuid } }
+            subject { event_json["medias"].find { |m| m["uuid"] == target.uuid } }
             it_behaves_like "request return check", %w(title description category url released_at uuid)
           end
 
           #describe "media with File" do
           #  let(:target) { media_with_file }
-          #  subject { json["medias"].find { |m| m["uuid"] == target.uuid } }
+          #  subject { event_json["medias"].find { |m| m["uuid"] == target.uuid } }
           #  it_behaves_like "request return check", %w(uuid title description category released_at)
 
           #  it { expect(subject["url"]).to eq target.file.url }
           #end
+
+          describe "timeline" do
+            let(:timeline_json) { event_json["timeline"] }
+
+            it { expect(timeline_json["messages"].count).to eq 1 }
+            describe "message" do
+              let(:message_json) { timeline_json["messages"][0] }
+              let(:target) { message }
+              subject { message_json }
+              it_behaves_like "request return check", %w(uuid content)
+              it { expect(subject["up_votes"]).to eq(1) }
+              it { expect(subject["down_votes"]).to eq(1) }
+
+              describe "author" do
+                let(:target) { student }
+                subject { message_json["author"] }
+                it_behaves_like "request return check", %w(uuid)
+              end
+            end
+          end
         end
       end
     end
