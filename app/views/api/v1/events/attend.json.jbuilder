@@ -13,22 +13,7 @@ json.medias @event.medias do |media|
 end
 
 json.timeline do
-  json.(@event.timeline, :id, :start_at, :created_at, :updated_at)
-
-  #needs filter messages/poll/rating/etc
-  json.messages @event.timeline.interactions do |interaction|
-    json.id interaction.id
-    json.content interaction.content
-    json.created_at interaction.created_at
-    json.updated_at interaction.updated_at
-    json.up_votes interaction.upvotes.size
-    json.down_votes interaction.downvotes.size
-    json.student interaction.student
-    vote = interaction.votes.where(voter_id: current_student.id, voter_type: "Student").first
-    if vote
-      json.already_voted vote.vote_flag ? "up" : "down"
-    end
-  end
+  TimelineBuilder.new(@event.timeline).build!(json, voter: current_student)
 end
 
 

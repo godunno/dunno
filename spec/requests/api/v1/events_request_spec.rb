@@ -130,7 +130,8 @@ describe Api::V1::EventsController do
 
   describe "GET /api/v1/events/1/attend" do
 
-    let(:message) { create :timeline_message }
+    let(:author) { create(:student) }
+    let(:message) { create(:timeline_message, student: author) }
 
     before do
       create(:timeline_interaction, timeline: event.timeline, interaction: message)
@@ -186,83 +187,96 @@ describe Api::V1::EventsController do
           end
 
           describe "event" do
+            let(:event_json) { json }
             let(:target) { event }
-            subject { json }
+            subject { event_json }
             it_behaves_like "request return check", %w(channel)
-          end
 
-          describe "pusher events" do
-            let(:target) { event_pusher_events }
-            subject { json }
-            it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
-          end
-
-          describe "message" do
-            let(:target) { message }
-            subject { json["timeline"]["messages"][0] }
-            it_behaves_like "request return check", %w(content)
-
-            it { expect(subject["already_voted"]).to be_nil }
-          end
-
-          describe "topic" do
-            let(:target) { topic }
-            subject { json["topics"][0] }
-            it_behaves_like "request return check", %w(description)
-          end
-
-          it { expect(subject["polls"].count).to eq 1 }
-          describe "poll" do
-            let(:target) { poll }
-            subject { json["polls"][0] }
-            it_behaves_like "request return check", %w(uuid content released_at)
-          end
-
-          it { expect(subject["polls"][0]["options"].count).to eq 1 }
-          describe "option" do
-            let(:target) { option }
-            subject { json["polls"][0]["options"][0] }
-            it_behaves_like "request return check", %w(uuid content)
-          end
-
-          describe "media with URL" do
-            let(:target) { media_with_url }
-            subject { json["medias"].find { |m| m["uuid"] == target.uuid } }
-            it_behaves_like "request return check", %w(uuid title description category url released_at)
-          end
-
-          describe "media with File" do
-            let(:target) { media_with_file }
-            subject { json["medias"].find { |m| m["uuid"] == target.uuid } }
-            it_behaves_like "request return check", %w(uuid title description category released_at)
-
-            it { expect(subject["url"]).to eq target.file.url }
-          end
-
-          # The approach bellow is necessary due to approximation errors
-          it { expect(Time.parse(subject["timeline"]["created_at"]).to_i).to eq event.timeline.created_at.to_i }
-          it { expect(Time.parse(subject["timeline"]["updated_at"]).to_i).to eq event.timeline.updated_at.to_i }
-
-          context "student already voted on the message" do
-
-            let(:student) { create(:student) }
-
-            context "up" do
-              before do
-                message.up_by(student)
-                get "/api/v1/events/#{event.uuid}/attend.json", auth_params(student)
-              end
-
-              it { expect(subject["timeline"]["messages"][0]["already_voted"]).to eq "up" }
+            describe "pusher events" do
+              let(:target) { event_pusher_events }
+              subject { event_json }
+              it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
             end
 
-            context "down" do
-              before do
-                message.down_by(student)
-                get "/api/v1/events/#{event.uuid}/attend.json", auth_params(student)
-              end
+            describe "topic" do
+              let(:target) { topic }
+              subject { event_json["topics"][0] }
+              it_behaves_like "request return check", %w(description)
+            end
 
-              it { expect(subject["timeline"]["messages"][0]["already_voted"]).to eq "down" }
+            it { expect(subject["polls"].count).to eq 1 }
+            describe "poll" do
+              let(:target) { poll }
+              subject { event_json["polls"][0] }
+              it_behaves_like "request return check", %w(uuid content released_at)
+            end
+
+            it { expect(subject["polls"][0]["options"].count).to eq 1 }
+            describe "option" do
+              let(:target) { option }
+              subject { event_json["polls"][0]["options"][0] }
+              it_behaves_like "request return check", %w(uuid content)
+            end
+
+            describe "media with URL" do
+              let(:target) { media_with_url }
+              subject { event_json["medias"].find { |m| m["uuid"] == target.uuid } }
+              it_behaves_like "request return check", %w(uuid title description category url released_at)
+            end
+
+            describe "media with File" do
+              let(:target) { media_with_file }
+              subject { event_json["medias"].find { |m| m["uuid"] == target.uuid } }
+              it_behaves_like "request return check", %w(uuid title description category released_at)
+
+              it { expect(subject["url"]).to eq target.file.url }
+            end
+
+            describe "timeline" do
+              let(:timeline_json) { event_json["timeline"] }
+              let(:target) { event.timeline }
+              subject { timeline_json }
+              it_behaves_like "request return check", %w(start_at updated_at)
+
+              describe "messages" do
+
+                let(:message_json) { timeline_json["messages"][0] }
+                let(:target) { message }
+                subject { message_json }
+                it_behaves_like "request return check", %w(uuid content)
+                it { expect(subject["already_voted"]).to be_nil }
+
+                describe "author" do
+                  let(:target) { author }
+                  subject { message_json["author"] }
+                  it_behaves_like "request return check", %w(uuid)
+                end
+
+                context "student already voted on the message" do
+
+                  let(:student) { create(:student) }
+
+                  context "up" do
+                    before do
+                      message.up_by(student)
+                      get "/api/v1/events/#{event.uuid}/attend.json", auth_params(student)
+                    end
+
+                    it { expect(subject["already_voted"]).to eq "up" }
+                    it { expect(subject["up_votes"]).to eq(1) }
+                  end
+
+                  context "down" do
+                    before do
+                      message.down_by(student)
+                      get "/api/v1/events/#{event.uuid}/attend.json", auth_params(student)
+                    end
+
+                    it { expect(subject["already_voted"]).to eq "down" }
+                    it { expect(subject["down_votes"]).to eq(1) }
+                  end
+                end
+              end
             end
           end
         end

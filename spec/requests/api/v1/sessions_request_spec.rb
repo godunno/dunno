@@ -9,8 +9,8 @@ describe Api::V1::SessionsController do
   let!(:message_one) do
     message = create(:timeline_message, content: "First message")
     create(:timeline_interaction, timeline: event.timeline, interaction: message)
-    message.vote_by(create(:student))
-    message
+    message.up_by(create(:student))
+    message.reload
   end
   let!(:message_two) do
     message = create(:timeline_message, content: "Second message")
