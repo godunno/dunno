@@ -8,6 +8,7 @@ class CourseBuilder < BaseBuilder
       json.(weekly_schedule, :weekday, :start_time, :end_time, :classroom)
     end
 
+    json.students_count(course.students.count)
     json.students course.students do |student|
       # TODO: move to builder
       json.(student, :name)

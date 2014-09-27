@@ -4,7 +4,8 @@ describe Api::V1::Teacher::EventsController do
 
   let!(:teacher) { create :teacher }
   let(:organization) { create :organization }
-  let(:course) { build :course, teacher: teacher, organization: organization }
+  let(:student) { create :student }
+  let(:course) { build :course, teacher: teacher, organization: organization, students: [student] }
 
   def last_course
     Course.order('created_at desc').first
@@ -41,6 +42,11 @@ describe Api::V1::Teacher::EventsController do
 
         it { expect(subject).to include course.uuid }
         it { expect(subject).not_to include course_from_another_teacher.uuid }
+
+        describe "course" do
+          subject { json[0] }
+          it { expect(subject["students_count"]).to eq(1) }
+        end
       end
     end
   end
@@ -54,7 +60,6 @@ describe Api::V1::Teacher::EventsController do
       let!(:event) { create(:event, course: course) }
       let!(:event_from_another_teacher) { create(:event, course: create(:course, teacher: create(:teacher))) }
       let!(:event_from_another_course) { create(:event, course: create(:course, teacher: teacher)) }
-      let!(:student) { create :student, courses: [course] }
 
       before do
         course.save!
@@ -98,10 +103,8 @@ describe Api::V1::Teacher::EventsController do
     it_behaves_like "API authentication required"
 
     context "authenticated" do
-      let(:student) { create(:student) }
 
       before do
-        course.students << student
         course.save!
         do_action
       end
