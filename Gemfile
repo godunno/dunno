@@ -35,6 +35,7 @@ gem 'virtus'
 gem 'twilio-ruby'
 gem 'foundation-rails'
 gem 'roboto'
+gem 'rack-mini-profiler'
 
 group :assets do
 end
