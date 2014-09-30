@@ -18,8 +18,8 @@ describe SmsProvider do
     end
 
     it "should send a message to all phone numbers" do
-      expect(Twilio::REST::Client).to receive(:new).with(account_sid, auth_token).and_return(twilio_client = stub(:twilio_client))
-      twilio_client.stub_chain(:account, :messages).and_return(twilio_messages = stub(:twilio_messages))
+      expect(Twilio::REST::Client).to receive(:new).with(account_sid, auth_token).and_return(twilio_client = double(:twilio_client))
+      twilio_client.stub_chain(:account, :messages).and_return(twilio_messages = double(:twilio_messages))
 
       phone_numbers.each do |phone_number|
         expect(twilio_messages).to receive(:create).with(to: phone_number, body: message, from: twilio_number)

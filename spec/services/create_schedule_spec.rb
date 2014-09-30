@@ -4,13 +4,13 @@ describe CreateSchedule do
   let(:start_date) { Date.new(2014, 01, 05) }
   let(:end_date) { Date.new(2014, 01, 13) }
   let(:weekly_schedule_1) do
-    stub("WeeklySchedule", weekday: 1, start_time: '14:00', end_time: '16:00')
+    double("WeeklySchedule", weekday: 1, start_time: '14:00', end_time: '16:00')
   end
   let(:weekly_schedule_2) do
-    stub("WeeklySchedule", weekday: 3, start_time: '09:00', end_time: '11:00')
+    double("WeeklySchedule", weekday: 3, start_time: '09:00', end_time: '11:00')
   end
   let(:weekly_schedule_3) do
-    stub("WeeklySchedule", weekday: 3, start_time: '14:00', end_time: '16:00')
+    double("WeeklySchedule", weekday: 3, start_time: '14:00', end_time: '16:00')
   end
   let(:create_schedule) do
     CreateSchedule.new(
