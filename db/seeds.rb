@@ -57,8 +57,6 @@ if Rails.env.development? || Rails.env.staging?
   o1 = Option.new(content: "jiban")
   o2 = Option.new(content: "jyraia")
   Poll.create!(content: "what do you watched on Manchete channel?", options: [o1, o2], timeline: e1.timeline, status: "available")
-  Media.create!(timeline: e1.timeline, title: 'LOLCAT VIDEO', category: 'video', url: 'http://www.youtube.com/watch?v=0000000000')
-  #Media.create!(event: e, title: 'LOLCAT IMAGE', category: 'image', file: Tempfile.new('cat.jpg'))
 
   Topic.new(description: "Machine Learning", timeline: e1.timeline).save!
   Topic.new(description: "AI", timeline: e1.timeline).save!
