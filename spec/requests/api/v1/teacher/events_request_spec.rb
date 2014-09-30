@@ -211,7 +211,7 @@ describe Api::V1::Teacher::EventsController do
               let(:message_json) { timeline_json["messages"][0] }
               let(:target) { message }
               subject { message_json }
-              it_behaves_like "request return check", %w(uuid content)
+              it_behaves_like "request return check", %w(uuid content created_at)
               it { expect(subject["up_votes"]).to eq(1) }
               it { expect(subject["down_votes"]).to eq(1) }
 
