@@ -3,36 +3,24 @@ development:
   encoding: utf8
   database: dunno_development
   pool: 5
-  username: postgres
-  host: localhost
-  template: template0
 
 test:
   adapter: postgresql
   encoding: utf8
   database: dunno_test
   pool: 5
-  username: postgres
   min_messages: WARNING
-  host: localhost
-  template: template0
 
 production:
   adapter: postgresql
   encoding: utf8
   database: dunno_production
   pool: 5
-  username: postgres
   min_messages: WARNING
-  host: localhost
-  template: template0
 
 beta:
   adapter: postgresql
   encoding: utf8
   database: dunno_beta
   pool: 5
-  username: postgres
   min_messages: WARNING
-  host: localhost
-  template: template0
