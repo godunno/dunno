@@ -24,8 +24,8 @@ describe CreateSchedule do
     it "should create a schedule for a weekly schedule" do
       expect(create_schedule.schedule_for(weekly_schedule_1)).to eq(
         [
-          Time.new(2014, 1, 6, 14)..Time.new(2014, 1, 6, 16),
-          Time.new(2014, 1, 13, 14)..Time.new(2014, 1, 13, 16)
+          Time.zone.parse("2014-01-06 14:00")..Time.zone.parse("2014-01-06 16:00"),
+          Time.zone.parse("2014-01-13 14:00")..Time.zone.parse("2014-01-13 16:00")
         ]
       )
     end
@@ -38,21 +38,20 @@ describe CreateSchedule do
 
     it "should create the time ranges" do
       expect(subject[0]).to eq(
-        Time.new(2014, 1, 6, 14)..Time.new(2014, 1, 6, 16)
+        Time.zone.parse("2014-01-06 14:00")..Time.zone.parse("2014-01-06 16:00")
       )
 
       expect(subject[1]).to eq(
-        Time.new(2014, 1, 8, 9)..Time.new(2014, 1, 8, 11)
+        Time.zone.parse("2014-01-08 09:00")..Time.zone.parse("2014-01-08 11:00")
       )
 
       expect(subject[2]).to eq(
-        Time.new(2014, 1, 8, 14)..Time.new(2014, 1, 8, 16)
+        Time.zone.parse("2014-01-08 14:00")..Time.zone.parse("2014-01-08 16:00")
       )
 
       expect(subject[3]).to eq(
-        Time.new(2014, 1, 13, 14)..Time.new(2014, 1, 13, 16)
+        Time.zone.parse("2014-01-13 14:00")..Time.zone.parse("2014-01-13 16:00")
       )
     end
   end
-
 end

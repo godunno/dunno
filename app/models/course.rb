@@ -14,6 +14,9 @@ class Course < ActiveRecord::Base
 
   before_create :set_access_code
 
+  #TODO: add test
+  default_scope -> { order(:created_at) }
+
   def channel
     "course_#{uuid}"
   end
