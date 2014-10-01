@@ -84,6 +84,20 @@ describe Api::V1::SessionsController do
         end
       end
     end
+
+    context "already signed in" do
+      describe "redirect to dashboard when accessing login page" do
+        include Warden::Test::Helpers
+        before do
+          Warden.test_mode!
+          login_as student.user, scope: :user
+          get "/sign_in"
+        end
+        after { Warden.test_reset! }
+        it { expect(last_response.status).to eq(302) }
+        it { expect(last_response.location).to match(%r{/dashboard/student$}) }
+      end
+    end
   end
 
   describe "teacher" do
@@ -128,6 +142,20 @@ describe Api::V1::SessionsController do
           let(:teacher_hash) { { user: { email: "incorrect.email@gmail.com", password: password } } }
           it_behaves_like "incorrect sign in"
         end
+      end
+    end
+
+    context "already signed in" do
+      describe "redirect to dashboard when accessing login page" do
+        include Warden::Test::Helpers
+        before do
+          Warden.test_mode!
+          login_as teacher.user, scope: :user
+          get "/sign_in"
+        end
+        after { Warden.test_reset! }
+        it { expect(last_response.status).to eq(302) }
+        it { expect(last_response.location).to match(%r{/dashboard/teacher$}) }
       end
     end
   end
