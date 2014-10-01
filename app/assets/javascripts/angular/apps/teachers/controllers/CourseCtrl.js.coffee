@@ -10,8 +10,10 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
     Course.get(uuid: $routeParams.id).then (course)->
       $scope.course = formatToView(course)
   $scope.save = (course)->
-    course.save().then ->
+    $scope.isSending = true
+    course.save().then(->
       $location.path '#/courses'
+    ).finally(-> $scope.isSending = false)
 
   $scope.delete = (course)->
     if confirm("Deseja mesmo remover a disciplina #{course.name}? Esta operação não poderá ser desfeita.")
