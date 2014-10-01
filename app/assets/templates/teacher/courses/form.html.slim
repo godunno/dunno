@@ -5,14 +5,14 @@ header.page-title ng-class="newRecord() ? '' : 'scheme-' + course.order"
       h1 ng-if="!newRecord()" Editando disciplina
 
 .create-course-page
-  form
+  form ng-submit="save(course)"
     .row
       .form-container
         .row
           .medium-12.columns
             label for="name"
               | Nome da disciplina
-              span.warning *
+              span.required *
             input.radius id="name" ng-model="course.name" type="text" placeholder="Ex: Matemática" required="" autofocus=""
 
         .row
@@ -22,7 +22,7 @@ header.page-title ng-class="newRecord() ? '' : 'scheme-' + course.order"
           .medium-3.columns
             label for="class_name"
               | Nome da turma
-              span.warning *
+              span.required *
 
             input.radius id="class_name" ng-model="course.class_name" type="text" placeholder="Ex: TR230" required=""
             /input.radius.input-error ng-model="course.class_name" type="text" placeholder="Ex: TR230"
@@ -37,8 +37,10 @@ header.page-title ng-class="newRecord() ? '' : 'scheme-' + course.order"
             input.radius id="institution" ng-model="course.institution" type="text" placeholder="Ex: Colégio Padre Anchieta"
 
     .row
-      h3.form-caption HORÁRIOS DE AULA
-      span.warning.label-error ng-if="newRecord()" ATENÇÃO: Essas datas não poderão ser alteradas no futuro.
+      h3.form-caption.important Horários de aula
+      span.warning.label-error ng-if="newRecord()"
+        span.important> ATENÇÃO:
+        | Essas datas não poderão ser alteradas no futuro.
       span.warning.label-error ng-if="!newRecord()" Essas datas não podem ser alteradas.
 
       .form-container
@@ -99,4 +101,4 @@ header.page-title ng-class="newRecord() ? '' : 'scheme-' + course.order"
       .large-1.large-offset-5.column
         a.radius.cancel href="#courses" Cancelar
       .large-3.columns
-        input.button.btn-style-1.radius type="submit" ng-class="{disabled: isSending}" ng-click="save(course)" value="Salvar disciplina"
+        input.button.btn-style-1.radius type="submit" ng-disabled="isSending" value="Salvar disciplina"
