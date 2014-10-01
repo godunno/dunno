@@ -34,14 +34,14 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
     rescue ActiveRecord::RecordInvalid
       render json: {errors: course_form.errors}, status: 400
     else
-      render nothing: true
+      render json: {uuid: course_form.model.uuid}
     end
   end
 
   api :PATCH, '/api/v1/teacher/courses/:id', "Update a course."
   def update
     course.update(course_params)
-    render nothing: true
+    render json: {uuid: course.uuid}
   end
 
   api :GET, '/api/v1/teacher/courses/:id/students', "Get the course's students list."

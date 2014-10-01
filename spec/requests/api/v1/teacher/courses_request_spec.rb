@@ -132,12 +132,6 @@ describe Api::V1::Teacher::EventsController do
         post "/api/v1/teacher/courses.json", parameters.merge(auth_params(teacher)).to_json
       end
 
-      it "should create the course" do
-        expect do
-          do_action
-        end.to change{ Course.count }.from(0).to(1)
-      end
-
       it "should schedule it's events" do
         course_scheduler = double("course_scheduler")
         CourseScheduler.
@@ -145,6 +139,16 @@ describe Api::V1::Teacher::EventsController do
           and_return(course_scheduler)
         course_scheduler.should_receive(:schedule!)
         do_action
+      end
+
+      context "creating the course" do
+        before do
+          do_action
+        end
+
+        it { expect(Course.count).to eq(1) }
+        it { expect(last_response.status).to eq(200) }
+        it { expect(json["uuid"]).to eq(Course.last.uuid) }
       end
 
       context "trying to create an invalid course" do
@@ -196,6 +200,9 @@ describe Api::V1::Teacher::EventsController do
       end
 
       it { expect(last_course.name).to eq course.name }
+
+      it { expect(last_response.status).to eq(200) }
+      it { expect(json["uuid"]).to eq(Course.last.uuid) }
     end
   end
 

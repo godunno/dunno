@@ -9,9 +9,10 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
   if $routeParams.id
     Course.get(uuid: $routeParams.id).then (course)->
       $scope.course = formatToView(course)
+
   $scope.save = (course)->
     course.save().then ->
-      $location.path '#/courses'
+      $location.path "/courses/#{course.uuid}/"
 
   $scope.delete = (course)->
     if confirm("Deseja mesmo remover a disciplina #{course.name}? Esta operação não poderá ser desfeita.")
@@ -21,7 +22,6 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
   $scope.newRecord = ->
     !$scope.course.uuid
 
-  $scope.teste = "2014-11-30"
   formatToView = (course)->
       course.start_date = $scope.formattedDate(course.start_date, 'dd/MM/yyyy')
       course.end_date   = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
