@@ -31,8 +31,8 @@ class EventPusher
   def pusher_message_json(poll)
     Jbuilder.encode do |json|
       json.(poll, :id, :uuid, :created_at, :updated_at, :content)
-      json.up_votes message.upvotes.size
-      json.down_votes message.downvotes.size
+      json.up_votes message.get_upvotes.size
+      json.down_votes message.get_downvotes.size
       json.student(message.student, :id, :name, :email)
     end
   end
@@ -40,8 +40,8 @@ class EventPusher
   def pusher_message_json(message)
     Jbuilder.encode do |json|
       json.(message, :id, :created_at, :updated_at, :content)
-      json.up_votes message.upvotes.size
-      json.down_votes message.downvotes.size
+      json.up_votes message.get_upvotes.size
+      json.down_votes message.get_downvotes.size
       json.student(message.student, :id, :name, :email)
     end
   end

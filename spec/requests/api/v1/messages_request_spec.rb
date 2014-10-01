@@ -120,7 +120,7 @@ describe Api::V1::MessagesController do
         it "increases the message up votes" do
           expect do
             do_action
-          end.to change(message.up_votes, :count).by(1)
+          end.to change(message.get_upvotes, :count).by(1)
         end
 
         it "triggers pusher event to notify pusher" do
@@ -179,7 +179,7 @@ describe Api::V1::MessagesController do
         it "increases the message down votes" do
           expect do
             do_action
-          end.to change(message.down_votes, :count).by(1)
+          end.to change(message.get_downvotes, :count).by(1)
         end
 
         it "triggers pusher event to notify pusher" do

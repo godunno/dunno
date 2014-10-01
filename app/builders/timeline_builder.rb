@@ -7,7 +7,7 @@ class TimelineBuilder < BaseBuilder
       TimelineMessageBuilder.new(message.interaction).build!(json)
       voter = options[:voter]
       if voter
-        json.already_voted message.interaction.vote_by(voter)
+        json.already_voted message.interaction.vote_direction_by(voter)
       end
     end
   end

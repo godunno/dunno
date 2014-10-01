@@ -20,8 +20,8 @@ json.courses @resource.profile.courses do |course|
         messages.
         map(&:interaction) do |message|
           json.(message, :id, :content, :created_at)
-          json.up_votes(message.up_votes.count)
-          json.down_votes(message.down_votes.count)
+          json.up_votes(message.get_upvotes.count)
+          json.down_votes(message.get_downvotes.count)
         end
     end
 
