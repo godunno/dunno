@@ -18,7 +18,11 @@ describe Answer do
     end
 
     it { expect(@duplicated_answer).to_not be_valid }
-    it { expect(@duplicated_answer).to have(1).error_on(:student) }
+
+    it "has an error on answer if student is duplicated" do
+      @duplicated_answer.valid?
+      expect(@duplicated_answer.errors[:student].size).to eq(1)
+    end
   end
 
   describe "#correct?" do

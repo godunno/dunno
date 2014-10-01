@@ -8,8 +8,9 @@ class TimelineMessage < ActiveRecord::Base
 
   validates :content, :student, presence: true
 
-  def vote_by(voter)
-    vote = votes.where(voter_id: voter.id, voter_type: "Student").first
+  #TODO add tests
+  def vote_direction_by(voter)
+    vote = votes_for.where(voter_id: voter.id, voter_type: "Student").first
     if vote
       vote.vote_flag ? "up" : "down"
     end
