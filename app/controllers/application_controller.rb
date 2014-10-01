@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   #ensure_security_headers # See more: https://github.com/twitter/secureheadere
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_filter :authorize_rack_profiler
   helper_method :event_pusher_events
   helper_method :course_pusher_events
 
@@ -30,9 +29,5 @@ class ApplicationController < ActionController::Base
 
     def course_pusher_events
       @course_pusher_events ||= CoursePusherEvents.new(current_user)
-    end
-
-    def authorize_rack_profiler
-      Rack::MiniProfiler.authorize_request if Rails.env.staging?
     end
 end
