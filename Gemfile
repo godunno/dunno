@@ -46,6 +46,8 @@ gem 'database_cleaner',     '1.2.0', require: false
 group :development do
   gem 'foreman',              '0.63.0'
   gem 'letter_opener',        '1.1.2'
+  gem 'better_errors',        '2.0.0'
+  gem 'binding_of_caller',    '0.7.2'
 end
 
 group :test do
