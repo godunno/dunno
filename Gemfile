@@ -17,7 +17,7 @@ gem 'bourbon',                '3.1.8'
 gem 'simple_form',            '3.0.2'
 gem 'party_foul',             '1.5.2'
 gem 'devise',                 '3.2.2'
-gem 'acts_as_votable',        '~> 0.8.0'
+gem 'acts_as_votable',        '0.10.0'
 gem 'active_model_serializers', '0.8.1'
 gem 'pusher',                   '0.12.0'
 gem 'tod',                    '1.3.0'
@@ -26,15 +26,12 @@ gem 'font-awesome-sass',      '4.0.3.1'
 gem 'carrierwave',            '0.10.0'
 gem 'apipie-rails',           '0.1.3'
 gem 'cti',                    '0.1.1'
-gem 'kaminari',               '0.15.1'
-gem 'bower-rails'
-gem 'virtus'
-gem 'twilio-ruby'
-gem 'foundation-rails'
-gem 'roboto'
-
-group :assets do
-end
+gem 'bower-rails', '0.9.0'
+gem 'virtus', '1.0.3'
+gem 'twilio-ruby', '3.13.0'
+gem 'foundation-rails', '5.4.5.0'
+gem 'roboto', '0.2.0'
+gem 'newrelic_rpm', '3.9.5.251'
 
 group :production, :staging do
   gem 'rails_12factor',       '0.0.2'
@@ -55,7 +52,7 @@ group :test do
   gem 'shoulda-matchers',     '2.4.0', require: false
   gem 'simplecov',            '0.8.2', require: false
   gem 'email_spec',           '1.5.0'
-  gem 'faker'
+  gem 'faker', '1.4.3'
 end
 
 group :development, :test do
