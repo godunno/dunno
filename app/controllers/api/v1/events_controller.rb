@@ -38,7 +38,8 @@ class Api::V1::EventsController < Api::V1::StudentApplicationController
   def beacon_params
     params.require(:beacon).permit(:uuid, :minor, :major, :title)
   end
-    def event
-      @event ||= Event.where(uuid: params[:id]).first!
-    end
+
+  def event
+    @event ||= Event.where(uuid: params[:id]).first!
+  end
 end
