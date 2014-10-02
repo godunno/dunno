@@ -218,7 +218,7 @@ describe Api::V1::Teacher::EventsController do
               describe "author" do
                 let(:target) { student }
                 subject { message_json["author"] }
-                it_behaves_like "request return check", %w(uuid)
+                it_behaves_like "request return check", %w(name avatar)
               end
             end
           end

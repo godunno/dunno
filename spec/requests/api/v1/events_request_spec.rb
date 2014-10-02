@@ -249,7 +249,7 @@ describe Api::V1::EventsController do
                 describe "author" do
                   let(:target) { author }
                   subject { message_json["author"] }
-                  it_behaves_like "request return check", %w(uuid)
+                  it_behaves_like "request return check", %w(name avatar)
                 end
 
                 context "student already voted on the message" do
