@@ -7,8 +7,4 @@ class Api::V1::SessionsController < Devise::SessionsController
     profile_name = @resource.profile.class.name.downcase
     return render "#{profile_name}_sign_in"
   end
-
-  def failure
-    return render :json => {:success => false, :errors => ["Login failed."]}, status: 401
-  end
 end

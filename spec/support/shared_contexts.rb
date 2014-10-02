@@ -38,7 +38,6 @@ shared_examples_for "incorrect sign in" do
   end
 
   it { expect(last_response.status).to eq(401) }
-  it { expect(json["errors"].count).to eq 1 }
 end
 
 shared_examples_for "request return check" do |attributes|
