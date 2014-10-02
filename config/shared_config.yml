@@ -1,15 +1,7 @@
 v1:
   courses:
     schemes:
-      -
-        primary-color: "#FEDD59"
-        secondary-color: "#B19B40"
-      -
-        primary-color: "#54C5FF"
-        secondary-color: "#437E9B"
-      -
-        primary-color: "#FF926A"
-        secondary-color: "#B06449"
-      -
-        primary-color: "#A893FF"
-        secondary-color: "#7567B4"
+      - "#FEDD59"
+      - "#54C5FF"
+      - "#FF926A"
+      - "#A893FF"
