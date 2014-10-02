@@ -61,6 +61,6 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   private
 
     def event
-      @event ||= Event.where(uuid: params[:id]).first
+      @event ||= Event.find_by!(uuid: params[:id])
     end
 end

@@ -58,6 +58,20 @@ describe Api::V1::Teacher::EventsController do
             subject { events_json[0]["course"] }
             it_behaves_like "request return check", %w(name class_name order institution)
           end
+
+          describe "personal note" do
+            let(:personal_note) do
+              create(:personal_note, order: 1)
+            end
+
+            let(:event) do
+              create(:event, course: course, personal_notes: [personal_note])
+            end
+
+            let(:target) { personal_note }
+            subject { events_json[0]["personal_notes"][0] }
+            it_behaves_like "request return check", %w(content uuid order)
+          end
         end
       end
     end
