@@ -21,7 +21,7 @@ class EventBuilder < BaseBuilder
       end
     end
 
-    if options[:role] == :teacher
+    if options[:personal_notes]
       json.personal_notes event.personal_notes do |personal_note|
         PersonalNoteBuilder.new(personal_note).build!(json)
       end

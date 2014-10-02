@@ -1,6 +1,6 @@
 EventBuilder.new(@event).build!(
   json,
-  role: :teacher,
+  personal_notes: true,
   event_pusher_events: event_pusher_events,
   show_course: true
 )
