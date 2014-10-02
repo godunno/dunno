@@ -18,12 +18,13 @@ class CourseBuilder < BaseBuilder
     # TODO: move to builder
     json.teacher(course.teacher, :name)
 
+    # TODO: Add tests
     if options[:show_events]
       json.events course.events do |event|
         EventBuilder.new(event).build!(
           json,
-          show_course:
-          false,
+          show_course: false,
+          personal_notes: options[:personal_notes],
           event_pusher_events: options[:event_pusher_events]
         )
       end
