@@ -25,7 +25,7 @@ class Api::V1::EventsController < Api::V1::StudentApplicationController
   api :PATCH, '/api/v1/events/:id/validate_attendance', "Validates that the student has attended the event."
   def validate_attendance
     if Beacon.where(beacon_params).first == event.beacon
-      attendance = Attendance.where(event: event, student: current_student).first!
+      attendance = Attendance.find_by!(event: event, student: current_student)
       attendance.update(validated: true)
       render nothing: true, status: 200
     else
@@ -40,6 +40,6 @@ class Api::V1::EventsController < Api::V1::StudentApplicationController
   end
 
   def event
-    @event ||= Event.where(uuid: params[:id]).first!
+    @event ||= Event.find_by!(uuid: params[:id])
   end
 end
