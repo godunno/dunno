@@ -6,14 +6,13 @@ Dunno::Application.routes.draw do
   as :user do
     post 'api/v1/users/sign_in' => 'api/v1/sessions#create'
     delete 'api/v1/users/sign_out' => 'api/v1/sessions#destroy'
-    get 'users/sign_in' => 'dashboard/sessions#new', as: :new_user_session
+    get 'sign_in' => 'dashboard/application#sign_in', as: :new_user_session
     post 'users/sign_in' => 'devise/sessions#create', as: :user_session
     delete 'users/sign_out' => 'devise/sessions#destroy', as: :destroy_user_session
   end
 
   get 'dashboard/teacher' => 'dashboard/application#teacher'
   get 'dashboard/student' => 'dashboard/application#student'
-  get 'sign_in' => 'dashboard/application#sign_in'
 
   namespace :api do
     namespace :v1 do

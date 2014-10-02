@@ -33,12 +33,26 @@ end
 
 shared_examples_for "incorrect sign in" do
 
-  before(:each) do
-    do_action
+  context "via API" do
+    before(:each) do
+      do_action
+    end
+
+    it { expect(last_response.status).to eq(401) }
+    it { expect(json["errors"].count).to eq 1 }
   end
 
-  it { expect(last_response.status).to eq(401) }
-  it { expect(json["errors"].count).to eq 1 }
+  context "via browser" do
+    before do
+      Warden.test_mode!
+      logout(:user)
+      get "/dashboard/#{profile}", format: 'html'
+    end
+    after { Warden.test_reset! }
+
+    it { expect(last_response.status).to eq(302) }
+    it { expect(last_response.location).to match(%r{/sign_in$}) }
+  end
 end
 
 shared_examples_for "request return check" do |attributes|
