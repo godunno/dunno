@@ -7,10 +7,10 @@
 //
 
 // This is the default html and body font-size for the base rem value.
-$rem-base: 16px
+$rem-base: 16px;
 
 // Allows the use of rem-calc() or lower-bound() in your settings
-@import "foundation/functions"
+@import "foundation/functions";
 
 // $experimental: true;
 
@@ -35,15 +35,17 @@ $rem-base: 16px
 // $include-html-grid-classes: $include-html-classes;
 // $include-xl-html-grid-classes: false;
 
-$row-width: rem-calc(960)
+$row-width: rem-calc(960);
+
 // $total-columns: 12;
 
 // Global
 
 // We use these to control various global styles
-$body-bg: #F2F2F2
-$body-font-color: $primary-color
-$body-font-family: "Lato", sans-serif
+$body-bg: #f2f2f2;
+$body-font-color: $primary-color;
+$body-font-family: "Lato", sans-serif;
+
 //"Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
@@ -65,7 +67,8 @@ $body-font-family: "Lato", sans-serif
 // $info-color: #a0d3e8;
 
 // We use these to make sure border radius matches unless we want it different.
-$global-radius: 3px
+$global-radius: 3px;
+
 //$global-rounded: 1000px
 
 // We use these to control inset shadow shiny edges and depressions.
@@ -124,7 +127,8 @@ $global-radius: 3px
 // $header-font-family: $body-font-family;
 // $header-font-weight: $font-weight-normal;
 // $header-font-style: normal;
-$header-font-color: $primary-color
+$header-font-color: $primary-color;
+
 // $header-line-height: 1.4;
 // $header-top-margin: .2rem;
 // $header-bottom-margin: .5rem;
@@ -291,7 +295,6 @@ $header-font-color: $primary-color
 // $block-grid-default-spacing: rem-calc(20);
 // $align-block-grid-to-grid: false;
 
-
 // Enables media queries for block-grid classes. Set to false if writing semantic HTML.
 // $block-grid-media-queries: true;
 
@@ -427,7 +430,7 @@ $header-font-color: $primary-color
 // $f-dropdown-margin-bottom: $f-dropdown-margin-top;
 
 // We use this to control the background color
- $f-dropdown-bg: #fff;
+// $f-dropdown-bg: #fff;
 
 // We use this to set the border styles for dropdowns.
 // $f-dropdown-border-style: solid;
@@ -858,7 +861,6 @@ $header-font-color: $primary-color
 // $price-money-size: rem-calc(32);
 // $price-money-font-family: $body-font-family;
 
-
 // We use these to control the description styles
 // $price-bg: #fff;
 // $price-desc-color: #777;
@@ -962,8 +964,6 @@ $header-font-color: $primary-color
 // $side-nav-font-family: $body-font-family;
 // $side-nav-active-font-family: $side-nav-font-family;
 
-
-
 // We use these to control border styles
 // $side-nav-divider-size: 1px;
 // $side-nav-divider-style: solid;
@@ -1025,7 +1025,6 @@ $header-font-color: $primary-color
 // $sub-nav-border-radius: 3px;
 // $sub-nav-font-color-hover: scale-color($sub-nav-font-color, $lightness: -25%);
 
-
 // We use these to control the active item styles
 // $sub-nav-active-font-weight: $font-weight-normal;
 // $sub-nav-active-bg: $primary-color;
@@ -1084,12 +1083,13 @@ $header-font-color: $primary-color
 // These control the background color for the table and even rows
 // $table-bg: #fff;
 // $table-even-row-bg: #f9f9f9  ;
-$table-even-row-bg: #fff
+$table-even-row-bg: white;
 
 // These control the table cell border style
 // $table-border-style: solid;
 // $table-border-size: 1px;
-$table-border-size: 0
+$table-border-size: 0;
+
 // $table-border-color: #ddd;
 
 // These control the table head styles
@@ -1180,16 +1180,18 @@ $table-border-size: 0
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: #2B3738
+$topbar-bg-color: #2b3738;
+
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-$topbar-height: 65px
+$topbar-height: 65px;
+
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar
 // $topbar-title-weight: $font-weight-normal;
-$topbar-title-font-size: rem-calc(25)
+$topbar-title-font-size: rem-calc(25);
 
 // Style the top bar dropdown elements
 // $topbar-dropdown-bg: #333;
@@ -1201,12 +1203,14 @@ $topbar-title-font-size: rem-calc(25)
 // $topbar-dropdown-toggle-alpha: 0.4;
 
 // Set the link colors and styles for top-level nav
-$topbar-link-color: #71797a
+$topbar-link-color: #71797a;
+
 // $topbar-link-color-hover: #fff;
 // $topbar-link-color-active: #fff;
 // $topbar-link-color-active-hover: #fff;
 // $topbar-link-weight: $font-weight-normal;
-$topbar-link-font-size: rem-calc(15)
+$topbar-link-font-size: rem-calc(15);
+
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
 // $topbar-link-bg: $topbar-bg;
 // $topbar-link-bg-color-hover: #272727;
