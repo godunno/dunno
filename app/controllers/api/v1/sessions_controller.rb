@@ -1,4 +1,5 @@
 class Api::V1::SessionsController < Devise::SessionsController
+  respond_to :json
 
   api :POST, '/api/v1/users/sign_in', "Sign in to the system and get the user's data. Don't forget to store the authentication token."
   def create

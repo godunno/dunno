@@ -26,7 +26,7 @@ html lang="pt" ng-app="DunnoApp"
             a href="#courses" Disciplinas
         ul class="right"
           li
-            = link_to "Sair", destroy_user_session_path, method: :delete
+            a ng-click="sign_out()" Sair
 
     .content ng-view=""
 
