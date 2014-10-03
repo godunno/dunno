@@ -59,7 +59,5 @@ group :development, :test do
   gem 'factory_girl_rails',       '4.3.0'
   gem 'pry-rails',                '0.3.2'
   gem 'dotenv-rails',             '0.9.0'
-  gem 'vcr',                      '2.9.3'
-  gem 'webmock',                  '1.19.0'
   gem 'timecop',                  '0.7.1'
 end
