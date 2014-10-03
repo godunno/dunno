@@ -6,6 +6,8 @@ Dunno::Application.routes.draw do
   as :user do
     post 'api/v1/users/sign_in' => 'api/v1/sessions#create'
     delete 'api/v1/users/sign_out' => 'api/v1/sessions#destroy'
+
+    # TODO: test redirect when user is not authenticated
     get 'sign_in' => 'dashboard/application#sign_in', as: :new_user_session
     post 'users/sign_in' => 'devise/sessions#create', as: :user_session
     delete 'users/sign_out' => 'devise/sessions#destroy', as: :destroy_user_session
