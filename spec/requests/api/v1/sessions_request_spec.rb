@@ -69,6 +69,8 @@ describe Api::V1::SessionsController do
 
       context "incorrect authentication" do
 
+        let(:profile) { :student }
+
         def do_action
           post "/api/v1/users/sign_in.json", student_hash.to_json
         end
@@ -128,6 +130,8 @@ describe Api::V1::SessionsController do
       end
 
       context "incorrect authentication" do
+
+        let(:profile) { :teacher }
 
         def do_action
           post "/api/v1/users/sign_in.json", teacher_hash.to_json
