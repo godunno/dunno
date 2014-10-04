@@ -1,19 +1,20 @@
 .login-page ng-controller="SignInCtrl"
   = image_tag "dunno-logo.png"
   /= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  form name="user" action="users/sign_in" method="post" id="sign_in" novalidate=""
+  form name="user" ng-submit="sign_in(user)" id="sign_in" novalidate=""
     .login-container
+      span.error ng-show="authentication_failed" Email ou senha incorretos
       .email
         label for="email" Email
         / TODO: normalizar name dos inputs após POST via AJAX
-        input.radius id="email" name="user[email]" ng-model="user.email" type="email" required="" autofocus=""
+        input.radius id="email" name="email" ng-model="user.email" type="email" required="" autofocus=""
         / TODO: DRY as mensagens de erro
-        span.error ng-show="user['user[email]'].$error.required" Campo obrigatório
-        span.error ng-show="user['user[email]'].$error.email" Email inválido
+        span.error ng-show="user.email.$error.required" Campo obrigatório
+        span.error ng-show="user.email.$error.email" Email inválido
       .password
         label for="password" Senha
-        input.radius id="password" name="user[password]" ng-model="user.password" type="password" required=""
-        span.error ng-show="user['user[password]'].$error.required" Campo obrigatório
+        input.radius id="password" name="password" ng-model="user.password" type="password" required=""
+        span.error ng-show="user.password.$error.required" Campo obrigatório
         /a.help href="#" Esqueci minha senha
       .submit
         input.button.radius.btn-style-1 ng-disabled="user.$invalid" type="submit" value="ENVIAR"

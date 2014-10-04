@@ -9,6 +9,7 @@ ApplicationCtrl = ($scope, $http, $window)->
     $scope.currentUser = user
 
   $scope.sign_out = ->
+    # TODO: create a service to manage sessions
     $http.delete('/api/v1/users/sign_out.json').then ->
       $window.location.href = '/'
 ApplicationCtrl.$inject = ['$scope', '$http', '$window']
