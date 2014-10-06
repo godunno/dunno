@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 ruby '2.1.0'
 
 gem 'rails',                      '4.1.6'
@@ -26,12 +27,16 @@ gem 'font-awesome-sass',          '4.0.3.1'
 gem 'carrierwave',                '0.10.0'
 gem 'apipie-rails',               '0.1.3'
 gem 'cti',                        '0.1.1'
-gem 'bower-rails',                '0.9.0'
 gem 'virtus',                     '1.0.3'
 gem 'twilio-ruby',                '3.13.0'
 gem 'foundation-rails',           '5.4.5.0'
 gem 'roboto',                     '0.2.0'
 gem 'newrelic_rpm',               '3.9.5.251'
+gem 'rails-assets-angular',       '1.2.26'
+gem 'rails-assets-angular-route', '1.2.26'
+gem 'rails-assets-angular-resource', '1.2.26'
+gem 'rails-assets-angularjs-rails-resource', '1.2.1'
+gem 'rails-assets-modernizr', '2.8.3'
 
 group :production, :staging do
   gem 'rails_12factor',           '0.0.2'
