@@ -198,6 +198,8 @@ GEM
       rails-assets-angular (= 1.2.26)
     rails-assets-angular-route (1.2.26)
       rails-assets-angular (= 1.2.26)
+    rails-assets-angular-scroll (0.6.2)
+      rails-assets-angular (>= 1.2.16, < 2)
     rails-assets-angularjs-rails-resource (1.2.1)
       rails-assets-angular
     rails-assets-modernizr (2.8.3)
@@ -340,6 +342,7 @@ DEPENDENCIES
   rails-assets-angular (= 1.2.26)
   rails-assets-angular-resource (= 1.2.26)
   rails-assets-angular-route (= 1.2.26)
+  rails-assets-angular-scroll (= 0.6.2)
   rails-assets-angularjs-rails-resource (= 1.2.1)
   rails-assets-modernizr (= 2.8.3)
   rails_12factor (= 0.0.2)
