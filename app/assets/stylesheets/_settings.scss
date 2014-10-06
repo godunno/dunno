@@ -1180,7 +1180,7 @@ $table-border-size: 0;
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: #2b3738;
+$topbar-bg-color: $primary-color;
 
 // $topbar-bg: $topbar-bg-color;
 
@@ -1205,9 +1205,9 @@ $topbar-title-font-size: rem-calc(25);
 // Set the link colors and styles for top-level nav
 $topbar-link-color: #71797a;
 
-// $topbar-link-color-hover: #fff;
-// $topbar-link-color-active: #fff;
-// $topbar-link-color-active-hover: #fff;
+$topbar-link-color-hover: #fff;
+$topbar-link-color-active: #fff;
+$topbar-link-color-active-hover: $primary-color;
 // $topbar-link-weight: $font-weight-normal;
 $topbar-link-font-size: rem-calc(15);
 
