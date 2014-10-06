@@ -420,7 +420,7 @@ describe Api::V1::Teacher::EventsController do
 
     it { expect(last_response.status).to eq(200) }
     it { expect(json["uuid"]).to eq(event.uuid) }
-    it { expect(event.reload.status).to eq('opened') }
+    it { expect(event.reload.opened?).to be_true }
     it { expect(event.reload.opened_at.utc.iso8601).to eq(Time.now.utc.iso8601) }
     it { expect(json["channel"]).to eq event.channel }
     it { expect(json["student_message_event"]).to eq event_pusher_events.student_message_event }
@@ -440,7 +440,7 @@ describe Api::V1::Teacher::EventsController do
 
   describe "PATCH /api/v1/teacher/events/:uuid/close.json" do
 
-    let(:event) { create(:event, status: 'opened') }
+    let(:event) { create(:event, opened_at: Time.now) }
 
     def do_action
       patch "/api/v1/teacher/events/#{event.uuid}/close.json", auth_params(teacher).to_json
@@ -453,7 +453,7 @@ describe Api::V1::Teacher::EventsController do
       do_action
     end
 
-    it { expect(event.reload.status).to eq 'closed' }
+    it { expect(event.reload.closed?).to be_true }
     it { expect(event.reload.closed_at.utc.iso8601).to eq Time.now.utc.iso8601 }
 
     context "closing event again" do
