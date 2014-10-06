@@ -1,3 +1,12 @@
 .required {
   @extend .warning;
 }
+
+input.ng-invalid.ng-dirty {
+  border-color: #E10B00;
+}
+
+span.error {
+  background: none;
+  color: #E10B00;
+}
