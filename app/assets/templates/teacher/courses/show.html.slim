@@ -1,12 +1,10 @@
 header.page-title ng-class="'scheme-' + course.order"
   .row
-    .large-2.columns.vertical-center style="float: right"
-      a class="button radius btn-style-2" href="#courses/{{course.uuid}}/edit"
-        span.icon-arrow-back.pos
-        | Editar
+    .large-2.columns.vertical-center.right
+      a.button.radius.btn-style-2.right href="#courses/{{course.uuid}}/edit" Editar
 
     .large-8.large-centered.vertical-center.columns
-      h2 {{course.name}}
+      h2.course-title {{course.name}}
       p.subtitle-head {{course.class_name}}
       p.translucent.subtitle-head
         span {{course.institution}}
