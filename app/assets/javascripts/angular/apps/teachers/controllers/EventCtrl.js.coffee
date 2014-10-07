@@ -1,7 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
 EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils)->
-  window.s = $scope
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
@@ -45,14 +44,13 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils)->
       $scope.newTopic = generateOrderable(event.topics)
       $scope.newPersonalNote = generateOrderable(event.personal_notes)
 
-  for collection, i in ['topics', 'personal_notes'] #, 'thermometers', 'polls', 'medias']
+  for collection, i in ['topics', 'personal_notes']
     $scope.event[collection] ?= []
-  #$scope.media_categories = ['image', 'video', 'audio']
-  #$scope.media_types = [{value: 'url', name: 'URL'}, {value: 'file', name: 'File'}]
 
   $scope.save = (event)->
     event = formatFromView(event)
     event.save().then ->
+      $scope.event_form.$setPristine()
       $location.path '#/events'
   $scope.addTopic = ->
     topics = $scope.event.topics
@@ -62,6 +60,12 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils)->
     personal_notes = $scope.event.personal_notes
     $scope.newItem(personal_notes, $scope.newPersonalNote)
     $scope.newPersonalNote = generateOrderable(personal_notes)
+
+  # https://github.com/angular/angular.js/issues/2109
+  $scope.$on '$locationChangeStart', (event)->
+    if $scope.event_form.$dirty
+      if !confirm("Algumas alterações ainda não foram salvas. Deseja continuar?")
+        event.preventDefault()
 
 EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'Utils', 'DateUtils']
 DunnoApp.controller 'EventCtrl', EventCtrl
