@@ -12,17 +12,22 @@
   ul.dates {
     list-style: none;
     overflow: hidden;
-    margin-right: -34px;
+    margin-left: 0;
+    margin-right: 0;
+    padding-bottom: 20px;
     li {
       float: left;
       background-color: white;
       border-radius: 5px;
       border: 1px solid silver;
-      width: 121px;
-      margin-right: 34px;
-      margin-bottom: 31px;
+      width: 20%;
+      margin-left: 4%;
+      margin-top: 20px;
       overflow: hidden;
       position: relative;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
       .expand {
         display: block;
         width: 100%;

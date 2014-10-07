@@ -46,7 +46,10 @@ $page-title-height: 110px;
 }
 
 .top-bar {
-  padding-left: 50px;
+  padding-left: 0px;
+  .row {
+      max-width: inherit;
+    }
 }
 
 .page-title {
