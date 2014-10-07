@@ -38,18 +38,18 @@ header.page-title ng-class="'scheme-' + course.order"
         h3 {{course.access_code}}
         span.description Envie este código para os alunos entrarem nesta disciplina
 
-      div.students
-        .top
-          strong {{course.students.length}} alunos
-          a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
-            i.icon.icon-buzz
-            span Enviar mensagem
+      /div.students
+        /.top
+          /strong {{course.students.length}} alunos
+          /a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
+            /i.icon.icon-buzz
+            /span Enviar mensagem
 
-        ul
-          li ng-repeat="student in course.students"
-            img src="http://lorempixel.com/40/40"
-            div
-              h3 {{student.name}}
+        /ul
+          /li ng-repeat="student in course.students"
+            /img src="http://lorempixel.com/40/40"
+            /div
+              /h3 {{student.name}}
               /span 12 anos
 
 .reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" id="send-notification" data-reveal=""
