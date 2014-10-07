@@ -27,7 +27,7 @@ header.page-title ng-class="'scheme-' + event.course.order"
             label.icon.icon-calendar.pos.right for="date"
           .large-10.columns
             input.radius id="date" ng-model="event.date" mask="99/99/9999" type="text" placeholder="Ex: 23/10/2014" name="date"
-      .large-6.columns.end
+      .large-5.columns.end
         .row.time
           .large-1.columns
             label.icon.icon-clock.pos for="start_time"
@@ -37,6 +37,8 @@ header.page-title ng-class="'scheme-' + event.course.order"
             label.to for="end_time" às
           .large-4.columns.end
             input.radius id="end_time" ng-model="event.end_time" mask="99:99" type="text" placeholder="Ex: 16:30" name="end_time"
+      .large-3.columns
+        input.button.btn-style-1.radius.save type="submit" ng-value="saving_message()" ng-disabled="cannot_save()"
 
     .row.card.container
       .title.diary-label
@@ -51,7 +53,7 @@ header.page-title ng-class="'scheme-' + event.course.order"
 
       .foot
         input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
-          ui-keydown="{'enter':'addTopic()'}" name="topic"]
+          ui-keydown="{'enter':'addTopic($event)'}" name="topic"]
         label Ex: Revisar aula passada. Introdução à raiz quadrada.
 
     .row.card.container.notes
@@ -68,9 +70,5 @@ header.page-title ng-class="'scheme-' + event.course.order"
             a.icon-trash.task-icon-right ng-click="destroy(personal_note)"
         .foot
           input[ng-model="newPersonalNote.content" type="text" name="personal_note"
-          placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote()'}"]
+          placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote($event)'}"]
           label Ex: Fazer ditado surpresa. Rever comportamento do João.
-
-    .row
-      .large-3.columns.large-centered
-        input.button.btn-style-1.radius.save type="submit" value="Salvar aula"

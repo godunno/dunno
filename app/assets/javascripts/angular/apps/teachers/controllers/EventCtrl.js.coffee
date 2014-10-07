@@ -47,26 +47,48 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, Navigatio
   for collection, i in ['topics', 'personal_notes']
     $scope.event[collection] ?= []
 
-  $scope.save = (event)->
-    event = formatFromView(event)
-    event.save().then ->
-      $scope.event_form.$setPristine()
-      $location.path '#/events'
-  $scope.addTopic = ->
+  $scope.addTopic = ($event)->
+    $event.preventDefault()
     topics = $scope.event.topics
     $scope.newItem(topics, $scope.newTopic)
     $scope.newTopic = generateOrderable(topics)
-  $scope.addPersonalNote = ->
+  $scope.addPersonalNote = ($event)->
+    $event.preventDefault()
     personal_notes = $scope.event.personal_notes
     $scope.newItem(personal_notes, $scope.newPersonalNote)
     $scope.newPersonalNote = generateOrderable(personal_notes)
 
-  # https://github.com/angular/angular.js/issues/2109
   confirm_if_dirty = (event)->
     if $scope.event_form.$dirty
       "Algumas alterações ainda não foram salvas. Deseja continuar?"
   NavigationGuard.registerGuardian(confirm_if_dirty)
   $scope.$on '$destroy', -> NavigationGuard.unregisterGuardian(confirm_if_dirty)
+
+  $scope.saving_message = ->
+    if $scope.isSaving
+      "Salvando..."
+    else if $scope.event_form.$dirty
+      "Salvar"
+    else
+      "Salvo"
+
+  $scope.cannot_save = ->
+    $scope.isSaving || $scope.event_form.$pristine
+
+  $scope.save = (event)->
+    event = formatFromView(event)
+    run = ->
+      $scope.isSaving = true
+      event.save().then ->
+        $scope.isSaving = false
+        $scope.event_form.$setPristine()
+        $location.path '#/events'
+    if $scope.newTopic.description? || $scope.newPersonalNote.description?
+      if !$scope.$emit('$locationChangeStart').defaultPrevented
+        run()
+    else
+      run()
+
 
 EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'Utils', 'DateUtils', 'NavigationGuard']
 DunnoApp.controller 'EventCtrl', EventCtrl
