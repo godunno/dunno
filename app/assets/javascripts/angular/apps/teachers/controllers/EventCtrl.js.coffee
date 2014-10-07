@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils)->
+EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, NavigationGuard)->
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
@@ -62,10 +62,11 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils)->
     $scope.newPersonalNote = generateOrderable(personal_notes)
 
   # https://github.com/angular/angular.js/issues/2109
-  $scope.$on '$locationChangeStart', (event)->
+  confirm_if_dirty = (event)->
     if $scope.event_form.$dirty
-      if !confirm("Algumas alterações ainda não foram salvas. Deseja continuar?")
-        event.preventDefault()
+      "Algumas alterações ainda não foram salvas. Deseja continuar?"
+  NavigationGuard.registerGuardian(confirm_if_dirty)
+  $scope.$on '$destroy', -> NavigationGuard.unregisterGuardian(confirm_if_dirty)
 
-EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'Utils', 'DateUtils']
+EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'Utils', 'DateUtils', 'NavigationGuard']
 DunnoApp.controller 'EventCtrl', EventCtrl
