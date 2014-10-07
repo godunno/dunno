@@ -27,6 +27,8 @@ html lang="pt" ng-app="DunnoApp"
         ul class="right"
           li
             a ng-click="sign_out()" Sair
+    - if Rails.env.staging?
+      .row.alert-box.alert.text-center Não utilizar com dados reais! Este é uma versão de testes!
 
     .content ng-view=""
 
