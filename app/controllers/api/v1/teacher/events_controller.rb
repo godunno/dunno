@@ -27,7 +27,8 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   def update
     @event_form = Form::EventForm.new(params[:event].merge(uuid: params[:id]))
     @event_form.save
-    render nothing: true
+    @event = @event_form.model
+    render :show
   end
 
   api :DELETE, '/api/v1/teacher/events/:id', "Delete the event."

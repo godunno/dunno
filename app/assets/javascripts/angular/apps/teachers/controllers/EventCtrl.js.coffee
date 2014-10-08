@@ -1,15 +1,23 @@
-# When should we ask confirmation?
+# The user wants to navigate to another page/route.
+# In which case should we ask confirmation?
 #
-# - When the form is dirty and the user wants
-#   to navigate to another page/route.
+# - When there are unsaved changes on the event.
 #
-# - When the user has filled a new item (topic or
-#   personal note) and clicked the save button
-#   but didn't insert it to its list.
+# - When there are changes on new a topic or personal note.
 
 DunnoApp = angular.module('DunnoApp')
 
-EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, NavigationGuard)->
+EventCtrl = (
+  $scope,
+  Event,
+  $location,
+  $routeParams,
+  $interval,
+  Utils,
+  DateUtils,
+  NavigationGuard,
+  AUTOSAVE_INTERVAL)->
+
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
@@ -62,17 +70,12 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, Navigatio
     $event.preventDefault()
     $scope.newItem(list, $scope[itemName])
     $scope[itemName] = generateOrderable(list)
+    $scope.event_form.$setDirty()
 
   $scope.addTopic = ($event)->
     addItem($event, $scope.event.topics, 'newTopic')
   $scope.addPersonalNote = ($event)->
     addItem($event, $scope.event.personal_notes, 'newPersonalNote')
-
-  confirmIfDirty = (event)->
-    if $scope.event_form.$dirty
-      "Algumas alterações ainda não foram efetuadas. Deseja continuar?"
-  NavigationGuard.registerGuardian(confirmIfDirty)
-  $scope.$on '$destroy', -> NavigationGuard.unregisterGuardian(confirmIfDirty)
 
   $scope.saveButtonMessage = ->
     if $scope.isSaving
@@ -87,20 +90,27 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, Navigatio
 
   $scope.save = (event)->
     event = formatFromView(event)
-    run = ->
-      $scope.isSaving = true
-      event.save().then ->
-        $scope.isSaving = false
-        $scope.event_form.$setPristine()
-        initializeEvent(event)
+    $scope.isSaving = true
+    event.save().then ->
+      $scope.isSaving = false
+      $scope.event_form.$setPristine()
 
+  $scope.removeItem = (list, item)->
+    $scope.destroy(item)
+    $scope.save($scope.event)
+    Utils.remove(list, item)
+
+  autosave = $interval(
+    -> $scope.save($scope.event) if !$scope.saveButtonDisabled()
+    AUTOSAVE_INTERVAL)
+  checkDirty = (event)->
     unsavedItems = $scope.newTopic.description || $scope.newPersonalNote.content
-    if unsavedItems
-      confirmSave = !$scope.$emit('$locationChangeStart').defaultPrevented
-      if confirmSave
-        run()
-    else
-      run()
+    if $scope.event_form.$dirty || unsavedItems
+      "Algumas alterações ainda não foram efetuadas. Deseja continuar?"
+  NavigationGuard.registerGuardian(checkDirty)
+  $scope.$on '$destroy', ->
+    NavigationGuard.unregisterGuardian(checkDirty)
+    $interval.cancel(autosave)
 
-EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'Utils', 'DateUtils', 'NavigationGuard']
+EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', '$interval', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
 DunnoApp.controller 'EventCtrl', EventCtrl
