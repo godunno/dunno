@@ -1,11 +1,18 @@
+# When should we ask confirmation?
+#
+# - When the form is dirty and the user wants
+#   to navigate to another page/route.
+#
+# - When the user has filled a new item (topic or
+#   personal note) and clicked the save button
+#   but didn't insert it to its list.
+
 DunnoApp = angular.module('DunnoApp')
 
 EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, NavigationGuard)->
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
-  $scope.event = new Event()
-  $scope.event.course_id = $routeParams.course_id
   generateOrderable = (list)->
     list = list.sort (a,b)-> a.order - b.order
     last = list[list.length - 1]
@@ -15,18 +22,17 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, Navigatio
       order = 1
     { order: order }
 
-  $scope.newTopic = generateOrderable($scope.event.topics)
-  $scope.newPersonalNote = generateOrderable($scope.event.personal_notes)
-
+  # TODO: extract to directive
   formatToView = (event)->
-      start_time = $scope.asDate(event.start_at)
-      end_time   = $scope.asDate(event.end_at)
+    start_time = $scope.asDate(event.start_at)
+    end_time   = $scope.asDate(event.end_at)
 
-      event.date       = $scope.formattedDate(start_time, 'dd/MM/yyyy')
-      event.start_time = $scope.formattedDate(start_time, 'HH:mm')
-      event.end_time   = $scope.formattedDate(end_time,   'HH:mm')
-      event
+    event.date       = $scope.formattedDate(start_time, 'dd/MM/yyyy')
+    event.start_time = $scope.formattedDate(start_time, 'HH:mm')
+    event.end_time   = $scope.formattedDate(end_time,   'HH:mm')
+    event
 
+  # TODO: extract to directive
   formatFromView = (event)->
     # convert from brazilian locale
     date       = event.date.split("/").reverse().join("/")
@@ -37,34 +43,38 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, Navigatio
     event.end_at   = new Date(Date.parse("#{date} #{end_time}")).toISOString()
     event
 
+  initializeEvent = (event)->
+    $scope.event = formatToView(event)
+    $scope.newTopic = generateOrderable($scope.event.topics)
+    $scope.newPersonalNote = generateOrderable($scope.event.personal_notes)
+    for collection, i in ['topics', 'personal_notes']
+      $scope.event[collection] ?= []
+
+  initializeEvent(new Event())
+  $scope.event.course_id = $routeParams.course_id
+
   # TODO: extract this get -> then -> assign to a service
   if $routeParams.id
     Event.get(uuid: $routeParams.id).then (event)->
-      $scope.event = formatToView(event)
-      $scope.newTopic = generateOrderable(event.topics)
-      $scope.newPersonalNote = generateOrderable(event.personal_notes)
+      initializeEvent(event)
 
-  for collection, i in ['topics', 'personal_notes']
-    $scope.event[collection] ?= []
+  addItem = ($event, list, itemName)->
+    $event.preventDefault()
+    $scope.newItem(list, $scope[itemName])
+    $scope[itemName] = generateOrderable(list)
 
   $scope.addTopic = ($event)->
-    $event.preventDefault()
-    topics = $scope.event.topics
-    $scope.newItem(topics, $scope.newTopic)
-    $scope.newTopic = generateOrderable(topics)
+    addItem($event, $scope.event.topics, 'newTopic')
   $scope.addPersonalNote = ($event)->
-    $event.preventDefault()
-    personal_notes = $scope.event.personal_notes
-    $scope.newItem(personal_notes, $scope.newPersonalNote)
-    $scope.newPersonalNote = generateOrderable(personal_notes)
+    addItem($event, $scope.event.personal_notes, 'newPersonalNote')
 
-  confirm_if_dirty = (event)->
+  confirmIfDirty = (event)->
     if $scope.event_form.$dirty
-      "Algumas alterações ainda não foram salvas. Deseja continuar?"
-  NavigationGuard.registerGuardian(confirm_if_dirty)
-  $scope.$on '$destroy', -> NavigationGuard.unregisterGuardian(confirm_if_dirty)
+      "Algumas alterações ainda não foram efetuadas. Deseja continuar?"
+  NavigationGuard.registerGuardian(confirmIfDirty)
+  $scope.$on '$destroy', -> NavigationGuard.unregisterGuardian(confirmIfDirty)
 
-  $scope.saving_message = ->
+  $scope.saveButtonMessage = ->
     if $scope.isSaving
       "Salvando..."
     else if $scope.event_form.$dirty
@@ -72,7 +82,7 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, Navigatio
     else
       "Salvo"
 
-  $scope.cannot_save = ->
+  $scope.saveButtonDisabled = ->
     $scope.isSaving || $scope.event_form.$pristine
 
   $scope.save = (event)->
@@ -82,13 +92,16 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, Navigatio
       event.save().then ->
         $scope.isSaving = false
         $scope.event_form.$setPristine()
-        $location.path '#/events'
-    if $scope.newTopic.description? || $scope.newPersonalNote.description?
-      if !$scope.$emit('$locationChangeStart').defaultPrevented
+        initializeEvent(event)
+
+    console.log $scope.newPersonalNote
+    unsavedItems = $scope.newTopic.description || $scope.newPersonalNote.content
+    if unsavedItems
+      confirmSave = !$scope.$emit('$locationChangeStart').defaultPrevented
+      if confirmSave
         run()
     else
       run()
-
 
 EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'Utils', 'DateUtils', 'NavigationGuard']
 DunnoApp.controller 'EventCtrl', EventCtrl
