@@ -1,6 +1,6 @@
 .has-overlay {
   position: relative;
-  &:hover {
+  .no-touch &:hover {
     .overlay {
       display: block;
     }
