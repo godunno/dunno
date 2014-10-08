@@ -94,7 +94,6 @@ EventCtrl = ($scope, Event, $location, $routeParams, Utils, DateUtils, Navigatio
         $scope.event_form.$setPristine()
         initializeEvent(event)
 
-    console.log $scope.newPersonalNote
     unsavedItems = $scope.newTopic.description || $scope.newPersonalNote.content
     if unsavedItems
       confirmSave = !$scope.$emit('$locationChangeStart').defaultPrevented
