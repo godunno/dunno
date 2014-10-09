@@ -6,8 +6,6 @@ timeout Integer(ENV['WEB_TIMEOUT'] || 15)
 # combine Ruby 2.0.0dev or REE with "preload_app true" for memory savings
 # http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
 preload_app true
-GC.respond_to?(:copy_on_write_friendly=) and
-  GC.copy_on_write_friendly = true
 
 # Enable this flag to have unicorn test client connections by writing the
 # beginning of the HTTP headers before calling the application.  This
@@ -32,8 +30,6 @@ before_fork do |server, worker|
 end
 
 after_fork do |server, worker|
-  GC.disable
-
   Signal.trap 'TERM' do
     puts 'Unicorn worker intercepting TERM and doing nothing. Wait for master to sent QUIT'
   end
