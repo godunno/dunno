@@ -10,3 +10,8 @@ span.error {
   background: none;
   color: #E10B00;
 }
+
+.done label {
+  text-decoration: line-through;
+  color: $light-grey-color;
+}

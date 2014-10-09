@@ -46,9 +46,9 @@ header.page-title ng-class="'scheme-' + event.course.order"
         span.subtitle.translucent Tarefas visíveis para os alunos
 
       .tasks
-        .row ng-repeat="topic in event.topics | filter:{_destroy:'!true'} | orderBy:'order'"
-          /input type="checkbox"
-          span {{topic.description}}
+        .row ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'} | orderBy:'order'"
+          input type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
+          label for="topic_{{topic.order}}_done" {{topic.description}}
           a.icon-trash.task-icon-right ng-click="removeItem(event.topics, topic)"
 
       .foot
@@ -57,18 +57,22 @@ header.page-title ng-class="'scheme-' + event.course.order"
         label Ex: Revisar aula passada. Introdução à raiz quadrada.
 
     .row.card.container.notes
-        .title.notes-label
+      .title.notes-label
 
-          h1
-            span.icon.icon-lock Anotações
-          span.subtitle.translucent Área visível somente para o professor
+        h1
+          span.icon.icon-lock Anotações
+        span.subtitle.translucent Área visível somente para o professor
 
-        .tasks
-          .row ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
-            /input type="checkbox"
-            span {{personal_note.content}}
-            a.icon-trash.task-icon-right ng-click="removeItem(event.personal_notes, personal_note)"
-        .foot
-          input[ng-model="newPersonalNote.content" type="text" name="personal_note"
-          placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote($event)'}"]
-          label Ex: Fazer ditado surpresa. Rever comportamento do João.
+      .tasks
+        .row ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
+          input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
+          label for="personal_note_{{personal_note.order}}_done" {{personal_note.content}}
+          a.icon-trash.task-icon-right ng-click="removeItem(event.personal_notes, personal_note)"
+      .foot
+        input[ng-model="newPersonalNote.content" type="text" name="personal_note"
+        placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote($event)'}"]
+        label Ex: Fazer ditado surpresa. Rever comportamento do João.
+
+    .row
+      .large-3.columns.large-centered
+        input.button.btn-style-1.radius.save type="submit" value="Salvar aula"
