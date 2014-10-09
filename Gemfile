@@ -4,7 +4,7 @@ ruby '2.1.3'
 
 gem 'rails',                      '4.1.6'
 gem 'unicorn',                    '4.7.0'
-gem 'unicorn-worker-killer',      '0.4.2'
+gem 'gctools', '~> 0.2.3'
 gem 'secure_headers',             '1.1.0'
 gem 'jquery-rails',               '3.0.4'
 gem 'slim-rails'
