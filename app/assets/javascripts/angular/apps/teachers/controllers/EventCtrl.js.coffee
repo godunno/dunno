@@ -1,10 +1,3 @@
-# The user wants to navigate to another page/route.
-# In which case should we ask confirmation?
-#
-# - When there are unsaved changes on the event.
-#
-# - When there are changes on new a topic or personal note.
-
 DunnoApp = angular.module('DunnoApp')
 
 EventCtrl = (
