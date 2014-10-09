@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org'
 ruby '2.1.3'
 
+gem 'oj',                         '2.10.3'
+gem 'oj_mimic_json',              '1.0.1'
 gem 'rails',                      '4.1.6'
 gem 'unicorn',                    '4.7.0'
 gem 'gctools', '~> 0.2.3'
