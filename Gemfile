@@ -38,6 +38,8 @@ gem 'rails-assets-angular-resource', '1.2.26'
 gem 'rails-assets-angularjs-rails-resource', '1.2.1'
 gem 'rails-assets-modernizr', '2.8.3'
 gem 'rails-assets-angular-scroll', '0.6.2'
+gem 'oj',                          '2.10.3'
+gem 'oj_mimic_json',               '1.0.1'
 
 group :production, :staging do
   gem 'rails_12factor',           '0.0.2'
