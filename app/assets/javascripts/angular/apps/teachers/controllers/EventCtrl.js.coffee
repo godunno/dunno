@@ -71,8 +71,9 @@ EventCtrl = (
     addItem($event, $scope.event.personal_notes, 'newPersonalNote')
 
   $scope.transferItem = (list, item)->
-    item.transfer().then ->
-      Utils.remove(list, item)
+    if confirm("Deseja transferir esse item? Essa operação não poderá ser desfeita.")
+      item.transfer().then ->
+        Utils.remove(list, item)
 
   $scope.saveButtonMessage = ->
     if $scope.isSaving
@@ -93,9 +94,10 @@ EventCtrl = (
       $scope.event_form.$setPristine()
 
   $scope.removeItem = (list, item)->
-    $scope.destroy(item)
-    $scope.save($scope.event)
-    Utils.remove(list, item)
+    if confirm("Deseja remover esse item? Essa operação não poderá ser desfeita.")
+      $scope.destroy(item)
+      $scope.save($scope.event)
+      Utils.remove(list, item)
 
   autosave = $interval(
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()
