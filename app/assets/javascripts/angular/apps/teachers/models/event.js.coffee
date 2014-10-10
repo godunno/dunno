@@ -8,6 +8,7 @@ DunnoApp.factory 'Event', ['RailsResource', 'railsSerializer', (RailsResource, r
       updateMethod: 'patch'
       serializer: railsSerializer ->
         @resource('topics', 'Topic')
+        @resource('personal_notes', 'PersonalNote')
     )
 
     topics: []

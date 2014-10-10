@@ -68,7 +68,8 @@ header.page-title ng-class="'scheme-' + event.course.order"
         .row ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
           input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
           label for="personal_note_{{personal_note.order}}_done" {{personal_note.content}}
-          a.icon-trash.task-icon-right ng-click="removeItem(event.personal_notes, personal_note)"
+          a.icon.icon-trash.task-icon-right.right ng-click="removeItem(event.personal_notes, personal_note)"
+          a.icon.icon-transfer.task-icon-right.right ng-click="transferItem(event.personal_notes, personal_note)"
       .foot
         input[ng-model="newPersonalNote.content" type="text" name="personal_note"
         placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote($event)'}"]
