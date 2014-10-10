@@ -20,7 +20,6 @@ class Event < ActiveRecord::Base
 
   validates :course, presence: true
   validates :start_at, :end_at, presence: true
-  #validates :closed_at, presence: true, if: :closed?
 
   accepts_nested_attributes_for :topics, :thermometers, :polls, :personal_notes, :medias, allow_destroy: true
 
@@ -47,6 +46,7 @@ class Event < ActiveRecord::Base
   end
 
   def close!
+    raise "Cannot close an unopened event." if opened_at.nil?
     self.closed_at = Time.now
     save!
   end
@@ -61,7 +61,7 @@ class Event < ActiveRecord::Base
   end
 
   def opened?
-    opened_at.present?
+    opened_at.present? && !closed?
   end
 
   %w(topics polls medias thermometers).each do |attr|

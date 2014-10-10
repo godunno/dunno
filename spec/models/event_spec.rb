@@ -74,11 +74,20 @@ describe Event do
 
   describe "#close!" do
     before do
+      event.open!
       Timecop.freeze
     end
 
     it { expect {event.close!}.to change(event, :closed?).from(false).to(true) }
     it { expect {event.close!}.to change(event, :closed_at).from(nil).to(Time.now) }
+    it "should not be opened after is closed" do
+      event.close!
+      expect(event).not_to be_opened
+    end
+    it "should not be able to close an unopened event" do
+      event.opened_at = nil
+      expect{event.close!}.to raise_error
+    end
   end
 
   describe "#open!" do
@@ -88,6 +97,10 @@ describe Event do
 
     it { expect {event.open!}.to change(event, :opened?).from(false).to(true) }
     it { expect {event.open!}.to change(event, :opened_at).from(nil).to(Time.now) }
+    it "should not be closed when it's opened" do
+      event.open!
+      expect(event).not_to be_closed
+    end
   end
 
   describe "#channel" do
