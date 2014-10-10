@@ -70,6 +70,10 @@ EventCtrl = (
   $scope.addPersonalNote = ($event)->
     addItem($event, $scope.event.personal_notes, 'newPersonalNote')
 
+  $scope.transferItem = (list, item)->
+    item.transfer().then ->
+      Utils.remove(list, item)
+
   $scope.saveButtonMessage = ->
     if $scope.isSaving
       "Salvando..."

@@ -49,7 +49,8 @@ header.page-title ng-class="'scheme-' + event.course.order"
         .row ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'} | orderBy:'order'"
           input type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
           label for="topic_{{topic.order}}_done" {{topic.description}}
-          a.icon-trash.task-icon-right ng-click="removeItem(event.topics, topic)"
+          a.icon.icon-trash.task-icon-right.right ng-click="removeItem(event.topics, topic)"
+          a.icon.icon-transfer.task-icon-right.right ng-click="transferItem(event.topics, topic)"
 
       .foot
         input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
