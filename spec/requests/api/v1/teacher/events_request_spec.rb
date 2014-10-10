@@ -8,7 +8,7 @@ describe Api::V1::Teacher::EventsController do
 
   let(:event_pusher_events) { EventPusherEvents.new(teacher.user) }
 
-    describe "GET /api/v1/teacher/events.json" do
+  describe "GET /api/v1/teacher/events.json" do
 
     it_behaves_like "API authentication required"
 
