@@ -26,7 +26,7 @@ describe Api::V1::Teacher::TopicsController do
 
         it "should return an error" do
           do_action
-          expect(last_response.status).to eq(500)
+          expect(last_response.status).to eq(422)
         end
       end
     end

@@ -9,7 +9,7 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
       topic.update!(timeline: next_event.timeline)
       status = 200
     else
-      status = 500
+      status = 422
     end
     render nothing: true, status: status
   end
