@@ -47,6 +47,7 @@ end
 gem 'database_cleaner',           '1.2.0',     require: false
 
 group :development do
+  gem 'rubocop',                  '0.26.1'
   gem 'foreman',                  '0.63.0'
   gem 'letter_opener',            '1.1.2'
   gem 'better_errors',            '2.0.0'
