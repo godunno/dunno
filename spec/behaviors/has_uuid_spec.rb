@@ -9,7 +9,9 @@ describe HasUuid do
     def save!
       run_callbacks :create do; end
     end
-    def self.where(*args); []; end
+    def self.where(*_args)
+      []
+    end
   end
 
   let(:model) { ModelWithUuid.new }

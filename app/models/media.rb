@@ -8,7 +8,7 @@ class Media < ActiveRecord::Base
 
   validates :title, presence: true
   validates :category, presence: true, inclusion: { in: CATEGORIES }
-  validates :url, format: URI::regexp(:http), allow_blank: true
+  validates :url, format: URI.regexp(:http), allow_blank: true
   validate :mutually_exclusive_url_and_file
 
   mount_uploader :file, FileUploader

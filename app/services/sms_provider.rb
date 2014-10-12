@@ -11,8 +11,7 @@ class SmsProvider
     phone_numbers = options.fetch(:to)
 
     phone_numbers.each do |phone_number|
-      @client.account.messages.create(:body => body, to: phone_number, :from => @from)
+      @client.account.messages.create(body: body, to: phone_number, from: @from)
     end
   end
-
 end

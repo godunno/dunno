@@ -17,7 +17,7 @@ check_client_connection false
 
 # Listen only on Heroku TCP port.
 # We use a shorter backlog for quicker failover when busy.
-listen ENV['PORT'], :backlog => Integer(ENV['UNICORN_BACKLOG'] || 200), :tcp_nopush => true
+listen ENV['PORT'], backlog: Integer(ENV['UNICORN_BACKLOG'] || 200), tcp_nopush: true
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
