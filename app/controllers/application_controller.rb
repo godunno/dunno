@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
   # ensure_security_headers # See more: https://github.com/twitter/secureheadere
 
-  before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :event_pusher_events
   helper_method :course_pusher_events
 
