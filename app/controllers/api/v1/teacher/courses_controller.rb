@@ -52,8 +52,8 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
   private
 
     def course
-      @course ||= current_teacher.courses.
-        where(uuid: params[:id]).first
+      @course ||= current_teacher.courses
+        .where(uuid: params[:id]).first
     end
 
     def course_params

@@ -1,6 +1,5 @@
 module Form
   class MediaForm < Form::ArtifactForm
-
     model_class ::Media
 
     attribute :title, String

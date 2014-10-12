@@ -1,5 +1,4 @@
 class Beacon < ActiveRecord::Base
-
   include HasUuid
 
   has_many :events

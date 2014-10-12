@@ -1,5 +1,4 @@
 class Organization < ActiveRecord::Base
-
   include HasUuid
 
   has_many :courses

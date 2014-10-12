@@ -14,8 +14,8 @@ module AcceptanceHelpers
   end
 
   def fill_in_autocomplete(capybara_selector, jquery_selector, value)
-    fill_in capybara_selector, :with => value
     page.execute_script %Q{$('#{jquery_selector}').keydown()}
+    fill_in capybara_selector, with: value
   end
 
   def choose_autocomplete(text)

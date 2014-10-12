@@ -6,7 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-
 module Dunno
   class Application < Rails::Application
     # Do not generate specs for views and requests. Also, do not generate assets.

@@ -18,6 +18,7 @@ class Dashboard::ApplicationController < ApplicationController
   end
 
   private
+
     def resolve_layout
       action_name.to_s
     end

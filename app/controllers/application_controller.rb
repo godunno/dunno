@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   helper_method :course_pusher_events
 
   protected
+
     def after_sign_in_path_for(resource_or_scope)
       profile = resource_or_scope.profile
       case profile

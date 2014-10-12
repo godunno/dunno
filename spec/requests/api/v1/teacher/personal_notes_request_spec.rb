@@ -17,8 +17,8 @@ describe Api::V1::Teacher::PersonalNotesController do
         let!(:next_event) { create(:event, course: course, start_at: 1.day.from_now) }
 
         it "should transfer personal_note to the next event" do
-          expect { do_action }.to change{personal_note.reload.event}.
-            from(event).to(next_event)
+          expect { do_action }.to change{personal_note.reload.event}
+            .from(event).to(next_event)
         end
       end
 

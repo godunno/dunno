@@ -15,5 +15,4 @@ class TimelineMessage < ActiveRecord::Base
       vote.vote_flag ? "up" : "down"
     end
   end
-
 end

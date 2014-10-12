@@ -1,5 +1,4 @@
 class Event < ActiveRecord::Base
-
   include HasUuid
 
   STATUSES = %w(available opened closed)

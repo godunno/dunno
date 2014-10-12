@@ -17,8 +17,8 @@ describe Api::V1::Teacher::TopicsController do
         let!(:next_event) { create(:event, course: course, start_at: 1.day.from_now) }
 
         it "should transfer topic to the next event" do
-          expect { do_action }.to change{topic.reload.timeline}.
-            from(event.timeline).to(next_event.timeline)
+          expect { do_action }.to change{topic.reload.timeline}
+            .from(event.timeline).to(next_event.timeline)
         end
       end
 

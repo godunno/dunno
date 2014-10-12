@@ -71,9 +71,7 @@ describe Form::EventForm do
         let(:existing_topic) { create(:topic) }
         let(:topic) { {uuid: existing_topic.uuid, description: 'UPDATED DESCRIPTION'} }
         let(:event) do
-          valid_event_hash.merge({
-            topics: [topic]
-          })
+          valid_event_hash.merge(topics: [topic])
         end
         before(:each) { event_form.save }
 

@@ -15,5 +15,3 @@ end
 json.timeline do
   TimelineBuilder.new(@event.timeline).build!(json, voter: current_student)
 end
-
-

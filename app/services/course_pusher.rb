@@ -1,5 +1,4 @@
 class CoursePusher
-
   attr_reader :event
   delegate :course, to: :event
 

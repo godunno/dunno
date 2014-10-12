@@ -13,17 +13,17 @@ describe Api::V1::EventsController do
   let(:beacon) { create(:beacon) }
   let!(:event) do
     create(:event, course: course,
-           topics: [topic],
-           thermometers: [thermometer],
-           polls: [poll],
-           medias: [media_with_url, media_with_file],
-           beacon: beacon
+                   topics: [topic],
+                   thermometers: [thermometer],
+                   polls: [poll],
+                   medias: [media_with_url, media_with_file],
+                   beacon: beacon
           )
   end
   let(:event_pusher_events) { EventPusherEvents.new(student.user) }
 
   before do
-    [poll, media_with_url, media_with_file].each { |i| i.release! }
+    [poll, media_with_url, media_with_file].each(&:release!)
   end
 
   describe "GET /api/v1/events" do
@@ -310,7 +310,7 @@ describe Api::V1::EventsController do
         it { expect(json["event"]["timeline"]["messages"].length).to eq(1) }
 
         it do
-            expect { get "/api/v1/events/989898/timeline.json", auth_params }.to raise_error(ActiveRecord::RecordNotFound)
+          expect { get "/api/v1/events/989898/timeline.json", auth_params }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end
@@ -323,9 +323,7 @@ describe Api::V1::EventsController do
     end
 
     def do_action
-      patch "/api/v1/events/#{event.uuid}/validate_attendance.json", auth_params(student).merge({
-        beacon: beacon_hash(current_beacon)
-      }).to_json
+      patch "/api/v1/events/#{event.uuid}/validate_attendance.json", auth_params(student).merge(beacon: beacon_hash(current_beacon)).to_json
     end
 
     let!(:attendance) { create(:attendance, event: event, student: student) }

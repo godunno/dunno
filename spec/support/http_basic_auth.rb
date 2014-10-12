@@ -1,6 +1,6 @@
 module AuthSpec
   def http_basic_login!
-    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials('usuario','senha')
+    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials('usuario', 'senha')
   end
 end
 

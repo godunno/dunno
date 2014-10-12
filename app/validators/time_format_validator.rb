@@ -1,5 +1,4 @@
 class TimeFormatValidator < ActiveModel::EachValidator
-
   FORMAT = /\A(?<hours>\d\d):(?<minutes>\d\d)\z/
 
   def validate_each(record, attribute, value)

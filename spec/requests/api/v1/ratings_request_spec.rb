@@ -16,7 +16,7 @@ describe Api::V1::RatingsController do
 
         before do
           post '/api/v1/ratings', { rating: rating.attributes }.merge(
-            { thermometer_id: thermometer.uuid }).merge(
+            thermometer_id: thermometer.uuid).merge(
             auth_params(student)).to_json
         end
 
@@ -30,7 +30,7 @@ describe Api::V1::RatingsController do
         context "second rating with the same thermometer and student" do
           before do
             post '/api/v1/ratings', { rating: rating.attributes }.merge(
-              { thermometer_id: thermometer.uuid }).merge(
+              thermometer_id: thermometer.uuid).merge(
               auth_params(student)).to_json
           end
 

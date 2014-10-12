@@ -17,4 +17,3 @@ describe Thermometer do
   end
 
 end
-

@@ -13,6 +13,7 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   end
 
   private
+
     def media
       @media ||= Media.where(uuid: params[:id]).first!
     end

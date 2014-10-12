@@ -1,5 +1,4 @@
 class Media < ActiveRecord::Base
-
   include HasUuid
 
   acts_as_heir_of :artifact
@@ -20,8 +19,9 @@ class Media < ActiveRecord::Base
   end
 
   private
+
     def mutually_exclusive_url_and_file
-      if self.url.present? && self.file.file.try(:exists?)
+      if url.present? && file.file.try(:exists?)
         errors.add(:url)
       end
     end
