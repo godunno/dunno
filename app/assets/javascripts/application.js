@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-maskedinput/jquery.maskedinput.min
+//= require jquery-maskedinput/dist/jquery.maskedinput
 //= require foundation/foundation
 //= require foundation/foundation.magellan
 //= require foundation/foundation.dropdown
