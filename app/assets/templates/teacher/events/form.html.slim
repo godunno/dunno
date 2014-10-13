@@ -50,7 +50,9 @@ header.page-title ng-class="'scheme-' + event.course.order"
           input type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
           label for="topic_{{topic.order}}_done" {{topic.description}}
           a.icon.icon-trash.task-icon-right.right ng-click="removeItem(event.topics, topic)"
-          a.icon.icon-transfer.task-icon-right.right ng-click="transferItem(event.topics, topic)"
+          a.icon.icon-transfer.task-icon-right.right[
+            ng-click="transferItem(event.topics, topic)"
+            ng-if="!!event.next.uuid"]
 
       .foot
         input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
@@ -69,7 +71,9 @@ header.page-title ng-class="'scheme-' + event.course.order"
           input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
           label for="personal_note_{{personal_note.order}}_done" {{personal_note.content}}
           a.icon.icon-trash.task-icon-right.right ng-click="removeItem(event.personal_notes, personal_note)"
-          a.icon.icon-transfer.task-icon-right.right ng-click="transferItem(event.personal_notes, personal_note)"
+          a.icon.icon-transfer.task-icon-right.right[
+            ng-click="transferItem(event.personal_notes, personal_note)"
+            ng-if="!!event.next.uuid"]
       .foot
         input[ng-model="newPersonalNote.content" type="text" name="personal_note"
         placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote($event)'}"]
