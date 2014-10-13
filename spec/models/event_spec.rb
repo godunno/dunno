@@ -86,7 +86,8 @@ describe Event do
     end
     it "should not be able to close an unopened event" do
       event.opened_at = nil
-      expect{event.close!}.to raise_error
+      expect(event.close!).to be_false
+      expect(event).not_to be_closed
     end
   end
 

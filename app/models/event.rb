@@ -46,9 +46,8 @@ class Event < ActiveRecord::Base
   end
 
   def close!
-    raise "Cannot close an unopened event." if opened_at.nil?
-    self.closed_at = Time.now
-    save!
+    return false if opened_at.nil?
+    update(closed_at: Time.now)
   end
 
   def closed?
