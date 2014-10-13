@@ -1,4 +1,4 @@
-header.page-title ng-class="'scheme-' + event.course.order"
+header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .large-3.columns.vertical-center style="float: left"
       a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
@@ -11,13 +11,25 @@ header.page-title ng-class="'scheme-' + event.course.order"
       p.translucent.subtitle-head
         span {{event.course.institution}}
         span< ng-if="!!event.course.grade" - {{event.course.grade}}
+.page-header.subtitle
+  .row.text-center
+    .large-2.columns.vertical-center.t-light
+      span.t-size-1.upcase {{event.start_at | date:'MMM/yyyy'}}
+    .large-2.large-offset-1.columns.vertical-center.t-light
+      a.vertical-center.t-light ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit"
+        span Aula anterior
+        i.arrow.arrow--left
+    .large-2.columns.vertical-center
+      .row.row--main
+          h2
+            strong {{event.start_at | date:'dd'}}
+      .row.t-light.upcase {{event.start_at | date:'EEE'}}
+    .large-2.columns.end.vertical-center
+      a.vertical-center.t-light ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
+        i.arrow.arrow--right
+        span Próxima aula
 
 .diary-page
-
-  .row.event-carousel
-    a.icon-arrow-circle-left.arrow-left.vertical-center   ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit"
-    a.icon-arrow-circle-right.arrow-right.vertical-center ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
-    h1.vertical-center Aula {{event.order}}
 
   form name="event_form" ng-submit="save(event)"
     .row.event-status
