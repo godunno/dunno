@@ -42,6 +42,16 @@ Dunno::Application.routes.draw do
             patch :release
           end
         end
+        resources :topics, only: [] do
+          member do
+            patch :transfer
+          end
+        end
+        resources :personal_notes, only: [] do
+          member do
+            patch :transfer
+          end
+        end
       end
       resources :ratings, only: :create
       resources :answers, only: :create

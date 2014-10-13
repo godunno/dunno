@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926210823) do
+ActiveRecord::Schema.define(version: 20141008223408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,7 +92,6 @@ ActiveRecord::Schema.define(version: 20140926210823) do
 
   create_table "events", force: true do |t|
     t.datetime "start_at"
-    t.string   "status",     default: "available"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uuid"
@@ -101,6 +100,7 @@ ActiveRecord::Schema.define(version: 20140926210823) do
     t.datetime "opened_at"
     t.integer  "beacon_id"
     t.datetime "end_at"
+    t.integer  "status",     default: 0
   end
 
   add_index "events", ["beacon_id"], name: "index_events_on_beacon_id", using: :btree
@@ -253,6 +253,7 @@ ActiveRecord::Schema.define(version: 20140926210823) do
     t.datetime "updated_at"
     t.uuid     "uuid"
     t.integer  "order"
+    t.boolean  "done"
   end
 
   add_index "topics", ["event_id"], name: "index_topics_on_event_id", using: :btree

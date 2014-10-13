@@ -5,9 +5,10 @@ module Form
 
     attribute :description, String
     attribute :order, Integer
+    attribute :done, Boolean
 
     def initialize(params)
-      super(params.slice(*attributes_list(:description, :order)))
+      super(params.slice(*attributes_list(:description, :order, :done)))
     end
 
     private
@@ -16,6 +17,7 @@ module Form
         super
         model.description = description
         model.order = order
+        model.done = done
         model.save!
       end
   end

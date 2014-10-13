@@ -1,4 +1,6 @@
 $page-title-height: 110px;
+$page-header-margin: 40px;
+$page-subtitle-height: 80px;
 
 .vertical-center {
   position: relative;
@@ -45,14 +47,9 @@ $page-title-height: 110px;
   margin-top: 10px;
 }
 
-.top-bar {
-  padding-left: 50px;
-}
-
-.page-title {
+.page-header {
   background: white;
-  height: $page-title-height;
-  margin-bottom: 40px;
+  margin-bottom: $page-header-margin;
   // TODO: Use Compass' shadow
   box-shadow: 0px 1.5px 1px lightgrey;
   .row {
@@ -60,6 +57,13 @@ $page-title-height: 110px;
   }
   .button {
     margin: 0;
+  }
+  &.title {
+    height: $page-title-height;
+  }
+  &.subtitle {
+    height: $page-subtitle-height;
+    margin-top: -($page-header-margin - 1px);
   }
 }
 

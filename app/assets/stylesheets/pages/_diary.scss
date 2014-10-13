@@ -65,39 +65,31 @@ $diary-container-width: 750px;
 $diary-title-height: 90px;
 $diary-card-border: 1px solid #dddddd;
 
-.event-carousel {
-  border: 1px solid $primary-color;
-  border-radius: $global-radius;
-  height: 70px;
-  margin: 0 auto;
-  width: $diary-container-width;
-  padding: 0 20px;
-  h1 {
-    font-size: 1.5rem;
-    color: $primary-color;
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: 700;
+.subtitle {
+  .row--main {
+    height: 50px;
   }
-  a {
-    color: #979797;
-    z-index: 999;
-    &:hover {
-      color: $dark-grey-color;
-    }
-  }
-  .arrow-left {
-    float: left;
-    font-size: 2rem;
-    line-height: 1rem;
-  }
-  .arrow-right {
-    float: right;
-    font-size: 2rem;
-    line-height: 1rem;
+  .columns {
+    min-height: 1px;
   }
 }
-
+.arrow {
+  font-size: 30px;
+  vertical-align: middle;
+  font-weight: 300;
+  &.arrow--left {
+    &:before {
+      content: "<";
+    }
+    margin-left: 5px;
+  }
+  &.arrow--right {
+    &:before {
+      content: ">";
+    }
+    margin-right: 5px;
+  }
+}
 .event-status {
   margin: 20px auto;
   width: $diary-container-width;
@@ -168,8 +160,6 @@ $diary-card-border: 1px solid #dddddd;
 .task-icon-right {
   font-size: 1.1rem;
   color: #bbbbbb;
-  float: right;
-  position: relative;
   margin-left: 10px;
 }
 

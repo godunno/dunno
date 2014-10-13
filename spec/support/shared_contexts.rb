@@ -24,6 +24,7 @@ end
 shared_examples_for "closed event" do
 
   before(:each) do
+    event.open!
     event.close!
     do_action
   end

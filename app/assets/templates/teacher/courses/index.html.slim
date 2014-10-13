@@ -1,4 +1,4 @@
-header.page-title
+header.page-header.title
   .row
     .large-4.vertical-center.columns style="float: left"
       a.button.btn-style-1.radius href="#courses/new" Criar nova disciplina
@@ -10,27 +10,28 @@ header.page-title
   .row
     ul.list--courses
       li.card.card--course.has-overlay ng-repeat="course in courses"
-        a.overlay.published.hide href="#/courses/{{course.uuid}}"
-          .button.btn-style-transparent-1.radius.vertical-center ver disciplina
-        div.title.padding ng-class="'scheme-' + course.order"
-          h2.card-title {{course.name}}
-          .card-subtitle.translucent.padding-top
-            strong {{course.class_name}}
-            span.right {{course.institution}}
+        a href="#/courses/{{course.uuid}}"
+          .overlay.published.hide
+            .button.btn-style-transparent-1.radius.vertical-center ver disciplina
+          div.title.padding ng-class="'scheme-' + course.order"
+            h2.card-title {{course.name}}
+            .card-subtitle.translucent.padding-top
+              strong {{course.class_name}}
+              span.right {{course.institution}}
 
-        .card-content.padding
-          .translucent
-            .cf
-              .period.left
-                i.icon.icon-calendar.margin-right
-                span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
-              .students.right
-                i.icon.icon-users.margin-right
-                span {{course.students.length}} Alunos
-            ul.dates.large-block-grid-4.thin-block-grid.margin-top
-              li ng-repeat="weekly_schedule in course.weekly_schedules"
-                .text-center.radius.label.label--large.secondary
-                  span.weekday> {{weekly_schedule.weekday | weekday}}
-                  span {{weekly_schedule.start_time | shortTime }}-
-                  span {{weekly_schedule.end_time | shortTime }}h
+          .card-content.padding
+            .translucent
+              .cf
+                .period.left
+                  i.icon.icon-calendar.margin-right
+                  span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
+                .students.right
+                  i.icon.icon-users.margin-right
+                  span {{course.students.length}} Alunos
+              ul.dates.large-block-grid-4.thin-block-grid.margin-top
+                li ng-repeat="weekly_schedule in course.weekly_schedules"
+                  .text-center.radius.label.label--large.secondary
+                    span.weekday> {{weekly_schedule.weekday | weekday}}
+                    span {{weekly_schedule.start_time | shortTime }}-
+                    span {{weekly_schedule.end_time | shortTime }}h
 

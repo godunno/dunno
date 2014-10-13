@@ -8,7 +8,7 @@ describe Api::V1::Teacher::EventsController do
 
   let(:event_pusher_events) { EventPusherEvents.new(teacher.user) }
 
-    describe "GET /api/v1/teacher/events.json" do
+  describe "GET /api/v1/teacher/events.json" do
 
     it_behaves_like "API authentication required"
 
@@ -61,7 +61,7 @@ describe Api::V1::Teacher::EventsController do
 
           describe "personal note" do
             let(:personal_note) do
-              create(:personal_note, order: 1)
+              create(:personal_note, order: 1, done: true)
             end
 
             let(:event) do
@@ -70,7 +70,7 @@ describe Api::V1::Teacher::EventsController do
 
             let(:target) { personal_note }
             subject { events_json[0]["personal_notes"][0] }
-            it_behaves_like "request return check", %w(content uuid order)
+            it_behaves_like "request return check", %w(content uuid order done)
           end
         end
       end
@@ -80,14 +80,14 @@ describe Api::V1::Teacher::EventsController do
 
   describe "GET /api/v1/teacher/events/:uuid.json" do
 
-    let(:topic) { create(:topic, order: 1) }
+    let(:topic) { create(:topic, order: 1, done: true) }
     let(:thermometer) { create(:thermometer) }
     let(:poll) { create(:poll, options: [option]) }
     let(:option) { create(:option) }
     let(:media_with_url) { create(:media, url: "http://www.example.com", file: nil) }
     #let(:media_with_file) { create(:media, file: Tempfile.new("test"), url: nil) }
     let(:beacon) { create(:beacon) }
-    let(:personal_note) { create(:personal_note, order: 1) }
+    let(:personal_note) { create(:personal_note, order: 1, done: true) }
 
     let(:student) { create(:student) }
     let(:message) { create(:timeline_message, timeline: event.timeline, student: student) }
@@ -174,13 +174,13 @@ describe Api::V1::Teacher::EventsController do
           describe "personal_note" do
             let(:target) { personal_note }
             subject { event_json["personal_notes"][0] }
-            it_behaves_like "request return check", %w(content uuid order)
+            it_behaves_like "request return check", %w(content uuid order done)
           end
 
           describe "topic" do
             let(:target) { topic }
             subject { event_json["topics"][0] }
-            it_behaves_like "request return check", %w(description uuid order)
+            it_behaves_like "request return check", %w(description uuid order done)
           end
 
           it { expect(subject["polls"].count).to eq 1 }
@@ -249,13 +249,13 @@ describe Api::V1::Teacher::EventsController do
 
       let(:event_template) { build(:event, course: course) }
 
-      let(:topic) { build :topic, order: 1, timeline: event_template.timeline }
+      let(:topic) { build :topic, order: 1, done: true, timeline: event_template.timeline }
       let(:thermometer) { build :thermometer, timeline: event_template.timeline }
       let(:poll) { build :poll, timeline: event_template.timeline }
       let(:correct_option) { build :option, content: "Correct Option", correct: true, poll: poll }
       let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false, poll: poll }
       let(:options) { [correct_option, incorrect_option] }
-      let(:personal_note) { build :personal_note, order: 1 }
+      let(:personal_note) { build :personal_note, order: 1, done: true }
       let(:media_with_url) { build :media, timeline: event_template.timeline }
       #let(:media_with_file) { build :media_with_file, timeline: event_template.timeline }
       let(:start_at) { event_template.start_at.utc.iso8601 }
@@ -325,6 +325,7 @@ describe Api::V1::Teacher::EventsController do
           it_behaves_like "creating an artifact"
           it { expect(subject.description).to eq topic.description }
           it { expect(subject.order).to eq topic.order }
+          it { expect(subject.done).to be_true }
         end
 
         it { expect(subject.thermometers.count).to eq 1 }
@@ -352,7 +353,7 @@ describe Api::V1::Teacher::EventsController do
           subject { event.personal_notes.first }
           it { expect(subject.content).to eq personal_note.content }
           it { expect(subject.order).to eq personal_note.order }
-          it { expect(subject.done).to be_nil }
+          it { expect(subject.done).to be_true }
         end
 
         #it { expect(subject.medias.count).to eq 2 }
@@ -419,7 +420,7 @@ describe Api::V1::Teacher::EventsController do
 
     it { expect(last_response.status).to eq(200) }
     it { expect(json["uuid"]).to eq(event.uuid) }
-    it { expect(event.reload.status).to eq('opened') }
+    it { expect(event.reload.opened?).to be_true }
     it { expect(event.reload.opened_at.utc.iso8601).to eq(Time.now.utc.iso8601) }
     it { expect(json["channel"]).to eq event.channel }
     it { expect(json["student_message_event"]).to eq event_pusher_events.student_message_event }
@@ -439,7 +440,7 @@ describe Api::V1::Teacher::EventsController do
 
   describe "PATCH /api/v1/teacher/events/:uuid/close.json" do
 
-    let(:event) { create(:event, status: 'opened') }
+    let(:event) { create(:event, opened_at: Time.now) }
 
     def do_action
       patch "/api/v1/teacher/events/#{event.uuid}/close.json", auth_params(teacher).to_json
@@ -452,7 +453,7 @@ describe Api::V1::Teacher::EventsController do
       do_action
     end
 
-    it { expect(event.reload.status).to eq 'closed' }
+    it { expect(event.reload.closed?).to be_true }
     it { expect(event.reload.closed_at.utc.iso8601).to eq Time.now.utc.iso8601 }
 
     context "closing event again" do

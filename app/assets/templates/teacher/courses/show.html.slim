@@ -1,12 +1,10 @@
-header.page-title ng-class="'scheme-' + course.order"
+header.page-header.title ng-class="'scheme-' + course.order"
   .row
-    .large-2.columns.vertical-center style="float: right"
-      a class="button radius btn-style-2" href="#courses/{{course.uuid}}/edit"
-        span.icon-arrow-back.pos
-        | Editar
+    .large-2.columns.vertical-center.right
+      a.button.radius.btn-style-2.right href="#courses/{{course.uuid}}/edit" Editar
 
     .large-8.large-centered.vertical-center.columns
-      h2 {{course.name}}
+      h2.course-title {{course.name}}
       p.subtitle-head {{course.class_name}}
       p.translucent.subtitle-head
         span {{course.institution}}
@@ -18,19 +16,20 @@ header.page-title ng-class="'scheme-' + course.order"
 
       ul.dates
         li.has-overlay ng-repeat="event in course.events | orderBy:'start_at'"
-          a.overlay.published.hide href="#/events/{{event.uuid}}/edit"
-            .button.btn-style-transparent-1.radius.vertical-center ver aula
-          span.expand.schedule
-            span.weekday> {{asDate(event.start_at) | date:'EEE'}}
-            span.time - {{asDate(event.start_at) | date:'HH:mm'}}h
-          .day-month ng-class="today(event.start_at) ? 'today' : ''"
-            span.expand.day {{asDate(event.start_at) | date:'dd'}}
-            span.expand.month {{asDate(event.start_at) | date:'MMMM'}}
-          .bottom
-            span.class Aula {{event.order}}
-            i.icon ng-class="'icon-' + event.status"
+          a href="#/events/{{event.uuid}}/edit"
+            .overlay.published.hide
+              .button.btn-style-transparent-1.radius.vertical-center ver aula
+            span.expand.schedule
+              span.weekday> {{asDate(event.start_at) | date:'EEE'}}
+              span.time - {{asDate(event.start_at) | date:'HH:mm'}}h
+            .day-month ng-class="today(event.start_at) ? 'today' : ''"
+              span.expand.day {{asDate(event.start_at) | date:'dd'}}
+              span.expand.month {{asDate(event.start_at) | date:'MMMM'}}
+            .bottom
+              span.class Aula {{event.order}}
+              i.icon ng-class="'icon-' + event.status"
 
-          .exam ng-if="event.has_exam" PROVA
+            .exam ng-if="event.has_exam" PROVA
 
     .large-4.columns
       div.code
@@ -38,18 +37,18 @@ header.page-title ng-class="'scheme-' + course.order"
         h3 {{course.access_code}}
         span.description Envie este código para os alunos entrarem nesta disciplina
 
-      div.students
-        .top
-          strong {{course.students.length}} alunos
-          a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
-            i.icon.icon-buzz
-            span Enviar mensagem
+      /div.students
+        /.top
+          /strong {{course.students.length}} alunos
+          /a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
+            /i.icon.icon-buzz
+            /span Enviar mensagem
 
-        ul
-          li ng-repeat="student in course.students"
-            img src="http://lorempixel.com/40/40"
-            div
-              h3 {{student.name}}
+        /ul
+          /li ng-repeat="student in course.students"
+            /img src="http://lorempixel.com/40/40"
+            /div
+              /h3 {{student.name}}
               /span 12 anos
 
 .reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" id="send-notification" data-reveal=""

@@ -58,9 +58,9 @@ if Rails.env.development? || Rails.env.staging?
   o2 = Option.new(content: "jyraia")
   Poll.create!(content: "what do you watched on Manchete channel?", options: [o1, o2], timeline: e1.timeline, status: "available")
 
-  Topic.new(description: "Machine Learning", timeline: e1.timeline).save!
-  Topic.new(description: "AI", timeline: e1.timeline).save!
-  Topic.new(description: "Visual Computing", timeline: e1.timeline).save!
+  Topic.new(description: "Machine Learning", order: 1, timeline: e1.timeline).save!
+  Topic.new(description: "AI", order: 2, timeline: e1.timeline).save!
+  Topic.new(description: "Visual Computing", order: 3, timeline: e1.timeline).save!
 
   Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], timeline: e2.timeline, status: "available")
   Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], timeline: e2.timeline, status: "available")

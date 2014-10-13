@@ -1,4 +1,4 @@
-header.page-title ng-class="'scheme-' + event.course.order"
+header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .large-3.columns.vertical-center style="float: left"
       a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
@@ -11,50 +11,70 @@ header.page-title ng-class="'scheme-' + event.course.order"
       p.translucent.subtitle-head
         span {{event.course.institution}}
         span< ng-if="!!event.course.grade" - {{event.course.grade}}
+.page-header.subtitle
+  .row.text-center
+    .large-2.columns.vertical-center.t-light
+      span.t-size-1.upcase {{event.start_at | date:'MMM/yyyy'}}
+    .large-2.large-offset-1.columns.vertical-center.t-light
+      a.vertical-center.t-light ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit"
+        span Aula anterior
+        i.arrow.arrow--left
+    .large-2.columns.vertical-center
+      .row.row--main
+          h2
+            strong {{event.start_at | date:'dd'}}
+      .row.t-light.upcase {{event.start_at | date:'EEE'}}
+    .large-2.columns.end.vertical-center
+      a.vertical-center.t-light ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
+        i.arrow.arrow--right
+        span Próxima aula
 
 .diary-page
 
-  .row.event-carousel
-    a.icon-arrow-circle-left.arrow-left.vertical-center   ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit"
-    a.icon-arrow-circle-right.arrow-right.vertical-center ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
-    h1.vertical-center Aula {{event.order}}
+  form name="event_form" ng-submit="save(event)"
+    .row.event-status
+      .large-4.columns
+        .row.date
+          .large-2.columns
+            label.icon.icon-calendar.pos.right for="date"
+          .large-10.columns
+            input.radius id="date" ng-model="event.date" mask="99/99/9999" type="text" placeholder="Ex: 23/10/2014" name="date"
+      .large-5.columns.end
+        .row.time
+          .large-1.columns
+            label.icon.icon-clock.pos for="start_time"
+          .large-4.columns
+            input.radius id="start_time" ng-model="event.start_time" mask="99:99" type="text" placeholder="Ex: 14:00" name="start_time"
+          .large-1.columns
+            label.to for="end_time" às
+          .large-4.columns.end
+            input.radius id="end_time" ng-model="event.end_time" mask="99:99" type="text" placeholder="Ex: 16:30" name="end_time"
+      .large-3.columns
+        input.button.btn-style-1.radius.save type="submit" ng-value="saveButtonMessage()" ng-disabled="saveButtonDisabled()"
 
-  .row.event-status
-    .large-4.columns
-      .row.date
-        .large-2.columns
-          label.icon.icon-calendar.pos.right for="date"
-        /a.button.radius.btn-style-2.white
-        .large-10.columns
-          input.radius id="date" ng-model="event.date" mask="99/99/9999" type="text" placeholder="Ex: 23/10/2014"
-    .large-6.columns.end
-      .row.time
-        .large-1.columns
-          label.icon.icon-clock.pos for="start_time"
-        .large-4.columns
-          input.radius id="start_time" ng-model="event.start_time" mask="99:99" type="text" placeholder="Ex: 14:00"
-        .large-1.columns
-          label.to for="end_time" às
-        .large-4.columns.end
-          input.radius id="end_time" ng-model="event.end_time" mask="99:99" type="text" placeholder="Ex: 16:30"
+    .row.card.container
+      .title.diary-label
+        h1 Diário
+        span.subtitle.translucent Tarefas visíveis para os alunos
 
-  .row.card.container
-    .title.diary-label
-      h1 Diário
-      span.subtitle.translucent Tarefas visíveis para os alunos
+      .tasks
+        .row ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'} | orderBy:'order'"
+          input type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
+          label for="topic_{{topic.order}}_done" {{topic.description}}
+          a.icon.icon-trash.task-icon-right.right[
+            ng-click="removeItem(event.topics, topic)"
+            title="Remover tarefa"]
+          a.icon.icon-transfer.task-icon-right.right[
+            ng-click="transferItem(event.topics, topic)"
+            ng-if="!!event.next.uuid"
+            title="Transferir tarefa"]
 
-    .tasks
-      .row ng-repeat="topic in event.topics | filter:{_destroy:'!true'} | orderBy:'order'"
-        /input type="checkbox"
-        span {{topic.description}}
-        a.icon-trash.task-icon-right ng-click="destroy(topic)"
+      .foot
+        input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
+          ui-keydown="{'enter':'addTopic($event)'}" name="topic"]
+        label Ex: Revisar aula passada. Introdução à raiz quadrada.
 
-    .foot
-      input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
-        ui-keydown="{'enter':'addTopic()'}"]
-      label Ex: Revisar aula passada. Introdução à raiz quadrada.
-
-  .row.card.container.notes
+    .row.card.container.notes
       .title.notes-label
 
         h1
@@ -62,15 +82,17 @@ header.page-title ng-class="'scheme-' + event.course.order"
         span.subtitle.translucent Área visível somente para o professor
 
       .tasks
-        .row ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
-          /input type="checkbox"
-          span {{personal_note.content}}
-          a.icon-trash.task-icon-right ng-click="destroy(personal_note)"
+        .row ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
+          input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
+          label for="personal_note_{{personal_note.order}}_done" {{personal_note.content}}
+          a.icon.icon-trash.task-icon-right.right[
+            ng-click="removeItem(event.personal_notes, personal_note)"
+            title="Remover anotação"]
+          a.icon.icon-transfer.task-icon-right.right[
+            ng-click="transferItem(event.personal_notes, personal_note)"
+            ng-if="!!event.next.uuid"
+            title="Transferir anotação"]
       .foot
-        input[ng-model="newPersonalNote.content" type="text"
-          placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote()'}"]
+        input[ng-model="newPersonalNote.content" type="text" name="personal_note"
+        placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote($event)'}"]
         label Ex: Fazer ditado surpresa. Rever comportamento do João.
-
-  .row
-    .large-3.columns.large-centered
-      a.button.btn-style-1.radius.save ng-click="save(event)" Salvar aula

@@ -39,8 +39,7 @@ Checks you have to do:
 3. Do ```rake db:seed``` works?
 4. After run ```foreman start``` if you go to ```http://localhost:3000``` you see something that shows the project is working?
 5. Is code coverage 100%?
-6. Do ```rake integrate``` works and deploys to production?
-7. Do the project have Rollbar or Airbrake configured in production environment?
+6. Do the project have Rollbar or Airbrake configured in production environment?
 
 ## Create remote git repository
 
@@ -53,40 +52,7 @@ Checks you have to do:
 
 ```$ rspec .```
 
-## Run rake integrate
-
-The project requires 100% of test coverage.
-
-When you finish an implementation, run:
-
-```$ rake integrate```
-
-This task will run all tasks described on 'jumpup.rake' file, check the file and verify the steps.
-
 ## Configuring domain on Heroku
 
 Check out this [wiki](https://github.com/Helabs/pah/wiki/Configuring-domain-on-Heroku) with detailed instruction of how to use the canonical_host to redirect your naked domain to your real app.
 
-## Generating ERD
-
-1. Install the graphviz lib.
-
-		$ brew install graphviz
-
-	or
-
-		$ sudo port install graphviz
-
-	or
-
-		$ sudo aptitude install graphviz
-
-2. Run bundle to install rails-erd gem that is already on Gemfile.
-
-		$ bundle install
-
-3. Now just run `rake erd`.
-
-		$ rake erd
-
-4. Grab the file and be happy!
