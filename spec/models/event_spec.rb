@@ -20,20 +20,6 @@ describe Event do
     %w(start_at end_at course).each do |attr|
       it { should validate_presence_of(attr) }
     end
-
-    #it "should validate presence of closed_at only if the event is closed" do
-    #  event.closed_at = nil
-    #  (Event::STATUSES - ["closed"]).each do |status|
-    #    event.status = status
-    #    expect(event).to have(0).error_on(:closed_at)
-    #  end
-
-    #  event.status = "closed"
-    #  expect(event).to have(1).errors_on(:closed_at)
-
-    #  event.closed_at = Time.now
-    #  expect(event).to have(0).error_on(:closed_at)
-    #end
   end
 
   describe "callbacks" do
@@ -71,7 +57,7 @@ describe Event do
   end
 
   describe "statuses methods" do
-    Event::STATUSES.each do |status|
+    %w(draft published canceled).each do |status|
 
       before do
         event.status = nil
@@ -88,11 +74,21 @@ describe Event do
 
   describe "#close!" do
     before do
+      event.open!
       Timecop.freeze
     end
 
-    it { expect {event.close!}.to change(event, :status).from("available").to("closed") }
+    it { expect {event.close!}.to change(event, :closed?).from(false).to(true) }
     it { expect {event.close!}.to change(event, :closed_at).from(nil).to(Time.now) }
+    it "should not be opened after is closed" do
+      event.close!
+      expect(event).not_to be_opened
+    end
+    it "should not be able to close an unopened event" do
+      event.opened_at = nil
+      expect(event.close!).to be_false
+      expect(event).not_to be_closed
+    end
   end
 
   describe "#open!" do
@@ -100,8 +96,12 @@ describe Event do
       Timecop.freeze
     end
 
-    it { expect {event.open!}.to change(event, :status).from("available").to("opened") }
+    it { expect {event.open!}.to change(event, :opened?).from(false).to(true) }
     it { expect {event.open!}.to change(event, :opened_at).from(nil).to(Time.now) }
+    it "should not be closed when it's opened" do
+      event.open!
+      expect(event).not_to be_closed
+    end
   end
 
   describe "#channel" do

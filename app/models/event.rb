@@ -2,7 +2,7 @@ class Event < ActiveRecord::Base
 
   include HasUuid
 
-  STATUSES = %w(available opened closed)
+  enum status: %w(draft published canceled)
 
   belongs_to :course
   has_one :timeline
@@ -20,7 +20,6 @@ class Event < ActiveRecord::Base
 
   validates :course, presence: true
   validates :start_at, :end_at, presence: true
-  #validates :closed_at, presence: true, if: :closed?
 
   accepts_nested_attributes_for :topics, :thermometers, :polls, :personal_notes, :medias, allow_destroy: true
 
@@ -46,22 +45,22 @@ class Event < ActiveRecord::Base
     neighbors[order - 1 + 1] if order < neighbors.length
   end
 
-  STATUSES.each do |status|
-    define_method "#{status}?" do
-      self.status == status
-    end
+  def close!
+    return false if opened_at.nil?
+    update(closed_at: Time.now)
   end
 
-  def close!
-    self.status = "closed"
-    self.closed_at = Time.now
-    save!
+  def closed?
+    closed_at.present?
   end
 
   def open!
-    self.status = "opened"
     self.opened_at = Time.now
     save!
+  end
+
+  def opened?
+    opened_at.present? && !closed?
   end
 
   %w(topics polls medias thermometers).each do |attr|

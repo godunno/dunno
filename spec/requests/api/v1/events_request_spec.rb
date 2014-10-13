@@ -143,7 +143,7 @@ describe Api::V1::EventsController do
 
       describe "request invalid content type" do
         def do_action
-          event.status = "opened"
+          event.opened_at = Time.now
           event.save!
           get "/api/v1/events/#{event.uuid}/attend.xml", auth_params
         end
@@ -164,12 +164,12 @@ describe Api::V1::EventsController do
         it_behaves_like "closed event"
 
         context "unopened event" do
-          let(:event) { create(:event, status: 'available') }
+          let(:event) { create(:event, status: 'draft') }
           it { expect(last_response.status).to eq 403 }
         end
 
         context "opened event" do
-          let(:event) { create(:event, status: 'opened', topics: [topic], polls: [poll], medias: [media_with_url, media_with_file]) }
+          let(:event) { create(:event, opened_at: Time.now, topics: [topic], polls: [poll], medias: [media_with_url, media_with_file]) }
           let!(:topic) { create(:topic) }
           let!(:poll) { create(:poll, options: [option]) }
           let(:option) { create(:option) }

@@ -92,7 +92,6 @@ ActiveRecord::Schema.define(version: 20141008223408) do
 
   create_table "events", force: true do |t|
     t.datetime "start_at"
-    t.string   "status",     default: "available"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uuid"
@@ -101,6 +100,7 @@ ActiveRecord::Schema.define(version: 20141008223408) do
     t.datetime "opened_at"
     t.integer  "beacon_id"
     t.datetime "end_at"
+    t.integer  "status",     default: 0
   end
 
   add_index "events", ["beacon_id"], name: "index_events_on_beacon_id", using: :btree
