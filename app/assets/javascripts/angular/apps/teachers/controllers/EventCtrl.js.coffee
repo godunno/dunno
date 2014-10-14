@@ -78,13 +78,18 @@ EventCtrl = (
   $scope.saveButtonMessage = ->
     if $scope.isSaving
       "Salvando..."
-    else if $scope.event_form.$dirty
+    else if !$scope.saveButtonDisabled()
       "Salvar"
     else
       "Salvo"
 
+  anyEditing = (list)->
+    !!list.filter((item)-> $scope.isEditing(item)).length
   $scope.saveButtonDisabled = ->
-    $scope.isSaving || $scope.event_form.$pristine
+    anyEditing($scope.event.topics) ||
+      anyEditing($scope.event.personal_notes) ||
+      $scope.isSaving ||
+      $scope.event_form.$pristine
 
   $scope.save = (event)->
     event = formatFromView(event)
@@ -101,6 +106,16 @@ EventCtrl = (
 
   $scope.canTransferItem = (item)->
     !$scope.newRecord(item) && !$scope.newRecord($scope.event.next)
+
+  $scope.updateItem = (editingItem, item)->
+    angular.copy(editingItem, item)
+    item._editing = false
+
+  $scope.editingTopic = {}
+  $scope.isEditing = (item)-> !!item._editing
+  $scope.editItem = (item, editingItem)->
+    angular.copy(item, editingItem)
+    item._editing = true
 
   autosave = $interval(
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()

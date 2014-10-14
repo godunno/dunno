@@ -59,15 +59,20 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 
       .tasks
         .row ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'} | orderBy:'order'"
-          input type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
-          label for="topic_{{topic.order}}_done" {{topic.description}}
-          a.icon.icon-trash.task-icon-right.right[
-            ng-click="removeItem(event.topics, topic)"
-            title="Remover tarefa"]
-          a.icon.icon-transfer.task-icon-right.right[
-            ng-click="transferItem(event.topics, topic)"
-            ng-if="canTransferItem(topic)"
-            title="Transferir tarefa"]
+          .item ng-if="!isEditing(topic)"
+            input type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
+            label for="topic_{{topic.order}}_done" {{topic.description}}
+            a.icon.icon-edition.task-icon-right.right[
+              ng-click="editItem(topic, editingTopic)"
+              title="Editar tarefa"]
+            a.icon.icon-trash.task-icon-right.right[
+              ng-click="removeItem(event.topics, topic)"
+              title="Remover tarefa"]
+            a.icon.icon-transfer.task-icon-right.right[
+              ng-click="transferItem(event.topics, topic)"
+              ng-if="canTransferItem(topic)"
+              title="Transferir tarefa"]
+          input.item-editing type="text" ng-if="isEditing(topic)" ng-model="editingTopic.description" ui-keydown="{'enter':'updateItem(editingTopic, topic)'}"
 
       .foot
         input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
