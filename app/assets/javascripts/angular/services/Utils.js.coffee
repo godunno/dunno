@@ -12,6 +12,8 @@ Utils = ->
     item ?= {}
     list.push(item)
 
+  @newRecord = (record)-> !record.uuid
+
   @
 
 angular.module('DunnoApp').service 'Utils', Utils
