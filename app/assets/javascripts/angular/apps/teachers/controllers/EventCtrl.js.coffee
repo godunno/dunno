@@ -63,7 +63,7 @@ EventCtrl = (
     $event.preventDefault()
     $scope.newItem(list, $scope[itemName])
     $scope[itemName] = generateOrderable(list)
-    $scope.event_form.$setDirty()
+    $scope.save($scope.event)
 
   $scope.addTopic = ($event)->
     addItem($event, $scope.event.topics, 'newTopic')
