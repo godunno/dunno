@@ -99,6 +99,9 @@ EventCtrl = (
       $scope.save($scope.event)
       Utils.remove(list, item)
 
+  $scope.canTransferItem = (item)->
+    !$scope.newRecord(item) && !$scope.newRecord($scope.event.next)
+
   autosave = $interval(
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()
     AUTOSAVE_INTERVAL)

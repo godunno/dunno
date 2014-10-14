@@ -21,9 +21,6 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
       course.delete().then ->
         $location.path '#/courses'
 
-  $scope.newRecord = ->
-    !$scope.course.uuid
-
   formatToView = (course)->
       course.start_date = $scope.formattedDate(course.start_date, 'dd/MM/yyyy')
       course.end_date   = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
