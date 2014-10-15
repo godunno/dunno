@@ -39,6 +39,7 @@ gem 'rails-assets-angularjs-rails-resource', '1.2.1'
 gem 'rails-assets-modernizr', '2.8.3'
 gem 'rails-assets-angular-scroll', '0.6.2'
 gem 'rails-assets-jquery-maskedinput', '1.3.1'
+gem 'rails-assets-angular-ui-sortable', '0.13.0'
 
 group :production, :staging do
   gem 'rails_12factor',           '0.0.2'

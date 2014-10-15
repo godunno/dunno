@@ -13,6 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-maskedinput/dist/jquery.maskedinput
+//= require jquery-ui/ui/core
+//= require jquery-ui/ui/widget
+//= require jquery-ui/ui/mouse
+//= require jquery-ui/ui/sortable
 //= require foundation/foundation
 //= require foundation/foundation.magellan
 //= require foundation/foundation.dropdown
@@ -22,6 +26,7 @@
 //= require angular-resource
 //= require angularjs-rails-resource
 //= require angular-scroll/angular-scroll
+//= require angular-ui-sortable
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });
