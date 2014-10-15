@@ -1,6 +1,5 @@
 module Form
   class PersonalNoteForm < Form::Base
-
     model_class ::PersonalNote
 
     attr_accessor :event

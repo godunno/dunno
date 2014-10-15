@@ -1,5 +1,4 @@
 class CoursePusherEvents
-
   EVENTS = {
     open_event: "open_event"
   }

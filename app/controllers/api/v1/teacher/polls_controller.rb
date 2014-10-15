@@ -13,6 +13,7 @@ class Api::V1::Teacher::PollsController < Api::V1::TeacherApplicationController
   end
 
   private
+
     def poll
       @poll ||= Poll.where(uuid: params[:id]).first!
     end

@@ -76,7 +76,7 @@ Dunno::Application.routes.draw do
           delete :unregister
         end
       end
-      resources :organizations, only:[:index] do
+      resources :organizations, only: [:index] do
       end
     end
   end

@@ -20,7 +20,6 @@ describe Api::V1::Teacher::MediasController do
       it { expect(media.status).to eq "released" }
       it { expect(media.released_at.to_i).to eq Time.now.to_i }
 
-
       context "releasing the same poll again" do
         before do
           EventPusher.any_instance.stub(:release_media)

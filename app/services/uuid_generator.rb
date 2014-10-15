@@ -1,5 +1,4 @@
 class UuidGenerator
-
   def initialize(resource)
     @resource = resource
   end
@@ -9,6 +8,7 @@ class UuidGenerator
   end
 
   private
+
     def generate_uuid
       loop do
         uuid = SecureRandom.uuid

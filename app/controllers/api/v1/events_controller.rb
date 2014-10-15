@@ -14,7 +14,7 @@ class Api::V1::EventsController < Api::V1::StudentApplicationController
     else
       return render json: { errors: I18n.t('errors.event.closed') }, status: 403
     end
-      Attendance.create!(event: event, student: current_student)
+    Attendance.create!(event: event, student: current_student)
   end
 
   api :GET, '/api/v1/events/:id/timeline', "Get the event's data."

@@ -1,5 +1,4 @@
 class Event < ActiveRecord::Base
-
   include HasUuid
 
   enum status: %w(draft published canceled)

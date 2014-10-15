@@ -1,5 +1,4 @@
   class Form::EventForm < Form::Base
-
     model_class ::Event
 
     attr_accessor :course
@@ -63,9 +62,7 @@
         ActiveRecord::Base.transaction do
           model.timeline.save!
           model.save!
-          associates.each do |associated|
-            associated.save
-          end
+          associates.each(&:save)
         end
       end
 

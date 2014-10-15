@@ -294,7 +294,6 @@ describe Api::V1::Teacher::EventsController do
         end.to change{ Event.count }.from(0).to(1)
       end
 
-
       context "trying to create an invalid event" do
         before :each do
           event_template.course = nil

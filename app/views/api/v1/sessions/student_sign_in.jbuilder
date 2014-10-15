@@ -16,11 +16,11 @@ json.courses @resource.profile.courses do |course|
 
     json.timeline do
       json.(event.timeline, :id, :start_at)
-      json.messages event.
-        timeline.
-        timeline_interactions.
-        messages.
-        map(&:interaction) do |message|
+      json.messages event
+        .timeline
+        .timeline_interactions
+        .messages
+        .map(&:interaction) do |message|
           json.(message, :id, :content, :created_at)
           json.up_votes(message.get_upvotes.count)
           json.down_votes(message.get_downvotes.count)
@@ -30,4 +30,3 @@ json.courses @resource.profile.courses do |course|
   end
 
 end
-

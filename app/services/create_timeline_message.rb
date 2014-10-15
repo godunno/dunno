@@ -14,6 +14,7 @@ class CreateTimelineMessage
   end
 
   private
+
     def create_timeline_message
       timeline_message.save
     end

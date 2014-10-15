@@ -1,5 +1,4 @@
 class EventPusherEvents
-
   EVENTS = {
     student_message_event: "student_message",
     up_down_vote_message_event: "up_down_vote_message",
@@ -8,7 +7,6 @@ class EventPusherEvents
     release_poll_event: "release_poll",
     release_media_event: "release_media"
   }
-
 
   STUDENT_EVENTS = [:student_message_event, :up_down_vote_message_event, :receive_rating_event, :release_poll_event, :release_media_event, :close_event]
   TEACHER_EVENTS = [:student_message_event, :up_down_vote_message_event]

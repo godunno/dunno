@@ -14,6 +14,7 @@ class Api::V1::AnswersController < Api::V1::StudentApplicationController
   end
 
   private
+
     def option
       @option ||= Option.where(uuid: params[:option_id]).first!
     end

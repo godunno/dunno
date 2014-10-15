@@ -1,5 +1,4 @@
 class EventPusher
-
   attr_reader :event
 
   def initialize(event)

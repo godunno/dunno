@@ -6,6 +6,7 @@ module HasUuid
   end
 
   private
+
     def set_uuid
       self.uuid = UuidGenerator.new(self).generate
     end

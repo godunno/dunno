@@ -38,7 +38,7 @@ module Form
     end
 
     def self.create(*args)
-      form = self.new(*args)
+      form = new(*args)
       form.save
       form.model
     end
@@ -58,8 +58,8 @@ module Form
       end
 
       def sync_from_model!
-        self.attributes = model.attributes.with_indifferent_access.
-          slice(*self.attributes.keys)
+        self.attributes = model.attributes.with_indifferent_access
+          .slice(*attributes.keys)
       end
 
     protected
