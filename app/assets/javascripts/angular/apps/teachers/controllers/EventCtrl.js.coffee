@@ -123,7 +123,7 @@ EventCtrl = (
     handle: ".handle"
     stop: ->
       for topic, i in $scope.event.topics
-        topic.order = i
+        topic.order = i + 1
       $scope.save($scope.event)
 
   autosave = $interval(
