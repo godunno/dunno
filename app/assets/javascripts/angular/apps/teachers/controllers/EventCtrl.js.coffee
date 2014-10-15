@@ -50,6 +50,7 @@ EventCtrl = (
     $scope.newPersonalNote = generateOrderable($scope.event.personal_notes)
     for collection, i in ['topics', 'personal_notes']
       $scope.event[collection] ?= []
+      $scope.event[collection].sort (a,b)-> a.order - b.order
 
   initializeEvent(new Event())
   $scope.event.course_id = $routeParams.course_id
@@ -95,6 +96,7 @@ EventCtrl = (
     event = formatFromView(event)
     $scope.isSaving = true
     event.save().then ->
+      initializeEvent(event)
       $scope.isSaving = false
       $scope.event_form.$setPristine()
 
@@ -116,6 +118,13 @@ EventCtrl = (
   $scope.editItem = (item, editingItem)->
     angular.copy(item, editingItem)
     item._editing = true
+
+  $scope.sortableOptions =
+    handle: ".handle"
+    stop: ->
+      for topic, i in $scope.event.topics
+        topic.order = i + 1
+      $scope.save($scope.event)
 
   autosave = $interval(
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()
