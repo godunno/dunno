@@ -74,7 +74,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               a.icon.icon-edition.task-icon-right.right[
                 ng-click="editItem(topic, editingTopic)"
                 title="Editar tarefa"]
-            input.item-editing type="text" ng-if="isEditing(topic)" ng-model="editingTopic.description" ui-keydown="{'enter':'updateItem(editingTopic, topic)'}"
+            input.item-editing focus-on-create="" type="text" ng-if="isEditing(topic)" ng-model="editingTopic.description" ui-keydown="{'enter':'updateItem(editingTopic, topic)'}"
 
       .foot
         input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
