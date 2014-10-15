@@ -144,6 +144,12 @@ $diary-card-border: 1px solid #dddddd;
   }
   .item {
     padding: 0 30px;
+    cursor: pointer;
+    &.ui-sortable-helper {
+      // Without this !important, occurs a flickering
+      // effect while moving the item.
+      cursor: move !important;
+    }
 
     .handle {
       float: left;
@@ -152,18 +158,30 @@ $diary-card-border: 1px solid #dddddd;
       margin-left: -22px;
       margin-top: 10px;
       background-color: $light-grey-color;
-      cursor: pointer;
-    }
-    &.ui-sortable-helper .handle {
-      // Without this !important, occurs a flickering
-      // effect while moving the item.
-      cursor: move !important;
     }
     .row {
       margin: 0 auto;
       padding: 12px 0 6px;
       border-bottom: $diary-card-border;
     }
+    .item-editing {
+      margin: 0;
+    }
+
+
+    // --- Show on hover --- //
+    .no-touch & {
+      .handle, .task-icon-right {
+        display: none;
+      }
+
+      &:hover {
+        .handle, .task-icon-right {
+          display: initial;
+        }
+      }
+    }
+    // --------------------- //
   }
   .task-box {
     margin: 0 auto 10px;
