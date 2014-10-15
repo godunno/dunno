@@ -26,7 +26,6 @@
 //= require angular-route
 //= require angular-resource
 //= require angularjs-rails-resource
-//= require angular-scroll/angular-scroll
 //= require angular-ui-sortable
 //= require_tree ./angular/
 
