@@ -113,8 +113,6 @@ EventCtrl = (
     angular.copy(editingItem, item)
     item._editing = false
 
-  $scope.editingTopic = {}
-  $scope.editingPersonalNote = {}
   $scope.isEditing = (item)-> !!item._editing
   $scope.editItem = (item, editingItem)->
     angular.copy(item, editingItem)
