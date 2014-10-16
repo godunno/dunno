@@ -59,21 +59,22 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 
       .tasks ui-sortable="sortableOptions" ng-model="event.topics"
         .item ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
-          .handle ng-if="!isSaving"
-          .row ng-if="!isEditing(topic)"
-            input type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
-            label for="topic_{{topic.order}}_done" {{topic.description}}
-            a.icon.icon-trash.task-icon-right.right[
-              ng-click="removeItem(event.topics, topic)"
-              title="Remover tarefa"]
-            a.icon.icon-transfer.task-icon-right.right[
-              ng-click="transferItem(event.topics, topic)"
-              ng-if="canTransferItem(topic)"
-              title="Transferir tarefa"]
-            a.icon.icon-edition.task-icon-right.right[
-              ng-click="editItem(topic, editingTopic)"
-              title="Editar tarefa"]
-          input.item-editing type="text" ng-if="isEditing(topic)" ng-model="editingTopic.description" ui-keydown="{'enter':'updateItem(editingTopic, topic)'}"
+          .handle ng-if="!isEditing(topic)"
+          .row
+            .item-show ng-if="!isEditing(topic)"
+              input.done type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
+              label for="topic_{{topic.order}}_done" {{topic.description}}
+              a.icon.icon-trash.task-icon-right.right[
+                ng-click="removeItem(event.topics, topic)"
+                title="Remover tarefa"]
+              a.icon.icon-transfer.task-icon-right.right[
+                ng-click="transferItem(event.topics, topic)"
+                ng-if="canTransferItem(topic)"
+                title="Transferir tarefa"]
+              a.icon.icon-edition.task-icon-right.right[
+                ng-click="editItem(topic, editingTopic)"
+                title="Editar tarefa"]
+            input.item-editing focus-on-create="" type="text" ng-if="isEditing(topic)" ng-model="editingTopic.description" ui-keydown="{'enter':'updateItem(editingTopic, topic)'}"
 
       .foot
         input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
@@ -88,16 +89,17 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         span.subtitle.translucent Área visível somente para o professor
 
       .tasks
-        .row ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
-          input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
-          label for="personal_note_{{personal_note.order}}_done" {{personal_note.content}}
-          a.icon.icon-trash.task-icon-right.right[
-            ng-click="removeItem(event.personal_notes, personal_note)"
-            title="Remover anotação"]
-          a.icon.icon-transfer.task-icon-right.right[
-            ng-click="transferItem(event.personal_notes, personal_note)"
-            ng-if="canTransferItem(personal_note)"
-            title="Transferir anotação"]
+        .item ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
+          .row
+            input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
+            label for="personal_note_{{personal_note.order}}_done" {{personal_note.content}}
+            a.icon.icon-trash.task-icon-right.right[
+              ng-click="removeItem(event.personal_notes, personal_note)"
+              title="Remover anotação"]
+            a.icon.icon-transfer.task-icon-right.right[
+              ng-click="transferItem(event.personal_notes, personal_note)"
+              ng-if="canTransferItem(personal_note)"
+              title="Transferir anotação"]
       .foot
         input[ng-model="newPersonalNote.content" type="text" name="personal_note"
         placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote($event)'}"]
