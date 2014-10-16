@@ -119,11 +119,10 @@ EventCtrl = (
     angular.copy(item, editingItem)
     item._editing = true
 
-  $scope.sortableOptions =
-    handle: ".handle"
+  $scope.sortableOptions = (collection)->
     stop: ->
-      for topic, i in $scope.event.topics
-        topic.order = i + 1
+      for item, i in $scope.event[collection]
+        item.order = i + 1
       $scope.save($scope.event)
 
   autosave = $interval(

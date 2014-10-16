@@ -57,7 +57,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         h1 Diário
         span.subtitle.translucent Tarefas visíveis para os alunos
 
-      .tasks ui-sortable="sortableOptions" ng-model="event.topics"
+      .tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
         .item ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
           .handle ng-if="!isEditing(topic)"
           .row
@@ -88,8 +88,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           span.icon.icon-lock Anotações
         span.subtitle.translucent Área visível somente para o professor
 
-      .tasks
+      .tasks ui-sortable="sortableOptions('personal_notes')" ng-model="event.personal_notes"
         .item ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
+          .handle ng-if="!isEditing(personal_note)"
           .row
             input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
             label for="personal_note_{{personal_note.order}}_done" {{personal_note.content}}
