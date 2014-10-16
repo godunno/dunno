@@ -58,7 +58,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         span.subtitle.translucent Tarefas visíveis para os alunos
 
       .tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
-        .item ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
+        .item ng-controller="EventEditCtrl" ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
           .handle ng-if="!isEditing(topic)"
           .row
             .item-show ng-if="!isEditing(topic)"
@@ -72,13 +72,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-if="canTransferItem(topic)"
                 title="Transferir tarefa"]
               a.icon.icon-edition.task-icon-right.right[
-                ng-click="editItem(topic, editingTopic)"
+                ng-click="editItem(topic, editingItem)"
                 title="Editar tarefa"]
             input.item-editing[
               focus-on-create="" type="text"
               ng-if="isEditing(topic)"
-              ng-model="editingTopic.description"
-              ui-keydown="{'enter':'updateItem(editingTopic, topic)'}"]
+              ng-model="editingItem.description"
+              ui-keydown="{'enter':'updateItem(editingItem, topic)'}"]
 
       .foot
         input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
@@ -93,7 +93,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         span.subtitle.translucent Área visível somente para o professor
 
       .tasks ui-sortable="sortableOptions('personal_notes')" ng-model="event.personal_notes"
-        .item ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
+        .item ng-controller="EventEditCtrl" ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
           .handle ng-if="!isEditing(personal_note)"
           .row
             .item-show ng-if="!isEditing(personal_note)"
@@ -107,13 +107,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-if="canTransferItem(personal_note)"
                 title="Transferir anotação"]
               a.icon.icon-edition.task-icon-right.right[
-                ng-click="editItem(personal_note, editingPersonalNote)"
-                title="Editar tarefa"]
+                ng-click="editItem(personal_note, editingItem)"
+                title="Editar anotação"]
             input.item-editing[
               focus-on-create="" type="text"
               ng-if="isEditing(personal_note)"
-              ng-model="editingPersonalNote.content"
-              ui-keydown="{'enter':'updateItem(editingPersonalNote, personal_note)'}"]
+              ng-model="editingItem.content"
+              ui-keydown="{'enter':'updateItem(editingItem, personal_note)'}"]
       .foot
         input[ng-model="newPersonalNote.content" type="text" name="personal_note"
         placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote($event)'}"]
