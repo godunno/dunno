@@ -419,6 +419,7 @@ describe Api::V1::Teacher::EventsController do
       CoursePusher.any_instance.should_receive(:open).once
       do_action
     end
+    after { Timecop.return }
 
     it { expect(last_response.status).to eq(200) }
     it { expect(json["uuid"]).to eq(event.uuid) }
@@ -434,6 +435,7 @@ describe Api::V1::Teacher::EventsController do
         CoursePusher.any_instance.stub(:close)
         do_action
       end
+      after { Timecop.return }
 
       it { expect(last_response.status).to eq(304) }
       it { expect(event.reload.opened_at).not_to eq(Time.now) }
@@ -454,6 +456,7 @@ describe Api::V1::Teacher::EventsController do
       EventPusher.any_instance.should_receive(:close).once
       do_action
     end
+    after { Timecop.return }
 
     it { expect(event.reload.closed?).to be_true }
     it { expect(event.reload.closed_at.utc.iso8601).to eq Time.now.utc.iso8601 }
@@ -464,6 +467,7 @@ describe Api::V1::Teacher::EventsController do
         EventPusher.any_instance.stub(:close)
         do_action
       end
+      after { Timecop.return }
 
       it { expect(last_response.status).to eq(304) }
       it { expect(event.reload.closed_at).not_to eq(Time.now) }

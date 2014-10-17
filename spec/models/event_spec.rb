@@ -108,13 +108,15 @@ describe Event do
       end
 
       it "there's no topics or personal notes" do
-        Timecop.freeze(event.end_at - 1.hour)
-        expect(event.formatted_status).to eq("published")
+        Timecop.freeze(event.end_at - 1.hour) do
+          expect(event.formatted_status).to eq("published")
+        end
       end
 
       it "it already happened" do
-        Timecop.freeze(event.end_at + 1.hour)
-        expect(event.formatted_status).to eq("happened")
+        Timecop.freeze(event.end_at + 1.hour) do
+          expect(event.formatted_status).to eq("happened")
+        end
       end
     end
 
@@ -133,6 +135,8 @@ describe Event do
       Timecop.freeze
     end
 
+    after { Timecop.return }
+
     it { expect {event.close!}.to change(event, :closed?).from(false).to(true) }
     it { expect {event.close!}.to change(event, :closed_at).from(nil).to(Time.now) }
     it "should not be opened after is closed" do
@@ -150,6 +154,7 @@ describe Event do
     before do
       Timecop.freeze
     end
+    after { Timecop.return }
 
     it { expect {event.open!}.to change(event, :opened?).from(false).to(true) }
     it { expect {event.open!}.to change(event, :opened_at).from(nil).to(Time.now) }

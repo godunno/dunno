@@ -19,6 +19,7 @@ describe Api::V1::Teacher::PollsController do
         do_action
         poll.reload
       end
+      after { Timecop.return }
 
       it { expect(last_response.status).to eq(200) }
       it { expect(poll.status).to eq "released" }

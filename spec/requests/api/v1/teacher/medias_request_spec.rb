@@ -15,6 +15,7 @@ describe Api::V1::Teacher::MediasController do
         do_action
         media.reload
       end
+      after { Timecop.return }
 
       it { expect(last_response.status).to eq(200) }
       it { expect(media.status).to eq "released" }
