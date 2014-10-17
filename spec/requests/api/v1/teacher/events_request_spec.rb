@@ -94,6 +94,8 @@ describe Api::V1::Teacher::EventsController do
 
     let!(:event) do
       create(:event,
+             status: "published",
+             end_at: 1.hour.ago,
              topics: [topic],
              thermometers: [thermometer],
              polls: [poll],
@@ -140,8 +142,9 @@ describe Api::V1::Teacher::EventsController do
           let(:media) { media_with_url }
 
           subject { event_json }
-          it_behaves_like "request return check", %w(id uuid channel status order)
+          it_behaves_like "request return check", %w(id uuid channel order)
 
+          it { expect(subject["status"]).to eq(event.formatted_status) }
           it { expect(subject["start_at"]).to eq(event.start_at.utc.iso8601) }
           it { expect(subject["end_at"]).to eq(event.end_at.utc.iso8601) }
 

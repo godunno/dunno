@@ -62,6 +62,14 @@ class Event < ActiveRecord::Base
     opened_at.present? && !closed?
   end
 
+  def formatted_status
+    return "empty" if status == "draft" &&
+      topics.empty? && personal_notes.empty?
+    return "happened" if status == "published" &&
+      end_at < Time.now
+    status
+  end
+
   %w(topics polls medias thermometers).each do |attr|
     define_method "#{attr}=" do |artifacts|
       artifacts.each do |artifact|

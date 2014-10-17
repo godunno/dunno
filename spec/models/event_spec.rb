@@ -56,7 +56,7 @@ describe Event do
     end
   end
 
-  describe "statuses methods" do
+  describe "#status" do
     %w(draft published canceled).each do |status|
 
       before do
@@ -69,6 +69,61 @@ describe Event do
           event.status = status
         end.to change{event.send("#{status}?")}.from(false).to(true)
       end
+    end
+  end
+
+  describe "#formatted_status" do
+
+    before do
+      event.save!
+    end
+
+    context "it's draft and" do
+      before do
+        event.status = "draft"
+        event.topics = []
+        event.personal_notes = []
+      end
+
+      it "there's no topics or personal notes" do
+        expect(event.formatted_status).to eq("empty")
+      end
+
+      it "there's at least one topic" do
+        create(:topic, timeline: event.timeline)
+        expect(event.formatted_status).to eq("draft")
+      end
+
+      it "there's at least one personal note" do
+        event.personal_notes << build(:personal_note)
+        expect(event.formatted_status).to eq("draft")
+      end
+    end
+
+    context "it's published and" do
+      before do
+        event.status = "published"
+        event.topics = []
+        event.personal_notes = []
+      end
+
+      it "there's no topics or personal notes" do
+        Timecop.freeze(event.end_at - 1.hour)
+        expect(event.formatted_status).to eq("published")
+      end
+
+      it "it already happened" do
+        Timecop.freeze(event.end_at + 1.hour)
+        expect(event.formatted_status).to eq("happened")
+      end
+    end
+
+    context "it's canceled" do
+      before do
+        event.status = "canceled"
+      end
+
+      it { expect(event.formatted_status).to eq("canceled") }
     end
   end
 

@@ -26,15 +26,6 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
       course.end_date   = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
       course
 
-  $scope.eventStatus = (event)->
-    now = new Date()
-    end_at = new Date(event.end_at)
-    status  = if event.status == "published" && end_at < now
-                "happened"
-              else
-                event.status
-    "icon-#{status}"
-
 CourseCtrl.$inject = [
   '$scope', 'Course', '$location', '$routeParams', 'Utils', 'DateUtils'
 ]
