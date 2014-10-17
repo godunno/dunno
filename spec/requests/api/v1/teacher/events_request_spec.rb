@@ -4,7 +4,7 @@ describe Api::V1::Teacher::EventsController do
 
   let(:teacher) { create(:teacher) }
   let(:course) { create(:course, teacher: teacher) }
-  let(:event) { create(:event, course: course) }
+  let(:event) { create(:event, course: course, status: "draft") }
 
   let(:event_pusher_events) { EventPusherEvents.new(teacher.user) }
 
@@ -383,7 +383,7 @@ describe Api::V1::Teacher::EventsController do
     end
   end
 
-  describe "PATCH /api/v1/teacher/events/:uuid.json" do
+  describe "PATCH /api/v1/teacher/events/:uuid.json", :wip do
 
     it_behaves_like "API authentication required"
 
@@ -392,7 +392,7 @@ describe Api::V1::Teacher::EventsController do
       pending "invalid event"
 
       let(:start_at) { event.start_at + 1.hour }
-      let(:params_hash) { { event: { start_at: start_at.utc.iso8601 } } }
+      let(:params_hash) { { event: { start_at: start_at.utc.iso8601, status: "published" } } }
 
       def do_action
         patch "/api/v1/teacher/events/#{event.uuid}.json", auth_params(teacher).merge(params_hash).to_json
@@ -404,6 +404,7 @@ describe Api::V1::Teacher::EventsController do
       end
 
       it { expect(event.reload.start_at).to eq start_at }
+      it { expect(event.reload.status).to eq "published" }
     end
   end
 

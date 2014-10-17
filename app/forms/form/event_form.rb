@@ -5,11 +5,12 @@
 
     attribute :start_at, Time
     attribute :end_at, Time
+    attribute :status, String
 
     validates :start_at, :end_at, :course, presence: true
 
     def initialize(params = {})
-      super(params.slice(*attributes_list(:start_at, :end_at)))
+      super(params.slice(*attributes_list(:start_at, :end_at, :status)))
       self.course = model.course || Course.where(id: params[:course_id]).first
       model.timeline ||= Timeline.new(start_at: start_at)
       @topics = populate_children(Form::TopicForm, params[:topics])
@@ -58,6 +59,7 @@
         model.course = course
         model.start_at = start_at
         model.end_at = end_at
+        model.status = status
 
         ActiveRecord::Base.transaction do
           model.timeline.save!
