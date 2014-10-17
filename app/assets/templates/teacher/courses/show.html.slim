@@ -27,7 +27,7 @@ header.page-header.title ng-class="'scheme-' + course.order"
               span.expand.month {{asDate(event.start_at) | date:'MMMM'}}
             .bottom
               span.class Aula {{event.order}}
-              i.icon ng-class="'icon-' + event.status"
+              i.icon ng-class="eventStatus(event)"
 
             .exam ng-if="event.has_exam" PROVA
 

@@ -1,11 +1,18 @@
 .icon {
-  &.icon-closed, &.icon-opened {
-    width: 200px;
-    @extend .icon-file-check;
+  &.icon-draft {
+    @extend .icon-circle-small;
+    color: $light-grey-color;
+  }
+  &.icon-published {
+    @extend .icon-circle-small;
     color: $secondary-color;
   }
-  &.icon-available {
-    @extend .icon-file-lock;
-    color: $dark-grey-color;
+  &.icon-canceled {
+    @extend .icon-circle-small;
+    color: $red-color;
+  }
+  &.icon-happened {
+    @extend .icon-check;
+    color: $secondary-color;
   }
 }
