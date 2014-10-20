@@ -59,6 +59,7 @@ describe Media do
     before do
       Timecop.freeze
     end
+    after { Timecop.return }
 
     it { expect {media.release!}.to change(media, :status).from("available").to("released") }
     it { expect {media.release!}.to change(media, :released_at).from(nil).to(Time.now) }
