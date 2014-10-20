@@ -1,6 +1,5 @@
 module Form
   class ThermometerForm < Form::ArtifactForm
-
     model_class ::Thermometer
 
     attribute :content, String

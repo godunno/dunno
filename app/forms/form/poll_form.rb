@@ -1,6 +1,5 @@
 module Form
   class PollForm < Form::ArtifactForm
-
     model_class ::Poll
 
     attribute :content, String
@@ -35,9 +34,7 @@ module Form
         super
         ActiveRecord::Base.transaction do
           model.content = content
-          @options.each do |option|
-            option.save
-          end
+          @options.each(&:save)
           model.save!
         end
       end

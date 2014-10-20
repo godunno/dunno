@@ -94,6 +94,8 @@ describe Api::V1::Teacher::EventsController do
 
     let!(:event) do
       create(:event,
+             status: "published",
+             end_at: 1.hour.ago,
              topics: [topic],
              thermometers: [thermometer],
              polls: [poll],
@@ -140,8 +142,9 @@ describe Api::V1::Teacher::EventsController do
           let(:media) { media_with_url }
 
           subject { event_json }
-          it_behaves_like "request return check", %w(id uuid channel status order)
+          it_behaves_like "request return check", %w(id uuid channel order)
 
+          it { expect(subject["status"]).to eq(event.formatted_status) }
           it { expect(subject["start_at"]).to eq(event.start_at.utc.iso8601) }
           it { expect(subject["end_at"]).to eq(event.end_at.utc.iso8601) }
 
@@ -294,7 +297,6 @@ describe Api::V1::Teacher::EventsController do
         end.to change{ Event.count }.from(0).to(1)
       end
 
-
       context "trying to create an invalid event" do
         before :each do
           event_template.course = nil
@@ -417,6 +419,7 @@ describe Api::V1::Teacher::EventsController do
       CoursePusher.any_instance.should_receive(:open).once
       do_action
     end
+    after { Timecop.return }
 
     it { expect(last_response.status).to eq(200) }
     it { expect(json["uuid"]).to eq(event.uuid) }
@@ -432,6 +435,7 @@ describe Api::V1::Teacher::EventsController do
         CoursePusher.any_instance.stub(:close)
         do_action
       end
+      after { Timecop.return }
 
       it { expect(last_response.status).to eq(304) }
       it { expect(event.reload.opened_at).not_to eq(Time.now) }
@@ -452,6 +456,7 @@ describe Api::V1::Teacher::EventsController do
       EventPusher.any_instance.should_receive(:close).once
       do_action
     end
+    after { Timecop.return }
 
     it { expect(event.reload.closed?).to be_true }
     it { expect(event.reload.closed_at.utc.iso8601).to eq Time.now.utc.iso8601 }
@@ -462,6 +467,7 @@ describe Api::V1::Teacher::EventsController do
         EventPusher.any_instance.stub(:close)
         do_action
       end
+      after { Timecop.return }
 
       it { expect(last_response.status).to eq(304) }
       it { expect(event.reload.closed_at).not_to eq(Time.now) }

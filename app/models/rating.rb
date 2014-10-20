@@ -3,5 +3,4 @@ class Rating < ActiveRecord::Base
   belongs_to :student
 
   validates :student, uniqueness: { scope: :rateable }
-
 end

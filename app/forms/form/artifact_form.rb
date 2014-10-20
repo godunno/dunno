@@ -8,7 +8,7 @@ module Form
     private
 
       def cannot_change_timeline
-        if model.timeline.present? && model.timeline != self.timeline
+        if model.timeline.present? && model.timeline != timeline
           errors.add :timeline, "can't change Timeline on #{model.inspect}"
         end
       end
@@ -21,4 +21,3 @@ module Form
       end
   end
 end
-

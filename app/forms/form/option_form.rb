@@ -1,6 +1,5 @@
 module Form
   class OptionForm < Form::Base
-
     model_class ::Option
 
     attr_accessor :poll

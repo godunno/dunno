@@ -50,6 +50,7 @@ EventCtrl = (
     $scope.newPersonalNote = generateOrderable($scope.event.personal_notes)
     for collection, i in ['topics', 'personal_notes']
       $scope.event[collection] ?= []
+      $scope.event[collection].sort (a,b)-> a.order - b.order
 
   initializeEvent(new Event())
   $scope.event.course_id = $routeParams.course_id
@@ -63,7 +64,7 @@ EventCtrl = (
     $event.preventDefault()
     $scope.newItem(list, $scope[itemName])
     $scope[itemName] = generateOrderable(list)
-    $scope.event_form.$setDirty()
+    $scope.save($scope.event)
 
   $scope.addTopic = ($event)->
     addItem($event, $scope.event.topics, 'newTopic')
@@ -78,18 +79,26 @@ EventCtrl = (
   $scope.saveButtonMessage = ->
     if $scope.isSaving
       "Salvando..."
-    else if $scope.event_form.$dirty
+    else if !$scope.saveButtonDisabled()
       "Salvar"
     else
       "Salvo"
 
+  anyEditing = (list)->
+    !!list.filter((item)-> $scope.isEditing(item)).length
   $scope.saveButtonDisabled = ->
-    $scope.isSaving || $scope.event_form.$pristine
+    $scope.newTopic.description ||
+      $scope.newPersonalNote.content ||
+      anyEditing($scope.event.topics) ||
+      anyEditing($scope.event.personal_notes) ||
+      $scope.isSaving ||
+      $scope.event_form.$pristine
 
   $scope.save = (event)->
     event = formatFromView(event)
     $scope.isSaving = true
     event.save().then ->
+      initializeEvent(event)
       $scope.isSaving = false
       $scope.event_form.$setPristine()
 
@@ -98,6 +107,24 @@ EventCtrl = (
       $scope.destroy(item)
       $scope.save($scope.event)
       Utils.remove(list, item)
+
+  $scope.canTransferItem = (item)->
+    !$scope.newRecord(item) && !$scope.newRecord($scope.event.next)
+
+  $scope.updateItem = (editingItem, item)->
+    angular.copy(editingItem, item)
+    item._editing = false
+
+  $scope.isEditing = (item)-> !!item._editing
+  $scope.editItem = (item, editingItem)->
+    angular.copy(item, editingItem)
+    item._editing = true
+
+  $scope.sortableOptions = (collection)->
+    stop: ->
+      for item, i in $scope.event[collection]
+        item.order = i + 1
+      $scope.save($scope.event)
 
   autosave = $interval(
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()

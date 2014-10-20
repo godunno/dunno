@@ -37,7 +37,9 @@ gem 'rails-assets-angular-route', '1.2.26'
 gem 'rails-assets-angular-resource', '1.2.26'
 gem 'rails-assets-angularjs-rails-resource', '1.2.1'
 gem 'rails-assets-modernizr', '2.8.3'
-gem 'rails-assets-angular-scroll', '0.6.2'
+gem 'rails-assets-jquery-maskedinput', '1.3.1'
+gem 'rails-assets-angular-ui-sortable', '0.13.0'
+gem 'rails-assets-arktisklada--jquery-ui-touch-punch', '0.2.3'
 
 group :production, :staging do
   gem 'rails_12factor',           '0.0.2'
@@ -47,6 +49,7 @@ end
 gem 'database_cleaner',           '1.2.0',     require: false
 
 group :development do
+  gem 'rubocop',                  '0.26.1'
   gem 'foreman',                  '0.63.0'
   gem 'letter_opener',            '1.1.2'
   gem 'better_errors',            '2.0.0'

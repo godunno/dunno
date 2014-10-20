@@ -141,12 +141,47 @@ $diary-card-border: 1px solid #dddddd;
   }
   .tasks {
     border-top: 1px solid #d8d8d8;
-    padding: 0 30px;
   }
-  .row {
-    margin: 0 auto;
-    padding: 12px 0 6px;
-    border-bottom: $diary-card-border;
+  .item {
+    padding: 0 30px;
+    cursor: pointer;
+    &.ui-sortable-helper {
+      // Without this !important, occurs a flickering
+      // effect while moving the item.
+      cursor: move !important;
+    }
+
+    .handle {
+      float: left;
+      width: 12px;
+      height: 24px;
+      margin-left: -22px;
+      margin-top: 10px;
+      background-color: $light-grey-color;
+    }
+    .row {
+      margin: 0 auto;
+      padding: 12px 0 6px;
+      border-bottom: $diary-card-border;
+    }
+    .item-editing {
+      margin: 0;
+    }
+
+
+    // --- Show on hover --- //
+    .no-touch & {
+      .handle, .task-icon-right {
+        display: none;
+      }
+
+      &:hover {
+        .handle, .task-icon-right {
+          display: initial;
+        }
+      }
+    }
+    // --------------------- //
   }
   .task-box {
     margin: 0 auto 10px;

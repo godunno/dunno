@@ -1,5 +1,4 @@
 class Course < ActiveRecord::Base
-
   include HasUuid
 
   WEEKDAYS = (0..6).to_a
@@ -31,6 +30,7 @@ class Course < ActiveRecord::Base
   end
 
   private
+
     def set_access_code
       loop do
         self.access_code = SecureRandom.hex(2)

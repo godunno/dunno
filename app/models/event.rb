@@ -1,5 +1,4 @@
 class Event < ActiveRecord::Base
-
   include HasUuid
 
   enum status: %w(draft published canceled)
@@ -63,6 +62,12 @@ class Event < ActiveRecord::Base
     opened_at.present? && !closed?
   end
 
+  def formatted_status
+    return "empty" if empty?
+    return "happened" if happened?
+    status
+  end
+
   %w(topics polls medias thermometers).each do |attr|
     define_method "#{attr}=" do |artifacts|
       artifacts.each do |artifact|
@@ -71,4 +76,14 @@ class Event < ActiveRecord::Base
       end
     end
   end
+
+  private
+
+    def empty?
+      draft? && topics.empty? && personal_notes.empty?
+    end
+
+    def happened?
+      published? && end_at < Time.now
+    end
 end

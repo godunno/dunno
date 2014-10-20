@@ -56,7 +56,7 @@ describe Event do
     end
   end
 
-  describe "statuses methods" do
+  describe "#status" do
     %w(draft published canceled).each do |status|
 
       before do
@@ -72,11 +72,70 @@ describe Event do
     end
   end
 
+  describe "#formatted_status" do
+
+    before do
+      event.save!
+    end
+
+    context "it's draft and" do
+      before do
+        event.status = "draft"
+        event.topics = []
+        event.personal_notes = []
+      end
+
+      it "there's no topics or personal notes" do
+        expect(event.formatted_status).to eq("empty")
+      end
+
+      it "there's at least one topic" do
+        create(:topic, timeline: event.timeline)
+        expect(event.formatted_status).to eq("draft")
+      end
+
+      it "there's at least one personal note" do
+        event.personal_notes << build(:personal_note)
+        expect(event.formatted_status).to eq("draft")
+      end
+    end
+
+    context "it's published and" do
+      before do
+        event.status = "published"
+        event.topics = []
+        event.personal_notes = []
+      end
+
+      it "there's no topics or personal notes" do
+        Timecop.freeze(event.end_at - 1.hour) do
+          expect(event.formatted_status).to eq("published")
+        end
+      end
+
+      it "it already happened" do
+        Timecop.freeze(event.end_at + 1.hour) do
+          expect(event.formatted_status).to eq("happened")
+        end
+      end
+    end
+
+    context "it's canceled" do
+      before do
+        event.status = "canceled"
+      end
+
+      it { expect(event.formatted_status).to eq("canceled") }
+    end
+  end
+
   describe "#close!" do
     before do
       event.open!
       Timecop.freeze
     end
+
+    after { Timecop.return }
 
     it { expect {event.close!}.to change(event, :closed?).from(false).to(true) }
     it { expect {event.close!}.to change(event, :closed_at).from(nil).to(Time.now) }
@@ -95,6 +154,7 @@ describe Event do
     before do
       Timecop.freeze
     end
+    after { Timecop.return }
 
     it { expect {event.open!}.to change(event, :opened?).from(false).to(true) }
     it { expect {event.open!}.to change(event, :opened_at).from(nil).to(Time.now) }

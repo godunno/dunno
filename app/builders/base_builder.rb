@@ -1,5 +1,4 @@
 class BaseBuilder
-
   attr_reader :object
 
   def initialize(object)

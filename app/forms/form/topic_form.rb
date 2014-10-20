@@ -1,6 +1,5 @@
 module Form
   class TopicForm < Form::ArtifactForm
-
     model_class ::Topic
 
     attribute :description, String

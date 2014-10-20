@@ -14,6 +14,7 @@ class Api::V1::RatingsController < Api::V1::StudentApplicationController
   end
 
   private
+
     def thermometer
       @thermometer ||= Thermometer.where(uuid: params[:thermometer_id]).first!
     end

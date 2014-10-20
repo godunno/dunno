@@ -25,7 +25,7 @@ describe Form::EventForm do
       context "with nested models" do
         let(:topic) { {description: "NEW DESCRIPTION"} }
         let(:event) do
-          valid_event_hash.merge({topics: [topic]})
+          valid_event_hash.merge(topics: [topic])
         end
 
         it { expect(event_form).to be_valid }
@@ -71,9 +71,7 @@ describe Form::EventForm do
         let(:existing_topic) { create(:topic) }
         let(:topic) { {uuid: existing_topic.uuid, description: 'UPDATED DESCRIPTION'} }
         let(:event) do
-          valid_event_hash.merge({
-            topics: [topic]
-          })
+          valid_event_hash.merge(topics: [topic])
         end
         before(:each) { event_form.save }
 
@@ -178,10 +176,10 @@ describe Form::EventForm do
       end
 
       it do
-        expect { event_form.save }.
-          to change { existing_event.reload.topics.to_a }.
-          from([existing_topic]).
-          to([])
+        expect { event_form.save }
+          .to change { existing_event.reload.topics.to_a }
+          .from([existing_topic])
+          .to([])
       end
     end
   end

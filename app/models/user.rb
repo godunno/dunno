@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   include HasUuid
 
   # Include default devise modules. Others available are:
@@ -19,6 +18,7 @@ class User < ActiveRecord::Base
   end
 
   private
+
     def ensure_authentication_token
       if authentication_token.blank?
         self.authentication_token = generate_authentication_token

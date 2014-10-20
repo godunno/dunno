@@ -2,7 +2,7 @@ class Api::V1::Teacher::PersonalNotesController < Api::V1::TeacherApplicationCon
   respond_to :json
 
   api :PATCH, '/api/v1/teacher/personal_notes/:id/transfer',
-    "Transfer a personal note to the next event."
+      "Transfer a personal note to the next event."
   def transfer
     next_event = personal_note.event.next
     if next_event
