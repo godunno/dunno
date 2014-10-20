@@ -87,7 +87,9 @@ EventCtrl = (
   anyEditing = (list)->
     !!list.filter((item)-> $scope.isEditing(item)).length
   $scope.saveButtonDisabled = ->
-    anyEditing($scope.event.topics) ||
+    $scope.newTopic.description ||
+      $scope.newPersonalNote.content ||
+      anyEditing($scope.event.topics) ||
       anyEditing($scope.event.personal_notes) ||
       $scope.isSaving ||
       $scope.event_form.$pristine
