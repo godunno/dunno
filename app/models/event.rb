@@ -63,10 +63,8 @@ class Event < ActiveRecord::Base
   end
 
   def formatted_status
-    return "empty" if draft? &&
-      topics.empty? && personal_notes.empty?
-    return "happened" if published? &&
-      end_at < Time.now
+    return "empty" if empty?
+    return "happened" if happened?
     status
   end
 
@@ -78,4 +76,14 @@ class Event < ActiveRecord::Base
       end
     end
   end
+
+  private
+
+    def empty?
+      draft? && topics.empty? && personal_notes.empty?
+    end
+
+    def happened?
+      published? && end_at < Time.now
+    end
 end
