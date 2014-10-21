@@ -5,12 +5,14 @@ module UploadFileTestHelper
     t.binmode
     path = File.join(Rails.root, "spec", "fixtures", filename)
     FileUtils.copy_file(path, t.path)
-    ActionDispatch::Http::UploadedFile.new({
-      filename: filename,
-      head: "Content-Disposition: form-data; name=\"file\"; filename=\"#{filename}\"\r\nContent-Type: #{content_type}\r\n",
-      type: content_type,
-      tempfile: t
-    })
+    ActionDispatch::Http::UploadedFile.new(
+      {
+        filename: filename,
+          head: "Content-Disposition: form-data; name=\"file\"; filename=\"#{filename}\"\r\nContent-Type: #{content_type}\r\n",
+          type: content_type,
+        tempfile: t
+      }
+    )
   end
 end
 
