@@ -383,7 +383,7 @@ describe Api::V1::Teacher::EventsController do
     end
   end
 
-  describe "PATCH /api/v1/teacher/events/:uuid.json", :wip do
+  describe "PATCH /api/v1/teacher/events/:uuid.json" do
 
     it_behaves_like "API authentication required"
 
