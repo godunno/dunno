@@ -10,7 +10,8 @@
     validates :start_at, :end_at, :course, presence: true
 
     def initialize(params = {})
-      super(params.slice(*attributes_list(:start_at, :end_at, :status)))
+      super(params.slice(*attributes_list(:start_at, :end_at)))
+      self.status = params[:status] || model.status
       self.course = model.course || Course.where(id: params[:course_id]).first
       model.timeline ||= Timeline.new(start_at: start_at)
       @topics = populate_children(Form::TopicForm, params[:topics])
