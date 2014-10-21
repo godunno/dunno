@@ -16,7 +16,7 @@ gem 'uglifier',                   '2.5.3'
 gem 'rack-canonical-host',        '0.0.8'
 gem 'bourbon',                    '3.1.8'
 gem 'simple_form',                '3.0.2'
-gem 'party_foul',                 '1.5.2'
+gem 'party_foul',                 '1.5.4'
 gem 'devise',                     '3.2.2'
 gem 'acts_as_votable',            '0.10.0'
 gem 'active_model_serializers',   '0.9.0'
@@ -49,6 +49,8 @@ end
 gem 'database_cleaner',           '1.2.0',     require: false
 
 group :development do
+  gem 'pronto'
+  gem 'pronto-rubocop'
   gem 'rubocop',                  '0.26.1'
   gem 'foreman',                  '0.63.0'
   gem 'letter_opener',            '1.1.2'
