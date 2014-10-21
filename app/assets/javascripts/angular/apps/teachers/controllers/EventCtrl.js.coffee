@@ -14,15 +14,6 @@ EventCtrl = (
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
-  generateOrderable = (list)->
-    list = list.sort (a,b)-> a.order - b.order
-    last = list[list.length - 1]
-    if last?
-      order = last.order + 1
-    else
-      order = 1
-    { order: order }
-
   # TODO: extract to directive
   formatToView = (event)->
     start_time = $scope.asDate(event.start_at)
@@ -46,11 +37,7 @@ EventCtrl = (
 
   initializeEvent = (event)->
     $scope.event = formatToView(event)
-    $scope.newTopic = generateOrderable($scope.event.topics)
-    $scope.newPersonalNote = generateOrderable($scope.event.personal_notes)
-    for collection, i in ['topics', 'personal_notes']
-      $scope.event[collection] ?= []
-      $scope.event[collection].sort (a,b)-> a.order - b.order
+    $scope.$broadcast('initializeEvent')
 
   initializeEvent(new Event())
   $scope.event.course_id = $routeParams.course_id
@@ -59,22 +46,6 @@ EventCtrl = (
   if $routeParams.id
     Event.get(uuid: $routeParams.id).then (event)->
       initializeEvent(event)
-
-  addItem = ($event, list, itemName)->
-    $event.preventDefault()
-    $scope.newItem(list, $scope[itemName])
-    $scope[itemName] = generateOrderable(list)
-    $scope.save($scope.event)
-
-  $scope.addTopic = ($event)->
-    addItem($event, $scope.event.topics, 'newTopic')
-  $scope.addPersonalNote = ($event)->
-    addItem($event, $scope.event.personal_notes, 'newPersonalNote')
-
-  $scope.transferItem = (list, item)->
-    if confirm("Deseja transferir esse item? Essa operação não poderá ser desfeita.")
-      item.transfer().then ->
-        Utils.remove(list, item)
 
   $scope.saveButtonMessage = ->
     if $scope.isSaving
@@ -87,8 +58,8 @@ EventCtrl = (
   anyEditing = (list)->
     !!list.filter((item)-> $scope.isEditing(item)).length
   $scope.saveButtonDisabled = ->
-    $scope.newTopic.description ||
-      $scope.newPersonalNote.content ||
+    $scope.event_form.topic.description ||
+      $scope.event_form.personal_note.content ||
       anyEditing($scope.event.topics) ||
       anyEditing($scope.event.personal_notes) ||
       $scope.isSaving ||
@@ -102,15 +73,6 @@ EventCtrl = (
       $scope.isSaving = false
       $scope.event_form.$setPristine()
 
-  $scope.removeItem = (list, item)->
-    if confirm("Deseja remover esse item? Essa operação não poderá ser desfeita.")
-      $scope.destroy(item)
-      $scope.save($scope.event)
-      Utils.remove(list, item)
-
-  $scope.canTransferItem = (item)->
-    !$scope.newRecord(item) && !$scope.newRecord($scope.event.next)
-
   $scope.updateItem = (editingItem, item)->
     angular.copy(editingItem, item)
     item._editing = false
@@ -119,12 +81,6 @@ EventCtrl = (
   $scope.editItem = (item, editingItem)->
     angular.copy(item, editingItem)
     item._editing = true
-
-  $scope.sortableOptions = (collection)->
-    stop: ->
-      for item, i in $scope.event[collection]
-        item.order = i + 1
-      $scope.save($scope.event)
 
   autosave = $interval(
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()
