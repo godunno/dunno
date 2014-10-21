@@ -51,6 +51,7 @@ gem 'database_cleaner',           '1.2.0',     require: false
 group :development do
   gem 'pronto'
   gem 'pronto-rubocop'
+  gem 'pronto-flay'
   gem 'rubocop',                  '0.26.1'
   gem 'foreman',                  '0.63.0'
   gem 'letter_opener',            '1.1.2'
