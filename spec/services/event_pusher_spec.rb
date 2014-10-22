@@ -113,7 +113,7 @@ describe EventPusher do
 
   describe "#release_media" do
 
-    let(:media) { create :media, timeline: event.timeline }
+    let(:media) { create :media, topic: create(:topic, timeline: event.timeline) }
 
     before do
       @event_pusher.release_media(media)

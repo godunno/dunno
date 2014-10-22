@@ -11,7 +11,6 @@ describe Event do
     it { is_expected.to have_many(:topics) }
     it { is_expected.to have_many(:thermometers) }
     it { is_expected.to have_many(:personal_notes) }
-    it { is_expected.to have_many(:medias) }
     it { is_expected.to belong_to(:beacon) }
   end
 
