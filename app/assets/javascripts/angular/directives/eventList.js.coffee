@@ -3,13 +3,6 @@ DunnoApp = angular.module('DunnoApp')
 listCtrl = ($scope, Utils)->
   angular.extend($scope, Utils)
 
-  itemName = ->
-    names = {
-      "topics": "newTopic"
-      "personal_notes": "newPersonalNote"
-    }
-    names[$scope.collection]
-
   list = -> $scope.event[$scope.collection]
 
   generateOrderable = (list)->
@@ -22,7 +15,7 @@ listCtrl = ($scope, Utils)->
     { order: order }
 
   generateOrderableItem = ->
-    $scope[itemName()] = generateOrderable(list())
+    $scope.newListItem = generateOrderable(list())
 
   $scope.$on 'initializeEvent', ->
     generateOrderableItem()
@@ -30,7 +23,7 @@ listCtrl = ($scope, Utils)->
 
   $scope.addItem = ($event)->
     $event.preventDefault()
-    $scope.newItem(list(), $scope[itemName()])
+    $scope.newItem(list(), $scope.newListItem)
     generateOrderableItem()
     $scope.save($scope.event)
 

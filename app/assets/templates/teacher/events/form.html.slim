@@ -114,7 +114,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ui-keydown="{'enter':'updateItem(editingItem, topic)'}"]
 
       .foot
-        input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
+        input[ng-model="newListItem.description" type="text" placeholder="Adicionar tarefa"
           ui-keydown="{'enter':'addItem($event)'}" name="topic"]
         label Ex: Revisar aula passada. Introdução à raiz quadrada.
 
@@ -148,6 +148,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ng-model="editingItem.content"
               ui-keydown="{'enter':'updateItem(editingItem, personal_note)'}"]
       .foot
-        input[ng-model="newPersonalNote.content" type="text" name="personal_note"
+        input[ng-model="newListItem.content" type="text" name="personal_note"
         placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
         label Ex: Fazer ditado surpresa. Rever comportamento do João.
