@@ -7,7 +7,7 @@ describe EventPusher do
   let(:teacher_pusher_events) { EventPusherEvents.new(create(:teacher).user) }
 
   before do
-    Pusher.stub(:trigger)
+    allow(Pusher).to receive(:trigger)
     @event_pusher = EventPusher.new(event)
   end
 
@@ -66,7 +66,7 @@ describe EventPusher do
     let(:rating) { {} }
 
     before do
-      pending "Preencher com os dados que o Pusher deve receber"
+      skip "Preencher com os dados que o Pusher deve receber"
       @event_pusher.receive_rating(rating)
     end
 

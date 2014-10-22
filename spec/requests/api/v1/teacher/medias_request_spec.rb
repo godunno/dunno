@@ -23,7 +23,7 @@ describe Api::V1::Teacher::MediasController do
 
       context "releasing the same poll again" do
         before do
-          EventPusher.any_instance.stub(:release_media)
+          allow_any_instance_of(EventPusher).to receive(:release_media)
           do_action
         end
 

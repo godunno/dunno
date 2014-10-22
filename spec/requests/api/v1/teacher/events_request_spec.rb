@@ -307,7 +307,7 @@ describe Api::V1::Teacher::EventsController do
         it { expect(json['errors']).to have_key('course') }
       end
 
-      pending "trying to create event on another teacher's course"
+      skip "trying to create event on another teacher's course"
 
       context "creating an event" do
 
@@ -327,7 +327,7 @@ describe Api::V1::Teacher::EventsController do
           it_behaves_like "creating an artifact"
           it { expect(subject.description).to eq topic.description }
           it { expect(subject.order).to eq topic.order }
-          it { expect(subject.done).to be_true }
+          it { expect(subject).to be_done }
         end
 
         it { expect(subject.thermometers.count).to eq 1 }
@@ -355,7 +355,7 @@ describe Api::V1::Teacher::EventsController do
           subject { event.personal_notes.first }
           it { expect(subject.content).to eq personal_note.content }
           it { expect(subject.order).to eq personal_note.order }
-          it { expect(subject.done).to be_true }
+          it { expect(subject).to be_done }
         end
 
         #it { expect(subject.medias.count).to eq 2 }
@@ -389,7 +389,7 @@ describe Api::V1::Teacher::EventsController do
 
     context "authenticated" do
 
-      pending "invalid event"
+      skip "invalid event"
 
       let(:start_at) { event.start_at + 1.hour }
       let(:params_hash) { { event: { start_at: start_at.utc.iso8601, status: "published" } } }
@@ -417,14 +417,14 @@ describe Api::V1::Teacher::EventsController do
     before do
       event.save!
       Timecop.freeze
-      CoursePusher.any_instance.should_receive(:open).once
+      expect_any_instance_of(CoursePusher).to receive(:open).once
       do_action
     end
     after { Timecop.return }
 
     it { expect(last_response.status).to eq(200) }
     it { expect(json["uuid"]).to eq(event.uuid) }
-    it { expect(event.reload.opened?).to be_true }
+    it { expect(event.reload.opened?).to be true }
     it { expect(event.reload.opened_at.utc.iso8601).to eq(Time.now.utc.iso8601) }
     it { expect(json["channel"]).to eq event.channel }
     it { expect(json["student_message_event"]).to eq event_pusher_events.student_message_event }
@@ -433,7 +433,7 @@ describe Api::V1::Teacher::EventsController do
     context "opening event again" do
       before do
         Timecop.freeze(Time.now + 1)
-        CoursePusher.any_instance.stub(:close)
+        allow_any_instance_of(CoursePusher).to receive(:close)
         do_action
       end
       after { Timecop.return }
@@ -454,18 +454,18 @@ describe Api::V1::Teacher::EventsController do
     before do
       event.save!
       Timecop.freeze
-      EventPusher.any_instance.should_receive(:close).once
+      expect_any_instance_of(EventPusher).to receive(:close).once
       do_action
     end
     after { Timecop.return }
 
-    it { expect(event.reload.closed?).to be_true }
+    it { expect(event.reload.closed?).to be true }
     it { expect(event.reload.closed_at.utc.iso8601).to eq Time.now.utc.iso8601 }
 
     context "closing event again" do
       before do
         Timecop.freeze(Time.now + 1)
-        EventPusher.any_instance.stub(:close)
+        allow_any_instance_of(EventPusher).to receive(:close)
         do_action
       end
       after { Timecop.return }

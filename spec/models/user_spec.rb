@@ -5,12 +5,12 @@ describe User do
   it { expect(user).to be_valid }
 
   describe "association" do
-    it { should belong_to(:profile) }
+    it { is_expected.to belong_to(:profile) }
   end
 
   describe "validations" do
     [:name, :email, :phone_number, :password].each do |attr|
-      it { should validate_presence_of(attr) }
+      it { is_expected.to validate_presence_of(attr) }
     end
 
     describe "#phone_number" do
@@ -59,7 +59,7 @@ describe User do
 
       context "new user" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do

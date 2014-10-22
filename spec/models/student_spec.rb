@@ -7,14 +7,14 @@ describe Student do
   it { expect(student).to be_valid }
 
   describe "association" do
-    it { should have_one(:user) }
-    it { should have_many(:events) }
-    it { should have_and_belong_to_many(:courses) }
+    it { is_expected.to have_one(:user) }
+    it { is_expected.to have_many(:events) }
+    it { is_expected.to have_and_belong_to_many(:courses) }
   end
 
   describe "delegation" do
     %w(uuid email authentication_token name phone_number).each do |attribute|
-      it { should respond_to(attribute) }
+      it { is_expected.to respond_to(attribute) }
     end
   end
 
