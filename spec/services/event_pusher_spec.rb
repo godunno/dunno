@@ -7,7 +7,7 @@ describe EventPusher do
   let(:teacher_pusher_events) { EventPusherEvents.new(create(:teacher).user) }
 
   before do
-    Pusher.stub(:trigger)
+    allow(Pusher).to receive(:trigger)
     @event_pusher = EventPusher.new(event)
   end
 

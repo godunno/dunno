@@ -11,7 +11,7 @@ describe Poll do
 
   describe "validations" do
     it { should validate_presence_of(:content) }
-    it { should ensure_inclusion_of(:status).in_array(Poll::STATUSES) }
+    it { is_expected.to validate_inclusion_of(:status).in_array(Poll::STATUSES) }
   end
 
   describe "defaults" do

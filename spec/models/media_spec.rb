@@ -12,7 +12,7 @@ describe Media do
   describe "validations" do
     it { should validate_presence_of(:title) }
     it { should validate_presence_of(:category) }
-    it { should ensure_inclusion_of(:category).in_array(Media::CATEGORIES) }
+    it { is_expected.to validate_inclusion_of(:category).in_array(Media::CATEGORIES) }
 
     it "should validate URL's format" do
       media.url = "http://www.example.com"
