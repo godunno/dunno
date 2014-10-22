@@ -57,9 +57,13 @@ EventCtrl = (
 
   anyEditing = (list)->
     !!list.filter((item)-> $scope.isEditing(item)).length
+
+  unsavedItems = ->
+    $scope.event_form.topic.$viewValue ||
+    $scope.event_form.personal_note.$viewValue
+
   $scope.saveButtonDisabled = ->
-    $scope.event_form.topic.description ||
-      $scope.event_form.personal_note.content ||
+    unsavedItems() ||
       anyEditing($scope.event.topics) ||
       anyEditing($scope.event.personal_notes) ||
       $scope.isSaving ||
@@ -86,8 +90,7 @@ EventCtrl = (
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()
     AUTOSAVE_INTERVAL)
   checkDirty = (event)->
-    unsavedItems = $scope.newTopic.description || $scope.newPersonalNote.content
-    if $scope.event_form.$dirty || unsavedItems
+    if $scope.event_form.$dirty || unsavedItems()
       "Algumas alterações ainda não foram efetuadas. Deseja continuar?"
   NavigationGuard.registerGuardian(checkDirty)
   $scope.$on '$destroy', ->

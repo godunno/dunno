@@ -22,7 +22,7 @@ listCtrl = ($scope, Utils)->
     { order: order }
 
   generateOrderableItem = ->
-    $scope.$parent[itemName()] = generateOrderable(list())
+    $scope[itemName()] = generateOrderable(list())
 
   $scope.$on 'initializeEvent', ->
     generateOrderableItem()
