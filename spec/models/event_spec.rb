@@ -36,7 +36,7 @@ describe Event do
         it "saves a new uuid" do
           expect do
             event.save!
-          end.to change{event.uuid}.from(nil).to(uuid)
+          end.to change { event.uuid }.from(nil).to(uuid)
         end
       end
 
@@ -50,7 +50,7 @@ describe Event do
           SecureRandom.stub(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
           expect do
             event.save!
-          end.to_not change{ event.uuid }.from(uuid).to("new-uuid-generate-rencently-7cf25d610d4d")
+          end.to_not change { event.uuid }.from(uuid)
         end
       end
     end
@@ -67,7 +67,7 @@ describe Event do
       it "should be #{status}" do
         expect do
           event.status = status
-        end.to change{event.send("#{status}?")}.from(false).to(true)
+        end.to change { event.send("#{status}?") }.from(false).to(true)
       end
     end
   end
@@ -145,7 +145,7 @@ describe Event do
     end
     it "should not be able to close an unopened event" do
       event.opened_at = nil
-      expect(event.close!).to be_false
+      expect(event.close!).to be false
       expect(event).not_to be_closed
     end
   end

@@ -16,6 +16,10 @@ describe Rating do
     end
 
     it { expect(@duplicated_rating).to_not be_valid }
-    it { expect(@duplicated_rating).to have(1).error_on(:student) }
+
+    it 'has an error on student' do
+      @duplicated_rating.valid?
+      expect(@duplicated_rating.errors[:student].size).to eq 1
+    end
   end
 end

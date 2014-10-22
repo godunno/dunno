@@ -15,7 +15,7 @@ describe Poll do
   end
 
   describe "defaults" do
-    its(:status) { should eq("available") }
+    it { expect(subject.status).to eq "available" }
   end
 
   describe "callbacks" do
