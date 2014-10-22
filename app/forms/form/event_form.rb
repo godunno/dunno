@@ -23,6 +23,7 @@
         artifact.timeline = model.timeline
         artifact.teacher = course.try(:teacher)
       end
+      @topics.each { |topic| topic.event = model }
       @personal_notes.each { |personal_note| personal_note.event = model }
     end
 
@@ -43,11 +44,11 @@
     end
 
     def artifacts
-      [@topics, @thermometers, @polls, @medias].compact.flatten
+      [@thermometers, @polls, @medias].compact.flatten
     end
 
     def associates
-      (artifacts + [@personal_notes]).compact.flatten
+      (artifacts + [@topics, @personal_notes]).compact.flatten
     end
 
     def event

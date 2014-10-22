@@ -7,7 +7,7 @@ describe Api::V1::Teacher::TopicsController do
       let!(:teacher) { create(:teacher) }
       let!(:course) { create(:course, teacher: teacher) }
       let!(:event) { create(:event, course: course, start_at: Time.now) }
-      let!(:topic) { create(:topic, timeline: event.timeline) }
+      let!(:topic) { create(:topic, event: event) }
 
       def do_action
         patch "/api/v1/teacher/topics/#{topic.uuid}/transfer.json", auth_params(teacher).to_json
@@ -17,8 +17,8 @@ describe Api::V1::Teacher::TopicsController do
         let!(:next_event) { create(:event, course: course, start_at: 1.day.from_now) }
 
         it "should transfer topic to the next event" do
-          expect { do_action }.to change{topic.reload.timeline}
-            .from(event.timeline).to(next_event.timeline)
+          expect { do_action }.to change{topic.reload.event}
+            .from(event).to(next_event)
         end
       end
 

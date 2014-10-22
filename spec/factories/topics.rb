@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :topic do
-    timeline
+    event
     description "MyString"
   end
 end

@@ -90,13 +90,13 @@ describe Event do
       end
 
       it "there's at least one topic" do
-        create(:topic, timeline: event.timeline)
-        expect(event.formatted_status).to eq("draft")
+        event.topics << build(:topic)
+        expect(event.reload.formatted_status).to eq("draft")
       end
 
       it "there's at least one personal note" do
         event.personal_notes << build(:personal_note)
-        expect(event.formatted_status).to eq("draft")
+        expect(event.reload.formatted_status).to eq("draft")
       end
     end
 

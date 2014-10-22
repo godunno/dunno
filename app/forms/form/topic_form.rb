@@ -1,7 +1,8 @@
 module Form
-  class TopicForm < Form::ArtifactForm
+  class TopicForm < Form::Base
     model_class ::Topic
 
+    attr_accessor :event
     attribute :description, String
     attribute :order, Integer
     attribute :done, Boolean
@@ -13,10 +14,10 @@ module Form
     private
 
       def persist!
-        super
         model.description = description
         model.order = order
         model.done = done
+        model.event = event
         model.save!
       end
   end

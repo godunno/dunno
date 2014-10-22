@@ -6,7 +6,7 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
   def transfer
     next_event = topic.event.next
     if next_event
-      topic.update!(timeline: next_event.timeline)
+      topic.update!(event: next_event)
       status = 200
     else
       status = 422
