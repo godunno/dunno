@@ -59,8 +59,8 @@ EventCtrl = (
     !!list.filter((item)-> $scope.isEditing(item)).length
 
   unsavedItems = ->
-    $scope.event_form.topic.$viewValue ||
-    $scope.event_form.personal_note.$viewValue
+    $scope.event_form.topic.$dirty ||
+    $scope.event_form.personal_note.$dirty
 
   $scope.saveButtonDisabled = ->
     unsavedItems() ||
