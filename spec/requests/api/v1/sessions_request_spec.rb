@@ -122,7 +122,7 @@ describe Api::V1::SessionsController do
         it { expect(json["authentication_token"]).to eq(teacher.authentication_token) }
 
         it "should allow access with authentication_token after the sign in" do
-          pending "Implement some endpoint to test this feature"
+          # TODO: Implement some endpoint to test this feature
           get "/api/v1/events.json",
               user_email: teacher.email, user_token: teacher.authentication_token
           expect(controller.current_user).to eq(teacher.user)

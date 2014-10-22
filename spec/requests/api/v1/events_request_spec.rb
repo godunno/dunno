@@ -338,7 +338,7 @@ describe Api::V1::EventsController do
       end
 
       it { expect(last_response.status).to eq(200) }
-      it { expect(attendance.validated).to be_true }
+      it { expect(attendance.validated).to be true }
     end
 
     context "incorrect beacon" do
@@ -351,7 +351,7 @@ describe Api::V1::EventsController do
       end
 
       it { expect(last_response.status).to eq(400) }
-      it { expect(attendance.validated).to be_false }
+      it { expect(attendance.validated).to be false }
     end
   end
 end

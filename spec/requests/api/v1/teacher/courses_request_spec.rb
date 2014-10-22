@@ -76,7 +76,7 @@ describe Api::V1::Teacher::EventsController do
           subject { json["course"] }
           it { expect(subject["uuid"]).to eq course.uuid }
 
-          pending "course's attributes"
+          skip "course's attributes"
           it { expect(subject["order"]).to eq course.order }
           it { expect(subject["access_code"]).to eq course.access_code }
           it { expect(subject["students"][0]["name"]).to eq(student.name) }
@@ -191,8 +191,8 @@ describe Api::V1::Teacher::EventsController do
         patch "/api/v1/teacher/courses/#{course.uuid}.json", parameters.merge(auth_params(teacher)).to_json
       end
 
-      pending "invalid course"
-      pending "another teacher's course"
+      skip "invalid course"
+      skip "another teacher's course"
 
       before do
         course.save!
@@ -215,7 +215,7 @@ describe Api::V1::Teacher::EventsController do
 
       before { course.save! }
 
-      pending "another teacher's course"
+      skip "another teacher's course"
 
       def do_action
         delete "/api/v1/teacher/courses/#{course.uuid}.json", auth_params(teacher).to_json

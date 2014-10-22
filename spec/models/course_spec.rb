@@ -54,7 +54,7 @@ describe Course do
           SecureRandom.stub(:uuid).and_return(new_uuid)
           expect do
             course.save!
-          end.to_not change{course.uuid}.from(uuid).to(new_uuid)
+          end.to_not change { course.uuid }
         end
 
         it "does not saves new uuid" do
@@ -62,7 +62,7 @@ describe Course do
           SecureRandom.stub(:hex).and_return(new_access_code)
           expect do
             course.save!
-          end.to_not change{course.access_code}.from(access_code).to(new_access_code)
+          end.to_not change { course.access_code }
         end
       end
     end
@@ -79,7 +79,6 @@ describe Course do
   describe "#order" do
     let(:second_course) { build :course, teacher: course.teacher }
     before do
-      pending "Flapping test"
       course.save!
       second_course.save!
     end
