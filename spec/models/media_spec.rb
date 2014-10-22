@@ -16,22 +16,27 @@ describe Media do
 
     it "should validate URL's format" do
       media.url = "http://www.example.com"
-      expect(media).to have(0).errors_on(:url)
+      media.valid?
+      expect(media.errors[:url].size).to eq 0
 
       media.url = "invalid url"
-      expect(media).to have(1).error_on(:url)
+      media.valid?
+      expect(media.errors[:url].size).to eq 1
     end
 
     it "should make URL and File mutually exclusive" do
       media.file = nil
       media.url = 'http://www.example.com'
-      expect(media).to have(0).errors_on(:url)
+      media.valid?
+      expect(media.errors[:url].size).to eq 0
 
       media.file = Tempfile.new('test')
-      expect(media).to have(1).error_on(:url)
+      media.valid?
+      expect(media.errors[:url].size).to eq 1
 
       media.url = nil
-      expect(media).to have(0).errors_on(:url)
+      media.valid?
+      expect(media.errors[:url].size).to eq 0
     end
   end
 

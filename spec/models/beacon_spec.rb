@@ -28,7 +28,7 @@ describe Beacon do
         it "saves a new uuid" do
           expect do
             beacon.save!
-          end.to change{beacon.uuid}.from(nil).to(uuid)
+          end.to change { beacon.uuid }.from(nil).to(uuid)
         end
       end
 
@@ -42,7 +42,7 @@ describe Beacon do
           SecureRandom.stub(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
           expect do
             beacon.save!
-          end.to_not change{beacon.uuid}.from(uuid).to("new-uuid-generate-rencently-7cf25d610d4d")
+          end.to_not change { beacon.uuid }
         end
       end
     end

@@ -26,7 +26,7 @@ describe Organization do
         it "saves a new uuid" do
           expect do
             organization.save!
-          end.to change{organization.uuid}.from(nil).to(uuid)
+          end.to change { organization.uuid }.from(nil).to(uuid)
         end
       end
 
@@ -40,7 +40,7 @@ describe Organization do
           SecureRandom.stub(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
           expect do
             organization.save!
-          end.to_not change{ organization.uuid }.from(uuid).to("new-uuid-generate-rencently-7cf25d610d4d")
+          end.to_not change { organization.uuid }
         end
       end
     end
