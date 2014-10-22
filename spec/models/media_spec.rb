@@ -10,8 +10,8 @@ describe Media do
   end
 
   describe "validations" do
-    it { should validate_presence_of(:title) }
-    it { should validate_presence_of(:category) }
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:category) }
     it { is_expected.to validate_inclusion_of(:category).in_array(Media::CATEGORIES) }
 
     it "should validate URL's format" do
@@ -48,7 +48,7 @@ describe Media do
 
       context "new media" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do

@@ -417,7 +417,7 @@ describe Api::V1::Teacher::EventsController do
     before do
       event.save!
       Timecop.freeze
-      CoursePusher.any_instance.should_receive(:open).once
+      expect_any_instance_of(CoursePusher).to receive(:open).once
       do_action
     end
     after { Timecop.return }
@@ -433,7 +433,7 @@ describe Api::V1::Teacher::EventsController do
     context "opening event again" do
       before do
         Timecop.freeze(Time.now + 1)
-        CoursePusher.any_instance.stub(:close)
+        allow_any_instance_of(CoursePusher).to receive(:close)
         do_action
       end
       after { Timecop.return }
@@ -454,7 +454,7 @@ describe Api::V1::Teacher::EventsController do
     before do
       event.save!
       Timecop.freeze
-      EventPusher.any_instance.should_receive(:close).once
+      expect_any_instance_of(EventPusher).to receive(:close).once
       do_action
     end
     after { Timecop.return }
@@ -465,7 +465,7 @@ describe Api::V1::Teacher::EventsController do
     context "closing event again" do
       before do
         Timecop.freeze(Time.now + 1)
-        EventPusher.any_instance.stub(:close)
+        allow_any_instance_of(EventPusher).to receive(:close)
         do_action
       end
       after { Timecop.return }

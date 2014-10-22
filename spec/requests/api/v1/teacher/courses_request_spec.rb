@@ -135,10 +135,10 @@ describe Api::V1::Teacher::EventsController do
 
       it "should schedule it's events" do
         course_scheduler = double("course_scheduler")
-        CourseScheduler
-          .should_receive(:new)
+        expect(CourseScheduler)
+          .to receive(:new)
           .and_return(course_scheduler)
-        course_scheduler.should_receive(:schedule!)
+        expect(course_scheduler).to receive(:schedule!)
         do_action
       end
 

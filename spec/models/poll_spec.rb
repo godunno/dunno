@@ -10,7 +10,7 @@ describe Poll do
   end
 
   describe "validations" do
-    it { should validate_presence_of(:content) }
+    it { is_expected.to validate_presence_of(:content) }
     it { is_expected.to validate_inclusion_of(:status).in_array(Poll::STATUSES) }
   end
 
@@ -26,7 +26,7 @@ describe Poll do
 
       context "new poll" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do

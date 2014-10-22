@@ -5,12 +5,12 @@ describe Beacon do
   let(:beacon) { build(:beacon) }
 
   describe "associations" do
-    it { should have_many(:events) }
+    it { is_expected.to have_many(:events) }
   end
 
   describe "validations" do
     [:title, :major, :minor].each do |attr|
-      it { should validate_presence_of(attr) }
+      it { is_expected.to validate_presence_of(attr) }
     end
   end
 
@@ -22,7 +22,7 @@ describe Beacon do
 
       context "new beacon" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do
@@ -34,12 +34,12 @@ describe Beacon do
 
       context "existent beacon" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
           beacon.save!
         end
 
         it "does not saves new uuid" do
-          SecureRandom.stub(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
+          allow(SecureRandom).to receive(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
           expect do
             beacon.save!
           end.to_not change { beacon.uuid }

@@ -38,8 +38,8 @@ describe Api::V1::Teacher::NotificationsController do
         let(:mail) { double("mail", deliver: nil) }
 
         before do
-          SmsProvider.stub(:new).and_return(sms_provider)
-          NotificationMailer.stub(:notify).and_return(mail)
+          allow(SmsProvider).to receive(:new).and_return(sms_provider)
+          allow(NotificationMailer).to receive(:notify).and_return(mail)
           do_action
         end
 

@@ -5,7 +5,7 @@ describe PersonalNote do
   let(:personal_note) { build :personal_note }
 
   describe "associations" do
-    it { should belong_to(:event) }
+    it { is_expected.to belong_to(:event) }
   end
 
   describe "callbacks" do
@@ -16,7 +16,7 @@ describe PersonalNote do
 
       context "new personal_note" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do

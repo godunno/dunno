@@ -3,13 +3,13 @@ require 'spec_helper'
 describe TimelineMessage do
   let(:timeline_message) { build(:timeline_message) }
   describe "associations" do
-    it { should belong_to(:student) }
-    it { should have_one(:timeline_interaction) }
-    it { should have_one(:timeline).through(:timeline_interaction) }
+    it { is_expected.to belong_to(:student) }
+    it { is_expected.to have_one(:timeline_interaction) }
+    it { is_expected.to have_one(:timeline).through(:timeline_interaction) }
   end
   describe "validations" do
-    it { should validate_presence_of(:content) }
-    it { should validate_presence_of(:student) }
+    it { is_expected.to validate_presence_of(:content) }
+    it { is_expected.to validate_presence_of(:student) }
   end
 
   describe "callbacks" do
@@ -20,7 +20,7 @@ describe TimelineMessage do
 
       context "new timeline message" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do

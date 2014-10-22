@@ -1,11 +1,11 @@
 shared_examples_for "artifact common examples" do
-  it { should respond_to(:teacher) }
-  it { should respond_to(:event) }
+  it { is_expected.to respond_to(:teacher) }
+  it { is_expected.to respond_to(:event) }
 end
 
 shared_examples_for "artifact" do
   describe "associations" do
-    it { should have_one(:predecessor) }
+    it { is_expected.to have_one(:predecessor) }
   end
 
   describe "inheritance" do

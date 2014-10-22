@@ -5,7 +5,7 @@ describe WeeklySchedule do
   let(:weekly_schedule) { build :weekly_schedule }
 
   describe "associations" do
-    it { should belong_to(:course) }
+    it { is_expected.to belong_to(:course) }
   end
 
   describe "validations" do
@@ -13,7 +13,7 @@ describe WeeklySchedule do
     it { expect(weekly_schedule).to be_valid }
 
     %w(weekday start_time end_time).each do |attr|
-      it { should validate_presence_of(attr) }
+      it { is_expected.to validate_presence_of(attr) }
     end
 
     it "should validate time format" do

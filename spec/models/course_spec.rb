@@ -5,16 +5,16 @@ describe Course do
   let(:course) { build :course }
 
   describe "associations" do
-    it { should belong_to(:teacher) }
-    it { should belong_to(:organization) }
-    it { should have_many(:events) }
-    it { should have_many(:weekly_schedules) }
-    it { should have_and_belong_to_many(:students) }
+    it { is_expected.to belong_to(:teacher) }
+    it { is_expected.to belong_to(:organization) }
+    it { is_expected.to have_many(:events) }
+    it { is_expected.to have_many(:weekly_schedules) }
+    it { is_expected.to have_and_belong_to_many(:students) }
   end
 
   describe "validations" do
     [:teacher, :start_date, :end_date].each do |attr|
-      it { should validate_presence_of(attr) }
+      it { is_expected.to validate_presence_of(attr) }
     end
   end
 
@@ -27,8 +27,8 @@ describe Course do
 
       context "new course" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
-          SecureRandom.stub(:hex).and_return(access_code)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:hex).and_return(access_code)
         end
 
         it "saves a new uuid" do
@@ -51,7 +51,7 @@ describe Course do
 
         it "does not saves new uuid" do
           new_uuid = "new-uuid-generate-rencently-7cf25d610d4d"
-          SecureRandom.stub(:uuid).and_return(new_uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(new_uuid)
           expect do
             course.save!
           end.to_not change { course.uuid }
@@ -59,7 +59,7 @@ describe Course do
 
         it "does not saves new uuid" do
           new_access_code = "ffff"
-          SecureRandom.stub(:hex).and_return(new_access_code)
+          allow(SecureRandom).to receive(:hex).and_return(new_access_code)
           expect do
             course.save!
           end.to_not change { course.access_code }

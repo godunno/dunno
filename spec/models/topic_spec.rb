@@ -7,11 +7,11 @@ describe Topic do
   it_behaves_like "artifact"
 
   describe "associations" do
-    it { should have_many(:ratings) }
+    it { is_expected.to have_many(:ratings) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:description) }
+    it { is_expected.to validate_presence_of(:description) }
   end
 
   describe "callbacks" do
@@ -22,7 +22,7 @@ describe Topic do
 
       context "new topic" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do

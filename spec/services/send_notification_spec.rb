@@ -13,7 +13,7 @@ describe SendNotification do
 
   before do
     #SmsProvider.stub(:new).and_return(sms_provider)
-    NotificationMailer.stub(:notify).and_return(mail)
+    allow(NotificationMailer).to receive(:notify).and_return(mail)
   end
 
   #it "should notify all users with SMS" do

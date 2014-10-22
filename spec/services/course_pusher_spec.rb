@@ -8,7 +8,7 @@ describe CoursePusher do
   let(:teacher_pusher_events) { CoursePusherEvents.new(create(:teacher).user) }
 
   before do
-    Pusher.stub(:trigger)
+    allow(Pusher).to receive(:trigger)
     @course_pusher = CoursePusher.new(event)
   end
 

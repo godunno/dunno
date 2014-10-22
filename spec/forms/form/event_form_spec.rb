@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Form::EventForm do
   describe "validations" do
     %w(start_at end_at course).each do |attr|
-      it { should validate_presence_of(attr) }
+      it { is_expected.to validate_presence_of(attr) }
     end
   end
 
@@ -58,8 +58,8 @@ describe Form::EventForm do
         before do
           error = ActiveModel::Errors.new(:topic)
           error.add(topic_error, topic_error.to_s)
-          Form::TopicForm.any_instance.stub(:valid?).and_return(false)
-          Form::TopicForm.any_instance.stub(:errors).and_return(error)
+          allow_any_instance_of(Form::TopicForm).to receive(:valid?).and_return(false)
+          allow_any_instance_of(Form::TopicForm).to receive(:errors).and_return(error)
           event_form.save
         end
 
@@ -138,8 +138,8 @@ describe Form::EventForm do
         before do
           error = ActiveModel::Errors.new(:topic)
           error.add(topic_error, topic_error.to_s)
-          Form::TopicForm.any_instance.stub(:valid?).and_return(false)
-          Form::TopicForm.any_instance.stub(:errors).and_return(error)
+          allow_any_instance_of(Form::TopicForm).to receive(:valid?).and_return(false)
+          allow_any_instance_of(Form::TopicForm).to receive(:errors).and_return(error)
           event_form.save
         end
 

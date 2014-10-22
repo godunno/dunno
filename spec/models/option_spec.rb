@@ -5,11 +5,11 @@ describe Option do
   let(:option) { build :option }
 
   describe "associations" do
-    it { should belong_to(:poll) }
+    it { is_expected.to belong_to(:poll) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:content) }
+    it { is_expected.to validate_presence_of(:content) }
   end
 
   describe "callbacks" do
@@ -20,7 +20,7 @@ describe Option do
 
       context "new option" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do
