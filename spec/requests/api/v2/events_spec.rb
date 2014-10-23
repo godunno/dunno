@@ -60,11 +60,11 @@ resource "Events" do
         let(:response_event) { events_json.last }
 
         example_request "has the right attributes" do
-          expect(response_event).to eq({
+          expect(response_event).to eq(
             "id" => event.id,
             "start_at" => event.start_at.iso8601(3),
             "status" => event.formatted_status
-          })
+          )
         end
       end
     end
@@ -74,7 +74,7 @@ resource "Events" do
       let!(:event_from_last_month) { create(:event, course: course, start_at: 1.month.ago) }
 
       example_request "only shows events from this month" do
-        expect(events_json.map{|e| e["id"]})
+        expect(events_json.map { |e| e["id"] })
           .to eq [event_from_this_month.id]
       end
     end
