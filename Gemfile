@@ -78,4 +78,5 @@ group :development, :test do
   gem 'vcr',                      '2.9.3'
   gem 'webmock',                  '1.19.0'
   gem 'timecop',                  '0.7.1'
+  gem 'rspec_api_documentation',  '4.3.0'
 end
