@@ -80,5 +80,10 @@ Dunno::Application.routes.draw do
       resources :organizations, only: [:index] do
       end
     end
+    namespace :v2 do
+      resources :courses, only: [] do
+        resources :events, only: :index
+      end
+    end
   end
 end
