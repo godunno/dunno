@@ -5,6 +5,8 @@ describe Api::V1::EventsController do
   let(:student) { create(:student) }
   let(:course) { create(:course, students: [student]) }
   let(:topic) { create(:topic) }
+  let(:topic_with_url) { create(:topic, media: media_with_url) }
+  let(:topic_with_file) { create(:topic, media: media_with_file) }
   let(:thermometer) { create(:thermometer) }
   let(:poll) { create(:poll, options: [option]) }
   let(:option) { create(:option) }
@@ -13,10 +15,9 @@ describe Api::V1::EventsController do
   let(:beacon) { create(:beacon) }
   let!(:event) do
     create(:event, course: course,
-                   topics: [topic],
+                   topics: [topic, topic_with_url, topic_with_file],
                    thermometers: [thermometer],
                    polls: [poll],
-                   medias: [media_with_url, media_with_file],
                    beacon: beacon
           )
   end
@@ -76,6 +77,25 @@ describe Api::V1::EventsController do
             it_behaves_like "request return check", %w(description)
           end
 
+          describe "media" do
+            let(:media_json) { find(json[1]["topics"], current_topic.uuid)["media"] }
+            context "with URL" do
+              let(:target) { media_with_url }
+              let(:current_topic) { topic_with_url }
+              subject { media_json }
+              it_behaves_like "request return check", %w(uuid title description category url released_at)
+            end
+
+            context "with File" do
+              let(:target) { media_with_file }
+              let(:current_topic) { topic_with_file }
+              subject { media_json }
+              it_behaves_like "request return check", %w(uuid title description category released_at)
+
+              it { expect(subject["url"]).to eq target.file.url }
+            end
+          end
+
           it { expect(subject["polls"].count).to eq 1 }
           describe "poll" do
             let(:target) { poll }
@@ -94,20 +114,6 @@ describe Api::V1::EventsController do
             let(:target) { thermometer }
             subject { json[1]["thermometers"][0] }
             it_behaves_like "request return check", %w(uuid content)
-          end
-
-          describe "media with URL" do
-            let(:target) { media_with_url }
-            subject { json[1]["medias"].find { |m| m["uuid"] == target.uuid } }
-            it_behaves_like "request return check", %w(uuid title description category url released_at)
-          end
-
-          describe "media with File" do
-            let(:target) { media_with_file }
-            subject { json[1]["medias"].find { |m| m["uuid"] == target.uuid } }
-            it_behaves_like "request return check", %w(uuid title description category released_at)
-
-            it { expect(subject["url"]).to eq target.file.url }
           end
         end
 
@@ -169,11 +175,7 @@ describe Api::V1::EventsController do
         end
 
         context "opened event" do
-          let(:event) { create(:event, opened_at: Time.now, topics: [topic], polls: [poll], medias: [media_with_url, media_with_file]) }
-          let!(:topic) { create(:topic) }
-          let!(:poll) { create(:poll, options: [option]) }
-          let(:option) { create(:option) }
-          let!(:media) { create(:media) }
+          let(:event) { create(:event, opened_at: Time.now, topics: [topic, topic_with_url, topic_with_file], polls: [poll]) }
 
           subject { json }
 
@@ -220,13 +222,13 @@ describe Api::V1::EventsController do
 
             describe "media with URL" do
               let(:target) { media_with_url }
-              subject { event_json["medias"].find { |m| m["uuid"] == target.uuid } }
+              subject { find(event_json["topics"], topic_with_url.uuid)["media"] }
               it_behaves_like "request return check", %w(uuid title description category url released_at)
             end
 
             describe "media with File" do
               let(:target) { media_with_file }
-              subject { event_json["medias"].find { |m| m["uuid"] == target.uuid } }
+              subject { find(event_json["topics"], topic_with_file.uuid)["media"] }
               it_behaves_like "request return check", %w(uuid title description category released_at)
 
               it { expect(subject["url"]).to eq target.file.url }

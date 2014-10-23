@@ -80,7 +80,7 @@ describe Api::V1::Teacher::EventsController do
 
   describe "GET /api/v1/teacher/events/:uuid.json" do
 
-    let(:topic) { create(:topic, order: 1, done: true) }
+    let(:topic) { create(:topic, order: 1, done: true, media: media_with_url) }
     let(:thermometer) { create(:thermometer) }
     let(:poll) { create(:poll, options: [option]) }
     let(:option) { create(:option) }
@@ -99,7 +99,6 @@ describe Api::V1::Teacher::EventsController do
              topics: [topic],
              thermometers: [thermometer],
              polls: [poll],
-             medias: [media_with_url],
              personal_notes: [personal_note],
              beacon: beacon
             )
@@ -139,7 +138,6 @@ describe Api::V1::Teacher::EventsController do
         describe "resource" do
 
           let(:target) { event }
-          let(:media) { media_with_url }
 
           subject { event_json }
           it_behaves_like "request return check", %w(id uuid channel order)
@@ -182,7 +180,7 @@ describe Api::V1::Teacher::EventsController do
 
           describe "topic" do
             let(:target) { topic }
-            subject { event_json["topics"][0] }
+            subject { event_json["topics"].find { |t| t["uuid"] == topic.uuid } }
             it_behaves_like "request return check", %w(description uuid order done)
           end
 
@@ -208,7 +206,7 @@ describe Api::V1::Teacher::EventsController do
 
           describe "media with URL" do
             let(:target) { media_with_url }
-            subject { event_json["medias"].find { |m| m["uuid"] == target.uuid } }
+            subject { event_json["topics"].find { |t| t["uuid"] == topic.uuid }["media"] }
             it_behaves_like "request return check", %w(title description category url released_at uuid)
           end
 
@@ -252,14 +250,14 @@ describe Api::V1::Teacher::EventsController do
 
       let(:event_template) { build(:event, course: course) }
 
-      let(:topic) { build :topic, order: 1, done: true, event: event_template }
-      let(:thermometer) { build :thermometer, timeline: event_template.timeline }
-      let(:poll) { build :poll, timeline: event_template.timeline }
-      let(:correct_option) { build :option, content: "Correct Option", correct: true, poll: poll }
-      let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false, poll: poll }
+      let(:topic) { build :topic, order: 1, done: true, media: media_with_url }
+      let(:thermometer) { build :thermometer }
+      let(:poll) { build :poll }
+      let(:correct_option) { build :option, content: "Correct Option", correct: true }
+      let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false }
       let(:options) { [correct_option, incorrect_option] }
       let(:personal_note) { build :personal_note, order: 1, done: true }
-      let(:media_with_url) { build :media, timeline: event_template.timeline }
+      let(:media_with_url) { create :media }
       #let(:media_with_file) { build :media_with_file, timeline: event_template.timeline }
       let(:start_at) { event_template.start_at.utc.iso8601 }
       let(:end_at)   { event_template.end_at.utc.iso8601 }
@@ -270,7 +268,12 @@ describe Api::V1::Teacher::EventsController do
             "course_id" => event_template.course_id,
             "start_at" => start_at,
             "end_at"   => end_at,
-            topics: [topic.attributes],
+            topics: [{
+              description: topic.description,
+              done: topic.done,
+              order: topic.order,
+              media_id: topic.media.id
+            }],
             thermometers: [thermometer.attributes],
             polls: [poll.attributes.merge(
               options: [
@@ -278,23 +281,13 @@ describe Api::V1::Teacher::EventsController do
                 incorrect_option.attributes
               ]
             )],
-            personal_notes: [personal_note.attributes],
-            medias: [
-              media_with_url.attributes
-              #media_with_file.attributes.merge({ file: Rack::Test::UploadedFile.new(media_with_file.file.path) })
-            ]
+            personal_notes: [personal_note.attributes]
           }
         }
       end
 
       def do_action
         post "/api/v1/teacher/events.json", auth_params(teacher).merge(params_hash).to_json
-      end
-
-      it "should create the event" do
-        expect do
-          do_action
-        end.to change{ Event.count }.from(0).to(1)
       end
 
       context "trying to create an invalid event" do
@@ -327,6 +320,14 @@ describe Api::V1::Teacher::EventsController do
           it { expect(subject.description).to eq topic.description }
           it { expect(subject.order).to eq topic.order }
           it { expect(subject).to be_done }
+
+          describe "media with url" do
+            subject { event.topics.first.media }
+            it { expect(subject.title).to eq media_with_url.title }
+            it { expect(subject.description).to eq media_with_url.description }
+            it { expect(subject.category).to eq media_with_url.category }
+            it { expect(subject.url).to eq media_with_url.url }
+          end
         end
 
         it { expect(subject.thermometers.count).to eq 1 }
@@ -355,18 +356,6 @@ describe Api::V1::Teacher::EventsController do
           it { expect(subject.content).to eq personal_note.content }
           it { expect(subject.order).to eq personal_note.order }
           it { expect(subject).to be_done }
-        end
-
-        #it { expect(subject.medias.count).to eq 2 }
-        it { expect(subject.medias.count).to eq 1 }
-
-        describe "media with url" do
-          subject { event.medias.first }
-          it_behaves_like "creating an artifact"
-          it { expect(subject.title).to eq media_with_url.title }
-          it { expect(subject.description).to eq media_with_url.description }
-          it { expect(subject.category).to eq media_with_url.category }
-          it { expect(subject.url).to eq media_with_url.url }
         end
 
         #describe "media with file" do

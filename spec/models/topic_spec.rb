@@ -6,6 +6,7 @@ describe Topic do
 
   describe "associations" do
     it { is_expected.to have_many(:ratings) }
+    it { is_expected.to have_one(:media) }
   end
 
   describe "validations" do

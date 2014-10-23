@@ -43,9 +43,5 @@ class EventBuilder < BaseBuilder
     json.polls event.polls do |poll|
       PollBuilder.new(poll).build!(json)
     end
-
-    json.medias event.medias do |media|
-      MediaBuilder.new(media).build!(json)
-    end
   end
 end

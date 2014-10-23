@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022010352) do
+ActiveRecord::Schema.define(version: 20141022032105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,16 +112,16 @@ ActiveRecord::Schema.define(version: 20141022010352) do
     t.string   "description"
     t.string   "category"
     t.string   "url"
-    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uuid"
     t.string   "file"
     t.string   "status",      default: "available"
     t.datetime "released_at"
+    t.integer  "topic_id"
   end
 
-  add_index "medias", ["event_id"], name: "index_medias_on_event_id", using: :btree
+  add_index "medias", ["topic_id"], name: "index_medias_on_topic_id", using: :btree
   add_index "medias", ["uuid"], name: "index_medias_on_uuid", unique: true, using: :btree
 
   create_table "notifications", force: true do |t|

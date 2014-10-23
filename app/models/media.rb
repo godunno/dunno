@@ -1,14 +1,16 @@
 class Media < ActiveRecord::Base
   include HasUuid
 
-  acts_as_heir_of :artifact
-
   CATEGORIES = %w(image video audio)
+
+  belongs_to :topic
 
   validates :title, presence: true
   validates :category, presence: true, inclusion: { in: CATEGORIES }
   validates :url, format: URI.regexp(:http), allow_blank: true
   validate :mutually_exclusive_url_and_file
+
+  delegate :event, to: :topic
 
   mount_uploader :file, FileUploader
 
