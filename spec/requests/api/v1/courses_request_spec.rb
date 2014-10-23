@@ -14,12 +14,12 @@ describe Api::V1::CoursesController do
   let(:media_with_url) { create(:media, url: "http://www.example.com", file: nil) }
   let(:media_with_file) { create(:media, file: Tempfile.new("test"), url: nil) }
   let!(:event) do
-    create(
-      :event, course: course,
-      topics: [topic, topic_with_url, topic_with_file],
-      thermometers: [thermometer],
-      polls: [poll]
-    )
+    create(:event,
+           course: course,
+           topics: [topic, topic_with_url, topic_with_file],
+           thermometers: [thermometer],
+           polls: [poll]
+          )
   end
   let(:event_pusher_events) { EventPusherEvents.new(student.user) }
 
@@ -49,7 +49,7 @@ describe Api::V1::CoursesController do
 
         describe "collection" do
 
-          subject { json.map {|course| course["uuid"]} }
+          subject { json.map { |course| course["uuid"] } }
 
           it { expect(subject).to include course.uuid }
           it { expect(subject).not_to include another_course.uuid }
@@ -93,7 +93,11 @@ describe Api::V1::CoursesController do
             describe "pusher events" do
               let(:target) { event_pusher_events }
               subject { event_json }
-              it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
+              it_behaves_like "request return check", %w(
+                student_message_event
+                up_down_vote_message_event receive_rating_event release_poll_event
+                release_media_event close_event
+              )
             end
 
             describe "topic" do
@@ -193,7 +197,7 @@ describe Api::V1::CoursesController do
 
       let(:new_course) { create :course }
 
-      it { expect(student.courses).not_to include(new_course)}
+      it { expect(student.courses).not_to include(new_course) }
       it { expect(new_course.students).to eq([]) }
 
       context "valid content type" do
