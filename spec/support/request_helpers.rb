@@ -4,8 +4,8 @@ module Requests
       @json ||= JSON.parse(last_response.body)
     end
 
-    def find(collection, uuid)
-      collection.find { |item| item["uuid"] == uuid }
+    def find(collection, identifier, key = "uuid")
+      collection.find { |item| item[key] == identifier }
     end
   end
 

@@ -250,11 +250,11 @@ describe Api::V1::Teacher::EventsController do
 
       let(:event_template) { build(:event, course: course) }
 
-      let(:topic) { build :topic, order: 1, done: true, event: event_template, media: media_with_url }
-      let(:thermometer) { build :thermometer, timeline: event_template.timeline }
-      let(:poll) { build :poll, timeline: event_template.timeline }
-      let(:correct_option) { build :option, content: "Correct Option", correct: true, poll: poll }
-      let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false, poll: poll }
+      let(:topic) { build :topic, order: 1, done: true, media: media_with_url }
+      let(:thermometer) { build :thermometer }
+      let(:poll) { build :poll }
+      let(:correct_option) { build :option, content: "Correct Option", correct: true }
+      let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false }
       let(:options) { [correct_option, incorrect_option] }
       let(:personal_note) { build :personal_note, order: 1, done: true }
       let(:media_with_url) { create :media }
@@ -288,12 +288,6 @@ describe Api::V1::Teacher::EventsController do
 
       def do_action
         post "/api/v1/teacher/events.json", auth_params(teacher).merge(params_hash).to_json
-      end
-
-      it "should create the event" do
-        expect do
-          do_action
-        end.to change{ Event.count }.from(0).to(1)
       end
 
       context "trying to create an invalid event" do
