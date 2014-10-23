@@ -8,9 +8,9 @@ class Event < ActiveRecord::Base
   has_many :thermometers, inverse_of: :event
   has_many :polls
   has_many :personal_notes
+  has_many :topics
   belongs_to :beacon
   has_many :artifacts, through: :timeline
-  has_many :topics,       through: :artifacts, source: :heir, source_type: 'Topic'
   has_many :polls,        through: :artifacts, source: :heir, source_type: 'Poll'
   has_many :thermometers, through: :artifacts, source: :heir, source_type: 'Thermometer'
   has_many :medias,       through: :artifacts, source: :heir, source_type: 'Media'
@@ -68,7 +68,7 @@ class Event < ActiveRecord::Base
     status
   end
 
-  %w(topics polls medias thermometers).each do |attr|
+  %w(polls medias thermometers).each do |attr|
     define_method "#{attr}=" do |artifacts|
       artifacts.each do |artifact|
         timeline.artifacts << artifact.predecessor

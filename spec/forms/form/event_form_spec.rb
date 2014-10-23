@@ -68,16 +68,16 @@ describe Form::EventForm do
       end
 
       context "trying to change nested model's timeline" do
-        let(:existing_topic) { create(:topic) }
-        let(:topic) { {uuid: existing_topic.uuid, description: 'UPDATED DESCRIPTION'} }
+        let(:existing_thermometer) { create(:thermometer) }
+        let(:thermometer) { { uuid: existing_thermometer.uuid, content: 'UPDATED CONTENT' } }
         let(:event) do
-          valid_event_hash.merge(topics: [topic])
+          valid_event_hash.merge(thermometers: [thermometer])
         end
         before(:each) { event_form.save }
 
         it { expect(event_form).not_to be_valid }
         it { expect(event_form.errors).to include(:timeline) }
-        it { expect(existing_topic.reload.description).not_to eq(topic[:description]) }
+        it { expect(existing_thermometer.reload.content).not_to eq(thermometer[:content]) }
       end
     end
   end
@@ -97,7 +97,7 @@ describe Form::EventForm do
       it { expect(existing_event.reload.start_at).to eq(event[:start_at]) }
 
       context "with nested models" do
-        let(:existing_topic) { create(:topic, timeline: existing_event.timeline) }
+        let(:existing_topic) { create(:topic, event: existing_event) }
         let(:topic) { {uuid: existing_topic.uuid, description: 'UPDATED DESCRIPTION'} }
         let(:event) do
           valid_event_hash.merge({
@@ -125,7 +125,7 @@ describe Form::EventForm do
       end
 
       context "nested models" do
-        let(:existing_topic) { create(:topic, timeline: existing_event.timeline) }
+        let(:existing_topic) { create(:topic, event: existing_event) }
         let(:topic) { {uuid: existing_topic.uuid} }
         let(:topic_error) { :topic_error }
         let(:event) do
@@ -149,24 +149,24 @@ describe Form::EventForm do
       end
 
       context "trying to change nested model's timeline" do
-        let(:existing_topic) { create(:topic) }
-        let(:topic) { {uuid: existing_topic.uuid, description: 'UPDATED DESCRIPTION'} }
+        let(:existing_thermometer) { create(:thermometer) }
+        let(:thermometer) { { uuid: existing_thermometer.uuid, content: 'UPDATED CONTENT' } }
         let(:event) do
           valid_event_hash.merge({
             uuid: existing_event.uuid,
-            topics: [topic]
+            thermometers: [thermometer]
           })
         end
         before(:each) { event_form.save }
 
         it { expect(event_form).not_to be_valid }
         it { expect(event_form.errors).to include(:timeline) }
-        it { expect(existing_topic.reload.description).not_to eq(topic[:description]) }
+        it { expect(existing_thermometer.reload.content).not_to eq(thermometer[:content]) }
       end
     end
 
     context "destroying nested models" do
-      let(:existing_topic) { create(:topic, timeline: existing_event.timeline) }
+      let(:existing_topic) { create(:topic, event: existing_event) }
       let(:topic) { {uuid: existing_topic.uuid, _destroy: true} }
       let(:event) do
         valid_event_hash.merge({

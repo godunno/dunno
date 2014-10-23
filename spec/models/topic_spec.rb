@@ -4,8 +4,6 @@ describe Topic do
 
   let(:topic) { build(:topic) }
 
-  it_behaves_like "artifact"
-
   describe "associations" do
     it { is_expected.to have_many(:ratings) }
   end

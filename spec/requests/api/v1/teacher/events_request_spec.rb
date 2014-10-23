@@ -252,7 +252,7 @@ describe Api::V1::Teacher::EventsController do
 
       let(:event_template) { build(:event, course: course) }
 
-      let(:topic) { build :topic, order: 1, done: true, timeline: event_template.timeline }
+      let(:topic) { build :topic, order: 1, done: true, event: event_template }
       let(:thermometer) { build :thermometer, timeline: event_template.timeline }
       let(:poll) { build :poll, timeline: event_template.timeline }
       let(:correct_option) { build :option, content: "Correct Option", correct: true, poll: poll }
@@ -324,7 +324,6 @@ describe Api::V1::Teacher::EventsController do
         it { expect(subject.topics.count).to eq 1 }
         describe "topic" do
           subject { event.topics.first }
-          it_behaves_like "creating an artifact"
           it { expect(subject.description).to eq topic.description }
           it { expect(subject.order).to eq topic.order }
           it { expect(subject).to be_done }
