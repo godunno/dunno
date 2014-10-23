@@ -20,13 +20,13 @@ class Media < ActiveRecord::Base
 
   private
 
-    def mutually_exclusive_url_or_file
-      %w(url file).each do |attribute|
-        if url.nil? && !file.file.try(:exists?)
-          errors.add(attribute, :blank)
-        elsif url.present? && file.file.try(:exists?)
-          errors.add(attribute, :invalid)
-        end
+  def mutually_exclusive_url_or_file
+    %w(url file).each do |attribute|
+      if url.nil? && !file.file.try(:exists?)
+        errors.add(attribute, :blank)
+      elsif url.present? && file.file.try(:exists?)
+        errors.add(attribute, :invalid)
       end
     end
+  end
 end

@@ -3,8 +3,8 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
 
   def create
     @media_form = Form::MediaForm.new(params[:media])
-    # TODO: Resolver incompatibilidade de validações
-    # dos form objects e remover esse try-catch
+    # TODO: Fix form objects' validation incompatibility
+    # and remove this try-catch
     begin
       @media_form.save
       render json: { id: @media_form.model.id }, status: 200
