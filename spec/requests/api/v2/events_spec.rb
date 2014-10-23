@@ -20,14 +20,14 @@ resource "Events" do
     response_field :next, "Link to the next month calendar."
 
     context do
-      let!(:events) { create_list(:event, 2, course: course) }
+      let!(:event) { create(:event, course: course) }
 
       let(:year) { Time.zone.now.year }
       let(:month) { Time.zone.now.month }
 
       example "Listing events", document: :public do
         do_request
-        expect(events_json.size).to eq 2
+        expect(events_json.size).to eq 1
       end
 
       example_request "sets the right headers and status" do
@@ -43,20 +43,7 @@ resource "Events" do
         expect(json_response["next"]).to eq api_v2_course_events_url(course, month: 1.month.from_now.month, year: 1.month.from_now.year)
       end
 
-      context "requesting for a specific year and month" do
-        let!(:events) { create_list(:event, 2, course: course, start_at: 1.month.ago) }
-
-        let(:now) { Time.zone.now }
-        let(:year) { now.year }
-        let(:month) { now.month - 1 }
-
-        example_request "shows the right events for the month" do
-          expect(events_json.size).to eq 2
-        end
-      end
-
       context "an event in the events list" do
-        let(:event) { events.first }
         let(:response_event) { events_json.last }
 
         example_request "has the right attributes" do
@@ -67,6 +54,19 @@ resource "Events" do
           )
         end
       end
+
+      context "requesting for a specific year and month" do
+        let!(:event) { create(:event, course: course, start_at: 1.month.ago) }
+
+        let(:now) { Time.zone.now }
+        let(:year) { now.year }
+        let(:month) { now.month - 1 }
+
+        example_request "shows the right events for the month" do
+          expect(events_json.size).to eq 1
+        end
+      end
+
     end
 
     context do
