@@ -85,7 +85,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       .large-2.columns
         input.button.btn-style-1.radius.save type="submit" ng-value="saveButtonMessage()" ng-disabled="saveButtonDisabled()"
 
-    .row.card.container
+    .row.card.container event-list="topics"
       .title.diary-label
         h1 Diário
         span.subtitle.translucent Tarefas visíveis para os alunos
@@ -114,11 +114,11 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ui-keydown="{'enter':'updateItem(editingItem, topic)'}"]
 
       .foot
-        input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
-          ui-keydown="{'enter':'addTopic($event)'}" name="topic"]
+        input[ng-model="newListItem.description" type="text" placeholder="Adicionar tarefa"
+          ui-keydown="{'enter':'addItem($event)'}" name="topic"]
         label Ex: Revisar aula passada. Introdução à raiz quadrada.
 
-    .row.card.container.notes
+    .row.card.container.notes event-list="personal_notes"
       .title.notes-label
 
         h1
@@ -148,6 +148,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ng-model="editingItem.content"
               ui-keydown="{'enter':'updateItem(editingItem, personal_note)'}"]
       .foot
-        input[ng-model="newPersonalNote.content" type="text" name="personal_note"
-        placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote($event)'}"]
+        input[ng-model="newListItem.content" type="text" name="personal_note"
+        placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
         label Ex: Fazer ditado surpresa. Rever comportamento do João.
