@@ -69,7 +69,7 @@ describe Form::EventForm do
 
       context "trying to change nested model's timeline" do
         let(:existing_thermometer) { create(:thermometer) }
-        let(:thermometer) { {uuid: existing_thermometer.uuid, content: 'UPDATED CONTENT'} }
+        let(:thermometer) { { uuid: existing_thermometer.uuid, content: 'UPDATED CONTENT' } }
         let(:event) do
           valid_event_hash.merge(thermometers: [thermometer])
         end
@@ -150,7 +150,7 @@ describe Form::EventForm do
 
       context "trying to change nested model's timeline" do
         let(:existing_thermometer) { create(:thermometer) }
-        let(:thermometer) { {uuid: existing_thermometer.uuid, content: 'UPDATED CONTENT'} }
+        let(:thermometer) { { uuid: existing_thermometer.uuid, content: 'UPDATED CONTENT' } }
         let(:event) do
           valid_event_hash.merge({
             uuid: existing_event.uuid,
