@@ -5,10 +5,8 @@ class Media < ActiveRecord::Base
 
   belongs_to :topic
 
-  validates :title, presence: true
-  validates :category, presence: true, inclusion: { in: CATEGORIES }
   validates :url, format: URI.regexp(:http), allow_blank: true
-  validate :mutually_exclusive_url_and_file
+  validate :mutually_exclusive_url_or_file
 
   delegate :event, to: :topic
 
@@ -22,9 +20,13 @@ class Media < ActiveRecord::Base
 
   private
 
-    def mutually_exclusive_url_and_file
-      if url.present? && file.file.try(:exists?)
-        errors.add(:url)
+    def mutually_exclusive_url_or_file
+      %w(url file).each do |attribute|
+        if url.nil? && !file.file.try(:exists?)
+          errors.add(attribute, :blank)
+        elsif url.present? && file.file.try(:exists?)
+          errors.add(attribute, :invalid)
+        end
       end
     end
 end

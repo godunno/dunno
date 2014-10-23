@@ -1,5 +1,5 @@
 module Form
-  class MediaForm < Form::ArtifactForm
+  class MediaForm < Form::Base
     model_class ::Media
 
     attribute :title, String
@@ -15,7 +15,6 @@ module Form
     private
 
       def persist!
-        super
         model.title       = title
         model.description = description
         model.category    = category

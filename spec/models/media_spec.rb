@@ -9,9 +9,6 @@ describe Media do
   end
 
   describe "validations" do
-    it { is_expected.to validate_presence_of(:title) }
-    it { is_expected.to validate_presence_of(:category) }
-    it { is_expected.to validate_inclusion_of(:category).in_array(Media::CATEGORIES) }
 
     it "should validate URL's format" do
       media.url = "http://www.example.com"
@@ -28,14 +25,25 @@ describe Media do
       media.url = 'http://www.example.com'
       media.valid?
       expect(media.errors[:url].size).to eq 0
+      expect(media.errors[:file].size).to eq 0
 
       media.file = Tempfile.new('test')
       media.valid?
       expect(media.errors[:url].size).to eq 1
+      expect(media.errors[:file].size).to eq 1
 
       media.url = nil
       media.valid?
       expect(media.errors[:url].size).to eq 0
+      expect(media.errors[:file].size).to eq 0
+    end
+
+    it "should have URL or File presence" do
+      media.file = nil
+      media.url = nil
+      media.valid?
+      expect(media.errors[:url].size).to eq 1
+      expect(media.errors[:file].size).to eq 1
     end
   end
 
