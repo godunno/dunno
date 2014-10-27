@@ -38,10 +38,10 @@ header.page-header.title ng-class="newRecord(course) ? '' : 'scheme-' + course.o
 
     .row
       h3.form-caption.important Horários de aula
-      span.warning.label-error ng-if="newRecord()"
+      span.warning.label-error ng-if="newRecord(course)"
         span.important> ATENÇÃO:
         | Essas datas não poderão ser alteradas no futuro.
-      span.warning.label-error ng-if="!newRecord()" Essas datas não podem ser alteradas.
+      span.warning.label-error ng-if="!newRecord(course)" Essas datas não podem ser alteradas.
 
       .form-container
 
@@ -50,12 +50,12 @@ header.page-header.title ng-class="newRecord(course) ? '' : 'scheme-' + course.o
             label for="start_date"
               | Data de início das aulas
               span.warning *
-            input.radius id="start_date" ng-model="course.start_date" mask="99/99/9999" ng-disabled="!newRecord()" type="text" placeholder="Ex: 12/08/2014"
+            input.radius id="start_date" ng-model="course.start_date" mask="99/99/9999" ng-disabled="!newRecord(course)" type="text" placeholder="Ex: 12/08/2014"
           .medium-4.large-3.columns
             label for="end_date"
               | Data de término das aulas
               span.warning *
-            input.radius id="end_date" ng-model="course.end_date" mask="99/99/9999" ng-disabled="!newRecord()" type="text" placeholder="Ex: 13/12/2014"
+            input.radius id="end_date" ng-model="course.end_date" mask="99/99/9999" ng-disabled="!newRecord(course)" type="text" placeholder="Ex: 13/12/2014"
           .medium-6.columns
 
         .row
@@ -70,7 +70,7 @@ header.page-header.title ng-class="newRecord(course) ? '' : 'scheme-' + course.o
           .row
             .medium-3.columns
               label Dia da semana:
-              select.radius ng-model="weekly_schedule.weekday" ng-disabled="!newRecord()"
+              select.radius ng-model="weekly_schedule.weekday" ng-disabled="!newRecord(course)"
                 option value="0" Domingo
                 option value="1" Segunda-feira
                 option value="2" Terça-feira
@@ -80,17 +80,17 @@ header.page-header.title ng-class="newRecord(course) ? '' : 'scheme-' + course.o
                 option value="6" Sábado
             .medium-2.columns
               label Começa às:
-              input.radius ng-model="weekly_schedule.start_time" mask="99:99" ng-disabled="!newRecord()" type="text" placeholder="Ex: 10:00"
+              input.radius ng-model="weekly_schedule.start_time" mask="99:99" ng-disabled="!newRecord(course)" type="text" placeholder="Ex: 10:00"
             .medium-2.columns
               label Termina às:
-              input.radius ng-model="weekly_schedule.end_time" mask="99:99" ng-disabled="!newRecord()" type="text" placeholder="Ex: 12:00"
+              input.radius ng-model="weekly_schedule.end_time" mask="99:99" ng-disabled="!newRecord(course)" type="text" placeholder="Ex: 12:00"
             .medium-2.columns
               label Sala / Prédio:
-              input.radius ng-model="weekly_schedule.classroom" type="text" ng-disabled="!newRecord()" placeholder="Ex: Sala 430"
-            .medium-3.columns.right ng-if="newRecord()"
+              input.radius ng-model="weekly_schedule.classroom" type="text" ng-disabled="!newRecord(course)" placeholder="Ex: Sala 430"
+            .medium-3.columns.right ng-if="newRecord(course)"
               a.dunno-font ng-click="remove(course.weekly_schedules, weekly_schedule)" x
 
-        a.btn-black.radius ng-if="newRecord()" ng-click="newItem(course.weekly_schedules, weekly_schedule)"
+        a.btn-black.radius ng-if="newRecord(course)" ng-click="newItem(course.weekly_schedules, weekly_schedule)"
           span.plus A
           span Adicionar tempo
 
