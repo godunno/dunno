@@ -1,4 +1,53 @@
 .diary-page {
+  $dropdown-width: 150px;
+  .dropdown {
+    width: $dropdown-width;
+  }
+  .status-list {
+    @include dropdown-container(list, bottom);
+    @include radius();
+    width: $dropdown-width;
+    border-color: $light-grey-color;
+
+    .option {
+      @include grid-row();
+      cursor: pointer;
+      padding: 10px;
+
+      &:nth-last-child(n+2) {
+        border-bottom: 1px solid $light-grey-color;
+      }
+
+      .title {
+        @include grid-row();
+        color: $dark-grey-color;
+
+        text-transform: uppercase;
+        font-weight: 600;
+
+        .icon {
+          float: right;
+          margin-top: 3px;
+        }
+      }
+
+      .subtitle {
+        @include grid-row();
+        color: $light-grey-color;
+        font-size: 0.8rem;
+        line-height: 1.3em;
+      }
+
+      &.published {
+        .title {
+          color: $primary-color;
+        }
+        .subtitle {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
   .vertical-container {
     display: table-cell;
     vertical-align: middle;

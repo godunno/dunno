@@ -15,7 +15,7 @@ class CourseScheduler
         course_id: @course.id,
         start_at: range.begin,
         end_at: range.end,
-        status: "available"
+        status: "draft"
       )
     end
   end

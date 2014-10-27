@@ -6,19 +6,18 @@ describe Event do
   let(:event) { build(:event) }
 
   describe "associations" do
-    it { should have_one(:timeline) }
-    it { should belong_to(:course) }
-    it { should have_many(:topics) }
-    it { should have_many(:thermometers) }
-    it { should have_many(:personal_notes) }
-    it { should have_many(:medias) }
-    it { should belong_to(:beacon) }
+    it { is_expected.to have_one(:timeline) }
+    it { is_expected.to belong_to(:course) }
+    it { is_expected.to have_many(:topics) }
+    it { is_expected.to have_many(:thermometers) }
+    it { is_expected.to have_many(:personal_notes) }
+    it { is_expected.to belong_to(:beacon) }
   end
 
   describe "validations" do
 
     %w(start_at end_at course).each do |attr|
-      it { should validate_presence_of(attr) }
+      it { is_expected.to validate_presence_of(attr) }
     end
   end
 
@@ -30,27 +29,27 @@ describe Event do
 
       context "new event" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do
           expect do
             event.save!
-          end.to change{event.uuid}.from(nil).to(uuid)
+          end.to change { event.uuid }.from(nil).to(uuid)
         end
       end
 
       context "existent event" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
           event.save!
         end
 
         it "does not saves new uuid" do
-          SecureRandom.stub(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
+          allow(SecureRandom).to receive(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
           expect do
             event.save!
-          end.to_not change{ event.uuid }.from(uuid).to("new-uuid-generate-rencently-7cf25d610d4d")
+          end.to_not change { event.uuid }.from(uuid)
         end
       end
     end
@@ -63,11 +62,11 @@ describe Event do
         event.status = nil
       end
 
-      it { should respond_to "#{status}?" }
+      it { is_expected.to respond_to "#{status}?" }
       it "should be #{status}" do
         expect do
           event.status = status
-        end.to change{event.send("#{status}?")}.from(false).to(true)
+        end.to change { event.send("#{status}?") }.from(false).to(true)
       end
     end
   end
@@ -90,13 +89,13 @@ describe Event do
       end
 
       it "there's at least one topic" do
-        create(:topic, timeline: event.timeline)
-        expect(event.formatted_status).to eq("draft")
+        event.topics << build(:topic)
+        expect(event.reload.formatted_status).to eq("draft")
       end
 
       it "there's at least one personal note" do
         event.personal_notes << build(:personal_note)
-        expect(event.formatted_status).to eq("draft")
+        expect(event.reload.formatted_status).to eq("draft")
       end
     end
 
@@ -145,7 +144,7 @@ describe Event do
     end
     it "should not be able to close an unopened event" do
       event.opened_at = nil
-      expect(event.close!).to be_false
+      expect(event.close!).to be false
       expect(event).not_to be_closed
     end
   end

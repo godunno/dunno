@@ -27,7 +27,7 @@ describe Api::V1::Teacher::PollsController do
 
       context "releasing the same poll again" do
         before do
-          EventPusher.any_instance.stub(:release_poll)
+          allow_any_instance_of(EventPusher).to receive(:release_poll)
           do_action
         end
 

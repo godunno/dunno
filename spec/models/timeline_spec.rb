@@ -3,12 +3,12 @@ require 'spec_helper'
 describe Timeline do
 
   describe "association" do
-    it { should belong_to(:event) }
-    it { should have_many(:timeline_interactions) }
+    it { is_expected.to belong_to(:event) }
+    it { is_expected.to have_many(:timeline_interactions) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:start_at) }
+    it { is_expected.to validate_presence_of(:start_at) }
   end
 
   describe "#interactions" do

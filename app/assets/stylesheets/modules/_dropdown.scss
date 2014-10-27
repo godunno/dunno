@@ -1,0 +1,25 @@
+
+.dropdown {
+  @include radius();
+  border: 2px solid $light-grey-color;
+  display: inline-block;
+  padding: 6px 10px;
+
+  .option {
+    display: inline-block;
+    .icon {
+      margin-right: 5px;
+    }
+  }
+
+  .icon {
+    vertical-align: middle;
+  }
+
+  .icon-arrow-down {
+    color: $light-grey-color;
+    float: right;
+    margin-top: 5px;
+  }
+
+}

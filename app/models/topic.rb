@@ -1,9 +1,10 @@
 class Topic < ActiveRecord::Base
   include HasUuid
 
-  acts_as_heir_of :artifact
+  belongs_to :event
 
   has_many :ratings, as: :rateable
+  has_one :media
 
   validates :description, presence: true
 end

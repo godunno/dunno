@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Answer do
 
   describe "associations" do
-    it { should belong_to(:option) }
-    it { should belong_to(:student) }
+    it { is_expected.to belong_to(:option) }
+    it { is_expected.to belong_to(:student) }
   end
 
   describe "validations" do

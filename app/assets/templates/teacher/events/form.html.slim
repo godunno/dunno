@@ -32,27 +32,60 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 .diary-page
 
   form name="event_form" ng-submit="save(event)"
+    .row
+    .row
+
     .row.event-status
-      .large-4.columns
+      .large-3.columns
         .row.date
           .large-2.columns
             label.icon.icon-calendar.pos.right for="date"
           .large-10.columns
             input.radius id="date" ng-model="event.date" mask="99/99/9999" type="text" placeholder="Ex: 23/10/2014" name="date"
-      .large-5.columns.end
+      .large-4.columns
         .row.time
-          .large-1.columns
+          .large-2.columns
             label.icon.icon-clock.pos for="start_time"
           .large-4.columns
             input.radius id="start_time" ng-model="event.start_time" mask="99:99" type="text" placeholder="Ex: 14:00" name="start_time"
-          .large-1.columns
+          .large-2.columns
             label.to for="end_time" às
           .large-4.columns.end
             input.radius id="end_time" ng-model="event.end_time" mask="99:99" type="text" placeholder="Ex: 16:30" name="end_time"
-      .large-3.columns
+      .large-2.columns
+        a.dropdown data-dropdown="event-status"
+          .option.published ng-if="event.status == 'published'"
+            i.icon.icon-published
+            span.value Publicada
+          .option.draft ng-if="event.status == 'draft'"
+            i.icon.icon-draft
+            span.value Rascunho
+          .option.canceled ng-if="event.status == 'canceled'"
+            i.icon.icon-canceled
+            span.value Cancelada
+          i.icon.icon-arrow-down
+        ul#event-status.status-list data-dropdown-content="" dropdown-select="" ng-model="event.status"
+          li.option.published dropdown-select-item="published"
+            .title
+              span Publicada
+              i.icon.icon-published
+            .subtitle Alunos podem ver as tarefas.
+          li.option dropdown-select-item="draft"
+            .content
+              .title
+                span Rascunho
+                i.icon.icon-draft
+              .subtitle Alunos não conseguem visualizar as tarefas.
+          li.option dropdown-select-item="canceled"
+            .content
+              .title
+                span Cancelar
+                i.icon.icon-canceled
+              .subtitle Cancelar aula e notificar os alunos.
+      .large-2.columns
         input.button.btn-style-1.radius.save type="submit" ng-value="saveButtonMessage()" ng-disabled="saveButtonDisabled()"
 
-    .row.card.container
+    .row.card.container event-list="topics"
       .title.diary-label
         h1 Diário
         span.subtitle.translucent Tarefas visíveis para os alunos
@@ -81,11 +114,11 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ui-keydown="{'enter':'updateItem(editingItem, topic)'}"]
 
       .foot
-        input[ng-model="newTopic.description" type="text" placeholder="Adicionar tarefa"
-          ui-keydown="{'enter':'addTopic($event)'}" name="topic"]
+        input[ng-model="newListItem.description" type="text" placeholder="Adicionar tarefa"
+          ui-keydown="{'enter':'addItem($event)'}" name="topic"]
         label Ex: Revisar aula passada. Introdução à raiz quadrada.
 
-    .row.card.container.notes
+    .row.card.container.notes event-list="personal_notes"
       .title.notes-label
 
         h1
@@ -115,6 +148,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ng-model="editingItem.content"
               ui-keydown="{'enter':'updateItem(editingItem, personal_note)'}"]
       .foot
-        input[ng-model="newPersonalNote.content" type="text" name="personal_note"
-        placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addPersonalNote($event)'}"]
+        input[ng-model="newListItem.content" type="text" name="personal_note"
+        placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
         label Ex: Fazer ditado surpresa. Rever comportamento do João.

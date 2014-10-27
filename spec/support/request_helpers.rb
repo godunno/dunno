@@ -3,6 +3,10 @@ module Requests
     def json
       @json ||= JSON.parse(last_response.body)
     end
+
+    def find(collection, identifier, key = "uuid")
+      collection.find { |item| item[key] == identifier }
+    end
   end
 
   module ControllerHelpers

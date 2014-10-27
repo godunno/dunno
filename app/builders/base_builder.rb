@@ -2,14 +2,16 @@ class BaseBuilder
   attr_reader :object
 
   def initialize(object)
+    @object = object
+
     attribute_name = object.class.name.underscore
     class_eval do
-      attr_accessor attribute_name
+      alias_method attribute_name, :object
     end
-    send("#{attribute_name}=", object)
   end
 
   def build!(json, options = {})
+    return unless object.present?
     build(json, options)
   end
 

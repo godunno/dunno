@@ -3,12 +3,12 @@ require 'spec_helper'
 describe Organization do
 
   describe "associations" do
-    it { should have_many(:courses) }
-    it { should have_and_belong_to_many(:teachers) }
+    it { is_expected.to have_many(:courses) }
+    it { is_expected.to have_and_belong_to_many(:teachers) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:name) }
   end
 
   describe "callbacks" do
@@ -20,27 +20,27 @@ describe Organization do
 
       context "new organization" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do
           expect do
             organization.save!
-          end.to change{organization.uuid}.from(nil).to(uuid)
+          end.to change { organization.uuid }.from(nil).to(uuid)
         end
       end
 
       context "existent organization" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
           organization.save!
         end
 
         it "does not saves new uuid" do
-          SecureRandom.stub(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
+          allow(SecureRandom).to receive(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
           expect do
             organization.save!
-          end.to_not change{ organization.uuid }.from(uuid).to("new-uuid-generate-rencently-7cf25d610d4d")
+          end.to_not change { organization.uuid }
         end
       end
     end

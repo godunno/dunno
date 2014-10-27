@@ -6,17 +6,20 @@ describe Api::V1::CoursesController do
   let(:course) { create(:course, students: [student]) }
   let(:teacher) { course.teacher }
   let(:topic) { create(:topic) }
+  let(:topic_with_url) { create(:topic, media: media_with_url) }
+  let(:topic_with_file) { create(:topic, media: media_with_file) }
   let(:thermometer) { create(:thermometer) }
   let(:poll) { create(:poll, options: [option]) }
   let(:option) { create(:option) }
   let(:media_with_url) { create(:media, url: "http://www.example.com", file: nil) }
   let(:media_with_file) { create(:media, file: Tempfile.new("test"), url: nil) }
   let!(:event) do
-    create(:event, course: course,
-           topics: [topic],
+    create(:event,
+           course: course,
+           topics: [topic, topic_with_url, topic_with_file],
            thermometers: [thermometer],
-           polls: [poll],
-           medias: [media_with_url, media_with_file])
+           polls: [poll]
+          )
   end
   let(:event_pusher_events) { EventPusherEvents.new(student.user) }
 
@@ -46,7 +49,7 @@ describe Api::V1::CoursesController do
 
         describe "collection" do
 
-          subject { json.map {|course| course["uuid"]} }
+          subject { json.map { |course| course["uuid"] } }
 
           it { expect(subject).to include course.uuid }
           it { expect(subject).not_to include another_course.uuid }
@@ -90,12 +93,16 @@ describe Api::V1::CoursesController do
             describe "pusher events" do
               let(:target) { event_pusher_events }
               subject { event_json }
-              it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event receive_rating_event release_poll_event release_media_event close_event)
+              it_behaves_like "request return check", %w(
+                student_message_event
+                up_down_vote_message_event receive_rating_event release_poll_event
+                release_media_event close_event
+              )
             end
 
             describe "topic" do
               let(:target) { topic }
-              subject { event_json["topics"][0] }
+              subject { event_json["topics"].find { |t| t["uuid"] == topic.uuid } }
               it_behaves_like "request return check", %w(uuid description)
             end
 
@@ -121,13 +128,13 @@ describe Api::V1::CoursesController do
 
             describe "media with URL" do
               let(:target) { media_with_url }
-              subject { event_json["medias"].find { |m| m["uuid"] == target.uuid } }
+              subject { event_json["topics"].find { |t| t["uuid"] == topic_with_url.uuid }["media"] }
               it_behaves_like "request return check", %w(uuid title description category url released_at)
             end
 
             describe "media with File" do
               let(:target) { media_with_file }
-              subject { event_json["medias"].find { |m| m["uuid"] == target.uuid } }
+              subject { event_json["topics"].find { |t| t["uuid"] == topic_with_file.uuid }["media"] }
               it_behaves_like "request return check", %w(uuid title description category released_at)
 
               it { expect(subject["url"]).to eq target.file.url }
@@ -190,7 +197,7 @@ describe Api::V1::CoursesController do
 
       let(:new_course) { create :course }
 
-      it { expect(student.courses).not_to include(new_course)}
+      it { expect(student.courses).not_to include(new_course) }
       it { expect(new_course.students).to eq([]) }
 
       context "valid content type" do

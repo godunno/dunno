@@ -1,6 +1,69 @@
 require 'spec_helper'
 
 describe Api::V1::Teacher::MediasController do
+  describe "POST /api/v1/teacher/medias.json" do
+    it_behaves_like "API authentication required"
+    context "authenticated" do
+
+      def do_action
+        post "/api/v1/teacher/medias.json", params_hash
+      end
+
+      context "creating media with URL" do
+        let(:url) { "http://www.example.com/image.jpg" }
+        let(:params_hash) do
+          {
+            "media" => {
+              "url" => url
+            }
+          }.merge(auth_params(:teacher)).to_json
+        end
+
+        before { do_action }
+        subject { Media.last }
+
+        it { expect(last_response.status).to eq(200) }
+        it { expect(json["id"]).to eq(subject.id) }
+        it { expect(subject.url).to eq(url) }
+      end
+
+      context "creating media with file" do
+        let(:file) { uploaded_file("image.jpg", "image/jpeg") }
+        let(:params_hash) do
+          {
+            "media" => {
+              "file" => file
+            }
+          }.merge(auth_params(:teacher))
+        end
+
+        before { do_action }
+        subject { Media.last }
+
+        it { expect(last_response.status).to eq(200) }
+        it { expect(json["id"]).to eq(subject.id) }
+        it { expect(subject.file.file.filename).to eq(file.original_filename) }
+      end
+
+      context "creating invalid media" do
+        let(:file) { uploaded_file("image.jpg", "image/jpeg") }
+        let(:params_hash) do
+          {
+            "media" => {
+            }
+          }.merge(auth_params(:teacher)).to_json
+        end
+
+        before { do_action }
+        subject { Media.last }
+
+        it { expect(last_response.status).to eq(422) }
+        it { expect(json["errors"]).to have_key("url") }
+        it { expect(json["errors"]).to have_key("file") }
+      end
+    end
+  end
+
   describe "PATCH release" do
     context "authenticated" do
       let(:media) { create :media }
@@ -23,7 +86,7 @@ describe Api::V1::Teacher::MediasController do
 
       context "releasing the same poll again" do
         before do
-          EventPusher.any_instance.stub(:release_media)
+          allow_any_instance_of(EventPusher).to receive(:release_media)
           do_action
         end
 

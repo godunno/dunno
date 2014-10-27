@@ -16,7 +16,7 @@ gem 'uglifier',                   '2.5.3'
 gem 'rack-canonical-host',        '0.0.8'
 gem 'bourbon',                    '3.1.8'
 gem 'simple_form',                '3.0.2'
-gem 'party_foul',                 '1.5.2'
+gem 'party_foul',                 '1.5.4'
 gem 'devise',                     '3.2.2'
 gem 'acts_as_votable',            '0.10.0'
 gem 'active_model_serializers',   '0.9.0'
@@ -49,6 +49,9 @@ end
 gem 'database_cleaner',           '1.2.0',     require: false
 
 group :development do
+  gem 'pronto'
+  gem 'pronto-rubocop'
+  gem 'pronto-flay'
   gem 'rubocop',                  '0.26.1'
   gem 'foreman',                  '0.63.0'
   gem 'letter_opener',            '1.1.2'
@@ -57,14 +60,14 @@ group :development do
 end
 
 group :test do
-  gem 'shoulda-matchers',         '2.4.0',     require: false
+  gem 'shoulda-matchers',         '2.7.0',     require: false
   gem 'simplecov',                '0.8.2',     require: false
   gem 'email_spec',               '1.5.0'
   gem 'faker',                    '1.4.3'
 end
 
 group :development, :test do
-  gem 'rspec-rails',              '2.14.2'
+  gem 'rspec-rails',              '3.1.0'
   gem 'factory_girl_rails',       '4.3.0'
   gem 'pry-rails',                '0.3.2'
   gem 'dotenv-rails',             '0.9.0'

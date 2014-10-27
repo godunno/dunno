@@ -24,7 +24,7 @@ describe HasUuid do
 
       context "new model with uuid" do
         before(:each) do
-          SecureRandom.stub(:uuid).and_return(uuid)
+          allow(SecureRandom).to receive(:uuid).and_return(uuid)
         end
 
         it "saves a new uuid" do

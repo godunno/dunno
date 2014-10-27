@@ -18,6 +18,7 @@ require 'shoulda-matchers'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.infer_spec_type_from_file_location!
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -36,7 +37,6 @@ RSpec.configure do |config|
 
   config.filter_run wip: true
   config.run_all_when_everything_filtered = true
-  config.treat_symbols_as_metadata_keys_with_true_values = true
 
   # Use the new rspec expect syntax
   config.expect_with :rspec do |c|
@@ -45,7 +45,6 @@ RSpec.configure do |config|
 
   config.order = "random"
   config.render_views
-  config.treat_symbols_as_metadata_keys_with_true_values = true
   config.include Rack::Test::Methods
   config.include FactoryGirl::Syntax::Methods
   config.include EmailSpec::Helpers

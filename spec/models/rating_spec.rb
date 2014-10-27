@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Rating do
   describe "associations" do
-    it { should belong_to(:rateable) }
-    it { should belong_to(:student) }
+    it { is_expected.to belong_to(:rateable) }
+    it { is_expected.to belong_to(:student) }
   end
 
   describe "validations" do
@@ -16,6 +16,10 @@ describe Rating do
     end
 
     it { expect(@duplicated_rating).to_not be_valid }
-    it { expect(@duplicated_rating).to have(1).error_on(:student) }
+
+    it 'has an error on student' do
+      @duplicated_rating.valid?
+      expect(@duplicated_rating.errors[:student].size).to eq 1
+    end
   end
 end

@@ -5,11 +5,13 @@
 
     attribute :start_at, Time
     attribute :end_at, Time
+    attribute :status, String
 
     validates :start_at, :end_at, :course, presence: true
 
     def initialize(params = {})
       super(params.slice(*attributes_list(:start_at, :end_at)))
+      self.status = params[:status] || model.status
       self.course = model.course || Course.where(id: params[:course_id]).first
       model.timeline ||= Timeline.new(start_at: start_at)
       @topics = populate_children(Form::TopicForm, params[:topics])
@@ -21,6 +23,7 @@
         artifact.timeline = model.timeline
         artifact.teacher = course.try(:teacher)
       end
+      @topics.each { |topic| topic.event = model }
       @personal_notes.each { |personal_note| personal_note.event = model }
     end
 
@@ -41,11 +44,11 @@
     end
 
     def artifacts
-      [@topics, @thermometers, @polls, @medias].compact.flatten
+      [@thermometers, @polls, @medias].compact.flatten
     end
 
     def associates
-      (artifacts + [@personal_notes]).compact.flatten
+      (artifacts + [@topics, @personal_notes]).compact.flatten
     end
 
     def event
@@ -58,6 +61,7 @@
         model.course = course
         model.start_at = start_at
         model.end_at = end_at
+        model.status = status
 
         ActiveRecord::Base.transaction do
           model.timeline.save!
