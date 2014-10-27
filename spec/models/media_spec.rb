@@ -8,37 +8,6 @@ describe Media do
     it { should belong_to(:topic) }
   end
 
-  describe "validations" do
-    it { is_expected.to validate_presence_of(:title) }
-    it { is_expected.to validate_presence_of(:category) }
-    it { is_expected.to validate_inclusion_of(:category).in_array(Media::CATEGORIES) }
-
-    it "should validate URL's format" do
-      media.url = "http://www.example.com"
-      media.valid?
-      expect(media.errors[:url].size).to eq 0
-
-      media.url = "invalid url"
-      media.valid?
-      expect(media.errors[:url].size).to eq 1
-    end
-
-    it "should make URL and File mutually exclusive" do
-      media.file = nil
-      media.url = 'http://www.example.com'
-      media.valid?
-      expect(media.errors[:url].size).to eq 0
-
-      media.file = Tempfile.new('test')
-      media.valid?
-      expect(media.errors[:url].size).to eq 1
-
-      media.url = nil
-      media.valid?
-      expect(media.errors[:url].size).to eq 0
-    end
-  end
-
   describe "callbacks" do
 
     describe "after create" do

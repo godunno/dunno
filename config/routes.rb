@@ -37,7 +37,7 @@ Dunno::Application.routes.draw do
             patch :release
           end
         end
-        resources :medias, only: [] do
+        resources :medias, only: [:create] do
           member do
             patch :release
           end
