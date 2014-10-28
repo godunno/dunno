@@ -51,9 +51,9 @@
   .media-url-input {
     @include dropdown-container(content, right, 350px);
     padding: 8px;
-    background: $extra-light-grey-color;
+    background: $background-light-grey-color;
     &:before {
-      border-left-color: $extra-light-grey-color;
+      border-left-color: $background-light-grey-color;
     }
   }
   .item-button {
