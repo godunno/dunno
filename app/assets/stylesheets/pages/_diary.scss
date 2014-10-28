@@ -48,6 +48,18 @@
       }
     }
   }
+  .media-url-input {
+    @include dropdown-container(list, right, 350px);
+    padding: 8px;
+    background: #f2f2f2;
+  }
+  .item-button {
+    float: right;
+    margin-top: -67px;
+  }
+  .media-url-button {
+    margin-right: 10px;
+  }
   .vertical-container {
     display: table-cell;
     vertical-align: middle;
