@@ -49,9 +49,12 @@
     }
   }
   .media-url-input {
-    @include dropdown-container(list, right, 350px);
+    @include dropdown-container(content, right, 350px);
     padding: 8px;
-    background: #f2f2f2;
+    background: $extra-light-grey-color;
+    &:before {
+      border-left-color: $extra-light-grey-color;
+    }
   }
   .item-button {
     float: right;
