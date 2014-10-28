@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-listCtrl = ($scope, Utils)->
+listCtrl = ($scope, Media, Utils)->
   angular.extend($scope, Utils)
 
   list = -> $scope.event[$scope.collection]
@@ -23,9 +23,10 @@ listCtrl = ($scope, Utils)->
 
   $scope.addItem = ($event)->
     $event.preventDefault()
-    $scope.newItem(list(), $scope.newListItem)
-    generateOrderableItem()
-    $scope.save($scope.event)
+    unless $scope.newListItem._submittingMedia
+      $scope.newItem(list(), $scope.newListItem)
+      generateOrderableItem()
+      $scope.save($scope.event)
 
   $scope.transferItem = (list, item)->
     if confirm("Deseja transferir esse item? Essa operação não poderá ser desfeita.")
@@ -47,7 +48,16 @@ listCtrl = ($scope, Utils)->
         item.order = i + 1
       $scope.save($scope.event)
 
-listCtrl.$inject = ['$scope', 'Utils']
+  $scope.submitMedia = (item)->
+    item._submittingMedia = true
+    media = new Media(item.media)
+    media.save().then((media)->
+      item.media_id = media.id
+    ).finally(->
+      item._submittingMedia = false
+    )
+
+listCtrl.$inject = ['$scope', 'Media', 'Utils']
 DunnoApp.controller 'listCtrl', listCtrl
 
 DunnoApp.directive 'eventList', ->

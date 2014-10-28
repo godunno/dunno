@@ -48,6 +48,21 @@
       }
     }
   }
+  .media-url-input {
+    @include dropdown-container(content, right, 350px);
+    padding: 8px;
+    background: $background-light-grey-color;
+    &:before {
+      border-left-color: $background-light-grey-color;
+    }
+  }
+  .item-button {
+    float: right;
+    margin-top: -67px;
+  }
+  .media-url-button {
+    margin-right: 10px;
+  }
   .vertical-container {
     display: table-cell;
     vertical-align: middle;
