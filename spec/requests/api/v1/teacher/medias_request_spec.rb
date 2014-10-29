@@ -112,9 +112,20 @@ describe Api::V1::Teacher::MediasController do
       let(:url) { "http://mussumipsum.com/" }
 
       it { expect(last_response.status).to eq(200) }
-      it { expect(subject["title"]).to eq("Musum Ipsum") }
-      it { expect(subject["description"]).to eq("O melhor Lorem Ipsum do mundis!") }
-      it { expect(subject["images"][0]["src"]).to eq("http://mussumipsum.com/images/mussum_ipsum_og.jpg") }
+      it "should have the correct response" do
+        expect(json).to eq(
+          "url" => "http://mussumipsum.com/",
+          "favicon" => "images/icon_mussum.ico",
+          "title" => "Musum Ipsum",
+          "description" => "O melhor Lorem Ipsum do mundis!",
+          "images" => [{
+            "src" => "http://mussumipsum.com/images/mussum_ipsum_og.jpg",
+            "size" => [450, 450],
+            "type" => "jpeg"
+          }],
+          "videos" => []
+        )
+      end
     end
   end
 end
