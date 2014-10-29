@@ -50,11 +50,15 @@ listCtrl = ($scope, Media, Utils)->
 
   $scope.submitMedia = (item)->
     item._submittingMedia = true
+    $scope.$broadcast("progress.start")
+    $scope.$broadcast("progress.setValue", "100%")
+
     media = new Media(item.media)
     media.save().then((media)->
       item.media_id = media.id
     ).finally(->
       item._submittingMedia = false
+      $scope.$broadcast("progress.stop")
     )
 
 listCtrl.$inject = ['$scope', 'Media', 'Utils']

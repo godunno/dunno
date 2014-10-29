@@ -1,0 +1,8 @@
+
+.progress {
+  @extend .round;
+
+  .meter {
+    transition: width 0.2s ease;
+  }
+}

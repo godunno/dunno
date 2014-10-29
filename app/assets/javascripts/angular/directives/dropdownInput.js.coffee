@@ -7,7 +7,7 @@ DunnoApp.controller 'dropdownInputCtrl', ['$scope', 'Dropdown', ($scope, Dropdow
 DunnoApp.directive 'dropdownInput', ->
   restrict: 'A'
   controller: 'dropdownInputCtrl'
-  link: (scope, element, attrs, Dropdown)->
+  link: (scope, element, attrs)->
     dropdown = element.parents("[data-dropdown-content]")
     dropdown.on "opened", -> element.focus()
 
