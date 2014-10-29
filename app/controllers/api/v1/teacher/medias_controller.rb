@@ -21,6 +21,12 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
     end
   end
 
+  def preview
+    # TODO: extract to microservice
+    # TODO: deal with possible exceptions
+    render json: LinkThumbnailer.generate(params[:url])
+  end
+
   private
 
     def media
