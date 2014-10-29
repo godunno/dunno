@@ -23,13 +23,8 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
 
   def preview
     # TODO: extract to microservice
-    url = params[:url]
-    result = begin
-               LinkThumbnailer.generate(url)
-             rescue
-               { title: url, description: '', images: [{ src: url }] }
-             end
-    render json: result
+    # TODO: deal with possible exceptions
+    render json: LinkThumbnailer.generate(params[:url])
   end
 
   private

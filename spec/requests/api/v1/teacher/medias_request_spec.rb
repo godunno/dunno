@@ -95,7 +95,7 @@ describe Api::V1::Teacher::MediasController do
     end
   end
 
-  describe "GET /api/v1/teacher/medias/preview.json", vcr: { match_requests_on: [:method, :host, :path] } do
+  describe "GET /api/v1/teacher/medias/preview.json", :vcr do
 
     let(:params_hash) do
       { url: url }
@@ -115,15 +115,6 @@ describe Api::V1::Teacher::MediasController do
       it { expect(subject["title"]).to eq("Musum Ipsum") }
       it { expect(subject["description"]).to eq("O melhor Lorem Ipsum do mundis!") }
       it { expect(subject["images"][0]["src"]).to eq("http://mussumipsum.com/images/mussum_ipsum_og.jpg") }
-    end
-
-    context "Image URL" do
-      let(:url) { "http://placehold.it/350x150" }
-
-      it { expect(last_response.status).to eq(200) }
-      it { expect(subject["title"]).to eq(url) }
-      it { expect(subject["description"]).to eq("") }
-      it { expect(subject["images"][0]["src"]).to eq(url) }
     end
   end
 end
