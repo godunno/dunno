@@ -61,7 +61,7 @@ LinkThumbnailer.configure do |config|
   # Note that LinkThumbnailer will only sort fetched images between each other.
   # Meaning that they could be a "better" image on the page.
   #
-  config.image_limit = 1
+  # config.image_limit = 1
 
   # Whether you want LinkThumbnailer to return image size and type or not.
   # Setting this value to false will increase performance since for each images, LinkThumbnailer

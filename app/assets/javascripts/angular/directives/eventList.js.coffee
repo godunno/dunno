@@ -54,6 +54,9 @@ listCtrl = ($scope, Media, Utils)->
     $scope.$broadcast("progress.setValue", "100%")
 
     media = new Media(item.media)
+    media.preview().then (preview)->
+      $scope.preview = preview
+
     media.save().then((media)->
       item.media_id = media.id
     ).finally(->

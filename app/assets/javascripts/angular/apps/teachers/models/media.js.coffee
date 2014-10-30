@@ -7,5 +7,8 @@ DunnoApp.factory 'Media', ['RailsResource', (RailsResource)->
       idAttribute: 'uuid'
       updateMethod: 'patch'
     )
+
+    preview: ->
+      Media.$get("#{@$url()}/preview", url: @url)
 ]
 

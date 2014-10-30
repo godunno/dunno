@@ -122,6 +122,10 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           input[type="text" name="topic_media" ng-model="newListItem.media.url"
             dropdown-input="submitMedia(newListItem)" placeholder="http://"]
         progress-bar
+        .preview ng-if="preview"
+          img.image ng-src="{{preview.images[0].src}}"
+          .title {{preview.title}}
+          .description {{preview.description}}
 
     .row.card.container.notes event-list="personal_notes"
       .title.notes-label
