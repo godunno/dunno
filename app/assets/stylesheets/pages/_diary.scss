@@ -57,11 +57,30 @@
     }
   }
   .item-button {
-    float: right;
-    margin-top: -67px;
+    margin-left: 1em;
   }
   .media-url-button {
-    margin-right: 10px;
+    float: right;
+    margin-top: -2.8em;
+    margin-right: 1em;
+  }
+
+  .preview {
+    background-color: $background-light-grey-color;
+    margin-bottom: 1em;
+    padding: 1em .5em;
+
+    .image {
+      @include grid-column(2);
+    }
+
+    .text {
+      @include grid-column(10);
+      
+      .title {
+        font-weight: bold;
+      }
+    }
   }
   .vertical-container {
     display: table-cell;
@@ -180,7 +199,7 @@ $diary-card-border: 1px solid #dddddd;
   border: $diary-card-border;
   margin: 20px auto 20px;
   padding: 0;
-  .title {
+  & > .title {
     height: $diary-title-height;
     position: relative;
     border-left-width: 10px;
