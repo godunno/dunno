@@ -69,6 +69,7 @@
     background-color: $background-light-grey-color;
     margin-bottom: 1em;
     padding: 1em .5em;
+    position: relative;
 
     .image {
       @include grid-column(2);
@@ -80,6 +81,12 @@
       .title {
         font-weight: bold;
       }
+    }
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0.6em;
     }
   }
   .vertical-container {

@@ -124,10 +124,11 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .preview ng-if="preview"
           a ng-href="{{preview.url}}" target="_blank"
             .row
-              img.image ng-src="{{preview.images[0].src}}"
+              img.image ng-src="{{imageSrc(preview.images[0].src)}}"
               .text
                 .title {{preview.title}}
                 .description {{preview.description}}
+          a.close ng-click="removeMedia(newListItem)" x
         .hint Ex: Revisar aula passada. Introdução à raiz quadrada.
 
     .row.card.container.notes event-list="personal_notes"
