@@ -46,7 +46,6 @@ describe Api::V1::Teacher::MediasController do
       end
 
       context "creating invalid media" do
-        let(:file) { uploaded_file("image.jpg", "image/jpeg") }
         let(:params_hash) do
           {
             "media" => {

@@ -24,7 +24,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 29 Oct 2014 16:43:21 GMT
+      - Mon, 03 Nov 2014 14:03:20 GMT
       Server:
       - Apache
       Last-Modified:
@@ -241,7 +241,7 @@ http_interactions:
         bnRlcmVzdC5jb20vanMvcGluaXQuanMiPjwvc2NyaXB0Pgo8L2JvZHk+Cjwv
         aHRtbD4K
     http_version: 
-  recorded_at: Wed, 29 Oct 2014 16:43:21 GMT
+  recorded_at: Mon, 03 Nov 2014 14:03:20 GMT
 - request:
     method: get
     uri: http://mussumipsum.com/images/mussum_ipsum_og.jpg
@@ -261,7 +261,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 29 Oct 2014 16:43:21 GMT
+      - Mon, 03 Nov 2014 14:03:20 GMT
       Server:
       - Apache
       Last-Modified:
@@ -2286,7 +2286,7 @@ http_interactions:
         /hEYJEKI8iYixbUH1Y/SPWKTqH20H9bEan2enpMfjF2laQniwB6B/CZ2HCHS
         OJlNNxLYqs9X/wD3X//Z
     http_version: 
-  recorded_at: Wed, 29 Oct 2014 16:43:22 GMT
+  recorded_at: Mon, 03 Nov 2014 14:03:22 GMT
 - request:
     method: get
     uri: http://mussumipsum.com/images/mussum_ipsum_og.jpg
@@ -2306,7 +2306,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 29 Oct 2014 16:43:22 GMT
+      - Mon, 03 Nov 2014 14:03:22 GMT
       Server:
       - Apache
       Last-Modified:
@@ -4331,5 +4331,5 @@ http_interactions:
         /hEYJEKI8iYixbUH1Y/SPWKTqH20H9bEan2enpMfjF2laQniwB6B/CZ2HCHS
         OJlNNxLYqs9X/wD3X//Z
     http_version: 
-  recorded_at: Wed, 29 Oct 2014 16:43:23 GMT
+  recorded_at: Mon, 03 Nov 2014 14:03:24 GMT
 recorded_with: VCR 2.9.3

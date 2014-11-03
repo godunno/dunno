@@ -2,18 +2,18 @@
 http_interactions:
 - request:
     method: post
-    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=815e849cf03506d314c219d365dfcd2c521412080954554d2ebd61d53cd0bef3&auth_timestamp=1392494565&auth_version=1.0&body_md5=8e22132fb7caf367e74bee0d2803bc75
+    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=05d6e392fcefbca0b34eb60e823cac423573e27e9ee59dd288ee267fa8e42811&auth_timestamp=1415023396&auth_version=1.0&body_md5=1e9654b0438ed87bdc9fa8d891f40439
     body:
       encoding: UTF-8
-      string: "{\"name\":\"student_message\",\"channels\":[\"event_a4057edc-3c7e-4b8e-8b45-5ef93b8f8501\"],\"data\":\"{\\\"content\\\":\\\"Some
-        message here\\\"}\"}"
+      string: '{"name":"student_message","channels":["event_6835c6b8-5c45-4801-89aa-5f8e900831ac"],"data":"{\"id\":1605,\"created_at\":\"2014-11-03T12:03:16.418-02:00\",\"updated_at\":\"2014-11-03T12:03:16.418-02:00\",\"content\":\"Some
+        message here\",\"up_votes\":0,\"down_votes\":0,\"student\":{\"id\":5890,\"name\":\"MyString\",\"email\":\"marcelo_xavier@albuquerquesantos.org\"}}"}'
     headers:
       User-Agent:
-      - HTTPClient/1.0 (2.3.4.1, ruby 2.1.0 (2013-12-25))
+      - HTTPClient/1.0 (2.5.1, ruby 2.1.3 (2014-09-19))
       Accept:
       - "*/*"
       Date:
-      - Sat, 15 Feb 2014 20:02:45 GMT
+      - Mon, 03 Nov 2014 14:03:16 GMT
       Content-Type:
       - application/json
   response:
@@ -24,7 +24,7 @@ http_interactions:
       Content-Type:
       - text/html;charset=utf-8
       Server:
-      - thin 1.6.1 codename Death Proof
+      - thin
       Content-Length:
       - '2'
       Connection:
@@ -33,5 +33,5 @@ http_interactions:
       encoding: UTF-8
       string: "{}"
     http_version: 
-  recorded_at: Sat, 15 Feb 2014 20:02:46 GMT
-recorded_with: VCR 2.8.0
+  recorded_at: Mon, 03 Nov 2014 14:03:17 GMT
+recorded_with: VCR 2.9.3

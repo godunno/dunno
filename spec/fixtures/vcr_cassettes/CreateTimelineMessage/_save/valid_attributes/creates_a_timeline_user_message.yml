@@ -2,19 +2,18 @@
 http_interactions:
 - request:
     method: post
-    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=f10f3579673ee1daa6ee5333b4efa594699fbec68552948e802e2645a87e0f4d&auth_timestamp=1400886669&auth_version=1.0&body_md5=bee7a792c49944c585e94fc43b4b232f
+    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=1f7b2637b64f596641ba998f2fff1f71bc525f9209726315c9a9a7aba4bff252&auth_timestamp=1415023367&auth_version=1.0&body_md5=8183b94ec68013f3ba1ab63508fcdaf4
     body:
       encoding: UTF-8
-      string: "{\"name\":\"student_message\",\"channels\":[\"event_d1973227-8292-4994-a896-6f1e48c9ea4e\"],\"data\":\"{\\\"id\\\":410,\\\"created_at\\\":\\\"2014-05-23T20:11:09.147-03:00\\\",\\\"updated_at\\\":\\\"2014-05-23T20:11:09.147-03:00\\\",\\\"content\\\":\\\"Some
-        message here\\\",\\\"up_votes\\\":0,\\\"down_votes\\\":0,\\\"student\\\":{\\\"id\\\":1225,\\\"name\\\":\\\"Srta.
-        Sílvia Costa\\\",\\\"email\\\":\\\"laria@saraivamartins.com\\\",\\\"avatar\\\":null}}\"}"
+      string: '{"name":"student_message","channels":["event_1a4dabbe-3a89-454f-81d2-31467dda2eb6"],"data":"{\"id\":1521,\"created_at\":\"2014-11-03T12:02:47.221-02:00\",\"updated_at\":\"2014-11-03T12:02:47.221-02:00\",\"content\":\"Some
+        message here\",\"up_votes\":0,\"down_votes\":0,\"student\":{\"id\":5638,\"name\":\"MyString\",\"email\":\"fabrcia_braga@braga.biz\"}}"}'
     headers:
       User-Agent:
-      - HTTPClient/1.0 (2.3.4.1, ruby 2.1.0 (2013-12-25))
+      - HTTPClient/1.0 (2.5.1, ruby 2.1.3 (2014-09-19))
       Accept:
       - "*/*"
       Date:
-      - Fri, 23 May 2014 23:11:09 GMT
+      - Mon, 03 Nov 2014 14:02:47 GMT
       Content-Type:
       - application/json
   response:
@@ -25,7 +24,7 @@ http_interactions:
       Content-Type:
       - text/html;charset=utf-8
       Server:
-      - thin 1.6.1 codename Death Proof
+      - thin
       Content-Length:
       - '2'
       Connection:
@@ -34,5 +33,5 @@ http_interactions:
       encoding: UTF-8
       string: "{}"
     http_version: 
-  recorded_at: Fri, 23 May 2014 23:11:09 GMT
-recorded_with: VCR 2.8.0
+  recorded_at: Mon, 03 Nov 2014 14:02:47 GMT
+recorded_with: VCR 2.9.3
