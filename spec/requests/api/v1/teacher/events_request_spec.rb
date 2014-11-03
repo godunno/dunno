@@ -142,7 +142,8 @@ describe Api::V1::Teacher::EventsController do
           subject { event_json }
           it_behaves_like "request return check", %w(id uuid channel order)
 
-          it { expect(subject["status"]).to eq(event.formatted_status) }
+          it { expect(subject["status"]).to eq(event.status) }
+          it { expect(subject["formatted_status"]).to eq(event.formatted_status) }
           it { expect(subject["start_at"]).to eq(event.start_at.utc.iso8601) }
           it { expect(subject["end_at"]).to eq(event.end_at.utc.iso8601) }
 

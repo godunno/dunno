@@ -25,7 +25,7 @@ header.page-header.title
             span.time - {{asDate(event.start_at) | date:'HH:mm'}}h
           .status
             span.course {{event.course.name}}
-            i.image.icon ng-class="'icon-' + event.status"
+            i.image.icon ng-class="'icon-' + event.formatted_status"
           .notes ng-if="event.topics.length > 0"
             ul.note
               li.task.vertical-center ng-repeat="topic in event.topics | limitTo:3"
