@@ -16,6 +16,7 @@ listCtrl = ($scope, Media, Utils)->
 
   generateOrderableItem = ->
     $scope.newListItem = generateOrderable(list())
+    $scope.removeMedia($scope.newListItem)
 
   $scope.$on 'initializeEvent', ->
     generateOrderableItem()
@@ -49,17 +50,35 @@ listCtrl = ($scope, Media, Utils)->
       $scope.save($scope.event)
 
   $scope.submitMedia = (item)->
+    $scope.removeMedia(item)
     item._submittingMedia = true
     $scope.$broadcast("progress.start")
     $scope.$broadcast("progress.setValue", "100%")
 
+    # TODO: Extract semaphore to service
+    semaphore = 2
+    stopProgressBar = ->
+      semaphore -= 1
+      $scope.$broadcast("progress.stop") if semaphore <= 0
+
     media = new Media(item.media)
+    $scope.preview = { title: item.media.url }
+    media.preview().then((preview)->
+      $scope.preview = preview
+    ).finally(->stopProgressBar())
+
     media.save().then((media)->
       item.media_id = media.id
     ).finally(->
       item._submittingMedia = false
-      $scope.$broadcast("progress.stop")
+      stopProgressBar()
     )
+
+  $scope.removeMedia = (item)->
+    item.media_id = null
+    $scope.preview = null
+
+  $scope.imageSrc = (src)-> src || "//:0"
 
 listCtrl.$inject = ['$scope', 'Media', 'Utils']
 DunnoApp.controller 'listCtrl', listCtrl
