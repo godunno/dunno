@@ -27,7 +27,7 @@ describe Api::V1::Teacher::MediasController do
         it { expect(subject.url).to eq(url) }
       end
 
-      context "creating media with file" do
+      context "creating media with file", :vcr do
         let(:file) { uploaded_file("image.jpg", "image/jpeg") }
         let(:params_hash) do
           {
@@ -46,7 +46,6 @@ describe Api::V1::Teacher::MediasController do
       end
 
       context "creating invalid media" do
-        let(:file) { uploaded_file("image.jpg", "image/jpeg") }
         let(:params_hash) do
           {
             "media" => {

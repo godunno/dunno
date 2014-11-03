@@ -2,18 +2,18 @@
 http_interactions:
 - request:
     method: post
-    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=be275848cf015859c14b61a038a624dbcfaf5378c5a9982c4a3d01a53f0923e0&auth_timestamp=1392494565&auth_version=1.0&body_md5=3ead54177b051bd3a81b158989855ba2
+    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=65611e265c549ee23fc233e1f40dc65ed7fa396c824b8db40a442eff333da13d&auth_timestamp=1415023395&auth_version=1.0&body_md5=3703ae32d0ce32aaeea1c41831e8d53b
     body:
       encoding: UTF-8
-      string: "{\"name\":\"student_message\",\"channels\":[\"event_958ed3ce-e373-4e06-a70f-c1737129dbcb\"],\"data\":\"{\\\"content\\\":\\\"Some
-        message here\\\"}\"}"
+      string: '{"name":"student_message","channels":["event_ea9bfadd-4762-41be-896f-77d923685db0"],"data":"{\"id\":1604,\"created_at\":\"2014-11-03T12:03:15.749-02:00\",\"updated_at\":\"2014-11-03T12:03:15.749-02:00\",\"content\":\"Some
+        message here\",\"up_votes\":0,\"down_votes\":0,\"student\":{\"id\":5884,\"name\":\"MyString\",\"email\":\"carlos_souza@pereira.biz\"}}"}'
     headers:
       User-Agent:
-      - HTTPClient/1.0 (2.3.4.1, ruby 2.1.0 (2013-12-25))
+      - HTTPClient/1.0 (2.5.1, ruby 2.1.3 (2014-09-19))
       Accept:
       - "*/*"
       Date:
-      - Sat, 15 Feb 2014 20:02:45 GMT
+      - Mon, 03 Nov 2014 14:03:15 GMT
       Content-Type:
       - application/json
   response:
@@ -24,7 +24,7 @@ http_interactions:
       Content-Type:
       - text/html;charset=utf-8
       Server:
-      - thin 1.6.1 codename Death Proof
+      - thin
       Content-Length:
       - '2'
       Connection:
@@ -33,5 +33,5 @@ http_interactions:
       encoding: UTF-8
       string: "{}"
     http_version: 
-  recorded_at: Sat, 15 Feb 2014 20:02:45 GMT
-recorded_with: VCR 2.8.0
+  recorded_at: Mon, 03 Nov 2014 14:03:16 GMT
+recorded_with: VCR 2.9.3
