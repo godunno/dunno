@@ -27,7 +27,7 @@ describe Api::V1::Teacher::MediasController do
         it { expect(subject.url).to eq(url) }
       end
 
-      context "creating media with file", :vcr do
+      context "creating media with file" do
         let(:file) { uploaded_file("image.jpg", "image/jpeg") }
         let(:params_hash) do
           {

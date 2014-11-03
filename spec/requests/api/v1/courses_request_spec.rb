@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::CoursesController, :vcr do
+describe Api::V1::CoursesController do
 
   let(:student) { create(:student) }
   let(:course) { create(:course, students: [student]) }
