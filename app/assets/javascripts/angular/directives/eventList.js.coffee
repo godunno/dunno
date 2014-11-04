@@ -55,23 +55,13 @@ listCtrl = ($scope, Media, Utils)->
     $scope.$broadcast("progress.start")
     $scope.$broadcast("progress.setValue", "100%")
 
-    # TODO: Extract semaphore to service
-    semaphore = 2
-    stopProgressBar = ->
-      semaphore -= 1
-      $scope.$broadcast("progress.stop") if semaphore <= 0
-
     media = new Media(item.media)
-    $scope.preview = { title: item.media.url }
-    media.preview().then((preview)->
-      $scope.preview = preview
-    ).finally(->stopProgressBar())
-
     media.save().then((media)->
-      item.media_id = media.id
+      item.media_id = media.uuid
+      $scope.preview = media.preview
     ).finally(->
       item._submittingMedia = false
-      stopProgressBar()
+      $scope.$broadcast("progress.stop")
     )
 
   $scope.removeMedia = (item)->

@@ -11,7 +11,7 @@ module Form
 
     def initialize(params)
       super(params.slice(*attributes_list(:description, :order, :done)))
-      self.media = Media.find_by(id: params[:media_id])
+      self.media = Media.find_by(uuid: params[:media_id])
     end
 
     private
