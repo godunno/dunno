@@ -2,11 +2,11 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   respond_to :json
 
   def create
-    @media_form = Form::MediaForm.new(params[:media])
-    if @media_form.save
-      render json: { id: @media_form.model.id }, status: 200
+    media_form = Form::MediaForm.new(params[:media])
+    if media_form.save
+      @media = media_form.model
     else
-      render json: { errors: @media_form.errors }, status: 422
+      render json: { errors: media_form.errors }, status: 422
     end
   end
 

@@ -84,7 +84,7 @@ describe Api::V1::Teacher::EventsController do
     let(:thermometer) { create(:thermometer) }
     let(:poll) { create(:poll, options: [option]) }
     let(:option) { create(:option) }
-    let(:media_with_url) { create(:media, url: "http://www.example.com", file: nil) }
+    let(:media_with_url) { create(:media_with_url) }
     #let(:media_with_file) { create(:media, file: Tempfile.new("test"), url: nil) }
     let(:beacon) { create(:beacon) }
     let(:personal_note) { create(:personal_note, order: 1, done: true) }
@@ -258,7 +258,7 @@ describe Api::V1::Teacher::EventsController do
       let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false }
       let(:options) { [correct_option, incorrect_option] }
       let(:personal_note) { build :personal_note, order: 1, done: true }
-      let(:media_with_url) { create :media }
+      let(:media_with_url) { create :media_with_url }
       #let(:media_with_file) { build :media_with_file, timeline: event_template.timeline }
       let(:start_at) { event_template.start_at.utc.iso8601 }
       let(:end_at)   { event_template.end_at.utc.iso8601 }
@@ -273,7 +273,7 @@ describe Api::V1::Teacher::EventsController do
               description: topic.description,
               done: topic.done,
               order: topic.order,
-              media_id: topic.media.id
+              media_id: topic.media.uuid
             }],
             thermometers: [thermometer.attributes],
             polls: [poll.attributes.merge(
