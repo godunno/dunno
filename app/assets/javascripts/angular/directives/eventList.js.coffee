@@ -16,7 +16,6 @@ listCtrl = ($scope, Media, Utils)->
 
   generateOrderableItem = ->
     $scope.newListItem = generateOrderable(list())
-    $scope.removeMedia($scope.newListItem)
 
   $scope.$on 'initializeEvent', ->
     generateOrderableItem()
@@ -55,10 +54,9 @@ listCtrl = ($scope, Media, Utils)->
     $scope.$broadcast("progress.start")
     $scope.$broadcast("progress.setValue", "100%")
 
-    media = new Media(item.media)
-    media.save().then((media)->
+    new Media(url: item.media_url).create().then((media)->
+      item.media = media
       item.media_id = media.uuid
-      $scope.preview = media.preview
     ).finally(->
       item._submittingMedia = false
       $scope.$broadcast("progress.stop")
@@ -66,9 +64,8 @@ listCtrl = ($scope, Media, Utils)->
 
   $scope.removeMedia = (item)->
     item.media_id = null
-    $scope.preview = null
-
-  $scope.imageSrc = (src)-> src || "//:0"
+    item.media = null
+    $scope.event_form.$setDirty()
 
 listCtrl.$inject = ['$scope', 'Media', 'Utils']
 DunnoApp.controller 'listCtrl', listCtrl

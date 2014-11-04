@@ -1,0 +1,17 @@
+DunnoApp = angular.module('DunnoApp')
+
+DunnoApp.controller 'previewCtrl', ['$scope', ($scope)->
+  $scope.imageSrc = (src)-> src || "//:0"
+
+  # Needed due to the isolated scope
+  $scope.removeMedia = $scope.$parent.removeMedia
+]
+
+DunnoApp.directive 'preview', ->
+  restrict: 'E'
+  replace: true
+  # TODO: Find a way to keep the two-way data binding without the isolated scope
+  scope:
+    item: '='
+  controller: 'previewCtrl'
+  templateUrl: '<%= asset_path('teacher/events/_preview.html') %>'
