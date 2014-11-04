@@ -2,17 +2,18 @@
 http_interactions:
 - request:
     method: post
-    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=d28ad89fe55857807c1538c6d928acfea90924ffad49e1ee5447f694a996562a&auth_timestamp=1392642199&auth_version=1.0&body_md5=8edd5d5b9375dabe4b364656a80a985e
+    uri: http://api.pusherapp.com/apps/65975/events?auth_key=eb2e8026ff09c08e1081&auth_signature=d3ee437d1166491f464ec4230c05dff0734bddd5d8a11ab4f9f3d657753c5ccd&auth_timestamp=1415023394&auth_version=1.0&body_md5=6f8b2f4c9ef85c39a1549dc1521a84c8
     body:
       encoding: UTF-8
-      string: "{\"name\":\"up_down_vote_message\",\"channels\":[\"event_7e843ca4-1459-4de8-9c1c-b156cc56f774\"],\"data\":\"{\\\"up\\\":0,\\\"down\\\":1}\"}"
+      string: '{"name":"up_down_vote_message","channels":["event_ba014fef-726b-4954-a729-6a35d2ada468"],"data":"{\"id\":1600,\"created_at\":\"2014-11-03T12:03:14.851-02:00\",\"updated_at\":\"2014-11-03T12:03:14.851-02:00\",\"content\":\"I
+        really like that\",\"up_votes\":0,\"down_votes\":1,\"student\":{\"id\":5873,\"name\":\"MyString\",\"email\":\"mrcia_carvalho@melo.biz\"}}"}'
     headers:
       User-Agent:
-      - HTTPClient/1.0 (2.3.4.1, ruby 2.1.0 (2013-12-25))
+      - HTTPClient/1.0 (2.5.1, ruby 2.1.3 (2014-09-19))
       Accept:
       - "*/*"
       Date:
-      - Mon, 17 Feb 2014 13:03:19 GMT
+      - Mon, 03 Nov 2014 14:03:14 GMT
       Content-Type:
       - application/json
   response:
@@ -23,7 +24,7 @@ http_interactions:
       Content-Type:
       - text/html;charset=utf-8
       Server:
-      - thin 1.6.1 codename Death Proof
+      - thin
       Content-Length:
       - '2'
       Connection:
@@ -32,5 +33,5 @@ http_interactions:
       encoding: UTF-8
       string: "{}"
     http_version: 
-  recorded_at: Mon, 17 Feb 2014 13:03:20 GMT
-recorded_with: VCR 2.8.0
+  recorded_at: Mon, 03 Nov 2014 14:03:15 GMT
+recorded_with: VCR 2.9.3

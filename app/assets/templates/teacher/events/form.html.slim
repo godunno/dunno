@@ -107,6 +107,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               a.icon.icon-edition.task-icon-right.right[
                 ng-click="editItem(topic, editingItem)"
                 title="Editar tarefa"]
+              preview item="topic"
             input.item-editing[
               focus-on-create="" type="text"
               ng-if="isEditing(topic)"
@@ -116,7 +117,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       .foot
         input[ng-model="newListItem.description" type="text" placeholder="Adicionar tarefa"
           ui-keydown="{'enter':'addItem($event)'}" name="topic"]
-        label Ex: Revisar aula passada. Introdução à raiz quadrada.
+        a.item-button.media-url-button data-dropdown="topic-url" data-options="align:left" URL
+        #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
+          input[type="text" name="topic_media" ng-model="newListItem.media_url"
+            dropdown-input="submitMedia(newListItem)" placeholder="http://"]
+        progress-bar
+        preview item="newListItem"
+        .hint Ex: Revisar aula passada. Introdução à raiz quadrada.
 
     .row.card.container.notes event-list="personal_notes"
       .title.notes-label

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Api::V1::Teacher::MediasController do
-  describe "POST /api/v1/teacher/medias.json" do
+  describe "POST /api/v1/teacher/medias.json", :vcr do
     it_behaves_like "API authentication required"
     context "authenticated" do
 
@@ -10,7 +10,7 @@ describe Api::V1::Teacher::MediasController do
       end
 
       context "creating media with URL" do
-        let(:url) { "http://www.example.com/image.jpg" }
+        let(:url) { "http://mussumipsum.com/" }
         let(:params_hash) do
           {
             "media" => {
@@ -23,8 +23,23 @@ describe Api::V1::Teacher::MediasController do
         subject { Media.last }
 
         it { expect(last_response.status).to eq(200) }
-        it { expect(json["id"]).to eq(subject.id) }
+        it { expect(json["uuid"]).to eq(subject.uuid) }
         it { expect(subject.url).to eq(url) }
+        it { expect(json["preview"]).to eq(subject.preview) }
+        it "should have the correct preview" do
+          expect(json["preview"]).to eq(
+            "url" => "http://mussumipsum.com/",
+            "favicon" => "images/icon_mussum.ico",
+            "title" => "Musum Ipsum",
+            "description" => "O melhor Lorem Ipsum do mundis!",
+            "images" => [{
+              "src" => "http://mussumipsum.com/images/mussum_ipsum_og.jpg",
+              "size" => [450, 450],
+              "type" => "jpeg"
+            }],
+            "videos" => []
+          )
+        end
       end
 
       context "creating media with file" do
@@ -41,12 +56,11 @@ describe Api::V1::Teacher::MediasController do
         subject { Media.last }
 
         it { expect(last_response.status).to eq(200) }
-        it { expect(json["id"]).to eq(subject.id) }
+        it { expect(json["uuid"]).to eq(subject.uuid) }
         it { expect(subject.file.file.filename).to eq(file.original_filename) }
       end
 
       context "creating invalid media" do
-        let(:file) { uploaded_file("image.jpg", "image/jpeg") }
         let(:params_hash) do
           {
             "media" => {
@@ -91,6 +105,40 @@ describe Api::V1::Teacher::MediasController do
         end
 
         it { expect(last_response.status).to eq(304) }
+      end
+    end
+  end
+
+  describe "GET /api/v1/teacher/medias/preview.json", :vcr do
+
+    let(:params_hash) do
+      { url: url }
+    end
+
+    def do_action
+      get "/api/v1/teacher/medias/preview.json", auth_params(:teacher).merge(params_hash)
+    end
+
+    before { do_action }
+    subject { json }
+
+    context "Website URL" do
+      let(:url) { "http://mussumipsum.com/" }
+
+      it { expect(last_response.status).to eq(200) }
+      it "should have the correct response" do
+        expect(json).to eq(
+          "url" => "http://mussumipsum.com/",
+          "favicon" => "images/icon_mussum.ico",
+          "title" => "Musum Ipsum",
+          "description" => "O melhor Lorem Ipsum do mundis!",
+          "images" => [{
+            "src" => "http://mussumipsum.com/images/mussum_ipsum_og.jpg",
+            "size" => [450, 450],
+            "type" => "jpeg"
+          }],
+          "videos" => []
+        )
       end
     end
   end

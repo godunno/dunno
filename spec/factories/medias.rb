@@ -6,8 +6,11 @@ FactoryGirl.define do
     title "MyString"
     description "MyString"
     category Media::CATEGORIES.first
-    url "http://www.example.com/media.jpg"
-    file nil
+
+    factory :media_with_url do
+      file nil
+      url "http://mussumipsum.com/"
+    end
 
     factory :media_with_file do
       url nil

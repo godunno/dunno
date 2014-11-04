@@ -42,7 +42,7 @@ $row-width: rem-calc(960);
 // Global
 
 // We use these to control various global styles
-$body-bg: #f2f2f2;
+$body-bg: $background-light-grey-color;
 $body-font-color: $primary-color;
 $body-font-family: "Lato", sans-serif;
 
@@ -890,7 +890,7 @@ $input-focus-border-color: #3C90C5;
 
 // We use this to set the progress bar height
 // $progress-bar-height: rem-calc(25);
-// $progress-bar-color: #f6f6f6  ;
+$progress-bar-color: $background-light-grey-color;
 
 // We use these to control the border styles
 // $progress-bar-border-color: scale-color(#fff, $lightness: 20%);
@@ -904,6 +904,7 @@ $input-focus-border-color: #3C90C5;
 
 // We use these to set the meter colors
 // $progress-meter-color: $primary-color;
+$progress-meter-color: #008CBA;
 // $progress-meter-secondary-color: $secondary-color;
 // $progress-meter-success-color: $success-color;
 // $progress-meter-alert-color: $alert-color;
