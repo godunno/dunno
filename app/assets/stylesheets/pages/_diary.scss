@@ -249,7 +249,7 @@ $diary-card-border: 1px solid #dddddd;
       margin-top: 10px;
       background-color: $light-grey-color;
     }
-    .row {
+    & > .row {
       margin: 0 auto;
       padding: 12px 0 6px;
       border-bottom: $diary-card-border;

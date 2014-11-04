@@ -1,0 +1,8 @@
+.preview ng-if="item.media.preview"
+  a ng-href="{{item.media.preview.url}}" target="_blank"
+    .row
+      img.image ng-src="{{imageSrc(item.media.preview.images[0].src)}}"
+      .text
+        .title {{item.media.preview.title}}
+        .description {{item.media.preview.description}}
+  a.close ng-click="removeMedia(item)" x
