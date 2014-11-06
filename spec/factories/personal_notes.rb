@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :personal_note do
-    content "MyString"
+    description "MyString"
     done false
     event nil
   end
