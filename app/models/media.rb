@@ -22,7 +22,7 @@ class Media < ActiveRecord::Base
     else
       {
         "url" => file.url,
-        "title" => file.file.filename
+        "title" => file_identifier
       }
     end
   end

@@ -1,5 +1,5 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoApp.factory 'Media', ['RailsResource', '$upload', (RailsResource, $upload)->
+Media = (RailsResource, $upload)->
   class Media extends RailsResource
     @configure(
       url: '/api/v1/teacher/medias'
@@ -15,5 +15,6 @@ DunnoApp.factory 'Media', ['RailsResource', '$upload', (RailsResource, $upload)-
       $upload.upload
         url: @$url() + ".json"
         file: @file
-]
 
+Media.$inject = ['RailsResource', '$upload']
+DunnoApp.factory 'Media', Media

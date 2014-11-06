@@ -9,9 +9,7 @@ describe Media do
   end
 
   describe "callbacks" do
-
     describe "before create" do
-
       it "generates preview from file" do
         media.file = uploaded_file("image.jpg", "image/jpeg")
         media.save!
@@ -24,7 +22,6 @@ describe Media do
     end
 
     describe "after create" do
-
       let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
 
       context "new media" do
