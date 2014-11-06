@@ -1,4 +1,4 @@
-class Api::V2::EventsController < ActionController::Base
+class Api::V2::EventsController < Api::V2::ApplicationController
   before_action :find_course
 
   def index
