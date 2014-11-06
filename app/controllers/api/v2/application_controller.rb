@@ -11,7 +11,8 @@ class Api::V2::ApplicationController < ActionController::Base
 
   def authenticate_user!
     authenticate_or_request_with_http_token do |token, _options|
-      if api_key = ApiKey.find_by(token: token)
+      api_key = ApiKey.find_by(token: token)
+      if api_key
         @_current_user_id = api_key.user_id
       end
     end
