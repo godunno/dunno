@@ -84,6 +84,7 @@ Dunno::Application.routes.draw do
       resources :courses, only: [:index] do
         resources :events, only: :index
       end
+      resources :keys, only: [:create]
     end
   end
 end
