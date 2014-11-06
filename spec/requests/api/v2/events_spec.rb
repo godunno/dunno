@@ -6,7 +6,6 @@ resource "Events" do
   response_field :start_at, "ISO8601 representation of the time when the event will start. Includes timezone."
   response_field :end_at, "ISO8601 representation of the time when the event will end. Includes timezone."
 
-
   let!(:user) { create(:user, :teacher_profile, :with_api_key) }
   let(:course) { create(:course, teacher: user.profile) }
   let(:course_id) { course.id }
