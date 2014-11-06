@@ -7,7 +7,7 @@ resource "Courses" do
 
   get "/api/v2/courses" do
     let!(:course) { create(:course) }
-    example "Listing events", document: :public do
+    example "Listing courses", document: :public do
       do_request
       expect(courses_json.size).to eq 1
     end
