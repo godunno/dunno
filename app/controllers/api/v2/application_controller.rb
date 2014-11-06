@@ -10,7 +10,7 @@ class Api::V2::ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    authenticate_or_request_with_http_token do |token, options|
+    authenticate_or_request_with_http_token do |token, _options|
       if api_key = ApiKey.find_by(token: token)
         @_current_user_id = api_key.user_id
       end
@@ -20,9 +20,7 @@ class Api::V2::ApplicationController < ActionController::Base
   def authenticate_user_with_credentials!
     authenticate_or_request_with_http_basic do |email, password|
       user = User.find_by(email: email)
-      if user && user.valid_password?(password)
-        @_current_user_id = user.id
-      end
+      user && user.valid_password?(password) && @_current_user_id = user.id
     end
   end
 end

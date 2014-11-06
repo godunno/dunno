@@ -6,18 +6,12 @@ class ApiKey < ActiveRecord::Base
   validates :token, presence: true, on: :update
   validates :user, presence: true
 
-  def generate_token
-    begin
-      self.token = SecureRandom.hex
-    end while self.class.exists?(token: token)
-  end
-end
-
-class ApiKey < ActiveRecord::Base
-  def to_param
-    token
-  end
-
   private
 
+  def generate_token
+    loop do
+      self.token = SecureRandom.hex
+      break unless self.class.exists?(token: token)
+    end
+  end
 end

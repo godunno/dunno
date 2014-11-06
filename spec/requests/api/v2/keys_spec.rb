@@ -17,7 +17,7 @@ resource "Keys" do
       before { sign_in_with_http_basic(user) }
 
       example 'Creating an API token for the signed in user', document: :public do
-        expect { do_request }.to change{ user.api_keys.count }.by(1)
+        expect { do_request }.to change { user.api_keys.count }.by(1)
       end
 
       example_request 'has the user ID' do
