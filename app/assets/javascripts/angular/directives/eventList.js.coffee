@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-listCtrl = ($scope, Media, Utils)->
+listCtrl = ($scope, Media, Utils, $upload)->
   angular.extend($scope, Utils)
 
   list = -> $scope.event[$scope.collection]
@@ -48,13 +48,13 @@ listCtrl = ($scope, Media, Utils)->
         item.order = i + 1
       $scope.save($scope.event)
 
-  $scope.submitMedia = (item)->
+  submitMedia = (item, callback, showProgress)->
     $scope.removeMedia(item)
     item._submittingMedia = true
     $scope.$broadcast("progress.start")
-    $scope.$broadcast("progress.setValue", "100%")
-
-    new Media(url: item.media_url).create().then((media)->
+    showProgress(callback)
+    callback.then((media)->
+      media = media.data if media.data? # upload response is wrapped
       item.media = media
       item.media_id = media.uuid
     ).finally(->
@@ -62,12 +62,25 @@ listCtrl = ($scope, Media, Utils)->
       $scope.$broadcast("progress.stop")
     )
 
+  $scope.submitUrlMedia = (item)->
+    media = new Media(url: item.media_url)
+    submitMedia item, media.create(), ->
+      $scope.$broadcast("progress.setValue", "100%")
+
+  $scope.submitFileMedia = (item, $files)->
+    media = new Media()
+    media.file = $files[0]
+    submitMedia item, media.upload(), (callback)->
+      callback.progress (evt)->
+        percentage = parseInt(100.0 * evt.loaded / evt.total)
+        $scope.$broadcast("progress.setValue", "#{percentage}%")
+
   $scope.removeMedia = (item)->
     item.media_id = null
     item.media = null
     $scope.event_form.$setDirty()
 
-listCtrl.$inject = ['$scope', 'Media', 'Utils']
+listCtrl.$inject = ['$scope', 'Media', 'Utils', '$upload']
 DunnoApp.controller 'listCtrl', listCtrl
 
 DunnoApp.directive 'eventList', ->
