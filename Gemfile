@@ -41,6 +41,8 @@ gem 'rails-assets-modernizr', '2.8.3'
 gem 'rails-assets-jquery-maskedinput', '1.3.1'
 gem 'rails-assets-angular-ui-sortable', '0.13.0'
 gem 'rails-assets-arktisklada--jquery-ui-touch-punch', '0.2.3'
+gem 'rails-assets-ng-file-upload',      '1.6.12'
+gem 'rails-assets-ng-file-upload-shim', '1.6.12'
 
 group :production, :staging do
   gem 'rails_12factor',           '0.0.2'

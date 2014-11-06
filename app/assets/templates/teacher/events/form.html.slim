@@ -118,9 +118,12 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         input[ng-model="newListItem.description" type="text" placeholder="Adicionar tarefa"
           ui-keydown="{'enter':'addItem($event)'}" name="topic"]
         a.item-button.media-url-button data-dropdown="topic-url" data-options="align:left" URL
+        label.item-button.media-file-button for="topic-file" File
         #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
-          input[type="text" name="topic_media" ng-model="newListItem.media_url"
-            dropdown-input="submitMedia(newListItem)" placeholder="http://"]
+          input[type="text" name="topic_media_url" ng-model="newListItem.media_url"
+            dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
+        input#topic-file ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
+
         progress-bar
         preview item="newListItem"
         .hint Ex: Revisar aula passada. Introdução à raiz quadrada.

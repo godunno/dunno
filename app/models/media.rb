@@ -14,4 +14,16 @@ class Media < ActiveRecord::Base
     self.released_at = Time.now
     save!
   end
+
+  # TODO: set preview after Carrierwave has stored the file
+  def preview
+    if url.present?
+      super
+    else
+      {
+        "url" => file.url,
+        "title" => file.file.filename
+      }
+    end
+  end
 end

@@ -10,6 +10,19 @@ describe Media do
 
   describe "callbacks" do
 
+    describe "before create" do
+
+      it "generates preview from file" do
+        media.file = uploaded_file("image.jpg", "image/jpeg")
+        media.save!
+        expect(media.preview).to eq(
+          "url" => media.file.url,
+          "title" => media.file_identifier
+        )
+      end
+
+    end
+
     describe "after create" do
 
       let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
