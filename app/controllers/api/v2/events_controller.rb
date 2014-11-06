@@ -1,5 +1,5 @@
 class Api::V2::EventsController < Api::V2::ApplicationController
-  before_action :find_course
+  before_action :authenticate_user!, :find_course
 
   def index
     @events = @course.events.where(start_at: time_range)
@@ -8,7 +8,7 @@ class Api::V2::EventsController < Api::V2::ApplicationController
   private
 
   def find_course
-    @course = Course.find(params[:course_id])
+    @course = current_profile.courses.find(params[:course_id])
   end
 
   def time_range

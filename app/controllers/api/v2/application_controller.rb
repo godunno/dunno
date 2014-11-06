@@ -1,5 +1,5 @@
 class Api::V2::ApplicationController < ActionController::Base
-  helper_method :current_user
+  helper_method :current_user, :current_profile
   respond_to :json
 
   def current_user
@@ -7,6 +7,10 @@ class Api::V2::ApplicationController < ActionController::Base
   rescue ActiveRecord::RecordNotFound
     @_current_user_id = nil
     nil
+  end
+
+  def current_profile
+    @current_profile ||= current_user && current_user.profile
   end
 
   def authenticate_user!

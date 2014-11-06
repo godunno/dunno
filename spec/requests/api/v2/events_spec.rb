@@ -6,11 +6,15 @@ resource "Events" do
   response_field :start_at, "ISO8601 representation of the time when the event will start. Includes timezone."
   response_field :end_at, "ISO8601 representation of the time when the event will end. Includes timezone."
 
+
+  let!(:user) { create(:user, :teacher_profile, :with_api_key) }
+  let(:course) { create(:course, teacher: user.profile) }
+  let(:course_id) { course.id }
+
   let(:json_response) { JSON.parse(response_body) }
   let(:events_json) { json_response["events"] }
 
-  let(:course) { create(:course) }
-  let(:course_id) { course.id }
+  before { sign_in(user) }
 
   get "/api/v2/courses/:course_id/events" do
     parameter :month, "Month desired, if empty the current one."

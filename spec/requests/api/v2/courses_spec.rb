@@ -6,7 +6,9 @@ resource "Courses" do
   let(:courses_json) { json_response["courses"] }
 
   get "/api/v2/courses" do
-    let!(:course) { create(:course) }
+    let!(:user) { create(:user, :teacher_profile, :with_api_key) }
+    before { sign_in(user) }
+    let!(:course) { create(:course, teacher: user.profile) }
     example "Listing courses", document: :public do
       do_request
       expect(courses_json.size).to eq 1
