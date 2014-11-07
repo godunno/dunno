@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :personal_note do
-    description "MyString"
+    description "Aplicar prova surpresa"
     done false
     event nil
   end
