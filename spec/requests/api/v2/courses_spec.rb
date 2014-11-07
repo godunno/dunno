@@ -31,7 +31,7 @@ resource "Courses" do
           "end_date" => course.end_date.iso8601,
           "institution" => course.institution,
           "links" => {
-            "href" => "http://www.example.com/api/v2/courses/#{course.id}/events"
+            "self" => "http://www.example.com/api/v2/courses/#{course.id}/events"
           }
         )
       end
