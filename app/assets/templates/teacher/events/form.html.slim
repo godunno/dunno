@@ -141,7 +141,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           .row
             .item-show ng-if="!isEditing(personal_note)"
               input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
-              label for="personal_note_{{personal_note.order}}_done" {{personal_note.content}}
+              label for="personal_note_{{personal_note.order}}_done" {{personal_note.description}}
               a.icon.icon-trash.task-icon-right.right[
                 ng-click="removeItem(event.personal_notes, personal_note)"
                 title="Remover anotação"]
@@ -156,10 +156,10 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             input.item-editing[
               focus-on-create="" type="text"
               ng-if="isEditing(personal_note)"
-              ng-model="editingItem.content"
+              ng-model="editingItem.description"
               ui-keydown="{'enter':'updateItem(editingItem, personal_note)'}"]
       .foot
-        input[ng-model="newListItem.content" type="text" name="personal_note"
+        input[ng-model="newListItem.description" type="text" name="personal_note"
         placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
         a.item-button.media-url-button data-dropdown="personal-note-url" data-options="align:left" URL
         label.item-button.media-file-button for="personal-note-file" File
