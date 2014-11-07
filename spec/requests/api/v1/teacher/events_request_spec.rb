@@ -70,7 +70,7 @@ describe Api::V1::Teacher::EventsController do
 
             let(:target) { personal_note }
             subject { events_json[0]["personal_notes"][0] }
-            it_behaves_like "request return check", %w(content uuid order done)
+            it_behaves_like "request return check", %w(description uuid order done)
           end
         end
       end
@@ -176,7 +176,7 @@ describe Api::V1::Teacher::EventsController do
           describe "personal_note" do
             let(:target) { personal_note }
             subject { event_json["personal_notes"][0] }
-            it_behaves_like "request return check", %w(content uuid order done)
+            it_behaves_like "request return check", %w(description uuid order done)
           end
 
           describe "topic" do
@@ -354,7 +354,7 @@ describe Api::V1::Teacher::EventsController do
         it { expect(subject.personal_notes.count).to eq 1 }
         describe "personal_notes" do
           subject { event.personal_notes.first }
-          it { expect(subject.content).to eq personal_note.content }
+          it { expect(subject.description).to eq personal_note.description }
           it { expect(subject.order).to eq personal_note.order }
           it { expect(subject).to be_done }
         end
