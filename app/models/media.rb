@@ -4,6 +4,7 @@ class Media < ActiveRecord::Base
   CATEGORIES = %w(image video audio)
 
   belongs_to :topic
+  belongs_to :personal_note
 
   delegate :event, to: :topic
 

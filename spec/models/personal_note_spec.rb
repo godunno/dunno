@@ -6,6 +6,7 @@ describe PersonalNote do
 
   describe "associations" do
     it { is_expected.to belong_to(:event) }
+    it { is_expected.to have_one(:media) }
   end
 
   describe "callbacks" do
