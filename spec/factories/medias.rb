@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :media do
-    topic
+    association :mediable, factory: :topic
     title "MyString"
     description "MyString"
     category Media::CATEGORIES.first

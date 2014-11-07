@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe CleanMedias do
-  let!(:old_unreferenced_media) { create(:media, topic: nil, created_at: 2.months.ago) }
-  let!(:recent_unreferenced_media) { create(:media, topic: nil) }
-  let!(:referenced_media) { create(:media) }
+  let!(:old_unreferenced_media) { create(:media, created_at: 2.months.ago, mediable: nil) }
+  let!(:recent_unreferenced_media) { create(:media, mediable: nil) }
+  let!(:referenced_media) { create(:media, mediable: create(:topic)) }
 
   it "should destroy the unreferenced medias" do
     medias = Media.all
