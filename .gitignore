@@ -18,3 +18,4 @@ rerun.txt
 pickle-email-*.html
 custom_plan.rb
 zeus.json
+doc/api/*

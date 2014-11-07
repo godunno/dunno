@@ -6,6 +6,7 @@ describe User do
 
   describe "association" do
     it { is_expected.to belong_to(:profile) }
+    it { is_expected.to have_many(:api_keys) }
   end
 
   describe "validations" do
