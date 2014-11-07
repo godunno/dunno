@@ -5,8 +5,9 @@ class Media < ActiveRecord::Base
 
   belongs_to :topic
   belongs_to :personal_note
+  belongs_to :mediable, polymorphic: true
 
-  delegate :event, to: :topic
+  delegate :event, to: :mediable
 
   mount_uploader :file, FileUploader
 

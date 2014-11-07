@@ -266,7 +266,7 @@ describe Api::V1::Teacher::EventsController do
       let(:correct_option) { build :option, content: "Correct Option", correct: true }
       let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false }
       let(:options) { [correct_option, incorrect_option] }
-      let(:personal_note) { build :personal_note, order: 1, done: true, media: media_with_url }
+      let(:personal_note) { build :personal_note, order: 1, done: true, media: another_media_with_url }
       let(:media_with_url) { create :media_with_url }
       let(:another_media_with_url) { create :media_with_url }
       #let(:media_with_file) { build :media_with_file, timeline: event_template.timeline }

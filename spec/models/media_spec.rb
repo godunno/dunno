@@ -5,8 +5,7 @@ describe Media do
   let(:media) { build(:media) }
 
   describe "associations" do
-    it { should belong_to(:topic) }
-    it { should belong_to(:personal_note) }
+    it { should belong_to(:mediable) }
   end
 
   describe "callbacks" do
