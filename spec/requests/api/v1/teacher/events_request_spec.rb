@@ -293,7 +293,7 @@ describe Api::V1::Teacher::EventsController do
               ]
             )],
             personal_notes: [
-              content: personal_note.content,
+              description: personal_note.description,
               done: personal_note.done,
               order: personal_note.order,
               media_id: personal_note.media.uuid
