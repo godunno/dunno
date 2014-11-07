@@ -3,8 +3,6 @@ class Media < ActiveRecord::Base
 
   CATEGORIES = %w(image video audio)
 
-  belongs_to :topic
-  belongs_to :personal_note
   belongs_to :mediable, polymorphic: true
 
   delegate :event, to: :mediable
