@@ -117,8 +117,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       .foot
         input[ng-model="newListItem.description" type="text" placeholder="Adicionar tarefa"
           ui-keydown="{'enter':'addItem($event)'}" name="topic"]
-        a.item-button.media-url-button data-dropdown="topic-url" data-options="align:left" URL
-        label.item-button.media-file-button for="topic-file" File
+        a.icon.icon-link.item-button.media-url-button data-dropdown="topic-url" data-options="align:left"
+        label.icon.icon-clips.item-button.media-file-button for="topic-file"
         #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
           input[type="text" name="topic_media_url" ng-model="newListItem.media_url"
             dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
@@ -161,8 +161,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       .foot
         input[ng-model="newListItem.description" type="text" name="personal_note"
         placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
-        a.item-button.media-url-button data-dropdown="personal-note-url" data-options="align:left" URL
-        label.item-button.media-file-button for="personal-note-file" File
+        a.icon.icon-link.item-button.media-url-button data-dropdown="personal-note-url" data-options="align:left"
+        label.icon.icon-clips.item-button.media-file-button for="personal-note-file"
         #personal-note-url.media-url-input data-dropdown-content="" aria-hidden="true"
           input[type="text" name="personal_note_media_url" ng-model="newListItem.media_url"
             dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
