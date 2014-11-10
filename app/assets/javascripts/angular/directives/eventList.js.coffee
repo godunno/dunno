@@ -74,6 +74,7 @@ listCtrl = ($scope, Media, Utils, $upload)->
       callback.progress (evt)->
         percentage = parseInt(100.0 * evt.loaded / evt.total)
         $scope.$broadcast("progress.setValue", "#{percentage}%")
+    $scope.$broadcast("file.clean")
 
   $scope.removeMedia = (item)->
     item.media_id = null

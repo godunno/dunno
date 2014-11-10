@@ -8,3 +8,5 @@ DunnoApp.directive 'ngFileModel', ->
       scope.$apply ->
         ngModelCtrl.$setViewValue(element.val())
         ngModelCtrl.$render()
+
+    scope.$on 'file.clean', -> element.val(null)
