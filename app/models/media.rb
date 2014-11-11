@@ -15,6 +15,11 @@ class Media < ActiveRecord::Base
     save!
   end
 
+  def type
+    return "url" if url.present?
+    return "file" if file.present?
+  end
+
   # TODO: set preview after Carrierwave has stored the file
   def preview
     if url.present?

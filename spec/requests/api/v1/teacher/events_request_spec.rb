@@ -183,7 +183,7 @@ describe Api::V1::Teacher::EventsController do
             describe "media with URL" do
               let(:target) { another_media_with_url }
               subject { personal_note_json["media"] }
-              it_behaves_like "request return check", %w(title description category url released_at uuid)
+              it_behaves_like "request return check", %w(title description category url released_at uuid type)
             end
           end
 
@@ -196,7 +196,7 @@ describe Api::V1::Teacher::EventsController do
             describe "media with URL" do
               let(:target) { media_with_url }
               subject { topic_json["media"] }
-              it_behaves_like "request return check", %w(title description category url released_at uuid)
+              it_behaves_like "request return check", %w(title description category url released_at uuid type)
             end
           end
 

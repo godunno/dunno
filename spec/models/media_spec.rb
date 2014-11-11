@@ -47,4 +47,21 @@ describe Media do
     end
   end
 
+  describe "#type" do
+    context "file" do
+      let(:media) { build :media_with_file }
+      it { expect(media.type).to eq("file") }
+    end
+
+    context "url" do
+      let(:media) { build :media_with_url }
+      it { expect(media.type).to eq("url") }
+    end
+
+    context "empty" do
+      let(:media) { build :media, file: nil, url: nil }
+      it { expect(media.type).to be_nil }
+    end
+  end
+
 end
