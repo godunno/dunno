@@ -51,11 +51,13 @@
   }
   
   .field-new-task {
-      border: none;
-      border-bottom: 1px solid #CCC !important;
-      outline: none;
-      box-shadow: none;
       margin-bottom: 0;
+      &:focus {
+          border: none;
+          border-bottom: 1px solid #CCC !important;
+          outline: none;
+          box-shadow: none;
+      }
   }
   .wrapper-new-task {
       border: 1px solid #4A90E2;
@@ -64,6 +66,10 @@
       border-radius: 2px;
       -webkit-border-radius: 2px;
       -moz-border-radius: 2px;
+  }
+  .no-focus {
+      border: 1px solid #CCC;
+      box-shadow: 0 0 3px #999;
   }
   
   .media-url-input {
@@ -89,9 +95,6 @@
     &:hover {
       color: #5C5B5B;
     }
-  }
-  .item-icon-active {
-     color: #5C5B5B !important; 
   }
   .file-input {
     display: none;

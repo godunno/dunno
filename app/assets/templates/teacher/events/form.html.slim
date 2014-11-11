@@ -118,7 +118,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .wrapper-new-task
           input.field-new-task[ng-model="newListItem.description" type="text" placeholder="Adicionar tarefa"
             ui-keydown="{'enter':'addItem($event)'}" name="topic"]
-          a.icon.icon-link.item-button.media-url-button.item-icon-active data-dropdown="topic-url" data-options="align:left"
+          a.icon.icon-link.item-button.media-url-button data-dropdown="topic-url" data-options="align:left"
           label.icon.icon-clips.item-button.media-file-button for="topic-file"
           #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
             input[type="text" name="topic_media_url" ng-model="newListItem.media_url"
