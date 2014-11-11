@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104172107) do
+ActiveRecord::Schema.define(version: 20141107200125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20141104172107) do
 
   add_index "answers", ["option_id"], name: "index_answers_on_option_id", using: :btree
   add_index "answers", ["student_id"], name: "index_answers_on_student_id", using: :btree
+
+  create_table "api_keys", force: true do |t|
+    t.string   "token"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "api_keys", ["token"], name: "index_api_keys_on_token", unique: true, using: :btree
+  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
 
   create_table "artifacts", force: true do |t|
     t.integer  "teacher_id"
@@ -116,13 +126,14 @@ ActiveRecord::Schema.define(version: 20141104172107) do
     t.datetime "updated_at"
     t.string   "uuid"
     t.string   "file"
-    t.string   "status",      default: "available"
+    t.string   "status",        default: "available"
     t.datetime "released_at"
-    t.integer  "topic_id"
     t.json     "preview"
+    t.integer  "mediable_id"
+    t.string   "mediable_type"
   end
 
-  add_index "medias", ["topic_id"], name: "index_medias_on_topic_id", using: :btree
+  add_index "medias", ["mediable_id", "mediable_type"], name: "index_medias_on_mediable_id_and_mediable_type", using: :btree
   add_index "medias", ["uuid"], name: "index_medias_on_uuid", unique: true, using: :btree
 
   create_table "notifications", force: true do |t|
@@ -159,7 +170,7 @@ ActiveRecord::Schema.define(version: 20141104172107) do
   end
 
   create_table "personal_notes", force: true do |t|
-    t.string   "content"
+    t.string   "description"
     t.boolean  "done"
     t.integer  "event_id"
     t.datetime "created_at"

@@ -3,22 +3,25 @@ module Form
     model_class ::PersonalNote
 
     attr_accessor :event
+    attr_accessor :media
 
-    attribute :content, String
+    attribute :description, String
     attribute :order, Integer
     attribute :done, Boolean
 
     def initialize(params)
-      super(params.slice(*attributes_list(:content, :order, :done)))
+      super(params.slice(*attributes_list(:description, :order, :done)))
+      self.media = Media.find_by(uuid: params[:media_id])
     end
 
     private
 
       def persist!
-        model.content = content
+        model.description = description
         model.order = order
         model.event = event
         model.done = done
+        model.media = media
         model.save!
       end
   end

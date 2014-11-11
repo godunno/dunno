@@ -46,9 +46,7 @@ describe Api::V1::Teacher::MediasController do
         let(:file) { uploaded_file("image.jpg", "image/jpeg") }
         let(:params_hash) do
           {
-            "media" => {
-              "file" => file
-            }
+            "file" => file
           }.merge(auth_params(:teacher))
         end
 
@@ -57,7 +55,14 @@ describe Api::V1::Teacher::MediasController do
 
         it { expect(last_response.status).to eq(200) }
         it { expect(json["uuid"]).to eq(subject.uuid) }
-        it { expect(subject.file.file.filename).to eq(file.original_filename) }
+        it { expect(subject.file_identifier).to eq(file.original_filename) }
+        it { expect(json["preview"]).to eq(subject.preview) }
+        it "should have the correct preview" do
+          expect(json["preview"]).to eq(
+            "url" => subject.file.url,
+            "title" => file.original_filename
+          )
+        end
       end
 
       context "creating invalid media" do

@@ -22,11 +22,13 @@
 //= require foundation/foundation.magellan
 //= require foundation/foundation.dropdown
 //= require foundation/foundation.reveal
+//= require ng-file-upload-shim
 //= require angular
 //= require angular-route
 //= require angular-resource
 //= require angularjs-rails-resource
 //= require angular-ui-sortable
+//= require ng-file-upload
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });

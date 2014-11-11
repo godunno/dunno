@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :event do
-    start_at "2014-02-05 16:00:01"
-    end_at "2014-02-05 18:00:01"
+    start_at { Time.zone.now.change(usec: 0) }
+    end_at { 1.hour.from_now.change(usec: 0) }
     timeline
     course
   end

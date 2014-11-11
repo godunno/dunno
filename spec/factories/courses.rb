@@ -2,11 +2,11 @@
 
 FactoryGirl.define do
   factory :course do
-    name "MyString"
+    name "Português Bolado"
     teacher
     start_date { Date.today }
     end_date { Date.tomorrow }
-    class_name "Room 999"
+    class_name "101"
     institution "PUC-Rio"
   end
 end

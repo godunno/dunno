@@ -57,12 +57,23 @@
     }
   }
   .item-button {
-    margin-left: 1em;
-  }
-  .media-url-button {
     float: right;
-    margin-top: -2.8em;
-    margin-right: 1em;
+    margin-top: -2em;
+    font-size: 1.5em;
+    color: #AFB0B0;
+
+    &.media-url-button {
+      margin-right: 0.6em;
+    }
+    &.media-file-button {
+      margin-right: 2em;
+    }
+    &:hover {
+      color: #5C5B5B;
+    }
+  }
+  .file-input {
+    display: none;
   }
 
   .preview {

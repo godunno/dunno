@@ -70,7 +70,7 @@ describe Api::V1::Teacher::EventsController do
 
             let(:target) { personal_note }
             subject { events_json[0]["personal_notes"][0] }
-            it_behaves_like "request return check", %w(content uuid order done)
+            it_behaves_like "request return check", %w(description uuid order done)
           end
         end
       end
@@ -85,9 +85,10 @@ describe Api::V1::Teacher::EventsController do
     let(:poll) { create(:poll, options: [option]) }
     let(:option) { create(:option) }
     let(:media_with_url) { create(:media_with_url) }
+    let(:another_media_with_url) { create(:media_with_url) }
     #let(:media_with_file) { create(:media, file: Tempfile.new("test"), url: nil) }
     let(:beacon) { create(:beacon) }
-    let(:personal_note) { create(:personal_note, order: 1, done: true) }
+    let(:personal_note) { create(:personal_note, order: 1, done: true, media: another_media_with_url) }
 
     let(:student) { create(:student) }
     let(:message) { create(:timeline_message, timeline: event.timeline, student: student) }
@@ -175,14 +176,28 @@ describe Api::V1::Teacher::EventsController do
 
           describe "personal_note" do
             let(:target) { personal_note }
-            subject { event_json["personal_notes"][0] }
-            it_behaves_like "request return check", %w(content uuid order done)
+            let(:personal_note_json) { event_json["personal_notes"][0] }
+            subject { personal_note_json }
+            it_behaves_like "request return check", %w(description uuid order done)
+
+            describe "media with URL" do
+              let(:target) { another_media_with_url }
+              subject { personal_note_json["media"] }
+              it_behaves_like "request return check", %w(title description category url released_at uuid)
+            end
           end
 
           describe "topic" do
             let(:target) { topic }
-            subject { event_json["topics"].find { |t| t["uuid"] == topic.uuid } }
+            let(:topic_json) { find(event_json["topics"], topic.uuid) }
+            subject { topic_json }
             it_behaves_like "request return check", %w(description uuid order done)
+
+            describe "media with URL" do
+              let(:target) { media_with_url }
+              subject { topic_json["media"] }
+              it_behaves_like "request return check", %w(title description category url released_at uuid)
+            end
           end
 
           it { expect(subject["polls"].count).to eq 1 }
@@ -203,12 +218,6 @@ describe Api::V1::Teacher::EventsController do
             let(:target) { thermometer }
             subject { event_json["thermometers"][0] }
             it_behaves_like "request return check", %w(content uuid)
-          end
-
-          describe "media with URL" do
-            let(:target) { media_with_url }
-            subject { event_json["topics"].find { |t| t["uuid"] == topic.uuid }["media"] }
-            it_behaves_like "request return check", %w(title description category url released_at uuid)
           end
 
           #describe "media with File" do
@@ -257,8 +266,9 @@ describe Api::V1::Teacher::EventsController do
       let(:correct_option) { build :option, content: "Correct Option", correct: true }
       let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false }
       let(:options) { [correct_option, incorrect_option] }
-      let(:personal_note) { build :personal_note, order: 1, done: true }
+      let(:personal_note) { build :personal_note, order: 1, done: true, media: another_media_with_url }
       let(:media_with_url) { create :media_with_url }
+      let(:another_media_with_url) { create :media_with_url }
       #let(:media_with_file) { build :media_with_file, timeline: event_template.timeline }
       let(:start_at) { event_template.start_at.utc.iso8601 }
       let(:end_at)   { event_template.end_at.utc.iso8601 }
@@ -282,7 +292,12 @@ describe Api::V1::Teacher::EventsController do
                 incorrect_option.attributes
               ]
             )],
-            personal_notes: [personal_note.attributes]
+            personal_notes: [
+              description: personal_note.description,
+              done: personal_note.done,
+              order: personal_note.order,
+              media_id: personal_note.media.uuid
+            ]
           }
         }
       end
@@ -331,6 +346,22 @@ describe Api::V1::Teacher::EventsController do
           end
         end
 
+        it { expect(subject.personal_notes.count).to eq 1 }
+        describe "personal_notes" do
+          subject { event.personal_notes.first }
+          it { expect(subject.description).to eq personal_note.description }
+          it { expect(subject.order).to eq personal_note.order }
+          it { expect(subject).to be_done }
+
+          describe "media with url" do
+            subject { event.personal_notes.first.media }
+            it { expect(subject.title).to eq another_media_with_url.title }
+            it { expect(subject.description).to eq another_media_with_url.description }
+            it { expect(subject.category).to eq another_media_with_url.category }
+            it { expect(subject.url).to eq another_media_with_url.url }
+          end
+        end
+
         it { expect(subject.thermometers.count).to eq 1 }
         describe "thermometer" do
           subject { event.thermometers.first }
@@ -349,14 +380,6 @@ describe Api::V1::Teacher::EventsController do
             it { expect(subject.options.map(&:content)).to match_array options.map(&:content) }
             it { expect(subject.options.map(&:correct)).to match_array options.map(&:correct) }
           end
-        end
-
-        it { expect(subject.personal_notes.count).to eq 1 }
-        describe "personal_notes" do
-          subject { event.personal_notes.first }
-          it { expect(subject.content).to eq personal_note.content }
-          it { expect(subject.order).to eq personal_note.order }
-          it { expect(subject).to be_done }
         end
 
         #describe "media with file" do

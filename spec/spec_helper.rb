@@ -51,6 +51,7 @@ RSpec.configure do |config|
   config.include EmailSpec::Matchers
   config.include Devise::TestHelpers, type: :controller
   config.include Warden::Test::Helpers, type: :request
+  config.include AuthRequestHelpers, type: :request
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
