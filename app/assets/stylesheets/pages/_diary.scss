@@ -92,7 +92,7 @@
     &.media-file-button {
       margin-right: 2em;
     }
-    &:hover {
+    &:hover, &.active {
       color: #5C5B5B;
     }
   }

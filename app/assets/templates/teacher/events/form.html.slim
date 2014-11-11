@@ -118,8 +118,15 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar tarefa"
             ui-keydown="{'enter':'addItem($event)'}" name="topic"]
-          a.icon.icon-link.item-button.media-url-button data-dropdown="topic-url" data-options="align:left"
-          label.icon.icon-clips.item-button.media-file-button for="topic-file"
+          a.icon.icon-link.item-button.media-url-button[
+            data-dropdown="topic-url"
+            data-options="align:left"
+            ng-class="{active: newListItem.media.type=='url'}"
+          ]
+          label.icon.icon-clips.item-button.media-file-button[
+            for="topic-file"
+            ng-class="{active: newListItem.media.type=='file'}"
+          ]
           #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
             input[type="text" name="topic_media_url" ng-model="newListItem.media_url"
               dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
@@ -163,8 +170,15 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" name="personal_note"
           placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
-          a.icon.icon-link.item-button.media-url-button data-dropdown="personal-note-url" data-options="align:left"
-          label.icon.icon-clips.item-button.media-file-button for="personal-note-file"
+          a.icon.icon-link.item-button.media-url-button[
+            data-dropdown="personal-note-url"
+            data-options="align:left"
+            ng-class="{active: newListItem.media.type=='url'}"
+          ]
+          label.icon.icon-clips.item-button.media-file-button[
+            for="personal-note-file"
+            ng-class="{active: newListItem.media.type=='file'}"
+          ]
           #personal-note-url.media-url-input data-dropdown-content="" aria-hidden="true"
             input[type="text" name="personal_note_media_url" ng-model="newListItem.media_url"
               dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
