@@ -6,7 +6,7 @@
 
 .card--course {
   width: 460px;
-  height: 250px;
+  height: 177px;
   display: inline-block;
   margin: 10px;
   float: left;
@@ -25,4 +25,8 @@
 .course-title {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+.card-content.padding {
+  padding: 20px;
 }

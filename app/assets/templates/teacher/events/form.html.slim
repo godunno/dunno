@@ -13,7 +13,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         span< ng-if="!!event.course.grade" - {{event.course.grade}}
 .page-header.subtitle
   .row.text-center
-    .large-2.columns.vertical-center.t-light
+    .large-2.columns.vertical-center.t-light.text-left
       span.t-size-1.upcase {{event.start_at | date:'MMM/yyyy'}}
     .large-2.large-offset-1.columns.vertical-center.t-light
       a.vertical-center.t-light ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit"
@@ -36,23 +36,23 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .row
 
     .row.event-status
-      .large-3.columns
+      .large-3.columns.no-pad-left
         .row.date
           .large-2.columns
             label.icon.icon-calendar.pos.right for="date"
           .large-10.columns
             input.radius id="date" ng-model="event.date" mask="99/99/9999" type="text" placeholder="Ex: 23/10/2014" name="date"
-      .large-4.columns
+      .large-4.columns.no-pad-left
         .row.time
           .large-2.columns
             label.icon.icon-clock.pos for="start_time"
-          .large-4.columns
+          .large-4.columns.no-pad-right
             input.radius id="start_time" ng-model="event.start_time" mask="99:99" type="text" placeholder="Ex: 14:00" name="start_time"
-          .large-2.columns
+          .large-2.columns.between-fields
             label.to for="end_time" às
-          .large-4.columns.end
+          .large-4.columns.end.no-pad-right
             input.radius id="end_time" ng-model="event.end_time" mask="99:99" type="text" placeholder="Ex: 16:30" name="end_time"
-      .large-2.columns
+      .large-3.columns.select-status
         a.dropdown data-dropdown="event-status"
           .option.published ng-if="event.status == 'published'"
             i.icon.icon-published
@@ -115,17 +115,18 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ui-keydown="{'enter':'updateItem(editingItem, topic)'}"]
 
       .foot
-        input[ng-model="newListItem.description" type="text" placeholder="Adicionar tarefa"
-          ui-keydown="{'enter':'addItem($event)'}" name="topic"]
-        a.icon.icon-link.item-button.media-url-button data-dropdown="topic-url" data-options="align:left"
-        label.icon.icon-clips.item-button.media-file-button for="topic-file"
-        #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
-          input[type="text" name="topic_media_url" ng-model="newListItem.media_url"
-            dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
-        input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
+        .wrapper-new-list-item
+          input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar tarefa"
+            ui-keydown="{'enter':'addItem($event)'}" name="topic"]
+          a.icon.icon-link.item-button.media-url-button data-dropdown="topic-url" data-options="align:left"
+          label.icon.icon-clips.item-button.media-file-button for="topic-file"
+          #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
+            input[type="text" name="topic_media_url" ng-model="newListItem.media_url"
+              dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
+          input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
-        progress-bar
-        preview item="newListItem"
+          progress-bar
+          preview item="newListItem"
         .hint Ex: Revisar aula passada. Introdução à raiz quadrada.
 
     .row.card.container.notes event-list="personal_notes"
@@ -159,15 +160,16 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ng-model="editingItem.description"
               ui-keydown="{'enter':'updateItem(editingItem, personal_note)'}"]
       .foot
-        input[ng-model="newListItem.description" type="text" name="personal_note"
-        placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
-        a.icon.icon-link.item-button.media-url-button data-dropdown="personal-note-url" data-options="align:left"
-        label.icon.icon-clips.item-button.media-file-button for="personal-note-file"
-        #personal-note-url.media-url-input data-dropdown-content="" aria-hidden="true"
-          input[type="text" name="personal_note_media_url" ng-model="newListItem.media_url"
-            dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
-        input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
+        .wrapper-new-list-item
+          input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" name="personal_note"
+          placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
+          a.icon.icon-link.item-button.media-url-button data-dropdown="personal-note-url" data-options="align:left"
+          label.icon.icon-clips.item-button.media-file-button for="personal-note-file"
+          #personal-note-url.media-url-input data-dropdown-content="" aria-hidden="true"
+            input[type="text" name="personal_note_media_url" ng-model="newListItem.media_url"
+              dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
+          input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
-        progress-bar
-        preview item="newListItem"
-        label Ex: Fazer ditado surpresa. Rever comportamento do João.
+          progress-bar
+          preview item="newListItem"
+        .hint Ex: Fazer ditado surpresa. Rever comportamento do João.

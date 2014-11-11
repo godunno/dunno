@@ -2,6 +2,7 @@
   $dropdown-width: 150px;
   .dropdown {
     width: $dropdown-width;
+    float: right;
   }
   .status-list {
     @include dropdown-container(list, bottom);
@@ -48,6 +49,29 @@
       }
     }
   }
+
+  .field-new-list-item {
+    border: 0;
+    border-bottom: 1px solid #ccc !important;
+    margin-bottom: 0;
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  .wrapper-new-list-item {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin-bottom: 10px;
+
+    &.focus-wrapper {
+      border: 1px solid #3c90c5;
+      box-shadow: 0 0 3px #3c90c5;
+    }
+  }
+  
   .media-url-input {
     @include dropdown-container(content, right, 350px);
     padding: 8px;
@@ -58,7 +82,7 @@
   }
   .item-button {
     float: right;
-    margin-top: -2em;
+    margin-top: -1.3em;
     font-size: 1.5em;
     color: #AFB0B0;
 
@@ -75,12 +99,18 @@
   .file-input {
     display: none;
   }
-
+  
+  .progress {
+      margin-top: 10px;
+  }
   .preview {
     background-color: $background-light-grey-color;
-    margin-bottom: 1em;
+    margin: 12px;
     padding: 1em .5em;
     position: relative;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
 
     .image {
       @include grid-column(2);
@@ -201,6 +231,7 @@ $diary-card-border: 1px solid #dddddd;
     }
     &.icon {
       font-size: 24px;
+      margin-top: 5px;
     }
   }
   .white {
@@ -208,6 +239,24 @@ $diary-card-border: 1px solid #dddddd;
   }
   .status {
     text-align: right;
+  }
+  .no-pad-left {
+      padding-left: 0 !important;
+  }
+  .no-pad-right {
+    padding-right: 0;
+  }
+  .time .to {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 14px;
+  }
+  .select-status {
+      padding-right: 0;
+  }
+  .between-fields {
+      padding: 0 !important;
+      width: 26px;
   }
 }
 
@@ -217,6 +266,9 @@ $diary-card-border: 1px solid #dddddd;
   border: $diary-card-border;
   margin: 20px auto 20px;
   padding: 0;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
   & > .title {
     height: $diary-title-height;
     position: relative;
@@ -321,4 +373,12 @@ $diary-card-border: 1px solid #dddddd;
 .icon {
   font-size: 1rem;
   line-height: 0.3rem;
+}
+
+.hint {
+    font-size: 0.75rem;
+    color: #4d4d4d;
+    display: block;
+    font-weight: normal;
+    line-height: 1.5;
 }
