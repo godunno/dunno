@@ -36,21 +36,21 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .row
 
     .row.event-status
-      .large-3.columns
+      .large-3.columns.no-pad-left
         .row.date
           .large-2.columns
             label.icon.icon-calendar.pos.right for="date"
           .large-10.columns
             input.radius id="date" ng-model="event.date" mask="99/99/9999" type="text" placeholder="Ex: 23/10/2014" name="date"
-      .large-4.columns
+      .large-4.columns.no-pad-left
         .row.time
           .large-2.columns
             label.icon.icon-clock.pos for="start_time"
-          .large-4.columns
+          .large-4.columns.no-pad-right
             input.radius id="start_time" ng-model="event.start_time" mask="99:99" type="text" placeholder="Ex: 14:00" name="start_time"
           .large-2.columns.between-fields
             label.to for="end_time" às
-          .large-4.columns.end
+          .large-4.columns.end.no-pad-right
             input.radius id="end_time" ng-model="event.end_time" mask="99:99" type="text" placeholder="Ex: 16:30" name="end_time"
       .large-3.columns.select-status
         a.dropdown data-dropdown="event-status"
