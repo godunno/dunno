@@ -3,8 +3,9 @@ DunnoApp = angular.module('DunnoApp')
 DunnoApp.controller 'previewCtrl', ['$scope', ($scope)->
   $scope.imageSrc = (src)-> src || "//:0"
 
-  # Needed due to the isolated scope
-  $scope.removeMedia = $scope.$parent.removeMedia
+  $scope.removeMedia = ->
+    if confirm("Deseja remover essa media? Essa operação não poderá ser desfeita.")
+      $scope.$parent.removeMedia(arguments...)
 ]
 
 DunnoApp.directive 'preview', ->
