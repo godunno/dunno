@@ -115,8 +115,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ui-keydown="{'enter':'updateItem(editingItem, topic)'}"]
 
       .foot
-        .wrapper-new-task
-          input.field-new-task[ng-model="newListItem.description" type="text" placeholder="Adicionar tarefa"
+        .wrapper-new-list-item
+          input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar tarefa"
             ui-keydown="{'enter':'addItem($event)'}" name="topic"]
           a.icon.icon-link.item-button.media-url-button data-dropdown="topic-url" data-options="align:left"
           label.icon.icon-clips.item-button.media-file-button for="topic-file"
@@ -160,15 +160,16 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ng-model="editingItem.description"
               ui-keydown="{'enter':'updateItem(editingItem, personal_note)'}"]
       .foot
-        input[ng-model="newListItem.description" type="text" name="personal_note"
-        placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
-        a.icon.icon-link.item-button.media-url-button data-dropdown="personal-note-url" data-options="align:left"
-        label.icon.icon-clips.item-button.media-file-button for="personal-note-file"
-        #personal-note-url.media-url-input data-dropdown-content="" aria-hidden="true"
-          input[type="text" name="personal_note_media_url" ng-model="newListItem.media_url"
-            dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
-        input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
+        .wrapper-new-list-item
+          input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" name="personal_note"
+          placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
+          a.icon.icon-link.item-button.media-url-button data-dropdown="personal-note-url" data-options="align:left"
+          label.icon.icon-clips.item-button.media-file-button for="personal-note-file"
+          #personal-note-url.media-url-input data-dropdown-content="" aria-hidden="true"
+            input[type="text" name="personal_note_media_url" ng-model="newListItem.media_url"
+              dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
+          input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
-        progress-bar
-        preview item="newListItem"
+          progress-bar
+          preview item="newListItem"
         .hint Ex: Fazer ditado surpresa. Rever comportamento do João.
