@@ -3,6 +3,7 @@ class Teacher < ActiveRecord::Base
   has_and_belongs_to_many :organizations
   has_many :courses
   has_many :events, through: :courses
+  has_many :medias
 
   delegate :email, :authentication_token, :name, :phone_number, to: :user
 end

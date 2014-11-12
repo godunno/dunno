@@ -2,6 +2,8 @@ module Form
   class MediaForm < Form::Base
     model_class ::Media
 
+    attr_accessor :teacher
+
     attribute :title, String
     attribute :description, String
     attribute :category, String
@@ -26,6 +28,7 @@ module Form
       model.url         = url
       model.file        = file
       model.preview     = preview
+      model.teacher     = teacher
       model.save!
     end
 

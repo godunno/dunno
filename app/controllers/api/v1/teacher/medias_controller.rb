@@ -1,10 +1,15 @@
 class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   respond_to :json
 
+  def index
+    @medias = current_teacher.medias
+  end
+
   def create
     media_params = params[:media].to_h
     media_params[:file] = params[:file]
     media_form = Form::MediaForm.new(media_params.with_indifferent_access)
+    media_form.teacher = current_teacher
     if media_form.save
       @media = media_form.model
     else
