@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107200125) do
+ActiveRecord::Schema.define(version: 20141112223344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,9 +131,11 @@ ActiveRecord::Schema.define(version: 20141107200125) do
     t.json     "preview"
     t.integer  "mediable_id"
     t.string   "mediable_type"
+    t.integer  "teacher_id"
   end
 
   add_index "medias", ["mediable_id", "mediable_type"], name: "index_medias_on_mediable_id_and_mediable_type", using: :btree
+  add_index "medias", ["teacher_id"], name: "index_medias_on_teacher_id", using: :btree
   add_index "medias", ["uuid"], name: "index_medias_on_uuid", unique: true, using: :btree
 
   create_table "notifications", force: true do |t|

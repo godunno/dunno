@@ -6,6 +6,7 @@ describe Media do
 
   describe "associations" do
     it { should belong_to(:mediable) }
+    it { should belong_to(:teacher) }
   end
 
   describe "callbacks" do

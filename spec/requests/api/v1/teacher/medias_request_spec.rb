@@ -1,7 +1,38 @@
 require 'spec_helper'
 
 describe Api::V1::Teacher::MediasController do
+  describe "GET /api/v1/teacher/medias.json" do
+    let!(:teacher) { create :teacher }
+    let!(:media) { create :media_with_url, teacher: teacher }
+    let!(:media_from_another_teacher) { create :media, teacher: create(:teacher) }
+
+    def do_action
+      get "/api/v1/teacher/medias.json", auth_params(teacher)
+    end
+
+    before do
+      do_action
+    end
+
+    it { expect(last_response.status).to eq(200) }
+    it "should return the teacher's medias" do
+      expect(json).to eq(
+        [{
+          "uuid"        => media.uuid,
+          "title"       => media.title,
+          "description" => media.description,
+          "category"    => media.category,
+          "preview"     => media.preview,
+          "type"        => media.type,
+          "released_at" => media.released_at,
+          "url"         => media.url
+        }]
+      )
+    end
+  end
+
   describe "POST /api/v1/teacher/medias.json", :vcr do
+    let(:teacher) { create :teacher }
     it_behaves_like "API authentication required"
     context "authenticated" do
 
@@ -16,7 +47,7 @@ describe Api::V1::Teacher::MediasController do
             "media" => {
               "url" => url
             }
-          }.merge(auth_params(:teacher)).to_json
+          }.merge(auth_params(teacher)).to_json
         end
 
         before { do_action }
@@ -25,6 +56,7 @@ describe Api::V1::Teacher::MediasController do
         it { expect(last_response.status).to eq(200) }
         it { expect(json["uuid"]).to eq(subject.uuid) }
         it { expect(subject.url).to eq(url) }
+        it { expect(subject.teacher).to eq(teacher) }
         it { expect(json["preview"]).to eq(subject.preview) }
         it "should have the correct preview" do
           expect(json["preview"]).to eq(
@@ -47,7 +79,7 @@ describe Api::V1::Teacher::MediasController do
         let(:params_hash) do
           {
             "file" => file
-          }.merge(auth_params(:teacher))
+          }.merge(auth_params(teacher))
         end
 
         before { do_action }
@@ -56,6 +88,7 @@ describe Api::V1::Teacher::MediasController do
         it { expect(last_response.status).to eq(200) }
         it { expect(json["uuid"]).to eq(subject.uuid) }
         it { expect(subject.file_identifier).to eq(file.original_filename) }
+        it { expect(subject.teacher).to eq(teacher) }
         it { expect(json["preview"]).to eq(subject.preview) }
         it "should have the correct preview" do
           expect(json["preview"]).to eq(
@@ -70,7 +103,7 @@ describe Api::V1::Teacher::MediasController do
           {
             "media" => {
             }
-          }.merge(auth_params(:teacher)).to_json
+          }.merge(auth_params(teacher)).to_json
         end
 
         before { do_action }
