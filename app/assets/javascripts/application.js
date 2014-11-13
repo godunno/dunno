@@ -29,6 +29,7 @@
 //= require angularjs-rails-resource
 //= require angular-ui-sortable
 //= require ng-file-upload
+//= require angular-sanitize
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });

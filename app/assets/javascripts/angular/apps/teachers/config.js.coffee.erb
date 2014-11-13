@@ -3,9 +3,10 @@
 #= depend_on_asset "teacher/courses/show.html"
 #= depend_on_asset "teacher/events/index.html"
 #= depend_on_asset "teacher/events/form.html"
+#= depend_on_asset "teacher/medias/index.html"
 #= depend_on_asset "styleguide.html"
 
-DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload']
+DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngSanitize']
 
 Router = ($routeProvider)->
   $routeProvider.
@@ -16,6 +17,7 @@ Router = ($routeProvider)->
     when('/events',           controller: 'EventsIndexCtrl',  templateUrl: '<%= asset_path('teacher/events/index.html') %>').
     when('/events/new',       controller: 'EventCtrl',        templateUrl: '<%= asset_path('teacher/events/form.html') %>').
     when('/events/:id/edit',  controller: 'EventCtrl',        templateUrl: '<%= asset_path('teacher/events/form.html') %>').
+    when('/catalog',          controller: 'MediasIndexCtrl',  templateUrl: '<%= asset_path('teacher/medias/index.html') %>').
     when('/styleguide', templateUrl: '<%= asset_path('styleguide.html') %>').
     otherwise(redirectTo: '/courses')
 Router.$inject = ['$routeProvider', '$locationProvider']
