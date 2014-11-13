@@ -55,8 +55,6 @@ header.page-header.title
       .top
         span.title contenteditable=true ng-model="media.preview.title"
         i.type.icon ng-class="'icon-' + media.type"
-        a.url ng-href="{{media.preview.url}}" target="_blank" example.com
+        a.url ng-href="{{media.preview.url}}" target="_blank" {{format_media_url(media)}}
       .bottom
         a.icon.icon-trash
-        span.tag inspiração
-        span.tag carreira
