@@ -170,7 +170,7 @@ describe Api::V1::Teacher::MediasController do
     end
 
     it { expect(last_response.status).to eq(200) }
-    it { expect(media.tag_list).to match_array(["history", "math", "science"]) }
+    it { expect(media.tag_list).to match_array(%w(history math science)) }
   end
 
   describe "GET /api/v1/teacher/medias/preview.json", :vcr do

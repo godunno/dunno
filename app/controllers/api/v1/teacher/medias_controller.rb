@@ -44,11 +44,11 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
 
   private
 
-    def media
-      @media ||= Media.where(uuid: params[:id]).first!
-    end
+  def media
+    @media ||= Media.where(uuid: params[:id]).first!
+  end
 
-    def media_params
-      params.require(:media).permit(:tag_list)
-    end
+  def media_params
+    params.require(:media).permit(:tag_list)
+  end
 end
