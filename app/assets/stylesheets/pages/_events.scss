@@ -5,11 +5,13 @@
     li.event-card {
       border-radius: 5px;
       overflow: hidden;
-      width: 315px;
+      width: 30%;
       height: 400px;
       float: left;
-      margin: 0 5px 42px 5px;
+      margin: 0 1.5% 42px 1.5%;
       position: relative;
+      box-shadow: $box-shadow;
+      padding: 0px;
       .title {
         text-align: center;
         height: 113px;
