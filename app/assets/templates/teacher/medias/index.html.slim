@@ -1,0 +1,60 @@
+header.page-header.title
+  .row
+    .large-4.large-centered.vertical-center.columns
+      h1 Catálogo
+
+.catalog-page
+  .row
+    .large-3.columns
+      a.dropdown data-dropdown="search-type"
+        .option.all ng-if="search.type == 'all'"
+          span.value Todos
+          span.count
+            | ({{countType(medias, 'all')}})
+        .option.url ng-if="search.type == 'url'"
+          i.type.icon.icon-url
+          span.value Links
+          span.count
+            | ({{countType(medias, 'url')}})
+        .option.file ng-if="search.type == 'file'"
+          i.type.icon.icon-file
+          span.value Arquivos
+          span.count
+            | ({{countType(medias, 'file')}})
+        i.icon.icon-arrow-down
+      ul#search-type.type-list data-dropdown-content="" dropdown-select="" ng-model="search.type"
+        li.option.all dropdown-select-item="all"
+          span.title Mostrar todos
+          span.count
+            | ({{countType(medias, 'all')}})
+        li.option.url dropdown-select-item="url"
+          i.type.icon.icon-url
+          span.title Links
+          span.count
+            | ({{countType(medias, 'url')}})
+        li.option.file dropdown-select-item="file"
+          i.type.icon.icon-file
+          span.title Arquivos
+          span.count
+            | ({{countType(medias, 'file')}})
+
+    .large-6.columns.end
+      .row.collapse
+        .large-11.columns
+          input type="text" ng-model="search.q" placeholder="Procure por assunto ou palavra-chave"
+        .large-1.columns
+          a.button.postfix.icon.icon-search
+
+    a.right
+      i.icon.icon-triangle
+      span Mais Recentes
+
+  ul.medias.row
+    li.media ng-repeat="media in medias"
+      .vertical-bar
+      .top
+        span.title contenteditable=true ng-model="media.preview.title"
+        i.type.icon ng-class="'icon-' + media.type"
+        a.url ng-href="{{media.preview.url}}" target="_blank" {{format_media_url(media)}}
+      .bottom
+        a.icon.icon-trash

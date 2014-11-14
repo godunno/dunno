@@ -1,0 +1,143 @@
+
+.catalog-page {
+  .type.icon {
+    color: #FFF;
+    background: $primary-color;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    padding: 2px;
+    font-size: 18px;
+  }
+
+  .count {
+    color: $light-grey-color;
+    margin-left: 0.2em;
+  }
+
+  $dropdown-width: 180px;
+  .dropdown {
+    width: $dropdown-width;
+  }
+
+  .type-list {
+    @include dropdown-container(list, bottom);
+    @include radius();
+    width: $dropdown-width;
+    border-color: $light-grey-color;
+
+    .option {
+      cursor: pointer;
+      padding: 10px;
+
+      &:nth-last-child(n+2) {
+        border-bottom: 1px solid $light-grey-color;
+      }
+
+      .title {
+        color: $dark-grey-color;
+
+        font-size: 1em;
+        font-weight: 600;
+      }
+
+      .count {
+        float: right;
+      }
+
+      .icon {
+        margin-right: 0.5em;
+      }
+    }
+  }
+
+  .medias {
+    margin-top: 0.5em;
+  }
+
+  .media {
+    @include grid-row;
+
+    width: initial;
+    height: 112px;
+    display: block;
+    background: white;
+    border: 1px solid $dark-grey-color;
+    border-bottom: none;
+    border-top-color: $light-grey-color;
+    padding: 1.5em;
+    margin-left: $column-gutter / 2;
+    position: relative;
+
+    &:first-of-type {
+      border-top-color: $dark-grey-color;
+    }
+
+    &:last-of-type {
+      border-bottom: 1px solid $dark-grey-color;
+    }
+
+    &:hover .vertical-bar {
+      width: 3px;
+      height: 100%;
+      background: $secondary-color;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    > li {
+      list-style: none;
+    }
+
+    .top {
+      @include grid-row;
+    }
+
+    .bottom {
+      @include grid-row;
+      margin-top: 1em;
+    }
+
+    .title:hover, .title:focus {
+      border: none;
+      border-bottom: 1px dashed $secondary-color;
+      outline: none;
+    }
+
+    .url {
+      float: right;
+      font-size: 0.7em;
+      color: $secondary-color;
+      margin-right: 1em;
+    }
+
+    .type.icon {
+      float: right;
+    }
+
+    .tag {
+      @include label($bg: $dark-grey-color, $radius: 2px);
+      margin-left: 0.5em;
+      font-weight: 300;
+    }
+
+    .icon-trash {
+      float: right;
+      color: $light-grey-color;
+      width: 1.3em;
+      height: 1.3em;
+      text-align: center;
+      padding: 0.1em;
+      display: none;
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    &:hover .icon-trash {
+      display: block;
+    }
+  }
+}
