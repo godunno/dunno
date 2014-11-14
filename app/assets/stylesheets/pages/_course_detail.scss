@@ -16,8 +16,7 @@
     margin-right: 0;
     padding-bottom: 20px;
     border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+    box-shadow: $box-shadow;
     background-color: white;
     li {
       float: left;
@@ -101,12 +100,13 @@
       }
     }
   }
-  div.code {
+  .code {
     background-color: white;
     margin-bottom: 21px;
     text-align: center;
     padding: 20px;
     border-radius: 5px;
+    box-shadow: $box-shadow;
     span.title {
       font-size: 16px;
       font-weight: 300;
