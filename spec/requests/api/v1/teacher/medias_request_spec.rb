@@ -147,6 +147,32 @@ describe Api::V1::Teacher::MediasController do
     end
   end
 
+  describe "PATCH /api/v1/teacher/medias/:uuid.json" do
+    let(:media) { create :media }
+    let(:tag_list) { "history, math, science" }
+
+    let(:params_hash) do
+      {
+        media: {
+          tag_list: tag_list
+        }
+      }
+    end
+
+    def do_action
+      patch "/api/v1/teacher/medias/#{media.uuid}.json", params_hash
+        .merge(auth_params(:teacher)).to_json
+    end
+
+    before do
+      do_action
+      media.reload
+    end
+
+    it { expect(last_response.status).to eq(200) }
+    it { expect(media.tag_list).to match_array(["history", "math", "science"]) }
+  end
+
   describe "GET /api/v1/teacher/medias/preview.json", :vcr do
 
     let(:params_hash) do

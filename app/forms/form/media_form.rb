@@ -10,12 +10,13 @@ module Form
     attribute :url, String
     attribute :file, String
     attribute :preview, Hash
+    attribute :tag_list, String
 
     validates :url, format: URI.regexp(:http), allow_blank: true
     validate :mutually_exclusive_url_or_file
 
     def initialize(params)
-      super(params.slice(*attributes_list(:title, :description, :category, :url, :file)))
+      super(params.slice(*attributes_list(:title, :description, :category, :url, :file, :tag_list)))
       self.preview = LinkThumbnailer.generate(url).to_json if url.present?
     end
 
@@ -28,6 +29,7 @@ module Form
       model.url         = url
       model.file        = file
       model.preview     = preview
+      model.tag_list    = tag_list
       model.teacher     = teacher
       model.save!
     end
