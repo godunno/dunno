@@ -3,6 +3,8 @@ class Media < ActiveRecord::Base
 
   CATEGORIES = %w(image video audio)
 
+  acts_as_taggable
+
   belongs_to :mediable, polymorphic: true
   belongs_to :teacher
 
