@@ -10,7 +10,6 @@ DunnoApp.controller 'previewCtrl', ['$scope', ($scope)->
 
 DunnoApp.directive 'preview', ->
   restrict: 'E'
-  replace: true
   # TODO: Find a way to keep the two-way data binding without the isolated scope
   scope:
     item: '='
