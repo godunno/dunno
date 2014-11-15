@@ -16,5 +16,15 @@ Media = (RailsResource, $upload)->
         url: @$url() + ".json"
         file: @file
 
+    update_tag_list: -> @tag_list = @tags.map((tag)-> tag.text)
+
+  Media.interceptAfterResponse (response)->
+    medias = if angular.isArray(response) then response else [response]
+    for media in medias
+      media.tags = (media.tag_list || []).map (tag)-> { text: tag }
+    medias
+
+  Media
+
 Media.$inject = ['RailsResource', '$upload']
 DunnoApp.factory 'Media', Media

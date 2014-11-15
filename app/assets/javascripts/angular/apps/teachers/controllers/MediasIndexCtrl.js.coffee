@@ -20,5 +20,9 @@ MediasIndexCtrl = ($scope, Media)->
     parser.href = media.preview.url
     parser.hostname.replace(/^www\./, '')
 
+  $scope.updateMedia = (media)->
+    media.update_tag_list()
+    media.update()
+
 MediasIndexCtrl.$inject = ['$scope', 'Media']
 DunnoApp.controller 'MediasIndexCtrl', MediasIndexCtrl

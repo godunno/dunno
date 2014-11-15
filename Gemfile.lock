@@ -250,6 +250,8 @@ GEM
     rails-assets-modernizr (2.8.3)
     rails-assets-ng-file-upload (1.6.12)
     rails-assets-ng-file-upload-shim (1.6.12)
+    rails-assets-ng-tags-input (2.1.1)
+      rails-assets-angular (>= 1.2.1)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -431,6 +433,7 @@ DEPENDENCIES
   rails-assets-modernizr (= 2.8.3)
   rails-assets-ng-file-upload (= 1.6.12)
   rails-assets-ng-file-upload-shim (= 1.6.12)
+  rails-assets-ng-tags-input (= 2.1.1)
   rails_12factor (= 0.0.2)
   recurrence (= 1.2.0)
   roboto (= 0.2.0)

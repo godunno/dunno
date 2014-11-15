@@ -25,6 +25,7 @@ describe Api::V1::Teacher::MediasController do
           "preview"     => media.preview,
           "type"        => media.type,
           "released_at" => media.released_at,
+          "tag_list"    => media.tag_list,
           "url"         => media.url
         }]
       )
