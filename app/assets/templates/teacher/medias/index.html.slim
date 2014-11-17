@@ -57,4 +57,7 @@ header.page-header.title
         i.type.icon ng-class="'icon-' + media.type"
         a.url ng-href="{{media.preview.url}}" target="_blank" {{format_media_url(media)}}
       .bottom
-        a.icon.icon-trash
+        .large-11.columns
+          tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova"
+        .large-1.column
+          a.icon.icon-trash

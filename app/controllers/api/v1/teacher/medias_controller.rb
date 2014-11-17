@@ -17,6 +17,14 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
     end
   end
 
+  def update
+    if media.update(media_params)
+      render nothing: true, status: 200
+    else
+      render media.errors, status: 422
+    end
+  end
+
   api :PATCH, '/api/v1/teacher/medias/:id/release', "Releases the media on the timeline."
   def release
     if media.status == "available"
@@ -36,7 +44,11 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
 
   private
 
-    def media
-      @media ||= Media.where(uuid: params[:id]).first!
-    end
+  def media
+    @media ||= Media.where(uuid: params[:id]).first!
+  end
+
+  def media_params
+    params.require(:media).permit(:tag_list, tag_list: [])
+  end
 end
