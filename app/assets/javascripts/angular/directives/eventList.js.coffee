@@ -53,8 +53,13 @@ listCtrl = ($scope, Media, Utils, $upload)->
     item._submittingMedia = true
     $scope.$broadcast("progress.start")
     showProgress(callback)
-    callback.then((media)->
-      media = media.data if media.data? # upload response is wrapped
+    callback.then((response)->
+      media = if response.data? # response may be wrapped
+          response.data
+        else if Array.isArray(response)
+          response[0]
+        else
+          response
       item.media = media
       item.media_id = media.uuid
     ).finally(->
