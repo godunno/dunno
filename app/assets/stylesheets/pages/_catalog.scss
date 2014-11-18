@@ -135,10 +135,10 @@
         font-weight: 300;
         border: 1px dashed $light-grey-color;
         // TODO: make it work on Firefox
-        &::-webkit-input-placeholder, &:-moz-placeholder, &::-moz-placeholder, &:-ms-input-placeholder {
-          &::before {
+        @include placeholder {
+          &:before {
             content: "a  ";
-            font-family: "dunno-icon-font" !important;
+            font-family: "dunno-icon-font";
             color: $dark-grey-color;
           }
         }

@@ -22,3 +22,13 @@ span.error {
   border: none;
   border-bottom: 1px dashed $border-color;
 }
+
+// https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/css3/_placeholder.scss
+@mixin placeholder {
+  $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
+  @each $placeholder in $placeholders {
+    &:#{$placeholder}-placeholder {
+      @content;
+    }
+  }
+}
