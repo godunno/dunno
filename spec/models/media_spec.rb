@@ -37,28 +37,6 @@ describe Media do
     it { expect {media.release!}.to change(media, :released_at).from(nil).to(Time.now) }
   end
 
-  describe "#preview" do
-    before do
-      media.file = uploaded_file("image.jpg", "image/jpeg")
-      media.save!
-    end
-
-    it "allow override title" do
-      media.title = "Cute kittens"
-      expect(media.preview).to eq(
-        "url" => media.file.url,
-        "title" => media.title
-      )
-    end
-
-    it "generates preview from file" do
-      expect(media.preview).to eq(
-        "url" => media.file.url,
-        "title" => media.file_identifier
-      )
-    end
-  end
-
   describe "#type" do
     context "file" do
       let(:media) { build :media_with_file }
@@ -73,6 +51,13 @@ describe Media do
     context "empty" do
       let(:media) { build :media, file: nil, url: nil }
       it { expect(media.type).to be_nil }
+    end
+  end
+
+  describe "#url" do
+    context "it has file" do
+      let(:media) { build :media_with_file }
+      it { expect(media.url).to eq(media.file.url) }
     end
   end
 

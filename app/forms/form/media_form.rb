@@ -6,6 +6,7 @@ module Form
 
     attribute :title, String
     attribute :description, String
+    attribute :thumbnail, String
     attribute :category, String
     attribute :url, String
     attribute :file, String
@@ -19,7 +20,9 @@ module Form
       super(params.slice(*attributes_list(:title, :description, :category, :url, :file, :tag_list)))
       if url.present?
         self.preview = LinkThumbnailer.generate(url).as_json
-        self.title = preview[:title] if preview
+        self.title = preview[:title]
+        self.description = preview[:description]
+        self.thumbnail = preview[:images][0].try(:src).try(:to_s)
       elsif file.present?
         self.title = file.original_filename
       end
@@ -30,6 +33,7 @@ module Form
     def persist!
       model.title       = title
       model.description = description
+      model.thumbnail   = thumbnail
       model.category    = category
       model.url         = url
       model.file        = file

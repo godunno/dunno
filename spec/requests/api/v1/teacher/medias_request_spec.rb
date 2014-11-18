@@ -24,6 +24,7 @@ describe Api::V1::Teacher::MediasController do
           "category"    => media.category,
           "preview"     => media.preview,
           "type"        => media.type,
+          "thumbnail"   => media.thumbnail,
           "released_at" => media.released_at,
           "tag_list"    => media.tag_list,
           "url"         => media.url
@@ -58,6 +59,8 @@ describe Api::V1::Teacher::MediasController do
         it { expect(json["uuid"]).to eq(subject.uuid) }
         it { expect(subject.url).to eq(url) }
         it { expect(subject.title).to eq("Musum Ipsum") }
+        it { expect(subject.description).to eq("O melhor Lorem Ipsum do mundis!") }
+        it { expect(subject.thumbnail).to eq("http://mussumipsum.com/images/mussum_ipsum_og.jpg") }
         it { expect(subject.teacher).to eq(teacher) }
         it { expect(json["preview"]).to eq(subject.preview) }
         it "should have the correct preview" do
@@ -92,13 +95,6 @@ describe Api::V1::Teacher::MediasController do
         it { expect(subject.file_identifier).to eq(file.original_filename) }
         it { expect(subject.title).to eq(file.original_filename) }
         it { expect(subject.teacher).to eq(teacher) }
-        it { expect(json["preview"]).to eq(subject.preview) }
-        it "should have the correct preview" do
-          expect(json["preview"]).to eq(
-            "url" => subject.file.url,
-            "title" => file.original_filename
-          )
-        end
       end
 
       context "creating invalid media" do

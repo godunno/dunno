@@ -18,22 +18,13 @@ class Media < ActiveRecord::Base
     save!
   end
 
-  def type
-    return "url" if url.present?
-    return "file" if file.present?
+  def url
+    super || file.url
   end
 
-  # TODO: set preview after Carrierwave has stored the file
-  def preview
-    result = if url.present?
-      super
-    else
-      {
-        "url" => file.url,
-        "title" => file_identifier
-      }
-    end
-    result = result.merge("title" => title) if title.present?
-    result
+  def type
+    return "file" if file.present?
+    return "url" if url.present?
   end
+
 end

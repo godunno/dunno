@@ -183,7 +183,7 @@ describe Api::V1::Teacher::EventsController do
             describe "media with URL" do
               let(:target) { another_media_with_url }
               subject { personal_note_json["media"] }
-              it_behaves_like "request return check", %w(title description category url released_at uuid type)
+              it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
             end
           end
 
@@ -196,7 +196,7 @@ describe Api::V1::Teacher::EventsController do
             describe "media with URL" do
               let(:target) { media_with_url }
               subject { topic_json["media"] }
-              it_behaves_like "request return check", %w(title description category url released_at uuid type)
+              it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
             end
           end
 
@@ -343,6 +343,7 @@ describe Api::V1::Teacher::EventsController do
             it { expect(subject.description).to eq media_with_url.description }
             it { expect(subject.category).to eq media_with_url.category }
             it { expect(subject.url).to eq media_with_url.url }
+            it { expect(subject.thumbnail).to eq media_with_url.thumbnail }
           end
         end
 
@@ -359,6 +360,7 @@ describe Api::V1::Teacher::EventsController do
             it { expect(subject.description).to eq another_media_with_url.description }
             it { expect(subject.category).to eq another_media_with_url.category }
             it { expect(subject.url).to eq another_media_with_url.url }
+            it { expect(subject.thumbnail).to eq another_media_with_url.thumbnail }
           end
         end
 
