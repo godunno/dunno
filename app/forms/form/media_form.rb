@@ -12,7 +12,7 @@ module Form
     attribute :preview, Hash
     attribute :tag_list, String
 
-    validates :url, format: URI.regexp(:http), allow_blank: true
+    validates :url, format: URI.regexp(%w(http https)), allow_blank: true
     validate :mutually_exclusive_url_or_file
 
     def initialize(params)

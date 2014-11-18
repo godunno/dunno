@@ -8,13 +8,17 @@ describe Form::MediaForm do
   describe "validations" do
 
     it "should validate URL's format" do
-      media_form.url = "http://www.example.com"
-      media_form.valid?
-      expect(media_form.errors[:url].size).to eq 0
+      ["http://www.example.com", "http://example.com", "http://www.example.com/path/", "https://www.example.com"].each do |url|
+        media_form.url = url
+        expect(media_form).to be_valid
+        expect(media_form.errors[:url].count).to eq(0)
+      end
 
-      media_form.url = "invalid url"
-      media_form.valid?
-      expect(media_form.errors[:url].size).to eq 1
+      ["ftp://path.com/file.doc", "www.example.com", "example.com", "example"].each do |url|
+        media_form.url = url
+        expect(media_form).not_to be_valid
+        expect(media_form.errors[:url].count).to eq(1)
+      end
     end
 
     it "should make URL and File mutually exclusive" do
