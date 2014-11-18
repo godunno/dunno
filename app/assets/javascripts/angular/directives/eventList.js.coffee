@@ -49,6 +49,7 @@ listCtrl = ($scope, Media, Utils, $upload)->
       $scope.save($scope.event)
 
   submitMedia = (item, callback, showProgress)->
+    return if item.media? && !confirm("Deseja substituir a media atual?")
     $scope.removeMedia(item)
     item._submittingMedia = true
     $scope.$broadcast("progress.start")
