@@ -25,7 +25,7 @@ class Media < ActiveRecord::Base
 
   # TODO: set preview after Carrierwave has stored the file
   def preview
-    if url.present?
+    result = if url.present?
       super
     else
       {
@@ -33,5 +33,7 @@ class Media < ActiveRecord::Base
         "title" => file_identifier
       }
     end
+    result = result.merge("title" => title) if title.present?
+    result
   end
 end

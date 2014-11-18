@@ -17,7 +17,12 @@ module Form
 
     def initialize(params)
       super(params.slice(*attributes_list(:title, :description, :category, :url, :file, :tag_list)))
-      self.preview = LinkThumbnailer.generate(url).to_json if url.present?
+      if url.present?
+        self.preview = LinkThumbnailer.generate(url).as_json
+        self.title = preview[:title] if preview
+      elsif file.present?
+        self.title = file.original_filename
+      end
     end
 
     private

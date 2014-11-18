@@ -38,9 +38,20 @@ describe Media do
   end
 
   describe "#preview" do
-    it "generates preview from file" do
+    before do
       media.file = uploaded_file("image.jpg", "image/jpeg")
       media.save!
+    end
+
+    it "allow override title" do
+      media.title = "Cute kittens"
+      expect(media.preview).to eq(
+        "url" => media.file.url,
+        "title" => media.title
+      )
+    end
+
+    it "generates preview from file" do
       expect(media.preview).to eq(
         "url" => media.file.url,
         "title" => media.file_identifier

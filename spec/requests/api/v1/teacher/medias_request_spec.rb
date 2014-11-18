@@ -57,6 +57,7 @@ describe Api::V1::Teacher::MediasController do
         it { expect(last_response.status).to eq(200) }
         it { expect(json["uuid"]).to eq(subject.uuid) }
         it { expect(subject.url).to eq(url) }
+        it { expect(subject.title).to eq("Musum Ipsum") }
         it { expect(subject.teacher).to eq(teacher) }
         it { expect(json["preview"]).to eq(subject.preview) }
         it "should have the correct preview" do
@@ -89,6 +90,7 @@ describe Api::V1::Teacher::MediasController do
         it { expect(last_response.status).to eq(200) }
         it { expect(json["uuid"]).to eq(subject.uuid) }
         it { expect(subject.file_identifier).to eq(file.original_filename) }
+        it { expect(subject.title).to eq(file.original_filename) }
         it { expect(subject.teacher).to eq(teacher) }
         it { expect(json["preview"]).to eq(subject.preview) }
         it "should have the correct preview" do
@@ -151,11 +153,13 @@ describe Api::V1::Teacher::MediasController do
   describe "PATCH /api/v1/teacher/medias/:uuid.json" do
     let(:media) { create :media }
     let(:tag_list) { "history, math, science" }
+    let(:title) { "New title" }
 
     let(:params_hash) do
       {
         media: {
-          tag_list: tag_list
+          tag_list: tag_list,
+          title: title
         }
       }
     end
@@ -172,6 +176,7 @@ describe Api::V1::Teacher::MediasController do
 
     it { expect(last_response.status).to eq(200) }
     it { expect(media.tag_list).to match_array(%w(history math science)) }
+    it { expect(media.title).to eq(title) }
   end
 
   describe "GET /api/v1/teacher/medias/preview.json", :vcr do
