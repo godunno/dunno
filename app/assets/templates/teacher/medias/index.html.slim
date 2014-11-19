@@ -53,9 +53,11 @@ header.page-header.title
     li.media ng-repeat="media in medias"
       .vertical-bar
       .top
-        span.title contenteditable=true ng-model="media.title"
-        i.type.icon ng-class="'icon-' + media.type"
-        a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
+        .large-8.columns
+          input.title type="text" ng-model="media.title" pu-elastic-input=true ng-blur="updateMedia(media)" edit-in-place=true
+        .large-4.columns
+          i.type.icon ng-class="'icon-' + media.type"
+          a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
       .bottom
         .large-11.columns
           tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova"
