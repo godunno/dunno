@@ -3,9 +3,6 @@
 FactoryGirl.define do
   factory :media do
     association :mediable, factory: :topic
-    title "MyString"
-    description "MyString"
-    category Media::CATEGORIES.first
 
     factory :media_with_url do
       file nil

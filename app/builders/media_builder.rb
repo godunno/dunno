@@ -1,6 +1,6 @@
 class MediaBuilder < BaseBuilder
   def build(json = Jbuilder.new, options = {})
-    json.(media, :uuid, :title, :description, :category, :preview, :type)
+    json.(media, :uuid, :title, :description, :category, :preview, :type, :thumbnail)
 
     # Necessary due to an error when serializing tags
     json.tag_list(media.tag_list.as_json)

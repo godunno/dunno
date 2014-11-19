@@ -49,6 +49,6 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   end
 
   def media_params
-    params.require(:media).permit(:tag_list, tag_list: [])
+    params.require(:media).permit(:title, :tag_list, tag_list: [])
   end
 end
