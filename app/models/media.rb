@@ -1,5 +1,6 @@
 class Media < ActiveRecord::Base
   include HasUuid
+  include Elasticsearch::Model
 
   CATEGORIES = %w(image video audio)
 
@@ -11,6 +12,14 @@ class Media < ActiveRecord::Base
   delegate :event, to: :mediable
 
   mount_uploader :file, FileUploader
+
+  # ElasticSearch representation
+  def as_indexed_json(*)
+    {
+      title: title,
+      tags: tag_list
+    }
+  end
 
   def release!
     self.status = "released"
