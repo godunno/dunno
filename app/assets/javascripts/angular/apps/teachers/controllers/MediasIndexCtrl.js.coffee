@@ -14,10 +14,10 @@ MediasIndexCtrl = ($scope, Media)->
     list.filter((item)-> item.type == type).length
 
   $scope.format_media_url = (media)->
-    return media.preview.title if media.type == "file"
+    return media.title if media.type == "file"
 
     parser = document.createElement('a')
-    parser.href = media.preview.url
+    parser.href = media.url
     parser.hostname.replace(/^www\./, '')
 
   $scope.updateMedia = (media)->

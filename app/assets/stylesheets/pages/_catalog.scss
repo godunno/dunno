@@ -99,8 +99,13 @@
       margin-top: 1em;
     }
 
-    .title:hover, .title:focus {
-      @include dotted-input($light-grey-color);
+    .title {
+      background: none;
+      border: none;
+      box-shadow: none;
+      &:hover, &:focus {
+        @include dotted-input($light-grey-color);
+      }
     }
 
     .url {
