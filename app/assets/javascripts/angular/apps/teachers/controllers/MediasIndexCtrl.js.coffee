@@ -14,7 +14,7 @@ MediasIndexCtrl = ($scope, Media)->
     list.filter((item)-> item.type == type).length
 
   $scope.format_media_url = (media)->
-    return media.title if media.type == "file"
+    return media.filename if media.type == "file"
 
     parser = document.createElement('a')
     parser.href = media.url
