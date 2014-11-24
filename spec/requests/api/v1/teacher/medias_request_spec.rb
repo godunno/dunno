@@ -15,21 +15,46 @@ describe Api::V1::Teacher::MediasController do
     end
 
     it { expect(last_response.status).to eq(200) }
-    it "should return the teacher's medias" do
-      expect(json).to eq(
-        [{
-          "uuid"        => media.uuid,
-          "title"       => media.title,
-          "description" => media.description,
-          "category"    => media.category,
-          "preview"     => media.preview,
-          "type"        => media.type,
-          "thumbnail"   => media.thumbnail,
-          "released_at" => media.released_at,
-          "tag_list"    => media.tag_list,
-          "url"         => media.url
-        }]
-      )
+    context "media with URL" do
+      let!(:media) { create :media_with_url, teacher: teacher }
+      it "should return the teacher's medias" do
+        expect(json).to eq(
+          [{
+            "uuid"        => media.uuid,
+            "title"       => media.title,
+            "description" => media.description,
+            "category"    => media.category,
+            "preview"     => media.preview,
+            "type"        => media.type,
+            "thumbnail"   => media.thumbnail,
+            "filename"    => nil,
+            "released_at" => media.released_at,
+            "tag_list"    => media.tag_list,
+            "url"         => media.url
+          }]
+        )
+      end
+    end
+
+    context "media with file" do
+      let!(:media) { create :media_with_file, teacher: teacher }
+      it "should return the teacher's medias" do
+        expect(json).to eq(
+          [{
+            "uuid"        => media.uuid,
+            "title"       => media.title,
+            "description" => nil,
+            "category"    => nil,
+            "preview"     => nil,
+            "type"        => media.type,
+            "thumbnail"   => nil,
+            "filename"    => media.file_identifier,
+            "released_at" => media.released_at,
+            "tag_list"    => media.tag_list,
+            "url"         => media.url
+          }]
+        )
+      end
     end
   end
 
