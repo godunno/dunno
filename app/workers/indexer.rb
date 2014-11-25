@@ -11,9 +11,9 @@ class Indexer
     case operation.to_s
       when /index/
         record = Media.find(record_id)
-        Client.index  index: 'medias', type: 'medias', id: record.id, body: record.as_indexed_json
+        Client.index  index: 'medias', type: 'media', id: record.id, body: record.as_indexed_json
       when /delete/
-        Client.delete index: 'medias', type: 'medias', id: record_id
+        Client.delete index: 'medias', type: 'media', id: record_id
       else raise ArgumentError, "Unknown operation '#{operation}'"
     end
   end
