@@ -2,8 +2,8 @@ class Media < ActiveRecord::Base
   include HasUuid
   include Elasticsearch::Model
 
-  after_save    { Indexer.perform_async(:index,  self.id) }
-  after_destroy { Indexer.perform_async(:delete, self.id) }
+  after_save    { Indexer.perform_async(:index,  id) }
+  after_destroy { Indexer.perform_async(:delete, id) }
 
   CATEGORIES = %w(image video audio)
 
