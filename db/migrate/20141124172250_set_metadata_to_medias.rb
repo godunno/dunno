@@ -9,6 +9,7 @@ class SetMetadataToMedias < ActiveRecord::Migration
         else
           media.title = media.file_identifier
         end
+        media.save
       end
     end
   end
