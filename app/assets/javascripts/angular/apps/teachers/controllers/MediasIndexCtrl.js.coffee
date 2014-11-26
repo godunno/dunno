@@ -2,10 +2,13 @@ DunnoApp = angular.module('DunnoApp')
 
 MediasIndexCtrl = ($scope, Media)->
 
-  Media.query().then (medias)->
-    $scope.medias = medias
-
   $scope.search = { type: "all" }
+
+  $scope.fetch = ->
+    Media.query(q: $scope.search.q).then (medias)->
+      $scope.medias = medias
+
+  $scope.fetch()
 
   # TODO: get the count from the server
   $scope.countType = (list, type)->

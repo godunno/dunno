@@ -3,20 +3,22 @@ require 'spec_helper'
 describe Api::V1::Teacher::MediasController do
   describe "GET /api/v1/teacher/medias.json" do
     let!(:teacher) { create :teacher }
-    let!(:media) { create :media_with_url, teacher: teacher }
     let!(:media_from_another_teacher) { create :media, teacher: create(:teacher) }
 
+    let(:params_hash) { {} }
+
     def do_action
-      get "/api/v1/teacher/medias.json", auth_params(teacher)
+      get "/api/v1/teacher/medias.json", params_hash.merge(auth_params(teacher))
     end
 
-    before do
-      do_action
-    end
-
-    it { expect(last_response.status).to eq(200) }
     context "media with URL" do
       let!(:media) { create :media_with_url, teacher: teacher }
+
+      before do
+        do_action
+      end
+
+      it { expect(last_response.status).to eq(200) }
       it "should return the teacher's medias" do
         expect(json).to eq(
           [{
@@ -38,6 +40,12 @@ describe Api::V1::Teacher::MediasController do
 
     context "media with file" do
       let!(:media) { create :media_with_file, teacher: teacher }
+
+      before do
+        do_action
+      end
+
+      it { expect(last_response.status).to eq(200) }
       it "should return the teacher's medias" do
         expect(json).to eq(
           [{
@@ -55,6 +63,42 @@ describe Api::V1::Teacher::MediasController do
           }]
         )
       end
+    end
+
+    context "searching", :elasticsearch do
+      let!(:awesome_media) { create :media_with_url, title: "awesome", teacher: teacher }
+      let!(:boring_media)  { create :media_with_url, title: "boring", teacher: teacher }
+      let(:params_hash) do
+        {
+          q: awesome_media.title
+        }
+      end
+
+      before do
+        Media.import
+        Media.__elasticsearch__.refresh_index!
+        do_action
+      end
+
+      it { expect(last_response.status).to eq(200) }
+      it "should return only the searched terms" do
+        expect(json).to eq(
+          [{
+            "uuid"        => awesome_media.uuid,
+            "title"       => awesome_media.title,
+            "description" => awesome_media.description,
+            "category"    => awesome_media.category,
+            "preview"     => awesome_media.preview,
+            "type"        => awesome_media.type,
+            "thumbnail"   => awesome_media.thumbnail,
+            "filename"    => nil,
+            "released_at" => awesome_media.released_at,
+            "tag_list"    => awesome_media.tag_list,
+            "url"         => awesome_media.url
+          }]
+        )
+      end
+
     end
   end
 
