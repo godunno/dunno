@@ -2,6 +2,9 @@ class Media < ActiveRecord::Base
   include HasUuid
   include Elasticsearch::Model
 
+  after_save    { Indexer.perform_async(:index,  id) }
+  after_destroy { Indexer.perform_async(:delete, id) }
+
   CATEGORIES = %w(image video audio)
 
   acts_as_ordered_taggable
