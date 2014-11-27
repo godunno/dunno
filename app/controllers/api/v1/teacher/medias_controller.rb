@@ -3,6 +3,7 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
 
   def index
     @medias = current_teacher.medias
+    @medias = @medias.search(params[:q]).records if params[:q].present?
   end
 
   def create
