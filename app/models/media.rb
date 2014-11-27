@@ -21,7 +21,9 @@ class Media < ActiveRecord::Base
   def as_indexed_json(*)
     {
       title: title,
-      tags: tag_list
+      tags: tag_list,
+      teacher_id: teacher.id,
+      created_at: created_at
     }
   end
 
@@ -40,4 +42,30 @@ class Media < ActiveRecord::Base
     return "url" if url.present?
   end
 
+  def self.search(options = {})
+    query_string = options[:q].present? ? options[:q] : '*'
+    query = {
+      query: {
+        filtered: {
+          query: {
+            # Fulltext search
+            query_string: {
+              query: query_string
+            }
+          }
+        }
+      },
+      sort: [:created_at]
+    }
+    if options[:filter].present?
+      query[:query][:filtered][:filter] = { term: options[:filter] }
+    end
+    result = __elasticsearch__.search(query)
+    result = result.page(options[:page]) if options[:page].present?
+    result
+  end
+
+  def self.per_page
+    10
+  end
 end

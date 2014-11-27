@@ -2,8 +2,11 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   respond_to :json
 
   def index
-    @medias = current_teacher.medias
-    @medias = @medias.search(params[:q]).records if params[:q].present?
+    @medias = Media.search(params.merge(
+      filter: {
+        teacher_id: current_teacher.id
+      }
+    )).records
   end
 
   def create

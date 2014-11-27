@@ -62,18 +62,6 @@ RSpec.configure do |config|
     header 'ACCEPT', 'application/json'
     header 'CONTENT_TYPE', 'application/json'
   end
-
-  config.before(:each, elasticsearch: true) do
-    [Media].each do |model|
-      model.__elasticsearch__.create_index! index: model.index_name
-    end
-  end
-
-  config.after(:each, elasticsearch: true) do
-    [Media].each do |model|
-      model.__elasticsearch__.client.indices.delete index: model.index_name
-    end
-  end
 end
 
 def app

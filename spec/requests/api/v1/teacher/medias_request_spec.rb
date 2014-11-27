@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Api::V1::Teacher::MediasController do
-  describe "GET /api/v1/teacher/medias.json" do
+  describe "GET /api/v1/teacher/medias.json", :elasticsearch do
+
     let!(:teacher) { create :teacher }
     let!(:media_from_another_teacher) { create :media, teacher: create(:teacher) }
 
@@ -14,9 +15,8 @@ describe Api::V1::Teacher::MediasController do
     context "media with URL" do
       let!(:media) { create :media_with_url, teacher: teacher }
 
-      before do
-        do_action
-      end
+      refresh_index!
+      before { do_action }
 
       it { expect(last_response.status).to eq(200) }
       it "should return the teacher's medias" do
@@ -41,9 +41,8 @@ describe Api::V1::Teacher::MediasController do
     context "media with file" do
       let!(:media) { create :media_with_file, teacher: teacher }
 
-      before do
-        do_action
-      end
+      refresh_index!
+      before { do_action }
 
       it { expect(last_response.status).to eq(200) }
       it "should return the teacher's medias" do
@@ -65,7 +64,7 @@ describe Api::V1::Teacher::MediasController do
       end
     end
 
-    context "searching", :elasticsearch do
+    context "searching" do
       let!(:awesome_media) { create :media_with_url, title: "awesome", teacher: teacher }
       let!(:boring_media)  { create :media_with_url, title: "boring", teacher: teacher }
       let(:params_hash) do
@@ -74,11 +73,8 @@ describe Api::V1::Teacher::MediasController do
         }
       end
 
-      before do
-        Media.import
-        Media.__elasticsearch__.refresh_index!
-        do_action
-      end
+      refresh_index!
+      before { do_action }
 
       it { expect(last_response.status).to eq(200) }
       it "should return only the searched terms" do
@@ -98,7 +94,41 @@ describe Api::V1::Teacher::MediasController do
           }]
         )
       end
+    end
 
+    context "paginating" do
+      let!(:medias) do
+        11.times.map do |i|
+          create :media_with_url, title: "media_#{i}", teacher: teacher
+        end
+      end
+
+      let(:medias_uuids) { medias.map(&:uuid) }
+      refresh_index!
+
+      subject { json.map { |media| media["uuid"] } }
+
+      context "first page" do
+        let(:params_hash) do
+          {
+            page: 1
+          }
+        end
+        before { do_action }
+
+        it { expect(subject).to eq(medias_uuids[0..9]) }
+      end
+
+      context "second page" do
+        let(:params_hash) do
+          {
+            page: 2
+          }
+        end
+        before { do_action }
+
+        it { expect(subject).to eq(medias_uuids[10..-1]) }
+      end
     end
   end
 
