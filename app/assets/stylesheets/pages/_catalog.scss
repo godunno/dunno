@@ -170,4 +170,19 @@
       display: block;
     }
   }
+
+  .pagination {
+    width: 30%;
+    margin: auto;
+    .page {
+      text-align: center;
+      width: 30%;
+      min-height: 1px;
+      float: left;
+      
+      a {
+        width: 100%;
+      }
+    }
+  }
 }

@@ -15,12 +15,14 @@ describe Api::V1::Teacher::MediasController do
     context "media with URL" do
       let!(:media) { create :media_with_url, teacher: teacher }
 
-      refresh_index!
-      before { do_action }
+      before do
+        refresh_index!
+        do_action
+      end
 
       it { expect(last_response.status).to eq(200) }
       it "should return the teacher's medias" do
-        expect(json).to eq(
+        expect(json["medias"]).to eq(
           [{
             "uuid"        => media.uuid,
             "title"       => media.title,
@@ -41,12 +43,14 @@ describe Api::V1::Teacher::MediasController do
     context "media with file" do
       let!(:media) { create :media_with_file, teacher: teacher }
 
-      refresh_index!
-      before { do_action }
+      before do
+        refresh_index!
+        do_action
+      end
 
       it { expect(last_response.status).to eq(200) }
       it "should return the teacher's medias" do
-        expect(json).to eq(
+        expect(json["medias"]).to eq(
           [{
             "uuid"        => media.uuid,
             "title"       => media.title,
@@ -73,12 +77,14 @@ describe Api::V1::Teacher::MediasController do
         }
       end
 
-      refresh_index!
-      before { do_action }
+      before do
+        refresh_index!
+        do_action
+      end
 
       it { expect(last_response.status).to eq(200) }
       it "should return only the searched terms" do
-        expect(json).to eq(
+        expect(json["medias"]).to eq(
           [{
             "uuid"        => awesome_media.uuid,
             "title"       => awesome_media.title,
@@ -98,15 +104,12 @@ describe Api::V1::Teacher::MediasController do
 
     context "paginating" do
       let!(:medias) do
-        11.times.map do |i|
-          create :media_with_url, title: "media_#{i}", teacher: teacher
-        end
+        create_list :media_with_url, 11, teacher: teacher
       end
 
       let(:medias_uuids) { medias.map(&:uuid) }
-      refresh_index!
 
-      subject { json.map { |media| media["uuid"] } }
+      subject { json["medias"].map { |media| media["uuid"] } }
 
       context "first page" do
         let(:params_hash) do
@@ -114,9 +117,15 @@ describe Api::V1::Teacher::MediasController do
             page: 1
           }
         end
-        before { do_action }
+        before do
+          refresh_index!
+          do_action
+        end
 
         it { expect(subject).to eq(medias_uuids[0..9]) }
+        it { expect(json["next_page"]).to eq(2) }
+        it { expect(json["current_page"]).to eq(1) }
+        it { expect(json["previous_page"]).to be_nil }
       end
 
       context "second page" do
@@ -125,9 +134,15 @@ describe Api::V1::Teacher::MediasController do
             page: 2
           }
         end
-        before { do_action }
+        before do
+          refresh_index!
+          do_action
+        end
 
         it { expect(subject).to eq(medias_uuids[10..-1]) }
+        it { expect(json["next_page"]).to be_nil }
+        it { expect(json["current_page"]).to eq(2) }
+        it { expect(json["previous_page"]).to eq(1) }
       end
     end
   end

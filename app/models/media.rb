@@ -22,7 +22,7 @@ class Media < ActiveRecord::Base
     {
       title: title,
       tags: tag_list,
-      teacher_id: teacher.id,
+      teacher_id: teacher_id,
       created_at: created_at
     }
   end
@@ -61,7 +61,7 @@ class Media < ActiveRecord::Base
       query[:query][:filtered][:filter] = { term: options[:filter] }
     end
     result = __elasticsearch__.search(query)
-    result = result.page(options[:page]) if options[:page].present?
+    result = result.page(options[:page] || 1)
     result
   end
 
