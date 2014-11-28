@@ -40,6 +40,11 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
     end
   end
 
+  def destroy
+    media.destroy
+    render nothing: true
+  end
+
   def preview
     # TODO: extract to microservice
     # TODO: deal with possible exceptions

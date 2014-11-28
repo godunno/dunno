@@ -289,6 +289,21 @@ describe Api::V1::Teacher::MediasController do
     it { expect(media.title).to eq(title) }
   end
 
+  describe "DELETE /api/v1/teacher/medias/:uuid.json" do
+    let(:media) { create :media }
+
+    def do_action
+      delete "/api/v1/teacher/medias/#{media.uuid}.json", auth_params(:teacher).to_json
+    end
+
+    before do
+      do_action
+    end
+
+    it { expect(last_response.status).to eq(200) }
+    it { expect(Media.find_by(id: media.id)).to be_nil }
+  end
+
   describe "GET /api/v1/teacher/medias/preview.json", :vcr do
 
     let(:params_hash) do

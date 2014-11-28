@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-MediasIndexCtrl = ($scope, Media)->
+MediasIndexCtrl = ($scope, Media, Utils)->
 
   $scope.search = { type: "all" }
 
@@ -32,5 +32,10 @@ MediasIndexCtrl = ($scope, Media)->
     media.update_tag_list()
     media.update()
 
-MediasIndexCtrl.$inject = ['$scope', 'Media']
+  $scope.removeMedia = (media)->
+    if confirm("Deseja remover esta media? Ela também será removida dos diários. Esta operação não poderá ser desfeita.")
+      media.remove().then ->
+        Utils.remove($scope.medias, media)
+
+MediasIndexCtrl.$inject = ['$scope', 'Media', 'Utils']
 DunnoApp.controller 'MediasIndexCtrl', MediasIndexCtrl
