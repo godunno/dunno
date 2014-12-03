@@ -5,13 +5,11 @@ MediasIndexCtrl = ($scope, Media, Utils)->
   $scope.search = { type: "all" }
 
   $scope.fetch = (options = {})->
-    Media.configure(fullResponse: true)
-    Media.query(q: $scope.search.q, page: options["page"]).then (response)->
-      $scope.medias = response[0].data
-      $scope.previous_page = response[0].originalData.previous_page
-      $scope.current_page = response[0].originalData.current_page
-      $scope.next_page = response[0].originalData.next_page
-      Media.configure(fullResponse: false)
+    Media.search(q: $scope.search.q, page: options["page"]).then (response)->
+      $scope.medias = response.medias
+      $scope.previous_page = response.previous_page
+      $scope.current_page = response.current_page
+      $scope.next_page = response.next_page
 
   $scope.fetch()
 
