@@ -55,7 +55,7 @@ header.page-header.title
       .vertical-bar
       .top
         .large-8.columns
-          input.title type="text" ng-model="media.title" pu-elastic-input=true ng-blur="updateMedia(media)" edit-in-place=true
+          input.title type="text" ng-model="media.title" pu-elastic-input=true ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
         .large-4.columns
           i.type.icon ng-class="'icon-' + media.type"
           a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
