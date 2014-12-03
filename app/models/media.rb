@@ -17,11 +17,35 @@ class Media < ActiveRecord::Base
 
   mount_uploader :file, FileUploader
 
+  settings index: { number_of_shards: 1 }, analysis: {
+    filter: {
+      ngram_filter: {
+        type: "edge_ngram",
+        min_gram: 3,
+        max_gram: 20
+      }
+    },
+    analyzer: {
+      ngram_analyzer: {
+        tokenizer: "standard",
+        filter: %w(lowercase ngram_filter),
+        type: "custom"
+      }
+    }
+  } do
+    mapping do
+      indexes :title, type: 'string', analyzer: 'ngram_analyzer'
+      indexes :tags, type: 'string', analyzer: 'ngram_analyzer'
+      indexes :teacher_id, type: :integer
+      indexes :created_at, type: :date
+    end
+  end
+
   # ElasticSearch representation
   def as_indexed_json(*)
     {
       title: title,
-      tags: tag_list,
+      tags: tag_list.to_a,
       teacher_id: teacher_id,
       created_at: created_at
     }
@@ -50,7 +74,8 @@ class Media < ActiveRecord::Base
           query: {
             # Fulltext search
             query_string: {
-              query: query_string
+              query: query_string,
+              fields: %w(title tags)
             }
           }
         }
