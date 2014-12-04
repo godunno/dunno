@@ -19,7 +19,9 @@ header.page-header.title
 
         .exam ng-if="event.has_exam" PROVA
 
-        .content
+        .content.has-overlay
+          .overlay.published.hide ng-if="event.planned()"
+            a.button.btn-style-transparent-1.radius.vertical-center href="#events/{{event.uuid}}/edit" ver aula
           .weekday-hour
             span.weekday> {{asDate(event.start_at) | date:'EEE'}}
             span.time - {{asDate(event.start_at) | date:'HH:mm'}}h
@@ -36,7 +38,7 @@ header.page-header.title
             .remaining ng-if="event.topics.length > 3"
               | Mais {{event.topics.length - 3}} tarefas
 
-          .planning ng-if="event.topics.length == 0"
+          .planning ng-if="!event.planned()"
             a.button.radius.vertical-center.btn-style-1 href="#events/{{event.uuid}}/edit"
               | PLANEJAR
 
