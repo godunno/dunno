@@ -1,3 +1,5 @@
+$overlay-z-index: 999;
+
 .has-overlay {
   position: relative;
   .no-touch &:hover {
@@ -9,7 +11,9 @@
 
 .overlay {
   position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  z-index: $overlay-z-index;
 }

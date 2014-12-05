@@ -28,7 +28,7 @@
       }
       .day-month {
         position: absolute;
-        z-index: 9999;
+        z-index: $overlay-z-index + 1;
         top: 82px;
         left: 120px;
         width: 60px;
