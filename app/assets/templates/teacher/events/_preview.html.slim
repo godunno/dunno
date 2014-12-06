@@ -1,7 +1,7 @@
 .preview ng-if="item.media_id"
   a ng-href="{{item.media.url}}" target="_blank"
     .row
-      img.image ng-src="{{imageSrc(item.media.thumbnail)}}"
+      img.image ng-src="{{item.media.thumbnail}}"
       .text
         .title {{item.media.title}}
         .description {{item.media.description}}
