@@ -13,26 +13,6 @@ describe User do
     [:name, :email, :phone_number, :password].each do |attr|
       it { is_expected.to validate_presence_of(attr) }
     end
-
-    describe "#phone_number" do
-
-      it "should be valid with correct brazilian numbers" do
-        ["+55 21 9999 9999", "+55 21 99999 9999"].each do |valid_number|
-          user.phone_number = valid_number
-          user.valid?
-          expect(user.errors[:phone_number].size).to eq(0)
-        end
-      end
-
-      it "should be invalid with incorrect brazilian numbers" do
-        ["+552199999999", "+55 21 9999-9999",
-         "+55 (21) 9999-9999", "+552199999999"].each do |invalid_number|
-          user.phone_number = invalid_number
-          user.valid?
-          expect(user.errors[:phone_number].size).to eq(1)
-        end
-      end
-    end
   end
 
   describe "callbacks" do
