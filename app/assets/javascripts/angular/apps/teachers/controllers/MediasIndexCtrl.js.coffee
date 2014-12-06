@@ -31,7 +31,7 @@ MediasIndexCtrl = ($scope, Media, Utils)->
     media.update()
 
   $scope.removeMedia = (media)->
-    if confirm("Deseja remover esta media? Ela também será removida dos diários. Esta operação não poderá ser desfeita.")
+    if confirm("Deseja remover este anexo? Ele também será removida dos diários. Esta operação não poderá ser desfeita.")
       media.remove().then ->
         Utils.remove($scope.medias, media)
 
