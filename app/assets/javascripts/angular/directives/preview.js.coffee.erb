@@ -4,7 +4,7 @@ DunnoApp.controller 'previewCtrl', ['$scope', ($scope)->
   $scope.imageSrc = (src)-> src || "//:0"
 
   $scope.removeMedia = ->
-    if confirm("Deseja remover essa media? Essa operação não poderá ser desfeita.")
+    if confirm("Deseja remover este anexo? Essa operação não poderá ser desfeita.")
       $scope.$parent.removeMedia(arguments...)
 ]
 
