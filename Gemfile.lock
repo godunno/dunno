@@ -478,7 +478,7 @@ DEPENDENCIES
   rails_12factor (= 0.0.2)
   recurrence (= 1.2.0)
   roboto (= 0.2.0)
-  roo
+  roo (= 1.13.2)
   rspec-rails (= 3.1.0)
   rspec_api_documentation (= 4.3.0)
   rubocop (= 0.26.1)
