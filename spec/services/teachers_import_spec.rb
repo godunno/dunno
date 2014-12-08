@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'webmock/rspec'
 
 describe TeachersImport do
   let(:name) { "Zé da Silva" }
@@ -17,9 +16,9 @@ describe TeachersImport do
 
     subject { Teacher.first }
 
-    it { expect(subject.name).to eq("Zé da Silva") }
-    it { expect(subject.email).to eq("ze@gmail.com") }
-    it { expect(subject.phone_number).to eq("21 99999 9999") }
+    it { expect(subject.name).to eq(name) }
+    it { expect(subject.email).to eq(email) }
+    it { expect(subject.phone_number).to eq(phone_number) }
   end
 
   describe "constructor method" do
