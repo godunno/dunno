@@ -1,0 +1,75 @@
+header.page-header.title
+  .row
+    .large-4.large-centered.vertical-center.columns
+      h1 Catálogo
+
+.catalog-page
+  .row
+    .large-3.columns
+      a.dropdown data-dropdown="search-type"
+        .option.all ng-if="search.type == 'all'"
+          span.value Todos
+          span.count
+            | ({{countType(medias, 'all')}})
+        .option.url ng-if="search.type == 'url'"
+          i.type.icon.icon-url
+          span.value Links
+          span.count
+            | ({{countType(medias, 'url')}})
+        .option.file ng-if="search.type == 'file'"
+          i.type.icon.icon-file
+          span.value Arquivos
+          span.count
+            | ({{countType(medias, 'file')}})
+        i.icon.icon-arrow-down
+      ul#search-type.type-list data-dropdown-content="" dropdown-select="" ng-model="search.type"
+        li.option.all dropdown-select-item="all"
+          span.title Mostrar todos
+          span.count
+            | ({{countType(medias, 'all')}})
+        li.option.url dropdown-select-item="url"
+          i.type.icon.icon-url
+          span.title Links
+          span.count
+            | ({{countType(medias, 'url')}})
+        li.option.file dropdown-select-item="file"
+          i.type.icon.icon-file
+          span.title Arquivos
+          span.count
+            | ({{countType(medias, 'file')}})
+
+    .large-6.columns.end
+      form ng-submit="fetch()"
+        .row.collapse
+          .large-11.columns
+            input type="text" ng-model="search.q" placeholder="Procure por assunto ou palavra-chave"
+          .large-1.columns
+            button.button.postfix.icon.icon-search
+
+    a.right
+      i.icon.icon-triangle
+      span Mais Recentes
+
+  ul.medias.row
+    li.media ng-repeat="media in medias"
+      .vertical-bar
+      .top
+        .large-8.columns
+          input.title type="text" ng-model="media.title" pu-elastic-input=true ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
+        .large-4.columns
+          i.type.icon ng-class="'icon-' + media.type"
+          a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
+      .bottom
+        .large-11.columns
+          tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova"
+        .large-1.column
+          a.icon.icon-trash ng-click="removeMedia(media)"
+
+  .row
+    .pagination
+      .page
+        a.button ng-click="fetch({ page: previous_page })" ng-if="previous_page" <
+      .page
+        span {{current_page}}
+      .page
+        a.button ng-click="fetch({ page: next_page })" ng-if="next_page" >

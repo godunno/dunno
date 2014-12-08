@@ -1,15 +1,13 @@
 DunnoApp = angular.module('DunnoApp')
 
 DunnoApp.controller 'previewCtrl', ['$scope', ($scope)->
-  $scope.imageSrc = (src)-> src || "//:0"
-
-  # Needed due to the isolated scope
-  $scope.removeMedia = $scope.$parent.removeMedia
+  $scope.removeMedia = ->
+    if confirm("Deseja remover este anexo? Essa operação não poderá ser desfeita.")
+      $scope.$parent.removeMedia(arguments...)
 ]
 
 DunnoApp.directive 'preview', ->
   restrict: 'E'
-  replace: true
   # TODO: Find a way to keep the two-way data binding without the isolated scope
   scope:
     item: '='

@@ -2,19 +2,30 @@ module Form
   class MediaForm < Form::Base
     model_class ::Media
 
+    attr_accessor :teacher
+
     attribute :title, String
     attribute :description, String
+    attribute :thumbnail, String
     attribute :category, String
     attribute :url, String
     attribute :file, String
     attribute :preview, Hash
+    attribute :tag_list, String
 
-    validates :url, format: URI.regexp(:http), allow_blank: true
+    validates :url, format: URI.regexp(%w(http https)), allow_blank: true
     validate :mutually_exclusive_url_or_file
 
     def initialize(params)
-      super(params.slice(*attributes_list(:title, :description, :category, :url, :file)))
-      self.preview = LinkThumbnailer.generate(url).to_json if url.present?
+      super(params.slice(*attributes_list(:title, :description, :category, :url, :file, :tag_list)))
+      if url.present?
+        self.preview = LinkThumbnailer.generate(url).as_json
+        self.title = preview[:title]
+        self.description = preview[:description]
+        self.thumbnail = preview[:images][0].try(:src).try(:to_s)
+      elsif file.present?
+        self.title = file.original_filename
+      end
     end
 
     private
@@ -22,10 +33,13 @@ module Form
     def persist!
       model.title       = title
       model.description = description
+      model.thumbnail   = thumbnail
       model.category    = category
       model.url         = url
       model.file        = file
       model.preview     = preview
+      model.tag_list    = tag_list
+      model.teacher     = teacher
       model.save!
     end
 

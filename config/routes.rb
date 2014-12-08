@@ -37,7 +37,7 @@ Dunno::Application.routes.draw do
             patch :release
           end
         end
-        resources :medias, only: [:create] do
+        resources :medias, only: [:index, :create, :update, :destroy] do
           get 'preview', on: :collection
           member do
             patch :release

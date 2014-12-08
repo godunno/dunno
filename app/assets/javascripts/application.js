@@ -29,6 +29,8 @@
 //= require angularjs-rails-resource
 //= require angular-ui-sortable
 //= require ng-file-upload
+//= require ng-tags-input
+//= require angular-elastic-input
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });

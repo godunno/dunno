@@ -10,5 +10,6 @@
  *
  *= require_self
  *= require font-awesome
+ *= require ng-tags-input
  *= require app
  */

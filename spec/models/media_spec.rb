@@ -6,6 +6,7 @@ describe Media do
 
   describe "associations" do
     it { should belong_to(:mediable) }
+    it { should belong_to(:teacher) }
   end
 
   describe "callbacks" do
@@ -36,14 +37,27 @@ describe Media do
     it { expect {media.release!}.to change(media, :released_at).from(nil).to(Time.now) }
   end
 
-  describe "#preview" do
-    it "generates preview from file" do
-      media.file = uploaded_file("image.jpg", "image/jpeg")
-      media.save!
-      expect(media.preview).to eq(
-        "url" => media.file.url,
-        "title" => media.file_identifier
-      )
+  describe "#type" do
+    context "file" do
+      let(:media) { build :media_with_file }
+      it { expect(media.type).to eq("file") }
+    end
+
+    context "url" do
+      let(:media) { build :media_with_url }
+      it { expect(media.type).to eq("url") }
+    end
+
+    context "empty" do
+      let(:media) { build :media, file: nil, url: nil }
+      it { expect(media.type).to be_nil }
+    end
+  end
+
+  describe "#url" do
+    context "it has file" do
+      let(:media) { build :media_with_file }
+      it { expect(media.url).to eq(media.file.url) }
     end
   end
 
