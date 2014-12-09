@@ -19,6 +19,7 @@ module Form
     def initialize(params)
       super(params.slice(*attributes_list(:title, :description, :category, :url, :file, :tag_list)))
       if url.present?
+        self.url = "http://#{url}" unless URI.parse(url).scheme.present? rescue url
         self.preview = LinkThumbnailer.generate(url).as_json
         self.title = preview[:title]
         self.description = preview[:description]
