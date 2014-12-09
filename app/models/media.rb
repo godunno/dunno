@@ -18,24 +18,35 @@ class Media < ActiveRecord::Base
   mount_uploader :file, FileUploader
 
   settings index: { number_of_shards: 1 }, analysis: {
-    filter: {
-      ngram_filter: {
-        type: "edge_ngram",
+    tokenizer: {
+      ngram: {
+        type: :ngram,
         min_gram: 3,
         max_gram: 20
       }
     },
+    filter: {
+      snowball: {
+        type: :snowball,
+        language: :portuguese
+      },
+      stopwords: {
+        type: :stop,
+        stopwords: '[_portuguese_]',
+        ignore_case: true
+      }
+    },
     analyzer: {
-      ngram_analyzer: {
-        tokenizer: "standard",
-        filter: %w(lowercase ngram_filter),
-        type: "custom"
+      custom_analyzer: {
+        tokenizer: :ngram,
+        filter: %w(asciifolding lowercase stopwords snowball),
+        type: :custom
       }
     }
   } do
     mapping do
-      indexes :title, type: 'string', analyzer: 'ngram_analyzer'
-      indexes :tags, type: 'string', analyzer: 'ngram_analyzer'
+      indexes :title, type: :string, analyzer: :custom_analyzer
+      indexes :tags, type: :string, analyzer: :custom_analyzer
       indexes :teacher_id, type: :integer
       indexes :created_at, type: :date
     end
