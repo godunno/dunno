@@ -3,8 +3,8 @@ class Media < ActiveRecord::Base
   include Elasticsearch::Model
   index_name [Rails.env, model_name.collection].join('_')
 
-  after_save    { Indexer.perform_async(:index,  id) }
-  after_destroy { Indexer.perform_async(:delete, id) }
+  after_commit on: [:create, :update] { Indexer.perform_async(:index, id) }
+  after_commit on: [:destroy] { Indexer.perform_async(:delete, id) }
 
   CATEGORIES = %w(image video audio)
 
