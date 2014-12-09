@@ -8,12 +8,15 @@ describe Form::MediaForm do
   describe "validations" do
 
     it "should validate URL's format" do
-      ["http://www.example.com", "http://example.com", "http://www.example.com/path/", "https://www.example.com"].each do |url|
-        expect(media_form).to allow_value(url).for(:url)
+      allow(LinkThumbnailer).to receive(:generate).and_return(double("LinkThumbnailer", as_json: spy("preview")))
+      ["http://www.example.com", "http://example.com", "http://www.example.com/path/", "https://www.example.com", "www.example.com"].each do |url|
+        media[:url] = url
+        expect(Form::MediaForm.new(media)).to be_valid
       end
 
-      ["ftp://path.com/file.doc", "www.example.com", "example.com", "example"].each do |url|
-        expect(media_form).not_to allow_value(url).for(:url)
+      ["ftp://path.com/file.doc", "example .com"].each do |url|
+        media[:url] = url
+        expect(Form::MediaForm.new(media)).not_to be_valid
       end
     end
 
