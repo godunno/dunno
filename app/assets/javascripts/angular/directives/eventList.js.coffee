@@ -22,7 +22,7 @@ listCtrl = ($scope, Media, Utils, $upload)->
     list().sort (a,b)-> a.order - b.order
 
   $scope.addItem = ($event)->
-    $event.preventDefault()
+    $event.preventDefault() if $event?
     unless $scope.newListItem._submittingMedia
       $scope.newItem(list(), $scope.newListItem)
       generateOrderableItem()
