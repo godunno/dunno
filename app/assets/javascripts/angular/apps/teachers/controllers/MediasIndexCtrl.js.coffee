@@ -13,6 +13,10 @@ MediasIndexCtrl = ($scope, Media, Utils)->
 
   $scope.fetch()
 
+  $scope.clearSearch = ->
+    $scope.search.q = ""
+    $scope.fetch()
+
   # TODO: get the count from the server
   $scope.countType = (list, type)->
     return 0 unless list?
