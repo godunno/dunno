@@ -1,26 +1,28 @@
 .login-page ng-controller="SignInCtrl"
-  = image_tag "dunno-logo.png"
+  = image_tag "dunno-logo.png", class: :logo
   /= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
   form name="user_form" ng-submit="sign_in(user)" id="sign_in" novalidate=""
     .login-container
-      span.error ng-show="authentication_failed" ng-cloak="" Email ou senha incorretos
-      .email
-        label for="email" Email
-        / TODO: normalizar name dos inputs após POST via AJAX
-        input.radius id="email" name="email" ng-model="user.email" type="email" required="" autofocus=""
-        / TODO: DRY as mensagens de erro
-        div ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak=""
-          span.error ng-show="user_form.email.$error.required" Campo obrigatório
-          span.error ng-show="user_form.email.$error.email" Email inválido
-      .password
-        label for="password" Senha
-        input.radius id="password" name="password" ng-model="user.password" type="password" required=""
-        div ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak=""
-          span.error ng-show="user_form.password.$error.required" Campo obrigatório
-        /a.help href="#" Esqueci minha senha
-      .submit
-        input.button.radius.btn-style-1 ng-disabled="user_form.$invalid" type="submit" value="ENVIAR"
-      / f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
+      .login-info Professor, acesse sua conta no Dunno.
+      .login-form
+        span.error ng-show="authentication_failed" ng-cloak="" Email ou senha incorretos
+        .email
+          label for="email" Email
+          / TODO: normalizar name dos inputs após POST via AJAX
+          input.radius id="email" name="email" ng-model="user.email" type="email" required="" autofocus=""
+          / TODO: DRY as mensagens de erro
+          div ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak=""
+            span.error ng-show="user_form.email.$error.required" Campo obrigatório
+            span.error ng-show="user_form.email.$error.email" Email inválido
+        .password
+          label for="password" Senha
+          = link_to "Esqueci minha senha", new_user_password_path, class: 'password-recovery'
+          input.radius id="password" name="password" ng-model="user.password" type="password" required=""
+          div ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak=""
+            span.error ng-show="user_form.password.$error.required" Campo obrigatório
+        .submit
+          input.button.radius.btn-style-1 ng-disabled="user_form.$invalid" type="submit" value="Entrar"
+        / f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
 
   ul.login-links
     li

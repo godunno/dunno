@@ -1,12 +1,16 @@
 $card-border: solid 1px #dddddd;
 
-.card {
+@mixin rounded-container($radius:$global-radius) {
   & > div:nth-child(1) {
-    @include side-radius(top);
+    @include side-radius(top, $radius);
   }
   & > div:nth-last-child(1) {
-    @include side-radius(bottom);
+    @include side-radius(bottom, $radius);
   }
+}
+
+.card {
+  @include rounded-container;
 }
 
 .card-title {
