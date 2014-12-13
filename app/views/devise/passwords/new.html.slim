@@ -1,0 +1,27 @@
+.login-page
+  /ng-controller="PasswordRecoveryCtrl"
+  = image_tag "dunno-logo.png", class: :logo
+  form name="user_form" action="/users/password" method="post" id="recover_password" novalidate=""
+    .login-container
+      .login-form
+        p Digite seu email de cadastro para que possamos recuperar sua senha de acesso.
+        span.error ng-show="authentication_failed" ng-cloak="" Email ou senha incorretos
+        .email
+          label for="email" Email
+          input.radius id="email" name="user[email]" type="email" required="" autofocus=""
+          div ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak=""
+            span.error ng-show="user_form.email.$error.required" Campo obrigatório
+            span.error ng-show="user_form.email.$error.email" Email inválido
+        .submit
+          input.button.radius.btn-style-1 ng-disabled="user_form.$invalid" type="submit" value="Enviar"
+        a.back href="/sign_in" Já lembrei minha senha.
+
+  ul.login-links
+    li
+      a href="#" Home
+    li.sep |
+    li
+      a href="#" Termos de Uso
+    li.sep |
+    li
+      a href="#" Política de Privacidade

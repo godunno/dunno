@@ -11,6 +11,10 @@ Dunno::Application.routes.draw do
     get 'sign_in' => 'dashboard/application#sign_in', as: :new_user_session
     post 'users/sign_in' => 'devise/sessions#create', as: :user_session
     delete 'users/sign_out' => 'devise/sessions#destroy', as: :destroy_user_session
+
+    namespace :dashboard do
+      resources :passwords, only: [:new, :create, :edit]
+    end
   end
 
   get 'dashboard/teacher' => 'dashboard/application#teacher'
