@@ -6,6 +6,10 @@
     margin: auto;
   }
 
+  a {
+    color: $secondary-color;
+  }
+
   .login-container {
     @include rounded-container(6px);
     margin-top: 4em;
@@ -42,7 +46,6 @@
       }
       .password-recovery {
         float: right;
-        color: $secondary-color;
         font-size: 0.8em;
         line-height: 1.8em;
       }
@@ -52,6 +55,11 @@
       input {
         width: 100%;
       }
+    }
+
+    .back {
+      text-align: center;
+      display: block;
     }
   }
 

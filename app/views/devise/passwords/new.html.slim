@@ -1,0 +1,27 @@
+.login-page
+  = image_tag "dunno-logo.png", class: :logo
+  form name="user_form" action="/dashboard/passwords" method="post" id="recover_password" novalidate=""
+    .login-container
+      .login-form
+        - if resource.errors.present?
+          .alert-box.alert
+            ul
+              - resource.errors.full_messages.each do |message|
+                li= message
+        p Digite seu email de cadastro para que possamos recuperar sua senha de acesso.
+        .email
+          label for="email" Email
+          input.radius id="email" name="user[email]" type="email" required="" autofocus=""
+        .submit
+          input.button.radius.btn-style-1 type="submit" value="Enviar"
+        a.back href="/sign_in" Já lembrei minha senha.
+
+  ul.login-links
+    li
+      a href="#" Home
+    li.sep |
+    li
+      a href="#" Termos de Uso
+    li.sep |
+    li
+      a href="#" Política de Privacidade

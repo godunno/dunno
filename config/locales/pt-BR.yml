@@ -206,3 +206,8 @@ pt-BR:
   activerecord:
     errors:
       <<: *errors
+      models:
+        user:
+          attributes:
+            email:
+              not_found: não encontrado.
