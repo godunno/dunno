@@ -1,8 +1,13 @@
 .login-page
   = image_tag "dunno-logo.png", class: :logo
-  form name="user_form" action="/users/password" method="post" id="recover_password" novalidate=""
+  form name="user_form" action="/dashboard/passwords" method="post" id="recover_password" novalidate=""
     .login-container
       .login-form
+        - if resource.errors.present?
+          .alert-box.alert
+            ul
+              - resource.errors.full_messages.each do |message|
+                li= message
         p Digite seu email de cadastro para que possamos recuperar sua senha de acesso.
         .email
           label for="email" Email
