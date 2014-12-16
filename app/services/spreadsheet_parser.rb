@@ -1,3 +1,5 @@
+require 'tempfile'
+
 class SpreadsheetParser
   attr_reader :url, :options
 
@@ -12,7 +14,20 @@ class SpreadsheetParser
 
   def parse
     file = open(url)
-    spreadsheet = Roo::Spreadsheet.open(file.path, extension: :xlsx)
-    ((options[:header_rows] + 1)..spreadsheet.last_row).map { |i| spreadsheet.row(i) }
+    begin
+      spreadsheet = Roo::Spreadsheet.open(file.path, extension: :xlsx)
+      ((options[:header_rows] + 1)..spreadsheet.last_row).map { |i| spreadsheet.row(i) }
+    ensure
+      file.unlink
+    end
+  end
+
+  private
+
+  def open(url)
+    file = ::Tempfile.new("SpreadsheetParser")
+    file.write(super.read)
+    file.flush.close
+    file
   end
 end
