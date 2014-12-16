@@ -25,7 +25,7 @@ class SpreadsheetParser
   private
 
   def open(url)
-    file = ::Tempfile.new("SpreadsheetParser")
+    file = Tempfile.new("SpreadsheetParser")
     file.write(super.read)
     file.flush.close
     file
