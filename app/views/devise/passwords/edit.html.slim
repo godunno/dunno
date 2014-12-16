@@ -1,0 +1,25 @@
+.login-page
+  = image_tag "dunno-logo.png", class: :logo
+  = form_tag '/users/password/', method: :put
+    .login-container
+      .login-form
+        p Olá, mude sua senha aqui.
+        input type="hidden" name="user[reset_password_token]" value="#{resource.reset_password_token}"
+        .password
+          label for="password" Nova senha
+          input.radius id="password" name="user[password]" type="password" required="" autofocus=""
+        .password-confirmation
+          label for="password_confirmation" Confirmação da senha
+          input.radius id="password_confirmation" name="user[password_confirmation]" type="password" required=""
+        .submit
+          input.button.radius.btn-style-1 type="submit" value="Salvar"
+
+  ul.login-links
+    li
+      a href="#" Home
+    li.sep |
+    li
+      a href="#" Termos de Uso
+    li.sep |
+    li
+      a href="#" Política de Privacidade
