@@ -1,5 +1,4 @@
-require './app/services/spreadsheet_parser'
-require 'roo'
+require 'spec_helper'
 require 'webmock/rspec'
 
 describe SpreadsheetParser do

@@ -25,8 +25,9 @@ class SpreadsheetParser
   private
 
   def open(url)
-    file = Tempfile.new("SpreadsheetParser")
-    file.write(super.read)
+    tmpfile_or_string_io = super
+    file = Tempfile.new("f", encoding: tmpfile_or_string_io.external_encoding)
+    file.write(tmpfile_or_string_io.read)
     file.flush.close
     file
   end
