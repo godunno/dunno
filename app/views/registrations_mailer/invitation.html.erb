@@ -1,0 +1,100 @@
+<html>
+  <head>
+    <style>
+      table {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      a {
+        color: #1cc678;
+        text-decoration: none;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid #D2D2D2;
+      }
+      h1 {
+        font-size: 1.4em;
+        font-weight: normal;
+      }
+      p {
+        font-size: 0.9em;
+        line-height: 1.7em;
+      }
+      strong {
+        font-weight: bold;
+      }
+      .paragraph {
+        padding-top: 1em;
+      }
+      .structure {
+        background: #EAEBEB;
+      }
+      .content {
+        background: #ffffff;
+        border: 1px solid #D2D2D2;
+        padding: 2em;
+      }
+      .button {
+        color: #ffffff;
+        background: #1cc678;
+        text-transform: uppercase;
+        display: block;
+        width: 60%;
+        height: 60px;
+        line-height: 60px;
+        font-size: 1.2em;
+        border-radius: 3px;
+      }
+      .see-more {
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="structure" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+      <tr><td></td> <td height="20"></td> <td></td></tr>
+      <tr>
+        <td></td> 
+        <td align="center" valign="top">
+          <table class="content" border="0" cellpadding="20" cellspacing="0" width="600">
+            <tr>
+              <td align="left"><%= image_tag("puc-psicologia-departamento-logo.png", height: "47") %></td>
+              <td align="right"><%= image_tag("puc-logo.gif", height: "80") %></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <h1>Olá Professor(a) <%= @user.name %>,</h1>
+
+                <p class="paragraph">Temos o prazer de convidá-lo(a) a utilizar mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo.<p>
+
+                <p class="paragraph">O <strong>Dunno</strong> manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" align="center">
+                <%= link_to "Testar agora", "/users/activate?activation_token=#{@token}", class: "button" %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" align="center">
+                <hr />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" align="center">
+                <a href="/"><%= image_tag("dunno-logo-vertical.png", width: "20%") %></a> 
+              </td>
+            </tr>
+            <tr>
+              <td class="see-more" colspan="2" align="center">
+                Conheça mais em <a href="/">dunnoapp.com</a> 
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td></td>
+      </tr>
+      <tr><td></td> <td height="20"></td> <td></td></tr>
+    </table>
+  </body>
+</html>
