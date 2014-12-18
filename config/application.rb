@@ -35,5 +35,7 @@ module Dunno
       Dir.glob(Rails.root + "app/decorators/**/*_decorator.rb").each { |d| require_dependency d }
       Dir.glob(Rails.root + "app/form/*.rb").each { |d| require_dependency d }
     end
+
+    ActionMailer::Base.default(from: 'contato@dunnoapp.com')
   end
 end
