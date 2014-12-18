@@ -9,10 +9,6 @@ describe Topic do
     it { is_expected.to have_one(:media) }
   end
 
-  describe "validations" do
-    it { is_expected.to validate_presence_of(:description) }
-  end
-
   describe "callbacks" do
 
     describe "after create" do
