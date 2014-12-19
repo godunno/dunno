@@ -34,4 +34,6 @@ Dunno::Application.configure do
   WebMock.allow_net_connect!
 
   config.assets.raise_production_errors = true
+
+  config.roadie.url_options = { host: "localhost", port: 3000, scheme: "http" }
 end

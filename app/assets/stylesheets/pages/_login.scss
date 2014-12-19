@@ -1,50 +1,72 @@
 .login-page {
   background-color: #2b3738;
-  width: 100%;
-  height: 100%;
-  padding: 130px 0;
-  img {
+  padding: 130px 0 0 0;
+  .logo {
     display: block;
-    margin: 0 auto;
+    margin: auto;
   }
+
+  a {
+    color: $secondary-color;
+  }
+
   .login-container {
+    @include rounded-container(6px);
+    margin-top: 4em;
+  }
+
+  .login-form, .login-info {
     background-color: white;
-    width: 760px;
-    margin: 130px auto 20px auto;
+    margin: auto;
+    width: 30%;
     overflow: hidden;
-    padding: 48px;
-    border-radius: 5px;
-    div {
-      display: inline-block;
-      float: left;
-    }
+  }
+
+  .login-info {
+    border-bottom: 1px solid $light-grey-color;
+    text-align: center;
+    font-size: 1.2em;
+    padding: 1em;
+  }
+
+  .login-form {
+    padding: 20px 48px;
     label {
       font-size: 16px;
       font-weight: 700;
-    }
-    input[type='password'] {
-      margin-bottom: 7px;
+      text-transform: uppercase;
     }
     span.help {
       font-size: 14px;
       color: #2b3738;
     }
-    .email {
-      width: 257px;
-      margin-right: 7px;
-    }
     .password {
-      width: 257px;
-      margin-right: 7px;
+      label {
+        float: left;
+      }
+      .password-recovery {
+        float: right;
+        font-size: 0.8em;
+        line-height: 1.8em;
+      }
     }
     .submit {
-      width: 136px;
       margin-top: 21px;
+      input {
+        width: 100%;
+      }
+    }
+
+    .back {
+      text-align: center;
+      display: block;
     }
   }
+
   ul.login-links {
     width: 760px;
-    margin: 0 auto;
+    padding: 40px;
+    margin: auto;
     text-align: center;
     list-style: none;
     color: white;

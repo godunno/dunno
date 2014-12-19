@@ -80,6 +80,23 @@
       border-left-color: $background-light-grey-color;
     }
   }
+  .create-item-button {
+    @include radius;
+    margin-right: 0.15em;
+    float: right;
+    color: #fff;
+    background: $secondary-color;
+    margin-top: -1.35em;
+    padding: 0.0em 0.2em;
+    font-size: 1.5em;
+    line-height: 1.1em;
+
+    &.disabled {
+      pointer-events: none;
+      cursor: auto;
+      background: #AFB0B0;
+    }
+  }
   .item-button {
     float: right;
     margin-top: -1.3em;
@@ -87,10 +104,10 @@
     color: #AFB0B0;
 
     &.media-url-button {
-      margin-right: 0.6em;
+      margin-right: 2em;
     }
     &.media-file-button {
-      margin-right: 2em;
+      margin-right: 3.4em;
     }
     &:hover, &.active {
       color: #5C5B5B;

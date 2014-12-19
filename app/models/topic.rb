@@ -5,6 +5,4 @@ class Topic < ActiveRecord::Base
 
   has_many :ratings, as: :rateable
   has_one :media, as: :mediable
-
-  validates :description, presence: true
 end

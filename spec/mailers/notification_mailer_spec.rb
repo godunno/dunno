@@ -28,6 +28,6 @@ describe NotificationMailer do
   it { expect(subject.bcc).to eq recipients }
   it { expect(subject.body.raw_source).to eq message }
   it { expect(subject.subject).to eq subj }
-  it { expect(subject.from).to eq ['noreply@dunnoapp.com'] }
+  it { expect(subject.from).to eq ['contato@dunnoapp.com'] }
 
 end

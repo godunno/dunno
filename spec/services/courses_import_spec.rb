@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe CoursesImport do
+  let(:scheduler) { spy('CourseScheduler') }
   let(:teacher) { create(:teacher) }
   let(:name) { "Programação II" }
   let(:class_name) { "TR302" }
@@ -15,6 +16,7 @@ describe CoursesImport do
   end
   let(:url) { "http://www.example.com/disciplinas.xlsx" }
   before do
+    allow(CourseScheduler).to receive(:new).and_return(scheduler)
     allow(SpreadsheetParser).to receive(:parse).with(url, header_rows: 2).and_return([
       [name, class_name, start_date, end_date, '09:00', '11:00', '', 'x', '', 'x', '', '', '', "202"],
       [name, class_name, start_date, end_date, '16:00', '18:00', '', '', '', '', '', 'x', '', "203"]
@@ -22,10 +24,8 @@ describe CoursesImport do
   end
 
   describe "imports the courses" do
-    let(:scheduler) { spy('CourseScheduler') }
 
     before do
-      allow(CourseScheduler).to receive(:new).and_return(scheduler)
       CoursesImport.new(teacher, url).import!
     end
 
@@ -46,6 +46,16 @@ describe CoursesImport do
       it { match_weekly_schedule(subject.weekly_schedules.sort_by(&:weekday)[1], weekly_schedules[1]) }
       it { match_weekly_schedule(subject.weekly_schedules.sort_by(&:weekday)[2], weekly_schedules[2]) }
     end
+  end
+
+  it "should accept time without leading zero" do
+    allow(SpreadsheetParser).to receive(:parse).with(url, header_rows: 2).and_return([
+      [name, class_name, start_date, end_date, '7:00', '9:00', '', 'x', '', '', '', '', '', "202"]
+    ])
+    CoursesImport.new(teacher, url).import!
+    weekly_schedule = Course.first.weekly_schedules.first
+    expect(weekly_schedule.start_time).to eq('07:00')
+    expect(weekly_schedule.end_time).to eq('09:00')
   end
 
   describe "constructor method" do

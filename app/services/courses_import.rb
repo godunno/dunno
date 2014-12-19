@@ -34,8 +34,8 @@ class CoursesImport
         row[6..12].each_with_index.map do |value, index|
           next unless value == 'x'
           WeeklySchedule.create!(
-            start_time: row[4],
-            end_time: row[5],
+            start_time: format_time(row[4]),
+            end_time: format_time(row[5]),
             weekday: index,
             classroom: row[13],
             course: course
@@ -45,5 +45,11 @@ class CoursesImport
       end
       courses.each { |course| CourseScheduler.new(course.reload).schedule! }
     end
+  end
+
+  private
+
+  def format_time(time)
+    time.rjust(5, '0')
   end
 end
