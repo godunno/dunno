@@ -1,6 +1,6 @@
 Dunno::Application.routes.draw do
 
-  devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/registrations' }
+  devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/users' }
   mount_roboto
   apipie
   as :user do
@@ -14,6 +14,9 @@ Dunno::Application.routes.draw do
 
     namespace :dashboard do
       resources :passwords, only: [:new, :create, :edit]
+      resources :users, only: [] do
+        get :accept_invitation, on: :collection
+      end
     end
   end
 

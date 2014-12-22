@@ -72,7 +72,7 @@
             </tr>
             <tr>
               <td colspan="2" align="center">
-                <%= link_to "Testar agora", "/users/activate?activation_token=#{@token}", class: "button" %>
+                <%= link_to "Testar agora", accept_invitation_dashboard_users_path(invitation_token: @token), class: "button" %>
               </td>
             </tr>
             <tr>

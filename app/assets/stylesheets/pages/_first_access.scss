@@ -1,0 +1,19 @@
+.first-access {
+  p {
+    text-align: center;
+    &.successfully-loaded {
+      color: $secondary-color;
+      font-size: 0.9em;
+    }
+    &.instructions {
+      font-size: 1.1em;
+    }
+  }
+
+  .submit {
+    @extend .button;
+    @extend .expand;
+    @extend .btn-style-1;
+    @include radius;
+  }
+}
