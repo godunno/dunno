@@ -226,23 +226,36 @@ $diary-card-border: 1px solid #dddddd;
     min-height: 1px;
   }
 }
-.arrow {
-  font-size: 30px;
+
+.next-event:hover, .previous-event:hover {
+   span {
+     opacity: .7;
+   }
+}
+.next-event, .previous-event {
+  font-size: .7em;
   vertical-align: middle;
-  font-weight: 300;
-  &.arrow--left {
-    &:before {
-      content: "<";
-    }
-    margin-left: 5px;
+  span {
+    opacity: 0;
+    display: block;
+    margin-top: 20px;
   }
-  &.arrow--right {
-    &:before {
-      content: ">";
-    }
-    margin-right: 5px;
+  .icon-arrow-circle-left:before {
+    font-size: 1.8em;
+    line-height: 2em;
+    margin-left: 10px;
+  }
+  .icon-arrow-circle-right:before {
+    font-size: 1.8em;
+    line-height: 2em;
+    margin-right: 10px;
   }
 }
+
+.icon-arrow-open.arrow-left:before {
+   
+}
+
 .event-status {
   margin: 20px auto;
   width: $diary-container-width;
