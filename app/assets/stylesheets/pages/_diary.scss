@@ -135,6 +135,7 @@
 
     .text {
       @include grid-column(10);
+      font-size: .8em;
       
       .title {
         font-weight: bold;
