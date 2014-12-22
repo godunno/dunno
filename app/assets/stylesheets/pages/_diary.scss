@@ -275,6 +275,15 @@ $diary-card-border: 1px solid #dddddd;
       padding: 0 !important;
       width: 26px;
   }
+  .button {
+    width: 110px;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+  }
+  .button:disabled {
+    background: #999;
+  }
 }
 
 .container {
@@ -298,6 +307,7 @@ $diary-card-border: 1px solid #dddddd;
       text-transform: uppercase;
       font-weight: bold;
       margin-top: 0;
+      text-align: left;
     }
     .subtitle {
       font-size: 0.7rem;
