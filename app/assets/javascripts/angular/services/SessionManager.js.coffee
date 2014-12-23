@@ -24,10 +24,16 @@ SessionManager = ($http, $q)->
       deferred.resolve()
     deferred.promise
 
+  fetchUser = ->
+    $http.get('/api/v1/users/profile.json').then (response)->
+      if response.status == 200
+        setCurrentUser(response.data)
+
   {
     signIn: signIn
     signOut: signOut
     currentUser: currentUser
+    fetchUser: fetchUser
   }
 
 SessionManager.$inject = ['$http', '$q']
