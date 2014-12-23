@@ -225,6 +225,13 @@ $diary-card-border: 1px solid #dddddd;
   .columns {
     min-height: 1px;
   }
+  h2 {
+    font-size: 1.3em;
+    margin-top: 8px;
+  }
+  .event-date {
+    margin-top: -10px;
+  }
 }
 
 .next-event:hover, .previous-event:hover {
@@ -250,10 +257,6 @@ $diary-card-border: 1px solid #dddddd;
     line-height: 2em;
     margin-right: 10px;
   }
-}
-
-.icon-arrow-open.arrow-left:before {
-   
 }
 
 .event-status {
