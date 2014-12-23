@@ -351,17 +351,21 @@ $diary-card-border: 1px solid #dddddd;
       // effect while moving the item.
       cursor: move !important;
       border: 1px solid #1cc678;
+      -webkit-box-shadow: 0 0 5px #CCC;
+      -moz-box-shadow: 0 0 5px #CCC;
       box-shadow: 0 0 5px #CCC;
       background: #FFF;
     }
 
     .handle {
       float: left;
-      width: 12px;
-      height: 24px;
+      width: 6px;
+      height: 18px;
       margin-left: -22px;
-      margin-top: 12px;
-      background-color: $light-grey-color;
+      margin-top: 16px;
+      border: 2px dotted #CCC;
+      border-top: none;
+      border-bottom: none;
     }
     & > .row {
       margin: 0 auto;
