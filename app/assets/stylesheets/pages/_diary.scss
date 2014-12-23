@@ -350,6 +350,9 @@ $diary-card-border: 1px solid #dddddd;
       // Without this !important, occurs a flickering
       // effect while moving the item.
       cursor: move !important;
+      border: 1px solid #1cc678;
+      box-shadow: 0 0 5px #CCC;
+      background: #FFF;
     }
 
     .handle {
@@ -357,12 +360,12 @@ $diary-card-border: 1px solid #dddddd;
       width: 12px;
       height: 24px;
       margin-left: -22px;
-      margin-top: 10px;
+      margin-top: 12px;
       background-color: $light-grey-color;
     }
     & > .row {
       margin: 0 auto;
-      padding: 12px 0 6px;
+      padding: 12px 0 12px;
       border-bottom: $diary-card-border;
     }
     .item-editing {
@@ -397,6 +400,7 @@ $diary-card-border: 1px solid #dddddd;
   font-size: 1.1rem;
   color: #bbbbbb;
   margin-left: 10px;
+  margin-top: 4px;
 }
 
 .foot {
