@@ -82,14 +82,18 @@
   }
   .create-item-button {
     @include radius;
-    margin-right: 0.15em;
+    margin-right: 0.30em;
     float: right;
     color: #fff;
     background: $secondary-color;
-    margin-top: -1.35em;
-    padding: 0.0em 0.2em;
-    font-size: 1.5em;
-    line-height: 1.1em;
+    margin-top: -1.80em;
+    padding: .2em 0.4em;
+    font-size: 1.1em;
+    height: 1.5em;
+    line-height: 1.4em;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
 
     &.disabled {
       pointer-events: none;
@@ -135,6 +139,7 @@
 
     .text {
       @include grid-column(10);
+      font-size: .8em;
       
       .title {
         font-weight: bold;
@@ -220,24 +225,40 @@ $diary-card-border: 1px solid #dddddd;
   .columns {
     min-height: 1px;
   }
+  h2 {
+    font-size: 1.3em;
+    margin-top: 8px;
+  }
+  .event-date {
+    margin-top: -10px;
+  }
 }
-.arrow {
-  font-size: 30px;
+
+.next-event:hover, .previous-event:hover {
+   span {
+     opacity: .7;
+   }
+}
+.next-event, .previous-event {
+  font-size: .7em;
   vertical-align: middle;
-  font-weight: 300;
-  &.arrow--left {
-    &:before {
-      content: "<";
-    }
-    margin-left: 5px;
+  span {
+    opacity: 0;
+    display: block;
+    margin-top: 20px;
   }
-  &.arrow--right {
-    &:before {
-      content: ">";
-    }
-    margin-right: 5px;
+  .icon-arrow-circle-left:before {
+    font-size: 1.8em;
+    line-height: 2em;
+    margin-left: 10px;
+  }
+  .icon-arrow-circle-right:before {
+    font-size: 1.8em;
+    line-height: 2em;
+    margin-right: 10px;
   }
 }
+
 .event-status {
   margin: 20px auto;
   width: $diary-container-width;
@@ -275,6 +296,15 @@ $diary-card-border: 1px solid #dddddd;
       padding: 0 !important;
       width: 26px;
   }
+  .button {
+    width: 110px;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+  }
+  .button:disabled {
+    background: #999;
+  }
 }
 
 .container {
@@ -298,6 +328,7 @@ $diary-card-border: 1px solid #dddddd;
       text-transform: uppercase;
       font-weight: bold;
       margin-top: 0;
+      text-align: left;
     }
     .subtitle {
       font-size: 0.7rem;
@@ -319,19 +350,26 @@ $diary-card-border: 1px solid #dddddd;
       // Without this !important, occurs a flickering
       // effect while moving the item.
       cursor: move !important;
+      border: 1px solid #1cc678;
+      -webkit-box-shadow: 0 0 5px #CCC;
+      -moz-box-shadow: 0 0 5px #CCC;
+      box-shadow: 0 0 5px #CCC;
+      background: #FFF;
     }
 
     .handle {
       float: left;
-      width: 12px;
-      height: 24px;
+      width: 6px;
+      height: 18px;
       margin-left: -22px;
-      margin-top: 10px;
-      background-color: $light-grey-color;
+      margin-top: 16px;
+      border: 2px dotted #CCC;
+      border-top: none;
+      border-bottom: none;
     }
     & > .row {
       margin: 0 auto;
-      padding: 12px 0 6px;
+      padding: 12px 0 12px;
       border-bottom: $diary-card-border;
     }
     .item-editing {
@@ -366,6 +404,7 @@ $diary-card-border: 1px solid #dddddd;
   font-size: 1.1rem;
   color: #bbbbbb;
   margin-left: 10px;
+  margin-top: 4px;
 }
 
 .foot {

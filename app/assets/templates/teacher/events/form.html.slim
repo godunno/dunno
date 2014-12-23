@@ -1,33 +1,35 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
-    .large-3.columns.vertical-center style="float: left"
+    .large-2.columns.vertical-center style="float: left"
       a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
-        span.icon-arrow-back
-        span< VER TODAS AS AULAS
+        span.icon.icon-arrow-back
+        span Ver todas as aulas
 
-    .large-7.large-centered.vertical-center.columns
+    .large-8.vertical-center.columns
       h2 {{event.course.name}}
-      p.subtitle-head {{event.course.class_name}}
       p.translucent.subtitle-head
         span {{event.course.institution}}
         span< ng-if="!!event.course.grade" - {{event.course.grade}}
+    .large-2.vertical-center.columns
+      p.subtitle-head.text-right {{event.course.class_name}}
+      
 .page-header.subtitle
   .row.text-center
     .large-2.columns.vertical-center.t-light.text-left
       span.t-size-1.upcase {{event.start_at | date:'MMM/yyyy'}}
     .large-2.large-offset-1.columns.vertical-center.t-light
-      a.vertical-center.t-light ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit"
-        span Aula anterior
-        i.arrow.arrow--left
+      a.vertical-center.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit"
+        span.left Aula anterior
+        i.icon.icon-arrow-circle-left
     .large-2.columns.vertical-center
       .row.row--main
           h2
             strong {{event.start_at | date:'dd'}}
-      .row.t-light.upcase {{event.start_at | date:'EEE'}}
+      .row.t-light.upcase.event-date {{event.start_at | date:'EEE'}}
     .large-2.columns.end.vertical-center
-      a.vertical-center.t-light ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
-        i.arrow.arrow--right
-        span Próxima aula
+      a.vertical-center.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
+        i.icon.icon-arrow-circle-right
+        span.right Próxima aula
 
 .diary-page
 
@@ -130,7 +132,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
             input[type="text" name="topic_media_url" ng-model="newListItem.media_url"
               dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
-          a.icon.icon-play.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
+          a.icon.icon-arrow-back.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
           input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
           progress-bar
@@ -183,7 +185,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           #personal-note-url.media-url-input data-dropdown-content="" aria-hidden="true"
             input[type="text" name="personal_note_media_url" ng-model="newListItem.media_url"
               dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
-          a.icon.icon-play.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
+          a.icon.icon-arrow-back.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
           input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
           progress-bar
