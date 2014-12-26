@@ -1,16 +1,15 @@
 DunnoApp = angular.module('DunnoApp')
 
-ApplicationCtrl = ($scope, $http, $window)->
+ApplicationCtrl = ($scope, $http, $window, SessionManager)->
   $scope.$on '$viewContentLoaded', ()->
     $(document).foundation()
 
-  $scope.currentUser = null
-  $scope.setCurrentUser = (user)->
-    $scope.currentUser = user
-
   $scope.sign_out = ->
-    # TODO: create a service to manage sessions
-    $http.delete('/api/v1/users/sign_out.json').then ->
+    SessionManager.signOut().then ->
       $window.location.href = '/'
-ApplicationCtrl.$inject = ['$scope', '$http', '$window']
+
+  if SessionManager.currentUser() == null
+    SessionManager.fetchUser()
+
+ApplicationCtrl.$inject = ['$scope', '$http', '$window', 'SessionManager']
 DunnoApp.controller 'ApplicationCtrl', ApplicationCtrl

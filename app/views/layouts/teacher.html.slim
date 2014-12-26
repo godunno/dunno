@@ -40,6 +40,9 @@ html lang="pt" ng-app="DunnoApp"
       hr
       p.instructions Cadastre uma senha para acessar o Dunno de qualquer lugar.
       form ng-submit="updatePassword(user)"
+        label for="email" Email
+        input#email type="email" ng-model="user.email" disabled=true
+
         label for="password" Senha
         input#password type="password" ng-model="user.password"
 

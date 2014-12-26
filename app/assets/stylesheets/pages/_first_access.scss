@@ -10,6 +10,10 @@
     }
   }
 
+  input[disabled] {
+    text-align: center;
+  }
+
   .submit {
     @extend .button;
     @extend .expand;

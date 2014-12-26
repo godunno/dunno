@@ -5,7 +5,17 @@ class Api::V1::SessionsController < Devise::SessionsController
   def create
     @resource = warden.authenticate!(scope: resource_name, recall: "#{controller_path}#failure")
     sign_in(resource_name, @resource)
-    profile_name = @resource.profile.class.name.downcase
     render "#{profile_name}_sign_in"
+  end
+
+  def profile
+    @resource = current_user
+    render "#{profile_name}_sign_in"
+  end
+
+  private
+
+  def profile_name
+    @resource.profile.class.name.downcase
   end
 end
