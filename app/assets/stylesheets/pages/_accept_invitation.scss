@@ -1,0 +1,109 @@
+@mixin ball($radius) {
+  display: block;
+  border: 1px solid;
+  border-radius: $radius;
+  width:       $radius * 2;
+  height:      $radius * 2;
+  line-height: $radius * 2;
+  text-align: center;
+  font-size: $radius;
+}
+
+.accept-invitation {
+  .top-bar {
+    height: 115px;
+    padding: 20px;
+
+    .title-area {
+      float: none;
+      .logo {
+        height: 70px;
+      }
+    }
+  }
+
+  .container, footer {
+    background: #ffffff;
+    text-align: center;
+    margin-top: 3em;
+  }
+
+  .instructions, .loading, footer {
+    padding: 2em;
+  }
+
+  .container {
+    .instructions {
+      & > .description {
+        width: 50%;
+        margin: 2em auto;
+      }
+      .steps {
+        @include inline-list;
+        list-style: none;
+        margin: 0 auto;
+        width: 75%;
+
+        $number-radius: 40px;
+        .step {
+          .number {
+            @include ball($number-radius);
+            color: #F57F23;
+            border-color: $light-grey-color;
+            font-weight: 300;
+            margin: 0 auto;
+          }
+          .description {
+            text-transform: uppercase;
+            width: 8em;
+            font-size: 0.8em;
+          }
+        }
+        .arrow {
+          margin-top: $number-radius - 18px;
+        }
+      }
+    }
+    .loading {
+      background: $primary-color;
+      color: #fff;
+
+      p {
+        margin: 0;
+        font-weight: 300;
+        &.last {
+          margin-bottom: 2em;
+        }
+      }
+
+      .progress {
+        background-color: transparent;
+        border-color: $secondary-color;
+        height: 30px;
+        &, & > .meter {
+          border-radius: 0;
+        }
+
+        .meter {
+          transition-duration: 1s;
+        }
+      }
+
+      .loading-item {
+        text-align: left;
+        margin-left: 1.2em;
+        font-size: 0.8em;
+        font-weight: 100;
+        letter-spacing: 0.05em;
+      }
+    }
+  }
+
+  footer {
+    .partners {
+      @include inline-list;
+      margin: 0 auto;
+      width: 350px;
+    }
+  }
+}

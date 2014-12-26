@@ -19,7 +19,6 @@ class Dashboard::UsersController < Devise::RegistrationsController
       render nothing: true, status: 401
     else
       sign_in(@user)
-      redirect_to "/dashboard/teacher#/courses?first_access=true"
     end
   end
 
