@@ -37,11 +37,12 @@ html lang="pt" ng-app="DunnoApp"
           li.step
             span.number 3
             span.description Publicar aula e notificar os alunos!
-      .loading
+      .loading ng-controller="FakeLoadingCoursesCtrl"
         p Estamos buscando as informações de suas disciplinas.
-        p Levará somente alguns segundos...
+        p.last Levará somente alguns segundos...
         progress-bar
-        p.loading-item Carregando: Tópicos em Psicologia do Trabalho
+        p.loading-item ng-if="state == 'LOADING'" Carregando: {{currentItem()}}
+        a.button.btn-style-1 ng-if="state == 'LOADED'" href="/dashboard/teacher#/?first_access=true" Cadastrar senha
 
     footer
       p Com a confiança:

@@ -85,11 +85,6 @@ describe Dashboard::UsersController do
         do_action
       end
 
-      it "should redirect to application notifying that's first sign in" do
-        expect(last_response).to be_redirect
-        follow_redirect!
-        expect(last_request.path).to eq("/dashboard/teacher")
-      end
       it { expect(last_request.env["action_controller.instance"].instance_variable_get(:@user)).to eq(user) }
     end
 

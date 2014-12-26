@@ -71,15 +71,21 @@
       p {
         margin: 0;
         font-weight: 300;
+        &.last {
+          margin-bottom: 2em;
+        }
       }
 
       .progress {
-        margin-top: 2em;
         background-color: transparent;
         border-color: $secondary-color;
         height: 30px;
         &, & > .meter {
           border-radius: 0;
+        }
+
+        .meter {
+          transition-duration: 1s;
         }
       }
 
