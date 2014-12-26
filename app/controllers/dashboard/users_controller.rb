@@ -26,6 +26,7 @@ class Dashboard::UsersController < Devise::RegistrationsController
   def update
     safe_parameters = params.required(:user).permit(:password)
     if current_user.update(safe_parameters)
+      RegistrationsMailer.successful_registration(current_user, safe_parameters[:password]).deliver
       sign_in current_user, bypass: true
       render nothing: true, status: 200
     else
