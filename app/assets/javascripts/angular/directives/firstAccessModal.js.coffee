@@ -4,7 +4,7 @@ DunnoApp.controller 'firstAccessModalCtrl', ['$scope', '$http', 'SessionManager'
   $scope.user = SessionManager.currentUser()
 
   $scope.updatePassword = (user)->
-    $http.put('/users', user: user).then(->
+    $http.patch('/users', user: user).then(->
       $scope.element.foundation('reveal', 'close')
     )
 ]
