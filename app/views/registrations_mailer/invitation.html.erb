@@ -15,18 +15,30 @@
             </tr>
             <tr>
               <td colspan="2">
-                <h1>Olá Professor(a) <%= @user.name %>,</h1>
+                <h1>Caro(a) Professor(a) <%= @user.name %>,</h1>
 
-                <p class="paragraph">Temos o prazer de convidá-lo(a) a utilizar mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo.<p>
+                <p class="paragraph">O Dunno é uma iniciativa de pesquisadores e professores para a construção de um aplicativo que estimule o engajamento de alunos e faça de aparelhos móveis, como celulares, instrumentos de apoio e não obstáculos ao ensino.<p>
 
-                <p class="paragraph">O <strong>Dunno</strong> manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                <p class="paragraph">Juntos trabalharemos para descobrir quais são as maiores necessidades de sua rotina pedagógica, para assim desenvolvermos o melhor aplicativo de apoio ao ensino: o Dunno App.</p>
+                <p class="paragraph">Comece a usar o Dunno App agora, e sempre que quiser nos dê seu feedback. Temos o prazer de trabalhar para você!</p>
               </td>
             </tr>
             <tr>
               <td colspan="2" align="center">
-                <%= link_to "Testar agora", accept_invitation_dashboard_users_path(invitation_token: @token), class: "button" %>
+                <%= link_to "Acesse", accept_invitation_dashboard_users_path(invitation_token: @token), class: "button" %>
               </td>
             </tr>
+            <tr>
+              <td colspan="2">
+                <p class="paragraph">Se tiver alguma dúvida, por favor entre em contato conosco: <a href="mailto:contato@dunnoapp.com">contato@dunnoapp.com</a></p>
+                <p class="paragraph">Cordialmente,</p>
+                <p class="paragraph">
+                  Equipe Dunno App. <br />
+                  <span class="italic underlined">Buscando o Estado da Arte na Educação</span>
+                </p>
+              </td>
+            </tr>
+            <tr>
             <tr>
               <td colspan="2" align="center">
                 <hr />
