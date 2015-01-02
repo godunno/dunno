@@ -59,11 +59,10 @@ resource "Events" do
       end
 
       context "requesting for a specific year and month" do
-        let!(:event) { create(:event, course: course, start_at: 1.month.ago) }
+        let!(:event) { create(:event, course: course, start_at: "2014-11-13 14:00") }
 
-        let(:now) { Time.zone.now }
-        let(:year) { now.year }
-        let(:month) { now.month - 1 }
+        let(:year) { 2014 }
+        let(:month) { 11 }
 
         example_request "shows the right events for the month" do
           expect(events_json.size).to eq 1
