@@ -11,5 +11,7 @@ ApplicationCtrl = ($scope, $http, $window, SessionManager)->
   if SessionManager.currentUser() == null
     SessionManager.fetchUser()
 
+  $scope.currentUser = SessionManager.currentUser
+
 ApplicationCtrl.$inject = ['$scope', '$http', '$window', 'SessionManager']
 DunnoApp.controller 'ApplicationCtrl', ApplicationCtrl
