@@ -1,6 +1,6 @@
 json.root_path(dashboard_student_path)
 
-json.(@resource, :id, :name, :email, :authentication_token)
+json.(@resource, :id, :name, :email, :phone_number, :authentication_token)
 
 json.(course_pusher_events, *course_pusher_events.events)
 
