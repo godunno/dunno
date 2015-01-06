@@ -33,7 +33,7 @@ html lang="pt" ng-app="DunnoApp"
               a {{currentUser().name}}
               ul#profile.dropdown
                 li
-                  a href="#" Meu perfil
+                  a href="#profile/edit" Meu perfil
                 li
                   a ng-click="sign_out()" Sair
     - if Rails.env.staging?
