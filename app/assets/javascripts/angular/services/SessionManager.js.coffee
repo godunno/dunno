@@ -33,6 +33,7 @@ SessionManager = ($http, $q)->
     signIn: signIn
     signOut: signOut
     currentUser: currentUser
+    setCurrentUser: setCurrentUser
     fetchUser: fetchUser
   }
 

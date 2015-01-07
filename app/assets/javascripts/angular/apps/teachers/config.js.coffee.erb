@@ -18,6 +18,7 @@ Router = ($routeProvider)->
     when('/events/new',       controller: 'EventCtrl',        templateUrl: '<%= asset_path('teacher/events/form.html') %>').
     when('/events/:id/edit',  controller: 'EventCtrl',        templateUrl: '<%= asset_path('teacher/events/form.html') %>').
     when('/catalog',          controller: 'MediasIndexCtrl',  templateUrl: '<%= asset_path('teacher/medias/index.html') %>').
+    when('/profile/edit',     controller: 'ProfileCtrl',      templateUrl: '<%= asset_path('shared/profile/form.html') %>').
     when('/styleguide', templateUrl: '<%= asset_path('styleguide.html') %>').
     otherwise(redirectTo: '/courses')
 Router.$inject = ['$routeProvider', '$locationProvider']
