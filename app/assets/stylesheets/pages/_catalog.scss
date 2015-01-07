@@ -12,15 +12,55 @@
     padding: 2px;
     font-size: 18px;
   }
-
+  
+  
+  
   .count {
     color: $light-grey-color;
     margin-left: 0.2em;
   }
 
-  $dropdown-width: 180px;
+  $dropdown-width: 100%;
   .dropdown {
     width: $dropdown-width;
+  }
+  
+  .search-wrapper {
+    position: relative;
+    width: 100%;
+      input {
+        width: 90%;
+        float: left;
+        height: 40px;
+        background: #FFF;
+        border: 1px solid #CCC;
+        box-shadow: none;
+        border-radius: 2px;
+        color: #333 !important;
+        opacity: .8;
+        &:focus {
+         opacity: 1;
+         border: 1px solid $input-focus-border-color;
+        }
+      }
+      .icon-close {
+        background: none;
+        color: #CCC;
+        position: absolute;
+        right: 64px;
+        top: 5px;
+        width: 24px;
+        height: 24px;
+      }
+      button {
+        width: 9%;
+        border-radius: 2px;
+        height: 40px;
+        background: #1cc678;
+        position: absolute;
+        right: 0;
+        line-height: 44px;
+      }
   }
 
   .type-list {
@@ -148,7 +188,7 @@
         }
       }
     }
-
+    
     .icon-trash {
       float: right;
       color: $light-grey-color;

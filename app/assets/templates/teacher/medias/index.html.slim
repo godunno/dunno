@@ -6,7 +6,7 @@ header.page-header.title
 
 .catalog-page
   .row
-    .large-3.columns
+    .large-3.columns.
       a.dropdown data-dropdown="search-type"
         .option.all ng-if="search.type == 'all'"
           span.value Todos
@@ -39,15 +39,13 @@ header.page-header.title
           span.count
             | ({{countType(medias, 'file')}})
 
-    .large-6.columns.end
+    .large-8.columns.end
       form ng-submit="fetch()"
         .row.collapse
-          .large-10.columns
+          .large-10.columns.search-wrapper
             input type="text" ng-model="search.q" placeholder="Procure por assunto, palavra-chave ou tags"
-          .large-1.columns
-            button.button.postfix.icon.icon-search
-          .large-1.columns
             a.button.postfix.icon.icon-close ng-click="clearSearch()"
+            button.button.postfix.icon.icon-search
 
   ul.medias.row
     li.media ng-repeat="media in medias"
