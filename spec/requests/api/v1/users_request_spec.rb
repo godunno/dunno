@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Api::V1::UsersController do
   describe "PATCH /api/v1/users" do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, profile: create(:teacher)) }
     let(:name) { "Novo nome" }
     let(:phone_number) { "+55 21 12345 6789" }
     def do_action
@@ -25,9 +25,21 @@ describe Api::V1::UsersController do
       it { expect(last_response.status).to eq(200) }
       it { expect(subject.name).to eq(name) }
       it { expect(subject.phone_number).to eq(phone_number) }
+
+      it "should match the json" do
+        expect(json).to eq(
+          "root_path" => "/dashboard/teacher",
+          "id" => user.id,
+          "name" => name,
+          "phone_number" => phone_number,
+          "email" => user.email,
+          "authentication_token" => user.authentication_token,
+          "courses" => []
+        )
+      end
     end
 
-    context "invalid update" do
+    context "updating not allowed fields" do
       let(:params_hash) do
         {
           user: {
@@ -37,6 +49,18 @@ describe Api::V1::UsersController do
       end
 
       it { expect(user.password).to eq(user.reload.password) }
+    end
+
+    context "invalid update" do
+      let(:params_hash) do
+        {
+          user: {
+            name: ''
+          }
+        }
+      end
+
+      it { expect(last_response.status).to eq(403) }
     end
 
     context "trying to update another user's profile" do
