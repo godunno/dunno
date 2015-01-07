@@ -6,6 +6,8 @@
     border-radius: 50%;
     width: 23px;
     height: 23px;
+    display: block;
+    float: left;
     text-align: center;
     padding: 2px;
     font-size: 18px;
@@ -37,9 +39,9 @@
 
       .title {
         color: $dark-grey-color;
-
+        
         font-size: 1em;
-        font-weight: 600;
+        font-weight: 300;
       }
 
       .count {
@@ -54,27 +56,23 @@
 
   .medias {
     margin-top: 0.5em;
+    list-style: none;
+    padding: 0px;
+    border-radius: 5px;
+    box-shadow: $box-shadow;
+    background-color: white;
   }
 
   .media {
     @include grid-row;
-
     width: initial;
     display: block;
-    background: white;
-    border: 1px solid $dark-grey-color;
-    border-bottom: none;
-    border-top-color: $light-grey-color;
     padding: 1.5em;
-    margin-left: $column-gutter / 2;
     position: relative;
-
-    &:first-of-type {
-      border-top-color: $dark-grey-color;
-    }
+    border-bottom: 1px solid $light-grey-color;
 
     &:last-of-type {
-      border-bottom: 1px solid $dark-grey-color;
+      border-bottom: none;
     }
 
     &:hover .vertical-bar {
