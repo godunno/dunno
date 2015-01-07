@@ -8,6 +8,7 @@ Dunno::Application.routes.draw do
     delete 'api/v1/users/sign_out' => 'api/v1/sessions#destroy'
     get 'api/v1/users/profile' => 'api/v1/sessions#profile'
     patch 'api/v1/users' => 'api/v1/users#update'
+    patch 'api/v1/users/password' => 'api/v1/users#update_password'
 
     # TODO: test redirect when user is not authenticated
     get 'sign_in' => 'dashboard/application#sign_in', as: :new_user_session

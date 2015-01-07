@@ -1,0 +1,21 @@
+header.page-header.title
+  .row
+    .large-12.vertical-center.columns
+      h1 Meu perfil
+
+.edit-profile
+  form.standalone-form.small ng-submit="update_password(user)"
+    .box
+      small.success ng-if="success" Senha alterada com sucesso!
+      small.error ng-if="error" Erro ao alterar a senha.
+      label for="current_password" Senha atual
+      input#current_password type="password" ng-model="user.current_password"
+
+      label for="password" Senha
+      input#password type="password" ng-model="user.password" autocomplete="off"
+
+      label for="password_confirmation" Confirmar senha
+      input#password_confirmation type="password" ng-model="user.password_confirmation"
+
+    input.submit.button type="submit" value="Alterar senha"
+
