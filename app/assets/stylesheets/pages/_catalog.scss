@@ -133,13 +133,14 @@
 
     .bottom {
       @include grid-row;
-      margin-top: 1em;
+      margin-top: 10px;
     }
 
     .title {
       background: none;
       border: none;
       box-shadow: none;
+      margin-bottom: 0;
       &:hover, &:focus {
         @include dotted-input($light-grey-color);
       }
@@ -196,6 +197,7 @@
       text-align: center;
       padding: 0.1em;
       display: none;
+      margin-top: 10px;
       &:hover {
         color: $primary-color;
       }
