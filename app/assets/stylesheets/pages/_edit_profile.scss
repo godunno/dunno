@@ -8,5 +8,23 @@
     .success {
       color: $secondary-color;
     }
+
+    .password {
+      display: inline-block;
+      width: 90%;
+    }
+
+    .validation {
+      display: inline-block;
+      margin-left: 5%;
+      .icon-valid {
+        @extend .icon-ok;
+        color: $secondary-color;
+      }
+      .icon-invalid {
+        @extend .icon-not-ok;
+        color: red;
+      }
+    }
   }
 }

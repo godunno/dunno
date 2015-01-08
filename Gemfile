@@ -54,6 +54,7 @@ gem 'rails-assets-ng-file-upload',      '1.6.12'
 gem 'rails-assets-ng-file-upload-shim', '1.6.12'
 gem 'rails-assets-ng-tags-input',       '2.1.1'
 gem 'rails-assets-mrodrigues--angular-elastic-input', '2.0.1'
+gem 'rails-assets-angular-validation-match', '1.3.0'
 
 group :production, :staging do
   gem 'rails_12factor',           '0.0.2'

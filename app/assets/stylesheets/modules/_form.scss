@@ -51,7 +51,7 @@ span.error {
     text-transform: uppercase;
   }
 
-  input[disabled] {
+  input[disabled]:not(input[type="submit"]) {
     background: transparent;
     border: none;
     box-shadow: none;
@@ -65,6 +65,7 @@ span.error {
 
   input[type="submit"] {
     @extend .btn-style-1;
+    @extend .button;
     @include radius;
   }
 }
