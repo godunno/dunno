@@ -91,9 +91,6 @@
     font-size: 1.1em;
     height: 1.5em;
     line-height: 1.4em;
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    transform: rotate(180deg);
 
     &.disabled {
       pointer-events: none;
