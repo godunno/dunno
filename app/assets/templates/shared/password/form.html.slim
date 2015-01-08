@@ -4,18 +4,25 @@ header.page-header.title
       h1 Meu perfil
 
 .edit-profile
-  form.standalone-form.small ng-submit="update_password(user)"
+  form.standalone-form.small name="form" ng-submit="update_password(user)"
     .box
       small.success ng-if="success" Senha alterada com sucesso!
       small.error ng-if="error" Erro ao alterar a senha.
-      label for="current_password" Senha atual
-      input#current_password type="password" ng-model="user.current_password"
 
-      label for="password" Senha
-      input#password type="password" ng-model="user.password" autocomplete="off"
+      label for="current_password" * Senha atual
+      input#current_password.password type="password" ng-model="user.current_password" required=true
 
-      label for="password_confirmation" Confirmar senha
-      input#password_confirmation type="password" ng-model="user.password_confirmation"
+      label for="password" * Senha
+      input#password.password type="password" ng-model="user.password" autocomplete="off" name="password" ng-minlength="8" required=true
+      .validation
+        i.icon-valid ng-if="form.password.$valid"
+        i.icon-invalid ng-if="form.password.$invalid"
 
-    input.submit.button type="submit" value="Alterar senha"
+      label for="password_confirmation" * Confirmar senha
+      input#password_confirmation.password type="password" ng-model="user.password_confirmation" name="password_confirmation" match="user.password" required=true
+      .validation
+        i.icon-valid ng-if="form.password_confirmation.$valid"
+        i.icon-invalid ng-if="form.password_confirmation.$invalid"
+
+    input.submit type="submit" ng-disabled="form.$invalid" value="Alterar senha"
 

@@ -31,6 +31,7 @@
 //= require ng-file-upload
 //= require ng-tags-input
 //= require angular-elastic-input
+//= require angular-validation-match
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });
