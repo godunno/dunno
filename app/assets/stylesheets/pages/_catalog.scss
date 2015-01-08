@@ -140,12 +140,10 @@
         font-weight: 300;
         border: 1px dashed $light-grey-color;
         // TODO: make it work on Firefox
-        @include placeholder {
-          &:before {
-            content: "a  ";
-            font-family: "dunno-icon-font";
-            color: $dark-grey-color;
-          }
+        &::placeholder:before {
+          content: "a  ";
+          font-family: "dunno-icon-font";
+          color: $dark-grey-color;
         }
         &:focus {
           @include dotted-input($secondary-color);

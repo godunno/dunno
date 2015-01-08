@@ -91,9 +91,6 @@
     font-size: 1.1em;
     height: 1.5em;
     line-height: 1.4em;
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    transform: rotate(180deg);
 
     &.disabled {
       pointer-events: none;
@@ -130,8 +127,6 @@
     padding: 1em .5em;
     position: relative;
     border-radius: 2px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
 
     .image {
       @include grid-column(2);
@@ -314,8 +309,6 @@ $diary-card-border: 1px solid #dddddd;
   margin: 20px auto 20px;
   padding: 0;
   border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   & > .title {
     height: $diary-title-height;
     position: relative;
@@ -351,8 +344,6 @@ $diary-card-border: 1px solid #dddddd;
       // effect while moving the item.
       cursor: move !important;
       border: 1px solid #1cc678;
-      -webkit-box-shadow: 0 0 5px #CCC;
-      -moz-box-shadow: 0 0 5px #CCC;
       box-shadow: 0 0 5px #CCC;
       background: #FFF;
     }
