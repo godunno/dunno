@@ -9,15 +9,30 @@
       margin: 0;
     }
   }
-  input.code, input.code:focus {
-    background-image: url("/images/input-arrow.png");
-    background-repeat: no-repeat;
-    background-position: 300px center;
-    padding: 30px 50px 30px 20px;
-    font-size: 22px;
-    font-weight: 300;
+
+  .search {
     width: 350px;
     margin: 0 auto;
+    .code, .code:focus {
+      background-image: url("/images/input-arrow.png");
+      background-repeat: no-repeat;
+      background-position: 300px center;
+      padding: 30px 50px 30px 20px;
+      font-size: 22px;
+      font-weight: 300;
+      //width: 100%;
+    }
+
+    .submit {
+      @include ball(20px, 2px);
+      float: right;
+      margin-top: -67px;
+      margin-right: 0.5em;
+      background: transparent;
+      color: $secondary-color;
+      border-color: $secondary-color;
+      line-height: 20px;
+    }
   }
 }
 

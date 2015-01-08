@@ -1,14 +1,3 @@
-@mixin ball($radius) {
-  display: block;
-  border: 1px solid;
-  border-radius: $radius;
-  width:       $radius * 2;
-  height:      $radius * 2;
-  line-height: $radius * 2;
-  text-align: center;
-  font-size: $radius;
-}
-
 .accept-invitation {
   .top-bar {
     height: 115px;
