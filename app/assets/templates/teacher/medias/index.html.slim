@@ -6,7 +6,7 @@ header.page-header.title
 
 .catalog-page
   .row
-    .large-3.columns.
+    .large-3.columns
       a.dropdown data-dropdown="search-type"
         .option.all ng-if="search.type == 'all'"
           span.value Todos
@@ -59,7 +59,7 @@ header.page-header.title
             a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
         .bottom
           .large-11.columns
-            tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova"
+            tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova tag"
           .large-1.column
             a.icon.icon-trash ng-click="removeMedia(media)"
 
