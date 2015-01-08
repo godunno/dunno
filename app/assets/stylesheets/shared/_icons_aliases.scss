@@ -27,6 +27,6 @@
   }
   &.icon-arrow {
     @extend .icon-arrow-back;
-    @include transform(rotate(180deg));
+    transform: rotate(180deg);
   }
 }
