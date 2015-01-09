@@ -39,30 +39,29 @@ header.page-header.title
           span.count
             | ({{countType(medias, 'file')}})
 
-    .large-6.columns.end
+    .large-8.columns.end
       form ng-submit="fetch()"
         .row.collapse
-          .large-10.columns
+          .large-10.columns.search-wrapper
             input type="text" ng-model="search.q" placeholder="Procure por assunto, palavra-chave ou tags"
-          .large-1.columns
-            button.button.postfix.icon.icon-search
-          .large-1.columns
             a.button.postfix.icon.icon-close ng-click="clearSearch()"
+            button.button.postfix.icon.icon-search
 
-  ul.medias.row
-    li.media ng-repeat="media in medias"
-      .vertical-bar
-      .top
-        .large-8.columns
-          input.title type="text" ng-model="media.title" pu-elastic-input=true ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
-        .large-4.columns
-          i.type.icon ng-class="'icon-' + media.type"
-          a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
-      .bottom
-        .large-11.columns
-          tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova"
-        .large-1.column
-          a.icon.icon-trash ng-click="removeMedia(media)"
+  .row
+    ul.medias.large-12
+      li.media ng-repeat="media in medias"
+        .vertical-bar
+        .top
+          .large-8.columns
+            input.title type="text" ng-model="media.title" pu-elastic-input=true ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
+          .large-4.columns
+            i.type.icon ng-class="'icon-' + media.type"
+            a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
+        .bottom
+          .large-11.columns
+            tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova tag"
+          .large-1.column
+            a.icon.icon-trash ng-click="removeMedia(media)"
 
   .row
     .pagination
