@@ -8,9 +8,7 @@ SignInCtrl = ($scope, $window, SessionManager)->
 
     SessionManager.signIn(user).then((data)->
       $window.location.href = data.root_path
-    , ->
-      $scope.authentication_failed = true
-    )
+    ).catch(-> $scope.authentication_failed = true)
 
   $scope.show_error = (field, error)->
     field = $scope.user[field]
