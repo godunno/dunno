@@ -1,4 +1,5 @@
 DunnoApp = angular.module('DunnoApp')
+DunnoAppStudent = angular.module('DunnoAppStudent')
 
 ApplicationCtrl = ($scope, $http, $window, SessionManager)->
   $scope.$on '$viewContentLoaded', ()->
@@ -15,3 +16,4 @@ ApplicationCtrl = ($scope, $http, $window, SessionManager)->
 
 ApplicationCtrl.$inject = ['$scope', '$http', '$window', 'SessionManager']
 DunnoApp.controller 'ApplicationCtrl', ApplicationCtrl
+DunnoAppStudent.controller 'ApplicationCtrl', ApplicationCtrl

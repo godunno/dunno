@@ -1,4 +1,5 @@
 DunnoApp = angular.module('DunnoApp')
+DunnoAppStudent = angular.module('DunnoAppStudent')
 
 SessionManager = ($http, $q)->
 
@@ -39,3 +40,4 @@ SessionManager = ($http, $q)->
 
 SessionManager.$inject = ['$http', '$q']
 DunnoApp.factory "SessionManager", SessionManager
+DunnoAppStudent.factory "SessionManager", SessionManager
