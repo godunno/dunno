@@ -10,12 +10,10 @@ SessionManager = ($http, $q)->
 
   signIn = (user)->
     deferred = $q.defer()
-    $http.post("/api/v1/users/sign_in.json", user: user).then (response)->
-      if response.status == 200
-        setCurrentUser(response.data)
-        deferred.resolve(response.data)
-      else
-        deferred.reject(response.data)
+    $http.post("/api/v1/users/sign_in.json", user: user).then((response)->
+      setCurrentUser(response.data)
+      deferred.resolve(response.data)
+    ).catch((response)-> deferred.reject(response.data))
     deferred.promise
 
   signOut = ->
@@ -27,8 +25,7 @@ SessionManager = ($http, $q)->
 
   fetchUser = ->
     $http.get('/api/v1/users/profile.json').then (response)->
-      if response.status == 200
-        setCurrentUser(response.data)
+      setCurrentUser(response.data)
 
   {
     signIn: signIn
