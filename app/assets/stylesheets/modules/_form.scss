@@ -34,6 +34,9 @@ span.error {
     background: #ffffff;
     padding: 1.5em;
     box-shadow: $box-shadow;
+    a {
+      color: $secondary-color;
+    }
   }
 
   label {
@@ -47,10 +50,6 @@ span.error {
     box-shadow: none;
     color: $dark-grey-color;
     padding: 0;
-  }
-
-  a {
-    color: $secondary-color;
   }
 
   input[type="submit"] {
