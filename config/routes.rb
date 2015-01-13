@@ -1,11 +1,14 @@
 Dunno::Application.routes.draw do
 
-  devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/registrations' }
+  devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/users' }
   mount_roboto
   apipie
   as :user do
     post 'api/v1/users/sign_in' => 'api/v1/sessions#create'
     delete 'api/v1/users/sign_out' => 'api/v1/sessions#destroy'
+    get 'api/v1/users/profile' => 'api/v1/sessions#profile'
+    patch 'api/v1/users' => 'api/v1/users#update'
+    patch 'api/v1/users/password' => 'api/v1/users#update_password'
 
     # TODO: test redirect when user is not authenticated
     get 'sign_in' => 'dashboard/application#sign_in', as: :new_user_session
@@ -14,6 +17,9 @@ Dunno::Application.routes.draw do
 
     namespace :dashboard do
       resources :passwords, only: [:new, :create, :edit]
+      resources :users, only: [] do
+        get :accept_invitation, on: :collection
+      end
     end
   end
 

@@ -22,8 +22,6 @@
       float: left;
       background-color: white;
       border-radius: 5px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
       border: 1px solid silver;
       width: 20%;
       margin-left: 4%;
@@ -93,10 +91,7 @@
         padding: 0 30px;
         top: 10px;
         left: -35px;
-        -webkit-transform: rotate(-45deg);
-        -moz-transform: rotate(-45deg);
-        -ms-transform: rotate(-45deg);
-        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
       }
     }
   }

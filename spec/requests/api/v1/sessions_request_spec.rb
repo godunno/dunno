@@ -36,6 +36,7 @@ describe Api::V1::SessionsController do
         it { expect(json["courses"][0]["teacher"]["name"]).to eq(course.teacher.name) }
         it { expect(json["name"]).to eq(student.name) }
         it { expect(json["email"]).to eq(student.email) }
+        it { expect(json["phone_number"]).to eq(student.phone_number) }
         it { expect(json["authentication_token"]).to eq(student.authentication_token) }
 
         describe "course pusher events" do
@@ -119,6 +120,7 @@ describe Api::V1::SessionsController do
         it { expect(json["courses"][0]["events"][0]["uuid"]).to eq(event.uuid) }
         it { expect(json["name"]).to eq(teacher.name) }
         it { expect(json["email"]).to eq(teacher.email) }
+        it { expect(json["phone_number"]).to eq(teacher.phone_number) }
         it { expect(json["authentication_token"]).to eq(teacher.authentication_token) }
 
         it "should allow access with authentication_token after the sign in" do

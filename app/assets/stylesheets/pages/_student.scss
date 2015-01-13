@@ -9,15 +9,33 @@
       margin: 0;
     }
   }
-  input.code, input.code:focus {
-    background-image: url("/images/input-arrow.png");
-    background-repeat: no-repeat;
-    background-position: 300px center;
-    padding: 30px 50px 30px 20px;
-    font-size: 22px;
-    font-weight: 300;
+
+  .search {
     width: 350px;
     margin: 0 auto;
+    .code, .code:focus {
+      background-image: url("/images/input-arrow.png");
+      background-repeat: no-repeat;
+      background-position: 300px center;
+      padding: 30px 50px 30px 20px;
+      font-size: 22px;
+      font-weight: 300;
+    }
+
+    .submit {
+      @include ball(20px, 2px);
+      float: right;
+      margin-top: -67px;
+      margin-right: 0.5em;
+      background: transparent;
+      color: $secondary-color;
+      border-color: $secondary-color;
+      line-height: 20px;
+    }
+  }
+
+  .tutorial.enter-code {
+    float: right;
   }
 }
 
@@ -27,6 +45,9 @@
     font-size: 26px;
     font-weight: 300;
     margin: 40px 0;
+  }
+  .button {
+    width: 100%;
   }
 }
 
@@ -123,14 +144,6 @@
       padding: 20px 0;
       text-align: center;
     }
-  }
-  button, .button {
-    color: white;
-    width: 100%;
-    padding: 10px 0;
-    font-size: 20px;
-    font-weight: 400;
-    margin: 0;
   }
   button.success {
     background-color: #1cc678;

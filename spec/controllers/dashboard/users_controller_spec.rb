@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Dashboard::RegistrationsController do
+describe Dashboard::UsersController do
   let(:user) { build :user }
 
   describe "POST /users/sign_up" do
@@ -54,6 +54,54 @@ describe Dashboard::RegistrationsController do
         expect{do_action}.to raise_error
         expect(User.count).to eq(0)
       end
+    end
+  end
+
+  describe "GET /users/accept_invitation" do
+    let(:user) { create(:user) }
+
+    context "without invitation" do
+      def do_action
+        get "/dashboard/users/accept_invitation"
+      end
+
+      before { do_action }
+
+      it { expect(last_response.status).to eq(401) }
+    end
+
+    context "with invitation" do
+      def do_action
+        get "/dashboard/users/accept_invitation", invitation_token: user.invitation_token
+      end
+
+      before do
+        Invitation.new(user).invite!
+        do_action
+      end
+
+      it "should sign in the user" do
+        expect_any_instance_of(Dashboard::UsersController).to receive(:sign_in).with(user)
+        do_action
+      end
+
+      it { expect(last_request.env["action_controller.instance"].instance_variable_get(:@user)).to eq(user) }
+    end
+
+    context "with expired invitation" do
+      def do_action
+        get "/dashboard/users/accept_invitation", invitation_token: user.invitation_token
+      end
+
+      before do
+        Invitation.new(user).invite!
+        Timecop.freeze(1.day.from_now + Invitation::EXPIRE_AFTER)
+        do_action
+      end
+
+      after { Timecop.return }
+
+      it { expect(last_response.status).to eq(401) }
     end
   end
 end

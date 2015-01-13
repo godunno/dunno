@@ -29,22 +29,31 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
 
 .btn-style-2 {
   text-align: left !important;
-  padding: 0 10px;
+  padding: 0;
   height: $btn-style-1-height;
   font-size: 0.8rem;
   font-weight: 600;
   line-height: $btn-style-1-height;
-  text-transform: uppercase;
   background-color: $btn-style-transparent-bg-color;
   color: $primary-color;
-  border: $btn-style-transparent-2-border;
+  opacity: .6;
   &:active, &:hover {
-    background-color: $primary-color;
-    color: white;
+    opacity: 1;
+    background-color: $btn-style-transparent-bg-color;
+    color: $primary-color;
   }
   &.disabled {
     bg-color: $btn-style-1-disabled-bg-color;
   }
+}
+
+.button {
+  .icon {
+    margin-right: 6px;
+    float: left;
+    display: block;
+    margin-top: 11px;
+  }  
 }
 
 %btn-style-transparent {

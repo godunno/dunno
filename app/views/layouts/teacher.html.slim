@@ -13,27 +13,18 @@ html lang="pt" ng-app="DunnoApp"
     = csrf_meta_tags
 
   body ng-controller="ApplicationCtrl"
-    nav class="top-bar" data-topbar=""
-      .row
-        ul class="title-area"
-          li class="name"
-            h1
-              a class="icons icon-dunno-logo" href="#"
-        section class="top-bar-section"
-          ul class="left"
-            li
-              a href="#events" Aulas
-            li
-              a href="#courses" Disciplinas
-            li
-              a href="#catalog" Catálogo
-          ul class="right"
-            li
-              a ng-click="sign_out()" Sair
-    - if Rails.env.staging?
-      .row.alert-box.alert.text-center Não utilizar com dados reais! Este é uma versão de testes!
+    = render layout: 'application/menu' do
+      ul class="left"
+        li
+          a href="#events" Aulas
+        li
+          a href="#courses" Disciplinas
+        li
+          a href="#catalog" Catálogo
 
     .content ng-view=""
+
+    = render partial: 'application/first_access_modal'
 
     footer
       /= "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe

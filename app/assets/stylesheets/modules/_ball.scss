@@ -1,0 +1,12 @@
+@mixin ball($radius, $border-width: 1px) {
+  display: block;
+  border: $border-width solid;
+  border-radius: $radius;
+  width:       $radius * 2;
+  height:      $radius * 2;
+  line-height: $radius * 2;
+  text-align: center;
+  font-size: $radius;
+  padding: 0;
+}
+

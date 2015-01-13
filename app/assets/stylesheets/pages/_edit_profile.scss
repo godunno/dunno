@@ -1,0 +1,30 @@
+.edit-profile {
+  .standalone-form {
+    .submit {
+      width: 100%;
+      margin-top: 2em;
+    }
+
+    .success {
+      color: $secondary-color;
+    }
+
+    .password {
+      display: inline-block;
+      width: 90%;
+    }
+
+    .validation {
+      display: inline-block;
+      margin-left: 5%;
+      .icon-valid {
+        @extend .icon-check;
+        color: $secondary-color;
+      }
+      .icon-invalid {
+        @extend .icon-error;
+        color: $red-color;
+      }
+    }
+  }
+}

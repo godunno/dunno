@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
     "http://placepic.me/avatars/600-600"
   end
 
+  def profile_name
+    profile_type.downcase
+  end
+
   private
 
     def ensure_authentication_token

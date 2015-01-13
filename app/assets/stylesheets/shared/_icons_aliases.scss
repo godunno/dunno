@@ -25,4 +25,8 @@
   &.icon-url {
     @extend .icon-link;
   }
+  &.icon-arrow {
+    @extend .icon-arrow-back;
+    transform: rotate(180deg);
+  }
 }

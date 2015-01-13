@@ -6,19 +6,61 @@
     border-radius: 50%;
     width: 23px;
     height: 23px;
+    display: block;
+    float: left;
     text-align: center;
     padding: 2px;
     font-size: 18px;
   }
-
+  
+  
+  
   .count {
     color: $light-grey-color;
     margin-left: 0.2em;
   }
 
-  $dropdown-width: 180px;
+  $dropdown-width: 100%;
   .dropdown {
     width: $dropdown-width;
+  }
+  
+  .search-wrapper {
+    position: relative;
+    width: 100%;
+      input {
+        width: 90%;
+        float: left;
+        height: 40px;
+        background: #FFF;
+        border: 1px solid #CCC;
+        box-shadow: none;
+        border-radius: 2px;
+        color: #333 !important;
+        opacity: .8;
+        &:focus {
+         opacity: 1;
+         border: 1px solid $input-focus-border-color;
+        }
+      }
+      .icon-close {
+        background: none;
+        color: #CCC;
+        position: absolute;
+        right: 64px;
+        top: 5px;
+        width: 24px;
+        height: 24px;
+      }
+      button {
+        width: 9%;
+        border-radius: 2px;
+        height: 40px;
+        background: #1cc678;
+        position: absolute;
+        right: 0;
+        line-height: 44px;
+      }
   }
 
   .type-list {
@@ -37,9 +79,9 @@
 
       .title {
         color: $dark-grey-color;
-
+        
         font-size: 1em;
-        font-weight: 600;
+        font-weight: 300;
       }
 
       .count {
@@ -54,27 +96,22 @@
 
   .medias {
     margin-top: 0.5em;
+    list-style: none;
+    border-radius: 5px;
+    box-shadow: $box-shadow;
+    background-color: white;
   }
 
   .media {
     @include grid-row;
-
     width: initial;
     display: block;
-    background: white;
-    border: 1px solid $dark-grey-color;
-    border-bottom: none;
-    border-top-color: $light-grey-color;
     padding: 1.5em;
-    margin-left: $column-gutter / 2;
     position: relative;
-
-    &:first-of-type {
-      border-top-color: $dark-grey-color;
-    }
+    border-bottom: 1px solid $light-grey-color;
 
     &:last-of-type {
-      border-bottom: 1px solid $dark-grey-color;
+      border-bottom: none;
     }
 
     &:hover .vertical-bar {
@@ -96,13 +133,14 @@
 
     .bottom {
       @include grid-row;
-      margin-top: 1em;
+      margin-top: 10px;
     }
 
     .title {
       background: none;
       border: none;
       box-shadow: none;
+      margin-bottom: 0;
       &:hover, &:focus {
         @include dotted-input($light-grey-color);
       }
@@ -127,32 +165,46 @@
       }
       .tag-item {
         @include label($radius: 2px);
-        background: $dark-grey-color;
+        background: $light-grey-color;
         margin-left: 0.5em;
         font-weight: 300;
+        height: 21px;
+        margin-top: 0px;
+        padding-top: 2px;
+        font-size: 0.625rem;
+        border: 0;
 
         &.selected {
           background: $light-grey-color;
           border: 1px solid red;
         }
+        
+        .remove-button {
+          color: #FFF;
+          opacity: .8;
+        }
       }
       .input {
         font-weight: 300;
-        border: 1px dashed $light-grey-color;
+        border: 1px dotted $light-grey-color;
+        height: 21px;
+        margin: 0 0 0 10px;
+        font-size: 11px;
+        border-radius: 2px;
+        box-shadow: none;
         // TODO: make it work on Firefox
-        @include placeholder {
-          &:before {
-            content: "a  ";
-            font-family: "dunno-icon-font";
-            color: $dark-grey-color;
-          }
+        &::placeholder:before {
+          content: "a  ";
+          font-family: "dunno-icon-font";
+          color: $dark-grey-color;
         }
         &:focus {
           @include dotted-input($secondary-color);
+          background: #FFF;
         }
       }
     }
-
+    
     .icon-trash {
       float: right;
       color: $light-grey-color;
@@ -161,6 +213,7 @@
       text-align: center;
       padding: 0.1em;
       display: none;
+      margin-top: 10px;
       &:hover {
         color: $primary-color;
       }

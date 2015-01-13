@@ -23,7 +23,7 @@ module Dunno
     # add custom validators path
     config.autoload_paths += %W["#{config.root}/app/validators/"]
 
-    config.assets.precompile += %w( modernizer.js )
+    config.assets.precompile += %w( modernizer.js mailers/base.css )
     config.time_zone = 'Brasilia'
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = :"pt-BR"

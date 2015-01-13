@@ -1,54 +1,6 @@
 <html>
   <head>
-    <style>
-      table {
-        font-family: Arial, Helvetica, sans-serif;
-      }
-      a {
-        color: #1cc678;
-        text-decoration: none;
-      }
-      hr {
-        border: none;
-        border-top: 1px solid #D2D2D2;
-      }
-      h1 {
-        font-size: 1.4em;
-        font-weight: normal;
-      }
-      p {
-        font-size: 0.9em;
-        line-height: 1.7em;
-      }
-      strong {
-        font-weight: bold;
-      }
-      .paragraph {
-        padding-top: 1em;
-      }
-      .structure {
-        background: #EAEBEB;
-      }
-      .content {
-        background: #ffffff;
-        border: 1px solid #D2D2D2;
-        padding: 2em;
-      }
-      .button {
-        color: #ffffff;
-        background: #1cc678;
-        text-transform: uppercase;
-        display: block;
-        width: 60%;
-        height: 60px;
-        line-height: 60px;
-        font-size: 1.2em;
-        border-radius: 3px;
-      }
-      .see-more {
-        padding: 0;
-      }
-    </style>
+    <%= stylesheet_link_tag "mailers/base" %>
   </head>
   <body>
     <table class="structure" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
@@ -63,18 +15,30 @@
             </tr>
             <tr>
               <td colspan="2">
-                <h1>Olá Professor(a) <%= @user.name %>,</h1>
+                <h1>Caro(a) Professor(a) <%= @user.name %>,</h1>
 
-                <p class="paragraph">Temos o prazer de convidá-lo(a) a utilizar mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo.<p>
+                <p class="paragraph">O Dunno é uma iniciativa de pesquisadores e professores para a construção de um aplicativo que estimule o engajamento de alunos e faça de aparelhos móveis, como celulares, instrumentos de apoio e não obstáculos ao ensino.<p>
 
-                <p class="paragraph">O <strong>Dunno</strong> manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                <p class="paragraph">Juntos trabalharemos para descobrir quais são as maiores necessidades de sua rotina pedagógica, para assim desenvolvermos o melhor aplicativo de apoio ao ensino: o Dunno App.</p>
+                <p class="paragraph">Comece a usar o Dunno App agora, e sempre que quiser nos dê seu feedback. Temos o prazer de trabalhar para você!</p>
               </td>
             </tr>
             <tr>
               <td colspan="2" align="center">
-                <%= link_to "Testar agora", "/users/activate?activation_token=#{@token}", class: "button" %>
+                <%= link_to "Acesse", accept_invitation_dashboard_users_path(invitation_token: @token), class: "button" %>
               </td>
             </tr>
+            <tr>
+              <td colspan="2">
+                <p class="paragraph">Se tiver alguma dúvida, por favor entre em contato conosco: <a href="mailto:contato@dunnoapp.com">contato@dunnoapp.com</a></p>
+                <p class="paragraph">Cordialmente,</p>
+                <p class="paragraph">
+                  Equipe Dunno App. <br />
+                  <span class="italic underlined">Buscando o Estado da Arte na Educação</span>
+                </p>
+              </td>
+            </tr>
+            <tr>
             <tr>
               <td colspan="2" align="center">
                 <hr />

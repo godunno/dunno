@@ -1,0 +1,15 @@
+.first-access.reveal-modal.tiny modal=true first-access-modal=true data-reveal=true
+  p.successfully-loaded Disciplinas carregadas com sucesso!
+  hr
+  p.instructions Cadastre uma senha para acessar o Dunno de qualquer lugar.
+  form ng-submit="updatePassword(user)"
+    label for="email" Email
+    input#email type="email" ng-model="user.email" disabled=true
+
+    label for="password" Senha
+    input#password type="password" ng-model="user.password"
+
+    input#terms-of-use type="checkbox" ng-model="terms_of_use"
+    label for="terms-of-use" Concordo e aceito os termos de uso.
+
+    input.submit type="submit" value="Cadastrar e entrar" ng-disabled="!terms_of_use"

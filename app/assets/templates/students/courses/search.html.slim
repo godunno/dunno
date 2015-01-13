@@ -6,6 +6,9 @@
         p Digite abaixo o código enviado pelo seu professor.
         p Este código se refere à disciplina que o professor leciona e você está matriculado.
 
-      input.code.radius[ng-model="access_code" ui-keydown="{'enter':'search(access_code)'}"
-        type="text" placeholder="Código da disciplina"]
+      form.search ng-submit="search(access_code)"
+        small.error ng-if="error" Código inválido!
+        input.code.radius ng-model="access_code" type="text" placeholder="Código da disciplina" required=true
+        button.submit.icon.icon-arrow
 
+      = image_tag("students/tutorial-enter-code.png", class: "tutorial enter-code")

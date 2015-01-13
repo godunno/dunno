@@ -23,12 +23,39 @@ span.error {
   border-bottom: 1px dashed $border-color;
 }
 
-// https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/css3/_placeholder.scss
-@mixin placeholder {
-  $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
-  @each $placeholder in $placeholders {
-    &:#{$placeholder}-placeholder {
-      @content;
-    }
+.standalone-form {
+  margin: auto;
+  &.small {
+    width: 30%;
+  }
+
+  .box {
+    @include radius;
+    background: #ffffff;
+    padding: 1.5em;
+    box-shadow: $box-shadow;
+  }
+
+  label {
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+
+  input[disabled]:not(input[type="submit"]) {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: $dark-grey-color;
+    padding: 0;
+  }
+
+  a {
+    color: $secondary-color;
+  }
+
+  input[type="submit"] {
+    @extend .btn-style-1;
+    @extend .button;
+    @include radius;
   }
 }

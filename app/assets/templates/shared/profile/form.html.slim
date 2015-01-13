@@ -1,0 +1,23 @@
+header.page-header.title
+  .row
+    .large-12.vertical-center.columns
+      h1 Meu perfil
+
+.edit-profile
+  form.standalone-form.small ng-submit="update(user)"
+    .box
+      small.success ng-if="success" Dados salvos com sucesso!
+      label for="name" Nome
+      input#name type="text" ng-model="user.name"
+
+      label for="email" Email
+      input#email type="email" ng-model="user.email" disabled=true
+
+      label for="phone_number" Telefone
+      input#phone_number type="text" ng-model="user.phone_number"
+
+      hr
+      a href="#profile/password/edit" Quero alterar minha senha
+
+    input.submit.button type="submit" value="Atualizar perfil"
+
