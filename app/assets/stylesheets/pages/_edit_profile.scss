@@ -18,7 +18,7 @@
       display: inline-block;
       margin-left: 5%;
       .icon-valid {
-        @extend .icon-check;
+        @extend .icon-plain-check;
         color: $secondary-color;
       }
       .icon-invalid {
