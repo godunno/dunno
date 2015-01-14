@@ -1,6 +1,8 @@
 DunnoApp = angular.module('DunnoAppStudent')
 
-CourseCtrl = ($scope, Course, $location, $routeParams)->
+CourseCtrl = ($scope, $location, $routeParams, Course, DateUtils)->
+  angular.extend($scope, DateUtils)
+
   $scope.course = new Course()
   if $routeParams.id
     Course.get(access_code: $routeParams.id).then (course)->
@@ -15,7 +17,7 @@ CourseCtrl = ($scope, Course, $location, $routeParams)->
     course.register().then ->
       $location.path "/courses"
 CourseCtrl.$inject = [
-  '$scope', 'Course', '$location', '$routeParams'
+  '$scope', '$location', '$routeParams', 'Course', 'DateUtils'
 ]
 DunnoApp.controller 'CourseCtrl', CourseCtrl
 
