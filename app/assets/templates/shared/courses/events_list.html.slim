@@ -1,6 +1,6 @@
 ul.dates
   li.has-overlay ng-repeat="event in course.events | orderBy:'start_at'"
-    a href="#/events/{{event.uuid}}"
+    a ng-href="{{eventPath(event)}}"
       .overlay.published.hide
         .button.btn-style-transparent-1.radius.vertical-center ver aula
       span.expand.schedule

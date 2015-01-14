@@ -16,6 +16,7 @@ CourseCtrl = ($scope, $location, $routeParams, Course, DateUtils)->
   $scope.register = (course)->
     course.register().then ->
       $location.path "/courses"
+  $scope.eventPath = (event)-> "#/events/#{event.uuid}"
 CourseCtrl.$inject = [
   '$scope', '$location', '$routeParams', 'Course', 'DateUtils'
 ]
