@@ -1,36 +1,36 @@
 .student-confirmation
 
   .medium-12.medium-centered.columns
-    h2 Esta é a disciplina na qual deseja entrar?
+    h2 É esta mesmo a disciplina na qual deseja entrar?
 
-  .medium-5.medium-centered.columns.white-form
+  .course
 
-    .form-group
-      .form-item
-        label Disciplina
-        span.text.strong {{course.name}}
+    .box
+      .form-group
+        .form-item
+          label Disciplina
+          span.text.strong {{course.name}}
 
-    .form-line
+      hr
 
-    .form-group
-      .form-item.left ng-if="!!course.class_name"
-        label Turma
-        span.text {{course.class_name}}
+      .form-group
+        .form-item.left ng-if="!!course.class_name"
+          label Turma
+          span.text {{course.class_name}}
 
-      .form-item.left ng-if="!!course.institution"
-        label Instituição
-        span.text {{course.institution}}
+        .form-item.left ng-if="!!course.institution"
+          label Instituição
+          span.text {{course.institution}}
 
-    .form-line
+      hr
 
-    .form-group
-      .form-item
-        label Professor
-        .user-info
-          /img src="http://lorempixel.com/36/36"
-          span.text {{course.teacher.name}}
+      .form-group
+        .form-item
+          label Professor
+          .user-info
+            /img src="http://lorempixel.com/36/36"
+            span.text {{course.teacher.name}}
 
-  .medium-5.medium-centered.columns.actions
     button.button.radius.success ng-click="register(course)" Confirmo, é esta minha disciplina!
-    .line
+    hr
     a.button.radius.warning href="#courses/search" Não é esta. Quero corrigir o código!
