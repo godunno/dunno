@@ -13,11 +13,11 @@
     .form-line
 
     .form-group
-      .form-item.left
+      .form-item.left ng-if="!!course.class_name"
         label Turma
         span.text {{course.class_name}}
 
-      .form-item.left
+      .form-item.left ng-if="!!course.institution"
         label Instituição
         span.text {{course.institution}}
 
