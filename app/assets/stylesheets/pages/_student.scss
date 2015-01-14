@@ -39,18 +39,6 @@
   }
 }
 
-.student-confirmation {
-  h2 {
-    text-align: center;
-    font-size: 26px;
-    font-weight: 300;
-    margin: 40px 0;
-  }
-  .button {
-    width: 100%;
-  }
-}
-
 .student-courses {
   .wrapper {
     width: 840px;
@@ -133,38 +121,41 @@
   }
 }
 
-.student-dashboard {
-  // global styles
-  .title {
-    background-color: white;
-    border-bottom: 1px solid rgba(19, 19, 19, 0.15);
-    margin-bottom: 20px;
-    h2 {
-      font-size: 20px;
-      padding: 20px 0;
-      text-align: center;
+.student-confirmation {
+  h2 {
+    margin: 40px 0;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 300;
+  }
+  .button {
+    margin: 0;
+    width: 100%;
+    &.success {
+      background-color: $secondary-color;
+      margin-top: 20px;
+    }
+    &.warning {
+      background-color: $red-color;
     }
   }
-  button.success {
-    background-color: #1cc678;
-  }
-  .button.warning {
-    background-color: rgba(255, 17, 5, 0.7);
-  }
-  .actions {
-    padding: 0;
-    button {
-      margin: 20px 0;
+
+  .course {
+    width: 30%;
+    margin: auto;
+
+    .box {
+      padding: 1em 2em;
+      background-color: #ffffff;
+      @include radius;
+      box-shadow: $box-shadow;
+      
+      hr {
+        margin: 10px 0;
+      }
     }
-    .line {
-      height: 1px;
-      border-top: 1px solid #979797;
-    }
-  }
-  .white-form {
-    background-color: white;
-    padding: 20px;
-    overflow: hidden;
+
     border-radius: 3px;
     .form-group {
       overflow: hidden;
@@ -174,6 +165,8 @@
           font-size: 12px;
           font-weight: 300;
           padding: 10px 0;
+          color: $light-grey-color;
+          margin-right: 30px;
         }
         span {
           display: inline-block;
@@ -187,16 +180,8 @@
         }
       }
     }
-    .left {
-      float: left;
-      margin-right: 30px;
-    }
-    .form-line {
-      height: 1px;
-      border-top: 1px solid rgba(151, 151, 151, 0.25);
-      margin: 10px 0;
-    }
   }
+
   .profile-form {
     .form-group {
       .form-item {
