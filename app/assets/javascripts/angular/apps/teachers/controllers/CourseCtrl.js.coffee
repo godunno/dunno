@@ -25,6 +25,7 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
       course.start_date = $scope.formattedDate(course.start_date, 'dd/MM/yyyy')
       course.end_date   = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
       course
+  $scope.eventPath = (event)-> "#/events/#{event.uuid}/edit"
 
 CourseCtrl.$inject = [
   '$scope', 'Course', '$location', '$routeParams', 'Utils', 'DateUtils'
