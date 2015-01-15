@@ -7,6 +7,10 @@ class Api::V1::EventsController < Api::V1::StudentApplicationController
     respond_with(@events)
   end
 
+  def show
+    respond_with(event)
+  end
+
   api :GET, '/api/v1/events/:id/attend', "Get the event's data if it's opened and creates an Attendance."
   def attend
     if event.opened?

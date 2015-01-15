@@ -2,10 +2,9 @@ DunnoApp = angular.module('DunnoApp')
 
 EventCtrl = (
   $scope,
-  Event,
-  $location,
   $routeParams,
   $interval,
+  Event,
   Utils,
   DateUtils,
   NavigationGuard,
@@ -101,5 +100,5 @@ EventCtrl = (
     NavigationGuard.unregisterGuardian(checkDirty)
     $interval.cancel(autosave)
 
-EventCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', '$interval', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
+EventCtrl.$inject = ['$scope', '$routeParams', '$interval', 'Event', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
 DunnoApp.controller 'EventCtrl', EventCtrl

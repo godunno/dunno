@@ -1,6 +1,6 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
-    .large-2.columns.vertical-center style="float: left"
+    .large-2.columns.vertical-center
       a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
         span.icon.icon-arrow-back
         span Ver todas as aulas
@@ -10,6 +10,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       p.translucent.subtitle-head
         span {{event.course.institution}}
         span< ng-if="!!event.course.grade" - {{event.course.grade}}
+
     .large-2.vertical-center.columns
       p.subtitle-head.text-right {{event.course.class_name}}
       
@@ -34,9 +35,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 .diary-page
 
   form name="event_form" ng-submit="save(event)"
-    .row
-    .row
-
     .row.event-status
       .large-3.columns.no-pad-left
         .row.date
@@ -109,7 +107,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               a.icon.icon-edition.task-icon-right.right[
                 ng-click="editItem(topic, editingItem)"
                 title="Editar tarefa"]
-              preview item="topic"
+              preview item="topic" editable="true"
             input.item-editing[
               focus-on-create="" type="text"
               ng-if="isEditing(topic)"
@@ -136,7 +134,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
           progress-bar
-          preview item="newListItem"
+          preview item="newListItem" editable="true"
         .hint Ex: Revisar aula passada. Introdução à raiz quadrada.
 
     .row.card.container.notes event-list="personal_notes"
@@ -163,7 +161,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               a.icon.icon-edition.task-icon-right.right[
                 ng-click="editItem(personal_note, editingItem)"
                 title="Editar anotação"]
-              preview item="personal_note"
+              preview item="personal_note" editable="true"
             input.item-editing[
               focus-on-create="" type="text"
               ng-if="isEditing(personal_note)"
@@ -189,5 +187,5 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
           progress-bar
-          preview item="newListItem"
+          preview item="newListItem" editable="true"
         .hint Ex: Fazer ditado surpresa. Rever comportamento do João.

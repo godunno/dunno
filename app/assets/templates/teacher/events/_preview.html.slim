@@ -5,4 +5,4 @@
       .text
         .title {{item.media.title}}
         .description {{item.media.description}}
-  a.close ng-click="removeMedia(item)" x
+  a.close ng-click="removeMedia(item)" ng-if="editable" x
