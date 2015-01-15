@@ -1,0 +1,42 @@
+.login-page ng-controller="RegistrationsCtrl"
+  = image_tag "dunno-logo.png", class: :logo
+  form name="user_form" ng-submit="sign_up(user)" id="sign_up" novalidate=""
+    .login-container
+      .login-form
+        span.error ng-show="registration_failed" ng-cloak="" Erro ao realizar cadastro
+        .name
+          label for="name" Nome
+          input.radius id="name" name="name" ng-model="user.name" type="text" required=""
+          div ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak=""
+            span.error ng-show="user_form.name.$error.required" Campo obrigatório
+        .email
+          label for="email" Email
+          / TODO: normalizar name dos inputs após POST via AJAX
+          input.radius id="email" name="email" ng-model="user.email" type="email" required="" autofocus=""
+          / TODO: DRY as mensagens de erro
+          div ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak=""
+            span.error ng-show="user_form.email.$error.required" Campo obrigatório
+            span.error ng-show="user_form.email.$error.email" Email inválido
+        .password
+          label for="password" Senha
+          input.radius id="password" name="password" ng-model="user.password" type="password" required="" ng-minlength="8"
+          div ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak=""
+            span.error ng-show="user_form.password.$error.required" Campo obrigatório
+            span.error ng-show="user_form.password.$error.minlength" A senha deve conter ao menos 8 caracteres
+        .phone-number
+          label for="phone_number" Telefone
+          input.radius id="phone_number" name="phone_number" ng-model="user.phone_number" type="text" required=""
+          div ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak=""
+            span.error ng-show="user_form.phone_number.$error.required" Campo obrigatório
+        .submit
+          input.button.radius.btn-style-1 ng-disabled="user_form.$invalid" type="submit" value="Cadastrar"
+
+  ul.login-links
+    li
+      a href="#" Home
+    li.sep |
+    li
+      a href="#" Termos de Uso
+    li.sep |
+    li
+      a href="#" Política de Privacidade

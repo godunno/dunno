@@ -10,10 +10,6 @@ SignInCtrl = ($scope, $window, SessionManager)->
       $window.location.href = data.root_path
     ).catch(-> $scope.authentication_failed = true)
 
-  $scope.show_error = (field, error)->
-    field = $scope.user[field]
-    field.$errors[error] && field.$dirty
-
 SignInCtrl.$inject = ['$scope', '$window', 'SessionManager']
 DunnoApp.controller 'SignInCtrl', SignInCtrl
 

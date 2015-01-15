@@ -5,6 +5,7 @@ Dunno::Application.routes.draw do
   apipie
   as :user do
     post 'api/v1/users/sign_in' => 'api/v1/sessions#create'
+    post 'api/v1/users' => 'dashboard/users#create'
     delete 'api/v1/users/sign_out' => 'api/v1/sessions#destroy'
     get 'api/v1/users/profile' => 'api/v1/sessions#profile'
     patch 'api/v1/users' => 'api/v1/users#update'
@@ -12,6 +13,7 @@ Dunno::Application.routes.draw do
 
     # TODO: test redirect when user is not authenticated
     get 'sign_in' => 'dashboard/application#sign_in', as: :new_user_session
+    get 'sign_up' => 'dashboard/application#sign_up', as: :new_registration
     post 'users/sign_in' => 'devise/sessions#create', as: :user_session
     delete 'users/sign_out' => 'devise/sessions#destroy', as: :destroy_user_session
 

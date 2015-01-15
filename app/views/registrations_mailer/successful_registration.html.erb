@@ -18,7 +18,11 @@
                 
                 <strong>Olá <%= @user.name %>,</strong>
 
-                <p>Obrigado por se cadastrar no Dunno App. Agora você pode organizar suas aulas, compartilhar conteúdo, notificar seus alunos e muito mais!<p>
+                <% if @user.profile.is_a? Teacher %>
+                  <p>Obrigado por se cadastrar no Dunno App. Agora você pode organizar suas aulas, compartilhar conteúdo, notificar seus alunos e muito mais!<p>
+                <% else %>
+                  <p>Obrigado por se cadastrar no Dunno App. Agora você pode organizar suas aulas, compartilhar conteúdo, receber notificações e muito mais!<p>
+                <% end %>
 
                 <p class="paragraph">Detalhes da sua conta:</p>
                 <p class="list">Endereço para login: <a href="/sign_in">dunnoapp.com/sign_in</a></p>
