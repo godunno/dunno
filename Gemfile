@@ -41,6 +41,7 @@ gem 'will_paginate',              '3.0.7'
 gem 'roo',                        '1.13.2'
 gem 'roadie-rails',               '1.0.3'
 gem 'autoprefixer-rails',         '4.0.2.2'
+gem 'devise-async',               '0.9.0'
 
 gem 'rails-assets-angular',       '1.3.2'
 gem 'rails-assets-angular-route', '1.3.2'
