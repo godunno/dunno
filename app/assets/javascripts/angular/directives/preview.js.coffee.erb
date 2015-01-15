@@ -1,15 +1,22 @@
 DunnoApp = angular.module('DunnoApp')
+DunnoAppStudent = angular.module('DunnoAppStudent')
 
-DunnoApp.controller 'previewCtrl', ['$scope', ($scope)->
+previewCtrl = ['$scope', ($scope)->
   $scope.removeMedia = ->
     if confirm("Deseja remover este anexo? Essa operação não poderá ser desfeita.")
       $scope.$parent.removeMedia(arguments...)
 ]
 
-DunnoApp.directive 'preview', ->
+preview = ->
   restrict: 'E'
   # TODO: Find a way to keep the two-way data binding without the isolated scope
   scope:
     item: '='
+    editable: '='
   controller: 'previewCtrl'
   templateUrl: '<%= asset_path('teacher/events/_preview.html') %>'
+
+DunnoApp.controller 'previewCtrl', previewCtrl
+DunnoApp.directive 'preview', preview
+DunnoAppStudent.controller 'previewCtrl', previewCtrl
+DunnoAppStudent.directive 'preview', preview
