@@ -16,4 +16,12 @@ module ApplicationHelper
   def datetime_picker(f, field)
     f.input field, as: :string, input_html: { class: 'datetimepicker', value: f.object.send(field).try(:strftime, '%d/%m/%Y %H:%M') }
   end
+
+  def profile_name(profile)
+    case profile
+    when "teacher" then "professor"
+    when "student" then "aluno"
+    else fail "Invalid profile: #{profile}"
+    end
+  end
 end
