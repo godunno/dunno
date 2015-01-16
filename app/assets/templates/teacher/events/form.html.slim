@@ -26,8 +26,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       a.vertical-center.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
         i.icon.icon-arrow-circle-right
         span.right Próxima aula
-    .large-2.columns.vertical-center   
-        p {{event.start_time}} às {{event.end_time}}
+    .large-2.columns.vertical-center.t-light   
+        span {{event.start_time}} às {{event.end_time}}
           
 .diary-page
 
@@ -69,7 +69,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 span Cancelar
                 i.icon.icon-canceled
               .subtitle Cancelar aula e notificar os alunos.
-        input.button.btn-style-1.radius.done-button type="submit"
+        input.button.btn-style-1.radius.done-button type="submit" value="Concluir"
       
 
     .row.card.container event-list="topics"

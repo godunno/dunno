@@ -3,9 +3,11 @@
   .done-button {
     margin-left: -3px;
     height: 40px;
+    width: 130px;
+    text-align: center;
   }
    
-  $dropdown-width: 180px;
+  $dropdown-width: 160px;
   .dropdown {
     width: $dropdown-width;
   }
@@ -270,14 +272,17 @@ $diary-card-border: 1px solid #dddddd;
       padding: 0 !important;
       width: 26px;
   }
-  .button {
+  .button.save {
     width: 110px;
     padding-left: 0;
     padding-right: 0;
-    text-align: center;
+    text-align: right;
+    background: none;
+    color: #999;
   }
-  .button:disabled {
+  .button.save:disabled {
     background: #999;
+    background: none;
   }
 }
 
