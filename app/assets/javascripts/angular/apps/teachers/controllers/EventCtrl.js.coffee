@@ -4,6 +4,8 @@ EventCtrl = (
   $scope,
   $routeParams,
   $interval,
+  $window,
+  $q,
   Event,
   Utils,
   DateUtils,
@@ -13,29 +15,8 @@ EventCtrl = (
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
-  # TODO: extract to directive
-  formatToView = (event)->
-    start_time = $scope.asDate(event.start_at)
-    end_time   = $scope.asDate(event.end_at)
-
-    event.date       = $scope.formattedDate(start_time, 'dd/MM/yyyy')
-    event.start_time = $scope.formattedDate(start_time, 'HH:mm')
-    event.end_time   = $scope.formattedDate(end_time,   'HH:mm')
-    event
-
-  # TODO: extract to directive
-  formatFromView = (event)->
-    # convert from brazilian locale
-    date       = event.date.split("/").reverse().join("/")
-    start_time = event.start_time
-    end_time   = event.end_time
-
-    event.start_at = new Date(Date.parse("#{date} #{start_time}")).toISOString()
-    event.end_at   = new Date(Date.parse("#{date} #{end_time}")).toISOString()
-    event
-
   initializeEvent = (event)->
-    $scope.event = formatToView(event)
+    $scope.event = event
     $scope.$broadcast('initializeEvent')
 
   initializeEvent(new Event())
@@ -73,12 +54,19 @@ EventCtrl = (
       $scope.event_form.$pristine
 
   $scope.save = (event)->
-    event = formatFromView(event)
     $scope.isSaving = true
-    event.save().then ->
+    deferred = $q.defer()
+    event.save().then(->
       initializeEvent(event)
       $scope.isSaving = false
       $scope.event_form.$setPristine()
+      deferred.resolve()
+    ).catch(-> deferred.reject())
+    deferred.promise
+
+  $scope.finish = (event)->
+    $scope.save(event).then ->
+      $window.location.href = "#courses/#{event.course.uuid}"
 
   $scope.updateItem = (editingItem, item)->
     angular.copy(editingItem, item)
@@ -100,5 +88,5 @@ EventCtrl = (
     NavigationGuard.unregisterGuardian(checkDirty)
     $interval.cancel(autosave)
 
-EventCtrl.$inject = ['$scope', '$routeParams', '$interval', 'Event', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
+EventCtrl.$inject = ['$scope', '$routeParams', '$interval', '$window', '$q', 'Event', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
 DunnoApp.controller 'EventCtrl', EventCtrl
