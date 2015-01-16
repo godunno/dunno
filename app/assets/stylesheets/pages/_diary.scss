@@ -1,15 +1,20 @@
 .diary-page {
-  $dropdown-width: 150px;
+  
+  .done-button {
+    margin-left: -3px;
+    height: 40px;
+  }
+   
+  $dropdown-width: 180px;
   .dropdown {
     width: $dropdown-width;
-    float: right;
   }
   .status-list {
     @include dropdown-container(list, bottom);
     @include radius();
     width: $dropdown-width;
     border-color: $light-grey-color;
-
+    
     .option {
       @include grid-row();
       cursor: pointer;
