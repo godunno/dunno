@@ -72,7 +72,7 @@ describe Api::V1::MessagesController do
               post "/api/v1/timeline/messages.json", message_params.merge(auth_params).to_json
             end
 
-            it { expect(json["errors"]).to eq(["Content não pode ficar em branco"]) }
+            it { expect(json["errors"]).to eq(["Content required"]) }
           end
         end
 

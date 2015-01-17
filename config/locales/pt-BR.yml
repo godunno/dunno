@@ -100,7 +100,7 @@ pt-BR:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: deve ser aceito
-      blank: não pode ficar em branco
+      blank: required
       confirmation: não está de acordo com a confirmação
       empty: não pode ficar vazio
       equal_to: deve ser igual a %{count}
@@ -109,7 +109,7 @@ pt-BR:
       greater_than: deve ser maior que %{count}
       greater_than_or_equal_to: deve ser maior ou igual a %{count}
       inclusion: não está incluído na lista
-      invalid: não é válido
+      invalid: invalid
       less_than: deve ser menor que %{count}
       less_than_or_equal_to: deve ser menor ou igual a %{count}
       not_a_number: não é um número
