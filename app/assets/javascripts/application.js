@@ -27,11 +27,13 @@
 //= require angular-route
 //= require angular-resource
 //= require angularjs-rails-resource
+//= require angular-messages
 //= require angular-ui-sortable
 //= require ng-file-upload
 //= require ng-tags-input
 //= require angular-elastic-input
 //= require angular-validation-match
+//= require angular-input-masks
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });

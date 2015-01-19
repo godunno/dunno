@@ -9,7 +9,10 @@ ProfileCtrl = ($scope, $http, SessionManager)->
     $scope.error = false
     SessionManager.setCurrentUser(response.data)
 
-  failure = ->
+  failure = (response)->
+    for key, errors of response.data.errors
+      for error in errors
+        $scope.form[key].$setValidity(error, false)
     $scope.error = true
     $scope.success = false
 
