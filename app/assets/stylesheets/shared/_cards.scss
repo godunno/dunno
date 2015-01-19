@@ -20,7 +20,9 @@ $card-border: solid 1px #dddddd;
 
 .card-subtitle {
   font-size: 14px;
-  
+  .right {
+    margin-left: 1em;
+  }  
 }
 
 .card-content {
