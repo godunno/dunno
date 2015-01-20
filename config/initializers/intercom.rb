@@ -1,7 +1,7 @@
 IntercomRails.config do |config|
   # == Intercom app_id
   #
-  config.app_id = ENV["INTERCOM_APP_ID"] || "jeagwga0"
+  config.app_id = ENV["INTERCOM_APP_ID"] || "a8n0frsf"
 
   # == Intercom secret key
   # This is required to enable secure mode, you can find it on your Intercom
@@ -18,7 +18,7 @@ IntercomRails.config do |config|
   # == Enabled Environments
   # Which environments is auto inclusion of the Javascript enabled for
   #
-  config.enabled_environments = ["beta"]
+  config.enabled_environments = %w(staging beta)
 
   # == Current user method/variable
   # The method/variable that contains the logged in user in your controllers.
@@ -46,6 +46,10 @@ IntercomRails.config do |config|
   #   :plan => Proc.new { |current_user| current_user.plan.name },
   #   :favorite_color => :favorite_color
   # }
+
+  config.user.custom_data = {
+    profile: -> (current_user) { current_user.profile.name }
+  }
 
   # == User -> Company association
   # A Proc that given a user returns an array of companies
