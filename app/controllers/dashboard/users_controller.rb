@@ -1,14 +1,10 @@
 class Dashboard::UsersController < Devise::RegistrationsController
+  respond_to :json, :html
+
   def create
     ActiveRecord::Base.transaction do
       super do |user|
-        profile = params["user"]["profile"]
-        user.profile = case profile
-                       when "teacher" then Teacher.new
-                       when "student" then Student.new
-                       else raise "Invalid profile: #{profile}"
-                       end
-        user.save!
+        user.update!(profile: Student.new)
       end
     end
   end
@@ -25,11 +21,18 @@ class Dashboard::UsersController < Devise::RegistrationsController
   def update
     safe_parameters = params.required(:user).permit(:password)
     if current_user.update(safe_parameters)
-      RegistrationsMailer.successful_registration(current_user, safe_parameters[:password]).deliver
+      RegistrationsMailer.delay.successful_registration(current_user.id, safe_parameters[:password])
       sign_in current_user, bypass: true
       render nothing: true, status: 200
     else
       render json: { errors: current_user.errors }, status: 403
     end
+  end
+
+  protected
+
+  def sign_up(*)
+    super
+    RegistrationsMailer.delay.successful_registration(current_user.id, params[:user][:password])
   end
 end

@@ -6,21 +6,25 @@ header.page-header.title
       h1 Disciplinas
 
 .student-courses
-  .wrapper
-    ul
-      li.student-card ng-repeat="course in courses"
-        .top
-          ul.menu
-            li
-              a ng-click="unregister(course)"
-                span.icon-trash
-          h3 {{course.name}}
+  .row
+    ul.list--courses
+      li.card.card--course.has-overlay ng-repeat="course in courses"
+        a href="#/courses/{{course.uuid}}"
+          .overlay.published.hide
+            .button.btn-style-transparent-1.radius.vertical-center ver disciplina
+          div.title.padding ng-class="'scheme-' + course.order"
+            h2.card-title {{course.name}}
+            .card-subtitle.translucent.padding-top
+              strong {{course.class_name}}
+              span.right {{course.institution}}
+              span.right {{course.teacher.name}}
 
-        .body
-          .course-info
-            h3 {{course.class_name}}
-            /h4 {{course.code}}
-
-          .user-info
-            /img.border-white src="http://lorempixel.com/36/36"
-            span.text.small {{course.teacher.name}}
+          .card-content.padding
+            .translucent
+              .cf
+                .period.left
+                  i.icon.icon-calendar.margin-right
+                  span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
+                .students.right
+                  i.icon.icon-users.margin-right
+                  span {{course.students.length}} Alunos

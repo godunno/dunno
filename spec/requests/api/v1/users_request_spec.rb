@@ -128,7 +128,7 @@ describe Api::V1::UsersController do
         it "should match errors" do
           expect(json).to eq(
             "errors" => {
-              "current_password" => ["não pode ficar em branco"]
+              "current_password" => ["required"]
             }
           )
         end

@@ -1,4 +1,5 @@
 DunnoApp = angular.module('DunnoApp')
+DunnoAppStudent = angular.module('DunnoAppStudent')
 
 DateUtils = ($filter)->
   @asDate = (value)->
@@ -17,3 +18,4 @@ DateUtils = ($filter)->
 
 DateUtils.$inject = ['$filter']
 DunnoApp.service 'DateUtils', DateUtils
+DunnoAppStudent.service 'DateUtils', DateUtils

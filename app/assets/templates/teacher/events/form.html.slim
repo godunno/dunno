@@ -1,18 +1,14 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
-    .large-2.columns.vertical-center style="float: left"
-      a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
-        span.icon.icon-arrow-back
-        span Ver todas as aulas
+    .large-2.columns.vertical-center
+      p.subtitle-head.text-left {{event.course.class_name}}
 
-    .large-8.vertical-center.columns
+    .large-8.vertical-center.columns.end
       h2 {{event.course.name}}
       p.translucent.subtitle-head
         span {{event.course.institution}}
         span< ng-if="!!event.course.grade" - {{event.course.grade}}
-    .large-2.vertical-center.columns
-      p.subtitle-head.text-right {{event.course.class_name}}
-      
+
 .page-header.subtitle
   .row.text-center
     .large-2.columns.vertical-center.t-light.text-left
@@ -30,32 +26,21 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       a.vertical-center.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
         i.icon.icon-arrow-circle-right
         span.right Próxima aula
-
+    .large-2.columns.vertical-center.t-light   
+      span {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
+          
 .diary-page
 
   form name="event_form" ng-submit="save(event)"
-    .row
-    .row
-
     .row.event-status
-      .large-3.columns.no-pad-left
-        .row.date
-          .large-2.columns
-            label.icon.icon-calendar.pos.right for="date"
-          .large-10.columns
-            input.radius id="date" ng-model="event.date" mask="99/99/9999" type="text" placeholder="Ex: 23/10/2014" name="date"
-      .large-4.columns.no-pad-left
-        .row.time
-          .large-2.columns
-            label.icon.icon-clock.pos for="start_time"
-          .large-4.columns.no-pad-right
-            input.radius id="start_time" ng-model="event.start_time" mask="99:99" type="text" placeholder="Ex: 14:00" name="start_time"
-          .large-2.columns.between-fields
-            label.to for="end_time" às
-          .large-4.columns.end.no-pad-right
-            input.radius id="end_time" ng-model="event.end_time" mask="99:99" type="text" placeholder="Ex: 16:30" name="end_time"
-      .large-3.columns.select-status
-        a.dropdown data-dropdown="event-status"
+      .large-5.columns.no-pad-left
+        a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
+          span.icon.icon-arrow-back
+          span Voltar        
+      .large-2.columns.text-right
+        input.button.btn-style-1.radius.save type="submit" ng-value="saveButtonMessage()" ng-disabled="saveButtonDisabled()"
+      .large-5.columns.select-status.text-right
+        a.dropdown.text-left data-dropdown="event-status"
           .option.published ng-if="event.status == 'published'"
             i.icon.icon-published
             span.value Publicada
@@ -84,8 +69,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 span Cancelar
                 i.icon.icon-canceled
               .subtitle Cancelar aula e notificar os alunos.
-      .large-2.columns
-        input.button.btn-style-1.radius.save type="submit" ng-value="saveButtonMessage()" ng-disabled="saveButtonDisabled()"
+        a.button.btn-style-1.radius.done-button ng-click="finish(event)" Concluir
 
     .row.card.container event-list="topics"
       .title.diary-label
@@ -109,7 +93,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               a.icon.icon-edition.task-icon-right.right[
                 ng-click="editItem(topic, editingItem)"
                 title="Editar tarefa"]
-              preview item="topic"
+              preview item="topic" editable="true"
             input.item-editing[
               focus-on-create="" type="text"
               ng-if="isEditing(topic)"
@@ -136,7 +120,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
           progress-bar
-          preview item="newListItem"
+          preview item="newListItem" editable="true"
         .hint Ex: Revisar aula passada. Introdução à raiz quadrada.
 
     .row.card.container.notes event-list="personal_notes"
@@ -163,7 +147,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               a.icon.icon-edition.task-icon-right.right[
                 ng-click="editItem(personal_note, editingItem)"
                 title="Editar anotação"]
-              preview item="personal_note"
+              preview item="personal_note" editable="true"
             input.item-editing[
               focus-on-create="" type="text"
               ng-if="isEditing(personal_note)"
@@ -189,5 +173,5 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
           progress-bar
-          preview item="newListItem"
+          preview item="newListItem" editable="true"
         .hint Ex: Fazer ditado surpresa. Rever comportamento do João.

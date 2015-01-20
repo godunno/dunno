@@ -356,4 +356,70 @@ describe Api::V1::EventsController do
       it { expect(attendance.validated).to be false }
     end
   end
+
+  describe "GET /api/v1/events/:uuid" do
+
+    context "authenticated" do
+
+      def do_action
+        get "/api/v1/events/#{event.uuid}.json", auth_params(student)
+      end
+
+      before(:each) do
+        do_action
+      end
+
+      subject { json }
+
+      it { expect(last_response.status).to eq(200) }
+
+      describe "event" do
+        let(:event_json) { json }
+        let(:target) { event }
+        subject { event_json }
+        it_behaves_like "request return check", %w(channel)
+
+        describe "topic" do
+          let(:target) { topic }
+          subject { event_json["topics"][0] }
+          it_behaves_like "request return check", %w(description)
+        end
+
+        it { expect(subject["polls"].count).to eq 1 }
+        describe "poll" do
+          let(:target) { poll }
+          subject { event_json["polls"][0] }
+          it_behaves_like "request return check", %w(uuid content released_at)
+        end
+
+        it { expect(subject["polls"][0]["options"].count).to eq 1 }
+        describe "option" do
+          let(:target) { option }
+          subject { event_json["polls"][0]["options"][0] }
+          it_behaves_like "request return check", %w(uuid content)
+        end
+
+        describe "media with URL" do
+          let(:target) { media_with_url }
+          subject { find(event_json["topics"], topic_with_url.uuid)["media"] }
+          it_behaves_like "request return check", %w(uuid title description category url released_at)
+        end
+
+        describe "media with File" do
+          let(:target) { media_with_file }
+          subject { find(event_json["topics"], topic_with_file.uuid)["media"] }
+          it_behaves_like "request return check", %w(uuid title description category released_at)
+
+          it { expect(subject["url"]).to eq target.file.url }
+        end
+
+        describe "timeline" do
+          let(:timeline_json) { event_json["timeline"] }
+          let(:target) { event.timeline }
+          subject { timeline_json }
+          it_behaves_like "request return check", %w(start_at updated_at)
+        end
+      end
+    end
+  end
 end

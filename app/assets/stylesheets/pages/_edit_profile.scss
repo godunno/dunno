@@ -18,13 +18,25 @@
       display: inline-block;
       margin-left: 5%;
       .icon-valid {
-        @extend .icon-check;
+        @extend .icon-plain-check;
         color: $secondary-color;
       }
       .icon-invalid {
         @extend .icon-error;
         color: $red-color;
       }
+    }
+
+    .error {
+      ul {
+        margin-bottom: 0;
+      }
+    }
+
+
+    .cancel {
+      text-align: center;
+      font-size: 0.9em;
     }
   }
 }

@@ -1,0 +1,26 @@
+.preview {
+  background-color: $background-light-grey-color;
+  margin: 12px;
+  padding: 1em .5em;
+  position: relative;
+  border-radius: 2px;
+
+  .image {
+    @include grid-column(2);
+  }
+
+  .text {
+    @include grid-column(10);
+    font-size: .8em;
+    
+    .title {
+      font-weight: bold;
+    }
+  }
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0.6em;
+  }
+}

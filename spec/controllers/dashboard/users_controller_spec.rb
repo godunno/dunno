@@ -11,7 +11,6 @@ describe Dashboard::UsersController do
           name: user.name,
           phone_number: user.phone_number,
           password: "PASSWORD",
-          profile: profile
         }
       }
     end
@@ -36,23 +35,8 @@ describe Dashboard::UsersController do
       end
 
       context "creating a student" do
-        let(:profile) { :student }
         it_behaves_like "creating a user"
         it { expect(subject.profile).to be_a(Student) }
-      end
-
-      context "creating a teacher" do
-        let(:profile) { :teacher }
-        it_behaves_like "creating a user"
-        it { expect(subject.profile).to be_a(Teacher) }
-      end
-    end
-
-    context "trying to create an invalid profile" do
-      let(:profile) { :invalid }
-      it "should fail to create an user" do
-        expect{do_action}.to raise_error
-        expect(User.count).to eq(0)
       end
     end
   end

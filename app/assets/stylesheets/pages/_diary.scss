@@ -1,15 +1,23 @@
 .diary-page {
-  $dropdown-width: 150px;
+  margin-top: -20px;
+  
+  .done-button {
+    margin-left: -3px;
+    height: 40px;
+    width: 130px;
+    text-align: center;
+  }
+   
+  $dropdown-width: 160px;
   .dropdown {
     width: $dropdown-width;
-    float: right;
   }
   .status-list {
     @include dropdown-container(list, bottom);
     @include radius();
     width: $dropdown-width;
     border-color: $light-grey-color;
-
+    
     .option {
       @include grid-row();
       cursor: pointer;
@@ -120,32 +128,6 @@
   
   .progress {
       margin-top: 10px;
-  }
-  .preview {
-    background-color: $background-light-grey-color;
-    margin: 12px;
-    padding: 1em .5em;
-    position: relative;
-    border-radius: 2px;
-
-    .image {
-      @include grid-column(2);
-    }
-
-    .text {
-      @include grid-column(10);
-      font-size: .8em;
-      
-      .title {
-        font-weight: bold;
-      }
-    }
-
-    .close {
-      position: absolute;
-      top: 0;
-      right: 0.6em;
-    }
   }
   .vertical-container {
     display: table-cell;
@@ -291,14 +273,17 @@ $diary-card-border: 1px solid #dddddd;
       padding: 0 !important;
       width: 26px;
   }
-  .button {
+  .button.save {
     width: 110px;
     padding-left: 0;
     padding-right: 0;
-    text-align: center;
+    text-align: right;
+    background: none;
+    color: #999;
   }
-  .button:disabled {
+  .button.save:disabled {
     background: #999;
+    background: none;
   }
 }
 
