@@ -48,7 +48,7 @@ IntercomRails.config do |config|
   # }
 
   config.user.custom_data = {
-    profile: -> (current_user) { current_user.profile.name }
+    profile: -> (current_user) { current_user.profile_name }
   }
 
   # == User -> Company association
