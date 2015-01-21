@@ -7,27 +7,28 @@
         .name
           label for="name" Nome
           input.radius id="name" name="name" ng-model="user.name" type="text" required="" autofocus=""
-          div ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak=""
-            span.error ng-show="user_form.name.$error.required" Campo obrigatório
+          small.error ng-show="user_form.name.$dirty && user_form.name.$invalid" ng-cloak="" ng-messages="user_form.name.$error"
+            span ng-message="required" Campo obrigatório
         .email
           label for="email" Email
           / TODO: normalizar name dos inputs após POST via AJAX
           input.radius id="email" name="email" ng-model="user.email" type="email" required=""
           / TODO: DRY as mensagens de erro
-          div ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak=""
-            span.error ng-show="user_form.email.$error.required" Campo obrigatório
-            span.error ng-show="user_form.email.$error.email" Email inválido
+          small.error ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak="" ng-messages="user_form.email.$error"
+            span ng-message="required" Campo obrigatório
+            span ng-message="email" Email inválido
         .password
           label for="password" Senha
           input.radius id="password" name="password" ng-model="user.password" type="password" required="" ng-minlength="8"
-          div ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak=""
-            span.error ng-show="user_form.password.$error.required" Campo obrigatório
-            span.error ng-show="user_form.password.$error.minlength" A senha deve conter ao menos 8 caracteres
+          small.error ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak="" ng-messages="user_form.password.$error"
+            span ng-message="required" Campo obrigatório
+            span ng-message="minlength" A senha deve conter ao menos 8 caracteres
         .phone-number
           label for="phone_number" Telefone
           input.radius id="phone_number" name="phone_number" ng-model="user.phone_number" type="text" required="" ui-br-phone-number=true
-          div ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak=""
-            span.error ng-show="user_form.phone_number.$error.required" Campo obrigatório
+          small.error ng-show="user_form.phone_number.$dirty && user_form.phone_number.$invalid" ng-cloak="" ng-messages="user_form.phone_number.$error"
+            span ng-message="required" Campo obrigatório
+            span ng-message="br-phone-number" Formato inválido.
         .submit
           input.button.radius.btn-style-1 ng-disabled="user_form.$invalid" type="submit" value="Cadastrar"
 
