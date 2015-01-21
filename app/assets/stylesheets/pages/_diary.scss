@@ -323,7 +323,9 @@ $diary-card-border: 1px solid #dddddd;
   }
   .item {
     padding: 0 30px;
-    cursor: pointer;
+    &.clickable {
+      cursor: pointer;
+    }
     &.ui-sortable-helper {
       // Without this !important, occurs a flickering
       // effect while moving the item.
@@ -351,7 +353,6 @@ $diary-card-border: 1px solid #dddddd;
     .item-editing {
       margin: 0;
     }
-
 
     // --- Show on hover --- //
     .no-touch & {
