@@ -40,5 +40,5 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       .item ng-repeat="topic in event.topics"
         .row
           .item-show
-            label for="topic_{{topic.order}}_done" {{topic.description}}
+            span {{topic.description}}
             preview item="topic"
