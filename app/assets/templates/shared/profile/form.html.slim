@@ -10,19 +10,17 @@ header.page-header.title
 
       label for="name" Nome
       input#name type="text" ng-model="user.name" required=true name="name"
-      small.error ng-messages="form.name.$error" ng-if="form.name.$invalid"
-        ul
-          li ng-message="required" Este campo é obrigatório.
+      small.error ng-messages="form.name.$error" ng-if="form.name.$invalid && form.name.$dirty"
+        span ng-message="required" Este campo é obrigatório.
 
       label for="email" Email
       input#email type="email" ng-model="user.email" disabled=true
 
       label for="phone_number" Telefone
       input#phone_number type="text" ng-model="user.phone_number" required=true name="phone_number" ui-br-phone-number=true
-      small.error ng-messages="form.phone_number.$error" ng-if="form.phone_number.$invalid"
-        ul
-          li ng-message="required" Este campo é obrigatório.
-          li ng-message="br-phone-number" Formato inválido.
+      small.error ng-messages="form.phone_number.$error" ng-if="form.phone_number.$invalid && form.phone_number.$dirty"
+        span ng-message="required" Este campo é obrigatório.
+        span ng-message="br-phone-number" Formato inválido.
 
       hr
       a href="#profile/password/edit" Quero alterar minha senha
