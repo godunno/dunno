@@ -31,14 +31,14 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           
 .diary-page
 
-  form name="event_form" ng-submit="save(event)"
+  form name="event_form" ng-submit="finish(event)"
     .row.event-status
       .large-5.columns.no-pad-left
         a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
           span.icon.icon-arrow-back
           span Voltar        
       .large-2.columns.text-right
-        input.button.btn-style-1.radius.save type="submit" ng-value="saveButtonMessage()" ng-disabled="saveButtonDisabled()"
+        .button.btn-style-1.radius.save {{saveButtonMessage()}}
       .large-5.columns.select-status.text-right
         a.dropdown.text-left data-dropdown="event-status"
           .option.published ng-if="event.status == 'published'"
@@ -69,7 +69,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 span Cancelar
                 i.icon.icon-canceled
               .subtitle Cancelar aula e notificar os alunos.
-        a.button.btn-style-1.radius.done-button ng-click="finish(event)" Concluir
+        input.button.btn-style-1.radius.done-button type="submit" value="Concluir"
 
     .row.card.container event-list="topics"
       .title.diary-label
