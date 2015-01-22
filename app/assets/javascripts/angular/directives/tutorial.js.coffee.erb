@@ -1,0 +1,46 @@
+DunnoApp = angular.module('DunnoApp')
+
+tutorialCtrl = ($scope)->
+  $scope.currentStep = 1
+  $scope.steps = []
+
+  hide = ->
+    $scope.$emit("modal.dismiss")
+    $scope.onClose()
+
+  $scope.nextStep = ->
+    if $scope.currentStep + 1 > $scope.steps.length
+      hide()
+    else
+      $scope.currentStep++
+
+  $scope.setCurrentStep = (step)->
+    $scope.currentStep = step
+
+  @increaseStep = ->
+    $scope.steps.push($scope.steps.length + 1)
+
+tutorialCtrl.$inject = ['$scope']
+
+DunnoApp.controller 'tutorialCtrl', tutorialCtrl
+DunnoApp.directive 'tutorial', ['$parse', ($parse)->
+  restrict: 'E'
+  transclude: true
+  replace: true
+  templateUrl: '<%= asset_path('shared/tutorial/_tutorial.html') %>'
+  controller: 'tutorialCtrl'
+  link: (scope, element, attrs)->
+    scope.enabled = if attrs.enabled then scope.$eval(attrs.enabled) else true
+    scope.onClose = -> $parse(attrs.onClose)(scope)
+    if scope.enabled
+      setTimeout (-> element.foundation('reveal', 'open')), 0
+]
+
+DunnoApp.directive 'tutorialStep', ->
+  restrict: 'E'
+  require: '^tutorial'
+  transclude: true
+  templateUrl: '<%= asset_path('shared/tutorial/_tutorialStep.html') %>'
+  scope: true
+  link: (scope, element, attrs, tutorial)->
+    scope.id = tutorial.increaseStep()

@@ -34,6 +34,12 @@ header.page-header.title ng-class="'scheme-' + course.order"
               /h3 {{student.name}}
               /span 12 anos
 
+  tutorial.tutorial-1 enabled="tutorialEnabled(2)" on-close="tutorialClosed(2)"
+    tutorial-step
+      p Envie este código para seus alunos. Desta forma você conseguirá interagir com eles através do Dunno.
+    tutorial-step
+      p Clique aqui para planejar e editar o conteúdo de sua aula.
+
 .reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" id="send-notification" data-reveal=""
   label for="message" Enviar mensagem
   textarea id="message" ng-model="notification.message" rows="5" maxlength="{{limit}}" placeholder="Ex: A aula foi transferida para o laboratório."

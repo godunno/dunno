@@ -1,0 +1,30 @@
+.tutorial.wrapper {
+  @include reveal-modal-style(
+    $bg: $primary-color
+  );
+  @include radius;
+  text-align: center;
+  width: 25em;
+
+  .content {
+    color: #ffffff;
+    font-family: "Chalkduster";
+  }
+
+  .step {
+    list-style: none;
+    display: inline-block;
+    .icon {
+      color: $dark-grey-color;
+      &.active {
+        color: #ffffff;
+      }
+    }
+  }
+
+  .next {
+    @extend .button;
+    @extend .btn-style-1;
+    @include radius;
+  }
+}
