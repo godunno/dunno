@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-ApplicationCtrl = ($scope, $http, $window, SessionManager)->
+ApplicationCtrl = ($scope, $http, $window, SessionManager, TutorialsManager)->
   $scope.$on '$viewContentLoaded', ()->
     $(document).foundation()
 
@@ -13,7 +13,9 @@ ApplicationCtrl = ($scope, $http, $window, SessionManager)->
     SessionManager.fetchUser()
 
   $scope.currentUser = SessionManager.currentUser
+  $scope.tutorialEnabled = TutorialsManager.tutorialEnabled
+  $scope.tutorialClosed = TutorialsManager.tutorialClosed
 
-ApplicationCtrl.$inject = ['$scope', '$http', '$window', 'SessionManager']
+ApplicationCtrl.$inject = ['$scope', '$http', '$window', 'SessionManager', 'TutorialsManager']
 DunnoApp.controller 'ApplicationCtrl', ApplicationCtrl
 DunnoAppStudent.controller 'ApplicationCtrl', ApplicationCtrl

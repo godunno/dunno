@@ -5,5 +5,5 @@ class Teacher < ActiveRecord::Base
   has_many :events, through: :courses
   has_many :medias
 
-  delegate :email, :authentication_token, :name, :phone_number, to: :user
+  delegate :email, :authentication_token, :name, :phone_number, :completed_tutorial, to: :user
 end
