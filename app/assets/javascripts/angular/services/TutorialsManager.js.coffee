@@ -3,10 +3,8 @@ DunnoApp = angular.module('DunnoApp')
 TutorialsManager = ($http, SessionManager)->
 
   tutorialEnabled = (tutorialId)->
-    console.log "WTF"
-    console.log SessionManager.currentUser().completed_tutorial
+    SessionManager.currentUser().completed_tutorial
     return false if SessionManager.currentUser().completed_tutorial
-    console.log localStorage.getItem("tutorial_#{tutorialId}")
     return true unless localStorage.getItem("tutorial_#{tutorialId}")
     false
 

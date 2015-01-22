@@ -1,3 +1,7 @@
+.reveal-modal-bg {
+  background-color: rgba(255, 255, 255, 0.45);
+}
+
 .tutorial.wrapper {
   @include reveal-modal-style(
     $bg: $primary-color

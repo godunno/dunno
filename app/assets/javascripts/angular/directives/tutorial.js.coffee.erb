@@ -1,6 +1,9 @@
 DunnoApp = angular.module('DunnoApp')
 
-tutorialCtrl = ($scope)->
+tutorialCtrl = ($scope, $rootScope)->
+
+  $rootScope.$on('$locationChangeStart', -> $scope.$emit("modal.dismiss"))
+
   $scope.currentStep = 1
   $scope.steps = []
 
@@ -20,7 +23,7 @@ tutorialCtrl = ($scope)->
   @increaseStep = ->
     $scope.steps.push($scope.steps.length + 1)
 
-tutorialCtrl.$inject = ['$scope']
+tutorialCtrl.$inject = ['$scope', '$rootScope']
 
 DunnoApp.controller 'tutorialCtrl', tutorialCtrl
 DunnoApp.directive 'tutorial', ['$parse', ($parse)->
@@ -33,7 +36,7 @@ DunnoApp.directive 'tutorial', ['$parse', ($parse)->
     scope.enabled = if attrs.enabled then scope.$eval(attrs.enabled) else true
     scope.onClose = -> $parse(attrs.onClose)(scope)
     if scope.enabled
-      setTimeout (-> element.foundation('reveal', 'open', close_on_background_click: false)), 0
+      setTimeout (-> element.foundation('reveal', 'open', close_on_background_click: false, close_on_esc: false)), 0
 ]
 
 DunnoApp.directive 'tutorialStep', ->
