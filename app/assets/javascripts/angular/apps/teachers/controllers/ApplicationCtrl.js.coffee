@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-ApplicationCtrl = ($scope, $http, $window, $cookieStore, SessionManager)->
+ApplicationCtrl = ($scope, $http, $window, SessionManager, TutorialsManager)->
   $scope.$on '$viewContentLoaded', ()->
     $(document).foundation()
 
@@ -13,22 +13,9 @@ ApplicationCtrl = ($scope, $http, $window, $cookieStore, SessionManager)->
     SessionManager.fetchUser()
 
   $scope.currentUser = SessionManager.currentUser
+  $scope.tutorialEnabled = TutorialsManager.tutorialEnabled
+  $scope.tutorialClosed = TutorialsManager.tutorialClosed
 
-  $scope.tutorialEnabled = (tutorialId)->
-    return false if SessionManager.currentUser().completed_tutorial
-    return true unless $cookieStore.get("tutorial_#{tutorialId}")
-    false
-
-  TUTORIALS = [1, 2, 3]
-  $scope.tutorialClosed = (tutorialId)->
-    $cookieStore.put("tutorial_#{tutorialId}", true)
-    finished = TUTORIALS
-      .map((id)-> $cookieStore.get("tutorial_#{id}"))
-      .reduce((previous, current)-> previous && current)
-    if finished
-      $http.patch("/api/v1/users", user: {completed_tutorial: true}).then (response)->
-        SessionManager.setCurrentUser(response.data)
-
-ApplicationCtrl.$inject = ['$scope', '$http', '$window', '$cookieStore', 'SessionManager']
+ApplicationCtrl.$inject = ['$scope', '$http', '$window', 'SessionManager', 'TutorialsManager']
 DunnoApp.controller 'ApplicationCtrl', ApplicationCtrl
 DunnoAppStudent.controller 'ApplicationCtrl', ApplicationCtrl

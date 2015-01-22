@@ -33,7 +33,7 @@ DunnoApp.directive 'tutorial', ['$parse', ($parse)->
     scope.enabled = if attrs.enabled then scope.$eval(attrs.enabled) else true
     scope.onClose = -> $parse(attrs.onClose)(scope)
     if scope.enabled
-      setTimeout (-> element.foundation('reveal', 'open')), 0
+      setTimeout (-> element.foundation('reveal', 'open', close_on_background_click: false)), 0
 ]
 
 DunnoApp.directive 'tutorialStep', ->
