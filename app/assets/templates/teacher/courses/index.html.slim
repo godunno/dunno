@@ -29,5 +29,5 @@ header.page-header.title
                   i.icon.icon-users.margin-right
                   span {{course.students.length}} Alunos
 
-  tutorial.tutorial-1 enabled="tutorialEnabled(1)" on-close="tutorialClosed(1)"
+  tutorial.tutorial-1 ng-if="tutorialEnabled(1)" on-close="tutorialClosed(1)"
     p Comece entrando em uma de suas disciplinas.
