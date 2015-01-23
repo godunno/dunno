@@ -8,39 +8,50 @@ class EventBuilder < BaseBuilder
       json.(event_pusher_events, *event_pusher_events.events)
     end
 
-    json.previous do
-      json.uuid event.previous.try(:uuid)
-    end
-    json.next do
-      json.uuid event.next.try(:uuid)
+    if options[:show_neighbours]
+      json.previous do
+        json.uuid event.previous.try(:uuid)
+      end
+
+      json.next do
+        json.uuid event.next.try(:uuid)
+      end
     end
 
     if options[:show_course]
       json.course do
-        CourseBuilder.new(event.course).build!(json, show_events: false)
+        CourseBuilder.new(event.course).build!(json)
       end
     end
 
-    if options[:personal_notes]
+    if options[:show_personal_notes]
       json.personal_notes event.personal_notes do |personal_note|
-        PersonalNoteBuilder.new(personal_note).build!(json)
+        PersonalNoteBuilder.new(personal_note).build!(json, options[:show_personal_notes])
       end
     end
 
-    json.timeline do
-      TimelineBuilder.new(event.timeline).build!(json)
+    if options[:show_timeline]
+      json.timeline do
+        TimelineBuilder.new(event.timeline).build!(json)
+      end
     end
 
-    json.topics event.topics do |topic|
-      TopicBuilder.new(topic).build!(json)
+    if options[:show_topics]
+      json.topics event.topics do |topic|
+        TopicBuilder.new(topic).build!(json, options[:show_topics])
+      end
     end
 
-    json.thermometers event.thermometers do |thermometer|
-      ThermometerBuilder.new(thermometer).build!(json)
+    if options[:show_thermometers]
+      json.thermometers event.thermometers do |thermometer|
+        ThermometerBuilder.new(thermometer).build!(json)
+      end
     end
 
-    json.polls event.polls do |poll|
-      PollBuilder.new(poll).build!(json)
+    if options[:show_polls]
+      json.polls event.polls do |poll|
+        PollBuilder.new(poll).build!(json)
+      end
     end
   end
 end

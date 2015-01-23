@@ -1,7 +1,5 @@
 json.(@event, :id, :uuid, :start_at, :end_at, :status, :channel)
 
-json.(event_pusher_events, *event_pusher_events.events)
-
 json.thermometers(@event.thermometers, :uuid, :content)
 
 json.topics @event.topics do |topic|

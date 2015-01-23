@@ -58,20 +58,6 @@ describe Api::V1::Teacher::EventsController do
             subject { events_json[0]["course"] }
             it_behaves_like "request return check", %w(name class_name order institution)
           end
-
-          describe "personal note" do
-            let(:personal_note) do
-              create(:personal_note, order: 1, done: true)
-            end
-
-            let(:event) do
-              create(:event, course: course, personal_notes: [personal_note])
-            end
-
-            let(:target) { personal_note }
-            subject { events_json[0]["personal_notes"][0] }
-            it_behaves_like "request return check", %w(description uuid order done)
-          end
         end
       end
     end
@@ -81,171 +67,85 @@ describe Api::V1::Teacher::EventsController do
   describe "GET /api/v1/teacher/events/:uuid.json" do
 
     let(:topic) { create(:topic, order: 1, done: true, media: media_with_url) }
-    let(:thermometer) { create(:thermometer) }
-    let(:poll) { create(:poll, options: [option]) }
-    let(:option) { create(:option) }
     let(:media_with_url) { create(:media_with_url) }
     let(:another_media_with_url) { create(:media_with_url) }
-    #let(:media_with_file) { create(:media, file: Tempfile.new("test"), url: nil) }
-    let(:beacon) { create(:beacon) }
     let(:personal_note) { create(:personal_note, order: 1, done: true, media: another_media_with_url) }
-
-    let(:student) { create(:student) }
-    let(:message) { create(:timeline_message, timeline: event.timeline, student: student) }
 
     let!(:event) do
       create(:event,
              status: "published",
              end_at: 1.hour.ago,
              topics: [topic],
-             thermometers: [thermometer],
-             polls: [poll],
              personal_notes: [personal_note],
-             beacon: beacon
             )
     end
     let!(:previous_event) { create :event, start_at: event.start_at - 1.day, course: event.course }
     let!(:next_event)     { create :event, start_at: event.start_at + 1.day, course: event.course }
 
-    before do
-      message.up_by(create(:student))
-      message.down_by(create(:student))
-    end
-
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
+      let(:event_json) { json }
+
       def do_action
-        get "/api/v1/teacher/events/#{event.uuid}.xml", auth_params(teacher)
+        get "/api/v1/teacher/events/#{event.uuid}.json", auth_params(teacher)
       end
 
-      it_behaves_like "request invalid content type XML"
+      before(:each) do
+        do_action
+      end
 
-      context "valid content type" do
+      it { expect(last_response.status).to eq(200) }
 
-        let(:event_json) { json }
+      describe "resource" do
 
-        def do_action
-          get "/api/v1/teacher/events/#{event.uuid}.json", auth_params(teacher)
-        end
+        let(:target) { event }
 
-        before(:each) do
-          do_action
-        end
+        subject { event_json }
+        it_behaves_like "request return check", %w(uuid channel order status formatted_status start_at end_at)
 
         it { expect(last_response.status).to eq(200) }
 
-        describe "resource" do
+        describe "course" do
+          let(:target) { event.course }
+          subject { event_json["course"] }
+          it_behaves_like "request return check", %w(name class_name order institution)
+        end
 
-          let(:target) { event }
+        describe "previous" do
+          let(:target) { event.previous }
+          subject { event_json["previous"] }
+          it_behaves_like "request return check", %w(uuid)
+        end
 
-          subject { event_json }
-          it_behaves_like "request return check", %w(id uuid channel order)
+        describe "next" do
+          let(:target) { event.next }
+          subject { event_json["next"] }
+          it_behaves_like "request return check", %w(uuid)
+        end
 
-          it { expect(subject["status"]).to eq(event.status) }
-          it { expect(subject["formatted_status"]).to eq(event.formatted_status) }
-          it { expect(subject["start_at"]).to eq(event.start_at.utc.iso8601) }
-          it { expect(subject["end_at"]).to eq(event.end_at.utc.iso8601) }
+        describe "personal_note" do
+          let(:target) { personal_note }
+          let(:personal_note_json) { event_json["personal_notes"][0] }
+          subject { personal_note_json }
+          it_behaves_like "request return check", %w(description uuid order done)
 
-          it { expect(last_response.status).to eq(200) }
-
-          describe "course" do
-            let(:target) { event.course }
-            subject { event_json["course"] }
-            it_behaves_like "request return check", %w(name class_name order institution)
+          describe "media with URL" do
+            let(:target) { another_media_with_url }
+            subject { personal_note_json["media"] }
+            it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
           end
+        end
 
-          describe "pusher events" do
-            let(:target) { event_pusher_events }
-            subject { event_json }
-            it_behaves_like "request return check", %w(student_message_event up_down_vote_message_event)
-          end
+        describe "topic" do
+          let(:target) { topic }
+          let(:topic_json) { find(event_json["topics"], topic.uuid) }
+          subject { topic_json }
+          it_behaves_like "request return check", %w(description uuid order done)
 
-          describe "previous" do
-            let(:target) { event.previous }
-            subject { event_json["previous"] }
-            it_behaves_like "request return check", %w(uuid)
-          end
-
-          describe "next" do
-            let(:target) { event.next }
-            subject { event_json["next"] }
-            it_behaves_like "request return check", %w(uuid)
-          end
-
-          describe "personal_note" do
-            let(:target) { personal_note }
-            let(:personal_note_json) { event_json["personal_notes"][0] }
-            subject { personal_note_json }
-            it_behaves_like "request return check", %w(description uuid order done)
-
-            describe "media with URL" do
-              let(:target) { another_media_with_url }
-              subject { personal_note_json["media"] }
-              it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
-            end
-          end
-
-          describe "topic" do
-            let(:target) { topic }
-            let(:topic_json) { find(event_json["topics"], topic.uuid) }
-            subject { topic_json }
-            it_behaves_like "request return check", %w(description uuid order done)
-
-            describe "media with URL" do
-              let(:target) { media_with_url }
-              subject { topic_json["media"] }
-              it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
-            end
-          end
-
-          it { expect(subject["polls"].count).to eq 1 }
-          describe "poll" do
-            let(:target) { poll }
-            subject { event_json["polls"][0] }
-            it_behaves_like "request return check", %w(content released_at uuid)
-          end
-
-          it { expect(subject["polls"][0]["options"].count).to eq 1 }
-          describe "option" do
-            let(:target) { option }
-            subject { event_json["polls"][0]["options"][0] }
-            it_behaves_like "request return check", %w(content uuid)
-          end
-
-          describe "thermometer" do
-            let(:target) { thermometer }
-            subject { event_json["thermometers"][0] }
-            it_behaves_like "request return check", %w(content uuid)
-          end
-
-          #describe "media with File" do
-          #  let(:target) { media_with_file }
-          #  subject { event_json["medias"].find { |m| m["uuid"] == target.uuid } }
-          #  it_behaves_like "request return check", %w(uuid title description category released_at)
-
-          #  it { expect(subject["url"]).to eq target.file.url }
-          #end
-
-          describe "timeline" do
-            let(:timeline_json) { event_json["timeline"] }
-
-            it { expect(timeline_json["messages"].count).to eq 1 }
-            describe "message" do
-              let(:message_json) { timeline_json["messages"][0] }
-              let(:target) { message }
-              subject { message_json }
-              it_behaves_like "request return check", %w(uuid content created_at)
-              it { expect(subject["up_votes"]).to eq(1) }
-              it { expect(subject["down_votes"]).to eq(1) }
-
-              describe "author" do
-                let(:target) { student }
-                subject { message_json["author"] }
-                it_behaves_like "request return check", %w(name avatar)
-              end
-            end
+          describe "media with URL" do
+            let(:target) { media_with_url }
+            subject { topic_json["media"] }
+            it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
           end
         end
       end
@@ -261,15 +161,9 @@ describe Api::V1::Teacher::EventsController do
       let(:event_template) { build(:event, course: course) }
 
       let(:topic) { build :topic, order: 1, done: true, media: media_with_url }
-      let(:thermometer) { build :thermometer }
-      let(:poll) { build :poll }
-      let(:correct_option) { build :option, content: "Correct Option", correct: true }
-      let(:incorrect_option) { build :option, content: "Incorrect Option", correct: false }
-      let(:options) { [correct_option, incorrect_option] }
       let(:personal_note) { build :personal_note, order: 1, done: true, media: another_media_with_url }
       let(:media_with_url) { create :media_with_url }
       let(:another_media_with_url) { create :media_with_url }
-      #let(:media_with_file) { build :media_with_file, timeline: event_template.timeline }
       let(:start_at) { event_template.start_at.utc.iso8601 }
       let(:end_at)   { event_template.end_at.utc.iso8601 }
 
@@ -279,19 +173,12 @@ describe Api::V1::Teacher::EventsController do
             "course_id" => event_template.course_id,
             "start_at" => start_at,
             "end_at"   => end_at,
-            topics: [{
+            topics: [
               description: topic.description,
               done: topic.done,
               order: topic.order,
               media_id: topic.media.uuid
-            }],
-            thermometers: [thermometer.attributes],
-            polls: [poll.attributes.merge(
-              options: [
-                correct_option.attributes,
-                incorrect_option.attributes
-              ]
-            )],
+            ],
             personal_notes: [
               description: personal_note.description,
               done: personal_note.done,
@@ -363,37 +250,7 @@ describe Api::V1::Teacher::EventsController do
             it { expect(subject.thumbnail).to eq another_media_with_url.thumbnail }
           end
         end
-
-        it { expect(subject.thermometers.count).to eq 1 }
-        describe "thermometer" do
-          subject { event.thermometers.first }
-          it_behaves_like "creating an artifact"
-          it { expect(subject.content).to eq thermometer.content }
-        end
-
-        it { expect(subject.polls.count).to eq 1 }
-        describe "poll" do
-          subject { event.polls.first }
-          it_behaves_like "creating an artifact"
-          it { expect(subject.content).to eq poll.content }
-
-          describe "options" do
-            it { expect(subject.options.count).to eq 2 }
-            it { expect(subject.options.map(&:content)).to match_array options.map(&:content) }
-            it { expect(subject.options.map(&:correct)).to match_array options.map(&:correct) }
-          end
-        end
-
-        #describe "media with file" do
-        #  subject { event.medias.last }
-        #  it_behaves_like "creating an artifact"
-        #  it { expect(subject.title).to eq media_with_file.title }
-        #  it { expect(subject.description).to eq media_with_file.description }
-        #  it { expect(subject.category).to eq media_with_file.category }
-        #  it { expect(subject.file.file.identifier).to eq media_with_file.file.file.identifier }
-        #end
       end
-
     end
   end
 
@@ -419,73 +276,6 @@ describe Api::V1::Teacher::EventsController do
 
       it { expect(event.reload.start_at).to eq start_at }
       it { expect(event.reload.status).to eq "published" }
-    end
-  end
-
-  describe "PATCH /api/v1/teacher/events/:uuid/open.json" do
-
-    def do_action
-      patch "/api/v1/teacher/events/#{event.uuid}/open.json", auth_params(teacher).to_json
-    end
-
-    before do
-      event.save!
-      Timecop.freeze
-      expect_any_instance_of(CoursePusher).to receive(:open).once
-      do_action
-    end
-    after { Timecop.return }
-
-    it { expect(last_response.status).to eq(200) }
-    it { expect(json["uuid"]).to eq(event.uuid) }
-    it { expect(event.reload.opened?).to be true }
-    it { expect(event.reload.opened_at.utc.iso8601).to eq(Time.now.utc.iso8601) }
-    it { expect(json["channel"]).to eq event.channel }
-    it { expect(json["student_message_event"]).to eq event_pusher_events.student_message_event }
-    it { expect(json["up_down_vote_message_event"]).to eq event_pusher_events.up_down_vote_message_event }
-
-    context "opening event again" do
-      before do
-        Timecop.freeze(Time.now + 1)
-        allow_any_instance_of(CoursePusher).to receive(:close)
-        do_action
-      end
-      after { Timecop.return }
-
-      it { expect(last_response.status).to eq(304) }
-      it { expect(event.reload.opened_at).not_to eq(Time.now) }
-    end
-  end
-
-  describe "PATCH /api/v1/teacher/events/:uuid/close.json" do
-
-    let(:event) { create(:event, opened_at: Time.now) }
-
-    def do_action
-      patch "/api/v1/teacher/events/#{event.uuid}/close.json", auth_params(teacher).to_json
-    end
-
-    before do
-      event.save!
-      Timecop.freeze
-      expect_any_instance_of(EventPusher).to receive(:close).once
-      do_action
-    end
-    after { Timecop.return }
-
-    it { expect(event.reload.closed?).to be true }
-    it { expect(event.reload.closed_at.utc.iso8601).to eq Time.now.utc.iso8601 }
-
-    context "closing event again" do
-      before do
-        Timecop.freeze(Time.now + 1)
-        allow_any_instance_of(EventPusher).to receive(:close)
-        do_action
-      end
-      after { Timecop.return }
-
-      it { expect(last_response.status).to eq(304) }
-      it { expect(event.reload.closed_at).not_to eq(Time.now) }
     end
   end
 

@@ -10,13 +10,18 @@ class CourseBuilder < BaseBuilder
     end
 
     json.students_count(course.students.count)
-    json.students course.students do |student|
-      # TODO: move to builder
-      json.(student, :name)
+
+    if options[:show_students]
+      json.students course.students do |student|
+        # TODO: move to builder
+        json.(student, :name)
+      end
     end
 
     # TODO: move to builder
-    json.teacher(course.teacher, :name)
+    if options[:show_teacher]
+      json.teacher(course.teacher, :name)
+    end
 
     # TODO: Add tests
     if options[:show_events]
@@ -24,7 +29,7 @@ class CourseBuilder < BaseBuilder
         EventBuilder.new(event).build!(
           json,
           show_course: false,
-          personal_notes: options[:personal_notes],
+          show_personal_notes: options[:show_personal_notes],
           event_pusher_events: options[:event_pusher_events]
         )
       end

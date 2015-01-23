@@ -1,3 +1,3 @@
 json.event do
-  EventBuilder.new(@event).build!(json, show_course: true, event_pusher_events: event_pusher_events)
+  EventBuilder.new(@event).build!(json, show_course: true)
 end

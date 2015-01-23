@@ -16,7 +16,6 @@ describe Api::V1::UsersController do
       "email" => user.email,
       "authentication_token" => user.authentication_token,
       "completed_tutorial" => completed_tutorial,
-      "courses" => []
     }
   end
 
