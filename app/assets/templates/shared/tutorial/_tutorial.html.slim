@@ -1,0 +1,7 @@
+.tutorial.wrapper.reveal-modal modal=true data-reveal=true
+  ng-transclude.content
+  ul.steps
+    li.step ng-repeat="step in steps"
+      a.icon.icon-circle-small ng-click="setCurrentStep(step)" ng-class="{active: step == currentStep}" 
+  a.next ng-click="nextStep()" Ok
+  .arrow ng-class="'step-'+currentStep"
