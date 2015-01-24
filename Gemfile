@@ -61,7 +61,7 @@ gem 'rails-assets-mrodrigues--angular-input-masks', '1.3.1'
 
 group :production, :staging do
   gem 'rails_12factor',           '0.0.2'
-  gem 'fog',                      '1.21.0'
+  gem 'fog',                      '1.27.0'
 end
 
 gem 'database_cleaner',           '1.2.0',     require: false
