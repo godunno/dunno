@@ -38,12 +38,7 @@ Dunno::Application.routes.draw do
             get :students
           end
         end
-        resources :events, only: [:index, :create, :update, :destroy, :show] do
-          member do
-            patch :open
-            patch :close
-          end
-        end
+        resources :events, only: [:index, :create, :update, :destroy, :show]
         resources :polls, only: [] do
           member do
             patch :release
@@ -76,13 +71,7 @@ Dunno::Application.routes.draw do
           end
         end
       end
-      resources :events, only: [:index, :show] do
-        member do
-          get :attend
-          get :timeline
-          patch :validate_attendance
-        end
-      end
+      resources :events, only: [:index, :show]
       resources :courses, only: [:index, :show] do
         member do
           post :register
