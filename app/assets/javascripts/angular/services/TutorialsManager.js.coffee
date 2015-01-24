@@ -1,4 +1,5 @@
 DunnoApp = angular.module('DunnoApp')
+DunnoAppStudent = angular.module('DunnoAppStudent')
 
 TutorialsManager = ($http, SessionManager)->
 
@@ -25,3 +26,4 @@ TutorialsManager = ($http, SessionManager)->
 
 TutorialsManager.$inject = ['$http', 'SessionManager']
 DunnoApp.factory "TutorialsManager", TutorialsManager
+DunnoAppStudent.factory "TutorialsManager", TutorialsManager
