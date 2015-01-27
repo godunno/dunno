@@ -70,6 +70,7 @@ describe Api::V1::CoursesController do
         it { expect(last_response.status).to eq(200) }
         it { expect(subject["uuid"]).to eq(course.uuid) }
         it { expect(subject["access_code"]).to eq(course.access_code) }
+        it { expect(subject["teacher"]["name"]).to eq(teacher.name) }
       end
 
       context "searching with uuid" do
