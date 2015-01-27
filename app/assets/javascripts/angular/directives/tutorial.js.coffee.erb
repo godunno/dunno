@@ -34,7 +34,7 @@ DunnoApp.directive 'tutorial', ['$parse', ($parse)->
   controller: 'tutorialCtrl'
   link: (scope, element, attrs)->
     scope.onClose = -> $parse(attrs.onClose)(scope)
-    setTimeout (-> element.foundation('reveal', 'open', close_on_background_click: false, close_on_esc: false)), 0
+    setTimeout (-> element.foundation('reveal', 'open', close_on_background_click: false, close_on_esc: false, animation: 'fade')), 0
 ]
 
 DunnoApp.directive 'tutorialStep', ->
