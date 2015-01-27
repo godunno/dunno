@@ -15,3 +15,4 @@ DunnoApp.directive 'dropdownInput', ->
       if event.keyCode == 13 # pressed "return"
         scope.$eval(attrs.dropdownInput)
         scope._close(dropdown)
+        false
