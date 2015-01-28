@@ -35,7 +35,7 @@ describe Api::V1::RatingsController do
           end
 
           it { expect(last_response.status).to eq(400) }
-          it { expect(json["errors"]).to include "Student já está em uso" }
+          it { expect(json["errors"]).to include "Student taken" }
         end
       end
 
