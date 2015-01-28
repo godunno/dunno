@@ -17,6 +17,7 @@
           small.error ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak="" ng-messages="user_form.email.$error"
             span ng-message="required" Campo obrigatório
             span ng-message="email" Email inválido
+            span ng-message="taken" Email já registrado
         .password
           label for="password" Senha
           input.radius id="password" name="password" ng-model="user.password" type="password" required="" ng-minlength="8"

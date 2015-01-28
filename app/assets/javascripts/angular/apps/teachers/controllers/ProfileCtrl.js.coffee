@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-ProfileCtrl = ($scope, $http, SessionManager)->
+ProfileCtrl = ($scope, $http, SessionManager, ErrorParser)->
   $scope.user = SessionManager.currentUser()
 
   success = (response)->
@@ -10,9 +10,7 @@ ProfileCtrl = ($scope, $http, SessionManager)->
     SessionManager.setCurrentUser(response.data)
 
   failure = (response)->
-    for key, errors of response.data.errors
-      for error in errors
-        $scope.form[key].$setValidity(error, false)
+    ErrorParser.setErrors(response.data.errors, $scope.form, $scope)
     $scope.error = true
     $scope.success = false
 
@@ -22,6 +20,6 @@ ProfileCtrl = ($scope, $http, SessionManager)->
   $scope.update_password = (user)->
     $http.patch("/api/v1/users/password", user: user).then(success, failure)
 
-ProfileCtrl.$inject = ['$scope', '$http', 'SessionManager']
+ProfileCtrl.$inject = ['$scope', '$http', 'SessionManager', 'ErrorParser']
 DunnoApp.controller 'ProfileCtrl', ProfileCtrl
 DunnoAppStudent.controller 'ProfileCtrl', ProfileCtrl
