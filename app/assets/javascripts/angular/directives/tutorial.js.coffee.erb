@@ -26,7 +26,7 @@ tutorialCtrl = ($scope, $rootScope)->
 tutorialCtrl.$inject = ['$scope', '$rootScope']
 
 DunnoApp.controller 'tutorialCtrl', tutorialCtrl
-DunnoApp.directive 'tutorial', ['$parse', ($parse)->
+DunnoApp.directive 'tutorial', ['$parse', 'AssetsPreloader', ($parse, AssetsPreloader)->
   restrict: 'E'
   transclude: true
   replace: true
