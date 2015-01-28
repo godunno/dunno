@@ -16,9 +16,15 @@ header.page-header.title ng-class="'scheme-' + course.order"
 
     .large-4.columns
       div.code
+        a.icon.icon-expand data-reveal-id="access-code-fullscreen"
         span.title Código da Disciplina:
         h3 {{course.access_code}}
         span.description Envie este código para os alunos entrarem nesta disciplina
+        #access-code-fullscreen.reveal-modal.full data-reveal=true
+          span.description Código da Disciplina:
+          h3.title {{course.access_code}}
+          a.link-to-sign-in href="beta.dunnoapp.com/sign_in" beta.dunnoapp.com/sign_in
+          a.close-reveal-modal &#215;
 
       /div.students
         /.top
