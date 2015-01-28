@@ -65,14 +65,24 @@ $box-shadow: 0px 2px 2px #CCC;
     height: $page-title-height;
   }
   &.subtitle {
-    height: $page-subtitle-height;
+  	height: $page-subtitle-height;
     margin-top: -($page-header-margin - 1px);
     
   }
 }
 
 .top-bar .row {
-    max-width: 60rem; 
+  max-width: 60rem; 
+	.dropdown {
+		width: 200px !important;		
+		a {
+			line-height: 42px !important;
+				&:hover {
+					color:  $secondary-color !important;
+					background: #FFF !important;
+				}
+		}
+	}
 }
 
 .subtitle-head {
