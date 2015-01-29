@@ -1,0 +1,11 @@
+span.expand.schedule
+  span.weekday> {{asDate(event.start_at) | date:'EEE'}}
+  span.time - {{asDate(event.start_at) | date:'HH:mm'}}h
+.day-month ng-class="today(event.start_at) ? 'today' : ''"
+  span.expand.day {{asDate(event.start_at) | date:'dd'}}
+  span.expand.month {{asDate(event.start_at) | date:'MMMM'}}
+.bottom
+  span.class Aula {{event.order}}
+  i.icon ng-class="'icon-' + event.formatted_status"
+
+.exam ng-if="event.has_exam" PROVA

@@ -10,8 +10,8 @@
     }
   }
   ul.dates {
+    @extend .cf;
     list-style: none;
-    overflow: hidden;
     margin-left: 0;
     margin-right: 0;
     padding-bottom: 20px;
@@ -26,7 +26,6 @@
       width: 20%;
       margin-left: 4%;
       margin-top: 20px;
-      overflow: hidden;
       position: relative;
       
       .expand {

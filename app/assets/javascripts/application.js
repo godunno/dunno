@@ -34,6 +34,7 @@
 //= require angular-elastic-input
 //= require angular-validation-match
 //= require angular-input-masks
+//= require angular-foundation
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });
