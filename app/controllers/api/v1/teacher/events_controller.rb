@@ -3,8 +3,8 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
 
   api :GET, '/api/v1/teacher/events', "Get the teacher's events list."
   def index
-    # TODO: get only the teacher's events
-    @events = current_teacher.events.limit(9)
+    today = Time.zone.now
+    @events = current_teacher.events.where(start_at: (today.beginning_of_week..today.end_of_week))
     respond_with @events
   end
 

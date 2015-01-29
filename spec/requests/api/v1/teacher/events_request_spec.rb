@@ -20,24 +20,33 @@ describe Api::V1::Teacher::EventsController do
       let(:events_json) { json }
 
       def do_action
-        event.save!
         get "/api/v1/teacher/events.json", auth_params(teacher)
       end
 
-      describe "limit" do
+      describe "events within the week" do
         before do
-          10.times { create(:event, course: course) }
+          Timecop.freeze(1.year.from_now)
+          create(:event, start_at: 2.weeks.ago, course: course)
+          create(:event, start_at: 2.weeks.from_now, course: course)
+          today = Date.today
+          @this_week_events = (today.beginning_of_week..today.end_of_week).map do |date|
+            date = date.to_time.change(hour: 13)
+            create(:event, start_at: date, course: course)
+          end
           do_action
         end
 
-        subject { events_json }
+        after { Timecop.return }
 
-        it { expect(events_json.count).to eq(9) }
+        subject { events_json.map { |e| e["uuid"] } }
+
+        it { expect(subject).to match_array(@this_week_events.map(&:uuid)) }
       end
 
       describe "collection" do
 
         before do
+          event.save!
           do_action
         end
 
