@@ -73,13 +73,13 @@ $box-shadow: 0px 2px 2px #CCC;
 
 .top-bar .row {
   max-width: 60rem; 
-	.dropdown {
-		width: 200px !important;		
-		a {
-			line-height: 42px !important;
+	.top-bar-section #profile {
+		width: 200px;
+		li a {
+			line-height: 42px;
 				&:hover {
-					color:  $secondary-color !important;
-					background: #FFF !important;
+					color:  $secondary-color;
+					background: #FFF;
 				}
 		}
 	}
