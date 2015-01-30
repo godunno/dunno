@@ -27,7 +27,6 @@ DunnoApp.config Router
 
 DunnoApp.config(["railsSerializerProvider", "tagsInputConfigProvider", (railsSerializerProvider, tagsInputConfigProvider)->
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
-  tagsInputConfigProvider.setTextAutosizeThreshold(30)
 ])
 
 DunnoApp.constant('AUTOSAVE_INTERVAL', 5000)
