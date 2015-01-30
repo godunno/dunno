@@ -7,6 +7,7 @@ class Course < ActiveRecord::Base
   belongs_to :organization
   has_many :events
   has_many :weekly_schedules
+  has_many :notifications
   has_and_belongs_to_many :students
 
   validates :teacher, :name, :start_date, :end_date, :class_name, presence: true

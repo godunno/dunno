@@ -9,6 +9,7 @@ describe Course do
     it { is_expected.to belong_to(:organization) }
     it { is_expected.to have_many(:events) }
     it { is_expected.to have_many(:weekly_schedules) }
+    it { is_expected.to have_many(:notifications) }
     it { is_expected.to have_and_belong_to_many(:students) }
   end
 

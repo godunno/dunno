@@ -16,6 +16,9 @@ GEM
       activesupport (= 4.1.6)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_model-errors_details (1.1.0)
+      activemodel (>= 4.0, < 5.0.0.alpha)
+      activesupport
     activemodel (4.1.6)
       activesupport (= 4.1.6)
       builder (~> 3.1)
@@ -508,6 +511,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model-errors_details (= 1.1.0)
   acts-as-taggable-on (= 3.4.2)
   acts_as_votable (= 0.10.0)
   apipie-rails (= 0.1.3)
