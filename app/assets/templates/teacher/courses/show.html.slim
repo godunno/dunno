@@ -49,9 +49,14 @@ header.page-header.title ng-class="'scheme-' + course.order"
 .reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" id="send-notification" data-reveal=""
   form name="notification_form" ng-submit="save(notification)"
     label for="message" Enviar mensagem
-    textarea id="message" ng-model="notification.message" rows="5" maxlength="{{limit}}" placeholder="Ex: A aula foi transferida para o laboratório."
+    textarea id="message" name="message" ng-model="notification.message" rows="5" ng-minlength="1" maxlength="{{limit}}" placeholder="Ex: A aula foi transferida para o laboratório." required=true
     .actions
       span.counter Caracteres restantes: {{limit - notification.message.length}}
-      input.button.btn-style-1.right type="submit" ng-disabled="sending" value="Enviar"
-    span.error ng-show="error" Ocorreu um erro ao enviar a notificação.
-  a class="close-reveal-modal" &#215;
+      input.button.btn-style-1.right type="submit" ng-disabled="notification_form.$invalid || sending" value="Enviar"
+    span.error ng-if="errors.sms" ng-messages="errors.sms"
+      span ng-message="send" Ocorreu um erro ao enviar SMS.
+    span.error ng-if="errors.email" ng-messages="errors.email"
+      span ng-message="send" Ocorreu um erro ao enviar email.
+    span.error ng-if="errors.message" ng-messages="errors.message"
+      span ng-message="repeated" Esta mensagem é igual à última enviada.
+  a class="close-reveal-modal" ng-click="reset()" &#215;

@@ -5,6 +5,7 @@ NotificationCtrl = ($scope, $timeout, Notification)->
 
   ($scope.reset = ->
     $scope.notification = new Notification()
+    $scope.errors = {}
   )()
 
   $scope.save = (notification)->
@@ -13,10 +14,9 @@ NotificationCtrl = ($scope, $timeout, Notification)->
     notification.course_id = $scope.$parent.course.uuid
     notification.save().then(->
       $scope.reset()
-      # TODO: broadcast event instead of calling a function directly
       $scope.$broadcast('modal.dismiss')
-    ).catch(->
-      $scope.error = true
+    ).catch((response)->
+      $scope.errors = response.data.errors
     ).finally(-> $scope.sending = false)
 
 

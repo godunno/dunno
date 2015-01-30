@@ -33,6 +33,12 @@ describe Notification do
         notification.message = 'a' * 161
         expect(notification).not_to be_valid
       end
+
+      it "should not allow a message equals to the previous" do
+        notification.save!
+        new_notification = build(:notification, message: notification.message, course: notification.course)
+        expect(new_notification).not_to be_valid
+      end
     end
   end
 end
