@@ -12,6 +12,7 @@ class BaseBuilder
 
   def build!(json, options = {})
     return unless object.present?
+    options = {} if options == true
     build(json, options)
   end
 
