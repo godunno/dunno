@@ -2,7 +2,7 @@
   margin-top: -20px;
   
   .done-button {
-    margin-left: -3px;
+    margin-left: -7px;
     height: 40px;
     width: 130px;
     text-align: center;
@@ -29,7 +29,7 @@
 
       .title {
         @include grid-row();
-        color: $dark-grey-color;
+        color: $primary-color;
 
         text-transform: uppercase;
         font-weight: 600;
@@ -37,14 +37,16 @@
         .icon {
           float: right;
           margin-top: 3px;
+		  		margin-left: 6px;
         }
       }
 
       .subtitle {
         @include grid-row();
-        color: $light-grey-color;
+        color: $dark-grey-color;
         font-size: 0.8rem;
         line-height: 1.3em;
+				opacity: .7;
       }
 
       &.published {
@@ -52,7 +54,7 @@
           color: $primary-color;
         }
         .subtitle {
-          color: $secondary-color;
+          color: $dark-grey-color;
         }
       }
     }

@@ -137,12 +137,24 @@
     }
 
     .title {
-      background: none;
-      border: none;
-      box-shadow: none;
-      margin-bottom: 0;
-      &:hover, &:focus {
-        @include dotted-input($light-grey-color);
+      .icon {
+        display: none;
+        float: left;
+        color: $light-grey-color;
+        margin-top: 0.6rem;
+      }
+      .input {
+        float: left;
+        background: none;
+        border: none;
+        box-shadow: none;
+        margin-bottom: 0;
+        &:hover, &:focus {
+          @include dotted-input($light-grey-color);
+          & + .icon {
+            display: block;
+          }
+        }
       }
     }
 
@@ -155,6 +167,12 @@
 
     .type.icon {
       float: right;
+    }
+
+    .tags-label {
+      float: left;
+      margin-top: 0.5rem;
+      color: $light-grey-color;
     }
 
     .tags {
@@ -186,18 +204,12 @@
       }
       .input {
         font-weight: 300;
-        border: 1px dotted $light-grey-color;
+        border: 1px dashed $light-grey-color;
         height: 21px;
         margin: 0 0 0 10px;
         font-size: 11px;
         border-radius: 2px;
         box-shadow: none;
-        // TODO: make it work on Firefox
-        &::placeholder:before {
-          content: "a  ";
-          font-family: "dunno-icon-font";
-          color: $dark-grey-color;
-        }
         &:focus {
           @include dotted-input($secondary-color);
           background: #FFF;
