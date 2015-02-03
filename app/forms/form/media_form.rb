@@ -1,5 +1,7 @@
 module Form
   class MediaForm < Form::Base
+    MAX_CHARS = 255
+
     model_class ::Media
 
     attr_accessor :teacher
@@ -22,7 +24,7 @@ module Form
         self.url = "http://#{url}" unless URI.parse(url).scheme.present? rescue url
         self.preview = LinkThumbnailer.generate(url).as_json
         self.title = preview[:title]
-        self.description = preview[:description]
+        self.description = preview[:description].truncate(MAX_CHARS)
         self.thumbnail = preview[:images][0].try(:src).try(:to_s)
       elsif file.present?
         self.title = file.original_filename
