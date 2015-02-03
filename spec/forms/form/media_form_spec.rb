@@ -46,4 +46,15 @@ describe Form::MediaForm do
       expect(media_form.errors[:file].size).to eq 1
     end
   end
+
+  it "should truncate too long descriptions" do
+    long_description = "a" * 256
+    allow(LinkThumbnailer).to(
+      receive_message_chain(:generate, :as_json)
+      .and_return(title: "Title", description: long_description, images: [])
+    )
+    media_form = Form::MediaForm.new(attributes_for(:media_with_url))
+    expect { media_form.save! }.not_to raise_error
+    expect(media_form.description).to eq("#{long_description[0..251]}...")
+  end
 end
