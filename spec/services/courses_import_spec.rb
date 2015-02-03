@@ -58,6 +58,16 @@ describe CoursesImport do
     expect(weekly_schedule.end_time).to eq('09:00')
   end
 
+  it "should accept class name and classroom in float format" do
+    allow(SpreadsheetParser).to receive(:parse).with(url, header_rows: 2).and_return([
+      [name, 302.0, start_date, end_date, '7:00', '9:00', '', 'x', '', '', '', '', '', 202.0]
+    ])
+    CoursesImport.new(teacher, url).import!
+    course = Course.first
+    expect(course.class_name).to eq("302")
+    expect(course.weekly_schedules.first.classroom).to eq("202")
+  end
+
   describe "constructor method" do
     it "should call import! on an instance" do
       import = spy('TeachersImport')
