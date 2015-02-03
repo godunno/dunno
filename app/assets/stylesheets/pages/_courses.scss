@@ -10,10 +10,12 @@
   display: inline-block;
   margin: 10px;
   float: left;
-  // TODO: usar radius do Compass
   border-radius: 5px;
   overflow: hidden;
   box-shadow: $box-shadow;
+  .period {
+    text-transform: capitalize;
+  }
 }
 
 .overlay.published {
