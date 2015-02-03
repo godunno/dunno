@@ -27,6 +27,7 @@
 //= require angular-route
 //= require angular-resource
 //= require angularjs-rails-resource
+//= require angular-i18n/angular-locale_pt-br
 //= require angular-messages
 //= require angular-ui-sortable
 //= require ng-file-upload
