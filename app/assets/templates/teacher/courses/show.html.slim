@@ -23,7 +23,7 @@ header.page-header.title ng-class="'scheme-' + course.order"
         #access-code-fullscreen.reveal-modal.full data-reveal=true
           span.description Código da Disciplina:
           h3.title {{course.access_code}}
-          a.link-to-sign-in href="beta.dunnoapp.com/sign_in" beta.dunnoapp.com/sign_in
+          = link_to root_url, root_url, class: 'link-to-sign-in'
           a.close-reveal-modal &#215;
 
       div.students

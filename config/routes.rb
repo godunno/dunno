@@ -1,5 +1,6 @@
 Dunno::Application.routes.draw do
 
+  root controller: 'static', action: '/'
   devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/users' }
   mount_roboto
   apipie
