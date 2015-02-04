@@ -13,6 +13,7 @@ html lang="pt" ng-app="DunnoApp"
     = csrf_meta_tags
 
   body ng-controller="ApplicationCtrl"
+    = render 'application/prebootstrap_loading'
     = render layout: 'application/menu' do
       ul class="left"
         li
