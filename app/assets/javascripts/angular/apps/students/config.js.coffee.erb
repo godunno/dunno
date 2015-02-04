@@ -20,3 +20,8 @@ DunnoApp.config Router
 DunnoApp.config(["railsSerializerProvider", (railsSerializerProvider)->
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
 ])
+
+DunnoApp.value('cgBusyDefaults',
+  message: 'Carregando...',
+  minDuration: 500,
+)

@@ -17,9 +17,7 @@ ApplicationCtrl = ($scope, $http, $window, SessionManager, TutorialsManager)->
   $scope.tutorialClosed = TutorialsManager.tutorialClosed
 
   $scope.$on 'wholePageLoading', (ev, promise)->
-    $scope.wholePageLoading =
-      promise: promise
-      message: "Carregando..."
+    $scope.wholePageLoading = promise
 
 ApplicationCtrl.$inject = ['$scope', '$http', '$window', 'SessionManager', 'TutorialsManager']
 DunnoApp.controller 'ApplicationCtrl', ApplicationCtrl
