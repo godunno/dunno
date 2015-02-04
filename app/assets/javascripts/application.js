@@ -28,6 +28,7 @@
 //= require angular-resource
 //= require angularjs-rails-resource
 //= require angular-i18n/angular-locale_pt-br
+//= require angular-animate
 //= require angular-messages
 //= require angular-ui-sortable
 //= require ng-file-upload
@@ -36,6 +37,7 @@
 //= require angular-validation-match
 //= require angular-input-masks
 //= require angular-foundation
+//= require angular-busy
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });
