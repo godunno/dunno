@@ -33,12 +33,9 @@ header.page-header.title ng-class="'scheme-' + course.order"
             i.icon.icon-buzz
             span Enviar notificação
 
-        /ul
-          /li ng-repeat="student in course.students"
-            /img src="http://lorempixel.com/40/40"
-            /div
-              /h3 {{student.name}}
-              /span 12 anos
+        ul.list
+          li ng-repeat="student in course.students"
+            h3 {{student.name}}
 
   tutorial.tutorial-2 ng-if="tutorialEnabled(2)" on-close="tutorialClosed(2)"
     tutorial-step
