@@ -9,10 +9,12 @@ DunnoApp.directive 'dropdownInput', ->
   controller: 'dropdownInputCtrl'
   link: (scope, element, attrs)->
     dropdown = element.parents("[data-dropdown-content]")
-    dropdown.on "opened", -> element.select()
+    dropdown.on "opened", ->
+      scope.$eval(attrs.onOpen)
+      element.select()
 
     element.on "keypress", (event)->
       if event.keyCode == 13 # pressed "return"
-        scope.$eval(attrs.dropdownInput)
+        scope.$eval(attrs.onClose)
         scope._close(dropdown)
         false
