@@ -6,11 +6,12 @@ CourseCtrl = ($scope, $location, $routeParams, Course, DateUtils)->
   $scope.hideEvent = (event)-> event.formatted_status == 'empty'
   $scope.course = new Course()
   if $routeParams.id
-    Course.get(access_code: $routeParams.id).then (course)->
+    $scope.$emit('wholePageLoading', Course.get(access_code: $routeParams.id).then (course)->
       $scope.course = course
+    )
   $scope.search = (access_code)->
     $scope.error = false
-    Course.get(access_code: access_code).then((course)->
+    $scope.$emit('wholePageLoading', Course.get(access_code: access_code).then (course)->
       $location.path "/courses/#{access_code}/confirm_registration"
     , -> $scope.error = true
     )
