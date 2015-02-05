@@ -9,6 +9,18 @@ describe PersonalNote do
     it { is_expected.to have_one(:media) }
   end
 
+  describe "validations" do
+    it "should have at least description or media" do
+      personal_note = PersonalNote.new
+      expect(personal_note).not_to be_valid
+      personal_note.description = "Some description"
+      expect(personal_note).to be_valid
+      personal_note.description = nil
+      personal_note.media = create(:media)
+      expect(personal_note).to be_valid
+    end
+  end
+
   describe "callbacks" do
 
     describe "after create" do

@@ -9,6 +9,18 @@ describe Topic do
     it { is_expected.to have_one(:media) }
   end
 
+  describe "validations" do
+    it "should have at least description or media" do
+      topic = Topic.new
+      expect(topic).not_to be_valid
+      topic.description = "Some description"
+      expect(topic).to be_valid
+      topic.description = nil
+      topic.media = create(:media)
+      expect(topic).to be_valid
+    end
+  end
+
   describe "callbacks" do
 
     describe "after create" do
