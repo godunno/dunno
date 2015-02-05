@@ -100,7 +100,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ng-model="editingItem.description"
               ui-keydown="{'enter':'updateItem(editingItem, topic)'}"]
 
-      .foot
+      .foot cg-busy="submittingMediaPromise"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar tarefa"
             ui-keydown="{'enter':'addItem($event)'}" name="topic"]

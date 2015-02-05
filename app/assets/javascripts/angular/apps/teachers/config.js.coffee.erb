@@ -6,7 +6,7 @@
 #= depend_on_asset "teacher/medias/index.html"
 #= depend_on_asset "styleguide.html"
 
-DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation']
+DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate']
 
 Router = ($routeProvider)->
   $routeProvider.
@@ -30,3 +30,8 @@ DunnoApp.config(["railsSerializerProvider", "tagsInputConfigProvider", (railsSer
 ])
 
 DunnoApp.constant('AUTOSAVE_INTERVAL', 5000)
+
+DunnoApp.value('cgBusyDefaults',
+  message: 'Carregando...',
+  minDuration: 500,
+)
