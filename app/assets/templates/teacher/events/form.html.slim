@@ -114,8 +114,10 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ng-class="{active: newListItem.media.type=='file'}"
           ]
           #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
-            input[type="text" name="topic_media_url" ng-model="newListItem.media_url"
-              dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
+            input[
+              type="text" name="topic_media_url" ng-model="newListItem.media_url" dropdown-input=true
+              placeholder="http://" on-open="startUrlMediaEditing()" on-close="submitUrlMedia(newListItem)"
+            ]
           a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
           input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
@@ -167,8 +169,10 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ng-class="{active: newListItem.media.type=='file'}"
           ]
           #personal-note-url.media-url-input data-dropdown-content="" aria-hidden="true"
-            input[type="text" name="personal_note_media_url" ng-model="newListItem.media_url"
-              dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
+            input[
+              type="text" name="personal_note_media_url" ng-model="newListItem.media_url" dropdown-input=true
+              placeholder="http://" on-open="startUrlMediaEditing()" on-close="submitUrlMedia(newListItem)"
+            ]
           a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
           input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
