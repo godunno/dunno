@@ -153,7 +153,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ng-if="isEditing(personal_note)"
               ng-model="editingItem.description"
               ui-keydown="{'enter':'updateItem(editingItem, personal_note)'}"]
-      .foot
+      .foot cg-busy="submittingMediaPromise"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" name="personal_note"
           placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
