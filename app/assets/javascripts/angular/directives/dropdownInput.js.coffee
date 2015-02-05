@@ -9,7 +9,7 @@ DunnoApp.directive 'dropdownInput', ->
   controller: 'dropdownInputCtrl'
   link: (scope, element, attrs)->
     dropdown = element.parents("[data-dropdown-content]")
-    dropdown.on "opened", -> element.focus()
+    dropdown.on "opened", -> element.select()
 
     element.on "keypress", (event)->
       if event.keyCode == 13 # pressed "return"
