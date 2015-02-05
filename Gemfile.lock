@@ -276,6 +276,7 @@ GEM
     party_foul (1.5.4)
       octokit (~> 3.1)
     pg (0.17.0)
+    phonie (3.1.8)
     powerpack (0.0.9)
     pronto (0.3.3)
       octokit (~> 3.2)
@@ -549,6 +550,7 @@ DEPENDENCIES
   oj (= 2.10.3)
   party_foul (= 1.5.4)
   pg (= 0.17.0)
+  phonie (= 3.1.8)
   pronto
   pronto-flay
   pronto-rubocop
