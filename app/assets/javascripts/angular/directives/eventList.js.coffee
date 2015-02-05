@@ -24,6 +24,7 @@ listCtrl = ($scope, Media, Utils, $upload)->
   $scope.addItem = ($event)->
     $event.preventDefault() if $event?
     run = ->
+      return alert("Não é possível adicionar item sem texto ou anexo.") unless $scope.newListItem.description || $scope.newListItem.media_id
       $scope.newItem(list(), $scope.newListItem)
       generateOrderableItem()
       $scope.save($scope.event)
