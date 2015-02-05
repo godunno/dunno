@@ -43,6 +43,7 @@ gem 'autoprefixer-rails',         '4.0.2.2'
 gem 'devise-async',               '0.9.0'
 gem 'intercom-rails',             '0.2.27'
 gem 'active_model-errors_details','1.1.0'
+gem 'phonie',                     '3.1.8'
 
 gem 'rails-assets-angular',       '1.3.2'
 gem 'rails-assets-angular-route', '1.3.2'
