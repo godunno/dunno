@@ -28,7 +28,7 @@ header.page-header.title ng-class="'scheme-' + course.order"
 
       div.students
         .top
-          strong count="course.students_count" when="{'one': '1 aluno', 'other': '{} alunos'}" ng-pluralize=true
+          strong count="course.students_count" when="{'0': '0 alunos', 'one': '1 aluno', 'other': '{} alunos'}" ng-pluralize=true
           a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
             i.icon.icon-buzz
             span Enviar notificação
