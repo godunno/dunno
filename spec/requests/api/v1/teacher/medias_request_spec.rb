@@ -194,7 +194,7 @@ describe Api::V1::Teacher::MediasController do
       end
 
       context "creating media with file" do
-        let(:file) { uploaded_file("image.jpg", "image/jpeg") }
+        let(:file) { uploaded_file("file.doc", "application/msword") }
         let(:params_hash) do
           {
             "file" => file
