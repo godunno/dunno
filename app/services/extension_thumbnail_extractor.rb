@@ -7,7 +7,7 @@ class ExtensionThumbnailExtractor
   end
 
   def extract
-    extension = File.extname(name).sub('.', '')
+    extension = File.extname(URI.parse(name).path).sub('.', '')
     fail "Unsupported extension: #{extension}" unless SUPPORTED_EXTENSIONS.include?(extension)
     path = ActionController::Base.helpers.asset_path("extensions/#{extension}.png")
     Thumbnail.new(extension, path)
