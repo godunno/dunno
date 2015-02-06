@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'webmock/rspec'
 
 describe Form::MediaForm do
 
@@ -56,5 +57,24 @@ describe Form::MediaForm do
     media_form = Form::MediaForm.new(attributes_for(:media_with_url))
     expect { media_form.save! }.not_to raise_error
     expect(media_form.description).to eq("#{long_description[0..251]}...")
+  end
+
+  describe "thumbnail extraction" do
+    it "should extract the thumbnail from the file extension" do
+      media[:file] = uploaded_file("file.doc", "application/msword")
+      path = "/assets/extensions/doc.png"
+      expect_any_instance_of(ExtensionThumbnailExtractor::Thumbnail).to receive(:path).and_return(path)
+      media_form = Form::MediaForm.new(media)
+      expect(media_form.thumbnail).to eq(path)
+    end
+
+    it "should extract the thumbnail from the URL extension" do
+      media[:url] = url = "http://www.example.com/file.doc"
+      stub_request(:get, url).to_return(body: File.open("spec/fixtures/file.doc"))
+      path = "/assets/extensions/doc.png"
+      expect_any_instance_of(ExtensionThumbnailExtractor::Thumbnail).to receive(:path).and_return(path)
+      media_form = Form::MediaForm.new(media)
+      expect(media_form.thumbnail).to eq(path)
+    end
   end
 end

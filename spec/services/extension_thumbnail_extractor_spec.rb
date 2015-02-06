@@ -41,4 +41,12 @@ describe ExtensionThumbnailExtractor do
       extraction_should_fail("without_extension")
     end
   end
+
+  it "should have a constructor method" do
+    extractor = spy('ExtensionThumbnailExtractor')
+    name = 'file.doc'
+    allow(ExtensionThumbnailExtractor).to receive(:new).with(name).and_return(extractor)
+    ExtensionThumbnailExtractor.extract(name)
+    expect(extractor).to have_received(:extract)
+  end
 end

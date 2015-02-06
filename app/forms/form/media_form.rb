@@ -24,10 +24,11 @@ module Form
         self.url = "http://#{url}" unless URI.parse(url).scheme.present? rescue url
         self.preview = LinkThumbnailer.generate(url).as_json
         self.title = preview[:title]
-        self.description = preview[:description].truncate(MAX_CHARS)
-        self.thumbnail = preview[:images][0].try(:src).try(:to_s)
+        self.description = preview[:description].try(:truncate, MAX_CHARS)
+        self.thumbnail = preview[:images][0].try(:src).try(:to_s) || ExtensionThumbnailExtractor.extract(url).path rescue nil
       elsif file.present?
         self.title = file.original_filename
+        self.thumbnail = ExtensionThumbnailExtractor.extract(file.original_filename).path
       end
     end
 

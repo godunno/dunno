@@ -13,6 +13,10 @@ class ExtensionThumbnailExtractor
     Thumbnail.new(extension, path)
   end
 
+  def self.extract(name)
+    new(name).extract
+  end
+
   class Thumbnail
     attr_accessor :extension, :path
 
