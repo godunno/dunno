@@ -28,17 +28,17 @@ describe ExtensionThumbnailExtractor do
     it_behaves_like "extracting thumbnail doc file"
   end
 
-  context "failing when trying to extract" do
-    def extraction_should_fail(name)
-      expect { ExtensionThumbnailExtractor.new(name).extract }.to raise_error
+  context "defaulting when trying to extract" do
+    def extraction_should_default(name)
+      expect(ExtensionThumbnailExtractor.new(name).extract.path).to eq("/assets/extensions/default.png")
     end
 
     it "unsupported extension" do
-      extraction_should_fail("unsupported.xyz")
+      extraction_should_default("unsupported.xyz")
     end
 
     it "from name without extension" do
-      extraction_should_fail("without_extension")
+      extraction_should_default("without_extension")
     end
   end
 
