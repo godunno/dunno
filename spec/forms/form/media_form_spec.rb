@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'webmock/rspec'
 
 describe Form::MediaForm do
 
@@ -8,7 +9,7 @@ describe Form::MediaForm do
   describe "validations" do
 
     it "should validate URL's format" do
-      allow(LinkThumbnailer).to receive(:generate).and_return(double("LinkThumbnailer", as_json: spy("preview")))
+      allow(LinkThumbnailer).to receive(:generate).and_return(double("LinkThumbnailer", as_json: spy("preview"), title: "Title", description: "", images: []))
       ["http://www.example.com", "http://example.com", "http://www.example.com/path/", "https://www.example.com", "www.example.com"].each do |url|
         media[:url] = url
         expect(Form::MediaForm.new(media)).to be_valid
@@ -50,11 +51,44 @@ describe Form::MediaForm do
   it "should truncate too long descriptions" do
     long_description = "a" * 256
     allow(LinkThumbnailer).to(
-      receive_message_chain(:generate, :as_json)
-      .and_return(title: "Title", description: long_description, images: [])
+      receive(:generate).and_return(
+        double("preview", title: "Title", description: long_description, images: [])
+      )
     )
     media_form = Form::MediaForm.new(attributes_for(:media_with_url))
     expect { media_form.save! }.not_to raise_error
     expect(media_form.description).to eq("#{long_description[0..251]}...")
+  end
+
+  it "should be able to link to image", :vcr do
+    media[:url] = url = "http://placehold.it/350x150"
+    media_form = nil
+    expect { media_form = Form::MediaForm.new(media) }.not_to raise_error
+    expect(media_form.thumbnail).to eq(url)
+  end
+
+  it "should use the LinkThumbnailerWrapper for url medias" do
+    media[:url] = url = "http://www.google.com"
+    expect(LinkThumbnailerWrapper).to receive(:generate).with(url).and_return(double("preview", title: "Title", description: "", images: []))
+    Form::MediaForm.new(media)
+  end
+
+  describe "thumbnail extraction" do
+    it "should extract the thumbnail from the file extension" do
+      media[:file] = uploaded_file("file.doc", "application/msword")
+      path = "/assets/extensions/doc.png"
+      expect_any_instance_of(ExtensionThumbnailExtractor::Thumbnail).to receive(:path).and_return(path)
+      media_form = Form::MediaForm.new(media)
+      expect(media_form.thumbnail).to eq(path)
+    end
+
+    it "should extract the thumbnail from the URL extension" do
+      media[:url] = url = "http://www.example.com/file.doc"
+      stub_request(:get, url).to_return(body: File.open("spec/fixtures/file.doc"))
+      path = "/assets/extensions/doc.png"
+      expect_any_instance_of(ExtensionThumbnailExtractor::Thumbnail).to receive(:path).and_return(path)
+      media_form = Form::MediaForm.new(media)
+      expect(media_form.thumbnail).to eq(path)
+    end
   end
 end

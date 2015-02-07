@@ -1,0 +1,83 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://placehold.it/350x150
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - none
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      - link_thumbnailer
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 30
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 06 Feb 2015 22:45:57 GMT
+      Content-Type:
+      - image/gif
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=da5abea94cdd93449a776e1857b231c4d1423262757; expires=Sat, 06-Feb-16
+        22:45:57 GMT; path=/; domain=.placehold.it; HttpOnly
+      Expires:
+      - Sun, 08 Mar 2015 22:45:57 GMT
+      Cache-Control:
+      - public, max-age=2592000
+      Last-Modified:
+      - Fri, 19 Nov 2010 07:00:00 GMT
+      Cf-Cache-Status:
+      - MISS
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1b4ae18b943906a9-EWR
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        R0lGODdhXgGWAOMAAMzMzJaWlre3t6Ojo5ycnKqqqr6+vsXFxbGxsQAAAAAA
+        AAAAAAAAAAAAAAAAAAAAACwAAAAAXgGWAAAE/hDISau9OOvNu/9gKI5kaZ5o
+        qq5s675wLM90bd94ru987//AoHBILBqPyKRyyWw6n9CodEqtWq/YrHbL7Xq/
+        4LB4TC6bz+i0es1uu9/wuHxOr9vv+Lx+z+/7/4CBgoOEhYaHiImKi4yNjo+Q
+        kZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7CxsrO0tba3uLm6u7y9
+        vr/AwcLDxMXGx8jJysvMzc7P0NHS09TV1tfY2drb3N3e3+BSAgMEAQQFBhkB
+        6+zt7BoHBeUBAwJCBe8X7vvr8PLr9cIBODDPHQIM/PZlEMBvwA8DBQMgTNhu
+        YUNwBCketECx4gUD/hQL9ECgUF/Hfh9DfotIYIC7dBXaDShAsyZNDBHJtbOX
+        AyK/iQBt2sQpMyLPbQzZ8cwIkKPSDyTZwXS5jkCOqD9NrjvKAWuAqeyscqMa
+        YKMErwdiPvVQUKQEkFJvJGVHVqLWAFw3tJ0Adx1MbfHMVTjQ7q+EnR4Ix52w
+        98Y8BAfm2nW6NXFhCo25HTB8eO0ExB3mip2A1eENAwXSApAMFK8H0RVKC5yg
+        2K/ayh3wNaXAWm87s15Hf+hN2XVuuhWIC0R7u+y/c5wnkHXLt51qde1GR5w8
+        3GNxBM/RYZheoW+A6xgzf+5oFjO79gMva9iXtnY+EMopnIQvoSB8+9Fp/lNT
+        duh11lFeAPg3GGgZgPcbAF4VwB8H+a13oAUKUmAfgtrsQ0CBBtJV13nNIcig
+        BlhZlaEIFYYI0IgFnhgih9nsMwCIAJB141sP6ueZhcZxUBBsJLSYI12qmQef
+        jAAw2aGHOK4Gn26C+YiblUFuINmPIRgpgQBThlVicTRu49NuHZiHHpNOEpWd
+        CV5ioCaWJnL5jXkBXgCge+v81+YFW5YZmneWLdbfewva+Q15Hpy4ogR7fuDO
+        CXG2xtWj8Rm6nJiN/shodexECag7glJIaKdXHrkOdTyGOtuXp873I5WmTVBp
+        BdsJx2KsHJxIa3K8WnMAArpCyCltBdRKm3yw/lYV27FdhYVokcHGoyykzK4G
+        rbHOIsXlr6RxOeeymqrnm1/b4scrVnmNi2257LCKDZGMTdtsleF2y2cA1OHp
+        gWxkTTjofbxtmyKG8YJq2zb21cocljsCoKQFXoGl7wYbauvqrgRDnGSPFFQs
+        AVnFYkOlOTol/KxMMF6Qk1G5kVxvUAJbUFNdNa0sojs4vvynNSMSeEHQbZrn
+        zrXY2esVSr12ZAHRikpMEdKAER3x0AkJuiWaTW+cabDFZVUB1FpfJBBq5bRU
+        qsTPEQAZB/HME9AHBV1bV8l3iV1e229j/A89a78q+OCEF2744YgnrvjijDfu
+        +OOQRy755JRXbvnlTphnrvnmnHfu+eeghy766KSXbvrpqKeu+uqst+7667DH
+        LvvstNdu++2456777rz37vvvwAcv/PDEF2/88cgnr/zyzDfv/PPQRy/99HNE
+        AAA7
+    http_version: 
+  recorded_at: Fri, 06 Feb 2015 22:45:57 GMT
+recorded_with: VCR 2.9.3
