@@ -10,7 +10,7 @@ EventCtrl = (
   Utils,
   DateUtils,
   NavigationGuard,
-  AUTOSAVE_INTERVAL)->
+  AUTOSAVE_INTERVAL) ->
 
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
@@ -24,9 +24,9 @@ EventCtrl = (
 
   # TODO: extract this get -> then -> assign to a service
   if $routeParams.id
-    $scope.$emit('wholePageLoading', Event.get(uuid: $routeParams.id).then (event)->
+    $scope.$emit 'wholePageLoading',
+    Event.get(uuid: $routeParams.id).then (event) ->
       initializeEvent(event)
-    )
 
   $scope.saveButtonMessage = ->
     if $scope.isSaving
@@ -89,5 +89,4 @@ EventCtrl = (
     NavigationGuard.unregisterGuardian(checkDirty)
     $interval.cancel(autosave)
 
-EventCtrl.$inject = ['$scope', '$routeParams', '$interval', '$window', '$q', 'Event', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
 DunnoApp.controller 'EventCtrl', EventCtrl

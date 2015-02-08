@@ -4,7 +4,7 @@
 
 DunnoApp = angular.module 'DunnoAppStudent', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate']
 
-Router = ($routeProvider)->
+Router = ($routeProvider) ->
   $routeProvider.
     when('/courses',                          controller: 'CoursesIndexCtrl', templateUrl: '<%= asset_path('students/courses/index.html') %>').
     when('/courses/search',                   controller: 'CourseCtrl',       templateUrl: '<%= asset_path('students/courses/search.html') %>').
@@ -14,12 +14,12 @@ Router = ($routeProvider)->
     when('/profile/edit',                     controller: 'ProfileCtrl',      templateUrl: '<%= asset_path('shared/profile/form.html') %>').
     when('/profile/password/edit',            controller: 'ProfileCtrl',      templateUrl: '<%= asset_path('shared/password/form.html') %>').
     otherwise(redirectTo: '/courses')
-Router.$inject = ['$routeProvider']
+
 DunnoApp.config Router
 
-DunnoApp.config(["railsSerializerProvider", (railsSerializerProvider)->
+DunnoApp.config((railsSerializerProvider)->
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
-])
+)
 
 DunnoApp.value('cgBusyDefaults',
   message: 'Carregando...',
