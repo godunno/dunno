@@ -1,7 +1,6 @@
 class Api::V1::Teacher::NotificationsController < Api::V1::TeacherApplicationController
   respond_to :json
 
-  api :POST, '/api/v1/teacher/notifications', "Notify a teacher's course."
   def create
     notification = params[:notification]
     course = current_teacher.courses.where(uuid: notification[:course_id]).first
