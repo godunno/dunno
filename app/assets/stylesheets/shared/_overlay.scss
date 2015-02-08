@@ -2,6 +2,9 @@ $overlay-z-index: 999;
 
 .has-overlay {
   position: relative;
+  .overlay {
+    display: none;
+  }
   .no-touch &:hover {
     .overlay {
       display: block;
