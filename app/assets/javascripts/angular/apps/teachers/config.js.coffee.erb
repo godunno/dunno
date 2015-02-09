@@ -8,7 +8,7 @@
 
 DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate']
 
-Router = ($routeProvider) ->
+Router = ($routeProvider)->
   $routeProvider.
     when('/courses',               controller: 'CoursesIndexCtrl', templateUrl: '<%= asset_path('teacher/courses/index.html') %>').
     when('/courses/new',           controller: 'CourseCtrl',       templateUrl: '<%= asset_path('teacher/courses/form.html') %>').
@@ -22,11 +22,12 @@ Router = ($routeProvider) ->
     when('/profile/password/edit', controller: 'ProfileCtrl',      templateUrl: '<%= asset_path('shared/password/form.html') %>').
     when('/styleguide', templateUrl: '<%= asset_path('styleguide.html') %>').
     otherwise(redirectTo: '/courses')
+Router.$inject = ['$routeProvider', '$locationProvider']
 DunnoApp.config Router
 
-DunnoApp.config((railsSerializerProvider, tagsInputConfigProvider) ->
+DunnoApp.config(["railsSerializerProvider", "tagsInputConfigProvider", (railsSerializerProvider, tagsInputConfigProvider)->
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
-)
+])
 
 DunnoApp.constant('AUTOSAVE_INTERVAL', 5000)
 

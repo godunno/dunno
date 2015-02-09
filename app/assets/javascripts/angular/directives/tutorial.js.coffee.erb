@@ -23,8 +23,10 @@ tutorialCtrl = ($scope, $rootScope)->
   @increaseStep = ->
     $scope.steps.push($scope.steps.length + 1)
 
+tutorialCtrl.$inject = ['$scope', '$rootScope']
+
 DunnoApp.controller 'tutorialCtrl', tutorialCtrl
-DunnoApp.directive 'tutorial', ($parse, AssetsPreloader) ->
+DunnoApp.directive 'tutorial', ['$parse', 'AssetsPreloader', ($parse, AssetsPreloader)->
   restrict: 'E'
   transclude: true
   replace: true
@@ -33,6 +35,7 @@ DunnoApp.directive 'tutorial', ($parse, AssetsPreloader) ->
   link: (scope, element, attrs)->
     scope.onClose = -> $parse(attrs.onClose)(scope)
     setTimeout (-> element.foundation('reveal', 'open', close_on_background_click: false, close_on_esc: false, animation: 'fade')), 0
+]
 
 DunnoApp.directive 'tutorialStep', ->
   restrict: 'E'

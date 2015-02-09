@@ -1,11 +1,12 @@
 DunnoApp = angular.module('DunnoApp')
 
-DunnoApp.controller 'dropdownSelectCtrl', ($scope, Dropdown) ->
+DunnoApp.controller 'dropdownSelectCtrl', ['$scope', 'Dropdown', ($scope, Dropdown)->
   $scope.setModelValue = (param)->
     $scope.model.$setViewValue(param)
     $scope.$apply()
 
     Dropdown.close($scope.element)
+]
 
 DunnoApp.directive 'dropdownSelect', ->
   require: 'ngModel'
