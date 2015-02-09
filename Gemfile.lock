@@ -592,6 +592,7 @@ DEPENDENCIES
   rspec_api_documentation (= 4.3.0)
   rubocop (= 0.29.0)
   sass-rails (= 5.0.1)
+  scss-lint
   secure_headers (= 2.0.0)
   shoulda-matchers (= 2.8.0)
   sidekiq (= 3.3.2)
