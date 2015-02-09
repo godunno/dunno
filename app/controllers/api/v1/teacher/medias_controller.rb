@@ -29,7 +29,6 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
     end
   end
 
-  api :PATCH, '/api/v1/teacher/medias/:id/release', "Releases the media on the timeline."
   def release
     if media.status == "available"
       media.release!

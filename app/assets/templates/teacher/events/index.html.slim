@@ -20,7 +20,7 @@ header.page-header.title
         .exam ng-if="event.has_exam" PROVA
 
         .content.has-overlay
-          .overlay.published.hide ng-if="event.planned()"
+          .overlay.published ng-if="event.planned()"
             a.button.btn-style-transparent-1.radius.vertical-center href="#events/{{event.uuid}}/edit" ver aula
           .weekday-hour
             span.weekday> {{asDate(event.start_at) | date:'EEE'}}

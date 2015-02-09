@@ -1,7 +1,6 @@
 class Api::V1::Teacher::PollsController < Api::V1::TeacherApplicationController
   respond_to :json
 
-  api :PATCH, '/api/v1/teacher/polls/:id/release', "Releases the poll on the timeline."
   def release
     if poll.status == "available"
       poll.release!

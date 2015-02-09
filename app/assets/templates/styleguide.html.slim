@@ -47,7 +47,7 @@ header.page-title
             i.icons.icon-arrow-open.secondary-color.vertical-center
           .events
             .row.has-overlay ng-repeat="event in klass.events | limitTo: 6"
-              a.overlay.published.hide href="#/courses.html" ng-if="klass.published"
+              a.overlay.published href="#/courses.html" ng-if="klass.published"
                 .button.btn-style-transparent-1.radius.vertical-center ver diário
               .large-1.columns icon
               .large-1.columns {{event.order}}

@@ -1187,7 +1187,7 @@ $topbar-bg-color: $primary-color;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-$topbar-height: 65px;
+$topbar-height: rem-calc(65);
 
 // $topbar-margin-bottom: 0;
 
