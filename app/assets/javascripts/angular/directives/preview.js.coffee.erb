@@ -1,11 +1,10 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-previewCtrl = ['$scope', ($scope)->
+previewCtrl = ($scope) ->
   $scope.removeMedia = ->
     if confirm("Deseja remover este anexo? Essa operação não poderá ser desfeita.")
       $scope.$parent.removeMedia(arguments...)
-]
 
 preview = ->
   restrict: 'E'
