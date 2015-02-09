@@ -25,8 +25,8 @@ EventCtrl = (
   # TODO: extract this get -> then -> assign to a service
   if $routeParams.id
     $scope.$emit 'wholePageLoading',
-    Event.get(uuid: $routeParams.id).then (event) ->
-      initializeEvent(event)
+      Event.get(uuid: $routeParams.id).then (event) ->
+        initializeEvent(event)
 
   $scope.saveButtonMessage = ->
     if $scope.isSaving

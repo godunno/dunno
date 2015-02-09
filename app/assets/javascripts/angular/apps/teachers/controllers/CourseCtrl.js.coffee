@@ -8,8 +8,8 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils) ->
   $scope.course.weekly_schedules = [{}]
   if $routeParams.id
     $scope.$emit 'wholePageLoading',
-    Course.get(uuid: $routeParams.id).then (course) ->
-      $scope.course = formatToView(course)
+      Course.get(uuid: $routeParams.id).then (course) ->
+        $scope.course = formatToView(course)
 
   $scope.save = (course)->
     $scope.isSending = true
