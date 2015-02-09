@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-NotificationCtrl = ($scope, $timeout, Notification) ->
+NotificationCtrl = ($scope, $timeout, Notification)->
   $scope.limit = 140
 
   ($scope.reset = ->
@@ -19,4 +19,8 @@ NotificationCtrl = ($scope, $timeout, Notification) ->
       $scope.errors = response.data.errors
     ).finally(-> $scope.sending = false)
 
+
+NotificationCtrl.$inject = [
+  '$scope', '$timeout', 'Notification'
+]
 DunnoApp.controller 'NotificationCtrl', NotificationCtrl

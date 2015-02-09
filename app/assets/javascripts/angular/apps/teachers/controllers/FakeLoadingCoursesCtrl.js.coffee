@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-FakeLoadingCoursesCtrl = ($scope, $timeout, Course) ->
+FakeLoadingCoursesCtrl = ($scope, $timeout, Course)->
   $scope.state = 'INITIAL'
   interval = -> $scope.maxTime / $scope.items.length * 1000
 
@@ -14,8 +14,8 @@ FakeLoadingCoursesCtrl = ($scope, $timeout, Course) ->
       $scope.$broadcast("progress.stop")
       $scope.state = 'LOADED'
 
-  Course.query().then (response) ->
-    $scope.items = response.map (item) -> item.name
+  Course.query().then (response)->
+    $scope.items = response.map (item)-> item.name
     $scope.maxTime = $scope.items.length
     $scope.currentItemIndex = -1
     $scope.state = 'LOADING'
@@ -24,4 +24,5 @@ FakeLoadingCoursesCtrl = ($scope, $timeout, Course) ->
 
   $scope.currentItem = -> $scope.items[$scope.currentItemIndex]
 
+FakeLoadingCoursesCtrl.$inject = ['$scope', '$timeout', 'Course']
 DunnoApp.controller 'FakeLoadingCoursesCtrl', FakeLoadingCoursesCtrl

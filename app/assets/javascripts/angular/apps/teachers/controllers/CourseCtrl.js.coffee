@@ -1,15 +1,15 @@
 DunnoApp = angular.module('DunnoApp')
 
-CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils) ->
+CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
   $scope.course = new Course()
   $scope.course.weekly_schedules = [{}]
   if $routeParams.id
-    $scope.$emit 'wholePageLoading',
-      Course.get(uuid: $routeParams.id).then (course) ->
-        $scope.course = formatToView(course)
+    $scope.$emit('wholePageLoading', Course.get(uuid: $routeParams.id).then (course)->
+      $scope.course = formatToView(course)
+    )
 
   $scope.save = (course)->
     $scope.isSending = true
@@ -22,11 +22,14 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils) ->
       course.delete().then ->
         $location.path '#/courses'
 
-  formatToView = (course) ->
-    course.start_date = $scope.formattedDate(course.start_date, 'dd/MM/yyyy')
-    course.end_date  = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
-    course
-  $scope.eventPath = (event) -> "#/events/#{event.uuid}/edit"
+  formatToView = (course)->
+      course.start_date = $scope.formattedDate(course.start_date, 'dd/MM/yyyy')
+      course.end_date   = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
+      course
+  $scope.eventPath = (event)-> "#/events/#{event.uuid}/edit"
 
+CourseCtrl.$inject = [
+  '$scope', 'Course', '$location', '$routeParams', 'Utils', 'DateUtils'
+]
 DunnoApp.controller 'CourseCtrl', CourseCtrl
 
