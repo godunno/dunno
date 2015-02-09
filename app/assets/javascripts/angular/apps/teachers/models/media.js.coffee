@@ -1,5 +1,5 @@
 DunnoApp = angular.module('DunnoApp')
-Media = (RailsResource, $upload, $q)->
+Media = (RailsResource, $upload, $q) ->
   class Media extends RailsResource
     @configure(
       url: '/api/v1/teacher/medias'
@@ -16,12 +16,13 @@ Media = (RailsResource, $upload, $q)->
         url: @$url() + ".json"
         file: @file
 
-    update_tag_list: -> @tag_list = @tags.map((tag)-> tag.text)
+    update_tag_list: ->
+      @tag_list = @tags.map (tag) -> tag.text
 
-    @search: (options)->
+    @search: (options) ->
       deferred = $q.defer()
       Media.configure(fullResponse: true)
-      @query(options).then((response)->
+      @query(options).then((response) ->
         Media.configure(fullResponse: false)
         deferred.resolve(
           medias: response.data
@@ -37,10 +38,9 @@ Media = (RailsResource, $upload, $q)->
   Media.interceptAfterResponse (response)->
     medias = if response.data? then response.data else [response]
     for media in medias
-      media.tags = (media.tag_list || []).map (tag)-> { text: tag }
+      media.tags = (media.tag_list || []).map (tag) -> { text: tag }
     response
 
   Media
 
-Media.$inject = ['RailsResource', '$upload', '$q']
 DunnoApp.factory 'Media', Media
