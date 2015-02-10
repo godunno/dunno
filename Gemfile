@@ -64,6 +64,7 @@ gem 'rails-assets-angular-busy', '4.1.2'
 group :production, :staging do
   gem 'rails_12factor',           '0.0.3'
   gem 'fog',                      '1.27.0'
+  gem 'airbrake',                 '4.1.0'
 end
 
 gem 'database_cleaner',           '1.4.0',     require: false
