@@ -25,13 +25,15 @@ class CourseBuilder < BaseBuilder
 
     # TODO: Add tests
     if options[:show_events]
-      json.events course.events do |event|
-        EventBuilder.new(event).build!(
-          json,
-          show_course: false,
-          show_personal_notes: options[:show_personal_notes],
-          event_pusher_events: options[:event_pusher_events]
-        )
+      json.cache! ['course-builder-events', course.events.maximum(:updated_at)] do
+        json.events course.events do |event|
+          json.cache! ['course-builder-event', event] do
+            EventBuilder.new(event).build!(
+              json,
+              show_course: false
+            )
+          end
+        end
       end
     end
   end
