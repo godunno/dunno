@@ -69,7 +69,8 @@ EventCtrl = (
     $scope.save(event).then ->
       $window.location.href = "#courses/#{event.course.uuid}"
 
-  $scope.updateItem = (editingItem, item)->
+  $scope.updateItem = ($event, editingItem, item)->
+    $event.preventDefault()
     angular.copy(editingItem, item)
     item._editing = false
 

@@ -98,7 +98,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               focus-on-create="" type="text"
               ng-if="isEditing(topic)"
               ng-model="editingItem.description"
-              ui-keydown="{'enter':'updateItem(editingItem, topic)'}"]
+              ui-keydown="{'enter':'updateItem($event, editingItem, topic)'}"]
 
       .foot cg-busy="submittingMediaPromise"
         .wrapper-new-list-item
@@ -154,7 +154,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               focus-on-create="" type="text"
               ng-if="isEditing(personal_note)"
               ng-model="editingItem.description"
-              ui-keydown="{'enter':'updateItem(editingItem, personal_note)'}"]
+              ui-keydown="{'enter':'updateItem($event, editingItem, personal_note)'}"]
       .foot cg-busy="submittingMediaPromise"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" name="personal_note"
