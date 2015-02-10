@@ -36,6 +36,8 @@ module Dunno
       Dir.glob(Rails.root + "app/form/*.rb").each { |d| require_dependency d }
     end
 
+    config.cache_store = :dalli_store
+
     ActionMailer::Base.default(from: 'contato@dunnoapp.com')
   end
 end
