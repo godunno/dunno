@@ -9,6 +9,10 @@ class Api::V1::SessionsController < Devise::SessionsController
 
   def profile
     @resource = current_user
-    render "#{@resource.profile_name}_sign_in"
+    if @resource.present?
+      render "#{@resource.profile_name}_sign_in"
+    else
+      render nothing: true, status: 401
+    end
   end
 end
