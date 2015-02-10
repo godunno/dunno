@@ -40,6 +40,7 @@ gem 'devise-async',               '0.9.0'
 gem 'intercom-rails',             '0.2.27'
 gem 'active_model-errors_details','1.1.0'
 gem 'phonie',                     '3.1.8'
+gem 'dalli',                      '2.7.2'
 
 gem 'rails-assets-angular',       '1.3.2'
 gem 'rails-assets-angular-route', '1.3.2'
@@ -67,6 +68,7 @@ group :production, :staging do
   gem 'rails_12factor',           '0.0.3'
   gem 'fog',                      '1.27.0'
   gem 'airbrake',                 '4.1.0'
+  gem 'memcachier',               '0.0.2'
 end
 
 gem 'database_cleaner',           '1.4.0',     require: false
