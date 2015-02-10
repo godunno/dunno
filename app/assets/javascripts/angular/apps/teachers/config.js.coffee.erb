@@ -34,4 +34,8 @@ DunnoApp.constant('AUTOSAVE_INTERVAL', 5000)
 DunnoApp.value('cgBusyDefaults',
   message: 'Carregando...',
   minDuration: 500,
+  wrapperClass: 'cg-busy cg-busy-animation ng-animate'
 )
+
+DunnoApp.config ($animateProvider) ->
+  $animateProvider.classNameFilter(/ng-animate/)
