@@ -81,6 +81,7 @@ describe Api::V1::Teacher::EventsController do
           it { expect(subject["access_code"]).to eq course.access_code }
           it { expect(subject["students_count"]).to eq 1 }
           it { expect(subject["color"]).to eq(SHARED_CONFIG["v1"]["courses"]["schemes"][course.order]) }
+          it { expect(subject["students"][0]["name"]).to eq(student.name) }
 
           describe "course's events" do
             subject { json["course"]["events"].map {|e| e["uuid"]} }

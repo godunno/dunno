@@ -67,12 +67,21 @@ $box-shadow: 0px 2px 2px #CCC;
   &.subtitle {
     height: $page-subtitle-height;
     margin-top: -($page-header-margin - 1px);
-    
   }
 }
 
 .top-bar .row {
-    max-width: 60rem; 
+  max-width: 60rem;
+  .top-bar-section #profile {
+    width: 200px;
+    li a {
+      line-height: 42px;
+      &:hover {
+        color: $secondary-color;
+        background: #FFF;
+      }
+    }
+  }
 }
 
 .subtitle-head {

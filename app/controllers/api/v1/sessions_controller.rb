@@ -1,7 +1,6 @@
 class Api::V1::SessionsController < Devise::SessionsController
   respond_to :json
 
-  api :POST, '/api/v1/users/sign_in', "Sign in to the system and get the user's data. Don't forget to store the authentication token."
   def create
     @resource = warden.authenticate!(scope: resource_name, recall: "#{controller_path}#failure")
     sign_in(resource_name, @resource)
@@ -10,6 +9,10 @@ class Api::V1::SessionsController < Devise::SessionsController
 
   def profile
     @resource = current_user
-    render "#{@resource.profile_name}_sign_in"
+    if @resource.present?
+      render "#{@resource.profile_name}_sign_in"
+    else
+      render nothing: true, status: 401
+    end
   end
 end

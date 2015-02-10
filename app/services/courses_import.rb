@@ -23,11 +23,12 @@ class CoursesImport
     ActiveRecord::Base.transaction do
       courses = Set.new
       SpreadsheetParser.parse(url, header_rows: 2).each do |row|
-        course = teacher.courses.find_by(name: row[0], class_name: row[1]) || Course.new
+        class_name = fix_possible_float(row[1])
+        course = teacher.courses.find_by(name: row[0], class_name: class_name) || Course.new
         course.update!(
           teacher: teacher,
           name: row[0],
-          class_name: row[1],
+          class_name: class_name,
           start_date: row[2],
           end_date: row[3]
         )
@@ -37,7 +38,7 @@ class CoursesImport
             start_time: format_time(row[4]),
             end_time: format_time(row[5]),
             weekday: index,
-            classroom: row[13],
+            classroom: fix_possible_float(row[13]),
             course: course
           )
         end
@@ -51,5 +52,9 @@ class CoursesImport
 
   def format_time(time)
     time.rjust(5, '0')
+  end
+
+  def fix_possible_float(value)
+    value.is_a?(Float) ? value.truncate.to_s : value
   end
 end

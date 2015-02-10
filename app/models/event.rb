@@ -21,7 +21,7 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :topics, :thermometers, :polls, :personal_notes, allow_destroy: true
 
-  default_scope { order(:start_at) }
+  default_scope { order(:start_at).includes(:topics, :personal_notes) }
 
   def channel
     "event_#{uuid}"

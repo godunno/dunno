@@ -13,14 +13,22 @@ html lang="pt" ng-app="DunnoAppStudent"
     = csrf_meta_tags
 
   body.student-dashboard ng-controller="ApplicationCtrl"
+    = render 'application/prebootstrap_loading'
     = render layout: 'application/menu' do
       ul class="left"
         li
           a href="#courses" Disciplinas
 
-    .content ng-view=""
+    .content ng-view="" cg-busy="wholePageLoading"
 
     footer
       /= "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe
 
     = javascript_include_tag "application"
+
+    javascript:
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', '#{ENV['GA']}', 'auto');

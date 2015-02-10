@@ -53,21 +53,28 @@ header.page-header.title
         .vertical-bar
         .top
           .large-8.columns
-            input.title type="text" ng-model="media.title" pu-elastic-input=true ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
+            .title
+              input.input type="text" ng-model="media.title" pu-elastic-input=true pu-elastic-input-maxwidth="95%" ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
+              i.icon.icon-pencil
           .large-4.columns
             i.type.icon ng-class="'icon-' + media.type"
             a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
         .bottom
           .large-11.columns
+            i.icon.icon-tag.tags-label
             tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova tag"
           .large-1.column
             a.icon.icon-trash ng-click="removeMedia(media)"
 
   .row
     .pagination
-      .page
-        a.button ng-click="fetch({ page: previous_page })" ng-if="previous_page" <
-      .page
+      .page.previous-page
+        a ng-click="fetch({ page: previous_page })" ng-if="previous_page"
+          i.icon.icon-arrow-circle-left
+          | Anterior
+      .page.pager
         span {{current_page}}
-      .page
-        a.button ng-click="fetch({ page: next_page })" ng-if="next_page" >
+      .page.next-page
+        a ng-click="fetch({ page: next_page })" ng-if="next_page"
+          i.icon.icon-arrow-circle-right
+          | Próxima

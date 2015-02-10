@@ -2,7 +2,7 @@
 #= depend_on_asset "students/courses/confirm_registration.html"
 #= depend_on_asset "students/courses/search.html"
 
-DunnoApp = angular.module 'DunnoAppStudent', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'validation.match', 'ngMessages', 'ui.utils.masks']
+DunnoApp = angular.module 'DunnoAppStudent', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics']
 
 Router = ($routeProvider)->
   $routeProvider.
@@ -20,3 +20,13 @@ DunnoApp.config Router
 DunnoApp.config(["railsSerializerProvider", (railsSerializerProvider)->
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
 ])
+
+DunnoApp.value('cgBusyDefaults',
+  message: 'Carregando...',
+  minDuration: 500,
+  wrapperClass: 'cg-busy cg-busy-animation ng-animate'
+)
+
+DunnoApp.config ['$animateProvider', ($animateProvider) ->
+  $animateProvider.classNameFilter(/ng-animate/)
+]

@@ -1,0 +1,2 @@
+#!/bin/sh
+HEROKU_APP=dunnovc-beta HKAPP=dunnovc-beta exec "${HEROKU_COMMAND:-heroku}" "$@"

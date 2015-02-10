@@ -10,8 +10,8 @@
     }
   }
   ul.dates {
+    @extend .cf;
     list-style: none;
-    overflow: hidden;
     margin-left: 0;
     margin-right: 0;
     padding-bottom: 20px;
@@ -26,7 +26,6 @@
       width: 20%;
       margin-left: 4%;
       margin-top: 20px;
-      overflow: hidden;
       position: relative;
       
       .expand {
@@ -52,6 +51,7 @@
       }
       span.month {
         font-size: 11px;
+        text-transform: capitalize;
       }
       .bottom {
         margin: 0 10px;
@@ -114,8 +114,17 @@
       font-size: 13px;
       font-weight: 300;
     }
+    .icon-expand {
+      position: absolute;
+      top: 10px;
+      right: 30px;
+      color: $dark-grey-color;
+      &:hover {
+        color: $primary-color;
+      }
+    }
   }
-  div.students {
+  .students {
     background-color: white;
     border-radius: 5px;
     overflow: hidden;
@@ -136,31 +145,40 @@
         padding: 0 10px;
       }
     }
-    ul {
+    .list {
       list-style: none;
       padding: 0;
       margin: 0;
       li {
         padding: 10px 20px;
         border-bottom: 1px solid #d0d0d0;
-        img {
-          vertical-align: middle;
-          border-radius: 20px;
-        }
-        div {
-          display: inline-block;
-          vertical-align: middle;
-          margin-left: 20px;
-          h3 {
-            font-size: 14px;
-            margin-bottom: -8px;
-          }
-          span {
-            font-size: 12px;
-            font-weight: 300;
-          }
+        h3 {
+          font-size: 14px;
         }
       }
     }
+  }
+}
+
+#access-code-fullscreen {
+  background: $secondary-color;
+  text-align: center;
+  padding-top: 25vh;
+  span, h3, a {
+    color: #ffffff;
+  }
+  .description {
+    font-size: 6vh;
+    font-weight: 200;
+  }
+  .title {
+    font-size: 25vh;
+    line-height: 25vh;
+  }
+  .link-to-sign-in {
+    font-size: 6vh;
+    font-weight: 300;
+    position: relative;
+    top: 10vh;
   }
 }

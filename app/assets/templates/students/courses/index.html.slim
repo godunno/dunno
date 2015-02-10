@@ -10,7 +10,7 @@ header.page-header.title
     ul.list--courses
       li.card.card--course.has-overlay ng-repeat="course in courses"
         a href="#/courses/{{course.uuid}}"
-          .overlay.published.hide
+          .overlay.published
             .button.btn-style-transparent-1.radius.vertical-center ver disciplina
           div.title.padding ng-class="'scheme-' + course.order"
             h2.card-title {{course.name}}
@@ -27,4 +27,4 @@ header.page-header.title
                   span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
                 .students.right
                   i.icon.icon-users.margin-right
-                  span {{course.students.length}} Alunos
+                  span count="course.students_count" when="{'0': '0 alunos', 'one': '1 aluno', 'other': '{} alunos'}" ng-pluralize=true

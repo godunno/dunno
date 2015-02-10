@@ -28,7 +28,7 @@ describe Api::V1::Teacher::NotificationsController do
           do_action
         end
 
-        it { expect(last_response.status).to eq(400) }
+        it { expect(last_response.status).to eq(403) }
       end
 
       context "notificating a course" do

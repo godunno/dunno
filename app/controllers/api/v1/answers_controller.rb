@@ -1,7 +1,6 @@
 class Api::V1::AnswersController < Api::V1::StudentApplicationController
   respond_to :json
 
-  api :POST, '/api/v1/answers', "Creates an answer for the indicated poll"
   def create
     if option.poll.event.closed?
       return render json: { errors: I18n.t('errors.event.closed') }, status: 403

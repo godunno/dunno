@@ -98,9 +98,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               focus-on-create="" type="text"
               ng-if="isEditing(topic)"
               ng-model="editingItem.description"
-              ui-keydown="{'enter':'updateItem(editingItem, topic)'}"]
+              ui-keydown="{'enter':'updateItem($event, editingItem, topic)'}"]
 
-      .foot
+      .foot cg-busy="submittingMediaPromise"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar tarefa"
             ui-keydown="{'enter':'addItem($event)'}" name="topic"]
@@ -114,8 +114,10 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ng-class="{active: newListItem.media.type=='file'}"
           ]
           #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
-            input[type="text" name="topic_media_url" ng-model="newListItem.media_url"
-              dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
+            input[
+              type="text" name="topic_media_url" ng-model="newListItem.media_url" dropdown-input=true
+              placeholder="http://" on-open="startUrlMediaEditing()" on-close="submitUrlMedia(newListItem)"
+            ]
           a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
           input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 
@@ -152,8 +154,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               focus-on-create="" type="text"
               ng-if="isEditing(personal_note)"
               ng-model="editingItem.description"
-              ui-keydown="{'enter':'updateItem(editingItem, personal_note)'}"]
-      .foot
+              ui-keydown="{'enter':'updateItem($event, editingItem, personal_note)'}"]
+
+      .foot cg-busy="submittingMediaPromise"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" name="personal_note"
           placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
@@ -167,8 +170,10 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ng-class="{active: newListItem.media.type=='file'}"
           ]
           #personal-note-url.media-url-input data-dropdown-content="" aria-hidden="true"
-            input[type="text" name="personal_note_media_url" ng-model="newListItem.media_url"
-              dropdown-input="submitUrlMedia(newListItem)" placeholder="http://"]
+            input[
+              type="text" name="personal_note_media_url" ng-model="newListItem.media_url" dropdown-input=true
+              placeholder="http://" on-open="startUrlMediaEditing()" on-close="submitUrlMedia(newListItem)"
+            ]
           a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
           input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
 

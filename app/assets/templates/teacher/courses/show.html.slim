@@ -16,23 +16,26 @@ header.page-header.title ng-class="'scheme-' + course.order"
 
     .large-4.columns
       div.code
+        a.icon.icon-expand data-reveal-id="access-code-fullscreen"
         span.title Código da Disciplina:
         h3 {{course.access_code}}
         span.description Envie este código para os alunos entrarem nesta disciplina
+        #access-code-fullscreen.reveal-modal.full data-reveal=true
+          span.description Código da Disciplina:
+          h3.title {{course.access_code}}
+          = link_to root_url, root_url, class: 'link-to-sign-in'
+          a.close-reveal-modal &#215;
 
-      /div.students
-        /.top
-          /strong {{course.students.length}} alunos
-          /a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
-            /i.icon.icon-buzz
-            /span Enviar mensagem
+      div.students
+        .top
+          strong count="course.students_count" when="{'0': '0 alunos', 'one': '1 aluno', 'other': '{} alunos'}" ng-pluralize=true
+          a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
+            i.icon.icon-buzz
+            span Enviar notificação
 
-        /ul
-          /li ng-repeat="student in course.students"
-            /img src="http://lorempixel.com/40/40"
-            /div
-              /h3 {{student.name}}
-              /span 12 anos
+        ul.list
+          li ng-repeat="student in course.students"
+            h3 {{student.name}}
 
   tutorial.tutorial-2 ng-if="tutorialEnabled(2)" on-close="tutorialClosed(2)"
     tutorial-step
@@ -41,11 +44,16 @@ header.page-header.title ng-class="'scheme-' + course.order"
       p Clique aqui para planejar e editar o conteúdo de sua aula.
 
 .reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" id="send-notification" data-reveal=""
-  label for="message" Enviar mensagem
-  textarea id="message" ng-model="notification.message" rows="5" maxlength="{{limit}}" placeholder="Ex: A aula foi transferida para o laboratório."
-  .actions ng-show="!error"
-    span.counter Caracteres restantes: {{limit - notification.message.length}}
-    a.button.btn-style-1.right ng-click="save(notification)" Enviar mensagem
-  .alert-box.alert ng-class="!!error ? '': 'alert-close'" data-alert=""
-    span Ocorreu um erro ao enviar a notificação.
-  a class="close-reveal-modal" &#215;
+  form name="notification_form" ng-submit="save(notification)"
+    label for="message" Enviar mensagem
+    textarea id="message" name="message" ng-model="notification.message" rows="5" ng-minlength="1" maxlength="{{limit}}" placeholder="Ex: A aula foi transferida para o laboratório." required=true
+    .actions
+      span.counter Caracteres restantes: {{limit - notification.message.length}}
+      input.button.btn-style-1.right type="submit" ng-disabled="notification_form.$invalid || sending" value="Enviar"
+    span.error ng-if="errors.sms" ng-messages="errors.sms"
+      span ng-message="send" Ocorreu um erro ao enviar SMS.
+    span.error ng-if="errors.email" ng-messages="errors.email"
+      span ng-message="send" Ocorreu um erro ao enviar email.
+    span.error ng-if="errors.message" ng-messages="errors.message"
+      span ng-message="repeated" Esta mensagem é igual à última enviada.
+  a class="close-reveal-modal" ng-click="reset()" &#215;

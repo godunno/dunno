@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :user do
     name "MyString"
-    phone_number { "+55 21 9999 #{rand(9999).to_s.rjust(4, '9')}" }
-    email { Faker::Internet.email }
+    sequence(:phone_number, 1000) { |n| "+55 21 9999 #{n}" }
+    sequence(:email) { |n| "user#{n}@example.com" }
     password { SecureRandom.base64(8) }
 
     trait :teacher_profile do

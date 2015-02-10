@@ -23,10 +23,15 @@ listCtrl = ($scope, Media, Utils, $upload)->
 
   $scope.addItem = ($event)->
     $event.preventDefault() if $event?
-    unless $scope.newListItem._submittingMedia
+    run = ->
+      return alert("Não é possível adicionar item sem texto ou anexo.") unless $scope.newListItem.description || $scope.newListItem.media_id
       $scope.newItem(list(), $scope.newListItem)
       generateOrderableItem()
       $scope.save($scope.event)
+    if $scope._editingMediaUrl
+      $scope.submitUrlMedia($scope.newListItem).then(run)
+    else if !$scope.newListItem._submittingMedia
+      run()
 
   $scope.transferItem = (list, item)->
     if confirm("Deseja transferir esse item? Essa operação não poderá ser desfeita.")
@@ -49,11 +54,12 @@ listCtrl = ($scope, Media, Utils, $upload)->
       $scope.save($scope.event)
 
   submitMedia = (item, callback, showProgress)->
-    return if item.media? && !confirm("Deseja substituir a media atual?")
+    return if item.media? && !confirm("Deseja substituir o anexo atual?")
     $scope.removeMedia(item)
     item._submittingMedia = true
-    $scope.$broadcast("progress.start")
-    showProgress(callback)
+    if showProgress?
+      $scope.$broadcast("progress.start")
+      showProgress(callback)
     callback.then((response)->
       media = if response.data? # response may be wrapped
           response.data
@@ -68,10 +74,15 @@ listCtrl = ($scope, Media, Utils, $upload)->
       $scope.$broadcast("progress.stop")
     )
 
+  $scope.startUrlMediaEditing = ->
+    $scope._editingMediaUrl = true
+
   $scope.submitUrlMedia = (item)->
+    $scope._editingMediaUrl = false
     media = new Media(url: item.media_url)
-    submitMedia item, media.create(), ->
-      $scope.$broadcast("progress.setValue", "100%")
+    $scope.submittingMediaPromise = promise = media.create()
+    submitMedia item, promise
+    promise
 
   $scope.submitFileMedia = (item, $files)->
     media = new Media()

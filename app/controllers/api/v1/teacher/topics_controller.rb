@@ -1,8 +1,6 @@
 class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
   respond_to :json
 
-  api :PATCH, '/api/v1/teacher/topics/:id/transfer',
-      "Transfer a topic to the next event."
   def transfer
     next_event = topic.event.next
     if next_event

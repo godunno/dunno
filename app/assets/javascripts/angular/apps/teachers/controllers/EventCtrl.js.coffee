@@ -24,8 +24,9 @@ EventCtrl = (
 
   # TODO: extract this get -> then -> assign to a service
   if $routeParams.id
-    Event.get(uuid: $routeParams.id).then (event)->
+    $scope.$emit('wholePageLoading', Event.get(uuid: $routeParams.id).then (event)->
       initializeEvent(event)
+    )
 
   $scope.saveButtonMessage = ->
     if $scope.isSaving
@@ -68,7 +69,8 @@ EventCtrl = (
     $scope.save(event).then ->
       $window.location.href = "#courses/#{event.course.uuid}"
 
-  $scope.updateItem = (editingItem, item)->
+  $scope.updateItem = ($event, editingItem, item)->
+    $event.preventDefault()
     angular.copy(editingItem, item)
     item._editing = false
 
