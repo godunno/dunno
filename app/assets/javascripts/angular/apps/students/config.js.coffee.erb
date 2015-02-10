@@ -24,4 +24,9 @@ DunnoApp.config(["railsSerializerProvider", (railsSerializerProvider)->
 DunnoApp.value('cgBusyDefaults',
   message: 'Carregando...',
   minDuration: 500,
+  wrapperClass: 'cg-busy cg-busy-animation ng-animate'
 )
+
+DunnoApp.config ['$animateProvider', ($animateProvider) ->
+  $animateProvider.classNameFilter(/ng-animate/)
+]

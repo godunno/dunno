@@ -37,5 +37,6 @@ DunnoApp.value('cgBusyDefaults',
   wrapperClass: 'cg-busy cg-busy-animation ng-animate'
 )
 
-DunnoApp.config ($animateProvider) ->
+DunnoApp.config ['$animateProvider', ($animateProvider) ->
   $animateProvider.classNameFilter(/ng-animate/)
+]
