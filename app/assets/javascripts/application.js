@@ -38,6 +38,7 @@
 //= require angular-input-masks
 //= require angular-foundation
 //= require angular-busy
+//= require angulartics
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });
