@@ -5,7 +5,7 @@ describe PersonalNote do
   let(:personal_note) { build :personal_note }
 
   describe "associations" do
-    it { is_expected.to belong_to(:event) }
+    it { is_expected.to belong_to(:event).touch(true) }
     it { is_expected.to have_one(:media) }
   end
 
