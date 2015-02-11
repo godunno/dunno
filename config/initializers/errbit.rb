@@ -1,4 +1,4 @@
-if Rails.env.staging? || Rails.env.beta? || Rails.env.production?
+if Rails.env.staging? || Rails.env.production?
   Airbrake.configure do |config|
     config.api_key = ENV['ERRBIT_API_KEY']
     config.host    = 'bucket.dunnoapp.com'
