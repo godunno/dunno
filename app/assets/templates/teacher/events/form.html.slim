@@ -83,16 +83,17 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             .item-show ng-if="!isEditing(topic)"
               input.done type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
               label for="topic_{{topic.order}}_done" {{topic.description}}
-              a.icon.icon-trash.task-icon-right.right[
-                ng-click="removeItem(event.topics, topic)"
-                title="Remover tarefa"]
-              a.icon.icon-transfer.task-icon-right.right[
-                ng-click="transferItem(event.topics, topic)"
-                ng-if="canTransferItem(topic)"
-                title="Transferir tarefa"]
-              a.icon.icon-edition.task-icon-right.right[
-                ng-click="editItem(topic, editingItem)"
-                title="Editar tarefa"]
+              .tasks-buttons
+                a.icon.icon-trash.task-icon-right[
+                  ng-click="removeItem(event.topics, topic)"
+                  title="Remover tarefa"]
+                a.icon.icon-transfer.task-icon-right[
+                  ng-click="transferItem(event.topics, topic)"
+                  ng-if="canTransferItem(topic)"
+                  title="Transferir tarefa"]
+                a.icon.icon-edition.task-icon-right[
+                  ng-click="editItem(topic, editingItem)"
+                  title="Editar tarefa"]
               preview item="topic" editable="true"
             input.item-editing[
               focus-on-create="" type="text"
@@ -139,16 +140,17 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             .item-show ng-if="!isEditing(personal_note)"
               input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
               label for="personal_note_{{personal_note.order}}_done" {{personal_note.description}}
-              a.icon.icon-trash.task-icon-right.right[
-                ng-click="removeItem(event.personal_notes, personal_note)"
-                title="Remover anotação"]
-              a.icon.icon-transfer.task-icon-right.right[
-                ng-click="transferItem(event.personal_notes, personal_note)"
-                ng-if="canTransferItem(personal_note)"
-                title="Transferir anotação"]
-              a.icon.icon-edition.task-icon-right.right[
-                ng-click="editItem(personal_note, editingItem)"
-                title="Editar anotação"]
+              .tasks-buttons
+                a.icon.icon-trash.task-icon-right[
+                  ng-click="removeItem(event.personal_notes, personal_note)"
+                  title="Remover anotação"]
+                a.icon.icon-transfer.task-icon-right[
+                  ng-click="transferItem(event.personal_notes, personal_note)"
+                  ng-if="canTransferItem(personal_note)"
+                  title="Transferir anotação"]
+                a.icon.icon-edition.task-icon-right[
+                  ng-click="editItem(personal_note, editingItem)"
+                  title="Editar anotação"]
               preview item="personal_note" editable="true"
             input.item-editing[
               focus-on-create="" type="text"

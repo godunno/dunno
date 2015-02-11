@@ -23,7 +23,7 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   def update
     @event_form = Form::EventForm.new(params[:event].merge(uuid: params[:id]))
     @event_form.save
-    @event = @event_form.model
+    @event = @event_form.model.reload
     render :show
   end
 
