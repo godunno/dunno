@@ -356,6 +356,27 @@ $diary-card-border: 1px solid #dddddd;
       margin: 0;
     }
 
+    .item-show {
+      position: relative;
+    }
+
+    .tasks-buttons {
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      .task-icon-right {
+        color: #bbb;
+        font-size: 1.1rem;
+        margin-left: 10px;
+        margin-top: 4px;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+
     // --- Show on hover --- //
     .no-touch & {
       .handle, .task-icon-right {
@@ -377,13 +398,6 @@ $diary-card-border: 1px solid #dddddd;
     padding: 15px;
     font-size: 0.8rem;
   }
-}
-
-.task-icon-right {
-  font-size: 1.1rem;
-  color: #bbbbbb;
-  margin-left: 10px;
-  margin-top: 4px;
 }
 
 .foot {
