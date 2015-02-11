@@ -5,6 +5,7 @@ describe Topic do
   let(:topic) { build(:topic) }
 
   describe "associations" do
+    it { is_expected.to belong_to(:event).touch(true) }
     it { is_expected.to have_many(:ratings) }
     it { is_expected.to have_one(:media) }
   end

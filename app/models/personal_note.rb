@@ -1,6 +1,6 @@
 class PersonalNote < ActiveRecord::Base
   include HasUuid
-  belongs_to :event
+  belongs_to :event, touch: true
   has_one :media, as: :mediable
   validate :ensure_description_or_media_present
 
