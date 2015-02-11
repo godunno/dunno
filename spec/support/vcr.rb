@@ -4,7 +4,7 @@ VCR.configure do |c|
   c.ignore_request do |request|
     uri = URI(request.uri)
     # ElasticSearch
-    uri.host == "localhost" && uri.port == 9200
+    (uri.host == "localhost" && uri.port == 9200) || uri.host = "127.0.0.1"
   end
   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   c.hook_into :webmock

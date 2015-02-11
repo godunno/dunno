@@ -1,6 +1,6 @@
 ul.dates
   li.has-overlay ng-repeat="event in course.events | orderBy:'start_at'"
-    a ng-href="{{eventPath(event)}}" ng-if="!hideEvent(event)"
+    a ng-attr-id="{{ 'event-' + event.uuid }}" ng-href="{{eventPath(event)}}" ng-if="!hideEvent(event)"
       .overlay.published
         .button.btn-style-transparent-1.radius.vertical-center ver aula
       ng-include src="'#{asset_path('shared/courses/event_in_list.html')}'"
