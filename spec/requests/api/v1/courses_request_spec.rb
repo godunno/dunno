@@ -62,17 +62,6 @@ describe Api::V1::CoursesController do
         do_action
       end
 
-      context "searching with access_code" do
-        let(:identifier) { course.access_code }
-
-        subject { json["course"] }
-
-        it { expect(last_response.status).to eq(200) }
-        it { expect(subject["uuid"]).to eq(course.uuid) }
-        it { expect(subject["access_code"]).to eq(course.access_code) }
-        it { expect(subject["teacher"]["name"]).to eq(teacher.name) }
-      end
-
       context "searching with uuid" do
         let(:identifier) { course.uuid }
 
