@@ -59,21 +59,10 @@ describe Api::V1::CoursesController do
 
       before do
         course.save!
-        do_action
-      end
-
-      context "searching with access_code" do
-        let(:identifier) { course.access_code }
-
-        subject { json["course"] }
-
-        it { expect(last_response.status).to eq(200) }
-        it { expect(subject["uuid"]).to eq(course.uuid) }
-        it { expect(subject["access_code"]).to eq(course.access_code) }
-        it { expect(subject["teacher"]["name"]).to eq(teacher.name) }
       end
 
       context "searching with uuid" do
+        before { do_action }
         let(:identifier) { course.uuid }
 
         subject { json["course"] }
@@ -86,7 +75,7 @@ describe Api::V1::CoursesController do
       context "course not found" do
         let(:identifier) { 'not-found' }
 
-        it { expect(last_response.status).to eq(404) }
+        it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
       end
     end
   end

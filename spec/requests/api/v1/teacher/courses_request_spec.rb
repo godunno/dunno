@@ -63,7 +63,6 @@ describe Api::V1::Teacher::EventsController do
 
       before do
         course.save!
-        do_action
       end
 
       def do_action
@@ -71,6 +70,7 @@ describe Api::V1::Teacher::EventsController do
       end
 
       context "teacher's course" do
+        before { do_action }
 
         describe "resource" do
           subject { json["course"] }
@@ -91,10 +91,12 @@ describe Api::V1::Teacher::EventsController do
           end
         end
       end
-
       context "another teacher's course" do
         let!(:course) { create(:course, teacher: create(:teacher)) }
-        it { expect(last_response.status).to eq 404 }
+
+        it do
+          expect { do_action }.to raise_error(ActiveRecord::RecordNotFound)
+        end
       end
     end
   end

@@ -7,7 +7,7 @@ describe Event do
 
   describe "associations" do
     it { is_expected.to have_one(:timeline) }
-    it { is_expected.to belong_to(:course) }
+    it { is_expected.to belong_to(:course).touch(true) }
     it { is_expected.to have_many(:topics) }
     it { is_expected.to have_many(:thermometers) }
     it { is_expected.to have_many(:personal_notes) }
