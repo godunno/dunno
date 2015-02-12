@@ -7,11 +7,7 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
   end
 
   def show
-    if course
-      respond_with course
-    else
-      render nothing: true, status: 404
-    end
+    fresh_when(course)
   end
 
   def destroy
@@ -46,8 +42,7 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
   private
 
     def course
-      @course ||= current_teacher.courses
-        .where(uuid: params[:id]).first
+      @course ||= current_teacher.courses.find_by!(uuid: params[:id])
     end
 
     def course_params

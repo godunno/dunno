@@ -7,12 +7,8 @@ class Api::V1::CoursesController < Api::V1::StudentApplicationController
   end
 
   def show
-    @course = Course.find_by_identifier(params[:id])
-    if @course
-      respond_with(@course)
-    else
-      render nothing: true, status: 404
-    end
+    @course = Course.find_by!(uuid: params[:id])
+    fresh_when(@course)
   end
 
   def register
