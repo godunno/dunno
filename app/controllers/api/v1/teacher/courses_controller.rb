@@ -2,11 +2,13 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
   respond_to :json
 
   def index
-    @courses = current_teacher.courses.includes(:weekly_schedules)
-    respond_with @courses #.to_json(root: false)
+    @courses = current_teacher.courses
+    respond_with @courses
   end
 
   def show
+    @day = params[:month].present? ? Time.parse(params[:month]) : Time.now
+    @events = course.events.where(start_at: @day.beginning_of_month..@day.end_of_month)
     fresh_when(course)
   end
 

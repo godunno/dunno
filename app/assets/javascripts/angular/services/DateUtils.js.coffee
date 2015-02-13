@@ -5,10 +5,10 @@ DateUtils = ($filter)->
   @asDate = (value)->
     new Date(value)
 
-  @today = (value)->
+  @isToday = (value)->
     format = 'yyyy-MM-dd'
     targetDate = $filter('date')(@asDate(value), format)
-    todayDate  = $filter('date')(new Date()    , format)
+    todayDate  = $filter('date')(new Date(), format)
     targetDate == todayDate
 
   @formattedDate = (date, format)->

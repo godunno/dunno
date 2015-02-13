@@ -9,92 +9,88 @@
       background-color: red;
     }
   }
+
   ul.dates {
     @extend .cf;
     list-style: none;
     margin-left: 0;
     margin-right: 0;
-    padding-bottom: 20px;
     border-radius: 5px;
     box-shadow: $box-shadow;
     background-color: white;
+
+    .header {
+      padding: 1em 1em 0.5em;
+      text-align: center;
+      text-transform: uppercase;
+
+      a {
+        color: $light-grey-color;
+        font-size: 0.9rem;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+
+      .icon {
+        margin: 0 1rem;
+      }
+
+      .previous-month {
+        float: left;
+      }
+
+      .current-month {
+        display: inline;
+        font-weight: bold;
+      }
+
+      .next-month {
+        float: right;
+      }
+    }
+
     li {
       float: left;
       background-color: white;
-      border-radius: 5px;
-      border: 1px solid silver;
-      width: 20%;
-      margin-left: 4%;
-      margin-top: 20px;
-      position: relative;
-      
-      .expand {
-        display: block;
-        width: 100%;
-        text-align: center;
+      width: 100%;
+      padding: 0.5rem;
+
+      &:first-child {
+        @include side-radius(top, $global-radius);
       }
-      span.schedule {
-        font-size: 12px;
-        height: 30px;
-        background-color: #ececec;
-        color: #2b3738;
-        line-height: 30px;
-        .weekday {
-          text-transform: uppercase;
+
+      &:last-child {
+        @include side-radius(bottom, $global-radius);
+      }
+
+      .column {
+        float: left;
+
+        &.day {
+          font-size: 1.2rem;
+          font-weight: bold;
+          width: 8%;
         }
-      }
-      span.day {
-        font-size: 32px;
-        font-weight: 700;
-        line-height: 1;
-        margin-top: 10px;
-      }
-      span.month {
-        font-size: 11px;
-        text-transform: capitalize;
-      }
-      .bottom {
-        margin: 0 10px;
-        border-top: 1px solid #d0d0d0;
-        span.class {
-          font-size: 12px;
-          width: 100%;
-          margin-right: -16px;
-          text-align: left;
-          color: #2b3738;
-          display: inline-block;
+
+        &.weekday {
+          font-size: 1.2rem;
+          font-weight: 300;
+          width: 10%;
         }
-        .icon-check {
-          color: $secondary-color;
+
+        &.status {
+          width: 6%;
         }
-        .icon-circle-small-outline {
-          color: #d0d0d0;
+
+        &.time {
+          width: 76%;
         }
-      }
-      .day-month {
-        width: 70px;
-        height: 70px;
-        margin: 4px auto;
-        overflow: hidden;
-        border: none;
-      }
-      .today {
-        background-color: black;
-        color: white;
-        border-radius: 35px;
-      }
-      .exam {
-        background-color: black;
-        color: white;
-        position: absolute;
-        font-size: 10px;
-        padding: 0 30px;
-        top: 10px;
-        left: -35px;
-        transform: rotate(-45deg);
       }
     }
   }
+
   .code {
     background-color: white;
     margin-bottom: 21px;
