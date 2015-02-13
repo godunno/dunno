@@ -87,7 +87,7 @@ describe Api::V1::Teacher::EventsController do
 
           describe "navigation" do
             it { expect(subject["previous_month"]).to eq(1.month.ago.beginning_of_month.utc.iso8601) }
-            it { expect(subject["current_month"]).to eq(Time.now.beginning_of_month.utc.iso8601) }
+            it { expect(subject["current_month"]).to eq(Time.current.beginning_of_month.utc.iso8601) }
             it { expect(subject["next_month"]).to eq(1.month.from_now.beginning_of_month.utc.iso8601) }
           end
 

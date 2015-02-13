@@ -7,10 +7,10 @@ ul.dates
     a.next-month ng-click="fetch(course.next_month)"
       i.icon.icon-arrow-circle-right
       span {{course.next_month | date:'MMM / yy'}}
-  li.has-overlay ng-repeat="event in course.events | orderBy:'start_at'" ng-class="isToday(event.start_at) ? 'today' : ''"
+  li.has-overlay ng-repeat="event in course.events | orderBy:'start_at'" ng-class="locationInTime(event.start_at)"
     a ng-attr-id="{{ 'event-' + event.uuid }}" ng-href="{{eventPath(event)}}" ng-if="!hideEvent(event)"
       .overlay.published
         .button.btn-style-transparent-1.radius.vertical-center ver aula
       ng-include src="'#{asset_path('shared/courses/event_in_list.html')}'"
     / TODO: Fazer o tooltip funcionar na altura da linha inteira
-    .has-tip ng-if="hideEvent(event)" tooltip="Esta aula ainda está vazia" ng-include="'#{asset_path('shared/courses/event_in_list.html')}'" tooltip-animation="false"
+    .has-tooltip ng-if="hideEvent(event)" tooltip="Esta aula ainda está vazia" ng-include="'#{asset_path('shared/courses/event_in_list.html')}'" tooltip-animation="false"

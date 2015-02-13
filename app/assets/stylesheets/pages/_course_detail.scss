@@ -55,7 +55,7 @@
       float: left;
       background-color: white;
       width: 100%;
-      padding: .5rem;
+      padding: .3rem 0;
 
       &:first-child {
         @include side-radius(top, $global-radius);
@@ -65,35 +65,50 @@
         @include side-radius(bottom, $global-radius);
       }
 
-      .has-tip {
-        border: 0;
+      &.past {
+        color: $light-grey-color;
+      }
 
-        &:hover {
-          border: 0;
-        }
+      &.today .day {
+        background: $secondary-color;
+        color: white;
+      }
+
+      .has-tooltip {
+        cursor: help;
       }
 
       .column {
         float: left;
+        font-size: .9rem;
+        font-weight: 300;
 
         &.day {
-          font-size: 1.2rem;
+          font-size: 1.1rem;
           font-weight: bold;
           width: 8%;
         }
 
         &.weekday {
-          font-size: 1.2rem;
-          font-weight: 300;
           width: 10%;
+        }
+
+        &.time {
+          width: 25%;
+        }
+
+        &.classroom {
+          text-align: right;
+          width: 38%;
         }
 
         &.status {
           width: 6%;
         }
 
-        &.time {
-          width: 76%;
+        &.order {
+          text-align: right;
+          width: 13%;
         }
       }
     }

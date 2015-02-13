@@ -14,6 +14,14 @@ DateUtils = ($filter)->
   @formattedDate = (date, format)->
     $filter('date')(date, format)
 
+  @locationInTime = (date)->
+    if @isToday(date)
+      'today'
+    else if @asDate(date) < new Date()
+      'past'
+    else
+      'future'
+
   @
 
 DateUtils.$inject = ['$filter']

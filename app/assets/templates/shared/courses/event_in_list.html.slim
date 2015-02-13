@@ -1,5 +1,8 @@
 .column.day {{asDate(event.start_at) | date:'dd'}}
-.column.weekday> {{asDate(event.start_at) | date:'EEE'}}
+.column.weekday {{asDate(event.start_at) | date:'EEE'}}
+.column.time {{asDate(event.start_at) | date:'HH:mm'}} - {{asDate(event.end_at) | date:'HH:mm'}}
+.column.classroom &nbsp;
 .column.status
   i.icon ng-class="'icon-' + event.formatted_status"
-.column.time {{asDate(event.start_at) | date:'HH:mm'}}h
+.column.order Aula {{event.order | leadingZeros:2}}
+

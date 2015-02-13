@@ -7,8 +7,9 @@ CourseCtrl = ($scope, $location, $routeParams, Course, DateUtils)->
   $scope.course = new Course()
 
   $scope.fetch = (month)->
-    $scope.$emit('wholePageLoading', Course.get({ access_code: $routeParams.id }, { month: month }).then (course)->
+    $scope.$emit('wholePageLoading', Course.get({ access_code: $routeParams.id }, { month: month || $routeParams.month }).then (course)->
       $scope.course = course
+      $location.search('month', month)
     )
 
   if $routeParams.id

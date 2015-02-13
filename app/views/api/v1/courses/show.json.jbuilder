@@ -1,8 +1,8 @@
 json.course do
   CourseBuilder.new(@course).build!(json, show_teacher: true)
-  json.cache! ['course-builder-events', @events.maximum(:updated_at)] do
+  json.cache! ['course-show/events', @events.maximum(:updated_at)] do
     json.events @events do |event|
-      json.cache! ['course-builder-event', event] do
+      json.cache! ['course-show/event', event] do
         EventBuilder.new(event).build!(json, show_course: false)
       end
     end

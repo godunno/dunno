@@ -11,9 +11,9 @@ describe PaginateEventsByMonth do
     let(:pagination) { PaginateEventsByMonth.new(Event.all, nil) }
 
     it { expect(pagination.events).to eq([event_from_december]) }
-    it { expect(pagination.current_month).to eq("2014-12-01 00:00:00".to_time.in_time_zone) }
-    it { expect(pagination.next_month).to eq("2015-01-01 00:00:00".to_time.in_time_zone) }
-    it { expect(pagination.previous_month).to eq("2014-11-01 00:00:00".to_time.in_time_zone) }
+    it { expect(pagination.current_month).to eq("2014-12-01 00:00:00".in_time_zone) }
+    it { expect(pagination.next_month).to eq("2015-01-01 00:00:00".in_time_zone) }
+    it { expect(pagination.previous_month).to eq("2014-11-01 00:00:00".in_time_zone) }
   end
 
   context "with given month" do
@@ -22,8 +22,8 @@ describe PaginateEventsByMonth do
     let(:pagination) { PaginateEventsByMonth.new(Event.all, "2015-07-15T17:00:00Z") }
 
     it { expect(pagination.events).to eq([event_from_july]) }
-    it { expect(pagination.current_month).to eq("2015-07-01 00:00:00".to_time.in_time_zone) }
-    it { expect(pagination.next_month).to eq("2015-08-01 00:00:00".to_time.in_time_zone) }
-    it { expect(pagination.previous_month).to eq("2015-06-01 00:00:00".to_time.in_time_zone) }
+    it { expect(pagination.current_month).to eq("2015-07-01 00:00:00".in_time_zone) }
+    it { expect(pagination.next_month).to eq("2015-08-01 00:00:00".in_time_zone) }
+    it { expect(pagination.previous_month).to eq("2015-06-01 00:00:00".in_time_zone) }
   end
 end
