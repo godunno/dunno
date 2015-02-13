@@ -12,4 +12,5 @@ ul.dates
       .overlay.published
         .button.btn-style-transparent-1.radius.vertical-center ver aula
       ng-include src="'#{asset_path('shared/courses/event_in_list.html')}'"
+    / TODO: Fazer o tooltip funcionar na altura da linha inteira
     .has-tip ng-if="hideEvent(event)" tooltip="Esta aula ainda está vazia" ng-include="'#{asset_path('shared/courses/event_in_list.html')}'" tooltip-animation="false"

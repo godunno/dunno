@@ -20,13 +20,13 @@
     background-color: white;
 
     .header {
-      padding: 1em 1em 0.5em;
+      padding: 1em 1em .5em;
       text-align: center;
       text-transform: uppercase;
 
       a {
         color: $light-grey-color;
-        font-size: 0.9rem;
+        font-size: .9rem;
 
         &:hover {
           color: $primary-color;
@@ -55,7 +55,7 @@
       float: left;
       background-color: white;
       width: 100%;
-      padding: 0.5rem;
+      padding: .5rem;
 
       &:first-child {
         @include side-radius(top, $global-radius);
@@ -63,6 +63,14 @@
 
       &:last-child {
         @include side-radius(bottom, $global-radius);
+      }
+
+      .has-tip {
+        border: 0;
+
+        &:hover {
+          border: 0;
+        }
       }
 
       .column {

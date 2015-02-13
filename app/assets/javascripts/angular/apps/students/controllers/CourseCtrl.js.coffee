@@ -5,10 +5,15 @@ CourseCtrl = ($scope, $location, $routeParams, Course, DateUtils)->
 
   $scope.hideEvent = (event)-> event.formatted_status == 'empty'
   $scope.course = new Course()
-  if $routeParams.id
-    $scope.$emit('wholePageLoading', Course.get(access_code: $routeParams.id).then (course)->
+
+  $scope.fetch = (month)->
+    $scope.$emit('wholePageLoading', Course.get({ access_code: $routeParams.id }, { month: month }).then (course)->
       $scope.course = course
     )
+
+  if $routeParams.id
+    $scope.fetch()
+
   $scope.search = (access_code)->
     $scope.error = false
     $scope.$emit('wholePageLoading', Course.get(access_code: access_code).then (course)->

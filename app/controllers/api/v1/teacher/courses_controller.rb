@@ -9,7 +9,7 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
   def show
     @day = params[:month].present? ? Time.parse(params[:month]) : Time.now
     @events = course.events.where(start_at: @day.beginning_of_month..@day.end_of_month)
-    fresh_when(course)
+    fresh_when(last_modified: course.updated_at, etag: [course, params[:month]])
   end
 
   def destroy
