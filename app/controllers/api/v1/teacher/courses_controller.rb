@@ -3,12 +3,12 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
 
   def index
     @courses = current_teacher.courses
-    respond_with @courses
   end
 
   def show
-    @day = params[:month].present? ? Time.parse(params[:month]) : Time.now
-    @events = course.events.where(start_at: @day.beginning_of_month..@day.end_of_month)
+    pagination = PaginateEventsByPeriod.new(course.events, params[:month])
+    @day = pagination.day
+    @events = pagination.events
     fresh_when(last_modified: course.updated_at, etag: [course, params[:month]])
   end
 
