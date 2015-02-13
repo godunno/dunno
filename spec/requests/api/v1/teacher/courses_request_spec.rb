@@ -86,14 +86,9 @@ describe Api::V1::Teacher::EventsController do
           it { expect(subject["students"][0]["name"]).to eq(student.name) }
 
           describe "navigation" do
-            before do
-              Timecop.freeze
-            end
-            after { Timecop.return }
-
-            it { expect(subject["previous_month"]).to eq(1.month.ago.utc.beginning_of_month.iso8601) }
-            it { expect(subject["current_month"]).to eq(Time.now.utc.beginning_of_month.iso8601) }
-            it { expect(subject["next_month"]).to eq(1.month.from_now.utc.beginning_of_month.iso8601) }
+            it { expect(subject["previous_month"]).to eq(1.month.ago.beginning_of_month.utc.iso8601) }
+            it { expect(subject["current_month"]).to eq(Time.now.beginning_of_month.utc.iso8601) }
+            it { expect(subject["next_month"]).to eq(1.month.from_now.beginning_of_month.utc.iso8601) }
           end
 
           describe "course's events" do
@@ -109,13 +104,13 @@ describe Api::V1::Teacher::EventsController do
 
       context "course in previous month" do
         before do
-          do_action(month: 1.month.ago.utc.beginning_of_month.iso8601)
+          do_action(month: 1.month.ago.beginning_of_month.utc.iso8601)
         end
         subject { json["course"] }
 
-        it { expect(subject["previous_month"]).to eq(2.month.ago.utc.beginning_of_month.iso8601) }
-        it { expect(subject["current_month"]).to eq(1.months.ago.utc.beginning_of_month.iso8601) }
-        it { expect(subject["next_month"]).to eq(Time.now.utc.beginning_of_month.iso8601) }
+        it { expect(subject["previous_month"]).to eq(2.month.ago.beginning_of_month.utc.iso8601) }
+        it { expect(subject["current_month"]).to eq(1.months.ago.beginning_of_month.utc.iso8601) }
+        it { expect(subject["next_month"]).to eq(Time.current.beginning_of_month.utc.iso8601) }
 
         describe "events" do
           subject { json["course"]["events"].map { |e| e["uuid"] } }
@@ -128,13 +123,13 @@ describe Api::V1::Teacher::EventsController do
 
       context "course in next month" do
         before do
-          do_action(month: 1.month.from_now.utc.beginning_of_month.iso8601)
+          do_action(month: 1.month.from_now.beginning_of_month.utc.iso8601)
         end
         subject { json["course"] }
 
-        it { expect(subject["previous_month"]).to eq(Time.now.utc.beginning_of_month.iso8601) }
-        it { expect(subject["current_month"]).to eq(1.months.from_now.utc.beginning_of_month.iso8601) }
-        it { expect(subject["next_month"]).to eq(2.months.from_now.utc.beginning_of_month.iso8601) }
+        it { expect(subject["previous_month"]).to eq(Time.current.beginning_of_month.utc.iso8601) }
+        it { expect(subject["current_month"]).to eq(1.months.from_now.beginning_of_month.utc.iso8601) }
+        it { expect(subject["next_month"]).to eq(2.months.from_now.beginning_of_month.utc.iso8601) }
 
         describe "events" do
           subject { json["course"]["events"].map { |e| e["uuid"] } }

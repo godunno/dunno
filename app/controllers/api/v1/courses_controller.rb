@@ -7,9 +7,8 @@ class Api::V1::CoursesController < Api::V1::StudentApplicationController
 
   def show
     @course = Course.find_by!(uuid: params[:id])
-    pagination = PaginateEventsByPeriod.new(@course.events, params[:month])
-    @day = pagination.day
-    @events = pagination.events
+    @pagination = PaginateEventsByMonth.new(@course.events, params[:month])
+    @events = @pagination.events
     fresh_when(last_modified: @course.updated_at, etag: [@course, params[:month]])
   end
 

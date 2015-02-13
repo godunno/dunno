@@ -7,7 +7,7 @@ json.course do
       end
     end
   end
-  json.previous_month((@day - 1.month).utc.beginning_of_month.iso8601)
-  json.current_month(@day.utc.beginning_of_month.iso8601)
-  json.next_month((@day + 1.month).utc.beginning_of_month.iso8601)
+  json.previous_month(@pagination.previous_month.utc.iso8601)
+  json.current_month(@pagination.current_month.utc.iso8601)
+  json.next_month(@pagination.next_month.utc.iso8601)
 end
