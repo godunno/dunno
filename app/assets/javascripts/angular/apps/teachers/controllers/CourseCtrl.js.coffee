@@ -6,10 +6,15 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
 
   $scope.course = new Course()
   $scope.course.weekly_schedules = [{}]
-  if $routeParams.id
-    $scope.$emit('wholePageLoading', Course.get(uuid: $routeParams.id).then (course)->
+
+  $scope.fetch = (month)->
+    $scope.$emit('wholePageLoading', Course.get({ uuid: $routeParams.id }, { month: month || $routeParams.month }).then (course)->
       $scope.course = formatToView(course)
+      $location.search('month', month)
     )
+
+  if $routeParams.id
+    $scope.fetch()
 
   $scope.save = (course)->
     $scope.isSending = true

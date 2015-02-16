@@ -2,12 +2,13 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
   respond_to :json
 
   def index
-    @courses = current_teacher.courses.includes(:weekly_schedules)
-    respond_with @courses #.to_json(root: false)
+    @courses = current_teacher.courses
   end
 
   def show
-    fresh_when(course)
+    @pagination = PaginateEventsByMonth.new(course.events, params[:month])
+    @events = @pagination.events
+    fresh_when(last_modified: course.updated_at, etag: [course, @pagination.current_month])
   end
 
   def destroy
