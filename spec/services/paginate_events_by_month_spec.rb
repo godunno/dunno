@@ -5,6 +5,8 @@ describe PaginateEventsByMonth do
     Timecop.freeze Time.zone.parse("2014-12-31 23:30")
   end
 
+  after { Timecop.return }
+
   context "without given month" do
     let!(:event_from_december) { create(:event, start_at: "2014-12-01 01:00:00") }
     let!(:event_from_january) { create(:event, start_at: "2015-01-01 01:00:00") }
