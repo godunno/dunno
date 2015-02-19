@@ -5,7 +5,13 @@ header.page-header.title
         h1 Catálogo
 
 .catalog-page
-  .row
+  .blankslate ng-if="!medias || medias.length == 0"
+    .how-to
+      p Use estes ícones para adicionar links ou arquivos em suas tarefas.
+      p Tudo ficará organizado para você aqui no catálogo.
+    = image_tag("medias-blankslate.png")
+
+  .row ng-if="!!medias && medias.length > 0"
     .large-3.columns
       a.dropdown data-dropdown="search-type"
         .option.all ng-if="search.type == 'all'"
@@ -66,7 +72,7 @@ header.page-header.title
           .large-1.column
             a.icon.icon-trash ng-click="removeMedia(media)"
 
-  .row
+  .row ng-if="!!medias && medias.length > 0" 
     .pagination
       .page.previous-page
         a ng-click="fetch({ page: previous_page })" ng-if="previous_page"

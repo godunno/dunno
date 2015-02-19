@@ -8,6 +8,7 @@ header.page-header.title
   .row
     ul.events.large-block-grid-3
 
+      h1.blankslate ng-if="!events || events.length == 0" Não há aulas esta semana
       li.event-card ng-repeat="event in events"
         div ng-class="'title scheme-' + (event.course.order % 12)"
           h1 {{event.course.class_name}}
