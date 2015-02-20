@@ -64,6 +64,7 @@
     border: 0;
     border-bottom: 1px solid #ccc !important;
     margin-bottom: 0;
+    width: 85%;
 
     &:focus {
       box-shadow: none;
@@ -358,6 +359,10 @@ $diary-card-border: 1px solid #dddddd;
 
     .item-show {
       position: relative;
+
+      .description {
+        word-break: break-word;
+      }
     }
 
     .tasks-buttons {

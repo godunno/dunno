@@ -82,7 +82,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           .row
             .item-show ng-if="!isEditing(topic)"
               input.done type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
-              label for="topic_{{topic.order}}_done" {{topic.description}}
+              label.description for="topic_{{topic.order}}_done" {{topic.description}}
               .tasks-buttons
                 a.icon.icon-trash.task-icon-right[
                   ng-click="removeItem(event.topics, topic)"
@@ -139,7 +139,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           .row
             .item-show ng-if="!isEditing(personal_note)"
               input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
-              label for="personal_note_{{personal_note.order}}_done" {{personal_note.description}}
+              label.description for="personal_note_{{personal_note.order}}_done" {{personal_note.description}}
               .tasks-buttons
                 a.icon.icon-trash.task-icon-right[
                   ng-click="removeItem(event.personal_notes, personal_note)"
