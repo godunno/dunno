@@ -34,7 +34,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
   form name="event_form" ng-submit="finish(event)"
     .row.event-status
       .large-5.columns.no-pad-left
-        a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
+        a.button.radius.btn-style-2 ng-href="{{courseLocation(event)}}"
           span.icon.icon-arrow-back
           span Voltar        
       .large-2.columns.text-right
