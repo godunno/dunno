@@ -65,9 +65,11 @@ EventCtrl = (
     ).catch(-> deferred.reject())
     deferred.promise
 
+  $scope.courseLocation = (event)-> "#courses/#{event.course.uuid}?month=#{event.start_at}"
+
   $scope.finish = (event)->
     $scope.save(event).then ->
-      $window.location.href = "#courses/#{event.course.uuid}"
+      $window.location.href = $scope.courseLocation(event)
 
   $scope.updateItem = ($event, editingItem, item)->
     $event.preventDefault()
