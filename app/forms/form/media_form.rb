@@ -63,12 +63,7 @@ module Form
     end
 
     def set_thumbnail!
-      self.thumbnail =
-        begin
-          preview.images.first.src.to_s
-        rescue NoMethodError
-          ExtensionThumbnailExtractor.extract((url || file.try(:original_filename)).to_s).path
-        end
+      self.thumbnail = Catalog::ThumbnailExtractor.new(self).extract
     end
   end
 end

@@ -1,36 +1,36 @@
-require 'spec_helper'
+require_relative '../../../../lib/catalog/thumbnail/extension_thumbnail_extractor'
 
-describe ExtensionThumbnailExtractor do
+describe Catalog::ExtensionThumbnailExtractor do
 
   shared_examples "extracting thumbnail doc file" do
-    subject { ExtensionThumbnailExtractor.new(target).extract }
-    it { expect(subject.extension).to eq("doc") }
-    it { expect(subject.path).to eq("/assets/extensions/doc.png") }
+    subject { Catalog::ExtensionThumbnailExtractor.new(target).extract }
+    it { expect(subject).to eq("doc") }
   end
 
   describe "from filename" do
-    let(:target) { "file.doc" }
+    let(:target) { double(name: "file.doc") }
     it_behaves_like "extracting thumbnail doc file"
   end
 
   describe "from file path" do
-    let(:target) { "/path/to/file/file.doc" }
+    let(:target) { double(name: "/path/to/file/file.doc") }
     it_behaves_like "extracting thumbnail doc file"
   end
 
   describe "from URL" do
-    let(:target) { "http://www.example.com/file.doc" }
+    let(:target) { double(name: "http://www.example.com/file.doc") }
     it_behaves_like "extracting thumbnail doc file"
   end
 
   describe "from URL with parameters" do
-    let(:target) { "http://www.example.com/file.doc?auth_token=nA33sfkjw3sxz" }
+    let(:target) { double(name: "http://www.example.com/file.doc?auth_token=nA33sfkjw3sxz") }
     it_behaves_like "extracting thumbnail doc file"
   end
 
   context "defaulting when trying to extract" do
     def extraction_should_default(name)
-      expect(ExtensionThumbnailExtractor.new(name).extract.path).to eq("/assets/extensions/default.png")
+      target = double(name: name)
+      expect(Catalog::ExtensionThumbnailExtractor.new(target).extract).to be_nil
     end
 
     it "unsupported extension" do
@@ -45,8 +45,8 @@ describe ExtensionThumbnailExtractor do
   it "should have a constructor method" do
     extractor = spy('ExtensionThumbnailExtractor')
     name = 'file.doc'
-    allow(ExtensionThumbnailExtractor).to receive(:new).with(name).and_return(extractor)
-    ExtensionThumbnailExtractor.extract(name)
+    allow(Catalog::ExtensionThumbnailExtractor).to receive(:new).with(name).and_return(extractor)
+    Catalog::ExtensionThumbnailExtractor.extract(name)
     expect(extractor).to have_received(:extract)
   end
 end
