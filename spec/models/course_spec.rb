@@ -88,10 +88,16 @@ describe Course do
     it { expect(second_course.order).to eq(2) }
   end
 
-  describe "::find_by_identifier" do
+  describe "::find_by_identifier!" do
     before { course.save! }
-    it { expect(Course.find_by_identifier(course.uuid)).to eq(course) }
-    it { expect(Course.find_by_identifier(course.access_code)).to eq(course) }
+
+    it { expect(Course.find_by_identifier!(course.uuid)).to eq(course) }
+    it { expect(Course.find_by_identifier!(course.access_code)).to eq(course) }
+
+    it "raises error on not found" do
+      expect { Course.find_by_identifier!('bla') }
+        .to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
 end
