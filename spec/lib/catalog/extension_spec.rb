@@ -1,4 +1,4 @@
-require_relative '../../../../lib/catalog/thumbnail/extension'
+require './lib/catalog/extension'
 
 describe Catalog::Extension do
   %w(file.doc /path/to/file.doc http://www.example.com/file.doc http://www.example.com/file.doc?auth_token=nA33sfkjw3sxz).each do |file|

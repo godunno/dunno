@@ -1,5 +1,5 @@
 require_relative 'image_extractor'
-require_relative 'extension_thumbnail_extractor'
+require_relative 'extension_extractor'
 require_relative 'media_thumbnail_wrapper'
 require 'action_controller'
 
@@ -18,17 +18,17 @@ module Catalog
     private
 
     def from_image
-      ImageExtractor.new(wrapped_media).extract
+      ImageExtractor.extract(wrapped_media)
     end
 
     def from_preview
-      media.preview.images.first.src
+      media.preview.images.first.src.to_s
     rescue NoMethodError
       nil
     end
 
     def from_extension
-      extension = ExtensionThumbnailExtractor.new(wrapped_media).extract
+      extension = ExtensionExtractor.extract(wrapped_media)
       extension ? asset_path(extension) : nil
     end
 

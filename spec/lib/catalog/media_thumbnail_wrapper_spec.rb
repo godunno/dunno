@@ -1,4 +1,4 @@
-require_relative '../../../../lib/catalog/thumbnail/media_thumbnail_wrapper'
+require './lib/catalog/media_thumbnail_wrapper'
 
 describe Catalog::MediaThumbnailWrapper do
   context "with url" do

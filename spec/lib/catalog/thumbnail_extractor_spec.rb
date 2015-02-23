@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Catalog::ThumbnailExtractor do
   def media_double(url: nil, file: nil, preview: nil)
     media = double("media", url: url, file: file)
-    allow(media).to receive_message_chain(:preview, :images, :first, src: preview)
+    allow(media).to receive_message_chain(:preview, :images, :first, :src, to_s: preview)
     media
   end
 

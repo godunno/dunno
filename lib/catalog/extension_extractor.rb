@@ -1,22 +1,27 @@
 require_relative 'extension'
 
 module Catalog
-  class ExtensionThumbnailExtractor
+  class ExtensionExtractor
     SUPPORTED_EXTENSIONS = %w(doc)
     attr_reader :object
+
+    def self.extract(object)
+      new(object).extract
+    end
 
     def initialize(object)
       @object = object
     end
 
     def extract
-      extension = Catalog::Extension.from(object.name)
       return unless SUPPORTED_EXTENSIONS.include?(extension)
       extension
     end
 
-    def self.extract(name)
-      new(name).extract
+    private
+
+    def extension
+      @extension ||= Catalog::Extension.from(object.name)
     end
   end
 end
