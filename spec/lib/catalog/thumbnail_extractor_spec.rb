@@ -15,11 +15,11 @@ describe Catalog::ThumbnailExtractor do
     end
   end
 
-  context "from image file" do
-    let(:file) { double("file", path: "/path/to/image.png", original_filename: "image.png") }
-    let(:media) { media_double(file: file) }
-    it { expect(Catalog::ThumbnailExtractor.new(media).extract).to eq(file.path) }
-  end
+  #context "from image file" do
+  #  let(:file) { double("file", path: "/path/to/image.png", original_filename: "image.png") }
+  #  let(:media) { media_double(file: file) }
+  #  it { expect(Catalog::ThumbnailExtractor.new(media).extract).to eq(file.path) }
+  #end
 
   context "from file extension" do
     let(:file) { double("file", path: "/path/to/document.doc", original_filename: "document.doc") }
