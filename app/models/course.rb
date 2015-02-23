@@ -14,6 +14,15 @@ class Course < ActiveRecord::Base
 
   before_create :set_access_code
 
+  def self.find_by_identifier!(identifier)
+    where('access_code = ? OR uuid = ?', identifier, identifier).first!
+  end
+
+  def add_student(student)
+    students << student
+    touch
+  end
+
   def channel
     "course_#{uuid}"
   end
@@ -26,9 +35,6 @@ class Course < ActiveRecord::Base
     super(options.merge(methods: [:order]))
   end
 
-  def self.find_by_identifier!(identifier)
-    where('access_code = ? OR uuid = ?', identifier, identifier).first!
-  end
 
   private
 
