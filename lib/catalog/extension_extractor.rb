@@ -2,7 +2,7 @@ require_relative 'extension'
 
 module Catalog
   class ExtensionExtractor
-    SUPPORTED_EXTENSIONS = %w(doc)
+    SUPPORTED_EXTENSIONS = %w(doc docx ppt pptx xls xlsx ppt pptx pdf html txt rtf key pages numbers)
     attr_reader :object
 
     def self.extract(object)
