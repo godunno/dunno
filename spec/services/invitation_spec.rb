@@ -13,6 +13,10 @@ describe Invitation do
       expect { invitation.invite! }.to change { user.reload.invitation_token }.from(nil).to(invitation_token)
     end
 
+    it "sends an e-mail on invite" do
+      expect { invitation.invite! }.to change { ActionMailer::Base.deliveries.size }.by(1)
+    end
+
     it "should timestamp the invitation" do
       now = Time.zone.now.change(usec: 0)
       Timecop.freeze(now)
