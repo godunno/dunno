@@ -40,4 +40,9 @@ describe PersonalNote do
       end
     end
   end
+
+  it "should allow descriptions longer than 255 characters" do
+    personal_note.description = "a" * 256
+    expect { personal_note.save! }.not_to raise_error
+  end
 end
