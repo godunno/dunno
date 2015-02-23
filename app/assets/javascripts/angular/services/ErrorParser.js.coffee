@@ -1,6 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
+DunnoAppStudent = angular.module('DunnoAppStudent')
 
-DunnoApp.service 'ErrorParser', ->
+ErrorParser = ->
   @setErrors = (errors, form, scope)->
     for attribute, attributeErrors of errors
       for error in attributeErrors
@@ -9,3 +10,6 @@ DunnoApp.service 'ErrorParser', ->
           form[attribute].$setValidity(error, true) if oldValue != newValue
 
   @
+
+DunnoApp.service 'ErrorParser', ErrorParser
+DunnoAppStudent.service 'ErrorParser', ErrorParser
