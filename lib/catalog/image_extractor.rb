@@ -2,7 +2,6 @@ require_relative 'extension'
 
 module Catalog
   class ImageExtractor
-    SUPPORTED_EXTENSIONS = %w(jpg jpeg png svg gif)
     attr_reader :object
 
     def self.extract(object)
@@ -20,7 +19,7 @@ module Catalog
     private
 
     def image?
-      SUPPORTED_EXTENSIONS.include? extension
+      extension.image?
     end
 
     def extension

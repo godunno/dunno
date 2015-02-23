@@ -1,15 +1,21 @@
 require './lib/catalog/extension'
 
 describe Catalog::Extension do
-  %w(file.doc /path/to/file.doc http://www.example.com/file.doc http://www.example.com/file.doc?auth_token=nA33sfkjw3sxz).each do |file|
-    it { expect(Catalog::Extension.new(file).name).to eq("doc") }
-  end
+
+  it { expect(Catalog::Extension.new("file.doc").name).to eq("doc") }
+  it { expect(Catalog::Extension.new("file.DOC").name).to eq("doc") }
+  it { expect(Catalog::Extension.new("/path/to/file.doc").name).to eq("doc") }
+  it { expect(Catalog::Extension.new("http://www.example.com/file.doc").name).to eq("doc") }
+  it { expect(Catalog::Extension.new("http://www.example.com/file.doc?auth_token=nA33sfkjw3sxz)").name).to eq("doc") }
+
+  it { expect(Catalog::Extension.new("image.png")).to be_image }
+
+  it { expect(Catalog::Extension.new("unsupported.xyz")).not_to be_supported }
 
   it "should have a constructor method" do
     extension = spy('ExtensionThumbnailExtractor')
     name = 'file.doc'
-    allow(Catalog::Extension).to receive(:new).with(name).and_return(extension)
+    expect(Catalog::Extension).to receive(:new).with(name).and_return(extension)
     Catalog::Extension.from(name)
-    expect(extension).to have_received(:name)
   end
 end
