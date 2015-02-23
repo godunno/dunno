@@ -57,9 +57,7 @@ describe Api::V1::CoursesController do
         get "/api/v1/courses/#{identifier}.json", auth_params(student)
       end
 
-      before do
-        course.save!
-      end
+      before { course.save! }
 
       context "searching with uuid" do
         before { do_action }
@@ -97,11 +95,8 @@ describe Api::V1::CoursesController do
           post "/api/v1/courses/#{identifier}/register.json", auth_params(student).to_json
         end
 
-        before do
-          do_action
-        end
-
         context "existing course" do
+          before { do_action }
 
           let(:identifier) { new_course.uuid }
 
@@ -111,6 +106,8 @@ describe Api::V1::CoursesController do
         end
 
         context "identifying by access code" do
+          before { do_action }
+
           let(:identifier) { new_course.access_code }
 
           it { expect(last_response.status).to eq(200) }
@@ -119,17 +116,15 @@ describe Api::V1::CoursesController do
         end
 
         context "course not found" do
-          let(:identifier) { "non-existent" }
+          let(:identifier) { 'not-found' }
 
-          it { expect(last_response.status).to eq(404) }
+          it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
         end
 
         context "already registered to course" do
           let(:identifier) { new_course.uuid }
 
-          before do
-            do_action
-          end
+          before { 2.times { do_action } }
 
           it { expect(last_response.status).to eq(400) }
           it { expect(new_course.students.reload).to eq([student]) }
@@ -150,11 +145,9 @@ describe Api::V1::CoursesController do
           delete "/api/v1/courses/#{identifier}/unregister.json", auth_params(student).to_json
         end
 
-        before do
-          do_action
-        end
 
         context "existing course" do
+          before { do_action }
 
           let(:identifier) { course.uuid }
 
@@ -164,6 +157,8 @@ describe Api::V1::CoursesController do
         end
 
         context "identifying by access code" do
+          before { do_action }
+
           let(:identifier) { course.access_code }
 
           it { expect(last_response.status).to eq(200) }
@@ -172,9 +167,9 @@ describe Api::V1::CoursesController do
         end
 
         context "course not found" do
-          let(:identifier) { "non-existent" }
+          let(:identifier) { 'not-found' }
 
-          it { expect(last_response.status).to eq(404) }
+          it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
         end
       end
     end
