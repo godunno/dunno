@@ -73,22 +73,10 @@ describe Form::MediaForm do
     Form::MediaForm.new(media)
   end
 
-  describe "thumbnail extraction" do
-    it "should extract the thumbnail from the file extension" do
-      media[:file] = uploaded_file("file.doc", "application/msword")
-      path = "/assets/extensions/doc.png"
-      expect_any_instance_of(ExtensionThumbnailExtractor::Thumbnail).to receive(:path).and_return(path)
-      media_form = Form::MediaForm.new(media)
-      expect(media_form.thumbnail).to eq(path)
-    end
-
-    it "should extract the thumbnail from the URL extension" do
-      media[:url] = url = "http://www.example.com/file.doc"
-      stub_request(:get, url).to_return(body: File.open("spec/fixtures/file.doc"))
-      path = "/assets/extensions/doc.png"
-      expect_any_instance_of(ExtensionThumbnailExtractor::Thumbnail).to receive(:path).and_return(path)
-      media_form = Form::MediaForm.new(media)
-      expect(media_form.thumbnail).to eq(path)
-    end
+  it "should extract the thumbnail" do
+    extractor = spy("ThumbnailExtractor")
+    allow(Catalog::ThumbnailExtractor).to receive(:new).and_return(extractor)
+    Form::MediaForm.new(media)
+    expect(extractor).to have_received(:extract)
   end
 end

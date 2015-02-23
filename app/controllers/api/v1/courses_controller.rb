@@ -3,16 +3,13 @@ class Api::V1::CoursesController < Api::V1::StudentApplicationController
 
   def index
     @courses = current_student.courses
-    respond_with(@courses)
   end
 
   def show
-    @course = Course.find_by_identifier(params[:id])
-    if @course
-      respond_with(@course)
-    else
-      render nothing: true, status: 404
-    end
+    @course = Course.find_by!(uuid: params[:id])
+    @pagination = PaginateEventsByMonth.new(@course.events, params[:month])
+    @events = @pagination.events
+    fresh_when(last_modified: @course.updated_at, etag: [@course, @pagination.current_month])
   end
 
   def register

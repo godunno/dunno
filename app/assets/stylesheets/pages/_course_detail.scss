@@ -9,92 +9,143 @@
       background-color: red;
     }
   }
+
   ul.dates {
     @extend .cf;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: $box-shadow;
     list-style: none;
     margin-left: 0;
     margin-right: 0;
-    padding-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: $box-shadow;
-    background-color: white;
-    li {
+
+    .header {
+      border-bottom: 2px solid $light-grey-color;
+      padding: .7rem 1rem .5rem;
+      text-transform: uppercase;
+
+      a {
+        @include radius;
+        background-color: $background-light-grey-color;
+        color: $light-grey-color;
+        font-size: .9rem;
+        float: right;
+        margin-left: 1rem;
+        padding: .5rem;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+
+      .previous-month > .icon {
+        margin: 0 1rem 0 0;
+      }
+
+      .current-month {
+        display: inline;
+        font-weight: bold;
+        line-height: 2.5rem;
+      }
+
+      .next-month > .icon {
+        margin: 0 0 0 1rem;
+      }
+    }
+
+    .item {
+      background-color: #fff;
+      color: $light-grey-color;
       float: left;
-      background-color: white;
-      border-radius: 5px;
-      border: 1px solid silver;
-      width: 20%;
-      margin-left: 4%;
-      margin-top: 20px;
-      position: relative;
-      
-      .expand {
-        display: block;
-        width: 100%;
-        text-align: center;
-      }
-      span.schedule {
-        font-size: 12px;
-        height: 30px;
-        background-color: #ececec;
-        color: #2b3738;
-        line-height: 30px;
-        .weekday {
-          text-transform: uppercase;
+      line-height: 2.5em;
+      width: 100%;
+
+      &:hover {
+        background-color: $background-light-grey-color;
+        color: $primary-color;
+
+        .column.order {
+          display: none;
+        }
+
+        .column.go {
+          display: block;
         }
       }
-      span.day {
-        font-size: 32px;
-        font-weight: 700;
-        line-height: 1;
-        margin-top: 10px;
+
+      &:nth-last-child(n+2) {
+        border-bottom: 1px solid $light-grey-color;
       }
-      span.month {
-        font-size: 11px;
-        text-transform: capitalize;
+
+      &:first-child {
+        @include side-radius(top, $global-radius);
       }
-      .bottom {
-        margin: 0 10px;
-        border-top: 1px solid #d0d0d0;
-        span.class {
-          font-size: 12px;
-          width: 100%;
-          margin-right: -16px;
-          text-align: left;
-          color: #2b3738;
-          display: inline-block;
+
+      &:last-child {
+        @include side-radius(bottom, $global-radius);
+      }
+
+      &.today .day {
+        background: $secondary-color;
+        color: #fff;
+      }
+
+      &.future .day {
+        color: $primary-color;
+      }
+
+      .has-tooltip {
+        cursor: help;
+      }
+
+      .column {
+        float: left;
+        font-size: .9rem;
+        font-weight: 300;
+
+        &.day {
+          font-size: 1.1rem;
+          font-weight: bold;
+          width: 8%;
         }
-        .icon-check {
+
+        &.weekday {
+          width: 10%;
+        }
+
+        &.time {
+          width: 25%;
+        }
+
+        &.classroom {
+          text-align: right;
+          width: 38%;
+        }
+
+        &.status {
+          width: 6%;
+        }
+
+        &.order {
+          text-align: right;
+          width: 13%;
+        }
+
+        &.go {
           color: $secondary-color;
+          display: none;
+          text-align: center;
+          width: 13%;
+
+          .icon {
+            display: inline-block;
+            line-height: 1em;
+          }
         }
-        .icon-circle-small-outline {
-          color: #d0d0d0;
-        }
-      }
-      .day-month {
-        width: 70px;
-        height: 70px;
-        margin: 4px auto;
-        overflow: hidden;
-        border: none;
-      }
-      .today {
-        background-color: black;
-        color: white;
-        border-radius: 35px;
-      }
-      .exam {
-        background-color: black;
-        color: white;
-        position: absolute;
-        font-size: 10px;
-        padding: 0 30px;
-        top: 10px;
-        left: -35px;
-        transform: rotate(-45deg);
       }
     }
   }
+
   .code {
     background-color: white;
     margin-bottom: 21px;
@@ -165,7 +216,7 @@
   text-align: center;
   padding-top: 25vh;
   span, h3, a {
-    color: #ffffff;
+    color: #fff;
   }
   .description {
     font-size: 6vh;

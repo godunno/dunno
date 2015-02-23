@@ -1,4 +1,4 @@
-header.page-header.title ng-class="'scheme-' + course.order"
+header.page-header.title ng-class="'scheme-' + (course.order % 12)"
   .row
     .large-2.columns.vertical-center.right
       a.button.radius.btn-style-2.right href="#courses/{{course.uuid}}/edit" Editar
@@ -34,7 +34,7 @@ header.page-header.title ng-class="'scheme-' + course.order"
             span Enviar notificação
 
         ul.list
-          li ng-repeat="student in course.students"
+          li ng-repeat="student in course.students | orderBy:'name'"
             h3 {{student.name}}
 
   tutorial.tutorial-2 ng-if="tutorialEnabled(2)" on-close="tutorialClosed(2)"

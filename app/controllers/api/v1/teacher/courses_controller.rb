@@ -2,16 +2,13 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
   respond_to :json
 
   def index
-    @courses = current_teacher.courses.includes(:weekly_schedules)
-    respond_with @courses #.to_json(root: false)
+    @courses = current_teacher.courses
   end
 
   def show
-    if course
-      respond_with course
-    else
-      render nothing: true, status: 404
-    end
+    @pagination = PaginateEventsByMonth.new(course.events, params[:month])
+    @events = @pagination.events
+    fresh_when(last_modified: course.updated_at, etag: [course, @pagination.current_month])
   end
 
   def destroy
@@ -46,8 +43,7 @@ class Api::V1::Teacher::CoursesController < Api::V1::TeacherApplicationControlle
   private
 
     def course
-      @course ||= current_teacher.courses
-        .where(uuid: params[:id]).first
+      @course ||= current_teacher.courses.find_by!(uuid: params[:id])
     end
 
     def course_params

@@ -8,7 +8,7 @@ Router = ($routeProvider)->
   $routeProvider.
     when('/courses',                          controller: 'CoursesIndexCtrl', templateUrl: '<%= asset_path('students/courses/index.html') %>').
     when('/courses/search',                   controller: 'CourseCtrl',       templateUrl: '<%= asset_path('students/courses/search.html') %>').
-    when('/courses/:id',                      controller: 'CourseCtrl',       templateUrl: '<%= asset_path('students/courses/show.html') %>').
+    when('/courses/:id',                      controller: 'CourseCtrl',       templateUrl: '<%= asset_path('students/courses/show.html') %>', reloadOnSearch: false).
     when('/courses/:id/confirm_registration', controller: 'CourseCtrl',       templateUrl: '<%= asset_path('students/courses/confirm_registration.html') %>').
     when('/events/:id',                       controller: 'EventCtrl',        templateUrl: '<%= asset_path('students/events/show.html') %>').
     when('/profile/edit',                     controller: 'ProfileCtrl',      templateUrl: '<%= asset_path('shared/profile/form.html') %>').

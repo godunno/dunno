@@ -58,19 +58,21 @@ describe Api::V1::Teacher::EventsController do
     context "authenticated" do
 
       let!(:event) { create(:event, course: course) }
+      let!(:event_from_past_month) { create(:event, course: course, start_at: 1.month.ago) }
+      let!(:event_from_next_month) { create(:event, course: course, start_at: 1.month.from_now) }
       let!(:event_from_another_teacher) { create(:event, course: create(:course, teacher: create(:teacher))) }
       let!(:event_from_another_course) { create(:event, course: create(:course, teacher: teacher)) }
 
       before do
         course.save!
-        do_action
       end
 
-      def do_action
-        get "/api/v1/teacher/courses/#{course.uuid}.json", auth_params(teacher)
+      def do_action(parameters = {})
+        get "/api/v1/teacher/courses/#{course.uuid}.json", auth_params(teacher).merge(parameters)
       end
 
       context "teacher's course" do
+        before { do_action }
 
         describe "resource" do
           subject { json["course"] }
@@ -83,18 +85,67 @@ describe Api::V1::Teacher::EventsController do
           it { expect(subject["color"]).to eq(SHARED_CONFIG["v1"]["courses"]["schemes"][course.order]) }
           it { expect(subject["students"][0]["name"]).to eq(student.name) }
 
+          describe "navigation" do
+            it { expect(subject["previous_month"]).to eq(1.month.ago.beginning_of_month.utc.iso8601) }
+            it { expect(subject["current_month"]).to eq(Time.current.beginning_of_month.utc.iso8601) }
+            it { expect(subject["next_month"]).to eq(1.month.from_now.beginning_of_month.utc.iso8601) }
+          end
+
           describe "course's events" do
             subject { json["course"]["events"].map {|e| e["uuid"]} }
             it { expect(subject).to include event.uuid }
             it { expect(subject).not_to include event_from_another_teacher.uuid }
             it { expect(subject).not_to include event_from_another_course.uuid }
+            it { expect(subject).not_to include event_from_past_month.uuid }
+            it { expect(subject).not_to include event_from_next_month.uuid }
           end
+        end
+      end
+
+      context "course in previous month" do
+        before do
+          do_action(month: 1.month.ago.beginning_of_month.utc.iso8601)
+        end
+        subject { json["course"] }
+
+        it { expect(subject["previous_month"]).to eq(2.month.ago.beginning_of_month.utc.iso8601) }
+        it { expect(subject["current_month"]).to eq(1.months.ago.beginning_of_month.utc.iso8601) }
+        it { expect(subject["next_month"]).to eq(Time.current.beginning_of_month.utc.iso8601) }
+
+        describe "events" do
+          subject { json["course"]["events"].map { |e| e["uuid"] } }
+
+          it { expect(subject).to include event_from_past_month.uuid }
+          it { expect(subject).not_to include event.uuid }
+          it { expect(subject).not_to include event_from_next_month.uuid }
+        end
+      end
+
+      context "course in next month" do
+        before do
+          do_action(month: 1.month.from_now.beginning_of_month.utc.iso8601)
+        end
+        subject { json["course"] }
+
+        it { expect(subject["previous_month"]).to eq(Time.current.beginning_of_month.utc.iso8601) }
+        it { expect(subject["current_month"]).to eq(1.months.from_now.beginning_of_month.utc.iso8601) }
+        it { expect(subject["next_month"]).to eq(2.months.from_now.beginning_of_month.utc.iso8601) }
+
+        describe "events" do
+          subject { json["course"]["events"].map { |e| e["uuid"] } }
+
+          it { expect(subject).to include event_from_next_month.uuid }
+          it { expect(subject).not_to include event.uuid }
+          it { expect(subject).not_to include event_from_past_month.uuid }
         end
       end
 
       context "another teacher's course" do
         let!(:course) { create(:course, teacher: create(:teacher)) }
-        it { expect(last_response.status).to eq 404 }
+
+        it do
+          expect { do_action }.to raise_error(ActiveRecord::RecordNotFound)
+        end
       end
     end
   end

@@ -22,6 +22,7 @@ module Dunno
 
     # add custom validators path
     config.autoload_paths += %W["#{config.root}/app/validators/"]
+    config.autoload_paths << Rails.root.join('lib')
 
     config.assets.precompile += %w( modernizer.js mailers/base.css )
     config.time_zone = 'Brasilia'
@@ -32,8 +33,9 @@ module Dunno
     config.carrierwave_storage = %w(staging production).include?(::Rails.env) ? :fog : :file
 
     config.to_prepare do
-      Dir.glob(Rails.root + "app/decorators/**/*_decorator.rb").each { |d| require_dependency d }
-      Dir.glob(Rails.root + "app/form/*.rb").each { |d| require_dependency d }
+      %w(app/decorators/**/*_decorator.rb app/form/*.rb).each do |directory|
+        Dir.glob(Rails.root + directory).each { |d| require_dependency d }
+      end
     end
 
     config.cache_store = :dalli_store

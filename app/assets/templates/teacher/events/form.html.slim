@@ -34,7 +34,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
   form name="event_form" ng-submit="finish(event)"
     .row.event-status
       .large-5.columns.no-pad-left
-        a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
+        a.button.radius.btn-style-2 ng-href="{{courseLocation(event)}}"
           span.icon.icon-arrow-back
           span Voltar        
       .large-2.columns.text-right
@@ -71,18 +71,18 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               .subtitle Cancelar aula e notificar os alunos.
         input.button.btn-style-1.radius.done-button type="submit" value="Concluir"
 
-    .row.card.container event-list="topics"
+    #topics-container.row.card.container event-list="topics"
       .title.diary-label
         h1 Diário
         span.subtitle.translucent Tarefas visíveis para os alunos
 
-      .tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
+      #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
         .item.clickable ng-controller="EventEditCtrl" ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
           .handle ng-if="!isEditing(topic)"
           .row
             .item-show ng-if="!isEditing(topic)"
               input.done type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
-              label for="topic_{{topic.order}}_done" {{topic.description}}
+              label.description for="topic_{{topic.order}}_done" {{topic.description}}
               .tasks-buttons
                 a.icon.icon-trash.task-icon-right[
                   ng-click="removeItem(event.topics, topic)"
@@ -139,7 +139,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           .row
             .item-show ng-if="!isEditing(personal_note)"
               input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
-              label for="personal_note_{{personal_note.order}}_done" {{personal_note.description}}
+              label.description for="personal_note_{{personal_note.order}}_done" {{personal_note.description}}
               .tasks-buttons
                 a.icon.icon-trash.task-icon-right[
                   ng-click="removeItem(event.personal_notes, personal_note)"

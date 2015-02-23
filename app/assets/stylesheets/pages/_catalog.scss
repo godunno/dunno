@@ -1,4 +1,24 @@
 .catalog-page {
+  .blankslate {
+    margin: 4em auto auto;
+    width: 60%;
+
+    .how-to {
+      float: left;
+      font-family: 'Chalkduster';
+      margin-top: 2em;
+      width: 50%;
+
+      p {
+        font-size: 1.4em;
+      }
+    }
+
+    img {
+      width: 50%;
+    }
+  }
+
   .type.icon {
     color: #FFF;
     background: $primary-color;
@@ -220,15 +240,10 @@
       height: 1.3em;
       text-align: center;
       padding: 0.1em;
-      display: none;
       margin-top: 10px;
       &:hover {
         color: $primary-color;
       }
-    }
-
-    &:hover .icon-trash {
-      display: block;
     }
   }
 
