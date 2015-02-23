@@ -31,8 +31,15 @@ class Invitation
   end
 
   def send_invite
-    @user.invitation_token = generate_token
-    @user.invitation_sent_at = Time.zone.now
-    @user.save!
+    User.transaction do
+      @user.invitation_token = generate_token
+      @user.invitation_sent_at = Time.zone.now
+      @user.save!
+      send_email
+    end
+  end
+
+  def send_email
+    RegistrationsMailer.invitation(@user).deliver
   end
 end
