@@ -3,7 +3,7 @@
 	http://localhost:3000/css/style.css
 */
 
-@import url("http://fonts.googleapis.com/css?family=Lato:300,400,700");
+@import url('http://fonts.googleapis.com/css?family=Lato:300,400,700');
 
 body {
   font-family: 'Lato', sans-serif;
@@ -115,7 +115,7 @@ h3 {
 /* HEADER */
 
 header {
-  background: url("../img/bg-header.png") no-repeat;
+  background: url('../img/bg-header.png') no-repeat;
   background-size: cover;
 }
 
@@ -123,7 +123,7 @@ header {
   width: 164px;
   height: 31px;
   float: left;
-  background: url("../img/logo-dunno.png") no-repeat;
+  background: url('../img/logo-dunno.png') no-repeat;
   background-size: cover;
   text-indent: -90000px;
   display: none;
@@ -253,7 +253,7 @@ to {
 .tagline h1 {
   width: 233px;
   height: 44px;
-  background: url("../img/logo-dunno.png") no-repeat;
+  background: url('../img/logo-dunno.png') no-repeat;
   background-size: cover;
   text-indent: -90000px;
   position: relative;
@@ -299,7 +299,7 @@ to {
   width: 65px;
   height: 46px;
   display: block;
-  background: url("../img/i-quote.png") no-repeat;
+  background: url('../img/i-quote.png') no-repeat;
   background-size: cover;
 }
 
@@ -318,7 +318,7 @@ cite {
 /* APP SCREENS */
 
 .block-3 {
-  background: url("../img/bg-screens.png") no-repeat right bottom;
+  background: url('../img/bg-screens.png') no-repeat right bottom;
   background-size: 45%;
   padding-bottom: 80px;
   padding-top: 120px;
@@ -384,17 +384,17 @@ cite {
 }
 
 .block-4-icon1 {
-  background: url("../img/i-feature-teacher-1.png") no-repeat;
+  background: url('../img/i-feature-teacher-1.png') no-repeat;
   background-size: cover;
 }
 
 .block-4-icon2 {
-  background: url("../img/i-feature-teacher-2.png") no-repeat;
+  background: url('../img/i-feature-teacher-2.png') no-repeat;
   background-size: cover;
 }
 
 .block-4-icon3 {
-  background: url("../img/i-feature-teacher-3.png") no-repeat;
+  background: url('../img/i-feature-teacher-3.png') no-repeat;
   background-size: cover;
 }
 
@@ -536,7 +536,7 @@ footer a.link-footer {
 }
 
 .i-facebook {
-  background: url("../img/i-facebook.png");
+  background: url('../img/i-facebook.png');
   background-size: cover;
   height: 40px;
   width: 40px;
@@ -545,7 +545,7 @@ footer a.link-footer {
 .i-twitter {
   width: 40px;
   height: 40px;
-  background: url("../img/i-twitter.png");
+  background: url('../img/i-twitter.png');
   background-size: cover;
 }
 
@@ -564,7 +564,7 @@ footer a.link-footer {
 }
 
 .fancybox-close {
-  background-image: url("../js/fancybox/source/fancybox_close.png") !important;
+  background-image: url('../js/fancybox/source/fancybox_close.png') !important;
   background-size: cover;
   width: 24px !important;
   height: 24px  !important;
