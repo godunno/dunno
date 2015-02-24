@@ -10,6 +10,6 @@
     input#password type="password" ng-model="user.password"
 
     input#terms-of-use type="checkbox" ng-model="terms_of_use"
-    label for="terms-of-use" Concordo e aceito os termos de uso.
+    label.terms-of-use-label for="terms-of-use" Concordo e aceito os termos de uso.
 
-    input.submit type="submit" value="Cadastrar e entrar" ng-disabled="!terms_of_use"
+    input.submit type="submit" value="Cadastrar e entrar" ng-disabled="!user.password || !terms_of_use"
