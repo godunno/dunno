@@ -9,8 +9,7 @@ ApplicationCtrl = ($scope, $http, $window, SessionManager, TutorialsManager)->
     SessionManager.signOut().then ->
       $window.location.href = '/'
 
-  if SessionManager.currentUser() == null
-    SessionManager.fetchUser()
+  SessionManager.fetchUser()
 
   $scope.currentUser = SessionManager.currentUser
   $scope.tutorialEnabled = TutorialsManager.tutorialEnabled
