@@ -41,4 +41,10 @@ describe Topic do
       end
     end
   end
+
+  it "should allow descriptions longer than 255 characters" do
+    topic.description = "a" * 256
+    expect { topic.save! }.not_to raise_error
+  end
+
 end
