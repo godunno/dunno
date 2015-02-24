@@ -41,8 +41,7 @@ html lang="pt" ng-app="DunnoApp"
         p Estamos buscando as informações de suas disciplinas.
         p.last Levará somente alguns segundos...
         progress-bar
-        p.loading-item ng-if="state == 'LOADING'" Carregando: {{currentItem()}}
-        a.button.btn-style-1 ng-if="state == 'LOADED'" href="/dashboard/teacher#/?first_access=true" Cadastrar senha
+        p.loading-item ng-cloak=true ng-if="loading" Carregando: {{currentItem()}}
 
     footer
       p Com a confiança:
