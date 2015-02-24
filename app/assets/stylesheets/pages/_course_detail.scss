@@ -60,6 +60,10 @@
       line-height: 2.5em;
       width: 100%;
 
+      &.has-tooltip {
+        cursor: help;
+      }
+
       .no-touch & {
         color: $light-grey-color;
       }
@@ -96,10 +100,6 @@
 
       &.future .day {
         color: $primary-color;
-      }
-
-      .has-tooltip {
-        cursor: help;
       }
 
       .column {
