@@ -10,6 +10,8 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
 
   $scope.eventClass = (event)-> DateUtils.locationInTime(event.start_at)
 
+  $scope.statusFor = (event)-> event.formatted_status
+
   $scope.fetch = (month)->
     $scope.$emit('wholePageLoading', Course.get({ uuid: $routeParams.id }, { month: month || $routeParams.month }).then (course)->
       $scope.course = formatToView(course)

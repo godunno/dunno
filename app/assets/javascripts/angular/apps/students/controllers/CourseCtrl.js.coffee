@@ -3,7 +3,11 @@ DunnoApp = angular.module('DunnoAppStudent')
 CourseCtrl = ($scope, $location, $routeParams, Course, DateUtils)->
   angular.extend($scope, DateUtils)
 
-  $scope.hideEvent = (event)-> event.formatted_status == 'empty'
+  $scope.hideEvent = (event)-> $scope.statusFor(event) == 'empty'
+
+  $scope.statusFor = (event)->
+    return "empty" if event.formatted_status == "draft"
+    event.formatted_status
 
   $scope.eventClass = (event)->
     klass = DateUtils.locationInTime(event.start_at)
