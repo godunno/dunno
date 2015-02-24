@@ -33,7 +33,7 @@
         margin-left: 1rem;
         padding: .5rem;
 
-        &:hover {
+        .no-touch &:hover {
           color: $primary-color;
         }
       }
