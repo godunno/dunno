@@ -3,14 +3,19 @@
 	http://localhost:3000/css/style.css
 */
 
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url("http://fonts.googleapis.com/css?family=Lato:300,400,700");
 
 body {
   font-family: 'Lato', sans-serif;
   color: #2b3738;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
   font-weight: 100;
 }
 
@@ -62,7 +67,7 @@ h3 {
   font-size: 1.3em;
 }
 
-a.bt-call {
+.bt-call {
   width: 400px;
   height: 78px;
   text-align: center;
@@ -84,18 +89,18 @@ a.bt-call {
   transition: background .3s ease-in-out;
 }
 
-a.bt-call:hover {
+.bt-call:hover {
   background: #1cc678;
 }
 
-a.bt-call-small {
+.bt-call-small {
   height: 60px;
   line-height: 60px;
   font-size: 1em;
   margin-top: 80px;
 }
 
-a.bt-call-small-dark {
+.bt-call-small-dark {
   height: 60px;
   line-height: 60px;
   font-size: 1em;
@@ -103,14 +108,14 @@ a.bt-call-small-dark {
   background: #2b3738;
 }
 
-a.bt-call-small-dark:hover {
+.bt-call-small-dark:hover {
   background: #171E1F;
 }
 
 /* HEADER */
 
 header {
-  background: url(../img/bg-header.png) no-repeat;
+  background: url("../img/bg-header.png") no-repeat;
   background-size: cover;
 }
 
@@ -118,7 +123,7 @@ header {
   width: 164px;
   height: 31px;
   float: left;
-  background: url(../img/logo-dunno.png) no-repeat;
+  background: url("../img/logo-dunno.png") no-repeat;
   background-size: cover;
   text-indent: -90000px;
   display: none;
@@ -212,7 +217,7 @@ to {
   color: #FFF;
 }
 
-a.login {
+.login {
   float: right;
   height: 34px;
   line-height: 34px;
@@ -248,7 +253,7 @@ a.login {
 .tagline h1 {
   width: 233px;
   height: 44px;
-  background: url(../img/logo-dunno.png) no-repeat;
+  background: url("../img/logo-dunno.png") no-repeat;
   background-size: cover;
   text-indent: -90000px;
   position: relative;
@@ -294,16 +299,16 @@ a.login {
   width: 65px;
   height: 46px;
   display: block;
-  background: url(../img/i-quote.png) no-repeat;
+  background: url("../img/i-quote.png") no-repeat;
   background-size: cover;
 }
 
 blockquote {
-  margin: 20px 0;
-  font-style: italic;
   font-size: 2em;
+  font-style: italic;
   font-weight: 300;
   line-height: 1.6em;
+  margin: 20px 0;
 }
 
 cite {
@@ -313,9 +318,9 @@ cite {
 /* APP SCREENS */
 
 .block-3 {
-  padding-bottom: 80px;
-  background: url(../img/bg-screens.png) no-repeat right bottom;
+  background: url("../img/bg-screens.png") no-repeat right bottom;
   background-size: 45%;
+  padding-bottom: 80px;
   padding-top: 120px;
 }
 
@@ -329,8 +334,8 @@ cite {
 }
 
 .block-3 .intro {
-  width: 50%;
   margin: 0;
+  width: 50%;
 }
 
 .block-3 p {
@@ -379,17 +384,17 @@ cite {
 }
 
 .block-4-icon1 {
-  background: url(../img/i-feature-teacher-1.png) no-repeat;
+  background: url("../img/i-feature-teacher-1.png") no-repeat;
   background-size: cover;
 }
 
 .block-4-icon2 {
-  background: url(../img/i-feature-teacher-2.png) no-repeat;
+  background: url("../img/i-feature-teacher-2.png") no-repeat;
   background-size: cover;
 }
 
 .block-4-icon3 {
-  background: url(../img/i-feature-teacher-3.png) no-repeat;
+  background: url("../img/i-feature-teacher-3.png") no-repeat;
   background-size: cover;
 }
 
@@ -406,8 +411,8 @@ cite {
 }
 
 .block-5 .intro {
-  opacity: 1;
   margin-bottom: 40px;
+  opacity: 1;
 }
 
 .bt-call-wrapper {
@@ -469,7 +474,7 @@ cite {
 .trusted-by {
   padding: 80px 0;
   text-align: center;
-  background: #FFF;
+  background: #fff;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -494,7 +499,7 @@ cite {
 footer {
   padding: 40px 0;
   background: #FFF;
-  color: #AAAFAF;
+  color: #aaafaf;
   font-weight: 300;
   font-size: .9em;
   border-top: 1px solid #e0e0e0;
@@ -531,16 +536,16 @@ footer a.link-footer {
 }
 
 .i-facebook {
-  width: 40px;
-  height: 40px;
-  background: url(../img/i-facebook.png);
+  background: url("../img/i-facebook.png");
   background-size: cover;
+  height: 40px;
+  width: 40px;
 }
 
 .i-twitter {
   width: 40px;
   height: 40px;
-  background: url(../img/i-twitter.png);
+  background: url("../img/i-twitter.png");
   background-size: cover;
 }
 
@@ -559,7 +564,7 @@ footer a.link-footer {
 }
 
 .fancybox-close {
-  background-image: url(../js/fancybox/source/fancybox_close.png) !important;
+  background-image: url("../js/fancybox/source/fancybox_close.png") !important;
   background-size: cover;
   width: 24px !important;
   height: 24px  !important;
