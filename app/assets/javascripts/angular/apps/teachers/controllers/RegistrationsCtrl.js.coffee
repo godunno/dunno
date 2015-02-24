@@ -3,7 +3,6 @@ DunnoApp = angular.module('DunnoApp')
 RegistrationsCtrl = ($scope, $http, $window, ErrorParser)->
   $scope.user = {}
 
-  window.s = $scope
   $scope.sign_up = (user)->
     $scope.registration_failed = false
 

@@ -1,28 +1,34 @@
 DunnoApp = angular.module('DunnoApp')
 
-FakeLoadingCoursesCtrl = ($scope, $timeout, Course)->
-  $scope.state = 'INITIAL'
-  interval = -> $scope.maxTime / $scope.items.length * 1000
+FakeLoadingCoursesCtrl = ($scope, $timeout, $window, Course)->
+  iterationsLimit = 1
+  maxTime = 2
+  interval = -> maxTime / iterationsLimit * 1000
+
+  finish = ->
+    $scope.$broadcast("progress.stop")
+    $scope.loading = false
+    $window.location.href = "/dashboard/teacher#/?first_access=true"
 
   loadNextItem = ->
-    if $scope.currentItemIndex + 1 < $scope.items.length
+    if $scope.currentItemIndex + 1 < iterationsLimit
       index = ++$scope.currentItemIndex + 1
-      percentage = 100.0 / $scope.items.length * index
+      percentage = 100.0 / iterationsLimit * index
       $scope.$broadcast("progress.setValue", "#{percentage}%")
       $timeout(loadNextItem, interval())
     else
-      $scope.$broadcast("progress.stop")
-      $scope.state = 'LOADED'
+      finish()
 
   Course.query().then (response)->
     $scope.items = response.map (item)-> item.name
-    $scope.maxTime = $scope.items.length
+    maxTime = $scope.items.length if $scope.items.length > maxTime
+    iterationsLimit = $scope.items.length if $scope.items.length > iterationsLimit
     $scope.currentItemIndex = -1
-    $scope.state = 'LOADING'
+    $scope.loading = true
     $scope.$broadcast("progress.start")
     loadNextItem()
 
   $scope.currentItem = -> $scope.items[$scope.currentItemIndex]
 
-FakeLoadingCoursesCtrl.$inject = ['$scope', '$timeout', 'Course']
+FakeLoadingCoursesCtrl.$inject = ['$scope', '$timeout', '$window', 'Course']
 DunnoApp.controller 'FakeLoadingCoursesCtrl', FakeLoadingCoursesCtrl
