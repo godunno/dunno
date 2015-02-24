@@ -1,20 +1,20 @@
-/* @override 
+/* @override
 	http://localhost:8888/dunno/css/style.css
 	http://localhost:3000/css/style.css
 */
 
-@import url('http://fonts.googleapis.com/css?family=Lato:300,400,700');
+@import url("http://fonts.googleapis.com/css?family=Lato:300,400,700");
 
 body {
   font-family: 'Lato', sans-serif;
   color: #2b3738;
 }
 
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
+h1,
+h2,
+h3,
+h4,
+h5,
 h6 {
   font-weight: 100;
 }
@@ -43,6 +43,15 @@ strong {
   padding-right: 20px;
 }
 
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin: 0 auto 0px;
+  font-weight: 300;
+  line-height: 1.2em;
+  text-transform: uppercase;
+}
+
 h2 {
   font-size: 2em;
   text-align: center;
@@ -67,7 +76,9 @@ h3 {
   font-size: 1.3em;
 }
 
-.bt-call {
+.bt-call:link, 
+.bt-call:active,
+.bt-call:visited {
   width: 400px;
   height: 78px;
   text-align: center;
@@ -217,15 +228,17 @@ to {
   color: #FFF;
 }
 
-.login {
+.login:link,
+.login:active,
+.login:visited {
   float: right;
   height: 34px;
   line-height: 34px;
   display: block;
-  color: #FFF;
+  color: #fff;
   margin-top: 2px;
   margin-left: 1em;
-  border: 1px solid #FFF;
+  border: 1px solid #fff;
   opacity: .9;
   padding: 0 16px;
   font-weight: 300;
@@ -291,7 +304,7 @@ to {
 
 .block-2 {
   background: #1cc678;
-  color: #FFF;
+  color: #fff;
   padding: 100px 0;
 }
 
@@ -342,7 +355,7 @@ cite {
   margin-bottom: 20px;
 }
 
-/* PROFESSORES */
+/* FEATURES */
 
 .block-4 {
   background: #f4f4f4;
@@ -402,7 +415,7 @@ cite {
 
 .block-5 {
   background: #1cc678;
-  color: #FFF;
+  color: #fff;
   padding: 100px 0;
 }
 
@@ -466,7 +479,7 @@ cite {
 /* QUEM SOMOS */
 
 .block-6 {
-  padding-top: 120px;
+  padding-top: 100px;
 }
 
 /* LOGOS CLIENTES */
@@ -594,4 +607,8 @@ footer a.link-footer {
   font-weight: 300;
   line-height: 1.6em;
   margin-bottom: 40px;
+}
+
+.contact {
+	padding-top: 100px;
 }
