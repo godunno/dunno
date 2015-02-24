@@ -7,9 +7,8 @@ class RegistrationsMailer < Devise::Mailer
     mail(to: @user.email, subject: 'Bem-vindo(a) ao Dunno!')
   end
 
-  def successful_registration(user_or_id, password)
+  def successful_registration(user_or_id)
     @user = User.find(user_or_id)
-    @password = password
     mail(to: @user.email, subject: 'Cadastro realizado com sucesso!')
   end
 end
