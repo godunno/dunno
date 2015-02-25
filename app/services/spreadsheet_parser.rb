@@ -27,6 +27,7 @@ class SpreadsheetParser
   end
 
   def key
-    url.match(/\/d\/([a-zA-Z0-9\-]+)/)[1]
+    # grab the /d/<key>/ from google spreadsheet url
+    url.match(%r{/d/([a-zA-Z0-9\-]+)})[1]
   end
 end
