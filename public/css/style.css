@@ -478,6 +478,11 @@ cite {
   display: none;
 }
 
+.bt-call-wrapper .success-message {
+  text-align: center;
+  display: none;
+}
+
 .bt-call-wrapper .form-submit:hover {
   background: #171E1F;
 }

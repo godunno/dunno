@@ -2,8 +2,6 @@ $(document).ready(function() {
   $(".anchorLink").anchorAnimate();
 });
 
-
-
 jQuery.fn.anchorAnimate = function(settings) {
   settings = jQuery.extend({
     speed : 500
@@ -39,8 +37,16 @@ var menuOnTop = function() {
 
 $(window).scroll(menuOnTop);
 
-$('.bt-call-small-dark').click(function() {
-  $('.bt-call-small-dark').addClass('hide-bt');
-  $('.mail-field').addClass('show-field');
-  return false;
+$("#subForm").submit(function(event){
+  var url = "http://dunno2.createsend.com/t/t/s/kthduy/";
+
+  $.ajax({
+    type: 'POST',
+    url: url,
+    data: $("#subForm").serialize()
+  }).always(function(){
+    $("#subForm").hide();
+    $(".success-message").show();
+  });
+  event.preventDefault();
 });
