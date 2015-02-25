@@ -5,7 +5,12 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
   angular.extend($scope, DateUtils)
 
   $scope.course = new Course()
+
   $scope.course.weekly_schedules = [{}]
+
+  $scope.eventClass = (event)-> DateUtils.locationInTime(event.start_at)
+
+  $scope.statusFor = (event)-> event.formatted_status
 
   $scope.fetch = (month)->
     $scope.$emit('wholePageLoading', Course.get({ uuid: $routeParams.id }, { month: month || $routeParams.month }).then (course)->
@@ -31,6 +36,7 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
       course.start_date = $scope.formattedDate(course.start_date, 'dd/MM/yyyy')
       course.end_date   = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
       course
+
   $scope.eventPath = (event)-> "#/events/#{event.uuid}/edit"
 
 CourseCtrl.$inject = [
