@@ -153,10 +153,6 @@ header {
   top: 0;
 }
 
-.header-menu.fancybox-margin {
-  display: none !important;
-}
-
 /** MENU FIXO **/
 
 .header-menu.active-on-top {
@@ -560,33 +556,6 @@ footer a.link-footer {
   height: 40px;
   background: url('../img/i-twitter.png');
   background-size: cover;
-}
-
-/* FANCYBOX */
-
-.fancybox-overlay {
-  background: #2b3738 !important;
-  opacity: .99;
-}
-
-.fancybox-opened .fancybox-skin {
-  box-shadow: none !important;
-  -webkit-box-shadow: none  !important;
-  -moz-box-shadow: none  !important;
-  background: transparent;
-}
-
-.fancybox-close {
-  background-image: url('../js/fancybox/source/fancybox_close.png') !important;
-  background-size: cover;
-  width: 24px !important;
-  height: 24px  !important;
-  top: 0 !important;
-  right: 0 !important;
-}
-
-#fancybox-loading {
-  background: #2b3738 !important;
 }
 
 /* INSTITUCIONAL */
