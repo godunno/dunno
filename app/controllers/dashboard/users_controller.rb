@@ -4,7 +4,7 @@ class Dashboard::UsersController < Devise::RegistrationsController
   def create
     ActiveRecord::Base.transaction do
       super do |user|
-        user.update!(profile: Student.new)
+        user.update(profile: Student.new)
       end
     end
   end
