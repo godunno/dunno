@@ -436,6 +436,7 @@ cite {
 }
 
 .bt-call-wrapper .form-text {
+  font-size: 100%;
   width: 64%;
   height: 50px;
   padding: 0 10px !important;
@@ -456,9 +457,10 @@ cite {
   line-height: 48px;
   width: 32%;
   margin-top: 0;
+  text-align: center;
   font-family: 'Lato', sans-serif;
   font-size: .8em;
-  text-align: center;
+  font-weight: 300;
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -466,6 +468,14 @@ cite {
   -moz-transition: background .3s ease-out;
   transition: background .3s ease-out;
   margin-left: -3px;
+	cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.bt-call-wrapper #subject {
+  display: none;
 }
 
 .bt-call-wrapper .form-submit:hover {
