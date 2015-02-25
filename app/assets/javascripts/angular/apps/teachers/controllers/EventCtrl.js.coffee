@@ -65,7 +65,9 @@ EventCtrl = (
     ).catch(-> deferred.reject())
     deferred.promise
 
-  $scope.courseLocation = (event)-> "#courses/#{event.course.uuid}?month=#{event.start_at}"
+  $scope.courseLocation = (event)->
+    return unless event? && event.course?
+    "#courses/#{event.course.uuid}?month=#{event.start_at}"
 
   $scope.finish = (event)->
     $scope.save(event).then ->

@@ -1,13 +1,19 @@
 .first-access {
   p {
     text-align: center;
+
     &.successfully-loaded {
       color: $secondary-color;
-      font-size: 0.9em;
+      font-size: .9em;
     }
+
     &.instructions {
       font-size: 1.1em;
     }
+  }
+
+  .terms-of-use-label {
+    margin-bottom: 1rem;
   }
 
   input[disabled] {

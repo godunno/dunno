@@ -55,12 +55,16 @@
 
     .item {
       background-color: #fff;
-      color: $light-grey-color;
       float: left;
+      color: $primary-color;
       line-height: 2.5em;
       width: 100%;
 
-      &:hover {
+      .no-touch & {
+        color: $light-grey-color;
+      }
+
+      .no-touch &:hover {
         background-color: $background-light-grey-color;
         color: $primary-color;
 

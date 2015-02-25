@@ -1,23 +1,40 @@
-/* @override http://localhost:8888/dunno/css/style.css */
+/* @override 
+	http://localhost:8888/dunno/css/style.css
+	http://localhost:3000/css/style.css
+*/
 
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url('http://fonts.googleapis.com/css?family=Lato:300,400,700');
 
 body {
   font-family: 'Lato', sans-serif;
-  color: #2B3738;
+  color: #2b3738;
 }
-h1, h2, h3, h4, h5, h6 {
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
   font-weight: 100;
 }
+
 a:link {
   text-decoration: none;
   -webkit-transition: color .3s ease-out;
   -moz-transition: color .3s ease-out;
   transition: color .3s ease-out;
+  color: #1cc678;
 }
+
+a:hover {
+  color: #1cc678;
+}
+
 strong {
   font-weight: 700;
 }
+
 .grid-wrapper {
   max-width: 960px;
   position: relative;
@@ -25,75 +42,93 @@ strong {
   padding-left: 20px;
   padding-right: 20px;
 }
+
 h2 {
-  font-size: 2.6em;
+  font-size: 2em;
   text-align: center;
-  margin: 10px auto 60px;
-  width: 80%;
+  margin: 0 auto 50px;
+  width: 90%;
+  font-weight: 300;
   line-height: 1.2em;
+  text-transform: uppercase;
 }
+
+h2 strong {
+  color: #1cc678;
+  font-weight: 300;
+}
+
 h3 {
   text-align: center;
-  color: #1CC678;
+  color: #1cc678;
   text-transform: uppercase;
   padding-top: 100px;
   font-weight: 300;
   font-size: 1.3em;
 }
-a.bt-call {
+
+.bt-call {
   width: 400px;
   height: 78px;
   text-align: center;
   line-height: 78px;
-  font-size: 1.6em;
+  font-size: 1.4em;
   font-weight: 3.00;
   text-transform: uppercase;
   display: block;
   position: relative;
   margin: 0 auto;
   color: #FFF;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  margin-top: 40px;
-  background: #1CC678;
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  margin-top: 50px;
+  background: #1cc678;
   -webkit-transition: background .3s ease-in-out;
   -moz-transition: background .3s ease-out;
   transition: background .3s ease-in-out;
 }
-a.bt-call:hover{
-  background: #1AA062;
+
+.bt-call:hover {
+  background: #1cc678;
 }
-a.bt-call-small {
+
+.bt-call-small {
   height: 60px;
   line-height: 60px;
   font-size: 1em;
   margin-top: 80px;
 }
-a.bt-call-small-dark {
+
+.bt-call-small-dark {
   height: 60px;
   line-height: 60px;
   font-size: 1em;
   margin-top: 80px;
-  background: #2B3738;
+  background: #2b3738;
 }
-a.bt-call-small-dark:hover {
+
+.bt-call-small-dark:hover {
   background: #171E1F;
 }
 
 /* HEADER */
+
 header {
-  background: url(../img/bg-header.png) no-repeat;
+  background: url('../img/bg-header.png') no-repeat;
   background-size: cover;
 }
-.logo {
+
+.logo-fixed {
   width: 164px;
   height: 31px;
   float: left;
-  background: url(../img/logo-dunno.png) no-repeat;
+  background: url('../img/logo-dunno.png') no-repeat;
   background-size: cover;
   text-indent: -90000px;
+  display: none;
 }
+
 .header-menu {
   padding-top: 55px;
   padding-left: 0 !important;
@@ -106,11 +141,13 @@ header {
   z-index: 100;
   top: 0;
 }
+
 .header-menu.fancybox-margin {
   display: none !important;
 }
 
 /** MENU FIXO **/
+
 .header-menu.active-on-top {
   position: fixed;
   top: 0;
@@ -118,31 +155,36 @@ header {
   margin: 0;
   padding-top: 15px;
   height: 56px;
-  background: #2B3738;
+  background: #2b3738;
   border-bottom: 1px solid #273333;
 }
+
 .header-menu.active-on-top {
   animation-duration: .6s;
-    animation-name: slidein;
-    -webkit-animation-duration: .6s;
-    -webkit-animation-name: slidein;
-    -moz-animation-duration: .6s;
-    -moz-animation-name: slidein;
+  animation-name: slidein;
+  -webkit-animation-duration: .6s;
+  -webkit-animation-name: slidein;
+  -moz-animation-duration: .6s;
+  -moz-animation-name: slidein;
 }
-.header-menu.active-on-top .logo {
+
+.header-menu.active-on-top .logo-fixed {
   width: 122px;
   height: 23px;
   margin-top: 8px;
+  display: block;
 }
+
 @-webkit-keyframes slidein {
   from {
     top: -100px;
-  }
-  to {
-    top: 0;
-  }
 }
 
+to {
+  top: 0;
+}
+
+}
 
 /**/
 
@@ -153,7 +195,8 @@ header {
   width: auto;
   margin-top: 6px;
 }
-.menu li{
+
+.menu li {
   height: 30px;
   line-height: 30px;
   display: block;
@@ -161,82 +204,75 @@ header {
   margin-left: 30px;
   font-size: .95em;
 }
+
 .menu li a {
   height: 30px;
   line-height: 30px;
   display: block;
   float: left;
-  color: #1CC678;
+  color: #1cc678;
 }
+
 .menu li a:hover {
   color: #FFF;
 }
+
 .login {
   float: right;
-  height: 30px;
-  line-height: 30px;
+  height: 34px;
+  line-height: 34px;
   display: block;
   color: #FFF;
   margin-top: 2px;
   margin-left: 1em;
   border: 1px solid #FFF;
-  opacity: 1;
-  padding: 0 10px;
+  opacity: .9;
+  padding: 0 16px;
   font-weight: 300;
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
 }
+
 .login:hover {
-  color: #1CC678;
-  border: 1px solid #1CC678;
+  color: #1cc678;
+  border: 1px solid #1cc678;
+  opacity: 1;
 }
+
 .tagline {
   text-align: center;
   color: #FFF;
   width: 100%;
   clear: both;
   display: block;
-  padding-bottom: 150px;
+  padding-bottom: 180px;
+  padding-top: 220px;
 }
+
 .tagline h1 {
-  font-size: 3em;
+  width: 233px;
+  height: 44px;
+  background: url('../img/logo-dunno.png') no-repeat;
+  background-size: cover;
+  text-indent: -90000px;
+  position: relative;
   text-align: center;
-  padding-top: 240px;
-  width: 100%;
+  margin: 0 auto 50px;
+  float: none;
   clear: both;
-  font-weight: 100;
 }
+
 .tagline p {
-  font-size: 1.4em;
+  font-size: 2em;
   font-weight: 300;
   margin-top: 20px;
-  opacity: .7;
-  line-height: 1.6em;
+  opacity: 1;
+  line-height: 1.4em;
+  clear: both;
+  display: block;
 }
 
-
-/* LOGOS CLIENTES */
-.trusted-by {
-  padding: 50px 0;
-  text-align: center;
-  background: #EAEBEB;  
-}
-.trusted-by h3 {
-  font-size: 1.2em;
-  opacity: .5;
-  margin-bottom: 40px;
-  padding-top: 0;
-  color: #000;  
-}
-.trusted-by img {
-  margin-right: 80px;
-}
-.trusted-by img:nth-last-child(1) {
-  margin: 0;
-}
-
-/* PROFESSORES */ 
 .intro {
   text-align: center;
   font-size: 1.2em;
@@ -244,204 +280,172 @@ header {
   line-height: 1.6em;
   width: 90%;
   margin: 0 auto 80px;
+  opacity: .7;
 }
-.to-teacher-image {
-  width: 90%;
-  margin: 0 auto; 
-  max-width: 1200px;
-  z-index: 9;
-  position: relative;
+
+.block-1 {
+  padding-top: 100px;
 }
-.to-teacher-image img {
-  width: 100%;
-}
-.to-teacher-features {
-  background: #2B3738;
+
+/* QUOTE */
+
+.block-2 {
+  background: #1cc678;
   color: #FFF;
-  padding: 110px 0;
-  z-index: 10;
-  position: relative;
-  margin-top: -1px;
+  padding: 100px 0;
 }
-.to-teacher-features ul {
-  width: 90%;
-  text-align: center;
-  margin: 0 auto;
-  line-height: 2.4em;
-  margin-bottom: 100px;
+
+.quote-icon {
+  width: 65px;
+  height: 46px;
+  display: block;
+  background: url('../img/i-quote.png') no-repeat;
+  background-size: cover;
 }
-.to-teacher-features ul li {
-  display: inline;
-  font-size: 1.1em;
+
+blockquote {
+  font-size: 2em;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.6em;
+  margin: 20px 0;
+}
+
+cite {
   font-weight: 100;
 }
-.to-teacher-features ul li:after {
-  content: "";
-  width: 6px;
-  height: 6px;
-  background: #1CC678;
-  display: inline-block;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  margin: 2px 10px;
+
+/* APP SCREENS */
+
+.block-3 {
+  background: url('../img/bg-screens.png') no-repeat right bottom;
+  background-size: 45%;
+  padding-bottom: 80px;
+  padding-top: 120px;
 }
-.to-teacher-features ul li:nth-last-child(1):after {
-  display: none;
+
+.block-3 * {
+  text-align: left;
 }
-.to-teacher-box {
+
+.block-3 h2 {
+  margin-left: 0;
+  margin-top: 0;
+}
+
+.block-3 .intro {
+  margin: 0;
+  width: 50%;
+}
+
+.block-3 p {
+  margin-bottom: 20px;
+}
+
+/* PROFESSORES */
+
+.block-4 {
+  background: #f4f4f4;
+  padding: 100px 0;
+}
+
+.block-4-box {
   width: 25%;
   margin-right: 12%;
   float: left;
   text-align: center;
   font-weight: 100;
 }
-.to-teacher-box:nth-last-child(3) {
+
+.block-4-box:nth-last-child(2) {
   margin-right: 0 !important;
 }
-.to-teacher-box h4 {
+
+.block-4-box h4 {
   text-align: center;
-  color: #1CC678;
+  color: #1cc678;
   text-transform: uppercase;
   margin: 20px 0 40px;
   font-weight: 300;
-  font-size: 1.1em;
+  font-size: 1.3em;
 }
-.to-teacher-box p {
-  line-height: 1.5em;
+
+.block-4-box p {
+  font-weight: 300;
+  line-height: 1.6em;
+  opacity: .8;
 }
-.to-teacher-icon {
-  width: 115px;
-  height: 115px;
+
+.block-4-icon {
+  width: 58px;
+  height: 58px;
   display: block;
   margin: 0 auto;
 }
-.to-teacher-icon1 {
-  background: url(../img/i-feature-teacher-1.png) no-repeat;
-  background-size: cover;
-}
-.to-teacher-icon2 {
-  background: url(../img/i-feature-teacher-2.png) no-repeat;
-  background-size: cover;
-}
-.to-teacher-icon3 {
-  background: url(../img/i-feature-teacher-3.png) no-repeat;
+
+.block-4-icon1 {
+  background: url('../img/i-feature-teacher-1.png') no-repeat;
   background-size: cover;
 }
 
-/* ALUNOS */ 
-.to-student {
-  padding-bottom: 110px;
-}
-.to-student-image {
-  width: 50%;
-  float: left;  
-}
-.to-student-image img {
-  width: 100%;
-}
-.to-student-features ul{
-  width: 42%;
-  float: right;
-  line-height: 1.6em;
-  font-weight: 300;
-}
-.to-student-features ul li:nth-child(1) {
-  background: url(../img/i-feature-student-1.png) no-repeat;
-  background-size: 14%; 
-}
-.to-student-features ul li:nth-child(2) {
-  background: url(../img/i-feature-student-2.png) no-repeat;
-  background-size: 14%; 
-}
-.to-student-features ul li:nth-child(3) {
-  background: url(../img/i-feature-student-3.png) no-repeat;
-  background-size: 14%; 
-}
-.to-student-features ul li:nth-child(4) {
-  background: url(../img/i-feature-student-4.png) no-repeat;
-  background-size: 14%; 
-}
-.to-student-features ul li {
-  margin-bottom: 40px;  
-  padding-left: 19%;
-}
-.to-student-features ul li h4 {
-  font-weight: 700;
+.block-4-icon2 {
+  background: url('../img/i-feature-teacher-2.png') no-repeat;
+  background-size: cover;
 }
 
-/* ESCOLA */ 
-.to-school {
-  background: url(../img/bg-escolas.png) no-repeat #1CC678;
-  background-size: 100%;
-  padding-bottom: 110px;
+.block-4-icon3 {
+  background: url('../img/i-feature-teacher-3.png') no-repeat;
+  background-size: cover;
 }
-.to-school h3 {
-  color: #2B3738;
-}
-.to-school h2 {
-  font-weight: 300;
-  font-size: 3em;
-}
-.to-school .intro {
+
+/* FORM */
+
+.block-5 {
+  background: #1cc678;
   color: #FFF;
+  padding: 100px 0;
 }
-.to-school ul {
-  padding-bottom: 80px;
-  width: 100%;
-  float: left;
-}
-.to-school ul li {
-  width: 25%;
-  margin-right: 12%;
-  float: left;
-  text-align: left;
-  font-weight: 100;
-  font-weight: 300;
-}
-.to-school ul li:nth-last-child(1) {
-  margin-right: 0 !important;
-}
-.to-school ul li h4 {
-  font-size: 1.8em;
-  line-height: 1.3em;
+
+.block-5 h2 {
   margin-bottom: 20px;
-  font-weight: 300;
 }
-.to-school ul li p {
-  color: #FFF;
-  line-height: 1.3em;
+
+.block-5 .intro {
+  margin-bottom: 40px;
+  opacity: 1;
 }
+
 .bt-call-wrapper {
   width: 600px;
   margin: 0 auto;
   position: relative;
-  background: url(../img/bg-bt-wrapper-school.png) no-repeat top center;
-  background-size:100%;
-  padding-top: 70px;
+  background-size: 100%;
 }
+
 .bt-call-wrapper .bt-call {
   margin-top: 0;
 }
+
 .bt-call-wrapper .form-text {
-  width: 50%;
+  width: 64%;
   height: 50px;
   padding: 0 10px !important;
   float: left;
-  border: 1px solid #2B3738;
+  border: none;
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  margin-right: 5px;
-  margin-left: 17%;
+  margin-right: 0;
+  margin-left: 0%;
 }
+
 .bt-call-wrapper .form-submit {
-  background: #2B3738;
+  background: #2b3738;
   color: #FFF;
   border: 0;
-  height: 52px;
+  height: 50px;
   line-height: 48px;
-  width: 12%;
+  width: 32%;
   margin-top: 0;
   font-family: 'Lato', sans-serif;
   font-size: .8em;
@@ -452,145 +456,139 @@ header {
   -webkit-transition: background .3s ease-out;
   -moz-transition: background .3s ease-out;
   transition: background .3s ease-out;
+  margin-left: -3px;
 }
+
 .bt-call-wrapper .form-submit:hover {
   background: #171E1F;
 }
-.hide-bt {
-  display: none !important;
-}
-.mail-field {
-  opacity: 0;
-}
-.mail-field.show-field {
-  animation-duration: .6s;
-    animation-name: fadein;
-    -webkit-animation-duration: .6s;
-    -webkit-animation-name: fadein;
-    -moz-animation-duration: .6s;
-    -moz-animation-name: fadein;
-    opacity: 1;
-}
-@-webkit-keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+
+/* QUEM SOMOS */
+
+.block-6 {
+  padding-top: 120px;
 }
 
+/* LOGOS CLIENTES */
 
-/* LAST CALL */
-.last-call {
-  padding: 80px 20px;
-} 
-.last-call h2,
-.last-call .intro {
-  margin-bottom: 30px;
-}
-.last-call .bt-call {
-  margin-top: 30px;
+.trusted-by {
+  padding: 80px 0;
+  text-align: center;
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
 }
 
-/* CONTACT */
-.contact {
-  background: url(../img/bg-contact.png) no-repeat;
-  background-size: cover;
-  padding: 80px 0 50px;
-  color: #FFF;
+.trusted-by h3 {
+  font-size: 1.2em;
+  opacity: .5;
+  margin-bottom: 40px;
+  padding-top: 0;
+  color: #000;
 }
-.contact .intro {
-  margin-bottom: 30px;
+
+.trusted-by img {
+  margin-right: 80px;
 }
-.contact a {
-  color: #1CC678 ;
-}
-.contact a:hover{
-  text-decoration: underline;
+
+.trusted-by img:nth-last-child(1) {
+  margin: 0;
 }
 
 /* FOOTER */
+
 footer {
   padding: 40px 0;
-  background: #2B3738;
-  color: #FFF;
-  font-weight: 100;
-  font-size: .8em;
+  background: #FFF;
+  color: #aaafaf;
+  font-weight: 300;
+  font-size: .9em;
+  border-top: 1px solid #e0e0e0;
 }
+
 .rights {
-  opacity: .4;
   font-weight: 400;
 }
+
 footer a.link-footer {
-  color: #FFF;
   margin-left: 20px;
 }
-footer a.link-footer:hover {
-  color: #1CC678;
-}
+
 .social-icons {
   float: right;
 }
+
 .social-icons a {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   display: block;
   float: left;
   margin-top: -12px;
   text-indent: -9000px;
   margin-left: 12px;
-  opacity: .6;
+  opacity: 1;
   -webkit-transition: opacity .3s ease-out;
   -moz-transition: opacity .3s ease-out;
   transition: opacity .3s ease-out;
 }
+
 .social-icons a:hover {
   opacity: 1;
 }
+
 .i-facebook {
-  background: url(../img/i-facebook.png);
-  background-size: cover ;
-}
-.i-twitter {
-  background: url(../img/i-twitter.png);
-  background-size: cover ;
+  background: url('../img/i-facebook.png');
+  background-size: cover;
+  height: 40px;
+  width: 40px;
 }
 
+.i-twitter {
+  width: 40px;
+  height: 40px;
+  background: url('../img/i-twitter.png');
+  background-size: cover;
+}
 
 /* FANCYBOX */
+
 .fancybox-overlay {
-  background: #2B3738 !important;
-  opacity: .99; 
+  background: #2b3738 !important;
+  opacity: .99;
 }
+
 .fancybox-opened .fancybox-skin {
   box-shadow: none !important;
-  -webkit-box-shadow:  none  !important;
-  -moz-box-shadow:  none  !important; 
+  -webkit-box-shadow: none  !important;
+  -moz-box-shadow: none  !important;
   background: transparent;
 }
+
 .fancybox-close {
-  background-image: url(../js/fancybox/source/fancybox_close.png) !important;
+  background-image: url('../js/fancybox/source/fancybox_close.png') !important;
   background-size: cover;
   width: 24px !important;
   height: 24px  !important;
-  top: 0px !important; 
-  right: 0px !important;
-} 
+  top: 0 !important;
+  right: 0 !important;
+}
+
 #fancybox-loading {
-  background: #2B3738 !important;
+  background: #2b3738 !important;
 }
 
 /* INSTITUCIONAL */
+
 .text-section {
   padding-top: 130px;
 }
+
 .text-section h1 {
   font-size: 2.6em;
   text-align: left;
   margin: 10px auto 60px;
   line-height: 1.2em;
 }
+
 .text-section p {
   font-size: 1.2em;
   font-weight: 300;

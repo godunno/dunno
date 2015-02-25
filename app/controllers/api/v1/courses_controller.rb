@@ -16,7 +16,7 @@ class Api::V1::CoursesController < Api::V1::StudentApplicationController
     # TODO: test
     course = Course.find_by_identifier!(params[:id])
     begin
-      course.students << current_student
+      course.add_student current_student
       status = 200
     rescue
       status = 400

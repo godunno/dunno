@@ -1,9 +1,11 @@
 require 'spec_helper'
 
 describe Dashboard::UsersController do
+  before { @request.env["devise.mapping"] = Devise.mappings[:user] }
+
   let(:user) { build :user }
 
-  describe "POST /users/sign_up" do
+  describe "POST /users" do
     let(:user_hash) do
       {
         user: {
@@ -16,28 +18,24 @@ describe Dashboard::UsersController do
     end
 
     def do_action
-      post "/users", user_hash
+      post :create, user_hash
     end
 
     context "succesfully" do
 
-      subject { User.last }
+      let(:saved_user) { User.last }
+
       before do
         do_action
       end
 
-      shared_examples "creating a user" do
-        it { expect(last_response.status).to eq(302) }
-        it { expect(User.count).to eq(1) }
-        it { expect(subject.email).to eq(user.email) }
-        it { expect(subject.name).to eq(user.name) }
-        it { expect(subject.phone_number).to eq(user.phone_number) }
-      end
+      it { is_expected.to respond_with(302) }
 
-      context "creating a student" do
-        it_behaves_like "creating a user"
-        it { expect(subject.profile).to be_a(Student) }
-      end
+      it { expect(User.count).to eq(1) }
+      it { expect(saved_user.email).to eq(user.email) }
+      it { expect(saved_user.name).to eq(user.name) }
+      it { expect(saved_user.phone_number).to eq(user.phone_number) }
+      it { expect(saved_user.profile).to be_a(Student) }
     end
   end
 
@@ -46,35 +44,32 @@ describe Dashboard::UsersController do
 
     context "without invitation" do
       def do_action
-        get "/dashboard/users/accept_invitation"
+        get :accept_invitation
       end
 
       before { do_action }
 
-      it { expect(last_response.status).to eq(401) }
+      it { is_expected.to respond_with(401) }
     end
 
     context "with invitation" do
       def do_action
-        get "/dashboard/users/accept_invitation", invitation_token: user.invitation_token
+        get :accept_invitation, invitation_token: user.invitation_token
       end
 
       before do
         Invitation.new(user).invite!
-        do_action
       end
 
-      it "should sign in the user" do
-        expect_any_instance_of(Dashboard::UsersController).to receive(:sign_in).with(user)
+      it "signs in to the invitation user" do
         do_action
+        expect(subject.current_user).to eq(user)
       end
-
-      it { expect(last_request.env["action_controller.instance"].instance_variable_get(:@user)).to eq(user) }
     end
 
     context "with expired invitation" do
       def do_action
-        get "/dashboard/users/accept_invitation", invitation_token: user.invitation_token
+        get :accept_invitation, invitation_token: user.invitation_token
       end
 
       before do
@@ -85,7 +80,7 @@ describe Dashboard::UsersController do
 
       after { Timecop.return }
 
-      it { expect(last_response.status).to eq(401) }
+      it { is_expected.to respond_with(401) }
     end
   end
 end

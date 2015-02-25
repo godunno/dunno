@@ -100,4 +100,18 @@ describe Course do
     end
   end
 
+  describe ".add_student" do
+    before { course.save! }
+
+    let(:student) { create(:student) }
+    context "adding a new student" do
+      it { expect { course.add_student(student) }.to change { course.students.size }.by(1)  }
+
+      it "updates the course object" do
+        Timecop.travel(Time.now + 1.second) do
+          expect { course.add_student(student) }.to change { course.updated_at.change(usec: 0) }.by(1)
+        end
+      end
+    end
+  end
 end
