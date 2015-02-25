@@ -12,16 +12,16 @@ body {
 
 h2 {
   font-size: 1.8em;
+  font-weight: 300;
+  line-height: 1.2em;
   margin: 10px auto 30px;
   width: 94%;
-  line-height: 1.2em;
-  font-weight: 300;
 }
 
 h3 {
-  padding-top: 60px;
-  font-weight: 300;
   font-size: 1em;
+  font-weight: 300;
+  padding-top: 60px;
 }
 
 .intro {
@@ -33,18 +33,18 @@ h3 {
 .bt-call:link, 
 .bt-call:active,
 .bt-call:visited {
-  width: 100%;
+  font-size: 1.1em;
+  font-weight: 300;
   height: 54px;
   line-height: 54px;
-  font-size: 1.1em;
-  font-weight: 3.00
+  width: 100%;
 }
 
 .bt-call-small {
+  font-size: .9em;
   height: 54px;
   line-height: 54px;
-  font-size: .9em;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 /* HEADER */
@@ -54,13 +54,13 @@ h3 {
 }
 
 .tagline .logo {
-  width: 202px;
-  height: 38px;
-  margin: 0 auto 50px;
-  display: block;
   background: url(../img/logo-dunno.png) no-repeat;
   background-size: cover;
+  display: block;
+  height: 38px;
+  margin: 0 auto 50px;
   padding-top: 0;
+  width: 202px;
 }
 
 .menu {
@@ -70,12 +70,12 @@ h3 {
 .login:link,
 .login:active,
 .login:visited {
+  display: block;
+  font-size: .6em;
   height: 28px;
   line-height: 28px;
-  display: block;
-  padding: 0 12px;
-  font-size: .6em;
   margin-top: 6px;
+  padding: 0 12px;
 }
 
 .header-menu.active-on-top {
@@ -87,8 +87,8 @@ h3 {
 }
 
 .login {
-  margin-top: 5px;
   font-size: 1.2em;
+  margin-top: 5px;
 }
 
 .tagline {
@@ -144,8 +144,8 @@ cite {
   float: none;
 }
 .block-4-box h4 {
-  margin: 20px 0 10px;
   font-weight: 300;
+  margin: 20px 0 10px;
 }
 
 /* FORM */
@@ -195,22 +195,22 @@ cite {
 /* FOOTER */
 
 footer {
-  line-height: 2em;
   font-size: 1.1em;
+  line-height: 2em;
 }
 
 footer a.link-footer {
-  margin-left: 0px;
+  margin-left: 0;
   display: block;
 }
 
 .social-icons {
-  float: none;
-  display: block;
   clear: both;
-  width: 100%;
+  display: block;
+  float: none;
   height: 50px;
   margin-top: 30px;
+  width: 100%;  
 }
 
 .social-icons a {

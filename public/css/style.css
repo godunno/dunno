@@ -46,7 +46,7 @@ strong {
 h1 {
   font-size: 2em;
   text-align: center;
-  margin: 0 auto 0px;
+  margin: 0 auto 0;
   font-weight: 300;
   line-height: 1.2em;
   text-transform: uppercase;
