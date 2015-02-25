@@ -1,6 +1,9 @@
-require 'tempfile'
+require 'google/api_client'
+require 'google_drive'
 
 class SpreadsheetParser
+  TOKEN = "ya29.JAERb1uc60CjB88EmX4vy8i5nsEf-DCO2ClbwmjsUBBydNxn-uZ7KeWcr1DCpZREed8qO5iNGSKzrg"
+
   attr_reader :url, :options
 
   def self.parse(*args)
@@ -13,22 +16,18 @@ class SpreadsheetParser
   end
 
   def parse
-    file = open(url)
-    begin
-      spreadsheet = Roo::Spreadsheet.open(file.path, extension: :xlsx)
-      ((options[:header_rows] + 1)..spreadsheet.last_row).map { |i| spreadsheet.row(i) }
-    ensure
-      file.unlink
-    end
+    spreadsheet = client.spreadsheet_by_key(key)
+    spreadsheet.worksheets.first.rows.drop(options[:header_rows])
   end
 
   private
 
-  def open(url)
-    tmpfile_or_string_io = super
-    file = Tempfile.new("f", encoding: tmpfile_or_string_io.external_encoding)
-    file.write(tmpfile_or_string_io.read)
-    file.flush.close
-    file
+  def client
+    @client ||= GoogleDrive.login_with_oauth(TOKEN)
+  end
+
+  def key
+    # grab the /d/<key>/ from google spreadsheet url
+    url.match(%r{/d/([a-zA-Z0-9\-]+)})[1]
   end
 end
