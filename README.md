@@ -4,8 +4,15 @@ dunno
 
 This is the backend app that implements dashboard to teachers, managers and admins and supports iOS App. 
 
+## Dependencies
+
+1. Elasticsearch
+2. Redis
+3. Postgresql
+
 ## How to run this project?
 
+0. Check if your dependencies are installed correctly.
 1. ```git clone REPO_URL```
 2. ```cd dunno```
 3. ```bundle```
