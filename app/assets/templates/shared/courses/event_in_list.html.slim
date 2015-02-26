@@ -3,7 +3,7 @@
 .column.time {{asDate(event.start_at) | date:'HH:mm'}} - {{asDate(event.end_at) | date:'HH:mm'}}
 .column.classroom &nbsp;
 .column.status
-  i.icon ng-class="'icon-' + event.formatted_status"
+  i.icon ng-class="'icon-' + statusFor(event)"
 .column.order Aula {{event.order | leadingZeros:2}}
 .column.go
   i.icon.icon-arrow

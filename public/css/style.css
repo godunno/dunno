@@ -19,7 +19,9 @@ h6 {
   font-weight: 100;
 }
 
-a:link {
+a:link,
+a:active,
+a:visited {
   text-decoration: none;
   -webkit-transition: color .3s ease-out;
   -moz-transition: color .3s ease-out;
@@ -76,7 +78,7 @@ h3 {
   font-size: 1.3em;
 }
 
-.bt-call:link, 
+.bt-call:link,
 .bt-call:active,
 .bt-call:visited {
   width: 400px;
@@ -151,10 +153,6 @@ header {
   position: absolute;
   z-index: 100;
   top: 0;
-}
-
-.header-menu.fancybox-margin {
-  display: none !important;
 }
 
 /** MENU FIXO **/
@@ -293,7 +291,8 @@ to {
   line-height: 1.6em;
   width: 90%;
   margin: 0 auto 80px;
-  opacity: .7;
+  opacity: 1;
+  color: #666;
 }
 
 .block-1 {
@@ -425,7 +424,7 @@ cite {
 
 .block-5 .intro {
   margin-bottom: 40px;
-  opacity: 1;
+  color: #fff
 }
 
 .bt-call-wrapper {
@@ -440,6 +439,7 @@ cite {
 }
 
 .bt-call-wrapper .form-text {
+  font-size: 100%;
   width: 64%;
   height: 50px;
   padding: 0 10px !important;
@@ -460,9 +460,10 @@ cite {
   line-height: 48px;
   width: 32%;
   margin-top: 0;
+  text-align: center;
   font-family: 'Lato', sans-serif;
   font-size: .8em;
-  text-align: center;
+  font-weight: 300;
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -470,6 +471,19 @@ cite {
   -moz-transition: background .3s ease-out;
   transition: background .3s ease-out;
   margin-left: -3px;
+	cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.bt-call-wrapper #subject {
+  display: none;
+}
+
+.bt-call-wrapper .success-message {
+  text-align: center;
+  display: none;
 }
 
 .bt-call-wrapper .form-submit:hover {
@@ -522,7 +536,7 @@ footer {
   font-weight: 400;
 }
 
-footer a.link-footer {
+.link-footer {
   margin-left: 20px;
 }
 
@@ -535,7 +549,7 @@ footer a.link-footer {
   height: 40px;
   display: block;
   float: left;
-  margin-top: -12px;
+  margin-top: -16px;
   text-indent: -9000px;
   margin-left: 12px;
   opacity: 1;
@@ -560,33 +574,6 @@ footer a.link-footer {
   height: 40px;
   background: url('../img/i-twitter.png');
   background-size: cover;
-}
-
-/* FANCYBOX */
-
-.fancybox-overlay {
-  background: #2b3738 !important;
-  opacity: .99;
-}
-
-.fancybox-opened .fancybox-skin {
-  box-shadow: none !important;
-  -webkit-box-shadow: none  !important;
-  -moz-box-shadow: none  !important;
-  background: transparent;
-}
-
-.fancybox-close {
-  background-image: url('../js/fancybox/source/fancybox_close.png') !important;
-  background-size: cover;
-  width: 24px !important;
-  height: 24px  !important;
-  top: 0 !important;
-  right: 0 !important;
-}
-
-#fancybox-loading {
-  background: #2b3738 !important;
 }
 
 /* INSTITUCIONAL */

@@ -108,8 +108,9 @@ describe Course do
       it { expect { course.add_student(student) }.to change { course.students.size }.by(1)  }
 
       it "updates the course object" do
-        Timecop.travel(Time.now + 1.second) do
-          expect { course.add_student(student) }.to change { course.updated_at.change(usec: 0) }.by(1)
+        Timecop.travel(Time.now + 10.seconds) do
+          expect { course.add_student(student) }
+            .to change { course.updated_at.change(usec: 0) }.by_at_least(10)
         end
       end
     end
