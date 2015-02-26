@@ -173,19 +173,33 @@ describe Event do
 
   describe "#order" do
     let(:previous_event) do
-      build :event,
+      build(
+        :event,
         course: event.course,
         start_at: event.start_at - 1.day
+      )
+    end
+
+    let(:canceled_event) do
+      build(
+        :event,
+        course: event.course,
+        status: :canceled,
+        start_at: event.start_at + 12.hours
+      )
     end
 
     let(:next_event) do
-      build :event,
+      build(
+        :event,
         course: event.course,
         start_at: event.start_at + 1.day
+      )
     end
 
     before do
       event.save!
+      canceled_event.save!
       previous_event.save!
       next_event.save!
     end
