@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223233106) do
+ActiveRecord::Schema.define(version: 20150226211034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,13 +126,14 @@ ActiveRecord::Schema.define(version: 20150223233106) do
     t.datetime "updated_at"
     t.string   "uuid"
     t.string   "file"
-    t.string   "status",        default: "available"
+    t.string   "status",            default: "available"
     t.datetime "released_at"
     t.json     "preview"
     t.integer  "mediable_id"
     t.string   "mediable_type"
     t.integer  "teacher_id"
     t.string   "thumbnail"
+    t.string   "original_filename"
   end
 
   add_index "medias", ["mediable_id", "mediable_type"], name: "index_medias_on_mediable_id_and_mediable_type", using: :btree
