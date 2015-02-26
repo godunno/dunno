@@ -12,7 +12,7 @@ module Catalog
     end
 
     def extract
-      from_preview || from_extension || default
+      from_preview || from_image || from_extension || default
     end
 
     private

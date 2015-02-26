@@ -57,9 +57,8 @@ listCtrl = ($scope, Media, Utils, $upload)->
     return if item.media? && !confirm("Deseja substituir o anexo atual?")
     $scope.removeMedia(item)
     item._submittingMedia = true
-    if showProgress?
+    if showProgress
       $scope.$broadcast("progress.start")
-      showProgress(callback)
     callback.then((response)->
       media = if response.data? # response may be wrapped
           response.data
@@ -87,10 +86,12 @@ listCtrl = ($scope, Media, Utils, $upload)->
   $scope.submitFileMedia = (item, $files)->
     media = new Media()
     media.file = $files[0]
-    submitMedia item, media.upload(), (callback)->
-      callback.progress (evt)->
-        percentage = parseInt(100.0 * evt.loaded / evt.total)
-        $scope.$broadcast("progress.setValue", "#{percentage}%")
+    promise = media.upload()
+    promise.then(null, null, (evt)-> # notifying progress
+      percentage = parseInt(100.0 * evt.loaded / evt.total)
+      $scope.$broadcast("progress.setValue", "#{percentage}%")
+    )
+    submitMedia item, promise, true
     $scope.$broadcast("file.clean")
 
   $scope.removeMedia = (item)->
