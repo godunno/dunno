@@ -2,7 +2,7 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
   respond_to :json
 
   def transfer
-    next_event = topic.event.next
+    next_event = topic.event.next_not_canceled
     if next_event
       topic.update!(event: next_event)
       status = 200
