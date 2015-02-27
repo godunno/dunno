@@ -1,5 +1,5 @@
 DunnoApp = angular.module('DunnoApp')
-Media = (RailsResource, $upload, $q)->
+Media = (RailsResource, $upload, $q, AWSCredentials)->
   class Media extends RailsResource
     @configure(
       url: '/api/v1/teacher/medias'
@@ -12,9 +12,33 @@ Media = (RailsResource, $upload, $q)->
       Media.$get("#{@$url()}/preview", url: @url)
 
     upload: ->
-      $upload.upload
-        url: @$url() + ".json"
+      deferred = $q.defer()
+      original_filename = @file.name
+      path = "uploads/#{new Date().getTime()}_#{original_filename}"
+      
+      # https://github.com/danialfarid/angular-file-upload#s3
+      $upload.upload(
+        url: AWSCredentials.baseUrl
+        method: 'POST'
+        data:
+          key: path
+          AWSAccessKeyId: AWSCredentials.accessKeyId
+          acl: 'private'
+          policy: AWSCredentials.policy
+          signature: AWSCredentials.signature
+          "Content-Type": if @file.type != '' then @file.type else 'application/octet-stream'
+          filename: original_filename
         file: @file
+      ).progress(->
+        deferred.notify(arguments...)
+      ).then(=>
+        @original_filename = original_filename
+        @file = path
+        @create().then(->
+          deferred.resolve(arguments...)
+        ).catch(-> deferred.reject(arguments...))
+      )
+      deferred.promise
 
     update_tag_list: -> @tag_list = @tags.map((tag)-> tag.text)
 
@@ -42,5 +66,5 @@ Media = (RailsResource, $upload, $q)->
 
   Media
 
-Media.$inject = ['RailsResource', '$upload', '$q']
+Media.$inject = ['RailsResource', '$upload', '$q', 'AWSCredentials']
 DunnoApp.factory 'Media', Media

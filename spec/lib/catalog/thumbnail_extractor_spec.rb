@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Catalog::ThumbnailExtractor do
-  def media_double(url: nil, file: nil, preview: nil)
-    media = double("media", url: url, file: file)
+  def media_double(url: nil, file: nil, original_filename: nil, preview: nil)
+    media = double("media", url: url, file: file, original_filename: original_filename)
     allow(media).to receive_message_chain(:preview, :images, :first, :src, to_s: preview)
     media
   end
@@ -15,15 +15,17 @@ describe Catalog::ThumbnailExtractor do
     end
   end
 
-  #context "from image file" do
-  #  let(:file) { double("file", path: "/path/to/image.png", original_filename: "image.png") }
-  #  let(:media) { media_double(file: file) }
-  #  it { expect(Catalog::ThumbnailExtractor.new(media).extract).to eq(file.path) }
-  #end
+  context "from image file" do
+    let(:original_filename) { "image.png" }
+    let(:file) { "path/to/image.png" }
+    let(:media) { media_double(file: file, original_filename: original_filename) }
+    it { expect(Catalog::ThumbnailExtractor.new(media).extract).to match(/#{file}/) }
+  end
 
   context "from file extension" do
-    let(:file) { double("file", path: "/path/to/document.doc", original_filename: "document.doc") }
-    let(:media) { media_double(file: file) }
+    let(:original_filename) { "document.doc" }
+    let(:file) { "path/to/document.doc" }
+    let(:media) { media_double(file: file, original_filename: original_filename) }
     it { expect(Catalog::ThumbnailExtractor.new(media).extract).to eq("/assets/thumbnails/doc.png") }
   end
 
@@ -33,8 +35,9 @@ describe Catalog::ThumbnailExtractor do
   end
 
   context "file default" do
-    let(:file) { double("file", path: "/path/to/invalid_extension.xyz", original_filename: "invalid_extension.xyz") }
-    let(:media) { media_double(file: file) }
+    let(:original_filename) { "invalid_extension.xyz" }
+    let(:file) { "path/to/invalid_extension.xyz" }
+    let(:media) { media_double(file: file, original_filename: original_filename) }
     it { expect(Catalog::ThumbnailExtractor.new(media).extract).to eq("/assets/thumbnails/file.png") }
   end
 end

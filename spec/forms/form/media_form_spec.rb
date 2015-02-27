@@ -28,7 +28,7 @@ describe Form::MediaForm do
       expect(media_form.errors[:url].size).to eq 0
       expect(media_form.errors[:file].size).to eq 0
 
-      media_form.file = uploaded_file("image.jpg", "image/jpeg")
+      media_form.file = "document.doc"
       media_form.valid?
       expect(media_form.errors[:url].size).to eq 1
       expect(media_form.errors[:file].size).to eq 1

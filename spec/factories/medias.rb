@@ -11,7 +11,8 @@ FactoryGirl.define do
 
     factory :media_with_file do
       url nil
-      file Tempfile.new('test')
+      sequence(:file) { |n| "uploads/#{n}_document.doc" }
+      original_filename "document.doc"
     end
   end
 end
