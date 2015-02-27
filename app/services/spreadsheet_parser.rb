@@ -20,14 +20,15 @@ class SpreadsheetParser
     spreadsheet.worksheets.first.rows.drop(options[:header_rows])
   end
 
+  def key
+    # url: https://docs.google.com/a/dunnoapp.com/spreadsheets/d/1cU5JqP9vF1kL0rXCP9PF7V5Y157ZrY0YKTpvO_Ku7tM/edit#gid=0
+    # key: 1cU5JqP9vF1kL0rXCP9PF7V5Y157ZrY0YKTpvO_Ku7tM
+    url.match(%r{/d/([a-zA-Z0-9\-_]+)})[1]
+  end
+
   private
 
   def client
     @client ||= GoogleDrive.login_with_oauth(TOKEN)
-  end
-
-  def key
-    # grab the /d/<key>/ from google spreadsheet url
-    url.match(%r{/d/([a-zA-Z0-9\-]+)})[1]
   end
 end
