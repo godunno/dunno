@@ -180,15 +180,6 @@ describe Event do
       )
     end
 
-    let(:canceled_event) do
-      build(
-        :event,
-        course: event.course,
-        status: :canceled,
-        start_at: event.start_at + 12.hours
-      )
-    end
-
     let(:next_event) do
       build(
         :event,
@@ -199,7 +190,6 @@ describe Event do
 
     before do
       event.save!
-      canceled_event.save!
       previous_event.save!
       next_event.save!
     end

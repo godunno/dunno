@@ -29,6 +29,17 @@ describe Api::V1::Teacher::TopicsController do
           expect(last_response.status).to eq(422)
         end
       end
+
+      # TODO: move to model spec
+      context "next event is canceled" do
+        let!(:canceled_event) { create(:event, course: course, start_at: 1.day.from_now, status: :canceled) }
+        let!(:next_event) { create(:event, course: course, start_at: 2.day.from_now) }
+
+        it "should transfer topic to the next event" do
+          expect { do_action }.to change { topic.reload.event }
+            .from(event).to(next_event)
+        end
+      end
     end
   end
 end

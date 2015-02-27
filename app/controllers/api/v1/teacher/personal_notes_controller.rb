@@ -2,7 +2,7 @@ class Api::V1::Teacher::PersonalNotesController < Api::V1::TeacherApplicationCon
   respond_to :json
 
   def transfer
-    next_event = personal_note.event.next
+    next_event = personal_note.event.next_not_canceled
     if next_event
       personal_note.update!(event: next_event)
       status = 200
