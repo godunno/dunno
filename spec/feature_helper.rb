@@ -9,7 +9,7 @@ Capybara.default_driver = :selenium
 module FeatureMacros
   def sign_in(user)
     visit root_path
-    click_link('Área do Professor')
+    click_link('Acesse')
     fill_in 'Email', with: user.email
     fill_in 'Senha', with: user.password
     click_button('Entrar')
