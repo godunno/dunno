@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-listCtrl = ($scope, Media, Utils, $upload)->
+listCtrl = ($scope, $upload, $analytics, Media, Utils)->
   angular.extend($scope, Utils)
 
   list = -> $scope.event[$scope.collection]
@@ -25,6 +25,7 @@ listCtrl = ($scope, Media, Utils, $upload)->
     $event.preventDefault() if $event?
     run = ->
       return alert("Não é possível adicionar item sem texto ou anexo.") unless $scope.newListItem.description || $scope.newListItem.media_id
+      $analytics.eventTrack('Created Item', event_uuid: $scope.event.uuid)
       $scope.newItem(list(), $scope.newListItem)
       generateOrderableItem()
       $scope.save($scope.event)
@@ -67,6 +68,7 @@ listCtrl = ($scope, Media, Utils, $upload)->
           response[0]
         else
           response
+      $analytics.eventTrack('Created Media', type: media.type, title: media.title, event_uuid: $scope.event.uuid)
       item.media = media
       item.media_id = media.uuid
     ).finally(->
@@ -98,7 +100,7 @@ listCtrl = ($scope, Media, Utils, $upload)->
     item.media = null
     $scope.event_form.$setDirty()
 
-listCtrl.$inject = ['$scope', 'Media', 'Utils', '$upload']
+listCtrl.$inject = ['$scope', '$upload', '$analytics', 'Media', 'Utils']
 DunnoApp.controller 'listCtrl', listCtrl
 
 DunnoApp.directive 'eventList', ->

@@ -41,6 +41,7 @@ gem 'active_model-errors_details','1.1.0'
 gem 'phonie',                     '3.1.8'
 gem 'dalli',                      '2.7.2'
 gem 'google_drive',               '1.0.0', require: false
+gem 'mixpanel-ruby',              '1.7.0'
 
 gem 'rails-assets-angular',       '1.3.2'
 gem 'rails-assets-angular-route', '1.3.2'

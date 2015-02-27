@@ -1,9 +1,11 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-SessionManager = ($http, $q)->
+SessionManager = ($http, $q, $analytics)->
 
   setCurrentUser = (user)->
+    $analytics.setUsername(user.id)
+    $analytics.setUserPropertiesOnce($email: user.email, $first_name: user.name, $phone: user.phone_number)
     localStorage.setItem 'currentUser', angular.toJson(user)
   removeCurrentUser = -> localStorage.removeItem('currentUser')
   currentUser = -> angular.fromJson(localStorage.getItem('currentUser'))
@@ -35,6 +37,6 @@ SessionManager = ($http, $q)->
     fetchUser: fetchUser
   }
 
-SessionManager.$inject = ['$http', '$q']
+SessionManager.$inject = ['$http', '$q', '$analytics']
 DunnoApp.factory "SessionManager", SessionManager
 DunnoAppStudent.factory "SessionManager", SessionManager

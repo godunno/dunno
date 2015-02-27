@@ -5,6 +5,9 @@ class Dashboard::UsersController < Devise::RegistrationsController
     ActiveRecord::Base.transaction do
       super do |user|
         user.update(profile: Student.new)
+        if user.valid?
+          TrackerWrapper.new(user).track('Student Signed Up')
+        end
       end
     end
   end

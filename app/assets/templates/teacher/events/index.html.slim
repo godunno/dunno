@@ -22,7 +22,7 @@ header.page-header.title
 
         .content.has-overlay
           .overlay.published ng-if="event.planned()"
-            a.button.btn-style-transparent-1.radius.vertical-center href="#events/{{event.uuid}}/edit" ver aula
+            a.button.btn-style-transparent-1.radius.vertical-center href="#events/{{event.uuid}}/edit" analytics-on="click" analytics-event="Accessed Event" analytics-uuid="{{event.uuid}}" analytics-order="{{event.order}}" analytics-course-uuid="{{event.course.uuid}}" analytics-course-name="{{event.course.name}}" ver aula
           .weekday-hour
             span.weekday> {{asDate(event.start_at) | date:'EEE'}}
             span.time - {{asDate(event.start_at) | date:'HH:mm'}}h
