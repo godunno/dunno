@@ -12,7 +12,6 @@ class Dashboard::ApplicationController < ApplicationController
   end
 
   def sign_in
-    @profile = params[:profile] || "teacher"
     if user_signed_in?
       redirect_to after_sign_in_path_for(current_user)
     end
