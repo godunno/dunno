@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-TutorialsManager = ($http, SessionManager)->
+TutorialsManager = ($http, $analytics, SessionManager)->
 
   user = SessionManager.currentUser()
 
@@ -22,12 +22,13 @@ TutorialsManager = ($http, SessionManager)->
     if finished
       $http.patch("/api/v1/users", user: {completed_tutorial: true}).then (response)->
         SessionManager.setCurrentUser(response.data)
+        $analytics.eventTrack('Finished tutorial')
 
   {
     tutorialEnabled: tutorialEnabled
     tutorialClosed: tutorialClosed
   }
 
-TutorialsManager.$inject = ['$http', 'SessionManager']
+TutorialsManager.$inject = ['$http', '$analytics', 'SessionManager']
 DunnoApp.factory "TutorialsManager", TutorialsManager
 DunnoAppStudent.factory "TutorialsManager", TutorialsManager
