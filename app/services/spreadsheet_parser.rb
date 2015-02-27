@@ -2,7 +2,7 @@ require 'google/api_client'
 require 'google_drive'
 
 class SpreadsheetParser
-  TOKEN = "ya29.JAERb1uc60CjB88EmX4vy8i5nsEf-DCO2ClbwmjsUBBydNxn-uZ7KeWcr1DCpZREed8qO5iNGSKzrg"
+  TOKEN = ENV['GOOGLE_DRIVE_TOKEN']
 
   attr_reader :url, :options
 

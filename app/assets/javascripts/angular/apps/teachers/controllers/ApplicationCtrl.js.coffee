@@ -1,7 +1,11 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-ApplicationCtrl = ($scope, $http, $window, SessionManager, TutorialsManager)->
+ApplicationCtrl = ($scope, $http, $window, $rootScope, SessionManager, TutorialsManager)->
+  $rootScope.$on '$locationChangeStart', (event)->
+    if ['/sign_in', '/sign_up'].indexOf($window.location.pathname) != -1
+      event.preventDefault()
+
   $scope.$on '$viewContentLoaded', ()->
     $(document).foundation()
 
@@ -18,6 +22,6 @@ ApplicationCtrl = ($scope, $http, $window, SessionManager, TutorialsManager)->
   $scope.$on 'wholePageLoading', (ev, promise)->
     $scope.wholePageLoading = promise
 
-ApplicationCtrl.$inject = ['$scope', '$http', '$window', 'SessionManager', 'TutorialsManager']
+ApplicationCtrl.$inject = ['$scope', '$http', '$window', '$rootScope', 'SessionManager', 'TutorialsManager']
 DunnoApp.controller 'ApplicationCtrl', ApplicationCtrl
 DunnoAppStudent.controller 'ApplicationCtrl', ApplicationCtrl
