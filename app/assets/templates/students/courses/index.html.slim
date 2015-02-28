@@ -9,7 +9,7 @@ header.page-header.title
   .row
     ul.list--courses
       li.card.card--course.has-overlay ng-repeat="course in courses"
-        a href="#/courses/{{course.uuid}}" analytics-on="click" analytics-event="Accessed Course" analytics-name="{{course.name}}" analytics-uuid="{{course.uuid}}" analytics-teacher-name="{{course.teacher.name}}"
+        a href="#/courses/{{course.uuid}}" analytics-on="click" analytics-event="Course Accessed" analytics-name="{{course.name}}" analytics-uuid="{{course.uuid}}" analytics-teacher-name="{{course.teacher.name}}"
           .overlay.published
             .button.btn-style-transparent-1.radius.vertical-center ver disciplina
           div.title.padding ng-class="'scheme-' + course.order"

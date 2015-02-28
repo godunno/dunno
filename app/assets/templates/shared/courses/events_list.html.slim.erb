@@ -8,8 +8,6 @@ ul.dates
       i.icon.icon-arrow-circle-left
       span {{course.previous_month | date:'MMM / yy'}}
   h2.blankslate ng-if="!course.events || course.events.length == 0" Não há aulas neste mês
-  a.item ng-attr-id="{{ 'event-' + event.uuid }}" ng-href="{{eventPath(event)}}" ng-repeat="event in course.events | orderBy:'start_at'" ng-class="eventClass(event)" ng-attr-tooltip="{{hideEvent(event) ? 'Esta aula ainda está vazia' : undefined}}" tooltip-animation="false" analytics-on="click" analytics-event="Accessed Event via Course" analytics-uuid="{{event.uuid}}" analytics-order="{{event.order}}" analytics-course-uuid="{{course.uuid}}" analytics-course-name="{{course.name}}"
+  a.item ng-attr-id="{{ 'event-' + event.uuid }}" ng-href="{{eventPath(event)}}" ng-repeat="event in course.events | orderBy:'start_at'" ng-class="eventClass(event)" ng-attr-tooltip="{{hideEvent(event) ? 'Esta aula ainda está vazia' : undefined}}" tooltip-animation="false" analytics-on="click" analytics-event="Event Accessed via Course" analytics-uuid="{{event.uuid}}" analytics-order="{{event.order}}" analytics-course-uuid="{{course.uuid}}" analytics-course-name="{{course.name}}"
     li
       ng-include src="'#{asset_path('shared/courses/event_in_list.html')}'"
-    / TODO: Fazer o tooltip funcionar na altura da linha inteira
-    /.has-tooltip ng-if="hideEvent(event)" tooltip="Esta aula ainda está vazia" ng-include="'#{asset_path('shared/courses/event_in_list.html')}'"

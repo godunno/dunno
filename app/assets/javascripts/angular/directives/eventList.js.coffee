@@ -26,7 +26,7 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
     run = ->
       unless $scope.newListItem.description || $scope.newListItem.media_id
         return alert("Não é possível adicionar item sem texto ou anexo.")
-      $analytics.eventTrack 'Created Item',
+      $analytics.eventTrack 'Item Created',
         event_uuid: $scope.event.uuid,
         course_uuid: $scope.event.course.uuid
       $scope.newItem(list(), $scope.newListItem)
@@ -71,7 +71,7 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
           response[0]
         else
           response
-      $analytics.eventTrack('Created Media', type: media.type, title: media.title, event_uuid: $scope.event.uuid)
+      $analytics.eventTrack('Media Created', type: media.type, title: media.title, event_uuid: $scope.event.uuid)
       item.media = media
       item.media_id = media.uuid
     ).finally(->
