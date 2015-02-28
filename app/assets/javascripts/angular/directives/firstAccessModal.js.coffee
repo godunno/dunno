@@ -1,11 +1,12 @@
 DunnoApp = angular.module('DunnoApp')
 
-DunnoApp.controller 'firstAccessModalCtrl', ['$scope', '$http', 'SessionManager', ($scope, $http, SessionManager)->
+DunnoApp.controller 'firstAccessModalCtrl', ['$scope', '$http', '$window', 'SessionManager', ($scope, $http, $window, SessionManager)->
   $scope.user = SessionManager.currentUser()
 
   $scope.updatePassword = (user)->
     $http.patch('/users', user: user).then(->
       $scope.element.foundation('reveal', 'close')
+      $window.location = $window.location.pathname
     )
 ]
 

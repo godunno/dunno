@@ -21,7 +21,7 @@ module Catalog
     end
 
     def supported?
-      SUPPORTED_EXTENSIONS.include?(name)
+      SUPPORTED_FILE_EXTENSIONS.include?(name)
     end
   end
 end
