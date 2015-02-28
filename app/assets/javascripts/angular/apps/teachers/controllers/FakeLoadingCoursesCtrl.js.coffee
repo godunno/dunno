@@ -8,7 +8,7 @@ FakeLoadingCoursesCtrl = ($scope, $timeout, $window, Course)->
   finish = ->
     $scope.$broadcast("progress.stop")
     $scope.loading = false
-    $window.location.href = "/dashboard/teacher#/?first_access=true"
+    $window.location.href = "/dashboard/teacher#/courses?first_access=true"
 
   loadNextItem = ->
     if $scope.currentItemIndex + 1 < iterationsLimit

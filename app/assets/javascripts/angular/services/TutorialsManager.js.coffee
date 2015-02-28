@@ -1,14 +1,14 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-TutorialsManager = ($http, $analytics, SessionManager)->
-
+TutorialsManager = ($http, $analytics, $location, SessionManager)->
   user = SessionManager.currentUser()
 
   tutorialKey = (tutorialId) ->
     "user_#{user.id}_tutorial_#{tutorialId}"
 
   tutorialEnabled = (tutorialId)->
+    return false if $location.search().first_access
     return false if user.completed_tutorial
     return true unless localStorage.getItem(tutorialKey(tutorialId))
     false
@@ -33,6 +33,6 @@ TutorialsManager = ($http, $analytics, SessionManager)->
     tutorialClosed: tutorialClosed
   }
 
-TutorialsManager.$inject = ['$http', '$analytics', 'SessionManager']
+TutorialsManager.$inject = ['$http', '$analytics', '$location', 'SessionManager']
 DunnoApp.factory "TutorialsManager", TutorialsManager
 DunnoAppStudent.factory "TutorialsManager", TutorialsManager
