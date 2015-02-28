@@ -26,6 +26,7 @@ describe Dashboard::UsersController do
       let(:saved_user) { User.last }
 
       before do
+        allow(TrackerWrapper).to receive_message_chain(:new, :track)
         do_action
       end
 
