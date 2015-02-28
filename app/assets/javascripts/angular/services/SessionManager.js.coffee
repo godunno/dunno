@@ -5,7 +5,7 @@ SessionManager = ($http, $q, $analytics)->
 
   setCurrentUser = (user)->
     $analytics.setUsername(user.id)
-    $analytics.setUserPropertiesOnce($email: user.email, $first_name: user.name, $phone: user.phone_number)
+    $analytics.setUserPropertiesOnce($email: user.email, $name: user.name, $phone: user.phone_number)
     localStorage.setItem 'currentUser', angular.toJson(user)
   removeCurrentUser = -> localStorage.removeItem('currentUser')
   currentUser = -> angular.fromJson(localStorage.getItem('currentUser'))
