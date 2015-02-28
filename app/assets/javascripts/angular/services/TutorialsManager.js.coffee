@@ -25,8 +25,9 @@ TutorialsManager = ($http, $analytics, $location, SessionManager)->
         $analytics.eventTrack('Finished tutorial')
 
     # TODO: Fix bug with updating during digest
-    Intercom('shutdown')
-    Intercom('boot', intercomSettings)
+    if Intercom?
+      Intercom('shutdown')
+      Intercom('boot', intercomSettings)
 
   {
     tutorialEnabled: tutorialEnabled
