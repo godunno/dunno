@@ -64,7 +64,7 @@
         background: none;
         color: #CCC;
         position: absolute;
-        right: 90px;
+        right: 100px;
         top: 12px;
         width: 24px;
         height: 24px;
@@ -112,10 +112,11 @@
 
   .medias {
     margin-top: 0.5em;
+    margin-left: 0;
     list-style: none;
     border-radius: 5px;
     box-shadow: $box-shadow;
-    background-color: white;
+    background-color: #fff;
   }
 
   .media {
