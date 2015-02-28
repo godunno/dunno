@@ -6,11 +6,13 @@ CoursesIndexCtrl = ($scope, $routeParams, Course, SessionManager, AssetsPreloade
   )
 
   if !SessionManager.currentUser().completed_tutorial
-    tutorials = {1: [1], 2: [1,2], 3: [1,2,3]}
-    for tutorial, steps of tutorials
-      for step in steps
-        image = "/assets/tutorial/tutorial-arrow-#{tutorial}-#{step}.png"
-        AssetsPreloader.loadImage(image)
+    <% tutorials = {1 => [1], 2 => [1,2], 3 => [1,2,3]} %>
+    <% tutorials.each do |tutorial, steps| %>
+      <% steps.each do |step| %>
+        <% image = "tutorial/tutorial-arrow-#{tutorial}-#{step}.png" %>
+        <%= "AssetsPreloader.loadImage(\"#{asset_path(image)}\")" %>
+      <% end %>
+    <% end %>
     AssetsPreloader.loadFont('Chalkduster')
 CoursesIndexCtrl.$inject = ['$scope', '$routeParams', 'Course', 'SessionManager', 'AssetsPreloader']
 DunnoApp.controller 'CoursesIndexCtrl', CoursesIndexCtrl

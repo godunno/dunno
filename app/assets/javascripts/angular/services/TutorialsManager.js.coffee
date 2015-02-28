@@ -24,6 +24,10 @@ TutorialsManager = ($http, $analytics, SessionManager)->
         SessionManager.setCurrentUser(response.data)
         $analytics.eventTrack('Finished tutorial')
 
+    # TODO: Fix bug with updating during digest
+    Intercom('shutdown')
+    Intercom('boot', intercomSettings)
+
   {
     tutorialEnabled: tutorialEnabled
     tutorialClosed: tutorialClosed

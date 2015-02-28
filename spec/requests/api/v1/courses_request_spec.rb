@@ -92,6 +92,7 @@ describe Api::V1::CoursesController do
       context "valid content type" do
 
         def do_action
+          allow(TrackerWrapper).to receive_message_chain(:new, :track)
           post "/api/v1/courses/#{identifier}/register.json", auth_params(student).to_json
         end
 
