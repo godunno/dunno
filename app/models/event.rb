@@ -25,12 +25,16 @@ class Event < ActiveRecord::Base
 
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
 
+  def next_not_canceled
+    neighbors.not_canceled.where('start_at > ?', start_at).first
+  end
+
   def channel
     "event_#{uuid}"
   end
 
   def neighbors
-    course.events.not_canceled.order('start_at asc')
+    course.events
   end
 
   def order
