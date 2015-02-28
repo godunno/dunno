@@ -24,7 +24,7 @@ class Api::V1::CoursesController < Api::V1::StudentApplicationController
                                                     course_uuid: course.uuid
                                                    )
       status = 200
-    rescue
+    rescue ActiveRecord::RecordNotUnique
       status = 400
     end
     render nothing: true, status: status
