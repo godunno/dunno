@@ -17,8 +17,14 @@ class Api::V1::CoursesController < Api::V1::StudentApplicationController
     course = Course.find_by_identifier!(params[:id])
     begin
       course.add_student current_student
+      TrackerWrapper.new(course.teacher.user).track('Student Joined',
+                                                    id: current_user.id,
+                                                    name: current_user.name,
+                                                    course_name: course.name,
+                                                    course_uuid: course.uuid
+                                                   )
       status = 200
-    rescue
+    rescue ActiveRecord::RecordNotUnique
       status = 400
     end
     render nothing: true, status: status
