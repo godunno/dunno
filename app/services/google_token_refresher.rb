@@ -8,7 +8,7 @@ class GoogleTokenRefresher
     auth.code = $stdin.gets.chomp
     auth.fetch_access_token!
     access_token = auth.access_token
-    ENV['GOOGLE_DRIVE_TOKEN'] = access_token
+    puts "GOOGLE_DRIVE_TOKEN=\"#{access_token}\""
   end
 
   def client
