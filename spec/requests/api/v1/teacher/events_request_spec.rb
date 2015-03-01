@@ -25,10 +25,10 @@ describe Api::V1::Teacher::EventsController do
 
       describe "events within the week" do
         before do
-          Timecop.freeze(1.year.from_now)
-          create(:event, start_at: 2.weeks.ago, course: course)
-          create(:event, start_at: 2.weeks.from_now, course: course)
-          today = Date.today
+          Timecop.freeze(1.year.from_now.in_time_zone)
+          create(:event, start_at: 2.weeks.ago.in_time_zone, course: course)
+          create(:event, start_at: 2.weeks.from_now.in_time_zone, course: course)
+          today = Time.current.to_date
           @this_week_events = (today.beginning_of_week..today.end_of_week).map do |date|
             date = date.to_time.change(hour: 13)
             create(:event, start_at: date, course: course)

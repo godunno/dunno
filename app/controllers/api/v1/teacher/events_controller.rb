@@ -2,7 +2,7 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   respond_to :json
 
   def index
-    today = Time.zone.now
+    today = Time.current
     @events = current_teacher.events.where(start_at: (today.beginning_of_week..today.end_of_week))
     respond_with @events
   end
