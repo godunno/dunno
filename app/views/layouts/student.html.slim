@@ -19,7 +19,7 @@ html lang="pt" ng-app="DunnoAppStudent"
         li
           a href="#courses" Disciplinas
 
-    .content ng-view="" cg-busy="wholePageLoading"
+    .content ng-view="" cg-busy="wholePageLoading" ng-class="controller"
 
     footer
       /= "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe
