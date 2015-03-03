@@ -19,7 +19,7 @@ header.page-header.title ng-class="'scheme-' + (course.order % 12)"
         a.icon.icon-expand data-reveal-id="access-code-fullscreen"
         span.title Código da Disciplina:
         h3 {{course.access_code}}
-        span.description Envie este código para os alunos entrarem nesta disciplina
+        span.description Envie este código para os estudantes entrarem nesta disciplina
         #access-code-fullscreen.reveal-modal.full data-reveal=true
           span.description Código da Disciplina:
           h3.title {{course.access_code}}
@@ -28,7 +28,7 @@ header.page-header.title ng-class="'scheme-' + (course.order % 12)"
 
       div.students
         .top
-          strong count="course.students_count" when="{'0': '0 alunos', 'one': '1 aluno', 'other': '{} alunos'}" ng-pluralize=true
+          strong count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
           a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
             i.icon.icon-buzz
             span Enviar notificação
@@ -39,7 +39,7 @@ header.page-header.title ng-class="'scheme-' + (course.order % 12)"
 
   tutorial.tutorial-2 ng-if="tutorialEnabled(2)" on-close="tutorialClosed(2)"
     tutorial-step
-      p Envie este código para seus alunos. Desta forma você conseguirá interagir com eles através do Dunno.
+      p Envie este código para seus estudantes. Desta forma você conseguirá interagir com eles através do Dunno.
     tutorial-step
       p Clique aqui para planejar e editar o conteúdo de sua aula.
 

@@ -27,7 +27,7 @@ header.page-header.title
                   span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
                 .students.right
                   i.icon.icon-users.margin-right
-                  span count="course.students_count" when="{'0': '0 alunos', 'one': '1 aluno', 'other': '{} alunos'}" ng-pluralize=true
+                  span count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
 
   tutorial.tutorial-1 ng-if="tutorialEnabled(1)" on-close="tutorialClosed(1)"
     p Comece entrando em uma de suas disciplinas.
