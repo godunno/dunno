@@ -56,25 +56,25 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             .title
               span Publicada
               i.icon.icon-published
-            .subtitle Alunos podem ver as tarefas.
+            .subtitle Estudantes podem ver as tarefas.
           li.option dropdown-select-item="draft"
             .content
               .title
                 span Rascunho
                 i.icon.icon-draft
-              .subtitle Alunos não conseguem visualizar as tarefas.
+              .subtitle Estudantes não conseguem visualizar as tarefas.
           li.option dropdown-select-item="canceled"
             .content
               .title
                 span Cancelar
                 i.icon.icon-canceled
-              .subtitle Cancelar aula e notificar os alunos.
+              .subtitle Cancelar aula e notificar os estudantes.
         input.button.btn-style-1.radius.done-button type="submit" value="Concluir"
 
     #topics-container.row.card.container event-list="topics"
       .title.diary-label
         h1 Diário
-        span.subtitle.translucent Tarefas visíveis para os alunos
+        span.subtitle.translucent Tarefas visíveis para os estudantes
 
       #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
         .item.clickable ng-controller="EventEditCtrl" ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
@@ -185,8 +185,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 
   tutorial.tutorial-3 ng-if="tutorialEnabled(3)" on-close="tutorialClosed(3)"
     tutorial-step
-      p Adicione conteúdo visível para os alunos e suas anotações privadas.
+      p Adicione conteúdo visível para os estudantes e suas anotações privadas.
     tutorial-step
       p Adicione links e arquivos em suas tarefas. Estes materiais ficarão disponíveis no catálogo.
     tutorial-step
-      p Publique a aula para que seus alunos possam visualizá-la.
+      p Publique a aula para que seus estudantes possam visualizá-la.
