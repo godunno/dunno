@@ -1,13 +1,14 @@
 class Dashboard::ApplicationController < ApplicationController
-  before_action :authenticate_user!
-  skip_before_action :authenticate_user!, only: [:sign_in, :sign_up]
+  before_action :authenticate_user!, except: [:sign_in, :sign_up]
   layout :resolve_layout
 
   def teacher
+    redirect_to dashboard_student_path if current_user.profile.is_a? Student
     render text: '', layout: true
   end
 
   def student
+    redirect_to dashboard_teacher_path if current_user.profile.is_a? Teacher
     render text: '', layout: true
   end
 
