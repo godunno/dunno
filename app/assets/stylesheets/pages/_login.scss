@@ -1,95 +1,121 @@
-body {
-  //  background-color: #2b3738;
+@media #{$small-only} {
+  .login-page {
+    .logo {
+      height: 66px;
+    }
+  }
 }
+
+
 .login-page {
+  background-color: $primary-color;
+  height: 100%;
+
   .root-proxy {
-    padding: 2em 0;
     display: block;
+    padding: 2em 0;
     text-align: center;
   }
-  .logo {
-    height: 66px;
-  }
+
   a {
     color: $secondary-color;
   }
+
   .login-container {
     @include rounded-container(6px);
   }
+
   .login-form,
   .login-info {
-    background-color: white;
+    background-color: $white;
     margin: auto;
     overflow: hidden;
   }
+
   .login-info {
     border-bottom: 1px solid $light-grey-color;
-    text-align: center;
     font-size: 1.2em; // 19.2px
     padding: 1em;
+    text-align: center;
   }
-  .login-form {
-    padding: 2em;
-    label {
-      font-size: 1em; // 16px
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    span.help {
-      font-size: .875em; // 14px
-      color: #2b3738;
-    }
-    .password {
-      label {
-        float: left;
-      }
-      .password-recovery {
-        float: right;
-        font-size: 0.875em; // 14px
-        line-height: 1.8em;
-      }
-    }
-    .submit {
-      margin-top: 1.5em;
-      input {
-        width: 100%;
-        margin-bottom: 0;
-      }
-    }
-    .back {
-      text-align: center;
-      display: block;
-    }
-    input[type='email'],
-    input[type='password'],
-    input[type='button'] {
-      min-height: 2.75em; // = 44px / apple min touch target size
-    }
-  }
+
   .signup {
     margin-top: 1em;
     text-align: center;
   }
-  ul.login-links {
-    margin: auto;
-    padding: 1em;
+
+}
+
+.login-links {
+  color: $white;
+  list-style: none;
+  margin: auto;
+  padding: 1em;
+  text-align: center;
+
+  a {
+    color: $white;
+    opacity: .42;
+  }
+
+  li {
+    display: inline-block;
+    font-weight: 300;
+
+    &::after {
+      content: ' | ';
+      opacity: .42;
+    }
+
+    &:last-child::after {
+      content: '';
+    }
+  }
+}
+
+.login-form {
+  padding: 1em;
+
+  label {
+    font-size: 1em; // 16px
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .help {
+    color: $primary-color;
+    font-size: .875em; // 14px
+  }
+
+  .password {
+    label {
+      float: left;
+    }
+
+    .password-recovery {
+      float: right;
+      font-size: .875em; // 14px
+      line-height: 1.8em;
+    }
+  }
+
+  .submit {
+    margin-top: 1.5em;
+
+    input {
+      margin-bottom: 0;
+      width: 100%;
+    }
+  }
+
+  .back {
+    display: block;
     text-align: center;
-    list-style: none;
-    color: white;
-    a {
-      color: white;
-      opacity: 0.42;
-    }
-    li {
-      display: inline-block;
-      font-weight: 300;
-      &::after {
-        content: ' | ';
-        opacity: 0.42;
-      }
-      &:last-child::after {
-        content: '';
-      }
-    }
+  }
+
+  [type='email'],
+  [type='password'],
+  [type='button'] {
+    min-height: 2.75em; // = 44px / apple min touch target size
   }
 }
