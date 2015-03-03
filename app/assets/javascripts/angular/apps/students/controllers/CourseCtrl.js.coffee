@@ -1,5 +1,6 @@
 DunnoApp = angular.module('DunnoAppStudent')
 
+# TODO: Separar controller de show e add
 CourseCtrl = ($scope, $location, $routeParams, Course, DateUtils)->
   angular.extend($scope, DateUtils)
 

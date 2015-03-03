@@ -1,5 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
+# TODO: Separar controller de show e edit
 CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
