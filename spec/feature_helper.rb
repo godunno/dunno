@@ -16,7 +16,6 @@ module FeatureMacros
   end
 
   def visit_event(event)
-    visit_course(event.course)
     click_link("event-#{event.uuid}")
   end
 

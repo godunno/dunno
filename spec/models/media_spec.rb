@@ -49,7 +49,7 @@ describe Media do
     end
 
     context "empty" do
-      let(:media) { build :media, file: nil, url: nil }
+      let(:media) { build :media, file_url: nil, url: nil }
       it { expect(media.type).to be_nil }
     end
   end

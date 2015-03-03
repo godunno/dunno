@@ -30,8 +30,6 @@ module Dunno
     config.i18n.default_locale = :"pt-BR"
     config.i18n.locale = :"pt-BR"
 
-    config.carrierwave_storage = %w(staging production).include?(::Rails.env) ? :fog : :file
-
     config.to_prepare do
       %w(app/decorators/**/*_decorator.rb app/form/*.rb).each do |directory|
         Dir.glob(Rails.root + directory).each { |d| require_dependency d }

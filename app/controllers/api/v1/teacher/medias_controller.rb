@@ -10,9 +10,7 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   end
 
   def create
-    media_params = params[:media].to_h
-    media_params[:file] = params[:file]
-    media_form = Form::MediaForm.new(media_params.with_indifferent_access)
+    media_form = Form::MediaForm.new(media_create_params)
     media_form.teacher = current_teacher
     if media_form.save
       @media = media_form.model
@@ -58,5 +56,9 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
 
   def media_params
     params.require(:media).permit(:title, :tag_list, tag_list: [])
+  end
+
+  def media_create_params
+    params.require(:media).permit(:url, :file_url, :original_filename)
   end
 end

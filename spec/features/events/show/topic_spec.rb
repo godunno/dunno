@@ -8,12 +8,17 @@ describe "Adding a new topic to an event" do
 
   before do
     sign_in(user)
+    visit_course(event.course)
     visit_event(event)
   end
 
   it "shows up in the list after I add it" do
     within("#topics-container") do
       fill_in_and_submit "topic", with: "This is a new topic"
+    end
+    click_button 'Concluir'
+    visit_event(event)
+    within("#topics-container") do
       expect(find("#topics-list")).to have_content "This is a new topic"
     end
   end

@@ -80,6 +80,10 @@ Dunno::Application.routes.draw do
       end
       resources :organizations, only: [:index] do
       end
+
+      namespace :utils do
+        get 's3/credentials' => 's3#credentials'
+      end
     end
     namespace :v2 do
       resources :courses, only: [:index] do

@@ -10,8 +10,8 @@ describe Api::V1::EventsController do
   let(:thermometer) { create(:thermometer) }
   let(:poll) { create(:poll, options: [option]) }
   let(:option) { create(:option) }
-  let(:media_with_url) { build(:media, url: "http://www.example.com", file: nil) }
-  let(:media_with_file) { build(:media, file: Tempfile.new("test"), url: nil) }
+  let(:media_with_url) { build(:media_with_url) }
+  let(:media_with_file) { build(:media_with_file) }
   let(:beacon) { create(:beacon) }
   let!(:event) do
     create(:event, course: course,
