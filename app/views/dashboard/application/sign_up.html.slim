@@ -33,12 +33,4 @@
         .submit
           input.button.radius.btn-style-1 ng-disabled="user_form.$invalid" type="submit" value="Cadastrar"
 
-  ul.login-links
-    li
-      a href="#" Home
-    li.sep |
-    li
-      a href="#" Termos de Uso
-    li.sep |
-    li
-      a href="#" Política de Privacidade
+  = render "application/login_links"

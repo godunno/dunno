@@ -25,12 +25,4 @@
         / f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
     .signup= link_to "Tem o código da disciplina? Cadastre-se aqui.", new_registration_path
 
-  ul.login-links
-    li
-      a href="#" Home
-    li.sep |
-    li
-      a href="#" Termos de Uso
-    li.sep |
-    li
-      a href="#" Política de Privacidade
+  = render "application/login_links"
