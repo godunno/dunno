@@ -82,8 +82,9 @@
     margin-bottom: 10px;
 
     &.focus-wrapper {
-      border: 1px solid #3c90c5; // NEW_COLOUR
-      box-shadow: 0 0 3px #3c90c5; // NEW_COLOUR
+      border: 1px solid $blue-color; // NEW_COLOUR
+      box-shadow: 0 0 3px $blue-color; // NEW_COLOUR
+
     }
   }
 
@@ -150,57 +151,6 @@
 
     .vertical-center {
       display: inline-block;
-    }
-  }
-
-  .main-title {
-    background-color: #fecf16; // NEW_COLOUR
-    border-bottom: 1px solid rbga(151, 151, 151, .8); // NEW_COLOUR
-    margin-bottom: 40px;
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-
-    .left {
-      float: left;
-      position: absolute;
-    }
-
-    .right {
-      float: right;
-      position: absolute;
-    }
-
-    .button-transparent {
-      border: 1px solid $primary-color;
-      border-radius: 5px;
-      color: $black;
-      font-size: 14px;
-      padding: 6px 18px;
-    }
-
-    .title-container {
-      line-height: 1;
-      padding: 20px 0;
-
-      .title {
-        font-size: 28px;
-        font-weight: 300;
-        margin-bottom: 10px;
-      }
-
-      .subtitle-1 {
-        color: rgba(0, 0, 0, .6);
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 5px;
-      }
-
-      .subtitle-2 {
-        color: rgba(0, 0, 0, .6);
-        font-size: 13px;
-        font-weight: 300;
-      }
     }
   }
 
