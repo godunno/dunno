@@ -61,4 +61,44 @@ describe Media do
     end
   end
 
+  describe "#thumbnail" do
+    let(:media) { build :media, thumbnail: saved_thumbnail}
+
+    context "for images or links" do
+      let(:thumb_url) { 'http://example.com/uploads/bla.jpg' }
+
+      before do
+        file = double('AwsFile')
+        expect(AwsFile).to receive(:new).with(saved_thumbnail).and_return(file)
+        expect(media).to receive(:file?).and_return(true)
+        expect(file).to receive(:url).and_return(thumb_url)
+      end
+
+      context "it has a thumbnail with only a path" do
+        let(:saved_thumbnail) { 'uploads/bla.jpeg' }
+
+        it do
+          expect(media.thumbnail).to eq thumb_url
+        end
+      end
+
+      context "it has a thumbnail with a full url"
+      let(:saved_thumbnail) { 'http://example.com/uploads/bla.jpg' }
+
+      it do
+        expect(media.thumbnail).to eq thumb_url
+      end
+    end
+
+    context "it has an icon thumbnail" do
+      let(:saved_thumbnail) { '/assets/thumbnails/file.png' }
+
+      before do
+        expect(media).to receive(:file?).and_return(true)
+      end
+      it do
+        expect(media.thumbnail).to eq saved_thumbnail
+      end
+    end
+  end
 end

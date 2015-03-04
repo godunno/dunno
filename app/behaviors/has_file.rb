@@ -1,10 +1,19 @@
 module HasFile
+  # TODO: Tests
   extend ActiveSupport::Concern
 
   included do
     before_destroy :delete_file
-    define_method(:file) do
-      AwsFile.new(file_url) if file_url.present?
+    def file
+      AwsFile.new(file_url) if file?
+    end
+
+    def thumbnail
+      file? && super.present? && !(super =~ %r{/assets/thumbnails/}) ? AwsFile.new(super).url : super
+    end
+
+    def file?
+      file_url.present?
     end
   end
 
