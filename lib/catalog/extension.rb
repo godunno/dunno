@@ -14,9 +14,8 @@ module Catalog
 
     def name
       return nil if @name.nil?
-      is_uri = @name =~ /\A#{URI.regexp(%w(http https))}\z/
-      path_to_extract = is_uri ? URI.parse(@name).path : @name
-      File.extname(path_to_extract).gsub('.', '').downcase
+
+      File.extname(filename).gsub('.', '').downcase
     end
 
     def image?
@@ -25,6 +24,16 @@ module Catalog
 
     def supported?
       SUPPORTED_FILE_EXTENSIONS.include?(name)
+    end
+
+    private
+
+    def uri?
+      @name =~ /\A#{URI.regexp(%w(http https))}\z/
+    end
+
+    def filename
+      uri? ? URI.parse(@name).path : @name
     end
   end
 end
