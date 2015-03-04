@@ -3,6 +3,7 @@ module Catalog
     SUPPORTED_IMAGE_EXTENSIONS = %w(jpg jpeg png svg gif)
     SUPPORTED_FILE_EXTENSIONS = %w(doc docx ppt pptx xls xlsx ppt pptx pdf html txt rtf key pages numbers)
     SUPPORTED_EXTENSIONS = SUPPORTED_IMAGE_EXTENSIONS + SUPPORTED_FILE_EXTENSIONS
+    URL_REGEX = /\A#{URI.regexp(%w(http https))}\z/
 
     def self.from(name)
       new(name)
@@ -28,12 +29,12 @@ module Catalog
 
     private
 
-    def uri?
-      @name =~ /\A#{URI.regexp(%w(http https))}\z/
+    def url?
+      @name =~ URL_REGEX
     end
 
     def filename
-      uri? ? URI.parse(@name).path : @name
+      url? ? URI.parse(@name).path : @name
     end
   end
 end
