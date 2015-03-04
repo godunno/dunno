@@ -12,6 +12,8 @@ describe Catalog::Extension do
   it { expect(Catalog::Extension.new("image.png")).to be_image }
   it { expect(Catalog::Extension.new("Cowboy Bebop CD Box Set.jpg")).to be_image }
 
+  it { expect(Catalog::Extension.new(nil)).to_not be_supported }
+
   it { expect(Catalog::Extension.new("unsupported.xyz")).not_to be_supported }
 
   it "should have a constructor method" do

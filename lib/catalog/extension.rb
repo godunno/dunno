@@ -13,6 +13,7 @@ module Catalog
     end
 
     def name
+      return nil if @name.nil?
       is_uri = @name =~ /\A#{URI.regexp(%w(http https))}\z/
       path_to_extract = is_uri ? URI.parse(@name).path : @name
       File.extname(path_to_extract).gsub('.', '').downcase
