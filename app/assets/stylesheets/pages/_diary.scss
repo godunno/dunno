@@ -360,6 +360,11 @@ $diary-card-border: 1px solid #dddddd;
     .item-show {
       position: relative;
 
+      .title {
+        margin: 0 .5em;
+        word-break: break-word;
+      }
+
       .description {
         word-break: break-word;
       }
