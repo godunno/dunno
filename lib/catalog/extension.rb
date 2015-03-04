@@ -13,7 +13,9 @@ module Catalog
     end
 
     def name
-      File.extname(URI.parse(@name).path).sub('.', '').downcase rescue nil
+      is_uri = @name =~ /\A#{URI::regexp(['http', 'https'])}\z/
+      path_to_extract = is_uri ? URI.parse(@name).path : @name
+      File.extname(path_to_extract).gsub('.', '').downcase rescue nil
     end
 
     def image?
