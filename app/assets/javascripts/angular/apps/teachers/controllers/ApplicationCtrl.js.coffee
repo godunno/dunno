@@ -3,7 +3,9 @@ DunnoAppStudent = angular.module('DunnoAppStudent')
 
 ApplicationCtrl = ($scope, $http, $window, $rootScope, SessionManager, TutorialsManager)->
   $rootScope.$on '$locationChangeStart', (event)->
-    if ['/sign_in', '/sign_up'].indexOf($window.location.pathname) != -1
+    shouldSkipRoute = ['/sign_in', '/sign_up', '/dashboard/passwords/new']
+      .indexOf($window.location.pathname) >= 0
+    unless shouldSkipRoute
       event.preventDefault()
 
   $scope.$on '$viewContentLoaded', ()->
