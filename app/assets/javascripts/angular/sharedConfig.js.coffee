@@ -13,12 +13,12 @@ setClassFromController.$inject = ['$rootScope']
 DunnoApp.run setClassFromController
 DunnoAppStudent.run setClassFromController
 
-checkProfile = ($rootScope, $window, SessionManager)->
+checkProfile = ($rootScope, $window, SessionManager, NonLoggedRoutes)->
   $rootScope.$on '$routeChangeSuccess', (ev, data) ->
     rootPath = SessionManager.currentUser()?.root_path
-    if rootPath != undefined && rootPath != $window.location.pathname
+    if !NonLoggedRoutes.isNonLoggedRoute() && rootPath? && rootPath != $window.location.pathname
       $window.location.href = rootPath
 
-checkProfile.$inject = ['$rootScope', '$window', 'SessionManager']
+checkProfile.$inject = ['$rootScope', '$window', 'SessionManager', 'NonLoggedRoutes']
 DunnoApp.run checkProfile
 DunnoAppStudent.run checkProfile
