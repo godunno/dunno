@@ -62,7 +62,7 @@ describe Media do
   end
 
   describe "#thumbnail" do
-    let(:media) { build :media, thumbnail: saved_thumbnail}
+    let(:media) { build :media, thumbnail: saved_thumbnail }
 
     context "for images or links" do
       let(:thumb_url) { 'http://example.com/uploads/bla.jpg' }
@@ -96,6 +96,7 @@ describe Media do
       before do
         expect(media).to receive(:file?).and_return(true)
       end
+
       it do
         expect(media.thumbnail).to eq saved_thumbnail
       end
