@@ -1,9 +1,20 @@
+@media #{$small-only} {
+  .login-page {
+    .logo {
+      height: 66px;
+    }
+  }
+}
+
+
 .login-page {
-  background-color: #2b3738;
-  padding: 130px 0 0 0;
-  .logo {
+  background-color: $primary-color;
+  height: 100%;
+
+  .root-proxy {
     display: block;
-    margin: auto;
+    padding: 2em 0;
+    text-align: center;
   }
 
   a {
@@ -12,55 +23,20 @@
 
   .login-container {
     @include rounded-container(6px);
-    margin-top: 4em;
   }
 
-  .login-form, .login-info {
-    background-color: white;
+  .login-form,
+  .login-info {
+    background-color: $white;
     margin: auto;
-    width: 30%;
     overflow: hidden;
   }
 
   .login-info {
     border-bottom: 1px solid $light-grey-color;
-    text-align: center;
-    font-size: 1.2em;
+    font-size: 1.2em; // 19.2px
     padding: 1em;
-  }
-
-  .login-form {
-    padding: 20px 48px;
-    label {
-      font-size: 16px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    span.help {
-      font-size: 14px;
-      color: #2b3738;
-    }
-    .password {
-      label {
-        float: left;
-      }
-      .password-recovery {
-        float: right;
-        font-size: 0.8em;
-        line-height: 1.8em;
-      }
-    }
-    .submit {
-      margin-top: 21px;
-      input {
-        width: 100%;
-      }
-    }
-
-    .back {
-      text-align: center;
-      display: block;
-    }
+    text-align: center;
   }
 
   .signup {
@@ -68,24 +44,78 @@
     text-align: center;
   }
 
-  ul.login-links {
-    width: 760px;
-    padding: 40px;
-    margin: auto;
+}
+
+.login-links {
+  color: $white;
+  list-style: none;
+  margin: auto;
+  padding: 1em;
+  text-align: center;
+
+  a {
+    color: $white;
+    opacity: .42;
+  }
+
+  li {
+    display: inline-block;
+    font-weight: 300;
+
+    &::after {
+      content: ' | ';
+      opacity: .42;
+    }
+
+    &:last-child::after {
+      content: '';
+    }
+  }
+}
+
+.login-form {
+  padding: 1em;
+
+  label {
+    font-size: 1em; // 16px
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .help {
+    color: $primary-color;
+    font-size: .875em; // 14px
+  }
+
+  .password {
+    label {
+      float: left;
+    }
+
+    .password-recovery {
+      float: right;
+      font-size: .875em; // 14px
+      line-height: 1.8em;
+    }
+  }
+
+  .submit {
+    margin-top: 1.5em;
+
+    input {
+      margin-bottom: 0;
+      width: 100%;
+    }
+  }
+
+  .back {
+    display: block;
     text-align: center;
-    list-style: none;
-    color: white;
-    a {
-      color: white;
-      opacity: 0.42;
-    }
-    li {
-      display: inline-block;
-      font-weight: 300;
-    }
-    li.sep {
-      margin: 0 10px;
-      opacity: 0.42;
-    }
+  }
+
+  [type='email'],
+  [type='password'],
+  [type='button'] {
+    min-height: 2.75em; // = 44px / apple min touch target size
   }
 }
