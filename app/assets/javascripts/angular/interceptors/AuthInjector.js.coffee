@@ -1,13 +1,12 @@
 DunnoApp = angular.module('DunnoApp')
 
-AuthInjector = ($window, $q)->
+AuthInjector = ($window, $q, NonLoggedRoutes)->
   responseError: (response)->
-    whitelistedPaths = ['/sign_in', '/sign_up']
-    if response.status == 401 && whitelistedPaths.indexOf($window.location.pathname) == -1
+    if response.status == 401 && !NonLoggedRoutes.isNonLoggedRoute()
       $window.location.href = '/sign_in'
     $q.reject(response)
 
-AuthInjector.$inject = ['$window', '$q']
+AuthInjector.$inject = ['$window', '$q', 'NonLoggedRoutes']
 DunnoApp.factory 'AuthInjector',  AuthInjector
 DunnoApp.config ['$httpProvider', ($httpProvider)->
   $httpProvider.interceptors.push('AuthInjector')
