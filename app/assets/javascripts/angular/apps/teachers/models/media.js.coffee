@@ -33,7 +33,7 @@ Media = (RailsResource, $upload, $q, AWSCredentials)->
         deferred.notify(arguments...)
       ).then(=>
         @original_filename = original_filename
-        @file = path
+        @file_url = path
         @create().then(->
           deferred.resolve(arguments...)
         ).catch(-> deferred.reject(arguments...))

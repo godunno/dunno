@@ -609,7 +609,6 @@ DEPENDENCIES
   email_spec (= 1.6.0)
   factory_girl_rails (= 4.5.0)
   fog (= 1.27.0)
-  fog-aws (= 0.1.0)
   foreman (= 0.77.0)
   foundation-rails (= 5.5.1.0)
   google_drive (= 1.0.0)
