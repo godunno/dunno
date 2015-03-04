@@ -59,7 +59,7 @@ describe Api::V1::Teacher::MediasController do
             "preview"     => nil,
             "type"        => media.type,
             "thumbnail"   => nil,
-            "filename"    => media.file_identifier,
+            "filename"    => media.original_filename,
             "released_at" => media.released_at,
             "tag_list"    => media.tag_list,
             "url"         => media.url
@@ -194,11 +194,14 @@ describe Api::V1::Teacher::MediasController do
       end
 
       context "creating media with file" do
-        let(:file) { uploaded_file("file.doc", "application/msword") }
+        let(:file) { "document.doc" }
         let(:params_hash) do
           {
-            "file" => file
-          }.merge(auth_params(teacher))
+            "media" => {
+              "file_url" => "uploads/#{file}",
+              "original_filename" => file
+            }
+          }.merge(auth_params(teacher)).to_json
         end
 
         before { do_action }
@@ -206,8 +209,8 @@ describe Api::V1::Teacher::MediasController do
 
         it { expect(last_response.status).to eq(200) }
         it { expect(json["uuid"]).to eq(subject.uuid) }
-        it { expect(subject.file_identifier).to eq(file.original_filename) }
-        it { expect(subject.title).to eq(file.original_filename) }
+        it { expect(subject.original_filename).to eq("document.doc") }
+        it { expect(subject.title).to eq("document.doc") }
         it { expect(subject.teacher).to eq(teacher) }
       end
 
@@ -215,6 +218,7 @@ describe Api::V1::Teacher::MediasController do
         let(:params_hash) do
           {
             "media" => {
+              "original_filename" => "file.doc" # without file
             }
           }.merge(auth_params(teacher)).to_json
         end
@@ -224,7 +228,7 @@ describe Api::V1::Teacher::MediasController do
 
         it { expect(last_response.status).to eq(422) }
         it { expect(json["errors"]).to have_key("url") }
-        it { expect(json["errors"]).to have_key("file") }
+        it { expect(json["errors"]).to have_key("file_url") }
       end
     end
   end

@@ -22,29 +22,29 @@ describe Form::MediaForm do
     end
 
     it "should make URL and File mutually exclusive" do
-      media_form.file = nil
+      media_form.file_url = nil
       media_form.url = 'http://www.example.com'
       media_form.valid?
       expect(media_form.errors[:url].size).to eq 0
-      expect(media_form.errors[:file].size).to eq 0
+      expect(media_form.errors[:file_url].size).to eq 0
 
-      media_form.file = uploaded_file("image.jpg", "image/jpeg")
+      media_form.file_url = "document.doc"
       media_form.valid?
       expect(media_form.errors[:url].size).to eq 1
-      expect(media_form.errors[:file].size).to eq 1
+      expect(media_form.errors[:file_url].size).to eq 1
 
       media_form.url = nil
       media_form.valid?
       expect(media_form.errors[:url].size).to eq 0
-      expect(media_form.errors[:file].size).to eq 0
+      expect(media_form.errors[:file_url].size).to eq 0
     end
 
     it "should have URL or File presence" do
-      media_form.file = nil
+      media_form.file_url = nil
       media_form.url = nil
       media_form.valid?
       expect(media_form.errors[:url].size).to eq 1
-      expect(media_form.errors[:file].size).to eq 1
+      expect(media_form.errors[:file_url].size).to eq 1
     end
   end
 

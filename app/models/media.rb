@@ -1,5 +1,6 @@
 class Media < ActiveRecord::Base
   include HasUuid
+  include HasFile
   include Elasticsearch::Model
   index_name [Rails.env, model_name.collection].join('_')
 
@@ -13,9 +14,9 @@ class Media < ActiveRecord::Base
   belongs_to :mediable, polymorphic: true
   belongs_to :teacher
 
-  delegate :event, to: :mediable
+  mount_uploader :file_carrierwave, FileUploader
 
-  mount_uploader :file, FileUploader
+  delegate :event, to: :mediable
 
   settings index: { number_of_shards: 1 }, analysis: {
     tokenizer: {
@@ -69,7 +70,7 @@ class Media < ActiveRecord::Base
   end
 
   def url
-    super || file.url
+    super || file.try(:url)
   end
 
   def type
