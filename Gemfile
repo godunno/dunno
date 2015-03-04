@@ -94,6 +94,7 @@ group :test do
   gem 'capybara',                 '2.4.4',     require: false
   gem 'selenium-webdriver',       '2.44.0',    require: false
   gem 'capybara-angular',         '0.1.0',     require: false
+  gem 'connection_pool'
 end
 
 group :development, :test do

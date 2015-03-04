@@ -598,6 +598,7 @@ DEPENDENCIES
   capybara-angular (= 0.1.0)
   carrierwave (= 0.10.0)
   coffee-rails (= 4.1.0)
+  connection_pool
   cti (= 0.1.1)
   dalli (= 2.7.2)
   database_cleaner (= 1.4.0)
