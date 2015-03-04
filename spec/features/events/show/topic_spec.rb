@@ -15,10 +15,6 @@ describe "Adding a new topic to an event" do
   it "shows up in the list after I add it" do
     within("#topics-container") do
       fill_in_and_submit "topic", with: "This is a new topic"
-    end
-    click_button 'Concluir'
-    visit_event(event)
-    within("#topics-container") do
       expect(find("#topics-list")).to have_content "This is a new topic"
     end
   end
