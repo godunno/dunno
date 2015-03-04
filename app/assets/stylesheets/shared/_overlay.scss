@@ -7,6 +7,7 @@ $overlay-z-index: 999;
     display: none;
   }
 
+  .touch &,
   .no-touch &:hover {
     .overlay {
       display: block;
