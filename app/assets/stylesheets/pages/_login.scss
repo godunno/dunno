@@ -11,6 +11,11 @@
   background-color: $primary-color;
   height: 100%;
 
+  @media #{$small-only} {
+    height: auto;
+    padding-bottom: 2em;
+  }
+
   .root-proxy {
     display: block;
     padding: 2em 0;
