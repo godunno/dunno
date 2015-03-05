@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304183829) do
+ActiveRecord::Schema.define(version: 20150305150214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,9 +184,11 @@ ActiveRecord::Schema.define(version: 20150304183829) do
     t.datetime "updated_at"
     t.uuid     "uuid"
     t.integer  "order"
+    t.integer  "media_id"
   end
 
   add_index "personal_notes", ["event_id"], name: "index_personal_notes_on_event_id", using: :btree
+  add_index "personal_notes", ["media_id"], name: "index_personal_notes_on_media_id", using: :btree
   add_index "personal_notes", ["uuid"], name: "index_personal_notes_on_uuid", unique: true, using: :btree
 
   create_table "polls", force: true do |t|
@@ -293,9 +295,11 @@ ActiveRecord::Schema.define(version: 20150304183829) do
     t.uuid     "uuid"
     t.integer  "order"
     t.boolean  "done"
+    t.integer  "media_id"
   end
 
   add_index "topics", ["event_id"], name: "index_topics_on_event_id", using: :btree
+  add_index "topics", ["media_id"], name: "index_topics_on_media_id", using: :btree
   add_index "topics", ["uuid"], name: "index_topics_on_uuid", unique: true, using: :btree
 
   create_table "users", force: true do |t|

@@ -21,18 +21,11 @@ describe Poll do
   describe "callbacks" do
 
     describe "after create" do
-
-      let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
-
       context "new poll" do
-        before(:each) do
-          allow(SecureRandom).to receive(:uuid).and_return(uuid)
-        end
-
         it "saves a new uuid" do
-          expect do
-            poll.save!
-          end.to change{poll.uuid}.from(nil).to(uuid)
+          expect(poll.uuid).to be_nil
+          poll.save!
+          expect(poll.uuid).not_to be_nil
         end
       end
     end

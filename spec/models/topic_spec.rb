@@ -7,7 +7,7 @@ describe Topic do
   describe "associations" do
     it { is_expected.to belong_to(:event).touch(true) }
     it { is_expected.to have_many(:ratings) }
-    it { is_expected.to have_one(:media) }
+    it { is_expected.to belong_to(:media) }
   end
 
   describe "validations" do
@@ -25,18 +25,11 @@ describe Topic do
   describe "callbacks" do
 
     describe "after create" do
-
-      let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
-
       context "new topic" do
-        before(:each) do
-          allow(SecureRandom).to receive(:uuid).and_return(uuid)
-        end
-
         it "saves a new uuid" do
-          expect do
-            topic.save!
-          end.to change{topic.uuid}.from(nil).to(uuid)
+          expect(topic.uuid).to be_nil
+          topic.save!
+          expect(topic.uuid).not_to be_nil
         end
       end
     end

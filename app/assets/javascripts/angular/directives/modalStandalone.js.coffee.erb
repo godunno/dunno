@@ -1,0 +1,28 @@
+DunnoApp = angular.module('DunnoApp')
+
+DunnoApp.directive 'modalStandalone', ->
+  restrict: 'E'
+  transclude: true
+  templateUrl: '<%= asset_path('shared/_modal.html') %>'
+  link: (scope, element, attrs)->
+    background = $('<div class="modal-bg">')
+    $('body').append(background)
+
+    scope.closeButton = attrs.closeButton?
+
+    scope.dismiss = ->
+      element.find(".modal").fadeOut()
+      background.fadeOut()
+      true
+
+    scope.show = ->
+      element.find(".modal").fadeIn()
+      background.fadeIn()
+
+    scope.loading = (ev, promise)->
+      scope.loadingPromise = promise
+      ev.stopPropagation()
+
+    scope.$on "modal.show", scope.show
+    scope.$on "modal.dismiss", scope.dismiss
+    scope.$on "wholePageLoading", scope.loading

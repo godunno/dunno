@@ -101,6 +101,15 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
     submitMedia item, promise, true
     $scope.$broadcast("file.clean")
 
+  $scope.pickFromCatalog = ->
+    return if $scope.newListItem.media? && !confirm("Deseja substituir o anexo atual?")
+    $scope.$broadcast('catalog-picker.open')
+
+  $scope.$on 'catalog-picker.selected', (_, media)->
+    $analytics.eventTrack('Media Selected', type: media.type, title: media.title, event_uuid: $scope.event.uuid)
+    $scope.newListItem.media = media
+    $scope.newListItem.media_id = media.uuid
+
   $scope.removeMedia = (item)->
     item.media_id = null
     item.media = null
