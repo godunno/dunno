@@ -98,6 +98,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar tarefa"
             ui-keydown="{'enter':'addItem($event)'}" name="topic"]
+          a.item-button.media-search-button.icon.icon-search ng-click="pickFromCatalog()"
+          catalog-picker
           a.icon.icon-link.item-button.media-url-button[
             data-dropdown="topic-url"
             data-options="align:left"
@@ -150,6 +152,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" name="personal_note"
           placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
+          a.item-button.media-search-button.icon.icon-search ng-click="pickFromCatalog()"
+          catalog-picker
           a.icon.icon-link.item-button.media-url-button[
             data-dropdown="personal-note-url"
             data-options="align:left"

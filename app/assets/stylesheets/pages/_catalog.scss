@@ -1,3 +1,14 @@
+%media-type {
+  background: $primary-color;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+  height: 23px;
+  padding: 2px;
+  text-align: center;
+  width: 23px;
+}
+
 .catalog-page {
   .blankslate {
     margin: 4em auto auto;
@@ -20,16 +31,9 @@
   }
 
   .type.icon {
-    color: #FFF;
-    background: $primary-color;
-    border-radius: 50%;
-    width: 23px;
-    height: 23px;
-    display: block;
+    @extend %media-type;
     float: left;
-    text-align: center;
-    padding: 2px;
-    font-size: 18px;
+    display: block;
   }
 
   .count {
@@ -40,44 +44,6 @@
   $dropdown-width: 100%;
   .dropdown {
     width: $dropdown-width;
-  }
-
-  .search-wrapper {
-    position: relative;
-    width: 100%;
-      input {
-        width: 90%;
-        float: left;
-        height: 40px;
-        background: #FFF;
-        border: 1px solid #CCC;
-        box-shadow: none;
-        border-radius: 2px;
-        color: #333 !important;
-        opacity: .8;
-        &:focus {
-         opacity: 1;
-         border: 1px solid $input-focus-border-color;
-        }
-      }
-      .icon-close {
-        background: none;
-        color: #CCC;
-        position: absolute;
-        right: 100px;
-        top: 12px;
-        width: 24px;
-        height: 24px;
-      }
-      button {
-        width: 9%;
-        border-radius: 2px;
-        height: 40px;
-        background: #1cc678;
-        position: absolute;
-        right: 0;
-        line-height: 44px;
-      }
   }
 
   .type-list {
@@ -249,43 +215,163 @@
   }
 
   .pagination {
-    width: 100%;
-    margin: auto;
-    position: relative;
-    height: 30px;
     margin-bottom: 50px;
     margin-left: 1.1rem;
-    i {
-      margin: 4px 6px 0 0;
-      display: block;
-      float: left;
-    }
-    .previous-page {
-      position: absolute;
-      left: 0px;
-      top: 0;
+
+    .previous-page,
+    .next-page {
       width: 10%;
     }
+  }
+}
+
+.catalog-page,
+.catalog-picker {
+  .search-wrapper {
+    position: relative;
+    width: 100%;
+
+    input {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      box-shadow: none;
+      color: #333 !important;
+      float: left;
+      height: 40px;
+      opacity: .8;
+      width: 90%;
+
+      &:focus {
+        border: 1px solid $input-focus-border-color;
+        opacity: 1;
+      }
+    }
+
+    .icon-close {
+      background: none;
+      color: #ccc;
+      float: left;
+      height: 24px;
+      margin-left: -2rem;
+      margin-top: .6rem;
+      position: relative;
+      width: 24px;
+    }
+
+    .icon-search {
+      background: #1cc678;
+      border-radius: 2px;
+      color: #fff;
+      height: 40px;
+      line-height: 44px;
+      position: absolute;
+      right: 0;
+      width: 9%;
+    }
+  }
+
+  .pagination {
+    height: 30px;
+    position: relative;
+    width: 100%;
+
+    i {
+      float: left;
+      display: block;
+      margin: 4px 6px 0 0;
+    }
+
+    .previous-page {
+      left: 0px;
+      position: absolute;
+      top: 0;
+    }
+
     .next-page {
       position: absolute;
       right: 0px;
       top: 0;
-      width: 10%;
-
     }
     .pager {
       text-align: center;
       width: 100%;
 
       a {
-        float: left;
         background: none !important;
         color: $primary-color !important;
-        padding: 0;
-        margin: 0;
+        float: left;
         height: 30px;
         line-height: 30px;
+        margin: 0;
+        padding: 0;
       }
+    }
+  }
+}
+
+.catalog-picker .modal {
+  width: 50vw;
+
+  .medias {
+    clear: both;
+    height: 60vh;
+    overflow: scroll;
+
+    .media {
+      border-bottom: 1px solid $light-grey-color;
+      padding: 1rem 0;
+
+      .top {
+        .title {
+          float: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 75%;
+        }
+
+        a {
+          font-size: .8rem;
+          visibility: hidden;
+
+          &.select {
+            @include button($padding: rem-calc(6), $bg: $secondary-color, $radius: true);
+            float: right;
+          }
+
+          &.open {
+            @include button($padding: rem-calc(6), $radius: true);
+            float: right;
+            margin-left: .8rem;
+          }
+        }
+      }
+
+      &:hover .top a {
+        visibility: visible;
+      }
+
+      .bottom {
+        clear: both;
+        word-wrap: break-word;
+
+        .type.icon {
+          @extend %media-type;
+        }
+
+        .url {
+          color: $secondary-color;
+          margin-left: .5rem;
+        }
+      }
+    }
+  }
+
+  .pagination {
+    .previous-page,
+    .next-page {
+      width: 15%;
     }
   }
 }

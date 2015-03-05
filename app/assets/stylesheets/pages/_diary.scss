@@ -69,6 +69,7 @@
     border-bottom: 1px solid #ccc !important; // NEW_COLOUR
     margin-bottom: 0;
     padding-right: 15%;
+    //width: 78%;
 
     &:focus {
       box-shadow: none;
@@ -129,6 +130,10 @@
 
     &.media-file-button {
       margin-right: 3.4em;
+    }
+
+    &.media-search-button {
+      margin-right: 5em;
     }
 
     &:hover,

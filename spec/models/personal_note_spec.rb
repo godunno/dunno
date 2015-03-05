@@ -6,7 +6,7 @@ describe PersonalNote do
 
   describe "associations" do
     it { is_expected.to belong_to(:event).touch(true) }
-    it { is_expected.to have_one(:media) }
+    it { is_expected.to belong_to(:media) }
   end
 
   describe "validations" do
@@ -24,18 +24,11 @@ describe PersonalNote do
   describe "callbacks" do
 
     describe "after create" do
-
-      let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
-
       context "new personal_note" do
-        before(:each) do
-          allow(SecureRandom).to receive(:uuid).and_return(uuid)
-        end
-
         it "saves a new uuid" do
-          expect do
-            personal_note.save!
-          end.to change{personal_note.uuid}.from(nil).to(uuid)
+          expect(personal_note.uuid).to be_nil
+          personal_note.save!
+          expect(personal_note.uuid).not_to be_nil
         end
       end
     end

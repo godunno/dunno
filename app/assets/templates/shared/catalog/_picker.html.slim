@@ -1,0 +1,31 @@
+modal-standalone.catalog-picker close-button=true
+  .header
+    h1 Catálogo
+    .search-wrapper
+      input type="text" ng-model="search.q" placeholder="Procure por assunto, palavra-chave ou tags" ui-keydown="{'enter':'fetch($event)'}"
+      a.button.postfix.icon.icon-close ng-click="clearSearch()"
+      a.button.postfix.icon.icon-search ng-click="fetch()"
+  .medias
+    .media ng-repeat="media in medias"
+      .top
+        .title {{media.title}}
+        a.open target="_blank" ng-href="{{media.url}}"
+          | Ver
+        a.select ng-click="select(media)"
+          | Inserir
+      .bottom
+        i.type.icon ng-class="'icon-' + media.type"
+        a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
+
+  .row ng-if="!!medias && medias.length > 0" 
+    .pagination
+      .page.previous-page
+        a ng-click="fetch({ page: previous_page })" ng-if="previous_page"
+          i.icon.icon-arrow-circle-left
+          | Anterior
+      .page.pager
+        span {{current_page}}
+      .page.next-page
+        a ng-click="fetch({ page: next_page })" ng-if="next_page"
+          i.icon.icon-arrow-circle-right
+          | Próxima

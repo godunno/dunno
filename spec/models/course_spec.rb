@@ -22,26 +22,17 @@ describe Course do
   describe "callbacks" do
 
     describe "after create" do
-
-      let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
-      let!(:access_code) { "bf7d" }
-
       context "new course" do
-        before(:each) do
-          allow(SecureRandom).to receive(:uuid).and_return(uuid)
-          allow(SecureRandom).to receive(:hex).and_return(access_code)
-        end
-
         it "saves a new uuid" do
-          expect do
-            course.save!
-          end.to change{course.uuid}.from(nil).to(uuid)
+          expect(course.uuid).to be_nil
+          course.save!
+          expect(course.uuid).not_to be_nil
         end
 
         it "saves a new access_code" do
-          expect do
-            course.save!
-          end.to change{course.access_code}.from(nil).to(access_code)
+          expect(course.access_code).to be_nil
+          course.save!
+          expect(course.access_code).not_to be_nil
         end
       end
 
