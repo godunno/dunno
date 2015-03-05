@@ -57,7 +57,7 @@ describe Media do
   describe "#url" do
     context "it has file" do
       let(:media) { build :media_with_file }
-      it { expect(media.url).to eq(media.file.url) }
+      it { expect(URI(media.url).path).to eq(URI(media.file.url).path) }
     end
   end
 
