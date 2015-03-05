@@ -21,6 +21,7 @@ module Form
     def initialize(params)
       super(params.slice(*attributes_list(:title, :description, :category, :url, :file_url, :original_filename, :tag_list)))
       set_preview!
+      url.try :strip!
       self.title = preview.title
       self.description = preview.description.try(:truncate, MAX_CHARS)
       set_thumbnail!
