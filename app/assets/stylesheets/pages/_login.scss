@@ -49,6 +49,11 @@
     text-align: center;
   }
 
+  .password {
+    [type='password'] {
+      clear: both;
+    }
+  }
 }
 
 .login-links {
