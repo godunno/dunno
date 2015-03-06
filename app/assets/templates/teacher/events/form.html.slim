@@ -27,7 +27,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .medium-2.large-2.columns.vertical-center.t-light
       span {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
 .diary-page
-  form name="event_form" ng-submit="finish(event)"
+  form name="event_form"
     .row.event-status
       .medium-5.large-5.columns.no-pad-left
         a.button.radius.btn-style-2 ng-href="{{courseLocation(event)}}"
@@ -65,7 +65,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 span Cancelar
                 i.icon.icon-canceled
               .subtitle Cancelar aula e notificar os estudantes.
-        input.button.btn-style-1.radius.done-button type="submit" value="Concluir"
+        a.button.btn-style-1.radius.done-button ng-click="finish(event)"
+          | Concluir
     #topics-container.row.card.container event-list="topics"
       .title.diary-label
         h1 Diário
