@@ -1,0 +1,130 @@
+// scss-lint:disable VendorPrefixes PropertySortOrder
+.loading-bubbles {
+  height: 50px;
+  left: 50%;
+  margin-left: -40px;
+  margin-top: -25px;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  width: 80px;
+  z-index: 1000;
+
+  &:before {
+    content: ' ';
+    background: transparentize($primary-color, .25);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .loading-bubble {
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    margin: 25px auto;
+    background: $black;
+    -moz-border-radius: 50px;
+    -moz-animation: bubbling 1.3s infinite alternate;
+    -webkit-border-radius: 50px;
+    -webkit-animation: bubbling 1.3s infinite alternate;
+    -o-border-radius: 50px;
+    -o-animation: bubbling 1.3s infinite alternate;
+    border-radius: 50px;
+    animation: bubbling 1.3s infinite alternate;
+
+    &.first-bubble {
+      -moz-animation-delay: 0s;
+      -webkit-animation-delay: 0s;
+      -o-animation-delay: 0s;
+      animation-delay: 0s;
+    }
+
+    &.second-bubble {
+      -moz-animation-delay: .39s;
+      -webkit-animation-delay: .39s;
+      -o-animation-delay: .39s;
+      animation-delay: .39s;
+    }
+
+    &.third-bubble {
+      -moz-animation-delay: .78s;
+      -webkit-animation-delay: .78s;
+      -o-animation-delay: .78s;
+      animation-delay: .78s;
+    }
+  }
+}
+
+@-moz-keyframes bubbling {
+  0% {
+    width: 10px;
+    height: 10px;
+    background-color: $black;
+    -moz-transform: translateY(0);
+  }
+
+  100% {
+    width: 24px;
+    height: 24px;
+    background-color: $white;
+    -moz-transform: translateY(-21px);
+  }
+}
+
+@-webkit-keyframes bubbling {
+  0% {
+    width: 10px;
+    height: 10px;
+    background-color: $black;
+    -webkit-transform: translateY(0);
+  }
+
+  100% {
+    width: 24px;
+    height: 24px;
+    background-color: $white;
+    -webkit-transform: translateY(-21px);
+  }
+}
+
+@-o-keyframes bubbling {
+  0% {
+    width: 10px;
+    height: 10px;
+    background-color: $black;
+    -o-transform: translateY(0);
+  }
+
+  100% {
+    width: 24px;
+    height: 24px;
+    background-color: $white;
+    -o-transform: translateY(-21px);
+  }
+
+}
+
+@keyframes bubbling {
+  0% {
+    width: 10px;
+    height: 10px;
+    background-color: $black;
+    transform: translateY(0);
+  }
+
+  100% {
+    width: 24px;
+    height: 24px;
+    background-color: $white;
+    transform: translateY(-21px);
+  }
+}
+
+// .loading-bubbles
+//   .loading-bubble.first-bubble
+//   .loading-bubble.second-bubble
+//   .loading-bubble.third-bubble

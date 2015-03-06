@@ -1,1 +1,13 @@
 scss_files: 'app/assets/stylesheets/**/*.scss'
+linters:
+  SingleLinePerSelector:
+    enabled: true
+  Indentation:
+    enabled: true
+    character: space
+    width: 2
+  SpaceAfterPropertyColon:
+    enabled: true
+    style: one_space
+  EmptyLineBetweenBlocks:
+    enabled: false

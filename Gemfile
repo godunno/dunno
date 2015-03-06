@@ -20,7 +20,6 @@ gem 'oj',                         '2.11.4'
 gem 'pusher',                     '0.14.4'
 gem 'tod',                        '1.5.0'
 gem 'recurrence',                 '1.3.0'
-gem 'carrierwave',                '0.10.0'
 gem 'cti',                        '0.1.1'
 gem 'virtus',                     '1.0.4'
 gem 'twilio-ruby',                '3.14.4'
@@ -42,6 +41,8 @@ gem 'phonie',                     '3.1.8'
 gem 'dalli',                      '2.7.2'
 gem 'google_drive',               '1.0.0', require: false
 gem 'mixpanel-ruby',              '1.7.0'
+gem 'carrierwave',                '0.10.0'
+gem 'fog',                        '1.27.0'
 
 gem 'rails-assets-angular',       '1.3.2'
 gem 'rails-assets-angular-route', '1.3.2'
@@ -67,7 +68,6 @@ gem 'rails-assets-angulartics', '0.17.2'
 
 group :production, :staging do
   gem 'rails_12factor',            '0.0.3'
-  gem 'fog',                       '1.27.0'
   gem 'airbrake',                  '4.1.0'
   gem 'memcachier',                '0.0.2'
   gem 'bonsai-elasticsearch-rails','0.0.4'
@@ -94,6 +94,7 @@ group :test do
   gem 'capybara',                 '2.4.4',     require: false
   gem 'selenium-webdriver',       '2.44.0',    require: false
   gem 'capybara-angular',         '0.1.0',     require: false
+  gem 'connection_pool'
 end
 
 group :development, :test do

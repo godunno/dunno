@@ -24,32 +24,23 @@ describe Event do
   describe "callbacks" do
 
     describe "after create" do
-
-      let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
-
       context "new event" do
-        before(:each) do
-          allow(SecureRandom).to receive(:uuid).and_return(uuid)
-        end
-
         it "saves a new uuid" do
-          expect do
-            event.save!
-          end.to change { event.uuid }.from(nil).to(uuid)
+          expect(event.uuid).to be_nil
+          event.save!
+          expect(event.uuid).not_to be_nil
         end
       end
 
       context "existent event" do
         before(:each) do
-          allow(SecureRandom).to receive(:uuid).and_return(uuid)
           event.save!
         end
 
         it "does not saves new uuid" do
-          allow(SecureRandom).to receive(:uuid).and_return("new-uuid-generate-rencently-7cf25d610d4d")
-          expect do
-            event.save!
-          end.to_not change { event.uuid }.from(uuid)
+          old_uuid = event.uuid
+          event.save!
+          expect(event.reload.uuid).to eq(old_uuid)
         end
       end
     end

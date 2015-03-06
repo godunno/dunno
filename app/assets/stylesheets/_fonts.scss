@@ -1,6 +1,14 @@
+//= depend_on_asset 'chalkduster-webfont.eot'
+//= depend_on_asset 'chalkduster-webfont.woff'
+//= depend_on_asset 'chalkduster-webfont.ttf'
+//= depend_on_asset 'chalkduster-webfont.svg'
+
+@charset 'utf-8';
+
 @font-face {
-  font-family: "Chalkduster";
-  src: asset-url("Chalkduster.ttf") format("truetype");
+  font-family: 'Chalkduster';
+  src: asset-url('chalkduster-webfont.eot');
+  src: asset-url('chalkduster-webfont.eot?#iefix') format('embedded-opentype'), asset-url('chalkduster-webfont.woff') format('woff'), asset-url('chalkduster-webfont.ttf') format('truetype'), asset-url('chalkduster-webfont.svg#dunno-icon-font') format('svg');
   font-weight: normal;
   font-style: normal;
 }

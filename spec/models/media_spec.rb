@@ -11,17 +11,11 @@ describe Media do
 
   describe "callbacks" do
     describe "after create" do
-      let!(:uuid) { "ead0077a-842a-4d35-b164-7cf25d610d4d" }
-
       context "new media" do
-        before(:each) do
-          allow(SecureRandom).to receive(:uuid).and_return(uuid)
-        end
-
         it "saves a new uuid" do
-          expect do
-            media.save!
-          end.to change{media.uuid}.from(nil).to(uuid)
+          expect(media.uuid).to be_nil
+          media.save!
+          expect(media.uuid).not_to be_nil
         end
       end
     end
@@ -49,7 +43,7 @@ describe Media do
     end
 
     context "empty" do
-      let(:media) { build :media, file: nil, url: nil }
+      let(:media) { build :media, file_url: nil, url: nil }
       it { expect(media.type).to be_nil }
     end
   end
@@ -57,8 +51,49 @@ describe Media do
   describe "#url" do
     context "it has file" do
       let(:media) { build :media_with_file }
-      it { expect(media.url).to eq(media.file.url) }
+      it { expect(URI(media.url).path).to eq(URI(media.file.url).path) }
     end
   end
 
+  describe "#thumbnail" do
+    let(:media) { build :media, thumbnail: saved_thumbnail }
+
+    context "for images or links" do
+      let(:thumb_url) { 'http://example.com/uploads/bla.jpg' }
+
+      before do
+        file = double('AwsFile')
+        expect(AwsFile).to receive(:new).with(saved_thumbnail).and_return(file)
+        expect(media).to receive(:file?).and_return(true)
+        expect(file).to receive(:url).and_return(thumb_url)
+      end
+
+      context "it has a thumbnail with only a path" do
+        let(:saved_thumbnail) { 'uploads/bla.jpeg' }
+
+        it do
+          expect(media.thumbnail).to eq thumb_url
+        end
+      end
+
+      context "it has a thumbnail with a full url"
+      let(:saved_thumbnail) { 'http://example.com/uploads/bla.jpg' }
+
+      it do
+        expect(media.thumbnail).to eq thumb_url
+      end
+    end
+
+    context "it has an icon thumbnail" do
+      let(:saved_thumbnail) { '/assets/thumbnails/file.png' }
+
+      before do
+        expect(media).to receive(:file?).and_return(true)
+      end
+
+      it do
+        expect(media.thumbnail).to eq saved_thumbnail
+      end
+    end
+  end
 end

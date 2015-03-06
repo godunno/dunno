@@ -10,3 +10,23 @@
     }
   }
 }
+
+.modal {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  visibility: visible;
+
+  .close-button {
+    @include reveal-close;
+  }
+}
+
+.modal-bg {
+  @extend .reveal-modal-bg;
+  position: fixed;
+
+  &.open {
+    display: block;
+  }
+}

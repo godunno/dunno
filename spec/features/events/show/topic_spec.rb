@@ -8,6 +8,7 @@ describe "Adding a new topic to an event" do
 
   before do
     sign_in(user)
+    visit_course(event.course)
     visit_event(event)
   end
 

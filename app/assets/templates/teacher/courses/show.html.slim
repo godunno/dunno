@@ -1,9 +1,9 @@
 header.page-header.title ng-class="'scheme-' + (course.order % 12)"
   .row
-    .large-2.columns.vertical-center.right
+    .medium-2.large-2.columns.vertical-center.right
       a.button.radius.btn-style-2.right href="#courses/{{course.uuid}}/edit" Editar
 
-    .large-8.large-centered.vertical-center.columns
+    .medium-8.large-8.large-centered.vertical-center.columns
       h2.course-title {{course.name}}
       p.subtitle-head {{course.class_name}}
       p.translucent.subtitle-head
@@ -12,9 +12,9 @@ header.page-header.title ng-class="'scheme-' + (course.order % 12)"
 
 .course-detail-page
   .row
-    .large-8.columns ng-include="'#{asset_path('shared/courses/events_list.html')}'"
+    .medium-8.large-8.columns ng-include="'#{asset_path('shared/courses/events_list.html')}'"
 
-    .large-4.columns
+    .medium-4.large-4.columns
       div.code
         a.icon.icon-expand data-reveal-id="access-code-fullscreen"
         span.title Código da Disciplina:

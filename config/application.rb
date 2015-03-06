@@ -29,8 +29,7 @@ module Dunno
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = :"pt-BR"
     config.i18n.locale = :"pt-BR"
-
-    config.carrierwave_storage = %w(staging production).include?(::Rails.env) ? :fog : :file
+    config.beginning_of_week = :sunday
 
     config.to_prepare do
       %w(app/decorators/**/*_decorator.rb app/form/*.rb).each do |directory|

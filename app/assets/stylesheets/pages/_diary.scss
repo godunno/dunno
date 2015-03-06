@@ -1,23 +1,27 @@
+// TODO: Break diary.scss into smaller files.
+// scss-lint:disable NestingDepth SelectorDepth
 .diary-page {
   margin-top: -20px;
-  
+
   .done-button {
-    margin-left: -7px;
     height: 40px;
-    width: 130px;
+    margin-left: -7px;
     text-align: center;
+    width: 130px;
   }
-   
+
   $dropdown-width: 160px;
+
   .dropdown {
     width: $dropdown-width;
   }
+
   .status-list {
     @include dropdown-container(list, bottom);
     @include radius();
-    width: $dropdown-width;
     border-color: $light-grey-color;
-    
+    width: $dropdown-width;
+
     .option {
       @include grid-row();
       cursor: pointer;
@@ -30,29 +34,29 @@
       .title {
         @include grid-row();
         color: $primary-color;
-
-        text-transform: uppercase;
         font-weight: 600;
+        text-transform: uppercase;
 
         .icon {
           float: right;
+          margin-left: 6px;
           margin-top: 3px;
-		  		margin-left: 6px;
         }
       }
 
       .subtitle {
         @include grid-row();
         color: $dark-grey-color;
-        font-size: 0.8rem;
+        font-size: .8rem;
         line-height: 1.3em;
-				opacity: .7;
+        opacity: .7;
       }
 
       &.published {
         .title {
           color: $primary-color;
         }
+
         .subtitle {
           color: $dark-grey-color;
         }
@@ -62,9 +66,9 @@
 
   .field-new-list-item {
     border: 0;
-    border-bottom: 1px solid #ccc !important;
+    border-bottom: 1px solid #ccc !important; // NEW_COLOUR
     margin-bottom: 0;
-    width: 85%;
+    padding-right: 21%;
 
     &:focus {
       box-shadow: none;
@@ -73,165 +77,148 @@
   }
 
   .wrapper-new-list-item {
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; // NEW_COLOUR
     border-radius: 2px;
     margin-bottom: 10px;
 
     &.focus-wrapper {
-      border: 1px solid #3c90c5;
-      box-shadow: 0 0 3px #3c90c5;
+      border: 1px solid $blue-color; // NEW_COLOUR
+      box-shadow: 0 0 3px $blue-color; // NEW_COLOUR
+
     }
   }
-  
+
   .media-url-input {
     @include dropdown-container(content, right, 350px);
-    padding: 8px;
     background: $background-light-grey-color;
+    padding: 8px;
+
     &:before {
       border-left-color: $background-light-grey-color;
     }
   }
+
   .create-item-button {
     @include radius;
-    margin-right: 0.30em;
-    float: right;
-    color: #fff;
     background: $secondary-color;
-    margin-top: -1.80em;
-    padding: .2em 0.4em;
+    color: $white;
+    float: right;
     font-size: 1.1em;
     height: 1.5em;
     line-height: 1.4em;
+    margin-right: .30em;
+    margin-top: -1.80em;
+    padding: .2em .4em;
 
     &.disabled {
-      pointer-events: none;
+      background: #afb0b0; // NEW_COLOUR
       cursor: auto;
-      background: #AFB0B0;
+      pointer-events: none;
     }
   }
+
   .item-button {
+    color: #afb0b0; // NEW_COLOUR
     float: right;
-    margin-top: -1.3em;
     font-size: 1.5em;
-    color: #AFB0B0;
+    margin-top: -1.3em;
 
     &.media-url-button {
       margin-right: 2em;
     }
+
     &.media-file-button {
       margin-right: 3.4em;
     }
-    &:hover, &.active {
-      color: #5C5B5B;
+
+    &.media-search-button {
+      margin-right: 4.8em;
+    }
+
+    &:hover,
+    &.active {
+      color: #5c5b5b; // NEW_COLOUR
     }
   }
+
   .file-input {
     display: none;
   }
-  
+
   .progress {
-      margin-top: 10px;
+    margin-top: 10px;
   }
+
   .vertical-container {
     display: table-cell;
     vertical-align: middle;
+
     .vertical-center {
       display: inline-block;
     }
   }
-  .main-title {
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    background-color: #fecf16;
-    border-bottom: 1px solid rbga(151, 151, 151, 0.8);
-    margin-bottom: 40px;
-    .left {
-      float: left;
-      position: absolute;
-    }
-    .right {
-      float: right;
-      position: absolute;
-    }
-    .button-transparent {
-      color: black;
-      border: 1px solid #2b3738;
-      padding: 6px 18px;
-      font-size: 14px;
-      border-radius: 5px;
-    }
-    .title-container {
-      padding: 20px 0;
-      line-height: 1;
-      .title {
-        font-size: 28px;
-        font-weight: 300;
-        margin-bottom: 10px;
-      }
-      .subtitle-1 {
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 5px;
-        color: rgba(0, 0, 0, 0.6);
-      }
-      .subtitle-2 {
-        font-size: 13px;
-        font-weight: 300;
-        color: rgba(0, 0, 0, 0.6);
-      }
-    }
-  }
+
   .notes {
-    border-color: red;
-    background-color: #fff7f6;
+    background-color: #fff7f6; // NEW_COLOUR
+    border-color: #f00; // NEW_COLOUR
+
     .tasks {
-      border-top: 1px solid rgba(255, 17, 5, 0.27);
+      border-top: 1px solid rgba(255, 17, 5, .27); // NEW_COLOUR
     }
+
     .foot {
-      border-top: 1px solid rgba(255, 17, 5, 0.27);
+      border-top: 1px solid rgba(255, 17, 5, .27); // NEW_COLOUR
     }
   }
 }
 
 $diary-container-width: 750px;
 $diary-title-height: 90px;
-$diary-card-border: 1px solid #dddddd;
+$diary-card-border: 1px solid #ddd; // NEW_COLOUR
 
 .subtitle {
   .row--main {
     height: 50px;
   }
+
   .columns {
     min-height: 1px;
   }
+
   h2 {
     font-size: 1.3em;
     margin-top: 8px;
   }
+
   .event-date {
     margin-top: -10px;
   }
 }
 
-.next-event:hover, .previous-event:hover {
-   span {
-     opacity: .7;
-   }
+.next-event:hover,
+.previous-event:hover {
+  span {
+    opacity: .7;
+  }
 }
-.next-event, .previous-event {
+
+.next-event,
+.previous-event {
   font-size: .7em;
   vertical-align: middle;
+
   span {
-    opacity: 0;
     display: block;
     margin-top: 20px;
+    opacity: 0;
   }
+
   .icon-arrow-circle-left:before {
     font-size: 1.8em;
     line-height: 2em;
     margin-left: 10px;
   }
+
   .icon-arrow-circle-right:before {
     font-size: 1.8em;
     line-height: 2em;
@@ -242,123 +229,151 @@ $diary-card-border: 1px solid #dddddd;
 .event-status {
   margin: 20px auto;
   width: $diary-container-width;
+
   label {
     &.to {
-      font-size: 18px;
       color: $dark-grey-color;
+      font-size: 18px;
     }
+
     &.icon {
       font-size: 24px;
       margin-top: 5px;
     }
   }
+
   .white {
-    background-color: white;
+    background-color: $white;
   }
+
   .status {
     text-align: right;
   }
+
   .no-pad-left {
-      padding-left: 0 !important;
+    padding-left: 0 !important;
   }
+
   .no-pad-right {
     padding-right: 0;
   }
+
   .time .to {
-      text-align: center;
-      margin-top: 8px;
-      font-size: 14px;
+    font-size: 14px;
+    margin-top: 8px;
+    text-align: center;
   }
+
   .select-status {
-      padding-right: 0;
+    padding-right: 0;
   }
+
   .between-fields {
-      padding: 0 !important;
-      width: 26px;
+    padding: 0 !important;
+    width: 26px;
   }
+
   .button.save {
-    width: 110px;
+    background: none;
+    color: #999; // NEW_COLOUR
     padding-left: 0;
     padding-right: 0;
     text-align: right;
-    background: none;
-    color: #999;
+    width: 110px;
   }
+
   .button.save:disabled {
-    background: #999;
     background: none;
   }
 }
 
 .container {
-  width: $diary-container-width;
-  background: white;
+  background: $white;
   border: $diary-card-border;
-  margin: 20px auto 20px;
+  border-radius: .25em;
+  margin: 1.25em auto;
   padding: 0;
-  border-radius: 4px;
-  & > .title {
-    height: $diary-title-height;
-    position: relative;
-    border-left-width: 10px;
+  width: $diary-container-width;
+
+  > .title {
     border-left-style: solid;
+    border-left-width: 10px;
+    height: $diary-title-height;
     padding: 30px 0 0 15px;
+    position: relative;
+
     h1 {
       font-size: 1.2rem;
-      line-height: 0.5rem;
-      text-transform: uppercase;
       font-weight: bold;
+      line-height: .5rem;
       margin-top: 0;
       text-align: left;
+      text-transform: uppercase;
     }
+
     .subtitle {
-      font-size: 0.7rem;
+      font-size: .7rem;
     }
   }
+
   .diary-label {
-    border-left-color: #1cc678;
+    border-left-color: $secondary-color;
   }
+
   .notes-label {
-    border-left-color: #ff5950;
+    border-left-color: $red-color;
   }
+
   .tasks {
-    border-top: 1px solid #d8d8d8;
+    border-top: 1px solid #d8d8d8; // NEW_COLOUR
   }
+
   .item {
     padding: 0 30px;
+
     &.clickable {
       cursor: pointer;
     }
+
     &.ui-sortable-helper {
+      // scss-lint:disable BangFormat
       // Without this !important, occurs a flickering
       // effect while moving the item.
+      background: $white;
+      border: 1px solid $secondary-color;
+      box-shadow: 0 0 5px #ccc; // NEW_COLOUR
       cursor: move !important;
-      border: 1px solid #1cc678;
-      box-shadow: 0 0 5px #CCC;
-      background: #FFF;
+      // scss-lint:enable BangFormat
     }
 
     .handle {
+      border: 2px dotted #ccc; // NEW_COLOUR
+      border-bottom: 0;
+      border-top: 0;
       float: left;
-      width: 6px;
       height: 18px;
       margin-left: -22px;
       margin-top: 16px;
-      border: 2px dotted #CCC;
-      border-top: none;
-      border-bottom: none;
+      width: 6px;
     }
-    & > .row {
-      margin: 0 auto;
-      padding: 12px 0 12px;
+
+    > .row {
       border-bottom: $diary-card-border;
+      margin: 0 auto;
+      padding: .75em 0;
     }
+
     .item-editing {
       margin: 0;
     }
 
     .item-show {
       position: relative;
+
+      .title {
+        margin: 0 .5em;
+        word-break: break-word;
+      }
 
       .description {
         word-break: break-word;
@@ -371,7 +386,7 @@ $diary-card-border: 1px solid #dddddd;
       top: 0;
 
       .task-icon-right {
-        color: #bbb;
+        color: #bbb; // NEW_COLOUR
         font-size: 1.1rem;
         margin-left: 10px;
         margin-top: 4px;
@@ -384,40 +399,44 @@ $diary-card-border: 1px solid #dddddd;
 
     // --- Show on hover --- //
     .no-touch & {
-      .handle, .task-icon-right {
+      .handle,
+      .task-icon-right {
         display: none;
       }
 
       &:hover {
-        .handle, .task-icon-right {
+        .handle,
+        .task-icon-right {
           display: initial;
         }
       }
     }
     // --------------------- //
   }
+
   .task-box {
-    margin: 0 auto 10px;
-    background: #dddddd;
+    background: #ddd; // NEW_COLOUR
     border-radius: $global-radius;
+    font-size: .8rem;
+    margin: 0 auto 10px;
     padding: 15px;
-    font-size: 0.8rem;
   }
 }
 
 .foot {
   padding: 25px 30px;
   position: relative;
+
   a {
-    color: #71797a;
+    color: $dark-grey-color;
   }
 }
 
 .add {
-  position: absolute;
-  margin-top: 7px;
-  margin-left: 655px;
   font-size: 1.5rem;
+  margin-left: 655px;
+  margin-top: 7px;
+  position: absolute;
 }
 
 .pos {
@@ -426,13 +445,13 @@ $diary-card-border: 1px solid #dddddd;
 
 .icon {
   font-size: 1rem;
-  line-height: 0.3rem;
+  line-height: .3rem;
 }
 
 .hint {
-    font-size: 0.75rem;
-    color: #4d4d4d;
-    display: block;
-    font-weight: normal;
-    line-height: 1.5;
+  color: #4d4d4d; // NEW_COLOUR
+  display: block;
+  font-size: .75rem;
+  font-weight: normal;
+  line-height: 1.5;
 }

@@ -5,13 +5,14 @@ FactoryGirl.define do
     association :mediable, factory: :topic
 
     factory :media_with_url do
-      file nil
+      file_url nil
       url "http://mussumipsum.com/"
     end
 
     factory :media_with_file do
       url nil
-      file Tempfile.new('test')
+      sequence(:file_url) { |n| "uploads/#{n}_document.doc" }
+      original_filename "document.doc"
     end
   end
 end

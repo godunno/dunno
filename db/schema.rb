@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223233106) do
+ActiveRecord::Schema.define(version: 20150305150214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,14 +125,16 @@ ActiveRecord::Schema.define(version: 20150223233106) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uuid"
-    t.string   "file"
-    t.string   "status",        default: "available"
+    t.string   "file_carrierwave"
+    t.string   "status",            default: "available"
     t.datetime "released_at"
     t.json     "preview"
     t.integer  "mediable_id"
     t.string   "mediable_type"
     t.integer  "teacher_id"
     t.string   "thumbnail"
+    t.string   "original_filename"
+    t.string   "file_url"
   end
 
   add_index "medias", ["mediable_id", "mediable_type"], name: "index_medias_on_mediable_id_and_mediable_type", using: :btree
@@ -182,9 +184,11 @@ ActiveRecord::Schema.define(version: 20150223233106) do
     t.datetime "updated_at"
     t.uuid     "uuid"
     t.integer  "order"
+    t.integer  "media_id"
   end
 
   add_index "personal_notes", ["event_id"], name: "index_personal_notes_on_event_id", using: :btree
+  add_index "personal_notes", ["media_id"], name: "index_personal_notes_on_media_id", using: :btree
   add_index "personal_notes", ["uuid"], name: "index_personal_notes_on_uuid", unique: true, using: :btree
 
   create_table "polls", force: true do |t|
@@ -291,9 +295,11 @@ ActiveRecord::Schema.define(version: 20150223233106) do
     t.uuid     "uuid"
     t.integer  "order"
     t.boolean  "done"
+    t.integer  "media_id"
   end
 
   add_index "topics", ["event_id"], name: "index_topics_on_event_id", using: :btree
+  add_index "topics", ["media_id"], name: "index_topics_on_media_id", using: :btree
   add_index "topics", ["uuid"], name: "index_topics_on_uuid", unique: true, using: :btree
 
   create_table "users", force: true do |t|

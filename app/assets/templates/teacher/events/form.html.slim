@@ -1,45 +1,41 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
-    .large-2.columns.vertical-center
+    .medium-2.large-2.columns.vertical-center
       p.subtitle-head.text-left {{event.course.class_name}}
-
-    .large-8.vertical-center.columns.end
+    .medium-8.large-8.vertical-center.columns.end
       h2 {{event.course.name}}
       p.translucent.subtitle-head
         span {{event.course.institution}}
         span< ng-if="!!event.course.grade" - {{event.course.grade}}
-
 .page-header.subtitle
   .row.text-center
-    .large-2.columns.vertical-center.t-light.text-left
+    .medium-2.large-2.columns.vertical-center.t-light.text-left
       span.t-size-1.upcase {{event.start_at | date:'MMM/yyyy'}}
-    .large-2.large-offset-1.columns.vertical-center.t-light
+    .medium-2.large-2.medium-offset-1.large-offset-1.columns.vertical-center.t-light
       a.vertical-center.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit"
         span.left Aula anterior
         i.icon.icon-arrow-circle-left
-    .large-2.columns.vertical-center
+    .medium-2.large-2.columns.vertical-center
       .row.row--main
           h2
             strong {{event.start_at | date:'dd'}}
       .row.t-light.upcase.event-date {{event.start_at | date:'EEE'}}
-    .large-2.columns.end.vertical-center
+    .medium-2.large-2.columns.vertical-center
       a.vertical-center.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
         i.icon.icon-arrow-circle-right
         span.right Próxima aula
-    .large-2.columns.vertical-center.t-light   
+    .medium-2.large-2.columns.vertical-center.t-light
       span {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
-          
 .diary-page
-
-  form name="event_form" ng-submit="finish(event)"
+  form name="event_form"
     .row.event-status
-      .large-5.columns.no-pad-left
+      .medium-5.large-5.columns.no-pad-left
         a.button.radius.btn-style-2 ng-href="{{courseLocation(event)}}"
           span.icon.icon-arrow-back
-          span Voltar        
-      .large-2.columns.text-right
+          span Voltar
+      .medium-2.large-2.columns.text-right
         .button.btn-style-1.radius.save {{saveButtonMessage()}}
-      .large-5.columns.select-status.text-right
+      .medium-5.large-5.columns.select-status.text-right
         a.dropdown.text-left data-dropdown="event-status"
           .option.published ng-if="event.status == 'published'"
             i.icon.icon-published
@@ -69,13 +65,12 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 span Cancelar
                 i.icon.icon-canceled
               .subtitle Cancelar aula e notificar os estudantes.
-        input.button.btn-style-1.radius.done-button type="submit" value="Concluir"
-
+        a.button.btn-style-1.radius.done-button ng-click="finish(event)"
+          | Concluir
     #topics-container.row.card.container event-list="topics"
       .title.diary-label
         h1 Diário
         span.subtitle.translucent Tarefas visíveis para os estudantes
-
       #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
         .item.clickable ng-controller="EventEditCtrl" ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
           .handle ng-if="!isEditing(topic)"
@@ -100,11 +95,12 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ng-if="isEditing(topic)"
               ng-model="editingItem.description"
               ui-keydown="{'enter':'updateItem($event, editingItem, topic)'}"]
-
       .foot cg-busy="submittingMediaPromise"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar tarefa"
             ui-keydown="{'enter':'addItem($event)'}" name="topic"]
+          a.item-button.media-search-button.icon.icon-catalog ng-click="pickFromCatalog()"
+          catalog-picker
           a.icon.icon-link.item-button.media-url-button[
             data-dropdown="topic-url"
             data-options="align:left"
@@ -121,18 +117,14 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ]
           a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
           input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
-
           progress-bar
           preview item="newListItem" editable="true"
         .hint Ex: Revisar aula passada. Introdução à raiz quadrada.
-
     .row.card.container.notes event-list="personal_notes"
       .title.notes-label
-
         h1
           span.icon.icon-lock Anotações
         span.subtitle.translucent Área visível somente para o professor
-
       .tasks ui-sortable="sortableOptions('personal_notes')" ng-model="event.personal_notes"
         .item.clickable ng-controller="EventEditCtrl" ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
           .handle ng-if="!isEditing(personal_note)"
@@ -157,11 +149,12 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ng-if="isEditing(personal_note)"
               ng-model="editingItem.description"
               ui-keydown="{'enter':'updateItem($event, editingItem, personal_note)'}"]
-
       .foot cg-busy="submittingMediaPromise"
         .wrapper-new-list-item
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" name="personal_note"
           placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
+          a.item-button.media-search-button.icon.icon-catalog ng-click="pickFromCatalog()"
+          catalog-picker
           a.icon.icon-link.item-button.media-url-button[
             data-dropdown="personal-note-url"
             data-options="align:left"
@@ -178,7 +171,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ]
           a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
           input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
-
           progress-bar
           preview item="newListItem" editable="true"
         .hint Ex: Fazer ditado surpresa. Rever comportamento do João.

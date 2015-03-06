@@ -22,29 +22,29 @@ describe Form::MediaForm do
     end
 
     it "should make URL and File mutually exclusive" do
-      media_form.file = nil
+      media_form.file_url = nil
       media_form.url = 'http://www.example.com'
       media_form.valid?
       expect(media_form.errors[:url].size).to eq 0
-      expect(media_form.errors[:file].size).to eq 0
+      expect(media_form.errors[:file_url].size).to eq 0
 
-      media_form.file = uploaded_file("image.jpg", "image/jpeg")
+      media_form.file_url = "document.doc"
       media_form.valid?
       expect(media_form.errors[:url].size).to eq 1
-      expect(media_form.errors[:file].size).to eq 1
+      expect(media_form.errors[:file_url].size).to eq 1
 
       media_form.url = nil
       media_form.valid?
       expect(media_form.errors[:url].size).to eq 0
-      expect(media_form.errors[:file].size).to eq 0
+      expect(media_form.errors[:file_url].size).to eq 0
     end
 
     it "should have URL or File presence" do
-      media_form.file = nil
+      media_form.file_url = nil
       media_form.url = nil
       media_form.valid?
       expect(media_form.errors[:url].size).to eq 1
-      expect(media_form.errors[:file].size).to eq 1
+      expect(media_form.errors[:file_url].size).to eq 1
     end
   end
 
@@ -58,6 +58,14 @@ describe Form::MediaForm do
     media_form = Form::MediaForm.new(attributes_for(:media_with_url))
     expect { media_form.save! }.not_to raise_error
     expect(media_form.description).to eq("#{long_description[0..251]}...")
+  end
+
+  it "should remove leading and trailing whitespaces from URL" do
+    media[:url] = url = " http://www.example.com  "
+    allow(LinkThumbnailerWrapper).to receive(:generate).with(url).and_return(double("preview", title: "Title", description: "", images: []))
+    media_form = nil
+    expect { media_form = Form::MediaForm.new(media) }.not_to raise_error
+    expect(media_form.url).to eq("http://www.example.com")
   end
 
   it "should be able to link to image", :vcr do

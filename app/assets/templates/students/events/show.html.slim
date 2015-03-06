@@ -1,33 +1,33 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
-    .large-2.columns.vertical-center
+    .medium-2.large-2.columns.vertical-center
       a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
         span.icon.icon-arrow-back
         span Ver todas as aulas
 
-    .large-8.vertical-center.columns
+    .medium-8.large-8.vertical-center.columns
       h2 {{event.course.name}}
       p.translucent.subtitle-head
         span {{event.course.institution}}
         span< ng-if="!!event.course.grade" - {{event.course.grade}}
 
-    .large-2.vertical-center.columns
+    .medium-2.large-2.vertical-center.columns
       p.subtitle-head.text-right {{event.course.class_name}}
 
 .page-header.subtitle
   .row.text-center
-    .large-2.columns.vertical-center.t-light.text-left
+    .medium-2.large-2.columns.vertical-center.t-light.text-left
       span.t-size-1.upcase {{event.start_at | date:'MMM/yyyy'}}
-    .large-2.large-offset-1.columns.vertical-center.t-light
+    .medium-2.large-2.large-offset-1.columns.vertical-center.t-light
       a.vertical-center.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}"
         span.left Aula anterior
         i.icon.icon-arrow-circle-left
-    .large-2.columns.vertical-center
+    .medium-2.large-2.columns.vertical-center
       .row.row--main
           h2
             strong {{event.start_at | date:'dd'}}
       .row.t-light.upcase.event-date {{event.start_at | date:'EEE'}}
-    .large-2.columns.end.vertical-center
+    .medium-2.large-2.columns.end.vertical-center
       a.vertical-center.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}"
         i.icon.icon-arrow-circle-right
         span.right Próxima aula
@@ -40,5 +40,5 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       .item ng-repeat="topic in event.topics"
         .row
           .item-show
-            span {{topic.description}}
+            span.description {{topic.description}}
             preview item="topic"
