@@ -5,6 +5,8 @@
   form#sign_up name="user_form" ng-submit="sign_up(user)" novalidate=""
     .row
       .login-container.small-12.medium-6.medium-offset-3.columns.end
+        .login-info
+          | Estudante, cadastre-se aqui.
         .login-form
           span.error ng-show="registration_failed" ng-cloak=""
             | Erro ao realizar cadastro
@@ -48,5 +50,8 @@
                 | Formato inválido.
           .submit
             input.button.radius.btn-style-1 ng-disabled="user_form.$invalid" type="submit" value="Cadastrar"
+
+          .signin
+            = link_to "Já tenho cadastro.", new_user_session_path
   / TODO: Write terms and policy pages
     = render "application/login_links"
