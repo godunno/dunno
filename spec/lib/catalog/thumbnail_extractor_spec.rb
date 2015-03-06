@@ -15,12 +15,12 @@ describe Catalog::ThumbnailExtractor do
     end
   end
 
-  #context "from image file" do
-  #  let(:original_filename) { "image.png" }
-  #  let(:file) { "path/to/image.png" }
-  #  let(:media) { media_double(file: file, original_filename: original_filename) }
-  #  it { expect(Catalog::ThumbnailExtractor.new(media).extract).to match(/#{file}/) }
-  #end
+  context "from image file" do
+    let(:original_filename) { "image.png" }
+    let(:file) { "path/to/image.png" }
+    let(:media) { media_double(file_url: file, original_filename: original_filename) }
+    it { expect(Catalog::ThumbnailExtractor.new(media).extract).to match(/#{file}/) }
+  end
 
   context "from file extension" do
     let(:original_filename) { "document.doc" }
@@ -30,7 +30,7 @@ describe Catalog::ThumbnailExtractor do
   end
 
   context "URL default" do
-    let(:media) { media_double(url: "http://www.example.com", file_url: nil) }
+    let(:media) { media_double(url: "http://www.nao-existe.com", file_url: nil) }
     it { expect(Catalog::ThumbnailExtractor.new(media).extract).to eq("/assets/thumbnails/url.png") }
   end
 
