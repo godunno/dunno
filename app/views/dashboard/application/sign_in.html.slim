@@ -29,7 +29,7 @@
               span.error ng-show="user_form.password.$error.required"
                 | Campo obrigatório
           .submit
-            input.button.radius.btn-style-1 ng-disabled="user_form.$invalid" type="submit" value="Entrar"
+            input.button.radius.btn-style-1 ng-disabled="user_form.email.$invalid" type="submit" value="Entrar"
             / f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
     .signup
       = link_to "Tem o código da disciplina? Cadastre-se aqui.", new_registration_path
