@@ -1,0 +1,3 @@
+- unless Rails.env.production? || Rails.env.staging?
+  = render 'application/google_analytics'
+  = render 'application/mixpanel'
