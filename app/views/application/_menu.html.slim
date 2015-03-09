@@ -13,13 +13,12 @@ nav.top-bar.hide-for-small data-topbar=""
         = yield
     section.top-bar-section
       ul.right
-        li.has-dropdown.not-click
-          a {{currentUser().name}}
-          ul#profile.dropdown
-            li
-              a href="#profile/edit" Meu perfil
-            li
-              a ng-click="sign_out()" Sair
+        li
+          a href="#profile/edit"
+            | {{currentUser().name}}
+        li
+          a ng-click="sign_out()"
+            | Sair
 aside.left-off-canvas-menu
   ul.off-canvas-list
     li
@@ -29,6 +28,8 @@ aside.left-off-canvas-menu
       label.first
         | {{currentUser().name}}
     li
-      a href="#profile/edit" Meu perfil
+      a href="#profile/edit"
+        | Meu perfil
     li
-      a ng-click="sign_out()" Sair
+      a ng-click="sign_out()"
+        | Sair
