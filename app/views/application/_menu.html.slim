@@ -1,4 +1,8 @@
-nav.top-bar data-topbar=""
+nav.tab-bar.show-for-small
+  a.left-off-canvas-toggle.menu-icon
+    span
+      | Dunno
+nav.top-bar.hide-for-small data-topbar=""
   .row
     ul.title-area
       li.name
@@ -15,5 +19,22 @@ nav.top-bar data-topbar=""
               a href="#profile/edit" Meu perfil
             li
               a ng-click="sign_out()" Sair
-- if Rails.env.staging?
-  .row.alert-box.alert.text-center Não utilizar com dados reais! Este é uma versão de testes!
+aside.left-off-canvas-menu
+  ul.off-canvas-list
+    li
+      label.first
+        | Dunno
+    li
+      a href="#events" Aulas
+    li
+      a href="#courses" Disciplinas
+    li
+      a href="#catalog" Catálogo
+  ul.off-canvas-list
+    li
+      label.first
+        | {{currentUser().name}}
+    li
+      a href="#profile/edit" Meu perfil
+    li
+      a ng-click="sign_out()" Sair

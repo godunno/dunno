@@ -6,6 +6,7 @@ html lang="pt" ng-app="DunnoApp"
 
     title Dunno
 
+    / TODO: remove unused fonts to improve page load performance
     link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'
 
     = stylesheet_link_tag "application", :media => "all"
@@ -14,22 +15,26 @@ html lang="pt" ng-app="DunnoApp"
 
   body ng-controller="ApplicationCtrl"
     = render 'application/prebootstrap_loading'
-    = render layout: 'application/menu' do
-      ul class="left"
-        li
-          a href="#events" Aulas
-        li
-          a href="#courses" Disciplinas
-        li
-          a href="#catalog" Catálogo
+    .off-canvas-wrap data-offcanvas=''
+      .inner-wrap
+        = render layout: 'application/menu' do
+          ul class="left"
+            li
+              a href="#events" Aulas
+            li
+              a href="#courses" Disciplinas
+            li
+              a href="#catalog" Catálogo
 
-    .content ng-view="" cg-busy="wholePageLoading" ng-class="controller"
+        .content ng-view="" cg-busy="wholePageLoading" ng-class="controller"
 
-    = render partial: 'application/first_access_modal'
+        = render partial: 'application/first_access_modal'
 
     footer
       /= "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe
 
     = javascript_include_tag "application"
 
-    = render 'shared/analytics'
+    / TODO: load only in production
+    = render 'application/google_analytics'
+    = render 'application/mixpanel'
