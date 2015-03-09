@@ -14,12 +14,13 @@ html lang="pt" ng-app="DunnoAppStudent"
 
   body.student-dashboard ng-controller="ApplicationCtrl"
     = render 'application/prebootstrap_loading'
-    = render layout: 'application/menu' do
-      ul class="left"
-        li
-          a href="#courses" Disciplinas
-
-    .content ng-view="" cg-busy="wholePageLoading" ng-class="controller"
+    .off-canvas-wrap data-offcanvas=''
+      .inner-wrap
+        = render layout: 'application/menu' do
+          li
+            a href="#courses" Disciplinas
+        .inner-wrap
+          .content ng-view="" cg-busy="wholePageLoading" ng-class="controller"
 
     footer
       /= "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe

@@ -9,7 +9,8 @@ nav.top-bar.hide-for-small data-topbar=""
         h1
           a.icons.icon-dunno-logo href="#"
     section.top-bar-section
-      = yield
+      ul.left
+        = yield
     section.top-bar-section
       ul.right
         li.has-dropdown.not-click
@@ -25,11 +26,7 @@ aside.left-off-canvas-menu
       label.first
         | Dunno
     li
-      a href="#events" Aulas
-    li
-      a href="#courses" Disciplinas
-    li
-      a href="#catalog" Catálogo
+      = yield
   ul.off-canvas-list
     li
       label.first
