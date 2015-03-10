@@ -5,13 +5,13 @@ header.page-header.title
         h1 Catálogo
 
 .catalog-page
-  .blankslate ng-if="!medias || medias.length == 0"
+  .blankslate ng-if="showTutorial()"
     .how-to
       p Use estes ícones para adicionar links ou arquivos em suas tarefas.
       p Tudo ficará organizado para você aqui no catálogo.
     = image_tag("medias-blankslate.png")
 
-  .row ng-if="!!medias && medias.length > 0"
+  .row ng-show="!showTutorial()"
     /.large-3.columns
       /a.dropdown data-dropdown="search-type"
         /.option.all ng-if="search.type == 'all'"
@@ -46,14 +46,16 @@ header.page-header.title
             /| ({{countType(medias, 'file')}})
 
     .large-12
-      form ng-submit="fetch()"
+      form name="media_search" ng-submit="fetch()"
         .row.collapse
           .large-12.search-wrapper
-            input type="text" ng-model="search.q" placeholder="Procure por assunto, palavra-chave ou tags"
+            input type="text" name="q" ng-model="search.q" placeholder="Procure por assunto, palavra-chave ou tags"
             a.button.postfix.icon.icon-close ng-click="clearSearch()"
             button.button.postfix.icon.icon-search
 
   .row
+    h2 ng-if="medias.length == 0 && !showTutorial()"
+      | Nenhum resultado encontrado.
     ul.medias.large-12
       li.media ng-repeat="media in medias"
         .vertical-bar
