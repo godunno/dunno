@@ -2,7 +2,7 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   respond_to :json
 
   def index
-    @result = Media.search(params.merge(
+    @result = Media.search(media_search_params.merge(
       filter: {
         teacher_id: current_teacher.id
       }
@@ -56,6 +56,10 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
 
   def media_params
     params.require(:media).permit(:title, :tag_list, tag_list: [])
+  end
+
+  def media_search_params
+    params.permit(:page, :q)
   end
 
   def media_create_params

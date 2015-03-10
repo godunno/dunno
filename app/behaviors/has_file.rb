@@ -3,7 +3,8 @@ module HasFile
   extend ActiveSupport::Concern
 
   included do
-    before_destroy :delete_file
+    after_commit :delete_file, on: [:destroy], if: :file?
+
     def file
       AwsFile.new(file_url) if file?
     end
@@ -20,6 +21,6 @@ module HasFile
   private
 
   def delete_file
-    file.try(:delete)
+    DeleteAwsFileWorker.perform_async(:delete, file_url)
   end
 end

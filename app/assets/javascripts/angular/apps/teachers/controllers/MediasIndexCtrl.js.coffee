@@ -18,7 +18,9 @@ MediasIndexCtrl = ($scope, Media, Utils, MediaSearcher)->
   $scope.removeMedia = (media)->
     if confirm("Deseja remover este anexo? Ele também será removida dos diários. Esta operação não poderá ser desfeita.")
       media.remove().then ->
-        Utils.remove($scope.medias, media)
+        last = $scope.medias.length == 1
+        page = if last then $scope.previous_page else $scope.current_page
+        $scope.fetch(page: page)
 
 MediasIndexCtrl.$inject = ['$scope', 'Media', 'Utils', 'MediaSearcher']
 DunnoApp.controller 'MediasIndexCtrl', MediasIndexCtrl
