@@ -89,7 +89,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 a.icon.icon-edition.task-icon-right[
                   ng-click="editItem(topic, editingItem)"
                   title="Editar tarefa"]
-              preview item="topic" editable="true"
+              preview item="topic"
             input.item-editing[
               focus-on-create="" type="text"
               ng-if="isEditing(topic)"
@@ -143,7 +143,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 a.icon.icon-edition.task-icon-right[
                   ng-click="editItem(personal_note, editingItem)"
                   title="Editar anotação"]
-              preview item="personal_note" editable="true"
+              preview item="personal_note"
             input.item-editing[
               focus-on-create="" type="text"
               ng-if="isEditing(personal_note)"
