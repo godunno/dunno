@@ -9,7 +9,6 @@ class Api::V1::CoursesController < Api::V1::StudentApplicationController
     @course = Course.find_by_identifier!(params[:id])
     @pagination = PaginateEventsByMonth.new(@course.events, params[:month])
     @events = @pagination.events
-    fresh_when(last_modified: @course.updated_at, etag: [@course, @pagination.current_month])
   end
 
   def register

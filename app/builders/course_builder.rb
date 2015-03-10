@@ -22,19 +22,5 @@ class CourseBuilder < BaseBuilder
     if options[:show_teacher]
       json.teacher(course.teacher, :name)
     end
-
-    # TODO: Add tests
-    if options[:show_events]
-      json.cache! ['course-builder-events', course.events.maximum(:updated_at)] do
-        json.events course.events do |event|
-          json.cache! ['course-builder-event', event] do
-            EventBuilder.new(event).build!(
-              json,
-              show_course: false
-            )
-          end
-        end
-      end
-    end
   end
 end
