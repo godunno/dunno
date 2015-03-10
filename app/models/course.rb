@@ -14,6 +14,8 @@ class Course < ActiveRecord::Base
 
   before_create :set_access_code
 
+  default_scope -> { order(:created_at) }
+
   def self.find_by_identifier!(identifier)
     where('access_code = ? OR uuid = ?', identifier, identifier).first!
   end
