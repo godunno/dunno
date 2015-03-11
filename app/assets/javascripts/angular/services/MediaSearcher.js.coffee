@@ -15,7 +15,7 @@ MediaSearcher = (Media)->
       )
 
     $scope.paginate = (page)->
-      $scope.loadingPromise = Media.search(q: $scope.search.q, page: page).then (response)->
+      $scope.loadingNextPage = Media.search(q: $scope.search.q, page: page).then (response)->
         $scope.medias = ($scope.medias || []).concat response.medias
         $scope.next_page = response.next_page
 

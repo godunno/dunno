@@ -261,6 +261,22 @@
     }
   }
 
+
+  .media {
+    @extend .cf;
+
+    .thumbnail {
+      float: left;
+      min-height: 1px;
+      width: 10%;
+    }
+
+    .data {
+      float: left;
+      width: 90%;
+    }
+  }
+
   .load-more {
     @extend button;
     display: block;
@@ -280,6 +296,11 @@
     .media {
       border-bottom: 1px solid $light-grey-color;
       padding: 1rem 0;
+
+      .data {
+        margin-left: 5px;
+        width: 85%;
+      }
 
       .top {
         .title {
