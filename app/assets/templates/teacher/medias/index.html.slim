@@ -75,14 +75,6 @@ header.page-header.title
             a.icon.icon-trash ng-click="removeMedia(media)"
 
   .row ng-if="!!medias && medias.length > 0" 
-    .pagination
-      .page.previous-page
-        a ng-click="fetch({ page: previous_page })" ng-if="previous_page"
-          i.icon.icon-arrow-circle-left
-          | Anterior
-      .page.pager
-        span {{current_page}}
-      .page.next-page
-        a ng-click="fetch({ page: next_page })" ng-if="next_page"
-          i.icon.icon-arrow-circle-right
-          | Próxima
+    .pagination ng-if="next_page" cg-busy="loadingPromise"
+      a.load-more ng-click="paginate(next_page)"
+        | Carregar mais
