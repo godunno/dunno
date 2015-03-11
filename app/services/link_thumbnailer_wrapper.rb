@@ -9,7 +9,7 @@ class LinkThumbnailerWrapper
     LinkThumbnailer.generate(url)
   rescue ArgumentError
     Hashie::Mash.new(title: url, images: [src: url])
-  rescue SocketError
+  rescue SocketError, Net::HTTP::Persistent::Error
     Hashie::Mash.new(title: url, images: [])
   end
 
