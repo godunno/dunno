@@ -1,10 +1,10 @@
 header.page-header.title
   .row
     .large-12.vertical-center.columns
-      h1 Meu perfil
-
+      h1
+        | Meu perfil
 .edit-profile
-  form.standalone-form.small name="form" ng-submit="update_password(user)"
+  form.standalone-form.small-12.medium-6.medium-centered name="form" ng-submit="update_password(user)"
     .box
       small.success ng-if="success" Senha alterada com sucesso!
 
