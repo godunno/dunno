@@ -4,7 +4,13 @@ DunnoApp = angular.module('DunnoAppStudent')
 CourseCtrl = ($scope, $location, $routeParams, Course, DateUtils)->
   angular.extend($scope, DateUtils)
 
-  $scope.hideEvent = (event)-> $scope.statusFor(event) == 'empty'
+  $scope.hideEvent = (event)-> (['empty', 'canceled'].indexOf $scope.statusFor(event)) != -1
+  $scope.tooltipMessage = (event)->
+    return undefined unless $scope.hideEvent(event)
+    if $scope.statusFor(event) == 'canceled'
+      'Esta aula foi cancelada'
+    else
+      'Esta aula ainda está vazia'
 
   $scope.statusFor = (event)->
     return "empty" if event.formatted_status == "draft"
