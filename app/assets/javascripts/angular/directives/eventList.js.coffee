@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-listCtrl = ($scope, $upload, $analytics, Media, Utils)->
+listCtrl = ($scope, $upload, $analytics, Media, Utils, DeviceDetector)->
   angular.extend($scope, Utils)
 
   list = -> $scope.event[$scope.collection]
@@ -52,6 +52,7 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
     !$scope.newRecord(item) && !$scope.newRecord($scope.event.next)
 
   $scope.sortableOptions = (collection)->
+    disabled: DeviceDetector.isMobile()
     stop: ->
       for item, i in $scope.event[collection]
         item.order = i + 1
@@ -115,7 +116,7 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
     item.media = null
     $scope.event_form.$setDirty()
 
-listCtrl.$inject = ['$scope', '$upload', '$analytics', 'Media', 'Utils']
+listCtrl.$inject = ['$scope', '$upload', '$analytics', 'Media', 'Utils', 'DeviceDetector']
 DunnoApp.controller 'listCtrl', listCtrl
 
 DunnoApp.directive 'eventList', ->
