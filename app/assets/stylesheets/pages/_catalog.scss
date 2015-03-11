@@ -213,16 +213,6 @@
       }
     }
   }
-
-  .pagination {
-    margin-bottom: 50px;
-    margin-left: 1.1rem;
-
-    .previous-page,
-    .next-page {
-      width: 10%;
-    }
-  }
 }
 
 .catalog-page,
@@ -271,42 +261,11 @@
     }
   }
 
-  .pagination {
-    height: 30px;
-    position: relative;
-    width: 100%;
-
-    i {
-      float: left;
-      display: block;
-      margin: 4px 6px 0 0;
-    }
-
-    .previous-page {
-      left: 0px;
-      position: absolute;
-      top: 0;
-    }
-
-    .next-page {
-      position: absolute;
-      right: 0px;
-      top: 0;
-    }
-    .pager {
-      text-align: center;
-      width: 100%;
-
-      a {
-        background: none !important;
-        color: $primary-color !important;
-        float: left;
-        height: 30px;
-        line-height: 30px;
-        margin: 0;
-        padding: 0;
-      }
-    }
+  .load-more {
+    @extend button;
+    display: block;
+    margin: 0 auto 2rem;
+    width: 30%;
   }
 }
 
@@ -365,13 +324,6 @@
           margin-left: .5rem;
         }
       }
-    }
-  }
-
-  .pagination {
-    .previous-page,
-    .next-page {
-      width: 15%;
     }
   }
 }
