@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310175830) do
+ActiveRecord::Schema.define(version: 20150312222036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20150310175830) do
     t.integer  "beacon_id"
     t.datetime "end_at"
     t.integer  "status",     default: 0
+    t.string   "classroom"
   end
 
   add_index "events", ["beacon_id"], name: "index_events_on_beacon_id", using: :btree

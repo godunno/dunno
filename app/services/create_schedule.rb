@@ -1,11 +1,19 @@
 require 'recurrence'
 
 class CreateSchedule
+  Event = Struct.new(:begin, :end, :classroom)
+
   def initialize(start_date, end_date, weekly_schedules)
     @start_date = start_date
     @end_date = end_date
     @weekly_schedules = weekly_schedules
   end
+
+  def schedule
+    @weekly_schedules.flat_map { |w| schedule_for(w) }.sort_by(&:begin)
+  end
+
+  private
 
   def schedule_for(weekly_schedule)
     schedule = Recurrence.new(
@@ -29,12 +37,8 @@ class CreateSchedule
         min:  end_time.minute
       )
 
-      range_start..range_end
+      Event.new(range_start, range_end, weekly_schedule.classroom)
     end
   end
 
-  def schedule
-    schedules = @weekly_schedules.map { |w| schedule_for(w) }.flatten
-    schedules.sort_by(&:begin)
-  end
 end
