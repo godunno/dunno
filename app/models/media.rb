@@ -92,7 +92,7 @@ class Media < ActiveRecord::Base
           }
         }
       },
-      sort: [:created_at]
+      sort: [created_at: :desc]
     }
     if options[:filter].present?
       query[:query][:filtered][:filter] = { term: options[:filter] }
