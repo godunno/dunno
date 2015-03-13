@@ -53,6 +53,9 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
 
   $scope.sortableOptions = (collection)->
     stop: ->
+      $analytics.eventTrack "Item Drag 'n Drop",
+        event_uuid: $scope.event.uuid,
+        course_uuid: $scope.event.course.uuid
       for item, i in $scope.event[collection]
         item.order = i + 1
       $scope.save($scope.event)
