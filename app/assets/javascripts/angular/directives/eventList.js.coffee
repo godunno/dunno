@@ -97,6 +97,11 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
     promise.then(null, null, (evt)-> # notifying progress
       percentage = parseInt(100.0 * evt.loaded / evt.total)
       $scope.$broadcast("progress.setValue", "#{percentage}%")
+    ).catch((response)->
+      if response.error == 'too_large'
+        alert 'O arquivo enviado é grande demais.'
+      else
+        alert 'Ocorreu um erro durante o envio do arquivo.'
     )
     submitMedia item, promise, true
     $scope.$broadcast("file.clean")

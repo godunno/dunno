@@ -37,6 +37,12 @@ Media = (RailsResource, $upload, $q, AWSCredentials)->
         @create().then(->
           deferred.resolve(arguments...)
         ).catch(-> deferred.reject(arguments...))
+      ).catch((response)->
+        error = if /<Code>EntityTooLarge<\/Code>/.exec(response.data)
+                  'too_large'
+                else
+                  'unknown'
+        deferred.reject error: error
       )
       deferred.promise
 
