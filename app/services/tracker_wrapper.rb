@@ -12,6 +12,10 @@ class TrackerWrapper
   private
 
   def tracker
-    @tracker ||= Mixpanel::Tracker.new(ENV["MIXPANEL_TOKEN"])
+    @tracker ||= Rails.env.test? ? NullTracker.new : Mixpanel::Tracker.new(ENV["MIXPANEL_TOKEN"])
+  end
+
+  class NullTracker
+    def track(*); end
   end
 end
