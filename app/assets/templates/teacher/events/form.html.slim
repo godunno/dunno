@@ -1,38 +1,45 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
-    .medium-2.large-2.columns.vertical-center
-      p.subtitle-head.text-left {{event.formatted_classroom}}
-    .medium-8.large-8.vertical-center.columns.end
-      h2 {{event.course.name}}
+    .small-2.columns
+      p.subtitle-head.text-left
+        | {{event.formatted_classroom}}
+    .small-8.columns.end
+      h2
+        | {{event.course.name}}
       p.translucent.subtitle-head
-        span {{event.course.institution}}
-        span< ng-if="!!event.course.grade" - {{event.course.grade}}
+        span
+          | {{event.course.institution}} · {{event.course.class_name}}
+        span< ng-if="!!event.course.grade"
+          | · {{event.course.grade}}
 .page-header.subtitle
   .row.text-center
     .medium-2.large-2.columns.vertical-center.t-light.text-left
-      span.t-size-1.upcase {{event.start_at | date:'MMM/yyyy'}}
+      span.t-size-1.upcase
+        | {{event.start_at | date:'MMM/yyyy'}}
     .medium-2.large-2.medium-offset-1.large-offset-1.columns.vertical-center.t-light
       a.vertical-center.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="previous" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}" 
-        span.left Aula anterior
+        span.left
+          | Aula anterior
         i.icon.icon-arrow-circle-left
     .medium-2.large-2.columns.vertical-center
       .row.row--main
           h2
-            strong {{event.start_at | date:'dd'}}
-      .row.t-light.upcase.event-date {{event.start_at | date:'EEE'}}
+            strong
+              | {{event.start_at | date:'dd'}}
+      .row.t-light.upcase.event-date
+        | {{event.start_at | date:'EEE'}}
     .medium-2.large-2.columns.vertical-center
       a.vertical-center.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="next" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}" 
         i.icon.icon-arrow-circle-right
-        span.right Próxima aula
+        span.right
+          | Próxima aula
     .medium-2.large-2.columns.vertical-center.t-light
-      span {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
+      span
+        | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
 .diary-page
   form name="event_form"
     .row.event-status
       .medium-5.large-5.columns.no-pad-left
-        a.button.radius.btn-style-2 ng-href="{{courseLocation(event)}}"
-          span.icon.icon-arrow-back
-          span Voltar
       .medium-2.large-2.columns.text-right
         .button.btn-style-1.radius.save {{saveButtonMessage()}}
       .medium-5.large-5.columns.select-status.text-right

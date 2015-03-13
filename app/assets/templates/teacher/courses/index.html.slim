@@ -3,7 +3,8 @@ header.page-header.title
     .large-4.vertical-center.columns
       /a.button.btn-style-1.radius href="#courses/new" Criar nova disciplina
     .large-4.large-centered.vertical-center.columns
-      h1 Disciplinas
+      h1
+        | Disciplinas
 / TODO: markup cleanup
 .courses-page
   .row
@@ -11,20 +12,26 @@ header.page-header.title
       li.card.card--course ng-repeat="course in courses"
         a.has-overlay ng-attr-id="{{ 'course-' + course.uuid }}" href="#/courses/{{course.uuid}}" analytics-on="click" analytics-event="Course Accessed" analytics-name="{{course.name}}" analytics-uuid="{{course.uuid}}"
           .overlay.published
-            .button.btn-style-transparent-1.radius.vertical-center ver disciplina
+            .button.btn-style-transparent-1.radius.vertical-center
+              | ver disciplina
           div.title.padding ng-class="'scheme-' + course.order"
-            h2.card-title {{course.name}}
+            h2.card-title
+              | {{course.name}}
             .card-subtitle.translucent.padding-top
-              strong {{course.class_name}}
-              span.right {{course.institution}}
+              strong
+                | {{course.class_name}}
+              span.right
+                | {{course.institution}}
           .card-content.padding
             .translucent
               .cf
                 .period.left
                   i.icon.icon-calendar.margin-right
-                  span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
+                  span
+                    | {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
                 .students.right
                   i.icon.icon-users.margin-right
                   span count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
   tutorial.tutorial-1 ng-if="tutorialEnabled(1)" on-close="tutorialClosed(1)"
-    p Comece entrando em uma de suas disciplinas.
+    p
+      | Comece entrando em uma de suas disciplinas.

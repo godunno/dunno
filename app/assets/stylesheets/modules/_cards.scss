@@ -1,10 +1,11 @@
 %cards-container {
-  padding: 0 .625em;
+  padding: 0 1em;
 }
 
 %card {
   border-radius: .3125em;
   box-shadow: $box-shadow;
   display: block;
+  margin-bottom: 1em;
   overflow: hidden;
 }

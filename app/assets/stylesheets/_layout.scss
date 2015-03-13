@@ -1,13 +1,13 @@
-$page-title-height: 80px;
-$page-header-margin: 40px;
-$page-subtitle-height: 80px;
-$box-shadow: 0px 2px 2px #CCC;
+$page-title-height: 4em;
+$page-header-margin: 2em;
+$page-subtitle-height: 4em;
+$box-shadow: 0 2px 2px #ccc; // NEW_COLOUR
 
-.vertical-center {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
+//.vertical-center {
+//  position: relative;
+//  top: 50%;
+//  transform: translateY(-50%);
+//}
 
 .label.secondary {
   background-color: $light-grey-color;
@@ -15,15 +15,15 @@ $box-shadow: 0px 2px 2px #CCC;
 }
 
 .label--large {
-  font-size: 14px;
+  font-size: .875em;
 }
 
 .thin-block-grid > li {
-  padding-bottom: 10px;
+  padding-bottom: 1em;
 }
 
 .translucent {
-  opacity: 0.5;
+  opacity: .5;
 }
 
 .weekday {
@@ -46,52 +46,7 @@ $box-shadow: 0px 2px 2px #CCC;
   margin-top: 10px;
 }
 
-.page-header {
-  background: white;
-  margin-bottom: $page-header-margin;
-  // TODO: Use Compass' shadow
-  box-shadow: 0px 1.5px 1px lightgrey;
-  .row {
-    height: inherit;
-  }
-  h2 {
-    font-size: 1.8em;
-    font-weight: 300;
-  }
-  .button {
-    margin: 0;
-  }
-  &.title {
-    height: $page-title-height;
-  }
-  &.subtitle {
-    height: $page-subtitle-height;
-    margin-top: -($page-header-margin - 1px);
-  }
-}
-
-.top-bar .row {
-  max-width: 60rem;
-  .top-bar-section #profile {
-    width: 200px;
-    li a {
-      line-height: 42px;
-      &:hover {
-        color: $secondary-color;
-        background: #FFF;
-      }
-    }
-  }
-}
-
-.subtitle-head {
-  text-align: center;
-  margin: 0 auto;
-  opacity: .6;
-}
-
 // http://nicolasgallagher.com/micro-clearfix-hack/
-//
 // For modern browsers
 // 1. The space content is one way to avoid an Opera bug when the
 //    contenteditable attribute is included anywhere else in the document.
@@ -99,9 +54,9 @@ $box-shadow: 0px 2px 2px #CCC;
 //    that are clearfixed.
 // 2. The use of `table` rather than `block` is only necessary if using
 //    `:before` to contain the top-margins of child elements.
-//
-.cf:before, .cf:after {
-  content: " ";
+.cf:before,
+.cf:after {
+  content: ' ';
   display: table;
 }
 
@@ -109,10 +64,9 @@ $box-shadow: 0px 2px 2px #CCC;
   clear: both;
 }
 
-/*
- * For IE 6/7 only
- * Include this rule to trigger hasLayout and contain floats.
- */
+// For IE 6/7 only
+// Include this rule to trigger hasLayout and contain floats.
+// scss-lint:disable PropertySpelling
 .cf {
   *zoom: 1;
 }

@@ -1,59 +1,58 @@
-header.page-header.title ng-class="'scheme-' + (course.order % 12)"
-  .row
-    .medium-2.large-2.columns.vertical-center.right
-      a.button.radius.btn-style-2.right href="#courses/{{course.uuid}}/edit" Editar
-
-    .medium-8.large-8.large-centered.vertical-center.columns
-      h2.course-title {{course.name}}
-      p.subtitle-head {{course.class_name}}
-      p.translucent.subtitle-head
-        span {{course.institution}}
-        span< ng-if="!!course.grade" - {{course.grade}}
-
+div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
 .course-detail-page
   .row
     .medium-8.large-8.columns ng-include="'#{asset_path('shared/courses/events_list.html')}'"
-
     .medium-4.large-4.columns
-      div.code
+      .code
         a.icon.icon-expand data-reveal-id="access-code-fullscreen"
-        span.title Código da Disciplina:
-        h3 {{course.access_code}}
-        span.description Envie este código para os estudantes entrarem nesta disciplina
+        span.title
+          | Código da Disciplina:
+        h3
+          | {{course.access_code}}
+        span.description
+          | Envie este código para os estudantes entrarem nesta disciplina
         #access-code-fullscreen.reveal-modal.full data-reveal=true
           span.description Código da Disciplina:
-          h3.title {{course.access_code}}
+          h3.title
+            | {{course.access_code}}
           = link_to root_url, root_url, class: 'link-to-sign-in'
-          a.close-reveal-modal &#215;
-
-      div.students
+          a.close-reveal-modal
+            | &#215;
+      .students
         .top
           strong count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
           a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
             i.icon.icon-buzz
-            span Enviar notificação
-
+            span
+              | Enviar notificação
         ul.list
           li ng-repeat="student in course.students | orderBy:'name'"
-            h3 {{student.name}}
-
+            h3
+              | {{student.name}}
   tutorial.tutorial-2 ng-if="tutorialEnabled(2)" on-close="tutorialClosed(2)"
     tutorial-step
-      p Envie este código para seus estudantes. Desta forma você conseguirá interagir com eles através do Dunno.
+      p
+        | Envie este código para seus estudantes. Desta forma você conseguirá interagir com eles através do Dunno.
     tutorial-step
-      p Clique aqui para planejar e editar o conteúdo de sua aula.
-
+      p
+        | Clique aqui para planejar e editar o conteúdo de sua aula.
 .reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" id="send-notification" data-reveal=""
   form name="notification_form" ng-submit="save(notification)"
-    label for="message" Enviar mensagem
-    textarea id="message" name="message" ng-model="notification.message" rows="5" ng-minlength="1" maxlength="{{limit}}" placeholder="Ex: A aula foi transferida para o laboratório." required=true
+    label for="message"
+      | Enviar mensagem
+    textarea#message name="message" ng-model="notification.message" rows="5" ng-minlength="1" maxlength="{{limit}}" placeholder="Ex: A aula foi transferida para o laboratório." required=true
     .actions
-      span.counter Caracteres restantes: {{limit - notification.message.length}}
+      span.counter
+        | Caracteres restantes: {{limit - notification.message.length}}
       input.button.btn-style-1.right type="submit" ng-disabled="notification_form.$invalid || sending" value="Enviar"
     span.error ng-if="errors.sms" ng-messages="errors.sms"
-      span ng-message="send" Ocorreu um erro ao enviar SMS.
+      span ng-message="send"
+        | Ocorreu um erro ao enviar SMS.
     span.error ng-if="errors.email" ng-messages="errors.email"
-      span ng-message="send" Ocorreu um erro ao enviar email.
+      span ng-message="send"
+        | Ocorreu um erro ao enviar email.
     span.error ng-if="errors.message" ng-messages="errors.message"
-      span ng-message="repeated" Esta mensagem é igual à última enviada.
-  a class="close-reveal-modal" ng-click="reset()" &#215;
+      span ng-message="repeated"
+        | Esta mensagem é igual à última enviada.
+  a.close-reveal-modal ng-click="reset()"
+    | &#215;
