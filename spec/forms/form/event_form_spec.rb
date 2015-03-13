@@ -9,7 +9,7 @@ describe Form::EventForm do
 
   let(:course) { create(:course) }
   let(:event_form) { Form::EventForm.new(event) }
-  let(:valid_event_hash) { { course_id: course.id, start_at: Time.now, end_at: 2.hours.from_now, classroom: '201-A'} }
+  let(:valid_event_hash) { { course_id: course.id, start_at: Time.now, end_at: 2.hours.from_now, classroom: '201-A' } }
 
   describe "creating" do
 

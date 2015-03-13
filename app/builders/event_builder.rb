@@ -3,6 +3,7 @@ class EventBuilder < BaseBuilder
     json.(event, :id, :uuid, :channel, :order, :status, :formatted_status)
     json.start_at(format_time(event.start_at))
     json.end_at(format_time(event.end_at))
+    json.formatted_classroom([event.course.class_name, event.classroom].compact.join(' - '))
     event_pusher_events = options[:event_pusher_events]
     if event_pusher_events
       json.(event_pusher_events, *event_pusher_events.events)

@@ -1,7 +1,7 @@
 require 'recurrence'
 
 class CreateSchedule
-  Event = Struct.new(:begin, :end, :classroom)
+  EventScheduling = Struct.new(:begin, :end, :classroom)
 
   def initialize(start_date, end_date, weekly_schedules)
     @start_date = start_date
@@ -37,7 +37,7 @@ class CreateSchedule
         min:  end_time.minute
       )
 
-      Event.new(range_start, range_end, weekly_schedule.classroom)
+      EventScheduling.new(range_start, range_end, weekly_schedule.classroom)
     end
   end
 

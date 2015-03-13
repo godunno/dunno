@@ -11,7 +11,7 @@ header.page-header.title
       .card-inner
         div ng-class="'title scheme-' + (event.course.order % 12)"
           h1
-            | {{event.course.class_name}}
+            | {{event.formatted_classroom}}
           span.subtitle
             | {{event.course.institution}}
         .day-month
