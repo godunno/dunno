@@ -8,6 +8,6 @@ ul.dates
       i.icon.icon-arrow-circle-left
       span {{course.previous_month | date:'MMM / yy'}}
   h2.blankslate ng-if="!course.events || course.events.length == 0" Não há aulas neste mês
-  a.item ng-attr-id="{{ 'event-' + event.uuid }}" ng-href="{{eventPath(event)}}" ng-repeat="event in course.events | orderBy:'start_at'" ng-class="eventClass(event)" ng-attr-tooltip="{{tooltipMessage(event)}}" tooltip-animation="false" analytics-on="click" analytics-event="Event Accessed via Course" analytics-uuid="{{event.uuid}}" analytics-order="{{event.order}}" analytics-course-uuid="{{course.uuid}}" analytics-course-name="{{course.name}}"
+  a.item ng-attr-id="{{ 'event-' + event.uuid }}" ng-href="{{eventPath(event)}}" ng-repeat="event in course.events | orderBy:'start_at'" ng-class="eventClass(event)" ng-attr-tooltip="{{tooltipMessage(event)}}" tooltip-animation="false" analytics-on="click" analytics-event="Event Accessed via Course" analytics-uuid="{{event.uuid}}" analytics-order="{{event.order}}" analytics-course-uuid="{{course.uuid}}" analytics-course-name="{{course.name}}" analytics-start-at="{{event.start_at}}"
     li
       ng-include src="'#{asset_path('shared/courses/event_in_list.html')}'"
