@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Api::V1::SessionsController do
   let(:password) { '12345678' }
-  let!(:student) { create(:student, user: create(:user, password: password)) }
+  let(:course) { create(:course) }
+  let!(:student) { create(:student, user: create(:user, password: password), courses: [course]) }
   let!(:teacher) { create(:teacher, user: create(:user, password: password, completed_tutorial: true)) }
 
   describe "student" do
@@ -21,6 +22,7 @@ describe Api::V1::SessionsController do
         it { expect(json["email"]).to eq(student.email) }
         it { expect(json["phone_number"]).to eq(student.phone_number) }
         it { expect(json["authentication_token"]).to eq(student.authentication_token) }
+        it { expect(json["courses"]).to eq([course.access_code]) }
 
         it "should allow access with authentication_token after the sign in" do
           get "/api/v1/events.json",
