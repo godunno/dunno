@@ -104,7 +104,7 @@ describe Api::V1::Teacher::MediasController do
 
     context "paginating" do
       let!(:medias) do
-        create_list :media_with_url, 11, teacher: teacher
+        create_list(:media_with_url, 11, teacher: teacher).reverse
       end
 
       let(:medias_uuids) { medias.map(&:uuid) }
