@@ -6,11 +6,12 @@
     attribute :start_at, Time
     attribute :end_at, Time
     attribute :status, String
+    attribute :classroom, String
 
     validates :start_at, :end_at, :course, presence: true
 
     def initialize(params = {})
-      super(params.slice(*attributes_list(:start_at, :end_at)))
+      super(params.slice(*attributes_list(:start_at, :end_at, :classroom)))
       self.status = params[:status] || model.status
       self.course = model.course || Course.where(id: params[:course_id]).first
       model.timeline ||= Timeline.new(start_at: start_at)
@@ -58,10 +59,11 @@
     private
 
       def persist!
-        model.course = course
-        model.start_at = start_at
-        model.end_at = end_at
-        model.status = status
+        model.course    = course
+        model.start_at  = start_at
+        model.end_at    = end_at
+        model.classroom = classroom
+        model.status    = status
 
         ActiveRecord::Base.transaction do
           model.timeline.save!

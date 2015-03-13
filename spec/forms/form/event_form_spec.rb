@@ -9,7 +9,7 @@ describe Form::EventForm do
 
   let(:course) { create(:course) }
   let(:event_form) { Form::EventForm.new(event) }
-  let(:valid_event_hash) { { course_id: course.id, start_at: Time.now, end_at: 2.hours.from_now} }
+  let(:valid_event_hash) { { course_id: course.id, start_at: Time.now, end_at: 2.hours.from_now, classroom: '201-A' } }
 
   describe "creating" do
 
@@ -21,6 +21,7 @@ describe Form::EventForm do
       it { expect(event_form.model).to be_persisted }
       it { expect(event_form.model.start_at).to eq(event[:start_at]) }
       it { expect(event_form.model.end_at).to eq(event[:end_at]) }
+      it { expect(event_form.model.classroom).to eq(event[:classroom]) }
 
       context "with nested models" do
         let(:topic) { {description: "NEW DESCRIPTION"} }
