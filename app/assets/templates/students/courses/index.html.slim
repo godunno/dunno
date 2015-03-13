@@ -4,10 +4,10 @@ header.page-header.title
       a.button.btn-style-1.radius href="#courses/search" Adicionar disciplina
     .large-4.large-centered.vertical-center.columns
       h1 Disciplinas
-
+/ TODO: markup cleanup
 .student-courses
   .row
-    ul.list--courses
+    ul.list--courses.small-block-grid-1.medium-block-grid-2
       li.card.card--course.has-overlay ng-repeat="course in courses"
         a href="#/courses/{{course.uuid}}" analytics-on="click" analytics-event="Course Accessed" analytics-name="{{course.name}}" analytics-uuid="{{course.uuid}}" analytics-teacher-name="{{course.teacher.name}}"
           .overlay.published
@@ -18,7 +18,6 @@ header.page-header.title
               strong {{course.class_name}}
               span.right {{course.institution}}
               span.right {{course.teacher.name}}
-
           .card-content.padding
             .translucent
               .cf
