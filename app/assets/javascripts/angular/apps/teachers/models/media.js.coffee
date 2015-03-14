@@ -1,5 +1,5 @@
 DunnoApp = angular.module('DunnoApp')
-Media = (RailsResource, $upload, $q, AWSCredentials)->
+Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
   class Media extends RailsResource
     @configure(
       url: '/api/v1/teacher/medias'
@@ -14,8 +14,10 @@ Media = (RailsResource, $upload, $q, AWSCredentials)->
     upload: ->
       deferred = $q.defer()
       original_filename = @file.name
-      path = "uploads/#{new Date().getTime()}_#{original_filename}"
-      
+      user_id = SessionManager.currentUser().id
+      timestamp = new Date().getTime()
+      path = "uploads/#{user_id}/#{timestamp}_#{original_filename}"
+
       # https://github.com/danialfarid/angular-file-upload#s3
       $upload.upload(
         url: AWSCredentials.baseUrl
@@ -72,5 +74,5 @@ Media = (RailsResource, $upload, $q, AWSCredentials)->
 
   Media
 
-Media.$inject = ['RailsResource', '$upload', '$q', 'AWSCredentials']
+Media.$inject = ['RailsResource', '$upload', '$q', 'AWSCredentials', 'SessionManager']
 DunnoApp.factory 'Media', Media
