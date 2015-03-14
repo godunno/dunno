@@ -1,4 +1,4 @@
-Dunno::Application.routes.draw do
+Rails.application.routes.draw do
 
   root controller: 'static', action: '/'
   devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/users' }
