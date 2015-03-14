@@ -42,7 +42,7 @@ gem 'dalli',                      '2.7.2'
 gem 'google_drive',               '1.0.0', require: false
 gem 'mixpanel-ruby',              '1.7.0'
 gem 'carrierwave',                '0.10.0'
-gem 'fog',                        '1.27.0'
+gem 'fog',                        '1.28.0'
 
 gem 'rails-assets-angular',       '1.3.2'
 gem 'rails-assets-angular-route', '1.3.2'
