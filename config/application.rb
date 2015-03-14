@@ -4,7 +4,7 @@ require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 require 'elasticsearch/rails/instrumentation'
 
 module Dunno
@@ -38,6 +38,9 @@ module Dunno
     end
 
     config.cache_store = :dalli_store
+
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
 
     ActionMailer::Base.default(from: 'contato@dunnoapp.com')
   end
