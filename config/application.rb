@@ -40,7 +40,7 @@ module Dunno
     config.cache_store = :dalli_store
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    # config.active_record.raise_in_transactional_callbacks = true
 
     ActionMailer::Base.default(from: 'contato@dunnoapp.com')
   end
