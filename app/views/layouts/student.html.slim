@@ -27,4 +27,6 @@ html lang="pt" ng-app="DunnoAppStudent"
 
     = javascript_include_tag "application"
 
-    = render 'shared/analytics'
+    / TODO: load only in production
+    = render 'application/google_analytics'
+    = render 'application/mixpanel'
