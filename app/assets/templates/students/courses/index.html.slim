@@ -1,10 +1,10 @@
 header.page-header.title
   .row
     / TODO: markup cleanup
-    .small-12.medium-4.medium-offset-4.small-centered.vertical-center.columns
+    .small-12.medium-4.medium-offset-4.small-centered.columns
       h1
         | Disciplinas
-    .small-12.medium-4.vertical-center.columns
+    .small-12.medium-4.columns
       a.button.btn-style-1.expand.radius href="#courses/search"
         | Adicionar disciplina
 .student-courses
@@ -15,7 +15,7 @@ header.page-header.title
           .overlay.published
             .button.btn-style-transparent-1.radius.vertical-center
               | ver disciplina
-          div.title.padding ng-class="'scheme-' + course.order"
+          .title.padding ng-class="'scheme-' + course.order"
             h2.card-title
               | {{course.name}}
             .card-subtitle.translucent.padding-top

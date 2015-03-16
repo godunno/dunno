@@ -3,11 +3,11 @@ $page-header-margin: 2em;
 $page-subtitle-height: 4em;
 $box-shadow: 0 2px 2px #ccc; // NEW_COLOUR
 
-//.vertical-center {
-//  position: relative;
-//  top: 50%;
-//  transform: translateY(-50%);
-//}
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 .label.secondary {
   background-color: $light-grey-color;

@@ -1,6 +1,6 @@
 header.page-header.title
   .row
-    .small-12.small-centered.vertical-center.columns
+    .small-12.small-centered.columns
       h1
         | Aulas
 .events-page
@@ -37,7 +37,7 @@ header.page-header.title
               i.image.icon ng-class="'icon-' + event.formatted_status"
             .notes ng-if="event.topics.length > 0"
               ul.note
-                li.task.vertical-center ng-repeat="topic in event.topics | limitTo:3"
+                li.task ng-repeat="topic in event.topics | limitTo:3"
                   .image
                     /img src="/images/task-icon-1.png"
                   span
