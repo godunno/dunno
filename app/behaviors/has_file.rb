@@ -21,6 +21,6 @@ module HasFile
   private
 
   def delete_file
-    DeleteAwsFileWorker.perform_async(:delete, file_url)
+    DeleteAwsFileWorker.perform_async(file_url)
   end
 end
