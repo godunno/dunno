@@ -40,7 +40,11 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 .diary-page.medium-10.medium-offset-1.columns
   form name="event_form"
     .row.event-status
-      .small-12.columns.select-status.text-right
+      .small-5.large-5.columns.no-pad-left
+        a.button.radius.btn-style-2 ng-href="{{courseLocation(event)}}"
+          span.icon.icon-arrow-back
+          span Voltar
+      .small-7.columns.select-status.text-right
         .button.btn-style-1.radius.save
           | {{saveButtonMessage()}}
         a.dropdown.text-left data-dropdown="event-status"
