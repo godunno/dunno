@@ -7,25 +7,19 @@ modal-standalone.catalog-picker close-button=true
       a.button.postfix.icon.icon-search ng-click="fetch()"
   .medias
     .media ng-repeat="media in medias"
-      .top
-        .title {{media.title}}
-        a.open target="_blank" ng-href="{{media.url}}"
-          | Ver
-        a.select ng-click="select(media)"
-          | Inserir
-      .bottom
-        i.type.icon ng-class="'icon-' + media.type"
-        a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
+      .thumbnail
+        img ng-src="{{media.thumbnail}}"
+      .data
+        .top
+          .title {{media.title}}
+          a.open target="_blank" ng-href="{{media.url}}"
+            | Ver
+          a.select ng-click="select(media)"
+            | Inserir
+        .bottom
+          i.type.icon ng-class="'icon-' + media.type"
+          a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
 
   .row ng-if="!!medias && medias.length > 0" 
-    .pagination
-      .page.previous-page
-        a ng-click="fetch({ page: previous_page })" ng-if="previous_page"
-          i.icon.icon-arrow-circle-left
-          | Anterior
-      .page.pager
-        span {{current_page}}
-      .page.next-page
-        a ng-click="fetch({ page: next_page })" ng-if="next_page"
-          i.icon.icon-arrow-circle-right
-          | Próxima
+    a.load-more ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"
+      | Carregar mais

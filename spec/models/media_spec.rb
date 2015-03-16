@@ -96,4 +96,13 @@ describe Media do
       end
     end
   end
+
+  describe "::search" do
+    it "should be ordered from newest to oldest", :elasticsearch do
+      old_media = create(:media)
+      new_media = create(:media)
+      refresh_index!
+      expect(Media.search.records.to_a).to eq([new_media, old_media])
+    end
+  end
 end

@@ -1,3 +1,16 @@
+GIT
+  remote: git://github.com/mrodrigues/link_thumbnailer.git
+  revision: cc7b8221ea803ae8eaf2f22d752dd1bae878803b
+  specs:
+    link_thumbnailer (2.5.0)
+      activesupport (>= 3.0)
+      fastimage (~> 1.6)
+      json (~> 1.8, >= 1.7.7)
+      net-http-persistent (~> 2.9)
+      nokogiri (~> 1.6)
+      rake (>= 0.9)
+      video_info (~> 2.4)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -133,7 +146,7 @@ GEM
       mail (~> 2.2)
     equalizer (0.0.9)
     erubis (2.7.0)
-    excon (0.44.1)
+    excon (0.44.4)
     execjs (2.3.0)
     extlib (0.9.16)
     factory_girl (4.5.0)
@@ -143,7 +156,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
-    fastimage (1.6.6)
+    fastimage (1.6.8)
       addressable (~> 2.3, >= 2.3.5)
     ffi (1.9.6)
     fission (0.5.0)
@@ -151,7 +164,7 @@ GEM
     flay (2.4.0)
       ruby_parser (~> 3.0)
       sexp_processor (~> 4.0)
-    fog (1.27.0)
+    fog (1.28.0)
       fog-atmos
       fog-aws (~> 0.0)
       fog-brightbox (~> 0.4)
@@ -160,6 +173,7 @@ GEM
       fog-json
       fog-profitbricks
       fog-radosgw (>= 0.0.2)
+      fog-riakcs
       fog-sakuracloud (>= 0.0.4)
       fog-serverlove
       fog-softlayer
@@ -173,7 +187,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.1.0)
+    fog-aws (0.1.1)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -182,7 +196,7 @@ GEM
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.28.0)
+    fog-core (1.29.0)
       builder
       excon (~> 0.38)
       formatador (~> 0.2)
@@ -202,19 +216,23 @@ GEM
       fog-core (>= 1.21.0)
       fog-json
       fog-xml (>= 0.0.1)
+    fog-riakcs (0.1.0)
+      fog-core
+      fog-json
+      fog-xml
     fog-sakuracloud (1.0.0)
       fog-core
       fog-json
     fog-serverlove (0.1.1)
       fog-core
       fog-json
-    fog-softlayer (0.4.0)
+    fog-softlayer (0.4.1)
       fog-core
       fog-json
     fog-storm_on_demand (0.1.0)
       fog-core
       fog-json
-    fog-terremark (0.0.3)
+    fog-terremark (0.0.4)
       fog-core
       fog-xml
     fog-vmfusion (0.0.1)
@@ -278,14 +296,6 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.3.0)
       launchy (~> 2.2)
-    link_thumbnailer (2.5.0)
-      activesupport (>= 3.0)
-      fastimage (~> 1.6)
-      json (~> 1.8, >= 1.7.7)
-      net-http-persistent (~> 2.9)
-      nokogiri (~> 1.6)
-      rake (>= 0.9)
-      video_info (~> 2.4)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     memcachier (0.0.2)
@@ -294,7 +304,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.5.1)
     mixpanel-ruby (1.7.0)
-    multi_json (1.10.1)
+    multi_json (1.11.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mustache (0.99.8)
@@ -543,7 +553,7 @@ GEM
     temple (0.7.5)
     terminal-table (1.4.5)
     thor (0.19.1)
-    thread_safe (0.3.4)
+    thread_safe (0.3.5)
     tilt (1.4.1)
     timecop (0.7.1)
     timers (4.0.1)
@@ -563,7 +573,7 @@ GEM
       rack
       raindrops (~> 0.7)
     vcr (2.9.3)
-    video_info (2.4.0)
+    video_info (2.4.1)
       addressable
       htmlentities
       multi_json
@@ -609,7 +619,7 @@ DEPENDENCIES
   elasticsearch-rails (= 0.1.6)
   email_spec (= 1.6.0)
   factory_girl_rails (= 4.5.0)
-  fog (= 1.27.0)
+  fog (= 1.28.0)
   foreman (= 0.77.0)
   foundation-rails (= 5.5.1.0)
   google_drive (= 1.0.0)
@@ -617,7 +627,7 @@ DEPENDENCIES
   jbuilder (= 2.2.6)
   jquery-rails (= 3.1.2)
   letter_opener (= 1.3.0)
-  link_thumbnailer (= 2.5.0)
+  link_thumbnailer (= 2.5.0)!
   memcachier (= 0.0.2)
   mixpanel-ruby (= 1.7.0)
   newrelic_rpm (= 3.9.9.275)

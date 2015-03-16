@@ -7,20 +7,16 @@
     height: 40px;
     margin-left: -7px;
     text-align: center;
-    width: 130px;
+    position: relative;
+    top: -1px;
+    padding: 0 1em;
   }
 
-  $dropdown-width: 160px;
-
-  .dropdown {
-    width: $dropdown-width;
-  }
 
   .status-list {
     @include dropdown-container(list, bottom);
     @include radius();
     border-color: $light-grey-color;
-    width: $dropdown-width;
 
     .option {
       @include grid-row();
@@ -170,30 +166,14 @@
       border-top: 1px solid rgba(255, 17, 5, .27); // NEW_COLOUR
     }
   }
+
 }
 
 $diary-container-width: 750px;
 $diary-title-height: 90px;
 $diary-card-border: 1px solid #ddd; // NEW_COLOUR
 
-.subtitle {
-  .row--main {
-    height: 50px;
-  }
 
-  .columns {
-    min-height: 1px;
-  }
-
-  h2 {
-    font-size: 1.3em;
-    margin-top: 8px;
-  }
-
-  .event-date {
-    margin-top: -10px;
-  }
-}
 
 .next-event:hover,
 .previous-event:hover {
@@ -204,31 +184,46 @@ $diary-card-border: 1px solid #ddd; // NEW_COLOUR
 
 .next-event,
 .previous-event {
-  font-size: .7em;
-  vertical-align: middle;
+  display: block;
+  font-size: .75em;
+  margin-top: .25em;
 
   span {
-    display: block;
-    margin-top: 20px;
+    line-height: 2.5em;
     opacity: 0;
   }
 
-  .icon-arrow-circle-left:before {
+  .icon:before {
     font-size: 1.8em;
-    line-height: 2em;
+  }
+
+  .icon-arrow-circle-left:before {
     margin-left: 10px;
   }
 
   .icon-arrow-circle-right:before {
-    font-size: 1.8em;
-    line-height: 2em;
     margin-right: 10px;
+  }
+}
+
+@media #{$small-only} {
+  .next-event,
+  .previous-event {
+    .icon {
+      float: none !important;
+      display: block;
+    }
+
+    span {
+      /*display: none;*/
+      opacity: .7;
+      float: none !important;
+    }
   }
 }
 
 .event-status {
   margin: 20px auto;
-  width: $diary-container-width;
 
   label {
     &.to {
@@ -276,10 +271,8 @@ $diary-card-border: 1px solid #ddd; // NEW_COLOUR
   .button.save {
     background: none;
     color: #999; // NEW_COLOUR
-    padding-left: 0;
-    padding-right: 0;
-    text-align: right;
-    width: 110px;
+    padding-left: 1em;
+    padding-right: 1em;
   }
 
   .button.save:disabled {
@@ -293,7 +286,7 @@ $diary-card-border: 1px solid #ddd; // NEW_COLOUR
   border-radius: .25em;
   margin: 1.25em auto;
   padding: 0;
-  width: $diary-container-width;
+  /*width: $diary-container-width;*/
 
   > .title {
     border-left-style: solid;

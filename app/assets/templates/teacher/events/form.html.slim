@@ -1,83 +1,102 @@
+/ TODO: Break file into smaller partials.
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
-    .medium-2.large-2.columns.vertical-center
-      p.subtitle-head.text-left {{event.course.class_name}}
-    .medium-8.large-8.vertical-center.columns.end
-      h2 {{event.course.name}}
+    .small-2.columns
+      span.event-classroom
+        | {{event.formatted_classroom}}
+    .small-8.columns.end
+      h2
+        | {{event.course.name}}
       p.translucent.subtitle-head
-        span {{event.course.institution}}
-        span< ng-if="!!event.course.grade" - {{event.course.grade}}
+        span
+          | {{event.course.institution}}
+        span< ng-if="!!event.course.grade"
+          | · {{event.course.grade}}
 .page-header.subtitle
   .row.text-center
-    .medium-2.large-2.columns.vertical-center.t-light.text-left
-      span.t-size-1.upcase {{event.start_at | date:'MMM/yyyy'}}
-    .medium-2.large-2.medium-offset-1.large-offset-1.columns.vertical-center.t-light
-      a.vertical-center.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit"
-        span.left Aula anterior
-        i.icon.icon-arrow-circle-left
-    .medium-2.large-2.columns.vertical-center
-      .row.row--main
-          h2
-            strong {{event.start_at | date:'dd'}}
-      .row.t-light.upcase.event-date {{event.start_at | date:'EEE'}}
-    .medium-2.large-2.columns.vertical-center
-      a.vertical-center.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit"
-        i.icon.icon-arrow-circle-right
-        span.right Próxima aula
-    .medium-2.large-2.columns.vertical-center.t-light
-      span {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
-.diary-page
+    .small-12.medium-2.columns
+      span.event-start-date.t-size-1.upcase.t-light
+        | {{event.start_at | date:'MMM/yyyy'}}
+    .small-4.medium-3.columns
+      a.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="previous" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}"
+        i.icon.icon-arrow-circle-left.right
+        span.right
+          | Aula anterior
+    .small-4.medium-2.columns
+      h2
+        strong
+          | {{event.start_at | date:'dd'}}
+        br
+        small.t-light.upcase.event-date
+          | {{event.start_at | date:'EEE'}}
+    .small-4.medium-3.columns
+      a.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="next" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}"
+        i.icon.icon-arrow-circle-right.left
+        span.left
+          | Próxima aula
+    .small-12.medium-2.columns
+      span.event-start-time.t-light
+        | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
+.diary-page.medium-10.medium-offset-1.columns
   form name="event_form"
     .row.event-status
-      .medium-5.large-5.columns.no-pad-left
-        a.button.radius.btn-style-2 ng-href="{{courseLocation(event)}}"
-          span.icon.icon-arrow-back
-          span Voltar
-      .medium-2.large-2.columns.text-right
-        .button.btn-style-1.radius.save {{saveButtonMessage()}}
-      .medium-5.large-5.columns.select-status.text-right
+      .small-12.columns.select-status.text-right
+        .button.btn-style-1.radius.save
+          | {{saveButtonMessage()}}
         a.dropdown.text-left data-dropdown="event-status"
           .option.published ng-if="event.status == 'published'"
             i.icon.icon-published
-            span.value Publicada
+            span.value
+              | Publicada
           .option.draft ng-if="event.status == 'draft'"
             i.icon.icon-draft
-            span.value Rascunho
+            span.value
+              | Rascunho
           .option.canceled ng-if="event.status == 'canceled'"
             i.icon.icon-canceled
-            span.value Cancelada
+            span.value
+              | Cancelada
           i.icon.icon-arrow-down
         ul#event-status.status-list data-dropdown-content="" dropdown-select="" ng-model="event.status"
           li.option.published dropdown-select-item="published"
             .title
-              span Publicada
+              span
+                | Publicada
               i.icon.icon-published
-            .subtitle Estudantes podem ver as tarefas.
+            .subtitle
+              | Estudantes podem ver as tarefas.
           li.option dropdown-select-item="draft"
             .content
               .title
-                span Rascunho
+                span
+                  | Rascunho
                 i.icon.icon-draft
-              .subtitle Estudantes não conseguem visualizar as tarefas.
+              .subtitle
+                | Estudantes não conseguem visualizar as tarefas.
           li.option dropdown-select-item="canceled"
             .content
               .title
-                span Cancelar
+                span
+                  | Cancelar
                 i.icon.icon-canceled
-              .subtitle Cancelar aula e notificar os estudantes.
-        a.button.btn-style-1.radius.done-button ng-click="finish(event)"
+              .subtitle
+                | Cancelar aula e notificar os estudantes.
+        a.button.btn-style-1.radius.done-button ng-click="finish(event)" analytics-on="click" analytics-event="Event Finish Editing" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}"
           | Concluir
     #topics-container.row.card.container event-list="topics"
       .title.diary-label
-        h1 Diário
-        span.subtitle.translucent Tarefas visíveis para os estudantes
+        h1
+          | Diário
+        span.subtitle.translucent
+          | Tarefas visíveis para os estudantes
       #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
         .item.clickable ng-controller="EventEditCtrl" ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
           .handle ng-if="!isEditing(topic)"
           .row
             .item-show ng-if="!isEditing(topic)"
               input.done type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
-              label.description for="topic_{{topic.order}}_done" {{topic.description}}
+              label.description for="topic_{{topic.order}}_done"
+                | {{topic.description}}
               .tasks-buttons
                 a.icon.icon-trash.task-icon-right[
                   ng-click="removeItem(event.topics, topic)"
@@ -119,19 +138,23 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
           progress-bar
           preview item="newListItem" editable="true"
-        .hint Ex: Revisar aula passada. Introdução à raiz quadrada.
+        .hint
+          | Ex: Revisar aula passada. Introdução à raiz quadrada.
     .row.card.container.notes event-list="personal_notes"
       .title.notes-label
         h1
-          span.icon.icon-lock Anotações
-        span.subtitle.translucent Área visível somente para o professor
+          span.icon.icon-lock
+            | Anotações
+        span.subtitle.translucent
+          | Área visível somente para o professor
       .tasks ui-sortable="sortableOptions('personal_notes')" ng-model="event.personal_notes"
         .item.clickable ng-controller="EventEditCtrl" ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
           .handle ng-if="!isEditing(personal_note)"
           .row
             .item-show ng-if="!isEditing(personal_note)"
               input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
-              label.description for="personal_note_{{personal_note.order}}_done" {{personal_note.description}}
+              label.description for="personal_note_{{personal_note.order}}_done"
+                | {{personal_note.description}}
               .tasks-buttons
                 a.icon.icon-trash.task-icon-right[
                   ng-click="removeItem(event.personal_notes, personal_note)"
@@ -173,12 +196,16 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
           progress-bar
           preview item="newListItem" editable="true"
-        .hint Ex: Fazer ditado surpresa. Rever comportamento do João.
+        .hint
+          | Ex: Fazer ditado surpresa. Rever comportamento do João.
 
   tutorial.tutorial-3 ng-if="tutorialEnabled(3)" on-close="tutorialClosed(3)"
     tutorial-step
-      p Adicione conteúdo visível para os estudantes e suas anotações privadas.
+      p
+        | Adicione conteúdo visível para os estudantes e suas anotações privadas.
     tutorial-step
-      p Adicione links e arquivos em suas tarefas. Estes materiais ficarão disponíveis no catálogo.
+      p
+        | Adicione links e arquivos em suas tarefas. Estes materiais ficarão disponíveis no catálogo.
     tutorial-step
-      p Publique a aula para que seus estudantes possam visualizá-la.
+      p
+        | Publique a aula para que seus estudantes possam visualizá-la.

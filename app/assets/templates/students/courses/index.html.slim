@@ -1,30 +1,37 @@
 header.page-header.title
   .row
-    .large-4.vertical-center.columns
-      a.button.btn-style-1.radius href="#courses/search" Adicionar disciplina
-    .large-4.large-centered.vertical-center.columns
-      h1 Disciplinas
-
+    / TODO: markup cleanup
+    .small-12.medium-4.medium-offset-4.columns
+      h1
+        | Disciplinas
+    .small-12.medium-4.columns
+      a.button.btn-style-1.expand.radius href="#courses/search"
+        | Adicionar disciplina
 .student-courses
   .row
-    ul.list--courses
+    ul.list--courses.small-block-grid-1.medium-block-grid-2
       li.card.card--course.has-overlay ng-repeat="course in courses"
         a href="#/courses/{{course.uuid}}" analytics-on="click" analytics-event="Course Accessed" analytics-name="{{course.name}}" analytics-uuid="{{course.uuid}}" analytics-teacher-name="{{course.teacher.name}}"
           .overlay.published
-            .button.btn-style-transparent-1.radius.vertical-center ver disciplina
-          div.title.padding ng-class="'scheme-' + course.order"
-            h2.card-title {{course.name}}
+            .button.btn-style-transparent-1.radius.vertical-center
+              | ver disciplina
+          .title.padding ng-class="'scheme-' + course.order"
+            h2.card-title
+              | {{course.name}}
             .card-subtitle.translucent.padding-top
-              strong {{course.class_name}}
-              span.right {{course.institution}}
-              span.right {{course.teacher.name}}
-
+              strong
+                | {{course.class_name}}
+              span.right
+                | {{course.institution}}
+              span.right
+                | {{course.teacher.name}}
           .card-content.padding
             .translucent
               .cf
                 .period.left
                   i.icon.icon-calendar.margin-right
-                  span {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
+                  span
+                    | {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
                 .students.right
                   i.icon.icon-users.margin-right
                   span count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true

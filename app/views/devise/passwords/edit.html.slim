@@ -1,17 +1,22 @@
 .login-page
-  = image_tag "dunno-logo.png", class: :logo
+  = link_to root_path, class: 'root-proxy' do
+    = image_tag 'dunno-logo.png', class: :logo
   = form_tag '/users/password/', method: :put
-    .login-container
-      .login-form
-        p Olá, mude sua senha aqui.
-        input type="hidden" name="user[reset_password_token]" value="#{resource.reset_password_token}"
-        .password
-          label for="password" Nova senha
-          input.radius id="password" name="user[password]" type="password" required="" autofocus=""
-        .password-confirmation
-          label for="password_confirmation" Confirmação da senha
-          input.radius id="password_confirmation" name="user[password_confirmation]" type="password" required=""
-        .submit
-          input.button.radius.btn-style-1 type="submit" value="Salvar"
-
-  = render "application/login_links"
+    .row
+      .login-container.small-12.medium-6.medium-offset-3.columns.end
+        .login-form
+          p
+            | Olá, mude sua senha aqui.
+          input type="hidden" name="user[reset_password_token]" value="#{resource.reset_password_token}"
+          .password
+            label for="password"
+              | Nova senha
+            input.radius#password name="user[password]" type="password" required="" autofocus=""
+          .password-confirmation
+            label for="password_confirmation"
+              | Confirmação da senha
+            input.radius#password_confirmation name="user[password_confirmation]" type="password" required=""
+          .submit
+            input.button.radius.btn-style-1 type="submit" value="Salvar"
+  / TODO: Write terms and policy pages.
+    = render "application/login_links"

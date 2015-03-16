@@ -1,0 +1,63 @@
+.page-header {
+  background: $white;
+  // TODO: Use Compass' shadow
+  box-shadow: 0 1.5px 1px #d3d3d3; // NEW_COLOUR
+  margin-bottom: $page-header-margin;
+  padding: 1em 0;
+
+  &.subtitle {
+    margin-top: -2em;
+
+    h2 {
+      font-size: 1.3em;
+    }
+
+    .columns,
+    .column {
+      min-height: 1px;
+    }
+  }
+
+  .row {
+    height: inherit;
+  }
+
+  h2 {
+    font-size: 1.8em;
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .button {
+    margin: .5em 0 0;
+  }
+
+  .event-classroom {
+    display: block;
+    margin-top: .5em;
+    opacity: .7;
+  }
+
+  .event-start-time {
+    display: block;
+    font-size: .875em;
+    margin-top: .5em;
+  }
+
+}
+
+@media #{$small-only} {
+  .event-start-date,
+  .event-start-time {
+    display: block;
+    text-align: center;
+  }
+}
+
+.subtitle-head {
+  margin: 0 auto;
+  opacity: .6;
+  text-align: center;
+}

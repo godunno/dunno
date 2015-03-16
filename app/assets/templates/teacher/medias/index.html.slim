@@ -1,17 +1,17 @@
 header.page-header.title
   .row
-    .large-4.large-centered.vertical-center.columns
+    .large-4.large-centered.columns
       a ng-click="clearSearch()"
         h1 Catálogo
 
 .catalog-page
-  .blankslate ng-if="!medias || medias.length == 0"
+  .blankslate ng-if="showTutorial()"
     .how-to
       p Use estes ícones para adicionar links ou arquivos em suas tarefas.
       p Tudo ficará organizado para você aqui no catálogo.
     = image_tag("medias-blankslate.png")
 
-  .row ng-if="!!medias && medias.length > 0"
+  .row ng-show="!showTutorial()"
     /.large-3.columns
       /a.dropdown data-dropdown="search-type"
         /.option.all ng-if="search.type == 'all'"
@@ -46,41 +46,37 @@ header.page-header.title
             /| ({{countType(medias, 'file')}})
 
     .large-12
-      form ng-submit="fetch()"
+      form name="media_search" ng-submit="fetch()"
         .row.collapse
           .large-12.search-wrapper
-            input type="text" ng-model="search.q" placeholder="Procure por assunto, palavra-chave ou tags"
+            input type="text" name="q" ng-model="search.q" placeholder="Procure por assunto, palavra-chave ou tags"
             a.button.postfix.icon.icon-close ng-click="clearSearch()"
             button.button.postfix.icon.icon-search
 
   .row
+    h2 ng-if="medias.length == 0 && !showTutorial()"
+      | Nenhum resultado encontrado.
     ul.medias.large-12
       li.media ng-repeat="media in medias"
         .vertical-bar
-        .top
-          .large-8.columns
-            .title
-              input.input type="text" ng-model="media.title" pu-elastic-input=true pu-elastic-input-maxwidth="95%" ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
-              i.icon.icon-pencil
-          .large-4.columns
-            i.type.icon ng-class="'icon-' + media.type"
-            a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
-        .bottom
-          .large-11.columns
-            i.icon.icon-tag.tags-label
-            tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova tag"
-          .large-1.column
-            a.icon.icon-trash ng-click="removeMedia(media)"
+        .thumbnail
+          img ng-src="{{media.thumbnail}}"
+        .data
+          .top
+            .large-8.columns
+              .title
+                input.input type="text" ng-model="media.title" pu-elastic-input=true pu-elastic-input-maxwidth="95%" ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
+                i.icon.icon-pencil
+            .large-4.columns
+              i.type.icon ng-class="'icon-' + media.type"
+              a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
+          .bottom
+            .large-11.columns
+              i.icon.icon-tag.tags-label
+              tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova tag"
+            .large-1.column
+              a.icon.icon-trash ng-click="removeMedia(media)"
 
   .row ng-if="!!medias && medias.length > 0" 
-    .pagination
-      .page.previous-page
-        a ng-click="fetch({ page: previous_page })" ng-if="previous_page"
-          i.icon.icon-arrow-circle-left
-          | Anterior
-      .page.pager
-        span {{current_page}}
-      .page.next-page
-        a ng-click="fetch({ page: next_page })" ng-if="next_page"
-          i.icon.icon-arrow-circle-right
-          | Próxima
+    a.load-more ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"
+      | Carregar mais

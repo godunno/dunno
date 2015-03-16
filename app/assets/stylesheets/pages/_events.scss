@@ -6,150 +6,145 @@
   }
 
   .events {
-    list-style: none;
-    overflow: hidden;
+    @extend %cards-container;
+  }
 
-    .event-card {
-      border-radius: 5px;
-      box-shadow: $box-shadow;
-      float: left;
-      height: 400px;
-      margin: 0 1.5% 42px;
-      overflow: hidden;
-      padding: 0;
+  .event-card {
+    .card-inner {
+      @extend %card;
       position: relative;
-      width: 30%;
+    }
 
-      .title {
-        height: 113px;
-        text-align: center;
+    .title {
+      height: 113px;
+      text-align: center;
 
-        h1 {
-          font-size: 24px;
-          line-height: 1;
-          margin: 0;
-          padding: 25px 0 0;
-        }
-
-        .subtitle {
-          color: rgba(43, 55, 56, .8); // NEW_COLOUR
-          font-size: 11px;
-        }
+      h1 {
+        font-size: 24px;
+        line-height: 1;
+        margin: 0;
+        padding: 25px 0 0;
       }
 
-      .day-month {
-        background-color: $primary-color;
-        border-radius: 30px;
-        color: $white;
-        display: block;
-        height: 60px;
-        left: 120px;
-        position: absolute;
-        text-align: center;
-        top: 82px;
-        width: 60px;
-        z-index: $overlay-z-index + 1;
-
-        .day {
-          font-size: 23px;
-          line-height: 1;
-          margin-top: 10px;
-        }
-
-        .month {
-          font-size: 10px;
-          text-transform: capitalize;
-        }
-      }
-
-      .exam {
-        background-color: $black;
-        color: $white;
+      .subtitle {
+        color: rgba(43, 55, 56, .8); // NEW_COLOUR
         font-size: 11px;
-        left: -40px;
-        padding: 4px 50px;
-        position: absolute;
-        top: 15px;
-        transform: rotate(-45deg);
+      }
+    }
+
+    .day-month {
+      background-color: $primary-color;
+      border-radius: 50%;
+      color: $white;
+      display: block;
+      height: 3.75em;
+      left: 50%;
+      margin-left: -1.875em;
+      position: absolute;
+      text-align: center;
+      top: 5.125em;
+      width: 3.75em;
+      z-index: $overlay-z-index + 1;
+
+      .day {
+        font-size: 23px;
+        line-height: 1;
+        margin-top: 10px;
       }
 
-      .content {
-        background-color: $white;
-        height: 287px;
-        padding: 10px 20px;
+      .month {
+        font-size: 10px;
+        text-transform: capitalize;
+      }
+    }
 
-        .weekday-hour {
-          color: rgba(43, 55, 56, .42); // NEW_COLOUR
-          font-size: 11px;
-          margin-top: 27px;
-          text-align: center;
+    .exam {
+      background-color: $black;
+      color: $white;
+      font-size: 11px;
+      left: -40px;
+      padding: 4px 50px;
+      position: absolute;
+      top: 15px;
+      transform: rotate(-45deg);
+    }
+
+    .content {
+      background-color: $white;
+      height: 287px;
+      padding: 10px 20px;
+
+      .weekday-hour {
+        color: rgba(43, 55, 56, .42); // NEW_COLOUR
+        font-size: 11px;
+        margin-top: 27px;
+        text-align: center;
+      }
+
+      .status {
+        border-bottom: 1px solid #f0f0f0; // NEW_COLOUR
+        border-top: 1px solid #f0f0f0; // NEW_COLOUR
+        margin-top: 20px;
+
+        span {
+          display: inline-block;
+          width: 90%;
         }
 
-        .status {
-          border-bottom: 1px solid #f0f0f0; // NEW_COLOUR
-          border-top: 1px solid #f0f0f0; // NEW_COLOUR
-          margin-top: 20px;
-
-          span {
-            display: inline-block;
-            width: 90%;
-          }
-
-          .image {
-            display: inline-block;
-            text-align: right;
-            width: 10%;
-          }
+        .image {
+          display: inline-block;
+          text-align: right;
+          width: 10%;
         }
+      }
 
-        .course {
-          font-size: 11px;
-          font-weight: 700;
-          padding: 10px 0;
-        }
+      .course {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 10px 0;
+      }
 
-        .notes {
-          font-size: 12px;
-          height: 150px;
-          padding-top: 20px;
-          position: relative;
+      .notes {
+        font-size: 12px;
+        height: 150px;
+        padding-top: 20px;
+        position: relative;
 
-          .note {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+        .note {
+          list-style: none;
+          margin: 0;
+          padding: 0;
 
-            .task {
-              color: #828282; // NEW_COLOUR
-              font-size: 12px;
-              overflow: hidden;
-              padding: 8px 0;
+          .task {
+            color: #828282; // NEW_COLOUR
+            font-size: 12px;
+            overflow: hidden;
+            padding: 8px 0;
 
-              .image {
-                display: inline-block;
-                vertical-align: top;
-                width: 10%;
-              }
+            .image {
+              display: inline-block;
+              vertical-align: top;
+              width: 10%;
+            }
 
-              span {
-                display: inline-block;
-                width: 90%;
-              }
+            span {
+              display: inline-block;
+              width: 90%;
             }
           }
-
-          .remaining {
-            bottom: 0;
-            position: absolute;
-            text-align: center;
-            width: 100%;
-          }
         }
 
-        .planning {
-          height: 158px;
+        .remaining {
+          bottom: 0;
+          position: absolute;
           text-align: center;
+          width: 100%;
         }
+      }
+
+      .planning {
+        height: 158px;
+        text-align: center;
       }
     }
   }

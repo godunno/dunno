@@ -4,6 +4,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   def create
     @resource = warden.authenticate!(scope: resource_name, recall: "#{controller_path}#failure")
     sign_in(resource_name, @resource)
+    TrackerWrapper.new(@resource).track('User Signed In')
     render "#{@resource.profile_name}_sign_in"
   end
 

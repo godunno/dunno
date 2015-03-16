@@ -1,12 +1,12 @@
 header.page-header.title ng-class="'scheme-' + course.order"
   .row
-    .large-8.large-centered.vertical-center.columns
-      h2.course-title {{course.name}}
-      p.subtitle-head {{course.class_name}}
+    .large-8.large-centered.columns
+      h2.course-title
+        | {{course.name}}
       p.translucent.subtitle-head
-        span {{course.institution}}
-        span< ng-if="!!course.grade" - {{course.grade}}
-
+        | {{course.institution}} · {{course.class_name}}
+        span< ng-if="!!course.grade"
+          | · {{course.grade}}
 .course-detail-page
   .row
     .large-8.large-centered.columns ng-include="'#{asset_path('shared/courses/events_list.html')}'"

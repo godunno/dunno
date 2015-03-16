@@ -1,0 +1,13 @@
+header.page-header.title ng-class="'scheme-' + (course.order % 12)"
+  .row
+    .small-2.columns.right
+      a.button.radius.btn-style-2.right href="#courses/{{course.uuid}}/edit"
+        | Editar
+    .small-8.large-centered.columns
+      h2.course-title
+        | {{course.name}}
+      p.translucent.subtitle-head
+        span
+          | {{course.class_name}} · {{course.institution}}
+        span< ng-if="!!course.grade"
+          | · {{course.grade}}

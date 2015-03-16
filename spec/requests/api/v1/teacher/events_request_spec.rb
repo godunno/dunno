@@ -79,6 +79,7 @@ describe Api::V1::Teacher::EventsController do
     let(:media_with_url) { create(:media_with_url) }
     let(:another_media_with_url) { create(:media_with_url) }
     let(:personal_note) { create(:personal_note, order: 1, done: true, media: another_media_with_url) }
+    let(:classroom) { "201-A" }
 
     let!(:event) do
       create(:event,
@@ -86,6 +87,7 @@ describe Api::V1::Teacher::EventsController do
              end_at: 1.hour.ago,
              topics: [topic],
              personal_notes: [personal_note],
+             classroom: classroom
             )
     end
     let!(:previous_event) { create :event, start_at: event.start_at - 1.day, course: event.course }
@@ -113,6 +115,7 @@ describe Api::V1::Teacher::EventsController do
         it_behaves_like "request return check", %w(uuid channel order status formatted_status start_at end_at)
 
         it { expect(last_response.status).to eq(200) }
+        it { expect(subject["formatted_classroom"]).to eq("#{course.class_name} - #{classroom}") }
 
         describe "course" do
           let(:target) { event.course }

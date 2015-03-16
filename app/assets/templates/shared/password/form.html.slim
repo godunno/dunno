@@ -1,38 +1,44 @@
 header.page-header.title
   .row
-    .large-12.vertical-center.columns
-      h1 Meu perfil
-
+    .large-12.columns
+      h1
+        | Meu perfil
 .edit-profile
-  form.standalone-form.small name="form" ng-submit="update_password(user)"
+  form.standalone-form.small-12.medium-6.medium-centered name="form" ng-submit="update_password(user)"
     .box
-      small.success ng-if="success" Senha alterada com sucesso!
-
-      label for="current_password" * Senha atual
+      small.success ng-if="success"
+        | Senha alterada com sucesso!
+      label for="current_password"
+        | * Senha atual
       input#current_password.password type="password" ng-model="user.current_password" required=true name="current_password"
       small.error.password ng-messages="form.current_password.$error" ng-if="form.current_password.$invalid && form.current_password.$dirty"
-        span ng-message="required" Este campo é obrigatório.
-        span ng-message="invalid" Senha incorreta.
-
-      label for="password" * Senha
+        span ng-message="required"
+          | Este campo é obrigatório.
+        span ng-message="invalid"
+          | Senha incorreta.
+      label for="password"
+        | * Senha
       input#password.password type="password" ng-model="user.password" autocomplete="off" name="password" ng-minlength="8" required=true
       .validation
         i.icon-valid ng-if="form.password.$valid"
         i.icon-invalid ng-if="form.password.$invalid"
       small.error.password ng-messages="form.password.$error" ng-if="form.password.$invalid && form.password.$dirty"
-        span ng-message="required" Este campo é obrigatório.
-        span ng-message="minlength" Mínimo de 8 caracteres.
-
-      label for="password_confirmation" * Confirmar senha
+        span ng-message="required"
+          | Este campo é obrigatório.
+        span ng-message="minlength"
+          | Mínimo de 8 caracteres.
+      label for="password_confirmation"
+        | * Confirmar senha
       input#password_confirmation.password type="password" ng-model="user.password_confirmation" name="password_confirmation" match="user.password" required=true
       .validation
         i.icon-valid ng-if="form.password_confirmation.$valid"
         i.icon-invalid ng-if="form.password_confirmation.$invalid"
       small.error.password ng-messages="form.password_confirmation.$error" ng-if="form.password_confirmation.$invalid && form.password_confirmation.$dirty"
-        span ng-message="required" Este campo é obrigatório.
-        span ng-message="match" Não é igual à senha inserida.
-
+        span ng-message="required"
+          | Este campo é obrigatório.
+        span ng-message="match"
+          | Não é igual à senha inserida.
     input.submit type="submit" ng-disabled="form.$invalid" value="Alterar senha"
     .cancel
-      a href="#profile/edit" Cancelar, quero manter a senha atual.
-
+      a href="#profile/edit"
+        | Cancelar, quero manter a senha atual.

@@ -1,19 +1,22 @@
+// scss-lint:disable BorderZero PlaceholderInExtend
 .required {
   @extend .warning;
 }
 
-input.ng-invalid.ng-dirty {
-  border-color: #E10B00;
+.ng-invalid.ng-dirty {
+  border-color: #e10b00; // NEW_COLOUR
 }
 
-span.error {
+.error {
   background: none;
-  color: #E10B00;
+  color: #e10b00; // NEW_COLOUR
 }
 
-.done label {
-  text-decoration: line-through;
-  color: $light-grey-color;
+.done {
+  label {
+    color: $light-grey-color;
+    text-decoration: line-through;
+  }
 }
 
 @mixin dotted-input($border-color) {
@@ -25,15 +28,12 @@ span.error {
 
 .standalone-form {
   margin: auto;
-  &.small {
-    width: 30%;
-  }
 
   .box {
     @include radius;
-    background: #ffffff;
-    padding: 1.5em;
+    background: $white;
     box-shadow: $box-shadow;
+    padding: 1.5em;
     a {
       color: $secondary-color;
     }
@@ -44,7 +44,7 @@ span.error {
     text-transform: uppercase;
   }
 
-  input[disabled]:not(input[type="submit"]) {
+  [disabled]:not(input[type="submit"]) {
     background: transparent;
     border: none;
     box-shadow: none;
@@ -52,7 +52,7 @@ span.error {
     padding: 0;
   }
 
-  input[type="submit"] {
+  [type="submit"] {
     @extend .btn-style-1;
     @extend .button;
     @include radius;

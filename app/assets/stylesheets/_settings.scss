@@ -10,7 +10,7 @@
 $rem-base: 16px;
 
 // Allows the use of rem-calc() or lower-bound() in your settings
-@import "foundation/functions";
+@import 'foundation/functions';
 
 // $experimental: true;
 
@@ -523,8 +523,8 @@ $header-font-color: $primary-color;
 // $input-font-size: rem-calc(14);
 // $input-bg-color: #fff;
 // $input-focus-bg-color: scale-color(#fff, $lightness: -2%);
-$input-border-color: #D7D7D7;
-$input-focus-border-color: #3C90C5;
+$input-border-color: #d7d7d7;
+$input-focus-border-color: #3c90c5;
 // $input-border-style: solid;
 // $input-border-width: 1px;
 // $input-border-radius: $global-radius;
@@ -672,10 +672,10 @@ $input-focus-border-color: #3C90C5;
 
 // $include-html-off-canvas-classes: $include-html-classes;
 
-// $tabbar-bg: #333;
+$tabbar-bg: $primary-color;
 // $tabbar-height: rem-calc(45);
 // $tabbar-line-height: $tabbar-height;
-// $tabbar-color: #fff;
+$tabbar-color: $dark-grey-color;
 // $tabbar-middle-padding: 0 rem-calc(10);
 
 // Off Canvas Divider Styles
@@ -683,31 +683,31 @@ $input-focus-border-color: #3C90C5;
 // $tabbar-left-section-border: solid 1px scale-color($tabbar-bg, $lightness: -50%);
 
 // Off Canvas Tab Bar Headers
-// $tabbar-header-color: #fff;
+$tabbar-header-color: $dark-grey-color;
 // $tabbar-header-weight: $font-weight-bold;
 // $tabbar-header-line-height: $tabbar-height;
 // $tabbar-header-margin: 0;
 
 // Off Canvas Menu Variables
 // $off-canvas-width: rem-calc(250);
-// $off-canvas-bg: #333;
+$off-canvas-bg: darken($primary-color, 10%);
 
 // Off Canvas Menu List Variables
 // $off-canvas-label-padding: 0.3rem rem-calc(15);
-// $off-canvas-label-color: #999;
+$off-canvas-label-color: $dark-grey-color;
 // $off-canvas-label-text-transform: uppercase;
 // $off-canvas-label-font-weight: $font-weight-bold;
-// $off-canvas-label-bg: #444;
+$off-canvas-label-bg: rgba(255, 255, 255, .05);
 // $off-canvas-label-border-top: 1px solid scale-color(#444, $lightness: 14%);
 // $off-canvas-label-border-bottom: none;
 // $off-canvas-label-margin:0;
 // $off-canvas-link-padding: rem-calc(10, 15);
-// $off-canvas-link-color: rgba(#fff, 0.7);
+$off-canvas-link-color: $dark-grey-color;
 // $off-canvas-link-border-bottom: 1px solid scale-color($off-canvas-bg, $lightness: -25%);
 
 // Off Canvas Menu Icon Variables
-// $tabbar-menu-icon-color: #fff;
-// $tabbar-menu-icon-hover: scale-color($tabbar-menu-icon-color, $lightness: -30%);
+$tabbar-menu-icon-color: $dark-grey-color;
+$tabbar-menu-icon-hover: $dark-grey-color;
 
 // $tabbar-menu-icon-text-indent: rem-calc(35);
 // $tabbar-menu-icon-width: $tabbar-height;
@@ -904,7 +904,7 @@ $progress-bar-color: $background-light-grey-color;
 
 // We use these to set the meter colors
 // $progress-meter-color: $primary-color;
-$progress-meter-color: #008CBA;
+$progress-meter-color: #008cba;
 // $progress-meter-secondary-color: $secondary-color;
 // $progress-meter-success-color: $success-color;
 // $progress-meter-alert-color: $alert-color;
@@ -1085,7 +1085,7 @@ $reveal-max-width: 100vw;
 // These control the background color for the table and even rows
 // $table-bg: #fff;
 // $table-even-row-bg: #f9f9f9  ;
-$table-even-row-bg: white;
+$table-even-row-bg: $white;
 
 // These control the table cell border style
 // $table-border-style: solid;
@@ -1196,19 +1196,19 @@ $topbar-height: rem-calc(65);
 $topbar-title-font-size: rem-calc(25);
 
 // Style the top bar dropdown elements
-$topbar-dropdown-bg: #FFF;
+$topbar-dropdown-bg: $white;
 $topbar-dropdown-link-color: $primary-color;
-$topbar-dropdown-link-bg: #FFF;
+$topbar-dropdown-link-bg: $white;
 $topbar-dropdown-link-color-hover: $secondary-color;
 // $topbar-dropdown-link-weight: $font-weight-normal;
 // $topbar-dropdown-toggle-size: 5px;
-$topbar-dropdown-toggle-color: #000;
+$topbar-dropdown-toggle-color: $black;
 // $topbar-dropdown-toggle-alpha: 0.4;
 
 // Set the link colors and styles for top-level nav
-$topbar-link-color: #71797a; 
-$topbar-link-color-hover: #fff;
-$topbar-link-color-active: #fff;
+$topbar-link-color: $dark-grey-color;
+$topbar-link-color-hover: $white;
+$topbar-link-color-active: $white;
 $topbar-link-color-active-hover: $primary-color;
 // $topbar-link-weight: $font-weight-normal;
 $topbar-link-font-size: rem-calc(15);
@@ -1230,16 +1230,16 @@ $topbar-link-bg-hover: $primary-color;
 // $topbar-dropdown-label-text-transform: uppercase;
 // $topbar-dropdown-label-font-weight: $font-weight-bold;
 // $topbar-dropdown-label-font-size: rem-calc(10);
- $topbar-dropdown-label-bg: #FFF;
+$topbar-dropdown-label-bg: $white;
 
 // Top menu icon styles
 // $topbar-menu-link-transform: uppercase;
 // $topbar-menu-link-font-size: rem-calc(13);
 // $topbar-menu-link-weight: $font-weight-bold;
-// $topbar-menu-link-color: #fff;
-// $topbar-menu-icon-color: #fff;
-// $topbar-menu-link-color-toggled: #888;
-// $topbar-menu-icon-color-toggled: #888;
+$topbar-menu-link-color: $dark-grey-color;
+$topbar-menu-icon-color: $dark-grey-color;
+$topbar-menu-link-color-toggled: $white;
+$topbar-menu-icon-color-toggled: $white;
 
 // Transitions and breakpoint styles
 // $topbar-transition-speed: 300ms;

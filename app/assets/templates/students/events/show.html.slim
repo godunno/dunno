@@ -1,44 +1,50 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
-    .medium-2.large-2.columns.vertical-center
+    .small-2.columns
       a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
         span.icon.icon-arrow-back
-        span Ver todas as aulas
-
-    .medium-8.large-8.vertical-center.columns
-      h2 {{event.course.name}}
+        span
+          | Voltar
+    .small-8.columns.end
+      h2
+        | {{event.course.name}}
       p.translucent.subtitle-head
-        span {{event.course.institution}}
-        span< ng-if="!!event.course.grade" - {{event.course.grade}}
-
-    .medium-2.large-2.vertical-center.columns
-      p.subtitle-head.text-right {{event.course.class_name}}
-
+        span
+          | {{event.course.institution}} · {{event.formatted_classroom}}
+        span< ng-if="!!event.course.grade"
+          | · {{event.course.grade}}
 .page-header.subtitle
   .row.text-center
-    .medium-2.large-2.columns.vertical-center.t-light.text-left
-      span.t-size-1.upcase {{event.start_at | date:'MMM/yyyy'}}
-    .medium-2.large-2.large-offset-1.columns.vertical-center.t-light
-      a.vertical-center.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}"
-        span.left Aula anterior
-        i.icon.icon-arrow-circle-left
-    .medium-2.large-2.columns.vertical-center
+    .small-12.medium-2.columns
+      span.t-size-1.upcase.t-light.text-left
+        | {{event.start_at | date:'MMM/yyyy'}}
+    .small-4.medium-3.columns
+      a.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}"
+        i.icon.icon-arrow-circle-left.right
+        span.right
+          | Aula anterior
+    .small-4.medium-2.columns
       .row.row--main
           h2
-            strong {{event.start_at | date:'dd'}}
-      .row.t-light.upcase.event-date {{event.start_at | date:'EEE'}}
-    .medium-2.large-2.columns.end.vertical-center
-      a.vertical-center.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}"
-        i.icon.icon-arrow-circle-right
-        span.right Próxima aula
-
+            strong
+              | {{event.start_at | date:'dd'}}
+            br
+            small.t-light.upcase.event-date
+              | {{event.start_at | date:'EEE'}}
+    .small-4.medium-2.columns.end
+      a.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}"
+        i.icon.icon-arrow-circle-right.left
+        span.left
+          | Próxima aula
 .event-show
   .row.card.container
     .title.diary-label
-      h1 Assuntos do dia
+      h1
+        | Assuntos do dia
     .tasks
       .item ng-repeat="topic in event.topics"
         .row
           .item-show
-            span.description {{topic.description}}
+            span.description
+              | {{topic.description}}
             preview item="topic"
