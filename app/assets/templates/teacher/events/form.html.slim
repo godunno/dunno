@@ -2,14 +2,14 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .small-2.columns
-      p.subtitle-head.text-left
+      span.event-classroom
         | {{event.formatted_classroom}}
     .small-8.columns.end
       h2
         | {{event.course.name}}
       p.translucent.subtitle-head
         span
-          | {{event.course.institution}} · {{event.course.class_name}}
+          | {{event.course.institution}}
         span< ng-if="!!event.course.grade"
           | · {{event.course.grade}}
 .page-header.subtitle
@@ -40,10 +40,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 .diary-page.medium-10.medium-offset-1.columns
   form name="event_form"
     .row.event-status
-      .small-2.medium-offset-4.columns.text-right
+      .small-12.columns.select-status.text-right
         .button.btn-style-1.radius.save
           | {{saveButtonMessage()}}
-      .small-10.medium-6.columns.select-status.text-right
         a.dropdown.text-left data-dropdown="event-status"
           .option.published ng-if="event.status == 'published'"
             i.icon.icon-published

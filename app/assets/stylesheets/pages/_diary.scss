@@ -166,6 +166,7 @@
       border-top: 1px solid rgba(255, 17, 5, .27); // NEW_COLOUR
     }
   }
+
 }
 
 $diary-container-width: 750px;
@@ -270,10 +271,8 @@ $diary-card-border: 1px solid #ddd; // NEW_COLOUR
   .button.save {
     background: none;
     color: #999; // NEW_COLOUR
-    padding-left: 0;
-    padding-right: 0;
-    text-align: right;
-    width: 110px;
+    padding-left: 1em;
+    padding-right: 1em;
   }
 
   .button.save:disabled {
