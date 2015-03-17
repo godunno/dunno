@@ -128,7 +128,7 @@ h3 {
 /* HEADER */
 
 header {
-  background: url('../img/bg-header.png') no-repeat;
+  background: #2b3738 url('../img/bg-header.jpg') no-repeat;
   background-size: cover;
 }
 

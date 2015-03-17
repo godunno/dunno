@@ -41,12 +41,16 @@ describe Api::V1::Teacher::MediasController do
     end
 
     context "media with file" do
-      let!(:media) { create :media_with_file, teacher: teacher }
+      let(:media) { create :media_with_file, teacher: teacher }
 
       before do
+        Timecop.freeze
+        media.save!
         refresh_index!
         do_action
       end
+
+      after { Timecop.return }
 
       it { expect(last_response.status).to eq(200) }
       it "should return the teacher's medias" do
