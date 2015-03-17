@@ -91,7 +91,11 @@ describe Api::V1::Teacher::EventsController do
             )
     end
     let!(:previous_event) { create :event, start_at: event.start_at - 1.day, course: event.course }
+    let!(:previous_event_media) { create :media }
+    let!(:previous_event_topic) { create :topic, event: previous_event, media: previous_event_media }
     let!(:next_event)     { create :event, start_at: event.start_at + 1.day, course: event.course }
+    let!(:next_event_media) { create :media }
+    let!(:next_event_topic) { create :topic, event: next_event, media: next_event_media }
 
     context "authenticated" do
 
@@ -124,15 +128,41 @@ describe Api::V1::Teacher::EventsController do
         end
 
         describe "previous" do
-          let(:target) { event.previous }
+          let(:target) { previous_event }
           subject { event_json["previous"] }
-          it_behaves_like "request return check", %w(uuid)
+          it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
+
+          describe "topics" do
+            let(:target) { previous_event_topic }
+            let(:previous_event_topic_json) { find(event_json["previous"]["topics"], previous_event_topic.uuid) }
+            subject { previous_event_topic_json }
+            it_behaves_like "request return check", %w(description uuid order done)
+
+            describe "media" do
+              let(:target) { previous_event_media }
+              subject { previous_event_topic_json["media"] }
+              it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
+            end
+          end
         end
 
         describe "next" do
-          let(:target) { event.next }
+          let(:target) { next_event }
           subject { event_json["next"] }
-          it_behaves_like "request return check", %w(uuid)
+          it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
+
+          describe "topics" do
+            let(:target) { next_event_topic }
+            let(:next_event_topic_json) { find(event_json["next"]["topics"], next_event_topic.uuid) }
+            subject { next_event_topic_json }
+            it_behaves_like "request return check", %w(description uuid order done)
+
+            describe "media" do
+              let(:target) { next_event_media }
+              subject { next_event_topic_json["media"] }
+              it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
+            end
+          end
         end
 
         describe "personal_note" do
