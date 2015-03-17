@@ -11,11 +11,11 @@ class EventBuilder < BaseBuilder
 
     if options[:show_neighbours]
       json.previous do
-        EventBuilder.new(event.previous).build!(json, show_topics: true) if event.previous.present?
+        EventBuilder.new(event.previous).build!(json, show_topics: { show_media: true }) if event.previous.present?
       end
 
       json.next do
-        EventBuilder.new(event.next).build!(json, show_topics: true) if event.next.present?
+        EventBuilder.new(event.next).build!(json, show_topics: { show_media: true }) if event.next.present?
       end
     end
 
