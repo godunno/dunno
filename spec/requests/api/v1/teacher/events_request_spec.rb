@@ -91,7 +91,9 @@ describe Api::V1::Teacher::EventsController do
             )
     end
     let!(:previous_event) { create :event, start_at: event.start_at - 1.day, course: event.course }
+    let!(:previous_event_topic) { create :topic, event: previous_event }
     let!(:next_event)     { create :event, start_at: event.start_at + 1.day, course: event.course }
+    let!(:next_event_topic) { create :topic, event: next_event }
 
     context "authenticated" do
 
@@ -124,15 +126,27 @@ describe Api::V1::Teacher::EventsController do
         end
 
         describe "previous" do
-          let(:target) { event.previous }
+          let(:target) { previous_event }
           subject { event_json["previous"] }
-          it_behaves_like "request return check", %w(uuid)
+          it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
+
+          describe "topics" do
+            let(:target) { previous_event_topic }
+            subject { find(event_json["previous"]["topics"], target.uuid) }
+            it_behaves_like "request return check", %w(description uuid order done)
+          end
         end
 
         describe "next" do
-          let(:target) { event.next }
+          let(:target) { next_event }
           subject { event_json["next"] }
-          it_behaves_like "request return check", %w(uuid)
+          it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
+
+          describe "topics" do
+            let(:target) { next_event_topic }
+            subject { find(event_json["next"]["topics"], target.uuid) }
+            it_behaves_like "request return check", %w(description uuid order done)
+          end
         end
 
         describe "personal_note" do

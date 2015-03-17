@@ -11,11 +11,11 @@ class EventBuilder < BaseBuilder
 
     if options[:show_neighbours]
       json.previous do
-        json.uuid event.previous.try(:uuid)
+        EventBuilder.new(event.previous).build!(json, show_topics: true) if event.previous.present?
       end
 
       json.next do
-        json.uuid event.next.try(:uuid)
+        EventBuilder.new(event.next).build!(json, show_topics: true) if event.next.present?
       end
     end
 
