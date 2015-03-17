@@ -9,7 +9,7 @@ html lang='pt' ng-app='DunnoApp'
     = stylesheet_link_tag 'application', :media => 'all'
     = javascript_include_tag 'modernizer'
     = csrf_meta_tags
-  body ng-controller='ApplicationCtrl'
+  body ng-controller='ApplicationCtrl' ng-model-options="{ updateOn: 'change click blur', debounce: { click: 0, change: 0, blur: 0 } }"
     = yield
     = javascript_include_tag 'application'
     = render 'shared/analytics'
