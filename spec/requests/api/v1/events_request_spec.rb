@@ -74,6 +74,9 @@ describe Api::V1::EventsController do
 
     context "authenticated" do
 
+      let!(:previous_event) { create :event, start_at: event.start_at - 1.day, course: event.course }
+      let!(:next_event)     { create :event, start_at: event.start_at + 1.day, course: event.course }
+
       def do_action
         get "/api/v1/events/#{event.uuid}.json", auth_params(student)
       end
@@ -91,6 +94,18 @@ describe Api::V1::EventsController do
         let(:target) { event }
         subject { event_json }
         it_behaves_like "request return check", %w(channel)
+
+        describe "previous" do
+          let(:target) { event.previous }
+          subject { event_json["previous"] }
+          it_behaves_like "request return check", %w(uuid)
+        end
+
+        describe "next" do
+          let(:target) { event.next }
+          subject { event_json["next"] }
+          it_behaves_like "request return check", %w(uuid)
+        end
 
         describe "topic" do
           let(:target) { topic }
