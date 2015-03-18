@@ -1,13 +1,50 @@
-ul.dates
-  .header
-    span.current-month {{course.current_month | date:'MMMM / yy'}}
-    a.next-month ng-click="fetch(course.next_month)"
-      span {{course.next_month | date:'MMM / yy'}}
-      i.icon.icon-arrow-circle-right
-    a.previous-month ng-click="fetch(course.previous_month)"
-      i.icon.icon-arrow-circle-left
-      span {{course.previous_month | date:'MMM / yy'}}
-  h2.blankslate ng-if="!course.events || course.events.length == 0" Não há aulas neste mês
-  a.item ng-attr-id="{{ 'event-' + event.uuid }}" ng-href="{{eventPath(event)}}" ng-repeat="event in course.events | orderBy:'start_at'" ng-class="eventClass(event)" ng-attr-tooltip="{{tooltipMessage(event)}}" tooltip-animation="false" analytics-on="click" analytics-event="Event Accessed via Course" analytics-uuid="{{event.uuid}}" analytics-order="{{event.order}}" analytics-course-uuid="{{course.uuid}}" analytics-course-name="{{course.name}}" analytics-start-at="{{event.start_at}}"
-    li
-      ng-include src="'#{asset_path('shared/courses/event_in_list.html')}'"
+.dates
+  .dates__header
+    .row
+      .small-12.medium-4.large-6.columns
+        span.dates__header__current-month
+          | {{course.current_month | date:'MMMM / yy'}}
+      .small-12.medium-8.large-6.columns
+        .row
+          .small-6.columns
+            a.dates__header__previous-month ng-click="fetch(course.previous_month)"
+              i.icon.icon-arrow-circle-left
+              span<
+                | {{course.previous_month | date:'MMM / yy'}}
+          .small-6.columns
+            a.dates__header__next-month ng-click="fetch(course.next_month)"
+              span>
+                | {{course.next_month | date:'MMM / yy'}}
+              i.icon.icon-arrow-circle-right
+  h2.dates__blankslate ng-if="!course.events || course.events.length == 0"
+    | Não há aulas neste mês
+  a.dates__date[
+    ng-attr-id="{{ 'event-' + event.uuid }}"
+    ng-href="{{eventPath(event)}}"
+    ng-repeat="event in course.events | orderBy:'start_at'"
+    ng-class="eventClass(event)"
+    ng-attr-tooltip="{{tooltipMessage(event)}}"
+    tooltip-animation="false"
+    analytics-on="click"
+    analytics-event="Event Accessed via Course"
+    analytics-uuid="{{event.uuid}}"
+    analytics-order="{{event.order}}"
+    analytics-course-uuid="{{course.uuid}}"
+    analytics-course-name="{{course.name}}"
+    analytics-start-at="{{event.start_at}}"
+  ]
+    span.date__timestamp
+      span.date__day
+        | {{asDate(event.start_at) | date:'dd'}}
+      span.date__weekday
+        | {{asDate(event.start_at) | date:'EEE'}}
+      span.date__time
+        | {{asDate(event.start_at) | date:'HH:mm'}} - {{asDate(event.end_at) | date:'HH:mm'}}
+    span.date__order
+      | Aula {{event.order | leadingZeros:2}}
+    span.date__go
+      i.icon.icon-arrow
+    span.date__status
+      i.icon ng-class="'icon-' + statusFor(event)"
+    span.date__classroom
+      | {{event.formatted_classroom}}

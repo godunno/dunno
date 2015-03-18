@@ -21,7 +21,7 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
       .students
         .top
           strong count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
-          a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
+          a.send-message.button.radius.btn-style-1.btn-sm.expand data-reveal-id="send-notification"
             i.icon.icon-buzz
             span
               | Enviar notificação
