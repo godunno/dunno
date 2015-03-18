@@ -38,7 +38,12 @@ class EventBuilder < BaseBuilder
     end
 
     if options[:show_topics]
-      json.topics event.topics do |topic|
+      topics = if options[:show_topics].try(:[], :show_personal)
+                 event.topics
+               else
+                 event.topics.without_personal
+               end
+      json.topics topics do |topic|
         TopicBuilder.new(topic).build!(json, options[:show_topics])
       end
     end

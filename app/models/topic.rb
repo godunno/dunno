@@ -7,6 +7,8 @@ class Topic < ActiveRecord::Base
 
   validate :ensure_description_or_media_present
 
+  scope :without_personal, -> { where(personal: false) }
+
   private
 
   def ensure_description_or_media_present
