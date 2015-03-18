@@ -265,13 +265,13 @@ describe Api::V1::Teacher::EventsController do
         it { expect(subject.topics.count).to eq 1 }
         describe "topic" do
           subject { event.topics.first }
-          it { expect(subject.description).to eq topic.description }
+          it { expect(subject.description).to be_nil }
           it { expect(subject.order).to eq topic.order }
           it { expect(subject).to be_done }
 
           describe "media with url" do
             subject { event.topics.first.media }
-            it { expect(subject.title).to eq media_with_url.title }
+            it { expect(subject.title).to eq topic.description }
             it { expect(subject.description).to eq media_with_url.description }
             it { expect(subject.category).to eq media_with_url.category }
             it { expect(subject.url).to eq media_with_url.url }
