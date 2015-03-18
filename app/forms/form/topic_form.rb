@@ -12,6 +12,10 @@ module Form
     def initialize(params)
       super(params.slice(*attributes_list(:description, :order, :done)))
       self.media = Media.find_by(uuid: params[:media_id])
+      if media.present? && model.new_record?
+        media.title = description
+        self.description = nil
+      end
     end
 
     private
@@ -21,6 +25,7 @@ module Form
         model.order = order
         model.done = done
         model.event = event
+        media.try(:save!)
         model.media = media
         model.save!
       end
