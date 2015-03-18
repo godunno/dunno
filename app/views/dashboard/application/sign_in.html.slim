@@ -1,5 +1,5 @@
 .login-page ng-controller="SignInCtrl"
-  = link_to root_path, class: 'root-proxy' do
+  = link_to root_path, class: 'root-proxy', tabindex: 2 do
     = image_tag 'dunno-logo.png', class: :logo
   form#sign_in name="user_form" ng-submit="sign_in(user)" novalidate=""
     .row
@@ -13,7 +13,7 @@
             label for="email"
               | Email
             / TODO: normalizar name dos inputs após POST via AJAX
-            input.radius#email name="email" ng-model="user.email" type="email" required="" autofocus=""
+            input.radius#email name="email" ng-model="user.email" type="email" required="" autofocus="" tabindex="0"
             / TODO: DRY as mensagens de erro
             div ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak=""
               span.error ng-show="user_form.email.$error.required"
@@ -23,8 +23,8 @@
           .password
             label for="password"
               | Senha
-            = link_to "Esqueci minha senha", new_dashboard_password_path, class: 'password-recovery'
-            input.radius#password name="password" ng-model="user.password" type="password" required=""
+            = link_to "Esqueci minha senha", new_dashboard_password_path, class: 'password-recovery', tabindex: 1
+            input.radius#password name="password" ng-model="user.password" type="password" required="" tabindex="0"
             div ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak=""
               span.error ng-show="user_form.password.$error.required"
                 | Campo obrigatório
@@ -32,6 +32,6 @@
             input.button.radius.btn-style-1 ng-disabled="user_form.$invalid" type="submit" value="Entrar"
             / f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
           .signup
-            = link_to "Tem o código da disciplina? Cadastre-se aqui.", new_registration_path
+            = link_to "Tem o código da disciplina? Cadastre-se aqui.", new_registration_path, tabindex: 1
   / TODO: Write terms and policy pages.
     = render "application/login_links"
