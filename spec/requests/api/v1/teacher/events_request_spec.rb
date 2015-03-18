@@ -76,6 +76,7 @@ describe Api::V1::Teacher::EventsController do
   describe "GET /api/v1/teacher/events/:uuid.json" do
 
     let(:topic) { create(:topic, order: 1, done: true, media: media_with_url) }
+    let(:personal_topic) { create(:topic, :personal) }
     let(:media_with_url) { create(:media_with_url) }
     let(:another_media_with_url) { create(:media_with_url) }
     let(:personal_note) { create(:personal_note, order: 1, done: true, media: another_media_with_url) }
@@ -85,7 +86,7 @@ describe Api::V1::Teacher::EventsController do
       create(:event,
              status: "published",
              end_at: 1.hour.ago,
-             topics: [topic],
+             topics: [topic, personal_topic],
              personal_notes: [personal_note],
              classroom: classroom
             )
@@ -152,7 +153,9 @@ describe Api::V1::Teacher::EventsController do
           let(:target) { topic }
           let(:topic_json) { find(event_json["topics"], topic.uuid) }
           subject { topic_json }
-          it_behaves_like "request return check", %w(description uuid order done)
+          it_behaves_like "request return check", %w(description uuid order done personal)
+
+          it { expect(find(event_json["topics"], personal_topic.uuid)).not_to be_nil }
 
           describe "media with URL" do
             let(:target) { media_with_url }
