@@ -12,18 +12,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           | {{event.course.institution}}
         span< ng-if="!!event.course.grade"
           | · {{event.course.grade}}
-.page-header.subtitle
-  .row.text-center
-    .small-4.medium-3.columns
-      a.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="previous" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}"
-        i.icon.icon-arrow-circle-left.right
-        span.right
-          | Aula anterior
-    .small-4.medium-3.columns
-      a.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="next" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}"
-        i.icon.icon-arrow-circle-right.left
-        span.left
-          | Próxima aula
 .diary-page.medium-10.medium-offset-1.columns
   form name="event_form"
     .row.event-status
@@ -74,11 +62,22 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 | Cancelar aula e notificar os estudantes.
         a.button.btn-style-1.radius.done-button ng-click="finish(event)" analytics-on="click" analytics-event="Event Finish Editing" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}"
           | Salvar e sair
-    .row.header
-      .date
-        | {{event.start_at | date:'EEE, dd/MMMM/yyyy'}}
-      .time
-        | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
+    .row
+      .previous-event
+        a.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="previous" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}"
+          i.icon.icon-arrow-circle-left.right
+          span.right
+            | {{event.previous.start_at | date:'EEE, dd/MMMM/yyyy'}}
+      .header
+        .date
+          | {{event.start_at | date:'EEE, dd/MMMM/yyyy'}}
+        .time
+          | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
+      .next-event
+        a.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="next" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}"
+          i.icon.icon-arrow-circle-right.left
+          span.left
+            | {{event.next.start_at | date:'EEE, dd/MMMM/yyyy'}}
     #topics-container.row.card.container event-list="topics"
       .title.diary-label
         h1
