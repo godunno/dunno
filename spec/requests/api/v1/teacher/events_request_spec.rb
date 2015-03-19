@@ -166,19 +166,6 @@ describe Api::V1::Teacher::EventsController do
           end
         end
 
-        describe "personal_note" do
-          let(:target) { personal_note }
-          let(:personal_note_json) { event_json["personal_notes"][0] }
-          subject { personal_note_json }
-          it_behaves_like "request return check", %w(description uuid order done)
-
-          describe "media with URL" do
-            let(:target) { another_media_with_url }
-            subject { personal_note_json["media"] }
-            it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
-          end
-        end
-
         describe "topic" do
           let(:target) { topic }
           let(:topic_json) { find(event_json["topics"], topic.uuid) }
