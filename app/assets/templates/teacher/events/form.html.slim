@@ -100,7 +100,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           .row
             .item-show ng-if="!isEditing(topic)"
               input.done type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
-              label.description for="topic_{{topic.order}}_done"
+              a.description ng-click="editItem(topic, editingItem)"
                 | {{topic.description}}
               a.show-actions dropdown-toggle="#actions_{{topic.order}}"
                 | ...
