@@ -1,4 +1,5 @@
-json.(topic, :uuid, :description, :order, :done, :personal)
+json.(topic, :uuid, :order, :done, :personal)
+json.description(topic.media.try(:title) || topic.description)
 json.media_id topic.media.try(:uuid)
 
 json.media do

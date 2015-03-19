@@ -12,7 +12,7 @@ module Form
     def initialize(params)
       super(params.slice(*attributes_list(:description, :order, :done)))
       self.media = Media.find_by(uuid: params[:media_id])
-      if media.present? && model.new_record?
+      if media.present?
         media.title = description
         self.description = nil
       end
