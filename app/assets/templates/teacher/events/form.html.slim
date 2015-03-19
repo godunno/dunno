@@ -45,8 +45,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           span.icon.icon-arrow-back
           span Voltar
       .small-7.columns.select-status.text-right
-        a.button.btn-style-1.radius.save ng-click="save(event)"
-          | {{saveButtonMessage()}}
+        a.button.btn-style-1.radius.save ng-click="save(event)" ng-disabled="saveButtonDisabled()" ng-class="{ dirty: !saveButtonDisabled() }"
+          | Salvar
         a.dropdown.text-left data-dropdown="event-status"
           .option.published ng-if="event.status == 'published'"
             i.icon.icon-published
