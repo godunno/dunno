@@ -63,7 +63,7 @@ gem 'rails-assets-angular-validation-match', '1.3.0'
 gem 'rails-assets-mrodrigues--angular-input-masks', '1.3.1'
 gem 'rails-assets-angular-foundation', '0.5.1'
 gem 'rails-assets-angular-busy', '4.1.2'
-gem 'rails-assets-angulartics', '0.17.2'
+gem 'rails-assets-lunks--angulartics', '0.17.2'
 
 
 group :production, :staging do
