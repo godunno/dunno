@@ -95,7 +95,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         span.subtitle.translucent
           | Tarefas visíveis para os estudantes
       #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
-        .item.clickable ng-controller="EventEditCtrl" ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
+        .item.clickable ng-controller="EventEditCtrl" ng-class="{done: topic.done, personal: topic.personal}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
           .handle ng-if="!isEditing(topic)"
           .row
             .item-show ng-if="!isEditing(topic)"
