@@ -66,11 +66,12 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       .previous-event
         a.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="previous" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}"
           i.icon.icon-arrow-circle-left.right
-          span.right
+          span
             | {{event.previous.start_at | date:'EEE, dd/MMMM/yyyy'}}
         ul
           li.task ng-repeat="topic in event.previous.topics"
-            | {{topic.description}}
+            span {{topic.description}}
+            i.type.icon ng-class="'icon-' + topic.media.type" ng-if="!!topic.media"
       .header
         .date
           | {{event.start_at | date:'EEE, dd/MMMM/yyyy'}}
@@ -79,11 +80,12 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       .next-event
         a.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="next" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}"
           i.icon.icon-arrow-circle-right.left
-          span.left
+          span
             | {{event.next.start_at | date:'EEE, dd/MMMM/yyyy'}}
         ul
           li.task ng-repeat="topic in event.next.topics"
-            | {{topic.description}}
+            span {{topic.description}}
+            i.type.icon ng-class="'icon-' + topic.media.type" ng-if="!!topic.media"
     #topics-container.row.card.container event-list="topics"
       .title.diary-label
         h1
