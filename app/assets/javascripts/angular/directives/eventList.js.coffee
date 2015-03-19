@@ -52,6 +52,7 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
     !$scope.newRecord(item) && !$scope.newRecord($scope.event.next)
 
   $scope.sortableOptions = (collection)->
+    handle: '.handle'
     stop: ->
       $analytics.eventTrack "Item Drag 'n Drop",
         event_uuid: $scope.event.uuid,
