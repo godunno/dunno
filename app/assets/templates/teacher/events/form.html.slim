@@ -71,7 +71,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         ul
           li.task ng-repeat="topic in event.previous.topics"
             span {{topic.description}}
-            i.type.icon ng-class="'icon-' + topic.media.type" ng-if="!!topic.media"
+            a ng-href="{{topic.media.url}}" ng-if="!!topic.media"
+              i.type.icon ng-class="'icon-' + topic.media.type"
       .header
         .date
           | {{event.start_at | date:'EEE, dd/MMMM/yyyy'}}
@@ -85,7 +86,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         ul
           li.task ng-repeat="topic in event.next.topics"
             span {{topic.description}}
-            i.type.icon ng-class="'icon-' + topic.media.type" ng-if="!!topic.media"
+            a ng-href="{{topic.media.url}}" ng-if="!!topic.media"
+              i.type.icon ng-class="'icon-' + topic.media.type"
     #topics-container.row.card.container event-list="topics"
       .title.diary-label
         h1
