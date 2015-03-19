@@ -102,17 +102,25 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               input.done type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
               label.description for="topic_{{topic.order}}_done"
                 | {{topic.description}}
-              .tasks-buttons
-                a.icon.icon-trash.task-icon-right[
-                  ng-click="removeItem(event.topics, topic)"
-                  title="Remover tarefa"]
-                a.icon.icon-transfer.task-icon-right[
-                  ng-click="transferItem(event.topics, topic)"
-                  ng-if="canTransferItem(topic)"
-                  title="Transferir tarefa"]
-                a.icon.icon-edition.task-icon-right[
-                  ng-click="editItem(topic, editingItem)"
-                  title="Editar tarefa"]
+              a.show-actions dropdown-toggle="#actions_{{topic.order}}"
+                | ...
+              ul.tasks-buttons.f-dropdown id="actions_{{topic.order}}"
+                li
+                  a.icon.icon-trash.task-icon-right[
+                    ng-click="removeItem(event.topics, topic)"
+                    title="Remover tarefa"]
+                    | Apagar
+                li
+                  a.icon.icon-transfer.task-icon-right[
+                    ng-click="transferItem(event.topics, topic)"
+                    ng-if="canTransferItem(topic)"
+                    title="Transferir tarefa"]
+                    | Transferir
+                li
+                  a.icon.icon-edition.task-icon-right[
+                    ng-click="editItem(topic, editingItem)"
+                    title="Editar tarefa"]
+                    | Editar
               preview item="topic"
             input.item-editing[
               focus-on-create="" type="text"
