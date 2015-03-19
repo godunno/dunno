@@ -38,14 +38,15 @@ describe Form::TopicForm do
     end
 
     context "updating topic" do
+      let(:new_description) { "Great amounts of awesomeness" }
       let(:media) { create :media, title: description }
       let(:topic) { create :topic, description: nil, media: media }
-      let(:topic_form) { Form::TopicForm.new topic.attributes.merge(media_id: media.uuid).with_indifferent_access }
+      let(:topic_form) { Form::TopicForm.new topic.attributes.merge(description: new_description, media_id: media.uuid).with_indifferent_access }
 
       before { topic_form.save! }
 
       it { expect(topic_form.model.description).to be_nil }
-      it { expect(media.reload.title).to eq(description) }
+      it { expect(media.reload.title).to eq(new_description) }
     end
   end
 end
