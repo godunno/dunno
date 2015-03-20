@@ -135,6 +135,28 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ui-keydown="{'enter':'updateItem($event, editingItem, topic)'}"]
       .foot cg-busy="submittingMediaPromise"
         .wrapper-new-list-item
+          ul.tabs.select-item-type
+            li
+              a ng-click="itemType = 'text'"
+                | Texto
+            li
+              a ng-click="itemType = 'file'"
+                | Arquivo
+            li
+              a ng-click="itemType = 'url'"
+                | Link
+            li
+              a ng-click="itemType = 'catalog'"
+                | Catálogo
+          .item-type
+            .type.text ng-show="itemType == 'text'"
+              | Texto
+            .type.file ng-show="itemType == 'file'"
+              | Arquivo
+            .type.url ng-show="itemType == 'url'"
+              | Link
+            .type.catalog ng-show="itemType == 'catalog'"
+              | Catálogo
           input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar tarefa"
             ui-keydown="{'enter':'addItem($event)'}" name="topic"]
           a.item-button.media-search-button.icon.icon-catalog ng-click="pickFromCatalog()"
