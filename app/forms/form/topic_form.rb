@@ -14,7 +14,7 @@ module Form
       super(params.slice(*attributes_list(:description, :order, :done, :personal)))
       self.media = Media.find_by(uuid: params[:media_id])
       if media.present?
-        media.title = description
+        media.title = description if description.present?
         self.description = nil
       end
     end
