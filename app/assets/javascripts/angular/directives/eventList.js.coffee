@@ -19,6 +19,14 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
     $scope.newListItem = generateOrderable(list())
     $scope.itemType = 'text'
 
+  $scope.itemTypeDescription = ->
+    {
+      'text': 'texto',
+      'file': 'arquivo',
+      'url': 'link',
+      'catalog': 'do catálogo'
+    }[$scope.itemType]
+
   $scope.$on 'initializeEvent', ->
     $scope.resetNewItem()
     list().sort (a,b)-> a.order - b.order
@@ -113,7 +121,6 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
     )
     submitMedia item, promise, true
     $scope.$broadcast("file.clean")
-
 
   $scope.$on 'catalog-picker.selected', (_, media)->
     $analytics.eventTrack('Media Selected', type: media.type, title: media.title, eventUuid: $scope.event.uuid)

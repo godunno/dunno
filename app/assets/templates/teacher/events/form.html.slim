@@ -222,7 +222,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 .row ng-if="!!medias && medias.length > 0"
                   a.load-more ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"
                     | Carregar mais
-          a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}" ng-click="addItem()"
+          a.create-item-button.active ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}" ng-click="addItem()"
+            | Inserir {{itemTypeDescription()}}
           a.cancel ng-click="resetNewItem()"
             | Cancelar
           progress-bar
