@@ -13,9 +13,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         span< ng-if="!!event.course.grade"
           | · {{event.course.grade}}
     .small-2.columns
-      a.hide-personal-topics ng-click="setPersonalTopicsVisibility(false)" ng-show="arePersonalTopicsVisible"
+      a.hide-personal-topics ng-click="setPrivateTopicsVisibility(false)" ng-show="showPrivateTopics"
         | Ocultar conteúdo privado
-      a.show-personal-topics ng-click="setPersonalTopicsVisibility(true)" ng-show="!arePersonalTopicsVisible"
+      a.show-personal-topics ng-click="setPrivateTopicsVisibility(true)" ng-show="!showPrivateTopics"
         | Mostrar conteúdo privado
 .diary-page.medium-10.medium-offset-1.columns
   form name="event_form"
@@ -74,7 +74,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           span
             | {{event.previous.start_at | date:'EEE, dd/MMMM/yyyy'}}
         ul
-          li.task ng-repeat="topic in event.previous.topics" ng-hide="topic.personal && !arePersonalTopicsVisible"
+          li.task ng-repeat="topic in event.previous.topics" ng-hide="topic.personal && !showPrivateTopics"
             span {{topic.description}}
             a ng-href="{{topic.media.url}}" ng-if="!!topic.media"
               i.type.icon ng-class="'icon-' + topic.media.type"
@@ -89,7 +89,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           span
             | {{event.next.start_at | date:'EEE, dd/MMMM/yyyy'}}
         ul
-          li.task ng-repeat="topic in event.next.topics" ng-hide="topic.personal && !arePersonalTopicsVisible"
+          li.task ng-repeat="topic in event.next.topics" ng-hide="topic.personal && !showPrivateTopics"
             span {{topic.description}}
             a ng-href="{{topic.media.url}}" ng-if="!!topic.media"
               i.type.icon ng-class="'icon-' + topic.media.type"
@@ -100,7 +100,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         span.subtitle.translucent
           | Tarefas visíveis para os estudantes
       #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
-        .item.clickable ng-controller="EventEditCtrl" ng-class="{done: topic.done, personal: topic.personal}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}" ng-hide="topic.personal && !arePersonalTopicsVisible"
+        .item.clickable ng-controller="EventEditCtrl" ng-class="{done: topic.done, personal: topic.personal}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}" ng-hide="topic.personal && !showPrivateTopics"
           .handle ng-if="!isEditing(topic)"
           .row
             .item-show ng-if="!isEditing(topic)"
