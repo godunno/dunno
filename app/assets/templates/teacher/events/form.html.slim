@@ -41,15 +41,16 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             span.value
               | Cancelada
           i.icon.icon-arrow-down
-        ul#event-status.status-list data-dropdown-content="" dropdown-select="" ng-model="event.status"
-          li.option.published dropdown-select-item="published"
+        ul#event-status.status-list data-dropdown-content="" dropdown-select=""
+          input.model type="hidden" name="event_status" ng-model="event.status"
+          li.option.published dropdown-select-item="'published'"
             .title
               span
                 | Publicada
               i.icon.icon-published
             .subtitle
               | Estudantes podem ver as tarefas.
-          li.option dropdown-select-item="draft"
+          li.option dropdown-select-item="'draft'"
             .content
               .title
                 span
@@ -57,7 +58,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 i.icon.icon-draft
               .subtitle
                 | Estudantes não conseguem visualizar as tarefas.
-          li.option dropdown-select-item="canceled"
+          li.option dropdown-select-item="'canceled'"
             .content
               .title
                 span
@@ -158,6 +159,22 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           preview item="newListItem" editable="true"
         .hint
           | Ex: Revisar aula passada. Introdução à raiz quadrada.
+        a.dropdown data-dropdown="topic-private"
+          .option.private ng-if="newListItem.personal"
+            span.value
+              | Somente professor
+          .option ng-if="!newListItem.personal"
+            span.value
+              | Alunos
+          i.icon.icon-arrow-down
+        ul#topic-private data-dropdown-content="" dropdown-select=""
+          input.model type="hidden" name="topic_private" ng-model="newListItem.personal"
+          li.option.private dropdown-select-item="true"
+            span
+              | Somente professor
+          li.option dropdown-select-item="false"
+            span
+              | Alunos
 
   tutorial.tutorial-3 ng-if="tutorialEnabled(3)" on-close="tutorialClosed(3)"
     tutorial-step
