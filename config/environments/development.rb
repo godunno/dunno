@@ -1,4 +1,4 @@
-Dunno::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -37,8 +37,6 @@ Dunno::Application.configure do
   Rails.application.routes.default_url_options = { host: 'localhost:3000' }
 
   WebMock.allow_net_connect!
-
-  config.assets.raise_production_errors = true
 
   config.roadie.url_options = { host: "localhost", port: 3000, scheme: "http" }
 end
