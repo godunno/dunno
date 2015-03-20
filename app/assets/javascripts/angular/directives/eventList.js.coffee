@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-listCtrl = ($scope, $upload, $analytics, Media, Utils)->
+listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
   angular.extend($scope, Utils)
 
   list = -> $scope.event[$scope.collection]
@@ -8,11 +8,12 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
   generateOrderable = (list)->
     list = list.sort (a,b)-> a.order - b.order
     last = list[list.length - 1]
+    $rootScope.defaultTopicPrivacy ?= false
     if last?
       order = last.order + 1
     else
       order = 1
-    { order: order }
+    { order: order, personal: $rootScope.defaultTopicPrivacy }
 
   generateOrderableItem = ->
     $scope.newListItem = generateOrderable(list())
@@ -30,6 +31,7 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
         eventUuid: $scope.event.uuid,
         courseUuid: $scope.event.course.uuid
       $scope.newItem(list(), $scope.newListItem)
+      $rootScope.defaultTopicPrivacy = $scope.newListItem.personal
       generateOrderableItem()
       $scope.save($scope.event)
     if $scope._editingMediaUrl
@@ -124,7 +126,7 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
     item.media = null
     $scope.event_form.$setDirty()
 
-listCtrl.$inject = ['$scope', '$upload', '$analytics', 'Media', 'Utils']
+listCtrl.$inject = ['$scope', '$upload', '$analytics', '$rootScope', 'Media', 'Utils']
 DunnoApp.controller 'listCtrl', listCtrl
 
 DunnoApp.directive 'eventList', ->
