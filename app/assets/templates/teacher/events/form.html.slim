@@ -150,36 +150,45 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 | Catálogo
           .item-type
             .type.text ng-show="itemType == 'text'"
-              input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar conteúdo"
-                ui-keydown="{'enter':'addItem($event)'}" name="topic"]
+              input.field-new-list-item[
+                ng-model="newListItem.description"
+                type="text"
+                focus-wrapper=""
+                placeholder="Adicionar conteúdo"
+                ui-keydown="{'enter':'addItem($event)'}" name="topic"
+              ]
             .type.file ng-show="itemType == 'file'"
               | Arquivo
             .type.url ng-show="itemType == 'url'"
-              | Link
+              input[
+                ng-if="!newListItem.media"
+                type="text" name="topic_media_url"
+                ng-model="newListItem.media_url"
+                placeholder="http://"
+                ui-keydown="{'enter':'submitUrlMedia(newListItem)'}"
+              ]
+              .media ng-if="!!newListItem.media"
+                preview item="newListItem" editable="true"
+                input.field-new-list-item[
+                  ng-model="newListItem.description"
+                  type="text"
+                  focus-wrapper=""
+                  placeholder="Adicionar conteúdo"
+                  ui-keydown="{'enter':'addItem($event)'}" name="topic"
+                ]
             .type.catalog ng-show="itemType == 'catalog'"
               | Catálogo
           a.item-button.media-search-button.icon.icon-catalog ng-click="pickFromCatalog()"
           catalog-picker
-          a.icon.icon-link.item-button.media-url-button[
-            data-dropdown="topic-url"
-            data-options="align:left"
-            ng-class="{active: newListItem.media.type=='url'}"
-          ]
           label.icon.icon-clips.item-button.media-file-button[
             for="topic-file"
             ng-class="{active: newListItem.media.type=='file'}"
           ]
-          #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
-            input[
-              type="text" name="topic_media_url" ng-model="newListItem.media_url" dropdown-input=true
-              placeholder="http://" on-open="startUrlMediaEditing()" on-close="submitUrlMedia(newListItem)"
-            ]
           a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}" ng-click="addItem()"
           input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
           a.cancel ng-click="generateOrderableItem()"
             | Cancelar
           progress-bar
-          preview item="newListItem" editable="true"
         .hint
           | Ex: Revisar aula passada. Introdução à raiz quadrada.
         a.dropdown data-dropdown="topic-private"
