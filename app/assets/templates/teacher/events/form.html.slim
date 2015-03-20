@@ -150,15 +150,14 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 | Catálogo
           .item-type
             .type.text ng-show="itemType == 'text'"
-              | Texto
+              input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar conteúdo"
+                ui-keydown="{'enter':'addItem($event)'}" name="topic"]
             .type.file ng-show="itemType == 'file'"
               | Arquivo
             .type.url ng-show="itemType == 'url'"
               | Link
             .type.catalog ng-show="itemType == 'catalog'"
               | Catálogo
-          input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar tarefa"
-            ui-keydown="{'enter':'addItem($event)'}" name="topic"]
           a.item-button.media-search-button.icon.icon-catalog ng-click="pickFromCatalog()"
           catalog-picker
           a.icon.icon-link.item-button.media-url-button[
