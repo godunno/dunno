@@ -158,7 +158,27 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ui-keydown="{'enter':'addItem($event)'}" name="topic"
               ]
             .type.file ng-show="itemType == 'file'"
-              | Arquivo
+              label.icon.icon-clips.item-button.media-file-button[
+                for="topic-file"
+                ng-class="{active: newListItem.media.type=='file'}"
+              ]
+              input#topic-file.file-input[
+                ng-file-model=""
+                type="file"
+                ng-model="newListItem.media_file"
+                name="topic_media_file"
+                ng-file-select="submitFileMedia(newListItem,
+                $files)"
+              ]
+              .media ng-if="!!newListItem.media"
+                preview item="newListItem" editable="true"
+                input.field-new-list-item[
+                  ng-model="newListItem.description"
+                  type="text"
+                  focus-wrapper=""
+                  placeholder="Adicionar conteúdo"
+                  ui-keydown="{'enter':'addItem($event)'}" name="topic"
+                ]
             .type.url ng-show="itemType == 'url'"
               input[
                 ng-if="!newListItem.media"
@@ -180,12 +200,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               | Catálogo
           a.item-button.media-search-button.icon.icon-catalog ng-click="pickFromCatalog()"
           catalog-picker
-          label.icon.icon-clips.item-button.media-file-button[
-            for="topic-file"
-            ng-class="{active: newListItem.media.type=='file'}"
-          ]
           a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}" ng-click="addItem()"
-          input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
           a.cancel ng-click="generateOrderableItem()"
             | Cancelar
           progress-bar
