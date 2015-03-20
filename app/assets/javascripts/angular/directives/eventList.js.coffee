@@ -15,11 +15,11 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
       order = 1
     { order: order, personal: $rootScope.defaultTopicPrivacy }
 
-  generateOrderableItem = ->
+  $scope.generateOrderableItem = ->
     $scope.newListItem = generateOrderable(list())
 
   $scope.$on 'initializeEvent', ->
-    generateOrderableItem()
+    $scope.generateOrderableItem()
     list().sort (a,b)-> a.order - b.order
 
   $scope.addItem = ($event)->
@@ -32,7 +32,7 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
         courseUuid: $scope.event.course.uuid
       $scope.newItem(list(), $scope.newListItem)
       $rootScope.defaultTopicPrivacy = $scope.newListItem.personal
-      generateOrderableItem()
+      $scope.generateOrderableItem()
       $scope.save($scope.event)
     if $scope._editingMediaUrl
       $scope.submitUrlMedia($scope.newListItem).then(run)

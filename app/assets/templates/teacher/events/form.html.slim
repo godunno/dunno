@@ -176,6 +176,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ]
           a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}" ng-click="addItem()"
           input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
+          a.cancel ng-click="generateOrderableItem()"
+            | Cancelar
           progress-bar
           preview item="newListItem" editable="true"
         .hint
