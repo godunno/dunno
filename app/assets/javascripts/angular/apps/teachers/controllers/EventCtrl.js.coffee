@@ -90,5 +90,8 @@ EventCtrl = (
     NavigationGuard.unregisterGuardian(checkDirty)
     $interval.cancel(autosave)
 
+  $scope.setPersonalTopicsVisibility = (visible)->
+    $scope.arePersonalTopicsVisible = visible
+
 EventCtrl.$inject = ['$scope', '$routeParams', '$interval', '$window', '$q', 'Event', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
 DunnoApp.controller 'EventCtrl', EventCtrl
