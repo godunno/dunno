@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/lunks/phonie.git
+  revision: 2876d461921665ed8b999919a0b816e8e929ae9a
+  branch: patch/add-new-br-numbers
+  specs:
+    phonie (3.1.9)
+
+GIT
   remote: git://github.com/mrodrigues/link_thumbnailer.git
   revision: cc7b8221ea803ae8eaf2f22d752dd1bae878803b
   specs:
@@ -329,7 +336,6 @@ GEM
     parser (2.2.0.2)
       ast (>= 1.1, < 3.0)
     pg (0.18.1)
-    phonie (3.1.8)
     powerpack (0.1.0)
     pronto (0.4.1)
       gitlab (~> 3.3)
@@ -633,7 +639,7 @@ DEPENDENCIES
   newrelic_rpm (= 3.9.9.275)
   oj (= 2.11.4)
   pg (= 0.18.1)
-  phonie (= 3.1.8)
+  phonie (= 3.1.9)!
   pronto (= 0.4.1)
   pronto-flay (= 0.4.0)
   pronto-rubocop (= 0.4.1)

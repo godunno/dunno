@@ -37,7 +37,7 @@ gem 'autoprefixer-rails',         '5.1.5'
 gem 'devise-async',               '0.9.0'
 gem 'intercom-rails',             '0.2.27'
 gem 'active_model-errors_details','1.1.0'
-gem 'phonie',                     '3.1.8'
+gem 'phonie',                     '3.1.9', git: 'git://github.com/lunks/phonie.git', branch: 'patch/add-new-br-numbers'
 gem 'dalli',                      '2.7.2'
 gem 'google_drive',               '1.0.0', require: false
 gem 'mixpanel-ruby',              '1.7.0'
