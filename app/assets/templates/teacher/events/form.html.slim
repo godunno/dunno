@@ -153,7 +153,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               type="text" name="topic_media_url" ng-model="newListItem.media_url" dropdown-input=true
               placeholder="http://" on-open="startUrlMediaEditing()" on-close="submitUrlMedia(newListItem)"
             ]
-          a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
+          a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}" ng-click="addItem()"
           input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
           progress-bar
           preview item="newListItem" editable="true"
