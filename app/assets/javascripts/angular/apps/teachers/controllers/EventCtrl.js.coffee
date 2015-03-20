@@ -41,6 +41,7 @@ EventCtrl = (
 
   unsavedItems = ->
     $scope.event_form.topic.$dirty ||
+    $scope.event_form.topic_private.$dirty ||
     $scope.event_form.topic_media_url.$dirty ||
     $scope.event_form.topic_media_file.$dirty
 
@@ -90,8 +91,8 @@ EventCtrl = (
     NavigationGuard.unregisterGuardian(checkDirty)
     $interval.cancel(autosave)
 
-  $scope.setPersonalTopicsVisibility = (visible)->
-    $scope.arePersonalTopicsVisible = visible
+  $scope.setPrivateTopicsVisibility = (visible)->
+    $scope.showPrivateTopics = visible
 
 EventCtrl.$inject = ['$scope', '$routeParams', '$interval', '$window', '$q', 'Event', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
 DunnoApp.controller 'EventCtrl', EventCtrl

@@ -192,7 +192,7 @@ describe Api::V1::Teacher::EventsController do
 
       let(:event_template) { build(:event, course: course) }
 
-      let(:topic) { build :topic, order: 1, done: true, media: media_with_url }
+      let(:topic) { build :topic, order: 1, done: true, media: media_with_url, personal: true }
       let(:personal_note) { build :personal_note, order: 1, done: true, media: another_media_with_url }
       let(:media_with_url) { create :media_with_url }
       let(:another_media_with_url) { create :media_with_url }
@@ -209,7 +209,8 @@ describe Api::V1::Teacher::EventsController do
               description: topic.description,
               done: topic.done,
               order: topic.order,
-              media_id: topic.media.uuid
+              media_id: topic.media.uuid,
+              personal: topic.personal
             ],
             personal_notes: [
               description: personal_note.description,
@@ -255,6 +256,7 @@ describe Api::V1::Teacher::EventsController do
           it { expect(subject.description).to be_nil }
           it { expect(subject.order).to eq topic.order }
           it { expect(subject).to be_done }
+          it { expect(subject).to be_personal }
 
           describe "media with url" do
             subject { event.topics.first.media }
