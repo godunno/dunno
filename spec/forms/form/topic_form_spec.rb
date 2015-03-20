@@ -27,7 +27,7 @@ describe Form::TopicForm do
     let(:description) { "Awesome video" }
 
     context "creating topic" do
-      let(:media) { create :media, title: nil }
+      let(:media) { create :media, title: 'Original media title' }
       let(:topic) { attributes_for(:topic, description: description, media_id: media.uuid).with_indifferent_access }
       let(:topic_form) { Form::TopicForm.new topic }
 
@@ -35,6 +35,13 @@ describe Form::TopicForm do
 
       it { expect(topic_form.model.description).to be_nil }
       it { expect(media.reload.title).to eq(description) }
+
+      context "without description" do
+        let(:description) { nil }
+
+        it { expect(topic_form.model.description).to be_nil }
+        it { expect(media.reload.title).to eq('Original media title') }
+      end
     end
 
     context "updating topic" do
