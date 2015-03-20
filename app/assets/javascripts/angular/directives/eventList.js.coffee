@@ -15,11 +15,12 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
       order = 1
     { order: order, personal: $rootScope.defaultTopicPrivacy }
 
-  $scope.generateOrderableItem = ->
+  $scope.resetNewItem = ->
     $scope.newListItem = generateOrderable(list())
+    $scope.itemType = 'text'
 
   $scope.$on 'initializeEvent', ->
-    $scope.generateOrderableItem()
+    $scope.resetNewItem()
     list().sort (a,b)-> a.order - b.order
 
   $scope.addItem = ($event)->
@@ -32,7 +33,7 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
         courseUuid: $scope.event.course.uuid
       $scope.newItem(list(), $scope.newListItem)
       $rootScope.defaultTopicPrivacy = $scope.newListItem.personal
-      $scope.generateOrderableItem()
+      $scope.resetNewItem()
       $scope.save($scope.event)
     if $scope._editingMediaUrl
       $scope.submitUrlMedia($scope.newListItem).then(run)
@@ -113,9 +114,6 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
     submitMedia item, promise, true
     $scope.$broadcast("file.clean")
 
-  $scope.pickFromCatalog = ->
-    return if $scope.newListItem.media? && !confirm("Deseja substituir o anexo atual?")
-    $scope.$broadcast('catalog-picker.open')
 
   $scope.$on 'catalog-picker.selected', (_, media)->
     $analytics.eventTrack('Media Selected', type: media.type, title: media.title, eventUuid: $scope.event.uuid)

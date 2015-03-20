@@ -182,7 +182,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             .type.url ng-show="itemType == 'url'"
               input[
                 ng-if="!newListItem.media"
-                type="text" name="topic_media_url"
+                type="text"
+                name="topic_media_url"
                 ng-model="newListItem.media_url"
                 placeholder="http://"
                 ui-keydown="{'enter':'submitUrlMedia(newListItem)'}"
@@ -196,12 +197,33 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   placeholder="Adicionar conteúdo"
                   ui-keydown="{'enter':'addItem($event)'}" name="topic"
                 ]
-            .type.catalog ng-show="itemType == 'catalog'"
-              | Catálogo
-          a.item-button.media-search-button.icon.icon-catalog ng-click="pickFromCatalog()"
-          catalog-picker
+            .type.catalog ng-show="itemType == 'catalog'" ng-controller="MediasIndexCtrl"
+              ng-form name="topic_media_id"
+                .header
+                  h1 Catálogo
+                  .search-wrapper
+                    input type="text" ng-model="search.q" placeholder="Procure por assunto, palavra-chave ou tags" ui-keydown="{'enter':'fetch($event)'}"
+                    a.button.postfix.icon.icon-close ng-click="clearSearch()"
+                    a.button.postfix.icon.icon-search ng-click="fetch()"
+                .medias
+                  .media ng-repeat="media in medias"
+                    .thumbnail
+                      img ng-src="{{media.thumbnail}}"
+                    .data
+                      .top
+                        input type="radio" ng-model="newListItem.media_id" ng-value="media.uuid"
+                        .title {{media.title}}
+                        a.open target="_blank" ng-href="{{media.url}}"
+                          | Ver
+                      .bottom
+                        i.type.icon ng-class="'icon-' + media.type"
+                        a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
+
+                .row ng-if="!!medias && medias.length > 0"
+                  a.load-more ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"
+                    | Carregar mais
           a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}" ng-click="addItem()"
-          a.cancel ng-click="generateOrderableItem()"
+          a.cancel ng-click="resetNewItem()"
             | Cancelar
           progress-bar
         .hint
