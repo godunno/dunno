@@ -40,7 +40,7 @@ EventCtrl = (
     !!list.filter((item)-> $scope.isEditing(item)).length
 
   unsavedItems = ->
-    $scope.event_form.topic?.$dirty ||
+    $scope.event_form.topic_description?.$dirty ||
     $scope.event_form.topic_private?.$dirty ||
     $scope.event_form.topic_media_url?.$dirty ||
     $scope.event_form.topic_media_file?.$dirty ||
