@@ -7,6 +7,7 @@ describe "Adding a new topic to an event" do
   let!(:event) { create(:event, course: course) }
 
   before do
+    skip
     sign_in(user)
     visit_course(event.course)
     visit_event(event)
