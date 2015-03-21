@@ -155,13 +155,16 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 type="text"
                 focus-wrapper=""
                 placeholder="Adicionar conteúdo"
-                ui-keydown="{'enter':'addItem($event)'}" name="topic"
+                ui-keydown="{'enter':'addItem($event)'}"
+                name="topic_description"
               ]
             .type.file ng-show="itemType == 'file'"
               label.icon.icon-clips.item-button.media-file-button[
+                ng-show="!newListItem.media"
                 for="topic-file"
                 ng-class="{active: newListItem.media.type=='file'}"
               ]
+                | Fazer upload
               input#topic-file.file-input[
                 ng-file-model=""
                 type="file"
@@ -170,32 +173,34 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-file-select="submitFileMedia(newListItem,
                 $files)"
               ]
-              .media ng-if="!!newListItem.media"
+              .media ng-show="!!newListItem.media"
                 preview item="newListItem" editable="true"
                 input.field-new-list-item[
                   ng-model="newListItem.description"
                   type="text"
                   focus-wrapper=""
                   placeholder="Adicionar conteúdo"
-                  ui-keydown="{'enter':'addItem($event)'}" name="topic"
+                  ui-keydown="{'enter':'addItem($event)'}"
+                  name="topic_description"
                 ]
             .type.url ng-show="itemType == 'url'"
               input[
-                ng-if="!newListItem.media"
+                ng-show="!newListItem.media"
                 type="text"
                 name="topic_media_url"
                 ng-model="newListItem.media_url"
                 placeholder="http://"
                 ui-keydown="{'enter':'submitUrlMedia(newListItem)'}"
               ]
-              .media ng-if="!!newListItem.media"
+              .media ng-show="!!newListItem.media"
                 preview item="newListItem" editable="true"
                 input.field-new-list-item[
                   ng-model="newListItem.description"
                   type="text"
                   focus-wrapper=""
                   placeholder="Adicionar conteúdo"
-                  ui-keydown="{'enter':'addItem($event)'}" name="topic"
+                  ui-keydown="{'enter':'addItem($event)'}"
+                  name="topic_description"
                 ]
             .type.catalog ng-show="itemType == 'catalog'" ng-controller="MediasIndexCtrl"
               ng-form name="topic_media_id"

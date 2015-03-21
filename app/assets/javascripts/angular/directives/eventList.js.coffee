@@ -88,7 +88,8 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
       $analytics.eventTrack('Media Created', type: media.type, title: media.title, event_uuid: $scope.event.uuid)
       item.media = media
       item.media_id = media.uuid
-      item.description = media.title
+      $scope.event_form.topic_description.$setViewValue(media.title)
+      $scope.event_form.topic_description.$render()
     ).finally(->
       item._submittingMedia = false
       $scope.$broadcast("progress.stop")
@@ -123,6 +124,7 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
     $scope.$broadcast("file.clean")
 
   $scope.removeMedia = (item)->
+    item.media?.remove()
     item.media_id = null
     item.media = null
     $scope.event_form.$setDirty()
