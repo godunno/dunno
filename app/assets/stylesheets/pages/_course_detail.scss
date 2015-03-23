@@ -8,19 +8,6 @@
 }
 
 .course-detail-page {
-  .tab-container {
-    list-style: none;
-
-    li {
-      display: inline-block;
-      padding: 10px;
-
-      &.active {
-        background-color: #f00; // NEW_COLOUR
-      }
-    }
-  }
-
   .code {
     @extend %side-box;
     text-align: center;
@@ -55,45 +42,48 @@
   .students {
     @extend %side-box;
 
-    .top {
-      strong {
-        font-size: 12px;
-      }
+    strong {
+      font-size: .75em;
+    }
 
-      .send-message {
-        margin-bottom: 0;
-      }
+    .send-message {
+      margin-bottom: 0;
+    }
 
-      .btn-sm {
-        padding: 0 10px;
-      }
+    .btn-sm {
+      padding: 0 10px;
     }
 
     .list {
       list-style: none;
-      margin: 0;
+      margin: 1em 0 0;
       padding: 0;
 
       li {
         border-bottom: 1px solid #d0d0d0; // NEW_COLOUR
-        padding: 10px 20px;
+        padding: .25em 0;
+
+        &:last-child {
+          border: 0;
+        }
 
         h3 {
-          font-size: 14px;
+          font-size: .875em;
         }
       }
     }
   }
 }
 
-#access-code-fullscreen {
+.access-code-fullscreen-modal {
   background: $secondary-color;
   padding-top: 25vh;
   text-align: center;
 
   span,
   h3,
-  a {
+  a,
+  .close-reveal-modal {
     color: $white;
   }
 
@@ -114,8 +104,6 @@
     top: 10vh;
   }
 }
-
-// REFACTOR
 
 .dates {
   @extend .cf;
