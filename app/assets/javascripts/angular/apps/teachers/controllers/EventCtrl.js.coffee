@@ -36,9 +36,6 @@ EventCtrl = (
     else
       "Salvo"
 
-  anyEditing = (list)->
-    !!list.filter((item)-> $scope.isEditing(item)).length
-
   unsavedItems = ->
     $scope.event_form.topic_description?.$dirty ||
     $scope.event_form.topic_private?.$dirty ||
@@ -48,11 +45,12 @@ EventCtrl = (
 
   $scope.saveButtonDisabled = ->
     unsavedItems() ||
-      anyEditing($scope.event.topics) ||
+      $scope.isEditing ||
       $scope.isSaving ||
       $scope.event_form.$pristine
 
   $scope.save = (event)->
+    $scope.isEditing = false
     $scope.isSaving = true
     deferred = $q.defer()
     event.save().then(->
@@ -71,15 +69,7 @@ EventCtrl = (
     $scope.save(event).then ->
       $window.location.href = $scope.courseLocation(event)
 
-  $scope.updateItem = ($event, editingItem, item)->
-    $event.preventDefault()
-    angular.copy(editingItem, item)
-    item._editing = false
-
-  $scope.isEditing = (item)-> !!item._editing
-  $scope.editItem = (item, editingItem)->
-    angular.copy(item, editingItem)
-    item._editing = true
+  $scope.startEditing = -> $scope.isEditing = true
 
   autosave = $interval(
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()
