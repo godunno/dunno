@@ -3,6 +3,7 @@
     margin: .75em;
   }
 }
+
 .preview {
   background-color: $background-light-grey-color;
   border-radius: .125em;
@@ -12,6 +13,12 @@
 
   .image {
     @include grid-column(2);
+    height: 100px;
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
   }
 
   .text {
