@@ -30,23 +30,23 @@ class SendNotification
 
   private
 
-  def sms_message
-    "[Dunno] #{@course.name} - #{@message}"
+  def message
+    "[Dunno] #{@course.abbreviation} - #{@message}"
   end
 
   def email_subject
-    "Professor(a) #{@course.teacher.name} da turma de #{@course.name} enviou uma mensagem"
+    "[Dunno] Notificação de #{@course.abbreviation}"
   end
 
   def send_sms
-    SmsProvider.new.notify(message: sms_message, to: @users.map(&:phone_number))
+    SmsProvider.new.notify(message: message, to: @users.map(&:phone_number))
   rescue
     @errors[:sms] = { send: true }
   end
 
   def send_email
     NotificationMailer.notify(
-      message: @message,
+      message: message,
       to: @users.map(&:email),
       subject: email_subject
     ).deliver

@@ -19,7 +19,7 @@ describe SendNotification do
   it "should notify all users with SMS" do
     SmsProvider.stub(:new).and_return(sms_provider)
     expect(sms_provider).to receive(:notify).with(
-      message: "[Dunno] #{course.name} - #{message}",
+      message: "[Dunno] #{course.abbreviation} - #{message}",
       to: users.map(&:phone_number)
     )
     SendNotification.new(message: message, course: course).call
@@ -27,8 +27,8 @@ describe SendNotification do
 
   it "should notify all users with e-mail" do
     expect(NotificationMailer).to receive(:notify).with(
-      message: message,
-      subject: "Professor(a) #{teacher.name} da turma de #{course.name} enviou uma mensagem",
+      message: "[Dunno] #{course.abbreviation} - #{message}",
+      subject: "[Dunno] Notificação de #{course.abbreviation}",
       to: users.map(&:email)
     ).and_return(mail)
     expect(mail).to receive(:deliver)

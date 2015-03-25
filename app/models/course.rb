@@ -37,6 +37,9 @@ class Course < ActiveRecord::Base
     super(options.merge(methods: [:order]))
   end
 
+  def abbreviation
+    name
+  end
 
   private
 
