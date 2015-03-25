@@ -40,13 +40,23 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
   form name="notification_form" ng-submit="save(notification)"
     label for="message"
       | Enviar mensagem
-    textarea#message name="message" ng-model="notification.message" rows="5" ng-minlength="1" maxlength="{{limit}}" placeholder="Ex: A aula foi transferida para o laboratório." required=true
+    textarea#message[
+      name="message"
+      ng-model="notification.message"
+      rows="5"
+      ng-minlength="1"
+      maxlength="{{limit}}"
+      placeholder="Ex: A aula foi transferida para o laboratório."
+      required=true
+      ng-disabled="isSending()"
+      ng-focus="setReady()"
+    ]
     .hint
       | A notificação será entregue aos alunos por SMS ou e-mail, de acordo com as configurações de privacidade dos mesmos.
     .actions
       span.counter
         | Caracteres restantes: {{limit - notification.message.length}}
-      input.button.btn-style-1.right type="submit" ng-disabled="notification_form.$invalid || sending" value="Enviar"
+      input.button.btn-style-1.right type="submit" ng-disabled="notification_form.$invalid || !isReady()" value="{{sendButtonText()}}"
     span.error ng-if="errors.sms" ng-messages="errors.sms"
       span ng-message="send"
         | Ocorreu um erro ao enviar SMS.

@@ -8,17 +8,33 @@ NotificationCtrl = ($scope, $timeout, Notification)->
     $scope.errors = {}
   )()
 
+  $scope.status = 'ready'
+
+  $scope.isReady = -> $scope.status == 'ready'
+  $scope.setReady = -> $scope.status = 'ready'
+
+  $scope.isSending = -> $scope.status == 'sending'
+  $scope.setSending = -> $scope.status = 'sending'
+
+  $scope.isSent = -> $scope.status == 'sent'
+  $scope.setSent = -> $scope.status = 'sent'
+
   $scope.save = (notification)->
-    $scope.sending = true
-    $scope.error = false
+    $scope.setSending()
     notification.course_id = $scope.$parent.course.uuid
     notification.save().then(->
       $scope.reset()
-      $scope.$broadcast('modal.dismiss')
+      $scope.setSent()
     ).catch((response)->
       $scope.errors = response.data.errors
-    ).finally(-> $scope.sending = false)
+      $scope.setReady()
+    )
 
+  $scope.sendButtonText = ->
+    switch $scope.status
+      when 'ready' then 'Enviar'
+      when 'sending' then 'Enviando...'
+      when 'sent' then 'Enviado com sucesso!'
 
 NotificationCtrl.$inject = [
   '$scope', '$timeout', 'Notification'
