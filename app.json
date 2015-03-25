@@ -49,8 +49,6 @@
     "memcachier:dev",
     "newrelic:stark",
     "pgbackups:plus",
-    "pusher:sandbox",
-    "deployhooks:http",
     "redistogo:nano",
     "bonsai:starter",
     "mandrill:starter",
