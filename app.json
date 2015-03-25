@@ -32,12 +32,6 @@
     "ELASTICSEARCH_URL":{
       "required":true
     },
-    "MANDRILL_APIKEY":{
-      "required":true
-    },
-    "MANDRILL_USERNAME":{
-      "required":true
-    },
     "ERRBIT_API_KEY":{
       "required":true
     },
@@ -47,8 +41,6 @@
   },
   "addons":[
     "memcachier",
-    "newrelic:stark",
-    "pgbackups",
     "redistogo",
     "bonsai",
     "mandrill",
