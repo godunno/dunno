@@ -1,6 +1,8 @@
 {
   "name":"dunnovc-staging",
-  "scripts":{},
+  "scripts":{
+    "postdeploy": "bundle exec rake db:schema:load db:seed"
+  },
   "env":{
     "RACK_ENV":{
       "required":true
