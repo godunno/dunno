@@ -46,12 +46,12 @@
     }
   },
   "addons":[
-    "memcachier:dev",
+    "memcachier",
     "newrelic:stark",
-    "pgbackups:plus",
-    "redistogo:nano",
-    "bonsai:starter",
-    "mandrill:starter",
-    "heroku-postgresql:hobby-dev"
+    "pgbackups",
+    "redistogo",
+    "bonsai",
+    "mandrill",
+    "heroku-postgresql"
   ]
 }
