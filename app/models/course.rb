@@ -10,9 +10,11 @@ class Course < ActiveRecord::Base
   has_many :notifications
   has_and_belongs_to_many :students
 
-  validates :teacher, :name, :start_date, :end_date, :class_name, presence: true
+  validates :teacher, :name, :start_date, :end_date, :class_name, :abbreviation, presence: true
+  validates :abbreviation, length: { maximum: 10 }
 
   before_create :set_access_code
+  before_validation :set_abbreviation
 
   default_scope -> { order(:created_at) }
 
@@ -37,16 +39,16 @@ class Course < ActiveRecord::Base
     super(options.merge(methods: [:order]))
   end
 
-  def abbreviation
-    name
-  end
-
   private
 
-    def set_access_code
-      loop do
-        self.access_code = SecureRandom.hex(2)
-        break unless Course.exists?(access_code: access_code)
-      end
+  def set_access_code
+    loop do
+      self.access_code = SecureRandom.hex(2)
+      break unless Course.exists?(access_code: access_code)
     end
+  end
+
+  def set_abbreviation
+    self.abbreviation ||= Abbreviate.abbreviate(name) if name.present?
+  end
 end
