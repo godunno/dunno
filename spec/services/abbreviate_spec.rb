@@ -9,6 +9,8 @@ describe Abbreviate do
   it { expect(Abbreviate.new("Programação IV").abbreviate).to eq("PIV") }
   it { expect(Abbreviate.new("programação iii").abbreviate).to eq("PIII") }
   it { expect(Abbreviate.new("Cálculo Diferencial e Integral Aplicado para Computação II").abbreviate).to eq("CDIACII") }
+  it { expect(Abbreviate.new("Conjunções: e ou para de da que").abbreviate).to eq("C") }
+  it { expect(Abbreviate.new("Nome Realmente Muito Longo de Disciplina de Graduação que Possui Mais de Dez Caracteres II").abbreviate).to eq("NRMLDGPMDC") }
 
   it "should have a constructor method" do
     abbreviator = spy('Abbreviate')
