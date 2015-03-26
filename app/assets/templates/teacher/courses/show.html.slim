@@ -38,6 +38,9 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
         | Clique aqui para planejar e editar o conteúdo de sua aula.
 #send-notification.reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" data-reveal=""
   form name="notification_form" ng-submit="save(notification)"
+    label for="abbreviation"
+      | Abreviação da Disciplina
+    input.abbreviation type="text" ng-model="course.abbreviation" maxlength="10"
     label for="message"
       | Enviar mensagem
     textarea#message[

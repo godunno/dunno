@@ -7,12 +7,14 @@ describe Api::V1::Teacher::NotificationsController do
     it_behaves_like "API authentication required"
     context "authenticated" do
       let(:message) { "MESSAGE" }
+      let(:new_abbreviation) { "New Abbr" }
 
       let(:params_hash) do
         {
           notification: {
             "message" => message,
-            "course_id" => course.uuid
+            "course_id" => course.uuid,
+            "abbreviation" => new_abbreviation
           }
         }
       end
@@ -48,6 +50,7 @@ describe Api::V1::Teacher::NotificationsController do
         it { expect(last_response.status).to eq(200) }
         it { expect(subject.message).to eq(message) }
         it { expect(subject.course).to eq(course) }
+        it { expect(subject.course.abbreviation).to eq(new_abbreviation) }
       end
     end
   end

@@ -21,7 +21,9 @@ NotificationCtrl = ($scope, $timeout, Notification)->
 
   $scope.save = (notification)->
     $scope.setSending()
-    notification.course_id = $scope.$parent.course.uuid
+    course = $scope.$parent.course
+    notification.course_id = course.uuid
+    notification.abbreviation = course.abbreviation
     notification.save().then(->
       $scope.reset()
       $scope.setSent()
