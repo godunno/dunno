@@ -1,6 +1,6 @@
 class SendNotification
   def initialize(options = {})
-    @message = options.fetch(:message)
+    @original_message = options.fetch(:message)
     @course = options.fetch(:course)
     @users = @course.try(:students) || []
     @errors = {}
@@ -13,7 +13,7 @@ class SendNotification
   end
 
   def notification
-    @notification ||= Notification.new(message: @message, course: @course)
+    @notification ||= Notification.new(message: @original_message, course: @course)
   end
 
   def errors
@@ -31,7 +31,7 @@ class SendNotification
   private
 
   def message
-    "[Dunno] #{@course.abbreviation} - #{@message}"
+    "[Dunno] #{@course.abbreviation} - #{@original_message}"
   end
 
   def email_subject

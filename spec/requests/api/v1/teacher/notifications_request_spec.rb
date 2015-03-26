@@ -8,6 +8,7 @@ describe Api::V1::Teacher::NotificationsController do
     context "authenticated" do
       let(:message) { "MESSAGE" }
       let(:new_abbreviation) { "New Abbr" }
+      let(:course) { create :course, teacher: teacher }
 
       let(:params_hash) do
         {
@@ -26,16 +27,16 @@ describe Api::V1::Teacher::NotificationsController do
       context "trying to notificate another teacher's course" do
         let(:course) { create :course, teacher: create(:teacher) }
 
-        before do
-          do_action
-        end
+        it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
 
+      context "creating an invalid notification" do
+        let(:message) { '' }
+        before { do_action }
         it { expect(last_response.status).to eq(403) }
       end
 
       context "notificating a course" do
-        let(:course) { create :course, teacher: teacher }
-
         let(:sms_provider) { double("sms_provider", notify: nil) }
         let(:mail) { double("mail", deliver: nil) }
 
