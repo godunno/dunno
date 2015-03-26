@@ -36,6 +36,11 @@ describe Api::V1::Teacher::NotificationsController do
         it { expect(last_response.status).to eq(403) }
       end
 
+      context "updating course with invalid abbreviation" do
+        let(:new_abbreviation) { 'too long abbreviation' }
+        it { expect { do_action }.to raise_error(ActiveRecord::RecordInvalid) }
+      end
+
       context "notificating a course" do
         let(:sms_provider) { double("sms_provider", notify: nil) }
         let(:mail) { double("mail", deliver: nil) }

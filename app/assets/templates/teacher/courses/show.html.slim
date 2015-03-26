@@ -40,7 +40,12 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
   form name="notification_form" ng-submit="save(notification)"
     label for="abbreviation"
       | Abreviação da Disciplina
-    input.abbreviation type="text" ng-model="course.abbreviation" maxlength="10"
+    input.abbreviation[
+      type="text"
+      ng-model="course.abbreviation"
+      maxlength="10"
+      required=true
+    ]
     label for="message"
       | Enviar mensagem
     textarea#message[
@@ -69,5 +74,7 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
     span.error ng-if="errors.message" ng-messages="errors.message"
       span ng-message="repeated"
         | Esta mensagem é igual à última enviada.
+    span.error ng-if="hasError && !errors"
+      | Ocorreu um erro ao enviar a mensagem.
   a.close-reveal-modal ng-click="reset()"
     | &#215;

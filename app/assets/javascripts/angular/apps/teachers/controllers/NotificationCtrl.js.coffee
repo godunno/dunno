@@ -20,6 +20,7 @@ NotificationCtrl = ($scope, $timeout, Notification)->
   $scope.setSent = -> $scope.status = 'sent'
 
   $scope.save = (notification)->
+    $scope.hasError = false
     $scope.setSending()
     course = $scope.$parent.course
     notification.course_id = course.uuid
@@ -28,6 +29,7 @@ NotificationCtrl = ($scope, $timeout, Notification)->
       $scope.reset()
       $scope.setSent()
     ).catch((response)->
+      $scope.hasError = true
       $scope.errors = response.data.errors
       $scope.setReady()
     )

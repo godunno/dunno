@@ -4,7 +4,7 @@ class Api::V1::Teacher::NotificationsController < Api::V1::TeacherApplicationCon
   def create
     notification = params[:notification]
     course = current_teacher.courses.find_by!(uuid: notification[:course_id])
-    course.update(abbreviation: params[:notification][:abbreviation]) if course
+    course.update!(abbreviation: params[:notification][:abbreviation]) if course
     send_notification = SendNotification.new(message: notification[:message], course: course)
     send_notification.call
     if send_notification.valid?
