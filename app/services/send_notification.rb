@@ -39,8 +39,9 @@ class SendNotification
   end
 
   def send_sms
-    SmsProvider.new.notify(message: message, to: @users.map(&:phone_number))
-  rescue
+    SmsProvider.new.notify(message: NotificationFormatter.format(message), to: @users.map(&:phone_number))
+  rescue => e
+    Rails.logger.error e.backtrace
     @errors[:sms] = { send: true }
   end
 
@@ -50,7 +51,8 @@ class SendNotification
       to: @users.map(&:email),
       subject: email_subject
     ).deliver
-  rescue
+  rescue => e
+    Rails.logger.error e.backtrace
     @errors[:email] = { send: true }
   end
 end

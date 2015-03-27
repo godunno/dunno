@@ -18,10 +18,14 @@ describe SendNotification do
 
   it "should notify all users with SMS" do
     SmsProvider.stub(:new).and_return(sms_provider)
+    complete_message = "[Dunno] #{course.abbreviation} - #{message}"
+    formatter = double("NotifcationFormatter", format: complete_message)
+    NotificationFormatter.stub(:new).with(complete_message).and_return(formatter)
     expect(sms_provider).to receive(:notify).with(
-      message: "[Dunno] #{course.abbreviation} - #{message}",
+      message: complete_message,
       to: users.map(&:phone_number)
     )
+    expect(formatter).to receive(:format)
     SendNotification.new(message: message, course: course).call
   end
 
