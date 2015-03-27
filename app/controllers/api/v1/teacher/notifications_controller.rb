@@ -7,10 +7,6 @@ class Api::V1::Teacher::NotificationsController < Api::V1::TeacherApplicationCon
     course.update!(abbreviation: params[:notification][:abbreviation])
     send_notification = SendNotification.new(message: notification[:message], course: course)
     send_notification.call
-    if send_notification.valid?
-      render nothing: true
-    else
-      render json: { errors: send_notification.errors }, status: 403
-    end
+    render nothing: true
   end
 end

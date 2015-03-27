@@ -68,16 +68,21 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
     input.preview type="text" disabled=true value="[Dunno] {{course.abbreviation}} - {{notification.message | transliterate}}"
     .actions
       input.button.btn-style-1.right type="submit" ng-disabled="notification_form.$invalid || !isReady()" value="{{sendButtonText()}}"
-    span.error ng-if="errors.sms" ng-messages="errors.sms"
-      span ng-message="send"
-        | Ocorreu um erro ao enviar SMS.
-    span.error ng-if="errors.email" ng-messages="errors.email"
-      span ng-message="send"
-        | Ocorreu um erro ao enviar email.
-    span.error ng-if="errors.message" ng-messages="errors.message"
+    span.error ng-if="notification_form.abbreviation.$invalid" ng-messages="notification_form.abbreviation.$error"
+      span ng-message="blank"
+        | A abreviação é obrigatória
+      span ng-message="too_long"
+        | A abreviação é muito longa (máximo de 10 caracteres)
+    span.error ng-if="notification_form.message.$invalid && notification_form.message.$dirty" ng-messages="notification_form.message.$error"
       span ng-message="repeated"
         | Esta mensagem é igual à última enviada.
-    span.error ng-if="hasError && !errors"
+      span ng-message="blank"
+        | A mensagem é obrigatória
+      span ng-message="required"
+        | A mensagem é obrigatória
+      span ng-message="too_long"
+        | A mensagem é muito longa (máximo de 140 caracteres)
+    span.error ng-if="hasError && !notification_form.$invalid"
       | Ocorreu um erro ao enviar a mensagem.
   a.close-reveal-modal ng-click="reset()"
     | &#215;

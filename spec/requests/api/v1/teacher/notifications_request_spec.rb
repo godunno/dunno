@@ -33,12 +33,32 @@ describe Api::V1::Teacher::NotificationsController do
       context "creating an invalid notification" do
         let(:message) { '' }
         before { do_action }
-        it { expect(last_response.status).to eq(403) }
+        it { expect(last_response.status).to eq(422) }
+        it do
+          expect(json).to eq(
+            "errors" => {
+              "message" => [
+                { "error" => "blank" },
+                { "error" => "too_short", "count"=>1 }
+              ]
+            }
+          )
+        end
       end
 
       context "updating course with invalid abbreviation" do
         let(:new_abbreviation) { 'too long abbreviation' }
-        it { expect { do_action }.to raise_error(ActiveRecord::RecordInvalid) }
+        before { do_action }
+        it { expect(last_response.status).to eq(422) }
+        it do
+          expect(json).to eq(
+            "errors" => {
+              "abbreviation" => [
+                { "error" => "too_long", "count" => 10 }
+              ]
+            }
+          )
+        end
       end
 
       context "notificating a course" do

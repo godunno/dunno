@@ -43,6 +43,7 @@ gem 'google_drive',               '1.0.0', require: false
 gem 'mixpanel-ruby',              '1.7.0'
 gem 'carrierwave',                '0.10.0'
 gem 'fog',                        '1.28.0'
+gem 'airbrake',                   '4.1.0'
 
 gem 'rails-assets-angular',       '1.3.2'
 gem 'rails-assets-angular-route', '1.3.2'
@@ -65,10 +66,8 @@ gem 'rails-assets-angular-foundation', '0.5.1'
 gem 'rails-assets-angular-busy', '4.1.2'
 gem 'rails-assets-lunks--angulartics', '0.17.2'
 
-
 group :production, :staging do
   gem 'rails_12factor',            '0.0.3'
-  gem 'airbrake',                  '4.1.0'
   gem 'memcachier',                '0.0.2'
   gem 'bonsai-elasticsearch-rails','0.0.4'
 end

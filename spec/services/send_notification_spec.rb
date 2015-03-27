@@ -8,24 +8,21 @@ describe SendNotification do
   let(:message) { "MESSAGE" }
   let(:course) { create(:course, students: users) }
   let(:teacher) { course.teacher }
-  let(:sms_provider) { double("sms_provider", notify: nil) }
   let(:mail) { double("mail", deliver: nil) }
 
   before do
-    SmsProvider.stub(:new).and_return(sms_provider)
+    allow(SmsNotificationWorker).to receive(:perform_async)
     allow(NotificationMailer).to receive(:notify).and_return(mail)
   end
 
   it "should notify all users with SMS" do
-    SmsProvider.stub(:new).and_return(sms_provider)
     complete_message = "[Dunno] #{course.abbreviation} - #{message}"
-    formatter = double("NotifcationFormatter", format: complete_message)
-    NotificationFormatter.stub(:new).with(complete_message).and_return(formatter)
-    expect(sms_provider).to receive(:notify).with(
-      message: complete_message,
-      to: users.map(&:phone_number)
-    )
-    expect(formatter).to receive(:format)
+    users.each do |user|
+      expect(SmsNotificationWorker).to receive(:perform_async).with(
+        complete_message,
+        user.phone_number
+      )
+    end
     SendNotification.new(message: message, course: course).call
   end
 
@@ -47,34 +44,8 @@ describe SendNotification do
     expect(last_notification.course).to eq(course)
   end
 
-  it "should show providers errors" do
-    allow(sms_provider).to receive(:notify).and_raise("Error")
-    allow(mail).to receive(:deliver).and_raise("Error")
-    send_notification = SendNotification.new(message: message, course: course)
-    send_notification.call
-    expect(send_notification.valid?).to eq(false)
-    expect(send_notification.errors).to eq(
-      email: { send: true },
-      sms:   { send: true }
-    )
-  end
-
-  it "should show model errors" do
+  it "should not send notification with providers when model is invalid" do
     send_notification = SendNotification.new(message: '', course: course)
-    send_notification.call
-    expect(send_notification.valid?).to eq(false)
-    expect(send_notification.errors).to eq(
-      message: {
-        blank: true,
-        too_short: true
-      }
-    )
-  end
-
-  it "should not try to send with providers when model is invalid" do
-    send_notification = SendNotification.new(message: '', course: course)
-    send_notification.call
-    expect(sms_provider).not_to have_received(:notify)
-    expect(mail).not_to have_received(:deliver)
+    expect { send_notification.call }.to raise_error ActiveRecord::RecordInvalid
   end
 end

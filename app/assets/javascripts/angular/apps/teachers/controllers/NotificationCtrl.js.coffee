@@ -1,11 +1,11 @@
 DunnoApp = angular.module('DunnoApp')
 
-NotificationCtrl = ($scope, $timeout, Notification)->
+NotificationCtrl = ($scope, $timeout, Notification, ErrorParser)->
   $scope.limit = 140
 
   ($scope.reset = ->
     $scope.notification = new Notification()
-    $scope.errors = {}
+    $scope.notification_form.$setPristine() if $scope.notification_form
   )()
 
   $scope.status = 'ready'
@@ -30,7 +30,7 @@ NotificationCtrl = ($scope, $timeout, Notification)->
       $scope.setSent()
     ).catch((response)->
       $scope.hasError = true
-      $scope.errors = response.data.errors
+      ErrorParser.setErrors(response.data.errors, $scope.notification_form, $scope)
       $scope.setReady()
     )
 
@@ -41,6 +41,6 @@ NotificationCtrl = ($scope, $timeout, Notification)->
       when 'sent' then 'Enviado com sucesso!'
 
 NotificationCtrl.$inject = [
-  '$scope', '$timeout', 'Notification'
+  '$scope', '$timeout', 'Notification', 'ErrorParser'
 ]
 DunnoApp.controller 'NotificationCtrl', NotificationCtrl
