@@ -68,7 +68,7 @@ charmap =
   'Ý': 'Y'
   'Þ': 'Th'
   'ß': 'ss'
-  'à': '`a'
+  'à': 'a'
   'á': 'a'
   'â': 'a'
   'ã': 'a'
@@ -238,7 +238,6 @@ Transliterate = (s) ->
     c = String.fromCharCode(c)
     charmap[c] || c
   .join('')
-  .replace(/[^\w\s-]/g, '')
   .trim()
 
 TransliterateFactory = -> { transliterate: Transliterate }

@@ -299,7 +299,6 @@ ActiveRecord::Schema.define(version: 20150325223041) do
     t.integer  "order"
     t.boolean  "done"
     t.integer  "media_id"
-    t.boolean  "personal",    default: false
   end
 
   add_index "topics", ["event_id"], name: "index_topics_on_event_id", using: :btree

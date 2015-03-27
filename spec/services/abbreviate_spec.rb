@@ -1,5 +1,4 @@
 require './app/services/abbreviate'
-require 'pry'
 
 describe Abbreviate do
   it { expect(Abbreviate.new("Programação").abbreviate).to eq("P") }
