@@ -27,55 +27,47 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         span
           | Mostrar conteúdo privado
 
-.diary-page
+.diary__page
   form name="event_form"
-    .row.event-status
-      .small-3.small-offset-3.columns.select-status
-        a.small.dropdown.button data-dropdown="event-status"
-          .option.published ng-if="event.status == 'published'"
-            i.icon.icon-published
-            span.value
-              | Publicada
-          .option.draft ng-if="event.status == 'draft'"
-            i.icon.icon-draft
-            span.value
-              | Rascunho
-          .option.canceled ng-if="event.status == 'canceled'"
-            i.icon.icon-canceled
-            span.value
-              | Cancelada
-        ul#event-status.status-list.f-dropdown[
+    .row.event__status
+      .small-3.small-offset-3.columns
+        a.select__event__status.small.dropdown.button data-dropdown="event-status"
+          span.event__status__published ng-if="event.status == 'published'"
+            i.icon.icon-published>
+            | Publicada
+          span.event__status__draft ng-if="event.status == 'draft'"
+            i.icon.icon-draft>
+            | Rascunho
+          span.event__status__canceled ng-if="event.status == 'canceled'"
+            i.icon.icon-canceled>
+            | Cancelada
+        input.model[
+          type="hidden"
+          name="event_status"
+          ng-model="event.status"]
+        ul#event-status.event__status__list.f-dropdown[
           data-dropdown-content=""
           dropdown-select=""]
-          input.model[
-            type="hidden"
-            name="event_status"
-            ng-model="event.status"]
-          li.option.published dropdown-select-item="'published'"
-            .title
-              span
-                | Publicada
+          li.published__event dropdown-select-item="'published'"
+            span
+              | Publicada
               i.icon.icon-published
-            .subtitle
+            small
               | Estudantes podem ver as tarefas.
-          li.option dropdown-select-item="'draft'"
-            .content
-              .title
-                span
-                  | Rascunho
-                i.icon.icon-draft
-              .subtitle
-                | Estudantes não conseguem visualizar as tarefas.
-          li.option dropdown-select-item="'canceled'"
-            .content
-              .title
-                span
-                  | Cancelar
-                i.icon.icon-canceled
-              .subtitle
-                | Cancelar aula e notificar os estudantes.
+          li.drafted__event dropdown-select-item="'draft'"
+            span
+              | Rascunho
+              i.icon.icon-draft
+            small
+              | Estudantes não conseguem visualizar as tarefas.
+          li.canceled__event dropdown-select-item="'canceled'"
+            span
+              | Cancelar
+              i.icon.icon-canceled
+            small
+              | Cancelar aula e notificar os estudantes.
       .small-3.columns.end
-        a.done-button[
+        a.save__and__exit[
           ng-click="finish(event)"
           analytics-on="click"
           analytics-event="Event Finish Editing"
@@ -84,16 +76,44 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           analytics-uuid="{{event.uuid}}"
           analytics-start-at="{{event.start_at}}"]
           | Salvar e sair
-        a.small.radius.button.btn-style-1.save[
+        a.small.radius.button.btn-style-1.save__event[
           ng-click="save(event)"
           ng-disabled="saveButtonDisabled()"
           ng-class="{ dirty: !saveButtonDisabled() }"]
           | Salvar
-    .row
+    .row.medium-collapse
       .show-for-small.small-12.columns
-        / TODO: navigation for mobile
-      .hide-for-small.medium-2.medium-offset-1.columns
-        a.previous-event[
+        .row
+          .small-6.columns
+            a.previous__event[
+              ng-if="!!event.previous.uuid"
+              href="#events/{{event.previous.uuid}}/edit"
+              analytics-on="click"
+              analytics-event="Event Navigation"
+              analytics-name="previous"
+              analytics-uuid="{{event.uuid}}"
+              analytics-start-at="{{event.start_at}}"
+              analytics-course-name="{{event.course.name}}"
+              analytics-course-uuid="{{event.course.uuid}}"]
+              i.icon.icon-arrow-circle-left
+              span
+                | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
+          .small-6.columns
+            a.next__event[
+              ng-if="!!event.next.uuid"
+              href="#events/{{event.next.uuid}}/edit"
+              analytics-on="click"
+              analytics-event="Event Navigation"
+              analytics-name="next"
+              analytics-uuid="{{event.uuid}}"
+              analytics-start-at="{{event.start_at}}"
+              analytics-course-name="{{event.course.name}}"
+              analytics-course-uuid="{{event.course.uuid}}"]
+              span
+                | {{event.next.start_at | date:'EEE, dd/MMMM'}}
+              i.icon.icon-arrow-circle-right
+      .hide-for-small.medium-3.columns
+        a.previous__event[
           ng-if="!!event.previous.uuid"
           href="#events/{{event.previous.uuid}}/edit"
           analytics-on="click"
@@ -105,7 +125,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           analytics-course-uuid="{{event.course.uuid}}"]
           i.icon.icon-arrow-circle-left
           span
-            | {{event.previous.start_at | date:'EEE, dd/MMMM/yyyy'}}
+            | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
         ul
           li.task ng-repeat="topic in event.previous.topics" ng-hide="topic.personal && !showPrivateTopics"
             span
@@ -121,175 +141,179 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             span
               | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
         #topics-container.row event-list="topics"
-          .new-topic-form cg-busy="submittingMediaPromise"
-            .wrapper-new-list-item
-              ul.small-block-grid-4.tabs.select-item-type
-                li
-                  a ng-click="itemType = 'text'"
-                    i.icon.icon-note
-                    br
-                    | Texto
-                li
-                  a ng-click="itemType = 'file'"
-                    i.icon.icon-file
-                    br
-                    | Arquivo
-                li
-                  a ng-click="itemType = 'url'"
-                    i.icon.icon-link
-                    br
-                    | Link
-                li
-                  a ng-click="itemType = 'catalog'"
-                    i.icon.icon-catalog
-                    br
-                    | Catálogo
-              .item-type
-                .type.text ng-show="itemType == 'text'"
-                  input.field-new-list-item[
+          .new__topic__form.small-12.columns cg-busy="submittingMediaPromise"
+            ul.small-block-grid-4.tabs.select__item__type
+              li
+                a ng-click="itemType = 'text'"
+                  i.icon.icon-note
+                  br
+                  | Texto
+              li
+                a ng-click="itemType = 'file'"
+                  i.icon.icon-file
+                  br
+                  | Arquivo
+              li
+                a ng-click="itemType = 'url'"
+                  i.icon.icon-link
+                  br
+                  | Link
+              li
+                a ng-click="itemType = 'catalog'"
+                  i.icon.icon-catalog
+                  br
+                  | Catálogo
+            .item__type
+              .type.type__text ng-show="itemType == 'text'"
+                input.field__new__list__item[
+                  ng-model="newListItem.description"
+                  type="text"
+                  focus-wrapper=""
+                  placeholder="Adicionar conteúdo"
+                  ui-keydown="{'enter':'addItem($event)'}"
+                  name="topic_description"]
+              .type.type__file ng-show="itemType == 'file'"
+                label.item__button.media__file__button[
+                  ng-show="!newListItem.media"
+                  for="topic-file"
+                  ng-class="{active: newListItem.media.type=='file'}"]
+                  i.icon.icon-clips>
+                  | Fazer upload
+                input#topic-file.file__input[
+                  ng-file-model=""
+                  type="file"
+                  ng-model="newListItem.media_file"
+                  name="topic_media_file"
+                  ng-file-select="submitFileMedia(newListItem,
+                  $files)"]
+                .type.type__media ng-show="!!newListItem.media"
+                  preview item="newListItem" removable="true"
+                  input.field__new__list__item[
                     ng-model="newListItem.description"
                     type="text"
                     focus-wrapper=""
                     placeholder="Adicionar conteúdo"
                     ui-keydown="{'enter':'addItem($event)'}"
                     name="topic_description"]
-                .type.file ng-show="itemType == 'file'"
-                  label.icon.icon-clips.item-button.media-file-button[
-                    ng-show="!newListItem.media"
-                    for="topic-file"
-                    ng-class="{active: newListItem.media.type=='file'}"]
-                    | Fazer upload
-                  input#topic-file.file-input[
-                    ng-file-model=""
-                    type="file"
-                    ng-model="newListItem.media_file"
-                    name="topic_media_file"
-                    ng-file-select="submitFileMedia(newListItem,
-                    $files)"]
-                  .type.media ng-show="!!newListItem.media"
-                    preview item="newListItem" removable="true"
-                    input.field-new-list-item[
-                      ng-model="newListItem.description"
-                      type="text"
-                      focus-wrapper=""
-                      placeholder="Adicionar conteúdo"
-                      ui-keydown="{'enter':'addItem($event)'}"
-                      name="topic_description"]
-                  progress-bar
-                .type.url ng-show="itemType == 'url'"
-                  input[
-                    ng-show="!newListItem.media"
+                progress-bar
+              .type.type__url ng-show="itemType == 'url'"
+                input[
+                  ng-show="!newListItem.media"
+                  type="text"
+                  name="topic_media_url"
+                  ng-model="newListItem.media_url"
+                  placeholder="http://"
+                  ui-keydown="{'enter':'submitUrlMedia(newListItem)'}"]
+                .media ng-show="!!newListItem.media"
+                  preview item="newListItem" removable="true"
+                  input.field__new__list__item[
+                    ng-model="newListItem.description"
                     type="text"
-                    name="topic_media_url"
-                    ng-model="newListItem.media_url"
-                    placeholder="http://"
-                    ui-keydown="{'enter':'submitUrlMedia(newListItem)'}"]
-                  .media ng-show="!!newListItem.media"
-                    preview item="newListItem" removable="true"
-                    input.field-new-list-item[
-                      ng-model="newListItem.description"
-                      type="text"
-                      focus-wrapper=""
-                      placeholder="Adicionar conteúdo"
-                      ui-keydown="{'enter':'addItem($event)'}"
-                      name="topic_description"]
-                .type.catalog ng-show="itemType == 'catalog'" ng-controller="MediasIndexCtrl"
-                  ng-form name="topic_media_id"
-                    .header
-                      .search-wrapper
+                    focus-wrapper=""
+                    placeholder="Adicionar conteúdo"
+                    ui-keydown="{'enter':'addItem($event)'}"
+                    name="topic_description"]
+              .type.type__catalog ng-show="itemType == 'catalog'" ng-controller="MediasIndexCtrl"
+                ng-form name="topic_media_id"
+                  .catalog__header
+                    .catalog__search
+                      input[
+                        type="text"
+                        ng-model="search.q"
+                        placeholder="Procure por assunto, palavra-chave ou tags"
+                        ui-keydown="{'enter':'fetch($event)'}"]
+                      / a.button.postfix.icon.icon-close ng-click="clearSearch()"
+                      / a.button.postfix.icon.icon-search ng-click="fetch()"
+                  .catalog__medias
+                    .catalog__media ng-repeat="media in medias"
+                      .media__thumbnail
+                        img ng-src="{{media.thumbnail}}"
+                      .media__data
                         input[
-                          type="text"
-                          ng-model="search.q"
-                          placeholder="Procure por assunto, palavra-chave ou tags"
-                          ui-keydown="{'enter':'fetch($event)'}"]
-                        a.button.postfix.icon.icon-close ng-click="clearSearch()"
-                        a.button.postfix.icon.icon-search ng-click="fetch()"
-                    .medias
-                      .media ng-repeat="media in medias"
-                        .thumbnail
-                          img ng-src="{{media.thumbnail}}"
-                        .data
-                          .top
-                            input type="radio" ng-model="newListItem.media_id" ng-value="media.uuid"
-                            .title
-                              | {{media.title}}
-                            a.open target="_blank" ng-href="{{media.url}}"
-                              | Ver
-                          .bottom
-                            i.type.icon ng-class="'icon-' + media.type"
-                            a.url ng-href="{{media.url}}" target="_blank"
-                              | {{format_media_url(media)}}
-                    div ng-if="!!medias && medias.length > 0"
-                      a.load-more ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"
-                        | Carregar mais
+                          type="radio"
+                          ng-model="newListItem.media_id"
+                          ng-value="media.uuid"]
+                        .media__title
+                          | {{media.title}}
+                          a.media__preview[
+                            target="_blank"
+                            ng-href="{{media.url}}"]
+                            | Ver
+                        i.media__type__icon.icon ng-class="'icon-' + media.type"
+                        a.media__url ng-href="{{media.url}}" target="_blank"
+                          | {{format_media_url(media)}}
+                  .load___more ng-if="!!medias && medias.length > 0"
+                    a.load__more__media ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"
+                      | Carregar mais
+        .row.new__topic__actions
           a.dropdown.button.tiny[data-dropdown="topic-private"]
-            .option.private ng-if="newListItem.personal"
+            span.private ng-if="newListItem.personal"
               i.icon.icon-lock
               | Somente professor
-            .option ng-if="!newListItem.personal"
+            span ng-if="!newListItem.personal"
               i.icon.icon-unlock
               | Alunos
           ul#topic-private.f-dropdown[
             data-dropdown-content=""
             dropdown-select=""]
             input.model type="hidden" name="topic_private" ng-model="newListItem.personal"
-            li.option.private dropdown-select-item="true"
-              i.icon.icon-lock>
+            li.private dropdown-select-item="true"
               span
+                i.icon.icon-lock>
                 | Somente professor
-            li.option dropdown-select-item="false"
-              i.icon.icon-unlock>
+            li dropdown-select-item="false"
               span
+                i.icon.icon-unlock>
                 | Alunos
           a.create-item-button.button.btn-style-1.active.tiny[
             ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}"
             ng-click="addItem()"]
             | Inserir {{itemTypeDescription()}}
-          /
-            a.cancel ng-click="resetNewItem()"
-              | Cancelar
-          #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
-            .item.clickable[
-              ng-controller="EventEditCtrl"
-              ng-class="{done: topic.done, personal: topic.personal}"
-              ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
-              ng-hide="topic.personal && !showPrivateTopics"]
-              .handle
-              .row
-                .item-show
-                  input.done[
-                    type="checkbox"
-                    ng-model="topic.done"
-                    id="topic_{{topic.order}}_done"]
-                  .row.description ng-class="{preview: !!topic.media}"
-                    img.image[
-                      ng-if="!!topic.media"
-                      ng-src="{{topic.media.thumbnail}}"]
-                    input.item-editing[
-                      type="text"
-                      ng-model="topic.description"
-                      pu-elastic-input=true
-                      pu-elastic-input-maxwidth="95%"
-                      ng-blur="save(event)"
-                      ng-focus="startEditing()"
-                      edit-in-place=true
-                    ]
-                  a.show-actions dropdown-toggle="#actions_{{topic.order}}"
-                    | &hellip;
-                  ul.tasks-buttons.f-dropdown id="actions_{{topic.order}}"
-                    li
-                      a.icon.icon-trash.task-icon-right[
-                        ng-click="removeItem(event.topics, topic)"
-                        title="Remover tarefa"]
-                        | Apagar
-                    li
-                      a.icon.icon-transfer.task-icon-right[
-                        ng-click="transferItem(event.topics, topic)"
-                        ng-if="canTransferItem(topic)"
-                        title="Transferir tarefa"]
-                        | Transferir
-      .hide-for-small.medium-2.columns.end
-        a.next-event[
+        /
+          a.cancel ng-click="resetNewItem()"
+            | Cancelar
+        #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
+          .item.clickable[
+            ng-controller="EventEditCtrl"
+            ng-class="{done: topic.done, personal: topic.personal}"
+            ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
+            ng-hide="topic.personal && !showPrivateTopics"]
+            .handle
+            .row
+              .item-show
+                input.done[
+                  type="checkbox"
+                  ng-model="topic.done"
+                  id="topic_{{topic.order}}_done"]
+                .row.description ng-class="{preview: !!topic.media}"
+                  img.image[
+                    ng-if="!!topic.media"
+                    ng-src="{{topic.media.thumbnail}}"]
+                  input.item-editing[
+                    type="text"
+                    ng-model="topic.description"
+                    pu-elastic-input=true
+                    pu-elastic-input-maxwidth="95%"
+                    ng-blur="save(event)"
+                    ng-focus="startEditing()"
+                    edit-in-place=true
+                  ]
+                a.show-actions dropdown-toggle="#actions_{{topic.order}}"
+                  | &hellip;
+                ul.tasks-buttons.f-dropdown id="actions_{{topic.order}}"
+                  li
+                    a.icon.icon-trash.task-icon-right[
+                      ng-click="removeItem(event.topics, topic)"
+                      title="Remover tarefa"]
+                      | Apagar
+                  li
+                    a.icon.icon-transfer.task-icon-right[
+                      ng-click="transferItem(event.topics, topic)"
+                      ng-if="canTransferItem(topic)"
+                      title="Transferir tarefa"]
+                      | Transferir
+      .hide-for-small.medium-3.columns
+        a.next__event[
           ng-if="!!event.next.uuid"
           href="#events/{{event.next.uuid}}/edit"
           analytics-on="click"

@@ -1,5 +1,152 @@
 // TODO: Break diary.scss into smaller files.
 // scss-lint:disable NestingDepth SelectorDepth
+.f-dropdown {
+  border-color: $light-grey-color;
+
+  li {
+    cursor: pointer;
+    padding: .625em;
+
+    &:nth-last-child(n+2) {
+      border-bottom: 1px solid $light-grey-color;
+    }
+  }
+
+  span {
+    display: block;
+    color: $primary-color;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    .icon {
+      float: right;
+      margin-left: 6px;
+      margin-top: 3px;
+    }
+  }
+
+  small {
+    font-size: 1em;
+    color: $dark-grey-color;
+  }
+}
+
+
+.previous__event,
+.next__event {
+  display: block;
+  cursor: pointer;
+  background: $white;
+  border: 1px solid $navigation-event-border-color;
+  padding: 1em .75em;
+
+  span {
+    text-transform: uppercase;
+    font-size: .75em;
+    color: $primary-color;
+  }
+
+  .icon {
+    color: $secondary-color;
+  }
+}
+
+.previous__event {
+  text-align: right;
+  border-radius: 3px 0 0 3px;
+
+  .icon {
+    float: left;
+  }
+}
+
+.next__event {
+  text-align: left;
+  border-radius: 0 3px 3px 0;
+
+
+  .icon {
+    float: right;
+  }
+}
+
+.diary__header {
+  padding: 1em .75em;
+  background: $primary-color;
+  border: 1px solid $primary-color;
+  color: $white;
+
+  .diary__date {
+    text-transform: uppercase;
+  }
+
+  .diary__time {
+    text-align: right;
+    color: $dark-grey-color;
+    font-size: .75em;
+  }
+}
+
+.new__topic__form {
+  background: $white;
+  border: 1px solid $light-grey-color;
+  padding: 1em .75em;
+
+  .select__item__type {
+    text-align: center;
+
+    a {
+      display: block;
+      color: $light-grey-color;
+      border-bottom: 4px solid $white;
+
+      &.active {
+        color: $secondary-color;
+        border-bottom-color: $secondary-color;
+      }
+    }
+
+    .icon {
+      display: inline-block;
+      font-size: 1.25em;
+      margin-top: .5em;
+    }
+  }
+}
+
+.item__type {
+  border: 1px solid $dark-grey-color;
+  background: $white;
+  margin: 0 -.7rem;
+
+  input,
+  .media__file__button {
+    background: $white;
+    border: 0;
+    box-shadow: none;
+    color: $primary-color;
+    display: block;
+    height: auto;
+    margin: 0;
+    padding: 1.5rem 1rem;
+
+    &.file__input {
+      display: none;
+    }
+  }
+}
+
+.new__topic__actions {
+  border: 1px solid $light-grey-color;
+  border-top: 3px solid lighten($light-grey-color, 20%);
+  background: $white;
+  padding: 1em .75em;
+}
+
+
+// REWRITE ABOVE THIS LINE
+
+// UNUSED STYLES BELOW THIS LINE
 .diary-page {
   margin-top: -20px;
 
@@ -20,11 +167,9 @@
   .status-list {
     @include dropdown-container(list, bottom);
     @include radius();
-    border-color: $light-grey-color;
 
     .option {
       @include grid-row();
-      cursor: pointer;
       padding: 10px;
 
       &:nth-last-child(n+2) {
@@ -75,17 +220,8 @@
   }
 
   .item-button {
-    color: #afb0b0; // NEW_COLOUR
-    float: right;
-    font-size: 1.5em;
-    margin-top: -1.3em;
-
     &.media-url-button {
       margin-right: 2em;
-    }
-
-    &.media-file-button {
-      margin-right: 3.4em;
     }
 
     &.media-search-button {
