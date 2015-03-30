@@ -435,7 +435,7 @@ $header-font-color: $primary-color;
 // We use this to set the border styles for dropdowns.
 // $f-dropdown-border-style: solid;
 // $f-dropdown-border-width: 1px;
-// $f-dropdown-border-color: scale-color(#fff, $lightness: -20%);
+$f-dropdown-border-color: $dropdown-border-color;
 
 // We use these to style the triangle pip.
 // $f-dropdown-triangle-size: 6px;
@@ -459,7 +459,7 @@ $header-font-color: $primary-color;
 // $include-html-button-classes: $include-html-classes;
 
 // We use these to set the color of the pip in dropdown buttons
-// $dropdown-button-pip-color: #fff;
+$dropdown-button-pip-color: $dark-grey-color;
 // $dropdown-button-pip-color-alt: #333;
 
 // $button-pip-tny: rem-calc(6);
