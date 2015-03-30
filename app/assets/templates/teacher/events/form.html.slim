@@ -41,13 +41,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           span.event__status__canceled ng-if="event.status == 'canceled'"
             i.icon.icon-canceled>
             | Cancelada
-        input.model[
-          type="hidden"
-          name="event_status"
-          ng-model="event.status"]
         ul#event-status.event__status__list.f-dropdown[
           data-dropdown-content=""
           dropdown-select=""]
+          input.model[
+            type="hidden"
+            name="event_status"
+            ng-model="event.status"]
           li.published__event dropdown-select-item="'published'"
             span
               | Publicada
@@ -245,33 +245,33 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   .load___more ng-if="!!medias && medias.length > 0"
                     a.load__more__media ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"
                       | Carregar mais
-        .row.new__topic__actions
-          a.dropdown.button.tiny[data-dropdown="topic-private"]
-            span.private ng-if="newListItem.personal"
-              i.icon.icon-lock
-              | Somente professor
-            span ng-if="!newListItem.personal"
-              i.icon.icon-unlock
-              | Alunos
-          ul#topic-private.f-dropdown[
-            data-dropdown-content=""
-            dropdown-select=""]
-            input.model type="hidden" name="topic_private" ng-model="newListItem.personal"
-            li.private dropdown-select-item="true"
-              span
-                i.icon.icon-lock>
+          .row.new__topic__actions
+            a.dropdown.button.tiny[data-dropdown="topic-private"]
+              span.private ng-if="newListItem.personal"
+                i.icon.icon-lock
                 | Somente professor
-            li dropdown-select-item="false"
-              span
-                i.icon.icon-unlock>
+              span ng-if="!newListItem.personal"
+                i.icon.icon-unlock
                 | Alunos
-          a.create-item-button.button.btn-style-1.active.tiny[
-            ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}"
-            ng-click="addItem()"]
-            | Inserir {{itemTypeDescription()}}
-        /
-          a.cancel ng-click="resetNewItem()"
-            | Cancelar
+            ul#topic-private.f-dropdown[
+              data-dropdown-content=""
+              dropdown-select=""]
+              input.model type="hidden" name="topic_private" ng-model="newListItem.personal"
+              li.private dropdown-select-item="true"
+                span
+                  i.icon.icon-lock>
+                  | Somente professor
+              li dropdown-select-item="false"
+                span
+                  i.icon.icon-unlock>
+                  | Alunos
+            a.create-item-button.button.btn-style-1.active.tiny[
+              ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}"
+              ng-click="addItem()"]
+              | Inserir {{itemTypeDescription()}}
+          /
+            a.cancel ng-click="resetNewItem()"
+              | Cancelar
         #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
           .item.clickable[
             ng-controller="EventEditCtrl"
