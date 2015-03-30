@@ -36,6 +36,9 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
     tutorial-step
       p
         | Clique aqui para planejar e editar o conteúdo de sua aula.
+    tutorial-step
+      p
+        | Clique aqui para enviar uma notificação através de SMS e email para seus alunos.
 #send-notification.reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" data-reveal=""
   form name="notification_form" ng-submit="save(notification)"
     label for="abbreviation"
