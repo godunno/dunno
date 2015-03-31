@@ -1,7 +1,7 @@
 %media-type {
   background: $primary-color;
   border-radius: 50%;
-  color: #fff;
+  color: $white;
   font-size: 18px;
   height: 23px;
   padding: 2px;
@@ -38,7 +38,7 @@
 
   .count {
     color: $light-grey-color;
-    margin-left: 0.2em;
+    margin-left: .2em;
   }
 
   $dropdown-width: 100%;
@@ -71,18 +71,18 @@
       }
 
       .icon {
-        margin-right: 0.5em;
+        margin-right: .5em;
       }
     }
   }
 
   .medias {
-    margin-top: 0.5em;
+    margin-top: .5em;
     margin-left: 0;
     list-style: none;
     border-radius: 5px;
     box-shadow: $box-shadow;
-    background-color: #fff;
+    background-color: $white;
   }
 
   .media {
@@ -177,11 +177,11 @@
 
         &.selected {
           background: $light-grey-color;
-          border: 1px solid red;
+          border: 1px solid $red-color;
         }
 
         .remove-button {
-          color: #FFF;
+          color: $white;
           opacity: .8;
         }
       }
@@ -195,7 +195,7 @@
         box-shadow: none;
         &:focus {
           @include dotted-input($secondary-color);
-          background: #FFF;
+          background: $white;
         }
       }
     }
@@ -206,7 +206,7 @@
       width: 1.3em;
       height: 1.3em;
       text-align: center;
-      padding: 0.1em;
+      padding: .1em;
       margin-top: 10px;
       &:hover {
         color: $primary-color;
@@ -222,11 +222,11 @@
     width: 100%;
 
     input {
-      background: #fff;
-      border: 1px solid #ccc;
+      background: $white;
+      border: 1px solid $light-grey-color;
       border-radius: 2px;
       box-shadow: none;
-      color: #333 !important;
+      color: $primary-color;
       float: left;
       height: 40px;
       opacity: .8;
@@ -240,7 +240,7 @@
 
     .icon-close {
       background: none;
-      color: #ccc;
+      color: $light-grey-color;
       float: left;
       height: 24px;
       margin-left: -2rem;
@@ -250,9 +250,9 @@
     }
 
     .icon-search {
-      background: #1cc678;
+      background: $secondary-color;
       border-radius: 2px;
-      color: #fff;
+      color: $white;
       height: 40px;
       line-height: 44px;
       position: absolute;

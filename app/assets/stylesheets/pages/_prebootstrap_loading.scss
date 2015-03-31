@@ -10,36 +10,36 @@
 }
 
 @mixin spinner($color: rgba(0, 0, 51, 0.3)) {
-  /* :not(:required) hides this rule from IE9 and below */
+  // :not(:required) hides this rule from IE9 and below
   &:not(:required) {
     animation: spinner 1500ms infinite linear;
-    border-radius: 0.5em;
+    border-radius: .5em;
     box-shadow: $color 1.5em 0 0 0, $color 1.1em 1.1em 0 0, $color 0 1.5em 0 0, $color -1.1em 1.1em 0 0, $color -1.5em 0 0 0, $color -1.1em -1.1em 0 0, $color 0 -1.5em 0 0, $color 1.1em -1.1em 0 0;
     font-size: 10px;
-    width: 1em;
     height: 1em;
     overflow: hidden;
     text-indent: 100%;
+    width: 1em;
   }
 }
 
 #prebootstrap-loading {
   background: $primary-color;
-  width: 100vw;
   height: 100vh;
+  left: 0;
   position: absolute;
   top: 0;
-  left: 0;
+  width: 100vw;
   z-index: 9999;
 
   .logo {
     display: block;
+    margin: 25vh auto auto;
     width: 20%;
-    margin: 25vh auto auto auto;
   }
 
   .spinner {
-    @include spinner(rgba(255, 255, 255, 0.3));
+    @include spinner(rgba(255, 255, 255, .3));
     margin: 40px auto;
   }
 }
