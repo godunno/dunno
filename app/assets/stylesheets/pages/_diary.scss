@@ -2,6 +2,7 @@
 // scss-lint:disable NestingDepth SelectorDepth
 .f-dropdown {
   border-color: $light-grey-color;
+  text-align: left;
 
   li {
     cursor: pointer;
@@ -13,31 +14,45 @@
   }
 
   span {
-    display: block;
     color: $primary-color;
-    font-weight: 600;
-    text-transform: uppercase;
-
-    .icon {
-      float: right;
-      margin-left: 6px;
-      margin-top: 3px;
-    }
+    display: block;
+    font-weight: bold;
   }
 
   small {
-    font-size: 1em;
     color: $dark-grey-color;
+    font-size: 1em;
+  }
+
+  &.event__status__list {
+    span {
+      text-transform: uppercase;
+
+      .icon {
+        float: right;
+        margin-left: 6px;
+        margin-top: 3px;
+      }
+    }
   }
 }
 
+.dropdown {
+  &.select__event__status {
+    height: 3.45em;
+  }
+
+  &.new__topic__visibility {
+    height: 3.3em;
+  }
+}
 
 .previous__event,
 .next__event {
-  display: block;
-  cursor: pointer;
   background: $white;
   border: 1px solid $navigation-event-border-color;
+  cursor: pointer;
+  display: block;
   padding: 1em .75em;
 
   span {
@@ -48,12 +63,15 @@
 
   .icon {
     color: $secondary-color;
+    vertical-align: middle;
   }
 }
 
 .previous__event {
-  text-align: right;
   border-radius: 3px 0 0 3px;
+  margin-right: -1em;
+  padding-right: 1.5em;
+  text-align: right;
 
   .icon {
     float: left;
@@ -61,9 +79,10 @@
 }
 
 .next__event {
-  text-align: left;
   border-radius: 0 3px 3px 0;
-
+  margin-left: -1em;
+  padding-left: 1.5em;
+  text-align: left;
 
   .icon {
     float: right;
@@ -71,10 +90,13 @@
 }
 
 .diary__header {
-  padding: 1em .75em;
   background: $primary-color;
+  border-radius: 4px 4px 0 0;
   border: 1px solid $primary-color;
   color: $white;
+  padding: 1em .75em;
+  position: relative;
+  z-index: 1;
 
   .diary__date {
     text-transform: uppercase;
@@ -140,9 +162,11 @@
 }
 
 .item__type {
-  border: 1px solid $dark-grey-color;
   background: $white;
+  border: 1px solid $dark-grey-color;
   margin: 0 -.7rem;
+  position: relative;
+  z-index: 1;
 
   input,
   .media__file__button {
@@ -151,7 +175,9 @@
     box-shadow: none;
     color: $primary-color;
     display: block;
-    height: auto;
+    font-size: 1em;
+    height: 4em;
+    line-height: 1em;
     margin: 0;
     padding: 1.5rem 1rem;
 
@@ -187,7 +213,20 @@
   padding: 1.125em .25em;
   border-bottom: 1px solid lighten($light-grey-color, 20%);
 
+  &.done {
+    input {
+      color: $secondary-color;
+    }
+  }
+
+  &.personal {
+    input {
+      color: $red-color;
+    }
+  }
+
   .topic__item__handle,
+  .topic__item__image,
   .topic__item__show,
   .topic__item__status__checkbox,
   .topic__item__description,
@@ -212,11 +251,6 @@
     background: image-url("temp-checkbox-checked.png");
   }
 
-  .topic__item__description {
-    display: block;
-    margin-left: 3em;
-  }
-
   .topic__item__handle {
     background: image-url("temp-handle.png") no-repeat;
     width: 7px;
@@ -225,14 +259,10 @@
 
   .topic__item__image {
     @include radius();
-    display: inline-block;
+    background-size: cover;
     height: 2.75em;
+    vertical-align: middle;
     width: 2.75em;
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-    }
   }
 
   .topic__item__editing {
@@ -248,344 +278,133 @@
   }
 }
 
-// REWRITE ABOVE THIS LINE
+.summary__tasks {
+  &.previous__event__tasks {
+    padding-left: 1em;
 
-// UNUSED STYLES BELOW THIS LINE
-.diary-page {
-  margin-top: -20px;
-
-  .select-item-type {
-    text-align: center;
-
-    a {
-      display: block;
+    .summary__task {
+      padding-right: .5em;
     }
+  }
+
+  &.next__event__tasks {
+    padding-right: 1em;
+
+    .summary__task {
+      padding-left: .5em;
+    }
+  }
+}
+
+.summary__task {
+  border-bottom: 1px solid $light-grey-color;
+  color: $primary-color;
+  padding: .75em .125em;
+
+  span {
+    font-size: .75em;
+  }
+
+  .icon {
+    background-color: $dark-grey-color;
+    border-radius: 2em;
+    color: $white;
+    float: right;
+    font-size: .875em;
+    height: 1.5em;
+    line-height: 1em;
+    padding: .25em;
+    vertical-align: middle;
+    width: 1.5em;
+  }
+}
+
+.type__catalog {
+  .catalog__header {
+    border-bottom: 1px dashed $secondary-color;
+    position: relative;
 
     .icon {
-      display: inline-block;
-      font-size: 1.25em;
-      margin-top: .5em;
+      position: absolute;
+      top: 1.5em;
+      left: 1em;
+      color: $light-grey-color;
+    }
+
+    input {
+      font-size: 1em;
+      padding-left: 2.5em;
     }
   }
 
-  .status-list {
-    @include dropdown-container(list, bottom);
+  .load__more {
+    padding: 1em;
+
+    a {
+      color: $dark-grey-color;
+      display: block;
+      font-size: .875em;
+      text-align: center;
+    }
+  }
+}
+
+.catalog__media {
+  padding: .75em 1em;
+  border-bottom: 1px solid $light-grey-color;
+
+  .media__thumbnail,
+  .media__data,
+  .media__select__label {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .media__thumbnail {
     @include radius();
-
-    .option {
-      @include grid-row();
-      padding: 10px;
-
-      &:nth-last-child(n+2) {
-        border-bottom: 1px solid $light-grey-color;
-      }
-
-      .title {
-        @include grid-row();
-        color: $primary-color;
-        font-weight: 600;
-        text-transform: uppercase;
-
-        .icon {
-          float: right;
-          margin-left: 6px;
-          margin-top: 3px;
-        }
-      }
-
-      .subtitle {
-        @include grid-row();
-        color: $dark-grey-color;
-        font-size: .8rem;
-        line-height: 1.3em;
-        opacity: .7;
-      }
-
-      &.published {
-        .title {
-          color: $primary-color;
-        }
-
-        .subtitle {
-          color: $dark-grey-color;
-        }
-      }
-    }
+    height: 2.75em;
+    margin-right: .5em;
+    vertical-align: middle;
+    width: 2.75em;
   }
 
-  .media-url-input {
-    @include dropdown-container(content, right, 350px);
-    background: $background-light-grey-color;
-    padding: 8px;
-
-    &:before {
-      border-left-color: $background-light-grey-color;
-    }
-  }
-
-  .item-button {
-    &.media-url-button {
-      margin-right: 2em;
-    }
-
-    &.media-search-button {
-      margin-right: 4.8em;
-    }
-
-    &:hover,
-    &.active {
-      color: #5c5b5b; // NEW_COLOUR
-    }
-  }
-
-  .file-input {
+  .media__select {
     display: none;
   }
 
-  .progress {
-    margin-top: 10px;
+  .media__title {
+    color: $primary-color;
+    font-weight: normal;
+    display: block;
+    margin-bottom: .5em;
   }
 
-  .vertical-container {
-    display: table-cell;
-    vertical-align: middle;
-
-    .vertical-center {
+  .media__url {
+    .icon {
+      background-color: $dark-grey-color;
+      border-radius: 2em;
+      color: $white;
       display: inline-block;
+      font-size: .875em;
+      height: 1.5em;
+      line-height: 1em;
+      padding: .25em;
+      vertical-align: middle;
+      width: 1.5em;
+    }
+
+    span {
+      color: $secondary-color;
     }
   }
 
-  .notes {
-    background-color: #fff7f6; // NEW_COLOUR
-    border-color: #f00; // NEW_COLOUR
-
-    .tasks {
-      border-top: 1px solid rgba(255, 17, 5, .27); // NEW_COLOUR
-    }
-
-    .foot {
-      border-top: 1px solid rgba(255, 17, 5, .27); // NEW_COLOUR
-    }
+  input[type=radio] + label {
+    background: image-url("temp-radio-unchecked.png");
+    height: 16px;
+    width: 16px;
   }
 
-}
-
-$diary-container-width: 750px;
-$diary-title-height: 90px;
-$diary-card-border: 1px solid #ddd; // NEW_COLOUR
-
-.event-status {
-  margin: 20px auto;
-
-  label {
-    &.to {
-      color: $dark-grey-color;
-      font-size: 18px;
-    }
-
-    &.icon {
-      font-size: 24px;
-      margin-top: 5px;
-    }
+  input[type=radio]:checked + label {
+    background: image-url("temp-radio-checked.png");
   }
-
-  .white {
-    background-color: $white;
-  }
-
-  .status {
-    text-align: right;
-  }
-
-  .no-pad-left {
-    padding-left: 0 !important;
-  }
-
-  .no-pad-right {
-    padding-right: 0;
-  }
-
-  .time .to {
-    font-size: 14px;
-    margin-top: 8px;
-    text-align: center;
-  }
-
-  .select-status {
-    padding-right: 0;
-  }
-
-  .between-fields {
-    padding: 0 !important;
-    width: 26px;
-  }
-}
-
-.container {
-  background: $white;
-  border: $diary-card-border;
-  border-radius: .25em;
-  margin: 1.25em auto;
-  padding: 0;
-  /*width: $diary-container-width;*/
-
-  > .title {
-    border-left-style: solid;
-    border-left-width: 10px;
-    height: $diary-title-height;
-    padding: 30px 0 0 15px;
-    position: relative;
-
-    h1 {
-      font-size: 1.2rem;
-      font-weight: bold;
-      line-height: .5rem;
-      margin-top: 0;
-      text-align: left;
-      text-transform: uppercase;
-    }
-
-    .subtitle {
-      font-size: .7rem;
-    }
-  }
-
-  .diary-label {
-    border-left-color: $secondary-color;
-  }
-
-  .notes-label {
-    border-left-color: $red-color;
-  }
-
-  .tasks {
-    border-top: 1px solid #d8d8d8; // NEW_COLOUR
-  }
-
-  .item {
-    padding: 0 30px;
-
-    &.clickable {
-      cursor: pointer;
-    }
-
-    &.ui-sortable-helper {
-      // scss-lint:disable BangFormat
-      // Without this !important, occurs a flickering
-      // effect while moving the item.
-      background: $white;
-      border: 1px solid $secondary-color;
-      box-shadow: 0 0 5px #ccc; // NEW_COLOUR
-      cursor: move !important;
-      // scss-lint:enable BangFormat
-    }
-
-    .handle {
-      border: 2px dotted #ccc; // NEW_COLOUR
-      border-bottom: 0;
-      border-top: 0;
-      float: left;
-      height: 18px;
-      margin-left: -22px;
-      margin-top: 16px;
-      width: 6px;
-    }
-
-    > .row {
-      border-bottom: $diary-card-border;
-      margin: 0 auto;
-      padding: .75em 0;
-    }
-
-    .item-editing {
-      margin: 0;
-    }
-
-    .item-show {
-      position: relative;
-
-      .title {
-        margin: 0 .5em;
-        word-break: break-word;
-      }
-
-      .description {
-        word-break: break-word;
-      }
-    }
-
-    .tasks-buttons {
-      position: absolute;
-      right: 0;
-      top: 0;
-
-      .task-icon-right {
-        color: #bbb; // NEW_COLOUR
-        font-size: 1.1rem;
-        margin-left: 10px;
-        margin-top: 4px;
-
-        &:hover {
-          color: $primary-color;
-        }
-      }
-    }
-
-    // --- Show on hover --- //
-    .no-touch & {
-      .handle,
-      .task-icon-right {
-        display: none;
-      }
-
-      &:hover {
-        .handle,
-        .task-icon-right {
-          display: initial;
-        }
-      }
-    }
-    // --------------------- //
-  }
-
-  .task-box {
-    background: #ddd; // NEW_COLOUR
-    border-radius: $global-radius;
-    font-size: .8rem;
-    margin: 0 auto 10px;
-    padding: 15px;
-  }
-}
-
-.foot {
-  padding: 25px 30px;
-  position: relative;
-
-  a {
-    color: $dark-grey-color;
-  }
-}
-
-.add {
-  font-size: 1.5rem;
-  margin-left: 655px;
-  margin-top: 7px;
-  position: absolute;
-}
-
-.pos {
-  margin-right: 10px;
-}
-
-.icon {
-  font-size: 1rem;
-  line-height: .3rem;
-}
-
-.hint {
-  color: #4d4d4d; // NEW_COLOUR
-  display: block;
-  font-size: .75rem;
-  font-weight: normal;
-  line-height: 1.5;
 }

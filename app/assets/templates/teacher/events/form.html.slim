@@ -126,11 +126,16 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           i.icon.icon-arrow-circle-left
           span
             | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
-        ul
-          li.task ng-repeat="topic in event.previous.topics" ng-hide="topic.personal && !showPrivateTopics"
+        .summary__tasks.previous__event__tasks
+          .summary__task[
+            ng-repeat="topic in event.previous.topics"
+            ng-hide="topic.personal && !showPrivateTopics"]
             span
               | {{topic.description}}
-            a ng-href="{{topic.media.url}}" ng-if="!!topic.media"
+            a[
+              ng-href="{{topic.media.url}}"
+              ng-if="!!topic.media"
+              target="_blank"]
               i.type.icon ng-class="'icon-' + topic.media.type"
       .small-12.medium-6.columns
         .row.diary__header
@@ -217,6 +222,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-form name="topic_media_id"
                   .catalog__header
                     .catalog__search
+                      i.icon.icon-search
                       input[
                         type="text"
                         ng-model="search.q"
@@ -226,26 +232,30 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                       / a.button.postfix.icon.icon-search ng-click="fetch()"
                   .catalog__medias
                     .catalog__media ng-repeat="media in medias"
-                      img.media__thumbnail ng-src="{{media.thumbnail}}"
-                      .media__data
-                        input[
-                          type="radio"
-                          ng-model="newListItem.media_id"
-                          ng-value="media.uuid"]
-                        .media__title
+                      input.media__select[
+                        type="radio"
+                        ng-model="newListItem.media_id"
+                        ng-value="media.uuid"
+                        id="{{media.uuid}}"]
+                      label.media__select__label for="{{media.uuid}}"
+                      span.media__thumbnail style="background-image: url({{media.thumbnail}});"
+                      span.media__data
+                        strong.media__title
                           | {{media.title}}
-                          a.media__preview[
-                            target="_blank"
-                            ng-href="{{media.url}}"]
-                            | Ver
-                        i.media__type__icon.icon ng-class="'icon-' + media.type"
                         a.media__url ng-href="{{media.url}}" target="_blank"
-                          | {{format_media_url(media)}}
-                  .load___more ng-if="!!medias && medias.length > 0"
-                    a.load__more__media ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"
-                      | Carregar mais
+                          i.media__type__icon.icon> ng-class="'icon-' + media.type"
+                          span
+                            | {{format_media_url(media)}}
+                  .load__more ng-if="next_page"
+                    a.load__more__media[
+                      ng-click="paginate(next_page)"
+                      ng-if="next_page"
+                      cg-busy="loadingNextPage"]
+                      | Carregar mais&hellip;
               .new__topic__actions
-                a.dropdown.secondary.button.tiny[data-dropdown="topic-private"]
+                a.dropdown.button.tiny.new__topic__visibility[
+                  data-dropdown="topic-private"
+                  ng-class="{alert: newListItem.personal, secondary: !newListItem.personal}"]
                   span.private ng-if="newListItem.personal"
                     i.icon.icon-lock>
                     | Somente professor
@@ -286,8 +296,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-model="topic.done"
                 id="topic_{{topic.order}}_done"]
               label.topic__item__status__checkbox for="topic_{{topic.order}}_done"
-              span.topic__item__image ng-if="!!topic.media"
-                img ng-src="{{topic.media.thumbnail}}"
+              span.topic__item__image[
+                ng-if="!!topic.media"
+                style="background-image: url({{topic.media.thumbnail}});"]
               span.topic__item__description ng-class="{preview: !!topic.media}"
                 input.topic__item__editing[
                   type="text"
@@ -327,11 +338,16 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           span
             | {{event.next.start_at | date:'EEE, dd/MMMM'}}
           i.icon.icon-arrow-circle-right
-        ul
-          li.task ng-repeat="topic in event.next.topics" ng-hide="topic.personal && !showPrivateTopics"
+        .summary__tasks.next__event__tasks
+          .summary__task[
+            ng-repeat="topic in event.next.topics"
+            ng-hide="topic.personal && !showPrivateTopics"]
             span
               | {{topic.description}}
-            a ng-href="{{topic.media.url}}" ng-if="!!topic.media"
+            a[
+              ng-href="{{topic.media.url}}"
+              ng-if="!!topic.media"
+              target="_blank"]
               i.type.icon ng-class="'icon-' + topic.media.type"
 
   tutorial.tutorial-3 ng-if="tutorialEnabled(3)" on-close="tutorialClosed(3)"

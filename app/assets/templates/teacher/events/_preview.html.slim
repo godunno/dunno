@@ -1,9 +1,11 @@
-.preview ng-if="item.media_id"
+.media__preview ng-if="item.media_id"
   a ng-href="{{item.media.url}}" target="_blank"
-    .row
-      .image
-        img ng-src="{{item.media.thumbnail}}"
-      .text
-        .title {{item.description}}
-        .description {{item.media.description}}
-  a.close ng-click="removeMedia(item)" ng-if="removable" x
+    span.media__preview__image style="background-image: url({{item.media.thumbnail}});"
+    span.media__preview__title
+      | {{item.description}}
+    span.media__preview__description
+      | {{item.media.description}}
+  a.media__preview__close[
+    ng-click="removeMedia(item)"
+    ng-if="removable"]
+    | &times;
