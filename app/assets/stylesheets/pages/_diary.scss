@@ -84,6 +84,10 @@
     text-align: right;
     color: $dark-grey-color;
     font-size: .75em;
+
+    .icon {
+      vertical-align: middle;
+    }
   }
 }
 
@@ -95,10 +99,15 @@
   .select__item__type {
     text-align: center;
 
+    li {
+      padding-bottom: 0;
+    }
+
     a {
       display: block;
       color: $light-grey-color;
       border-bottom: 4px solid $white;
+      padding: .5em 0;
 
       &.active {
         color: $secondary-color;
@@ -111,6 +120,22 @@
       font-size: 1.25em;
       margin-top: .5em;
     }
+  }
+}
+
+.new__topic__actions {
+  clear: both;
+  text-align: right;
+  padding: .75em;
+  border-top: 1px dashed $secondary-color;
+
+  .button {
+    margin-bottom: 0;
+  }
+
+  .create__new__topic__item {
+    border: 1px solid $secondary-color;
+    font-weight: bold;
   }
 }
 
@@ -136,13 +161,92 @@
   }
 }
 
-.new__topic__actions {
+.form__event__status__save {
+  text-align: right;
+}
+
+.save__and__exit {
+  margin: 0 1em;
+}
+
+.new__topic__form {
   border: 1px solid $light-grey-color;
   border-top: 3px solid lighten($light-grey-color, 20%);
   background: $white;
   padding: 1em .75em;
 }
 
+.topic__items {
+  background: $white;
+  border: 1px solid $light-grey-color;
+  border-top: 3px solid lighten($light-grey-color, 20%);
+  padding: 0 1.25em;
+}
+
+.topic__item {
+  padding: 1.125em .25em;
+  border-bottom: 1px solid lighten($light-grey-color, 20%);
+
+  .topic__item__handle,
+  .topic__item__show,
+  .topic__item__status__checkbox,
+  .topic__item__description,
+  .topic__item__actions,
+  .topic__item__item__editing {
+    display: inline-block;
+  }
+
+  .topic__item__status {
+    display: none;
+  }
+
+  input[type=checkbox] + label {
+    background: image-url("temp-checkbox-unchecked.png");
+    width: 15px;
+    height: 14px;
+    display: block;
+    float: left;
+  }
+
+  input[type=checkbox]:checked + label {
+    background: image-url("temp-checkbox-checked.png");
+  }
+
+  .topic__item__description {
+    display: block;
+    margin-left: 3em;
+  }
+
+  .topic__item__handle {
+    background: image-url("temp-handle.png") no-repeat;
+    width: 7px;
+    height: 25px;
+  }
+
+  .topic__item__image {
+    @include radius();
+    display: inline-block;
+    height: 2.75em;
+    width: 2.75em;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .topic__item__editing {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    margin: 0;
+    width: 100%;
+  }
+
+  .topic__item__actions {
+    float: right;
+  }
+}
 
 // REWRITE ABOVE THIS LINE
 
