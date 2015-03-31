@@ -10,6 +10,7 @@ html lang='pt' ng-app='DunnoApp'
     = javascript_include_tag 'modernizer'
     = csrf_meta_tags
   body ng-controller='ApplicationCtrl'
+    = render 'application/prebootstrap_loading'
     = yield
     = javascript_include_tag 'application'
     = render 'shared/analytics'
