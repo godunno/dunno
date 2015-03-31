@@ -29,9 +29,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 
 .diary__page
   form name="event_form"
-    .row.event__status
-      .small-3.small-offset-3.columns
-        a.select__event__status.small.dropdown.button data-dropdown="event-status"
+    .row.event__status.collapse
+      .small-6.medium-3.medium-offset-3.columns
+        a.select__event__status.small.dropdown.secondary.button data-dropdown="event-status"
           span.event__status__published ng-if="event.status == 'published'"
             i.icon.icon-published>
             | Publicada
@@ -66,7 +66,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               i.icon.icon-canceled
             small
               | Cancelar aula e notificar os estudantes.
-      .small-3.columns.end
+      .small-6.medium-3.columns.end.form__event__status__save
         a.save__and__exit[
           ng-click="finish(event)"
           analytics-on="click"
@@ -76,14 +76,14 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           analytics-uuid="{{event.uuid}}"
           analytics-start-at="{{event.start_at}}"]
           | Salvar e sair
-        a.small.radius.button.btn-style-1.save__event[
+        a.small.radius.button.secondary.btn-style-1.save__event[
           ng-click="save(event)"
           ng-disabled="saveButtonDisabled()"
           ng-class="{ dirty: !saveButtonDisabled() }"]
           | Salvar
     .row.medium-collapse
       .show-for-small.small-12.columns
-        .row
+        .row.collapse
           .small-6.columns
             a.previous__event[
               ng-if="!!event.previous.uuid"
@@ -137,7 +137,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           .small-6.columns.diary__date
             | {{event.start_at | date:'EEE, dd/MMMM'}}
           .small-6.columns.diary__time
-            i.icon.icon-clock
+            i.icon.icon-clock>
             span
               | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
         #topics-container.row event-list="topics"
@@ -226,8 +226,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                       / a.button.postfix.icon.icon-search ng-click="fetch()"
                   .catalog__medias
                     .catalog__media ng-repeat="media in medias"
-                      .media__thumbnail
-                        img ng-src="{{media.thumbnail}}"
+                      img.media__thumbnail ng-src="{{media.thumbnail}}"
                       .media__data
                         input[
                           type="radio"
@@ -245,73 +244,75 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   .load___more ng-if="!!medias && medias.length > 0"
                     a.load__more__media ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"
                       | Carregar mais
-          .row.new__topic__actions
-            a.dropdown.button.tiny[data-dropdown="topic-private"]
-              span.private ng-if="newListItem.personal"
-                i.icon.icon-lock
-                | Somente professor
-              span ng-if="!newListItem.personal"
-                i.icon.icon-unlock
-                | Alunos
-            ul#topic-private.f-dropdown[
-              data-dropdown-content=""
-              dropdown-select=""]
-              input.model type="hidden" name="topic_private" ng-model="newListItem.personal"
-              li.private dropdown-select-item="true"
-                span
-                  i.icon.icon-lock>
-                  | Somente professor
-              li dropdown-select-item="false"
-                span
-                  i.icon.icon-unlock>
-                  | Alunos
-            a.create-item-button.button.btn-style-1.active.tiny[
-              ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}"
-              ng-click="addItem()"]
-              | Inserir {{itemTypeDescription()}}
-          /
-            a.cancel ng-click="resetNewItem()"
-              | Cancelar
-        #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
-          .item.clickable[
+              .new__topic__actions
+                a.dropdown.secondary.button.tiny[data-dropdown="topic-private"]
+                  span.private ng-if="newListItem.personal"
+                    i.icon.icon-lock>
+                    | Somente professor
+                  span ng-if="!newListItem.personal"
+                    i.icon.icon-unlock>
+                    | Alunos
+                ul#topic-private.f-dropdown[
+                  data-dropdown-content=""
+                  dropdown-select=""]
+                  input.model type="hidden" name="topic_private" ng-model="newListItem.personal"
+                  li.private dropdown-select-item="true"
+                    span
+                      i.icon.icon-lock>
+                      | Somente professor
+                  li dropdown-select-item="false"
+                    span
+                      i.icon.icon-unlock>
+                      | Alunos
+                a.create__new__topic__item.radius.button.secondary.tiny[
+                  ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}"
+                  ng-click="addItem()"]
+                  | Inserir {{itemTypeDescription()}}
+                /
+                  a.cancel ng-click="resetNewItem()"
+                    | Cancelar
+        #topics-list.topic__items[
+          ui-sortable="sortableOptions('topics')"
+          ng-model="event.topics"]
+          .row.topic__item.clickable[
             ng-controller="EventEditCtrl"
             ng-class="{done: topic.done, personal: topic.personal}"
             ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
             ng-hide="topic.personal && !showPrivateTopics"]
-            .handle
-            .row
-              .item-show
-                input.done[
-                  type="checkbox"
-                  ng-model="topic.done"
-                  id="topic_{{topic.order}}_done"]
-                .row.description ng-class="{preview: !!topic.media}"
-                  img.image[
-                    ng-if="!!topic.media"
-                    ng-src="{{topic.media.thumbnail}}"]
-                  input.item-editing[
-                    type="text"
-                    ng-model="topic.description"
-                    pu-elastic-input=true
-                    pu-elastic-input-maxwidth="95%"
-                    ng-blur="save(event)"
-                    ng-focus="startEditing()"
-                    edit-in-place=true
-                  ]
-                a.show-actions dropdown-toggle="#actions_{{topic.order}}"
-                  | &hellip;
-                ul.tasks-buttons.f-dropdown id="actions_{{topic.order}}"
-                  li
-                    a.icon.icon-trash.task-icon-right[
-                      ng-click="removeItem(event.topics, topic)"
-                      title="Remover tarefa"]
-                      | Apagar
-                  li
-                    a.icon.icon-transfer.task-icon-right[
-                      ng-click="transferItem(event.topics, topic)"
-                      ng-if="canTransferItem(topic)"
-                      title="Transferir tarefa"]
-                      | Transferir
+            .topic__item__handle.small-1.column
+            .topic__item__show.small-10.columns
+              input.topic__item__status[
+                type="checkbox"
+                ng-model="topic.done"
+                id="topic_{{topic.order}}_done"]
+              label.topic__item__status__checkbox for="topic_{{topic.order}}_done"
+              span.topic__item__image ng-if="!!topic.media"
+                img ng-src="{{topic.media.thumbnail}}"
+              span.topic__item__description ng-class="{preview: !!topic.media}"
+                input.topic__item__editing[
+                  type="text"
+                  ng-model="topic.description"
+                  pu-elastic-input=true
+                  pu-elastic-input-maxwidth="95%"
+                  ng-blur="save(event)"
+                  ng-focus="startEditing()"
+                  edit-in-place=true
+                ]
+            a.small-1.column.topic__item__actions dropdown-toggle="#actions_{{topic.order}}"
+              | &hellip;
+            ul.topic__item__actions__list.f-dropdown id="actions_{{topic.order}}"
+              li
+                a[
+                  ng-click="removeItem(event.topics, topic)"
+                  title="Remover tarefa"]
+                  i.icon.icon-trash>
+                  | Apagar
+              li ng-if="canTransferItem(topic)"
+                a[
+                  ng-click="transferItem(event.topics, topic)"
+                  title="Transferir tarefa"]
+                  i.icon.icon-transfer>
+                  | Transferir
       .hide-for-small.medium-3.columns
         a.next__event[
           ng-if="!!event.next.uuid"
