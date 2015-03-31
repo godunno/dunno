@@ -7,7 +7,7 @@
         .login-form
           - if resource.errors[:reset_password_token].any?
             span.error
-              | Token para recuperar senha expirado. Favor efetuar o processo novamente.
+              | Por favor, solicite um novo e-mail de recuperação de senha e tente novamente.
             a.back href="/dashboard/passwords/new" Pedir nova recuperação de senha
           - else
             p
