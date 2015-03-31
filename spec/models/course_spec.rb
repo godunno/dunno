@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe Course do
 
-  let(:course) { build :course }
-  subject { course }
+  subject(:course) { build(:course) }
 
   describe "associations" do
     it { is_expected.to belong_to(:teacher) }
@@ -61,13 +60,6 @@ describe Course do
         end
       end
     end
-
-    describe "after validation" do
-      it "abbreviate name" do
-        course = create :course, name: "Cálculo I", abbreviation: nil
-        expect(course.abbreviation).to eq("CI")
-      end
-    end
   end
 
   describe "#channel" do
@@ -114,6 +106,19 @@ describe Course do
           .to change { course.updated_at.change(usec: 0) }.by_at_least(10)
         end
       end
+    end
+  end
+
+  describe "#abbreviation" do
+    it "should default the abbreviation" do
+      course = create :course, name: "Cálculo I", abbreviation: nil
+      expect(course.abbreviation).to eq("CI")
+    end
+
+    it "should not override the stored abbreviation" do
+      abbreviation = "Calc I"
+      course = create :course, name: "Cálculo I", abbreviation: abbreviation
+      expect(course.abbreviation).to eq(abbreviation)
     end
   end
 end

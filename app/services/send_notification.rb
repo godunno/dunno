@@ -6,9 +6,11 @@ class SendNotification
   end
 
   def call
-    return unless notification.save!
-    send_sms
-    send_email
+    notification.save!
+    @users.each do |user|
+      send_sms(user.phone_number)
+      send_email(user.email)
+    end
   end
 
   def notification
@@ -25,17 +27,15 @@ class SendNotification
     "[Dunno] Notificação de #{@course.abbreviation}"
   end
 
-  def send_sms
-    @users.each { |user| SmsNotificationWorker.perform_async(message, user.phone_number) }
+  def send_sms(phone_number)
+    SmsNotificationWorker.perform_async(message, phone_number)
   end
 
-  def send_email
-    @users.each do |user|
-      NotificationMailer.notify(
-        message: NotificationFormatter.format(message),
-        to: user.email,
-        subject: email_subject
-      ).delay.deliver
-    end
+  def send_email(email)
+    NotificationMailer.notify(
+      message: NotificationFormatter.format(message),
+      to: email,
+      subject: email_subject
+    ).delay.deliver
   end
 end

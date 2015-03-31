@@ -7,7 +7,7 @@ describe SendNotification do
 
   let(:message) { "MESSAGE" }
   let(:course) { create(:course, students: users) }
-  let(:complete_message) { complete_message = "[Dunno] #{course.abbreviation} - #{message}" }
+  let(:complete_message) { "[Dunno] #{course.abbreviation} - #{message}" }
   let(:teacher) { course.teacher }
   let(:mail) { double("mail", delay: double("delayed mail", deliver: nil)) }
 
