@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     delete 'users/sign_out' => 'devise/sessions#destroy', as: :destroy_user_session
 
     namespace :dashboard do
-      resources :passwords, only: [:new, :create, :edit]
+      resources :passwords, only: [:new, :create, :edit, :update]
       resources :users, only: [] do
         get :accept_invitation, on: :collection
       end
