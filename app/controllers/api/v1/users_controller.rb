@@ -1,11 +1,8 @@
 class Api::V1::UsersController < Api::V1::ApplicationController
   def update
-    if current_user.update(user_params)
-      @resource = current_user
-      render "api/v1/sessions/#{current_user.profile_name}_sign_in"
-    else
-      render json: { errors: current_user.errors }, status: 403
-    end
+    current_user.update!(user_params)
+    @resource = current_user
+    render "api/v1/sessions/#{current_user.profile_name}_sign_in"
   end
 
   def update_password
@@ -14,7 +11,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
       @resource = current_user
       render "api/v1/sessions/#{current_user.profile_name}_sign_in"
     else
-      render json: { errors: current_user.errors }, status: 403
+      render json: { errors: current_user.errors.details }, status: 422
     end
   end
 

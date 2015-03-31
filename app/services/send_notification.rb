@@ -1,56 +1,41 @@
 class SendNotification
   def initialize(options = {})
-    @message = options.fetch(:message)
+    @original_message = options.fetch(:message)
     @course = options.fetch(:course)
     @users = @course.try(:students) || []
-    @errors = {}
   end
 
   def call
-    return unless notification.save
-    send_sms
-    send_email
+    notification.save!
+    @users.each do |user|
+      send_sms(user.phone_number)
+      send_email(user.email)
+    end
   end
 
   def notification
-    @notification ||= Notification.new(message: @message, course: @course)
-  end
-
-  def errors
-    notification.errors.details.each do |attribute, errors|
-      @errors[attribute] ||= {}
-      errors.each { |error| @errors[attribute][error[:error]] = true }
-    end
-    @errors
-  end
-
-  def valid?
-    errors.empty?
+    @notification ||= Notification.new(message: @original_message, course: @course)
   end
 
   private
 
-  def sms_message
-    "[Dunno] #{@course.name} - #{@message}"
+  def message
+    "[Dunno] #{@course.abbreviation} - #{@original_message}"
   end
 
   def email_subject
-    "Professor(a) #{@course.teacher.name} da turma de #{@course.name} enviou uma mensagem"
+    "[Dunno] Notificação de #{@course.abbreviation}"
   end
 
-  def send_sms
-    SmsProvider.new.notify(message: sms_message, to: @users.map(&:phone_number))
-  rescue
-    @errors[:sms] = { send: true }
+  def send_sms(phone_number)
+    SmsNotificationWorker.perform_async(message, phone_number)
   end
 
-  def send_email
+  def send_email(email)
     NotificationMailer.notify(
-      message: @message,
-      to: @users.map(&:email),
+      message: NotificationFormatter.format(message),
+      to: email,
       subject: email_subject
-    ).deliver
-  rescue
-    @errors[:email] = { send: true }
+    ).delay.deliver
   end
 end

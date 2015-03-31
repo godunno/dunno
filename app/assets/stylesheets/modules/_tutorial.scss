@@ -72,6 +72,13 @@
       top: 0px;
       left: -110px;
     }
+    &.step-3 {
+      @include tutorial-arrow(2, 3);
+      width: 111px;
+      height: 54px;
+      top: 70px;
+      left: 370px;
+    }
   }
 }
 

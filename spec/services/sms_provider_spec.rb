@@ -35,6 +35,20 @@ describe SmsProvider do
       SmsProvider.new.notify(message: message, to: phone_numbers)
       expect(formatter).to have_received(:format).exactly(phone_numbers.length).times
     end
+
+    it "should use the formatter for each message" do
+      allow(twilio_messages).to receive(:create)
+      formatter = spy("NotificationFormatter")
+      allow(NotificationFormatter).to receive(:new).with(message).and_return(formatter)
+      SmsProvider.new.notify(message: message, to: phone_numbers)
+      expect(formatter).to have_received(:format)
+    end
+
+    it "should allow just one phone_number" do
+      phone_number = phone_numbers.first
+      expect(twilio_messages).to receive(:create).with(to: phone_number, body: message, from: twilio_number)
+      SmsProvider.new.notify(message: message, to: phone_numbers.first)
+    end
   end
 
   context "trying to send message when unconfigured" do

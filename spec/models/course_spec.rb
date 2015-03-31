@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Course do
 
-  let(:course) { build :course }
+  subject(:course) { build(:course) }
 
   describe "associations" do
     it { is_expected.to belong_to(:teacher) }
@@ -17,6 +17,8 @@ describe Course do
     [:teacher, :start_date, :end_date].each do |attr|
       it { is_expected.to validate_presence_of(attr) }
     end
+
+    it { is_expected.to validate_length_of(:abbreviation).is_at_most(10) }
   end
 
   describe "callbacks" do
@@ -87,7 +89,7 @@ describe Course do
 
     it "raises error on not found" do
       expect { Course.find_by_identifier!('bla') }
-        .to raise_error(ActiveRecord::RecordNotFound)
+      .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -101,9 +103,22 @@ describe Course do
       it "updates the course object" do
         Timecop.travel(Time.now + 10.seconds) do
           expect { course.add_student(student) }
-            .to change { course.updated_at.change(usec: 0) }.by_at_least(10)
+          .to change { course.updated_at.change(usec: 0) }.by_at_least(10)
         end
       end
+    end
+  end
+
+  describe "#abbreviation" do
+    it "should default the abbreviation" do
+      course = create :course, name: "Cálculo I", abbreviation: nil
+      expect(course.abbreviation).to eq("CI")
+    end
+
+    it "should not override the stored abbreviation" do
+      abbreviation = "Calc I"
+      course = create :course, name: "Cálculo I", abbreviation: abbreviation
+      expect(course.abbreviation).to eq(abbreviation)
     end
   end
 end

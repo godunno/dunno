@@ -71,7 +71,7 @@ describe Api::V1::UsersController do
         }
       end
 
-      it { expect(last_response.status).to eq(403) }
+      it { expect(last_response.status).to eq(422) }
     end
 
     context "trying to update another user's profile" do
@@ -127,12 +127,12 @@ describe Api::V1::UsersController do
           }
         end
 
-        it { expect(last_response.status).to eq(403) }
+        it { expect(last_response.status).to eq(422) }
         it { expect(user.reload.valid_password?(new_password)).to eq(false) }
         it "should match errors" do
           expect(json).to eq(
             "errors" => {
-              "current_password" => ["required"]
+              "current_password" => [{ "error" => "blank" }]
             }
           )
         end

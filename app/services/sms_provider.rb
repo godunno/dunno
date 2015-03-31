@@ -6,8 +6,8 @@ class SmsProvider
 
   def notify(options)
     return unless @client
-    body = options.fetch(:message)
-    phone_numbers = options.fetch(:to)
+    body = NotificationFormatter.format options.fetch(:message)
+    phone_numbers = [options.fetch(:to)].flatten
 
     phone_numbers.each do |phone_number|
       @client.account.messages.create(body: body, to: PhoneFormatter.format(phone_number), from: @from)

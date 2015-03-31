@@ -7,12 +7,15 @@ describe Api::V1::Teacher::NotificationsController do
     it_behaves_like "API authentication required"
     context "authenticated" do
       let(:message) { "MESSAGE" }
+      let(:new_abbreviation) { "New Abbr" }
+      let(:course) { create :course, teacher: teacher }
 
       let(:params_hash) do
         {
           notification: {
             "message" => message,
-            "course_id" => course.uuid
+            "course_id" => course.uuid,
+            "abbreviation" => new_abbreviation
           }
         }
       end
@@ -24,16 +27,41 @@ describe Api::V1::Teacher::NotificationsController do
       context "trying to notificate another teacher's course" do
         let(:course) { create :course, teacher: create(:teacher) }
 
-        before do
-          do_action
-        end
+        it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
 
-        it { expect(last_response.status).to eq(403) }
+      context "creating an invalid notification" do
+        let(:message) { '' }
+        before { do_action }
+        it { expect(last_response.status).to eq(422) }
+        it do
+          expect(json).to eq(
+            "errors" => {
+              "message" => [
+                { "error" => "blank" },
+                { "error" => "too_short", "count"=>1 }
+              ]
+            }
+          )
+        end
+      end
+
+      context "updating course with invalid abbreviation" do
+        let(:new_abbreviation) { 'too long abbreviation' }
+        before { do_action }
+        it { expect(last_response.status).to eq(422) }
+        it do
+          expect(json).to eq(
+            "errors" => {
+              "abbreviation" => [
+                { "error" => "too_long", "count" => 10 }
+              ]
+            }
+          )
+        end
       end
 
       context "notificating a course" do
-        let(:course) { create :course, teacher: teacher }
-
         let(:sms_provider) { double("sms_provider", notify: nil) }
         let(:mail) { double("mail", deliver: nil) }
 
@@ -48,6 +76,7 @@ describe Api::V1::Teacher::NotificationsController do
         it { expect(last_response.status).to eq(200) }
         it { expect(subject.message).to eq(message) }
         it { expect(subject.course).to eq(course) }
+        it { expect(subject.course.abbreviation).to eq(new_abbreviation) }
       end
     end
   end
