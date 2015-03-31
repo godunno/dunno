@@ -1,8 +1,16 @@
 .dropdown {
+  &.select__event__status {
+    height: 3.45em;
+  }
+
+  &.new__topic__visibility {
+    height: 3.3em;
+  }
+
   &.secondary {
     @include radius();
-    border: 1px solid $light-grey-color;
     background: $white;
+    border: 1px solid $light-grey-color;
     color: $primary-color;
 
     &:hover {
@@ -16,8 +24,44 @@
   }
 
   .icon {
+    font-size: 1em;
     vertical-align: middle;
+  }
+}
+
+.f-dropdown {
+  border-color: $light-grey-color;
+  text-align: left;
+
+  li {
+    cursor: pointer;
+    padding: .625em;
+
+    &:nth-last-child(n+2) {
+      border-bottom: 1px solid $light-grey-color;
+    }
+  }
+
+  span {
+    color: $primary-color;
+    display: block;
+    font-weight: bold;
+  }
+
+  small {
+    color: $dark-grey-color;
     font-size: 1em;
   }
 
+  &.event__status__list {
+    span {
+      text-transform: uppercase;
+
+      .icon {
+        float: right;
+        margin-left: 6px;
+        margin-top: 3px;
+      }
+    }
+  }
 }

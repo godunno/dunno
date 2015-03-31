@@ -11,3 +11,10 @@ linters:
     style: one_space
   EmptyLineBetweenBlocks:
     enabled: false
+  SelectorFormat:
+    enabled: false
+  QualifyingElement:
+    enabled: false
+  NestingDepth:
+    enabled: true
+    max_depth: 5
