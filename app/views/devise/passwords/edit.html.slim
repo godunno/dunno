@@ -1,22 +1,62 @@
 .login-page
   = link_to root_path, class: 'root-proxy' do
     = image_tag 'dunno-logo.png', class: :logo
-  = form_tag '/users/password/', method: :put
+  = form_tag "/dashboard/passwords/#{params[:id]}", method: :put, name: 'password_form', novalidate: true
     .row
       .login-container.small-12.medium-6.medium-offset-3.columns.end
         .login-form
-          p
-            | Olá, mude sua senha aqui.
-          input type="hidden" name="user[reset_password_token]" value="#{resource.reset_password_token}"
-          .password
-            label for="password"
-              | Nova senha
-            input.radius#password name="user[password]" type="password" required="" autofocus=""
-          .password-confirmation
-            label for="password_confirmation"
-              | Confirmação da senha
-            input.radius#password_confirmation name="user[password_confirmation]" type="password" required=""
-          .submit
-            input.button.radius.btn-style-1 type="submit" value="Salvar"
+          - if resource.errors[:reset_password_token].any?
+            span.error
+              | Token para recuperar senha expirado. Favor efetuar o processo novamente.
+            a.back href="/dashboard/passwords/new" Pedir nova recuperação de senha
+          - else
+            p
+              | Olá, mude sua senha aqui.
+            input type="hidden" name="user[reset_password_token]" value="#{resource.reset_password_token}"
+            .password
+              label for="password"
+                | Nova senha
+              input.radius#password[
+                name="user[password]"
+                type="password"
+                required=true
+                autofocus=true
+                ng-minlength="8"
+                ng-model="password"
+              ]
+              small.error.password[
+                ng-cloak=true
+                ng-messages="password_form['user[password]'].$error"
+                ng-if="password_form['user[password]'].$invalid && password_form['user[password]'].$dirty"
+              ]
+                span ng-message="required"
+                  | Este campo é obrigatório.
+                span ng-message="minlength"
+                  | Mínimo de 8 caracteres.
+            .password-confirmation
+              label for="password_confirmation"
+                | Confirmação da senha
+              input.radius#password_confirmation[
+                name="user[password_confirmation]"
+                type="password"
+                required=true
+                match="password"
+                ng-model="password_confirmation"
+              ]
+              small.error.password[
+                ng-cloak=true
+                ng-messages="password_form['user[password_confirmation]'].$error"
+                ng-if="password_form['user[password_confirmation]'].$invalid && password_form['user[password_confirmation]'].$dirty"
+              ]
+                span ng-message="required"
+                  | Este campo é obrigatório.
+                span ng-message="match"
+                  | Não é igual à senha inserida.
+            .submit
+              input.button.radius.btn-style-1[
+                type="submit"
+                value="Salvar"
+                ng-disabled="password_form.$invalid"
+              ]
   / TODO: Write terms and policy pages.
     = render "application/login_links"
