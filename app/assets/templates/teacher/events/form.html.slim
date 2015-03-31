@@ -1,207 +1,338 @@
 / TODO: Break file into smaller partials.
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
-    .small-2.columns
-      span.event-classroom
-        | {{event.formatted_classroom}}
-    .small-8.columns.end
+    .small-3.columns
+      a ng-href="{{courseLocation(event)}}"
+        span.icon.icon-arrow-back>
+        span
+          | Voltar
+    .small-6.columns
       h2
         | {{event.course.name}}
-      p.translucent.subtitle-head
+      /
+        p.translucent.subtitle-head
+          span
+            | {{event.course.institution}}
+          span.event-classroom
+            | {{event.formatted_classroom}}
+          span< ng-if="!!event.course.grade"
+            | · {{event.course.grade}}
+    .small-3.columns
+      a.hide-personal-topics ng-click="setPrivateTopicsVisibility(false)" ng-show="showPrivateTopics"
+        i.icon.icon-eye>
         span
-          | {{event.course.institution}}
-        span< ng-if="!!event.course.grade"
-          | · {{event.course.grade}}
-.page-header.subtitle
-  .row.text-center
-    .small-12.medium-2.columns
-      span.event-start-date.t-size-1.upcase.t-light
-        | {{event.start_at | date:'MMM/yyyy'}}
-    .small-4.medium-3.columns
-      a.t-light.previous-event ng-if="!!event.previous.uuid" href="#events/{{event.previous.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="previous" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}"
-        i.icon.icon-arrow-circle-left.right
-        span.right
-          | Aula anterior
-    .small-4.medium-2.columns
-      h2
-        strong
-          | {{event.start_at | date:'dd'}}
-        br
-        small.t-light.upcase.event-date
-          | {{event.start_at | date:'EEE'}}
-    .small-4.medium-3.columns
-      a.t-light.next-event ng-if="!!event.next.uuid" href="#events/{{event.next.uuid}}/edit" analytics-on="click" analytics-event="Event Navigation" analytics-name="next" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}"
-        i.icon.icon-arrow-circle-right.left
-        span.left
-          | Próxima aula
-    .small-12.medium-2.columns
-      span.event-start-time.t-light
-        | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
-.diary-page.medium-10.medium-offset-1.columns
+          | Ocultar conteúdo privado
+      a.show-personal-topics ng-click="setPrivateTopicsVisibility(true)" ng-show="!showPrivateTopics"
+        i.icon.icon-eye>
+        span
+          | Mostrar conteúdo privado
+
+.diary__page
   form name="event_form"
-    .row.event-status
-      .small-5.large-5.columns.no-pad-left
-        a.button.radius.btn-style-2 ng-href="{{courseLocation(event)}}"
-          span.icon.icon-arrow-back
-          span Voltar
-      .small-7.columns.select-status.text-right
-        .button.btn-style-1.radius.save
-          | {{saveButtonMessage()}}
-        a.dropdown.text-left data-dropdown="event-status"
-          .option.published ng-if="event.status == 'published'"
-            i.icon.icon-published
-            span.value
+    .row.event__status.collapse
+      .small-6.medium-3.medium-offset-3.columns
+        a.select__event__status.small.dropdown.secondary.button data-dropdown="event-status"
+          span.event__status__published ng-if="event.status == 'published'"
+            i.icon.icon-published>
+            | Publicada
+          span.event__status__draft ng-if="event.status == 'draft'"
+            i.icon.icon-draft>
+            | Rascunho
+          span.event__status__canceled ng-if="event.status == 'canceled'"
+            i.icon.icon-canceled>
+            | Cancelada
+        ul#event-status.event__status__list.f-dropdown[
+          data-dropdown-content=""
+          dropdown-select=""]
+          input.model[
+            type="hidden"
+            name="event_status"
+            ng-model="event.status"]
+          li.published__event dropdown-select-item="'published'"
+            span
               | Publicada
-          .option.draft ng-if="event.status == 'draft'"
-            i.icon.icon-draft
-            span.value
-              | Rascunho
-          .option.canceled ng-if="event.status == 'canceled'"
-            i.icon.icon-canceled
-            span.value
-              | Cancelada
-          i.icon.icon-arrow-down
-        ul#event-status.status-list data-dropdown-content="" dropdown-select="" ng-model="event.status"
-          li.option.published dropdown-select-item="published"
-            .title
-              span
-                | Publicada
               i.icon.icon-published
-            .subtitle
+            small
               | Estudantes podem ver as tarefas.
-          li.option dropdown-select-item="draft"
-            .content
-              .title
-                span
-                  | Rascunho
-                i.icon.icon-draft
-              .subtitle
-                | Estudantes não conseguem visualizar as tarefas.
-          li.option dropdown-select-item="canceled"
-            .content
-              .title
-                span
-                  | Cancelar
-                i.icon.icon-canceled
-              .subtitle
-                | Cancelar aula e notificar os estudantes.
-        a.button.btn-style-1.radius.done-button ng-click="finish(event)" analytics-on="click" analytics-event="Event Finish Editing" analytics-course-name="{{event.course.name}}" analytics-course-uuid="{{event.course.uuid}}" analytics-uuid="{{event.uuid}}" analytics-start-at="{{event.start_at}}"
-          | Concluir
-    #topics-container.row.card.container event-list="topics"
-      .title.diary-label
-        h1
-          | Diário
-        span.subtitle.translucent
-          | Tarefas visíveis para os estudantes
-      #topics-list.tasks ui-sortable="sortableOptions('topics')" ng-model="event.topics"
-        .item.clickable ng-controller="EventEditCtrl" ng-class="{done: topic.done}" ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
-          .handle ng-if="!isEditing(topic)"
-          .row
-            .item-show ng-if="!isEditing(topic)"
-              input.done type="checkbox" ng-model="topic.done" id="topic_{{topic.order}}_done"
-              label.description for="topic_{{topic.order}}_done"
-                | {{topic.description}}
-              .tasks-buttons
-                a.icon.icon-trash.task-icon-right[
+          li.drafted__event dropdown-select-item="'draft'"
+            span
+              | Rascunho
+              i.icon.icon-draft
+            small
+              | Estudantes não conseguem visualizar as tarefas.
+          li.canceled__event dropdown-select-item="'canceled'"
+            span
+              | Cancelar
+              i.icon.icon-canceled
+            small
+              | Cancelar aula e notificar os estudantes.
+      .small-6.medium-3.columns.end.form__event__status__save
+        a.save__and__exit[
+          ng-click="finish(event)"
+          analytics-on="click"
+          analytics-event="Event Finish Editing"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"
+          analytics-uuid="{{event.uuid}}"
+          analytics-start-at="{{event.start_at}}"]
+          | Salvar e sair
+        a.small.radius.button.secondary.btn-style-1.save__event[
+          ng-click="save(event)"
+          ng-disabled="saveButtonDisabled()"
+          ng-class="{ dirty: !saveButtonDisabled() }"]
+          | Salvar
+    .row.medium-collapse
+      .show-for-small.small-12.columns
+        .row.collapse
+          .small-6.columns
+            a.previous__event[
+              ng-if="!!event.previous.uuid"
+              href="#events/{{event.previous.uuid}}/edit"
+              analytics-on="click"
+              analytics-event="Event Navigation"
+              analytics-name="previous"
+              analytics-uuid="{{event.uuid}}"
+              analytics-start-at="{{event.start_at}}"
+              analytics-course-name="{{event.course.name}}"
+              analytics-course-uuid="{{event.course.uuid}}"]
+              i.icon.icon-arrow-circle-left
+              span
+                | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
+          .small-6.columns
+            a.next__event[
+              ng-if="!!event.next.uuid"
+              href="#events/{{event.next.uuid}}/edit"
+              analytics-on="click"
+              analytics-event="Event Navigation"
+              analytics-name="next"
+              analytics-uuid="{{event.uuid}}"
+              analytics-start-at="{{event.start_at}}"
+              analytics-course-name="{{event.course.name}}"
+              analytics-course-uuid="{{event.course.uuid}}"]
+              span
+                | {{event.next.start_at | date:'EEE, dd/MMMM'}}
+              i.icon.icon-arrow-circle-right
+      .hide-for-small.medium-3.columns
+        a.previous__event[
+          ng-if="!!event.previous.uuid"
+          href="#events/{{event.previous.uuid}}/edit"
+          analytics-on="click"
+          analytics-event="Event Navigation"
+          analytics-name="previous"
+          analytics-uuid="{{event.uuid}}"
+          analytics-start-at="{{event.start_at}}"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"]
+          i.icon.icon-arrow-circle-left
+          span
+            | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
+        ul
+          li.task ng-repeat="topic in event.previous.topics" ng-hide="topic.personal && !showPrivateTopics"
+            span
+              | {{topic.description}}
+            a ng-href="{{topic.media.url}}" ng-if="!!topic.media"
+              i.type.icon ng-class="'icon-' + topic.media.type"
+      .small-12.medium-6.columns
+        .row.diary__header
+          .small-6.columns.diary__date
+            | {{event.start_at | date:'EEE, dd/MMMM'}}
+          .small-6.columns.diary__time
+            i.icon.icon-clock>
+            span
+              | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
+        #topics-container.row event-list="topics"
+          .new__topic__form.small-12.columns cg-busy="submittingMediaPromise"
+            ul.small-block-grid-4.tabs.select__item__type
+              li
+                a ng-click="itemType = 'text'"
+                  i.icon.icon-note
+                  br
+                  | Texto
+              li
+                a ng-click="itemType = 'file'"
+                  i.icon.icon-file
+                  br
+                  | Arquivo
+              li
+                a ng-click="itemType = 'url'"
+                  i.icon.icon-link
+                  br
+                  | Link
+              li
+                a ng-click="itemType = 'catalog'"
+                  i.icon.icon-catalog
+                  br
+                  | Catálogo
+            .item__type
+              .type.type__text ng-show="itemType == 'text'"
+                input.field__new__list__item[
+                  ng-model="newListItem.description"
+                  type="text"
+                  focus-wrapper=""
+                  placeholder="Adicionar conteúdo"
+                  ui-keydown="{'enter':'addItem($event)'}"
+                  name="topic_description"]
+              .type.type__file ng-show="itemType == 'file'"
+                label.item__button.media__file__button[
+                  ng-show="!newListItem.media"
+                  for="topic-file"
+                  ng-class="{active: newListItem.media.type=='file'}"]
+                  i.icon.icon-clips>
+                  | Fazer upload
+                input#topic-file.file__input[
+                  ng-file-model=""
+                  type="file"
+                  ng-model="newListItem.media_file"
+                  name="topic_media_file"
+                  ng-file-select="submitFileMedia(newListItem,
+                  $files)"]
+                .type.type__media ng-show="!!newListItem.media"
+                  preview item="newListItem" removable="true"
+                  input.field__new__list__item[
+                    ng-model="newListItem.description"
+                    type="text"
+                    focus-wrapper=""
+                    placeholder="Adicionar conteúdo"
+                    ui-keydown="{'enter':'addItem($event)'}"
+                    name="topic_description"]
+                progress-bar
+              .type.type__url ng-show="itemType == 'url'"
+                input[
+                  ng-show="!newListItem.media"
+                  type="text"
+                  name="topic_media_url"
+                  ng-model="newListItem.media_url"
+                  placeholder="http://"
+                  ui-keydown="{'enter':'submitUrlMedia(newListItem)'}"]
+                .media ng-show="!!newListItem.media"
+                  preview item="newListItem" removable="true"
+                  input.field__new__list__item[
+                    ng-model="newListItem.description"
+                    type="text"
+                    focus-wrapper=""
+                    placeholder="Adicionar conteúdo"
+                    ui-keydown="{'enter':'addItem($event)'}"
+                    name="topic_description"]
+              .type.type__catalog ng-show="itemType == 'catalog'" ng-controller="MediasIndexCtrl"
+                ng-form name="topic_media_id"
+                  .catalog__header
+                    .catalog__search
+                      input[
+                        type="text"
+                        ng-model="search.q"
+                        placeholder="Procure por assunto, palavra-chave ou tags"
+                        ui-keydown="{'enter':'fetch($event)'}"]
+                      / a.button.postfix.icon.icon-close ng-click="clearSearch()"
+                      / a.button.postfix.icon.icon-search ng-click="fetch()"
+                  .catalog__medias
+                    .catalog__media ng-repeat="media in medias"
+                      img.media__thumbnail ng-src="{{media.thumbnail}}"
+                      .media__data
+                        input[
+                          type="radio"
+                          ng-model="newListItem.media_id"
+                          ng-value="media.uuid"]
+                        .media__title
+                          | {{media.title}}
+                          a.media__preview[
+                            target="_blank"
+                            ng-href="{{media.url}}"]
+                            | Ver
+                        i.media__type__icon.icon ng-class="'icon-' + media.type"
+                        a.media__url ng-href="{{media.url}}" target="_blank"
+                          | {{format_media_url(media)}}
+                  .load___more ng-if="!!medias && medias.length > 0"
+                    a.load__more__media ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"
+                      | Carregar mais
+              .new__topic__actions
+                a.dropdown.secondary.button.tiny[data-dropdown="topic-private"]
+                  span.private ng-if="newListItem.personal"
+                    i.icon.icon-lock>
+                    | Somente professor
+                  span ng-if="!newListItem.personal"
+                    i.icon.icon-unlock>
+                    | Alunos
+                ul#topic-private.f-dropdown[
+                  data-dropdown-content=""
+                  dropdown-select=""]
+                  input.model type="hidden" name="topic_private" ng-model="newListItem.personal"
+                  li.private dropdown-select-item="true"
+                    span
+                      i.icon.icon-lock>
+                      | Somente professor
+                  li dropdown-select-item="false"
+                    span
+                      i.icon.icon-unlock>
+                      | Alunos
+                a.create__new__topic__item.radius.button.secondary.tiny[
+                  ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}"
+                  ng-click="addItem()"]
+                  | Inserir {{itemTypeDescription()}}
+                /
+                  a.cancel ng-click="resetNewItem()"
+                    | Cancelar
+        #topics-list.topic__items[
+          ui-sortable="sortableOptions('topics')"
+          ng-model="event.topics"]
+          .row.topic__item.clickable[
+            ng-controller="EventEditCtrl"
+            ng-class="{done: topic.done, personal: topic.personal}"
+            ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
+            ng-hide="topic.personal && !showPrivateTopics"]
+            .topic__item__handle.small-1.column
+            .topic__item__show.small-10.columns
+              input.topic__item__status[
+                type="checkbox"
+                ng-model="topic.done"
+                id="topic_{{topic.order}}_done"]
+              label.topic__item__status__checkbox for="topic_{{topic.order}}_done"
+              span.topic__item__image ng-if="!!topic.media"
+                img ng-src="{{topic.media.thumbnail}}"
+              span.topic__item__description ng-class="{preview: !!topic.media}"
+                input.topic__item__editing[
+                  type="text"
+                  ng-model="topic.description"
+                  pu-elastic-input=true
+                  pu-elastic-input-maxwidth="95%"
+                  ng-blur="save(event)"
+                  ng-focus="startEditing()"
+                  edit-in-place=true
+                ]
+            a.small-1.column.topic__item__actions dropdown-toggle="#actions_{{topic.order}}"
+              | &hellip;
+            ul.topic__item__actions__list.f-dropdown id="actions_{{topic.order}}"
+              li
+                a[
                   ng-click="removeItem(event.topics, topic)"
                   title="Remover tarefa"]
-                a.icon.icon-transfer.task-icon-right[
+                  i.icon.icon-trash>
+                  | Apagar
+              li ng-if="canTransferItem(topic)"
+                a[
                   ng-click="transferItem(event.topics, topic)"
-                  ng-if="canTransferItem(topic)"
                   title="Transferir tarefa"]
-                a.icon.icon-edition.task-icon-right[
-                  ng-click="editItem(topic, editingItem)"
-                  title="Editar tarefa"]
-              preview item="topic"
-            input.item-editing[
-              focus-on-create="" type="text"
-              ng-if="isEditing(topic)"
-              ng-model="editingItem.description"
-              ui-keydown="{'enter':'updateItem($event, editingItem, topic)'}"]
-      .foot cg-busy="submittingMediaPromise"
-        .wrapper-new-list-item
-          input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" placeholder="Adicionar tarefa"
-            ui-keydown="{'enter':'addItem($event)'}" name="topic"]
-          a.item-button.media-search-button.icon.icon-catalog ng-click="pickFromCatalog()"
-          catalog-picker
-          a.icon.icon-link.item-button.media-url-button[
-            data-dropdown="topic-url"
-            data-options="align:left"
-            ng-class="{active: newListItem.media.type=='url'}"
-          ]
-          label.icon.icon-clips.item-button.media-file-button[
-            for="topic-file"
-            ng-class="{active: newListItem.media.type=='file'}"
-          ]
-          #topic-url.media-url-input data-dropdown-content="" aria-hidden="true"
-            input[
-              type="text" name="topic_media_url" ng-model="newListItem.media_url" dropdown-input=true
-              placeholder="http://" on-open="startUrlMediaEditing()" on-close="submitUrlMedia(newListItem)"
-            ]
-          a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
-          input#topic-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="topic_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
-          progress-bar
-          preview item="newListItem" editable="true"
-        .hint
-          | Ex: Revisar aula passada. Introdução à raiz quadrada.
-    .row.card.container.notes event-list="personal_notes"
-      .title.notes-label
-        h1
-          span.icon.icon-lock
-            | Anotações
-        span.subtitle.translucent
-          | Área visível somente para o professor
-      .tasks ui-sortable="sortableOptions('personal_notes')" ng-model="event.personal_notes"
-        .item.clickable ng-controller="EventEditCtrl" ng-class="{done: personal_note.done}" ng-repeat="personal_note in event.personal_notes | filter:{_destroy:'!true'}"
-          .handle ng-if="!isEditing(personal_note)"
-          .row
-            .item-show ng-if="!isEditing(personal_note)"
-              input type="checkbox" ng-model="personal_note.done" id="personal_note_{{personal_note.order}}_done"
-              label.description for="personal_note_{{personal_note.order}}_done"
-                | {{personal_note.description}}
-              .tasks-buttons
-                a.icon.icon-trash.task-icon-right[
-                  ng-click="removeItem(event.personal_notes, personal_note)"
-                  title="Remover anotação"]
-                a.icon.icon-transfer.task-icon-right[
-                  ng-click="transferItem(event.personal_notes, personal_note)"
-                  ng-if="canTransferItem(personal_note)"
-                  title="Transferir anotação"]
-                a.icon.icon-edition.task-icon-right[
-                  ng-click="editItem(personal_note, editingItem)"
-                  title="Editar anotação"]
-              preview item="personal_note"
-            input.item-editing[
-              focus-on-create="" type="text"
-              ng-if="isEditing(personal_note)"
-              ng-model="editingItem.description"
-              ui-keydown="{'enter':'updateItem($event, editingItem, personal_note)'}"]
-      .foot cg-busy="submittingMediaPromise"
-        .wrapper-new-list-item
-          input.field-new-list-item[ng-model="newListItem.description" type="text" focus-wrapper="" name="personal_note"
-          placeholder="Adicionar anotação privada" ui-keydown="{'enter':'addItem($event)'}"]
-          a.item-button.media-search-button.icon.icon-catalog ng-click="pickFromCatalog()"
-          catalog-picker
-          a.icon.icon-link.item-button.media-url-button[
-            data-dropdown="personal-note-url"
-            data-options="align:left"
-            ng-class="{active: newListItem.media.type=='url'}"
-          ]
-          label.icon.icon-clips.item-button.media-file-button[
-            for="personal-note-file"
-            ng-class="{active: newListItem.media.type=='file'}"
-          ]
-          #personal-note-url.media-url-input data-dropdown-content="" aria-hidden="true"
-            input[
-              type="text" name="personal_note_media_url" ng-model="newListItem.media_url" dropdown-input=true
-              placeholder="http://" on-open="startUrlMediaEditing()" on-close="submitUrlMedia(newListItem)"
-            ]
-          a.icon.icon-arrow.create-item-button.active ng-class="{disabled: newListItem._submittingMedia}" ng-click="addItem()"
-          input#personal-note-file.file-input ng-file-model="" type="file" ng-model="newListItem.media_file" name="personal_note_media_file" ng-file-select="submitFileMedia(newListItem, $files)"
-          progress-bar
-          preview item="newListItem" editable="true"
-        .hint
-          | Ex: Fazer ditado surpresa. Rever comportamento do João.
+                  i.icon.icon-transfer>
+                  | Transferir
+      .hide-for-small.medium-3.columns
+        a.next__event[
+          ng-if="!!event.next.uuid"
+          href="#events/{{event.next.uuid}}/edit"
+          analytics-on="click"
+          analytics-event="Event Navigation"
+          analytics-name="next"
+          analytics-uuid="{{event.uuid}}"
+          analytics-start-at="{{event.start_at}}"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"]
+          span
+            | {{event.next.start_at | date:'EEE, dd/MMMM'}}
+          i.icon.icon-arrow-circle-right
+        ul
+          li.task ng-repeat="topic in event.next.topics" ng-hide="topic.personal && !showPrivateTopics"
+            span
+              | {{topic.description}}
+            a ng-href="{{topic.media.url}}" ng-if="!!topic.media"
+              i.type.icon ng-class="'icon-' + topic.media.type"
 
   tutorial.tutorial-3 ng-if="tutorialEnabled(3)" on-close="tutorialClosed(3)"
     tutorial-step

@@ -1,25 +1,23 @@
-
 .dropdown {
-  @include radius();
-  border: 2px solid $light-grey-color;
-  display: inline-block;
-  padding: 6px 10px;
+  &.secondary {
+    @include radius();
+    border: 1px solid $light-grey-color;
+    background: $white;
+    color: $primary-color;
 
-  .option {
-    display: inline-block;
-    .icon {
-      margin-right: 5px;
+    &:hover {
+      background: lighten($light-grey-color, 20%);
+      color: $primary-color;
+    }
+
+    &:active {
+      background: $white;
     }
   }
 
   .icon {
     vertical-align: middle;
-  }
-
-  .icon-arrow-down {
-    color: $light-grey-color;
-    float: right;
-    margin-top: 5px;
+    font-size: 1em;
   }
 
 }

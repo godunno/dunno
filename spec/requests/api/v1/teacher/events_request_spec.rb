@@ -76,6 +76,7 @@ describe Api::V1::Teacher::EventsController do
   describe "GET /api/v1/teacher/events/:uuid.json" do
 
     let(:topic) { create(:topic, order: 1, done: true, media: media_with_url) }
+    let(:personal_topic) { create(:topic, :personal) }
     let(:media_with_url) { create(:media_with_url) }
     let(:another_media_with_url) { create(:media_with_url) }
     let(:personal_note) { create(:personal_note, order: 1, done: true, media: another_media_with_url) }
@@ -85,13 +86,17 @@ describe Api::V1::Teacher::EventsController do
       create(:event,
              status: "published",
              end_at: 1.hour.ago,
-             topics: [topic],
+             topics: [topic, personal_topic],
              personal_notes: [personal_note],
              classroom: classroom
             )
     end
     let!(:previous_event) { create :event, start_at: event.start_at - 1.day, course: event.course }
+    let!(:previous_event_media) { create :media }
+    let!(:previous_event_topic) { create :topic, event: previous_event, media: previous_event_media }
     let!(:next_event)     { create :event, start_at: event.start_at + 1.day, course: event.course }
+    let!(:next_event_media) { create :media }
+    let!(:next_event_topic) { create :topic, event: next_event, media: next_event_media }
 
     context "authenticated" do
 
@@ -124,27 +129,40 @@ describe Api::V1::Teacher::EventsController do
         end
 
         describe "previous" do
-          let(:target) { event.previous }
+          let(:target) { previous_event }
           subject { event_json["previous"] }
-          it_behaves_like "request return check", %w(uuid)
+          it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
+
+          describe "topics" do
+            let(:target) { previous_event_topic }
+            let(:previous_event_topic_json) { find(event_json["previous"]["topics"], previous_event_topic.uuid) }
+            subject { previous_event_topic_json }
+            it_behaves_like "request return check", %w(description uuid order done)
+
+            describe "media" do
+              let(:target) { previous_event_media }
+              subject { previous_event_topic_json["media"] }
+              it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
+            end
+          end
         end
 
         describe "next" do
-          let(:target) { event.next }
+          let(:target) { next_event }
           subject { event_json["next"] }
-          it_behaves_like "request return check", %w(uuid)
-        end
+          it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
 
-        describe "personal_note" do
-          let(:target) { personal_note }
-          let(:personal_note_json) { event_json["personal_notes"][0] }
-          subject { personal_note_json }
-          it_behaves_like "request return check", %w(description uuid order done)
+          describe "topics" do
+            let(:target) { next_event_topic }
+            let(:next_event_topic_json) { find(event_json["next"]["topics"], next_event_topic.uuid) }
+            subject { next_event_topic_json }
+            it_behaves_like "request return check", %w(description uuid order done)
 
-          describe "media with URL" do
-            let(:target) { another_media_with_url }
-            subject { personal_note_json["media"] }
-            it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
+            describe "media" do
+              let(:target) { next_event_media }
+              subject { next_event_topic_json["media"] }
+              it_behaves_like "request return check", %w(title description category url released_at uuid type thumbnail)
+            end
           end
         end
 
@@ -152,7 +170,9 @@ describe Api::V1::Teacher::EventsController do
           let(:target) { topic }
           let(:topic_json) { find(event_json["topics"], topic.uuid) }
           subject { topic_json }
-          it_behaves_like "request return check", %w(description uuid order done)
+          it_behaves_like "request return check", %w(description uuid order done personal)
+
+          it { expect(find(event_json["topics"], personal_topic.uuid)).not_to be_nil }
 
           describe "media with URL" do
             let(:target) { media_with_url }
@@ -172,7 +192,7 @@ describe Api::V1::Teacher::EventsController do
 
       let(:event_template) { build(:event, course: course) }
 
-      let(:topic) { build :topic, order: 1, done: true, media: media_with_url }
+      let(:topic) { build :topic, order: 1, done: true, media: media_with_url, personal: true }
       let(:personal_note) { build :personal_note, order: 1, done: true, media: another_media_with_url }
       let(:media_with_url) { create :media_with_url }
       let(:another_media_with_url) { create :media_with_url }
@@ -189,7 +209,8 @@ describe Api::V1::Teacher::EventsController do
               description: topic.description,
               done: topic.done,
               order: topic.order,
-              media_id: topic.media.uuid
+              media_id: topic.media.uuid,
+              personal: topic.personal
             ],
             personal_notes: [
               description: personal_note.description,
@@ -232,13 +253,14 @@ describe Api::V1::Teacher::EventsController do
         it { expect(subject.topics.count).to eq 1 }
         describe "topic" do
           subject { event.topics.first }
-          it { expect(subject.description).to eq topic.description }
+          it { expect(subject.description).to be_nil }
           it { expect(subject.order).to eq topic.order }
           it { expect(subject).to be_done }
+          it { expect(subject).to be_personal }
 
           describe "media with url" do
             subject { event.topics.first.media }
-            it { expect(subject.title).to eq media_with_url.title }
+            it { expect(subject.title).to eq topic.description }
             it { expect(subject.description).to eq media_with_url.description }
             it { expect(subject.category).to eq media_with_url.category }
             it { expect(subject.url).to eq media_with_url.url }

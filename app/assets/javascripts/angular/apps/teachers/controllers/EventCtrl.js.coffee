@@ -36,25 +36,21 @@ EventCtrl = (
     else
       "Salvo"
 
-  anyEditing = (list)->
-    !!list.filter((item)-> $scope.isEditing(item)).length
-
   unsavedItems = ->
-    $scope.event_form.topic.$dirty ||
-    $scope.event_form.topic_media_url.$dirty ||
-    $scope.event_form.topic_media_file.$dirty ||
-    $scope.event_form.personal_note_media_url.$dirty ||
-    $scope.event_form.personal_note_media_file.$dirty ||
-    $scope.event_form.personal_note.$dirty
+    $scope.event_form.topic_description?.$dirty ||
+    $scope.event_form.topic_private?.$dirty ||
+    $scope.event_form.topic_media_url?.$dirty ||
+    $scope.event_form.topic_media_file?.$dirty ||
+    $scope.event_form.topic_media_id?.$dirty
 
   $scope.saveButtonDisabled = ->
     unsavedItems() ||
-      anyEditing($scope.event.topics) ||
-      anyEditing($scope.event.personal_notes) ||
+      $scope.isEditing ||
       $scope.isSaving ||
       $scope.event_form.$pristine
 
   $scope.save = (event)->
+    $scope.isEditing = false
     $scope.isSaving = true
     deferred = $q.defer()
     event.save().then(->
@@ -73,15 +69,7 @@ EventCtrl = (
     $scope.save(event).then ->
       $window.location.href = $scope.courseLocation(event)
 
-  $scope.updateItem = ($event, editingItem, item)->
-    $event.preventDefault()
-    angular.copy(editingItem, item)
-    item._editing = false
-
-  $scope.isEditing = (item)-> !!item._editing
-  $scope.editItem = (item, editingItem)->
-    angular.copy(item, editingItem)
-    item._editing = true
+  $scope.startEditing = -> $scope.isEditing = true
 
   autosave = $interval(
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()
@@ -93,6 +81,9 @@ EventCtrl = (
   $scope.$on '$destroy', ->
     NavigationGuard.unregisterGuardian(checkDirty)
     $interval.cancel(autosave)
+
+  $scope.setPrivateTopicsVisibility = (visible)->
+    $scope.showPrivateTopics = visible
 
 EventCtrl.$inject = ['$scope', '$routeParams', '$interval', '$window', '$q', 'Event', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
 DunnoApp.controller 'EventCtrl', EventCtrl

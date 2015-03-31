@@ -7,6 +7,7 @@ describe Api::V1::EventsController do
   let(:topic) { create(:topic) }
   let(:topic_with_url) { create(:topic, media: media_with_url) }
   let(:topic_with_file) { create(:topic, media: media_with_file) }
+  let(:personal_topic) { create(:topic, :personal) }
   let(:thermometer) { create(:thermometer) }
   let(:poll) { create(:poll, options: [option]) }
   let(:option) { create(:option) }
@@ -15,7 +16,7 @@ describe Api::V1::EventsController do
   let(:beacon) { create(:beacon) }
   let!(:event) do
     create(:event, course: course,
-                   topics: [topic, topic_with_url, topic_with_file],
+                   topics: [topic, personal_topic, topic_with_url, topic_with_file],
                    thermometers: [thermometer],
                    polls: [poll],
                    beacon: beacon
@@ -111,6 +112,8 @@ describe Api::V1::EventsController do
           let(:target) { topic }
           subject { event_json["topics"][0] }
           it_behaves_like "request return check", %w(description)
+
+          it { expect(find(event_json["topics"], personal_topic.uuid)).to be_nil }
         end
 
         describe "media with URL" do

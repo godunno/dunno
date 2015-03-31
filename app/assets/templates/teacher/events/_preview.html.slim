@@ -4,6 +4,6 @@
       .image
         img ng-src="{{item.media.thumbnail}}"
       .text
-        .title {{item.media.title}}
+        .title {{item.description}}
         .description {{item.media.description}}
-  a.close ng-click="removeMedia(item)" ng-if="editable" x
+  a.close ng-click="removeMedia(item)" ng-if="removable" x

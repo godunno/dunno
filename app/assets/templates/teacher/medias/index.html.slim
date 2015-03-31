@@ -65,7 +65,15 @@ header.page-header.title
           .top
             .large-8.columns
               .title
-                input.input type="text" ng-model="media.title" pu-elastic-input=true pu-elastic-input-maxwidth="95%" ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
+                input.input[
+                  type="text"
+                  ng-model="media.title"
+                  pu-elastic-input=true
+                  pu-elastic-input-maxwidth="95%"
+                  ng-blur="updateMedia(media)"
+                  edit-in-place=true
+                  placeholder="Título do anexo"
+                ]
                 i.icon.icon-pencil
             .large-4.columns
               i.type.icon ng-class="'icon-' + media.type"
