@@ -30,10 +30,12 @@ class SendNotification
   end
 
   def send_email
-    NotificationMailer.notify(
-      message: message,
-      to: @users.map(&:email),
-      subject: email_subject
-    ).deliver
+    @users.each do |user|
+      NotificationMailer.notify(
+        message: NotificationFormatter.format(message),
+        to: user.email,
+        subject: email_subject
+      ).delay.deliver
+    end
   end
 end

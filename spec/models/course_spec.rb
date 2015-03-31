@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Course do
 
   let(:course) { build :course }
+  subject { course }
 
   describe "associations" do
     it { is_expected.to belong_to(:teacher) }
@@ -14,7 +15,7 @@ describe Course do
   end
 
   describe "validations" do
-    [:teacher, :start_date, :end_date, :abbreviation].each do |attr|
+    [:teacher, :start_date, :end_date].each do |attr|
       it { is_expected.to validate_presence_of(attr) }
     end
 

@@ -7,8 +7,9 @@ describe SendNotification do
 
   let(:message) { "MESSAGE" }
   let(:course) { create(:course, students: users) }
+  let(:complete_message) { complete_message = "[Dunno] #{course.abbreviation} - #{message}" }
   let(:teacher) { course.teacher }
-  let(:mail) { double("mail", deliver: nil) }
+  let(:mail) { double("mail", delay: double("delayed mail", deliver: nil)) }
 
   before do
     allow(SmsNotificationWorker).to receive(:perform_async)
@@ -16,7 +17,6 @@ describe SendNotification do
   end
 
   it "should notify all users with SMS" do
-    complete_message = "[Dunno] #{course.abbreviation} - #{message}"
     users.each do |user|
       expect(SmsNotificationWorker).to receive(:perform_async).with(
         complete_message,
@@ -27,12 +27,19 @@ describe SendNotification do
   end
 
   it "should notify all users with e-mail" do
-    expect(NotificationMailer).to receive(:notify).with(
-      message: "[Dunno] #{course.abbreviation} - #{message}",
-      subject: "[Dunno] Notificação de #{course.abbreviation}",
-      to: users.map(&:email)
-    ).and_return(mail)
-    expect(mail).to receive(:deliver)
+    expect(NotificationFormatter).to receive(:format)
+      .with(complete_message)
+      .exactly(3)
+      .times
+      .and_return(complete_message)
+    users.each do |user|
+      expect(NotificationMailer).to receive(:notify).with(
+        message: complete_message,
+        subject: "[Dunno] Notificação de #{course.abbreviation}",
+        to: user.email
+      ).and_return(mail)
+    end
+    expect(mail).to receive_message_chain(:delay, :deliver)
 
     SendNotification.new(message: message, course: course).call
   end
