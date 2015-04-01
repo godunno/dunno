@@ -27,8 +27,8 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
       unless $scope.newListItem.description || $scope.newListItem.media_id
         return alert("Não é possível adicionar item sem texto ou anexo.")
       $analytics.eventTrack 'Item Created',
-        event_uuid: $scope.event.uuid,
-        course_uuid: $scope.event.course.uuid
+        eventUuid: $scope.event.uuid,
+        courseUuid: $scope.event.course.uuid
       $scope.newItem(list(), $scope.newListItem)
       generateOrderableItem()
       $scope.save($scope.event)
@@ -54,8 +54,8 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
   $scope.sortableOptions = (collection)->
     stop: ->
       $analytics.eventTrack "Item Drag 'n Drop",
-        event_uuid: $scope.event.uuid,
-        course_uuid: $scope.event.course.uuid
+        eventUuid: $scope.event.uuid,
+        courseUuid: $scope.event.course.uuid
       for item, i in $scope.event[collection]
         item.order = i + 1
       $scope.save($scope.event)
@@ -73,7 +73,7 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
           response[0]
         else
           response
-      $analytics.eventTrack('Media Created', type: media.type, title: media.title, event_uuid: $scope.event.uuid)
+      $analytics.eventTrack('Media Created', type: media.type, title: media.title, eventUuid: $scope.event.uuid)
       item.media = media
       item.media_id = media.uuid
     ).finally(->
@@ -114,7 +114,7 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
     $scope.$broadcast('catalog-picker.open')
 
   $scope.$on 'catalog-picker.selected', (_, media)->
-    $analytics.eventTrack('Media Selected', type: media.type, title: media.title, event_uuid: $scope.event.uuid)
+    $analytics.eventTrack('Media Selected', type: media.type, title: media.title, eventUuid: $scope.event.uuid)
     $scope.newListItem.media = media
     $scope.newListItem.media_id = media.uuid
 
