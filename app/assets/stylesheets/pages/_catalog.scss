@@ -175,6 +175,11 @@
         font-size: 0.625rem;
         border: 0;
 
+        span:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+
         &.selected {
           background: $light-grey-color;
           border: 1px solid red;
