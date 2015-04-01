@@ -42,6 +42,6 @@ module Dunno
     # Do not swallow errors in after_commit/after_rollback callbacks.
     # config.active_record.raise_in_transactional_callbacks = true
 
-    ActionMailer::Base.default(from: 'contato@dunnoapp.com')
+    ActionMailer::Base.default(from: 'Dunno <contato@dunnoapp.com>')
   end
 end
