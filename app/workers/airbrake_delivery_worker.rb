@@ -1,10 +1,8 @@
-if Rails.env.staging? || Rails.env.production?
-  class AirbrakeDeliveryWorker
-    include Sidekiq::Worker
-    include Airbrake
+class AirbrakeDeliveryWorker
+  include Sidekiq::Worker
+  include Airbrake
 
-    def perform(notice)
-      Airbrake.sender.send_to_airbrake notice
-    end
+  def perform(notice)
+    Airbrake.sender.send_to_airbrake notice
   end
 end

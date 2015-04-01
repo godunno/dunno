@@ -80,6 +80,7 @@ describe Api::V1::Teacher::EventsController do
 
           skip "course's attributes"
           it { expect(subject["order"]).to eq course.order }
+          it { expect(subject["abbreviation"]).to eq course.abbreviation }
           it { expect(subject["access_code"]).to eq course.access_code }
           it { expect(subject["students_count"]).to eq 1 }
           it { expect(subject["color"]).to eq(SHARED_CONFIG["v1"]["courses"]["schemes"][course.order]) }

@@ -1,26 +1,46 @@
 DunnoApp = angular.module('DunnoApp')
 
-NotificationCtrl = ($scope, $timeout, Notification)->
+NotificationCtrl = ($scope, $timeout, Notification, ErrorParser)->
   $scope.limit = 140
 
   ($scope.reset = ->
     $scope.notification = new Notification()
-    $scope.errors = {}
+    $scope.notification_form.$setPristine() if $scope.notification_form
   )()
 
+  $scope.status = 'ready'
+
+  $scope.isReady = -> $scope.status == 'ready'
+  $scope.setReady = -> $scope.status = 'ready'
+
+  $scope.isSending = -> $scope.status == 'sending'
+  $scope.setSending = -> $scope.status = 'sending'
+
+  $scope.isSent = -> $scope.status == 'sent'
+  $scope.setSent = -> $scope.status = 'sent'
+
   $scope.save = (notification)->
-    $scope.sending = true
-    $scope.error = false
-    notification.course_id = $scope.$parent.course.uuid
+    $scope.hasError = false
+    $scope.setSending()
+    course = $scope.$parent.course
+    notification.course_id = course.uuid
+    notification.abbreviation = course.abbreviation
     notification.save().then(->
       $scope.reset()
-      $scope.$broadcast('modal.dismiss')
+      $scope.setSent()
     ).catch((response)->
-      $scope.errors = response.data.errors
-    ).finally(-> $scope.sending = false)
+      $scope.hasError = true
+      ErrorParser.setErrors(response.data.errors, $scope.notification_form, $scope)
+      $scope.setReady()
+    )
 
+  $scope.sendButtonText = ->
+    switch $scope.status
+      when 'ready' then 'Enviar'
+      when 'sending' then 'Enviando...'
+      when 'sent' then 'Enviado com sucesso!'
 
 NotificationCtrl.$inject = [
-  '$scope', '$timeout', 'Notification'
+  '$scope', '$timeout', 'Notification', 'ErrorParser'
 ]
 DunnoApp.controller 'NotificationCtrl', NotificationCtrl

@@ -1,236 +1,244 @@
+// scss-lint:disable SelectorFormat NestingDepth SelectorDepth PlaceholderInExtend IdSelector
+%side-box {
+  background-color: $white;
+  border-radius: 5px;
+  box-shadow: $box-shadow;
+  margin-bottom: 21px;
+  padding: 20px;
+}
+
 .course-detail-page {
-  ul.tab-container {
-    list-style: none;
-    li {
-      display: inline-block;
-      padding: 10px;
-    }
-    li.active {
-      background-color: red;
-    }
-  }
-
-  ul.dates {
-    @extend .cf;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: $box-shadow;
-    list-style: none;
-    margin-left: 0;
-    margin-right: 0;
-
-    .header {
-      border-bottom: 2px solid $light-grey-color;
-      padding: .7rem 1rem .5rem;
-      text-transform: uppercase;
-
-      a {
-        @include radius;
-        background-color: $background-light-grey-color;
-        color: $light-grey-color;
-        font-size: .9rem;
-        float: right;
-        margin-left: 1rem;
-        padding: .5rem;
-
-        &:hover {
-          color: $primary-color;
-        }
-      }
-
-      .previous-month > .icon {
-        margin: 0 1rem 0 0;
-      }
-
-      .current-month {
-        display: inline;
-        font-weight: bold;
-        line-height: 2.5rem;
-      }
-
-      .next-month > .icon {
-        margin: 0 0 0 1rem;
-      }
-    }
-
-    .item {
-      background-color: #fff;
-      float: left;
-      color: $primary-color;
-      line-height: 2.5em;
-      width: 100%;
-
-      &.has-tooltip {
-        cursor: help;
-      }
-
-      .no-touch & {
-        color: $light-grey-color;
-      }
-
-      .no-touch &:hover {
-        background-color: $background-light-grey-color;
-        color: $primary-color;
-
-        .column.order {
-          display: none;
-        }
-
-        .column.go {
-          display: block;
-        }
-      }
-
-      &:nth-last-child(n+2) {
-        border-bottom: 1px solid $light-grey-color;
-      }
-
-      &:first-child {
-        @include side-radius(top, $global-radius);
-      }
-
-      &:last-child {
-        @include side-radius(bottom, $global-radius);
-      }
-
-      &.today .day {
-        background: $secondary-color;
-        color: #fff;
-      }
-
-      &.future .day {
-        color: $primary-color;
-      }
-
-      .column {
-        float: left;
-        font-size: .9rem;
-        font-weight: 300;
-
-        &.day {
-          font-size: 1.1rem;
-          font-weight: bold;
-          width: 8%;
-        }
-
-        &.weekday {
-          width: 10%;
-        }
-
-        &.time {
-          width: 25%;
-        }
-
-        &.classroom {
-          text-align: right;
-          width: 38%;
-        }
-
-        &.status {
-          width: 6%;
-        }
-
-        &.order {
-          text-align: right;
-          width: 13%;
-        }
-
-        &.go {
-          color: $secondary-color;
-          display: none;
-          text-align: center;
-          width: 13%;
-
-          .icon {
-            display: inline-block;
-            line-height: 1em;
-          }
-        }
-      }
-    }
-  }
-
   .code {
-    background-color: white;
-    margin-bottom: 21px;
+    @extend %side-box;
     text-align: center;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: $box-shadow;
-    span.title {
+
+    .title {
       font-size: 16px;
       font-weight: 300;
     }
+
     h3 {
-      font-weight: 700;
       font-size: 26px;
+      font-weight: 700;
     }
-    span.description {
+
+    .description {
       font-size: 13px;
       font-weight: 300;
     }
+
     .icon-expand {
-      position: absolute;
-      top: 10px;
-      right: 30px;
       color: $dark-grey-color;
+      position: absolute;
+      right: 30px;
+      top: 10px;
+
       &:hover {
         color: $primary-color;
       }
     }
   }
+
   .students {
-    background-color: white;
-    border-radius: 5px;
-    overflow: hidden;
-    div.top {
-      padding: 20px;
-      border-bottom: 1px solid #d0d0d0;
-      strong {
-        font-size: 12px;
-      }
-      .send-message {
-        margin-left: 6px;
-        margin-bottom: 0;
-      }
-      a.btn-sm {
-        padding: 0 10px;
-      }
+    @extend %side-box;
+
+    strong {
+      font-size: .75em;
     }
+
+    .send-message {
+      margin-bottom: 0;
+      margin-left: 1em;
+    }
+
+    .btn-sm {
+      padding: 0 10px;
+    }
+
     .list {
       list-style: none;
+      margin: 1em 0 0;
       padding: 0;
-      margin: 0;
+
       li {
-        padding: 10px 20px;
-        border-bottom: 1px solid #d0d0d0;
+        border-bottom: 1px solid #d0d0d0; // NEW_COLOUR
+        padding: .25em 0;
+
+        &:last-child {
+          border: 0;
+        }
+
         h3 {
-          font-size: 14px;
+          font-size: .875em;
         }
       }
     }
   }
 }
 
-#access-code-fullscreen {
+.access-code-fullscreen-modal {
   background: $secondary-color;
-  text-align: center;
   padding-top: 25vh;
-  span, h3, a {
-    color: #fff;
+  text-align: center;
+
+  span,
+  h3,
+  a,
+  .close-reveal-modal {
+    color: $white;
   }
+
   .description {
     font-size: 6vh;
     font-weight: 200;
   }
+
   .title {
     font-size: 25vh;
     line-height: 25vh;
   }
+
   .link-to-sign-in {
     font-size: 6vh;
     font-weight: 300;
     position: relative;
     top: 10vh;
+  }
+}
+
+.dates {
+  @extend .cf;
+  background-color: $white;
+  border-radius: 5px;
+  box-shadow: $box-shadow;
+  margin: 0 0 2em;
+}
+
+@media #{$small-only} {
+  .dates__header__current-month {
+    text-align: center;
+  }
+}
+
+.dates__header {
+  border-bottom: 2px solid $light-grey-color;
+  padding: .7rem 1rem .5rem;
+  text-transform: uppercase;
+
+
+  .dates__header__current-month {
+    display: block;
+    font-weight: bold;
+    line-height: 2.5rem;
+  }
+
+  .dates__header__next-month,
+  .dates__header__previous-month {
+    @include radius;
+    background-color: $background-light-grey-color;
+    color: $light-grey-color;
+    display: block;
+    font-size: .9rem;
+    padding: .5rem;
+    text-align: center;
+
+    &:hover {
+      color: $primary-color;
+    }
+
+    .icon {
+      vertical-align: middle;
+    }
+  }
+}
+
+.dates__date {
+  background-color: $white;
+  color: $primary-color;
+  display: block;
+  line-height: 2.5em;
+
+  &.has-tooltip {
+    cursor: help;
+  }
+
+  .no-touch & {
+    color: $light-grey-color;
+  }
+
+  .no-touch &:hover {
+    background-color: $background-light-grey-color;
+    color: $primary-color;
+
+    .date__order {
+      display: none;
+    }
+
+    .date__go {
+      display: inline-block;
+    }
+  }
+
+  &:nth-last-child(n+2) {
+    border-bottom: 1px solid $light-grey-color;
+  }
+
+  &:first-child {
+    @include side-radius(top, $global-radius);
+  }
+
+  &:last-child {
+    @include side-radius(bottom, $global-radius);
+  }
+
+  &.today .date__day {
+    background: $secondary-color;
+    color: $white;
+  }
+
+  &.future .date__day {
+    color: $primary-color;
+  }
+
+  .date__day,
+  .date__weekday,
+  .date__time,
+  .date__status,
+  .date__classroom,
+  .date__order,
+  .date__go {
+    display: inline-block;
+    padding: .25em .5em;
+  }
+
+  .date__day {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  .date__weekday {
+    text-transform: uppercase;
+  }
+
+  .date__classroom,
+  .date__status,
+  .date__order,
+  .date__go {
+    float: right;
+    text-align: right;
+  }
+
+  .date__order,
+  .date__go {
+    width: 5em;
+  }
+
+  .date__go {
+    color: $secondary-color;
+    display: none;
+    .icon {
+      display: inline-block;
+      line-height: 1em;
+    }
   }
 }
