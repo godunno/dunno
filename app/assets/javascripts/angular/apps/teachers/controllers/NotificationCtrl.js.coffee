@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-NotificationCtrl = ($scope, $timeout, Notification, ErrorParser)->
+NotificationCtrl = ($scope, $timeout, $analytics, Notification, ErrorParser)->
   $scope.limit = 140
 
   ($scope.reset = ->
@@ -28,10 +28,12 @@ NotificationCtrl = ($scope, $timeout, Notification, ErrorParser)->
     notification.save().then(->
       $scope.reset()
       $scope.setSent()
+      $analytics.eventTrack('Notification Sent', courseName: course.name, courseUuid: course.uuid, message: notification.message)
     ).catch((response)->
       $scope.hasError = true
       ErrorParser.setErrors(response.data.errors, $scope.notification_form, $scope)
       $scope.setReady()
+      $analytics.eventTrack('Notification Error', courseName: course.name, courseUuid: course.uuid, message: notification.message, error: response.data.errors)
     )
 
   $scope.sendButtonText = ->
@@ -41,6 +43,6 @@ NotificationCtrl = ($scope, $timeout, Notification, ErrorParser)->
       when 'sent' then 'Enviado com sucesso!'
 
 NotificationCtrl.$inject = [
-  '$scope', '$timeout', 'Notification', 'ErrorParser'
+  '$scope', '$timeout', '$analytics', 'Notification', 'ErrorParser'
 ]
 DunnoApp.controller 'NotificationCtrl', NotificationCtrl
