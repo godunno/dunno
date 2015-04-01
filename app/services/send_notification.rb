@@ -32,10 +32,10 @@ class SendNotification
   end
 
   def send_email(email)
-    NotificationMailer.notify(
+    NotificationMailer.delay.notify(
       message: NotificationFormatter.format(message),
       to: email,
       subject: email_subject
-    ).delay.deliver
+    )
   end
 end

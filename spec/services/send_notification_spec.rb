@@ -9,11 +9,11 @@ describe SendNotification do
   let(:course) { create(:course, students: users) }
   let(:complete_message) { "[Dunno] #{course.abbreviation} - #{message}" }
   let(:teacher) { course.teacher }
-  let(:mail) { double("mail", delay: double("delayed mail", deliver: nil)) }
+  let(:delayed_mailer) { double("Delayed Mailer", notify: nil) }
 
   before do
     allow(SmsNotificationWorker).to receive(:perform_async)
-    allow(NotificationMailer).to receive(:notify).and_return(mail)
+    allow(NotificationMailer).to receive(:delay).and_return(delayed_mailer)
   end
 
   it "should notify all users with SMS" do
@@ -33,13 +33,12 @@ describe SendNotification do
       .times
       .and_return(complete_message)
     users.each do |user|
-      expect(NotificationMailer).to receive(:notify).with(
+      expect(delayed_mailer).to receive(:notify).with(
         message: complete_message,
         subject: "[Dunno] Notificação de #{course.abbreviation}",
         to: user.email
-      ).and_return(mail)
+      )
     end
-    expect(mail).to receive_message_chain(:delay, :deliver)
 
     SendNotification.new(message: message, course: course).call
   end
