@@ -13,7 +13,10 @@ describe Api::V1::Teacher::MediasController do
     end
 
     context "media with URL" do
+      let!(:course) { create :course, teacher: teacher }
+      let!(:event) { create :event, course: course }
       let!(:media) { create :media_with_url, teacher: teacher }
+      let!(:topic) { create :topic, event: event, media: media }
 
       before do
         refresh_index!
@@ -34,7 +37,19 @@ describe Api::V1::Teacher::MediasController do
             "filename"    => nil,
             "released_at" => media.released_at,
             "tag_list"    => media.tag_list,
-            "url"         => media.url
+            "url"         => media.url,
+            "courses"     => [
+              {
+                "uuid" => course.uuid,
+                "name" => course.name,
+                "events"   => [
+                  {
+                    "uuid"     => event.uuid,
+                    "start_at" => event.start_at.utc.iso8601
+                  }
+                ]
+              }
+            ]
           }]
         )
       end
@@ -66,7 +81,8 @@ describe Api::V1::Teacher::MediasController do
             "filename"    => media.original_filename,
             "released_at" => media.released_at,
             "tag_list"    => media.tag_list,
-            "url"         => media.url
+            "url"         => media.url,
+            "courses"      => []
           }]
         )
       end
@@ -100,7 +116,8 @@ describe Api::V1::Teacher::MediasController do
             "filename"    => nil,
             "released_at" => awesome_media.released_at,
             "tag_list"    => awesome_media.tag_list,
-            "url"         => awesome_media.url
+            "url"         => awesome_media.url,
+            "courses"      => []
           }]
         )
       end
