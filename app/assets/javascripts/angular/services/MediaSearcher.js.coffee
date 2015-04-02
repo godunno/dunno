@@ -5,14 +5,16 @@ MediaSearcher = (Media)->
   @inject = ($scope)->
     $scope.search = { type: "all" }
 
-    $scope.fetch = (options = {})->
-      if options.preventDefault?
-        (event = options).preventDefault()
-        options = {}
+    $scope.fetch = (event)->
+      event.preventDefault() if event?
       $scope.$emit('wholePageLoading', Media.search(q: $scope.search.q).then (response)->
         $scope.medias = response.medias
         $scope.next_page = response.next_page
       )
+
+    $scope.searchBy = (tag)->
+      $scope.search.q = tag
+      $scope.fetch()
 
     $scope.paginate = (page)->
       $scope.loadingNextPage = Media.search(q: $scope.search.q, page: page).then (response)->
