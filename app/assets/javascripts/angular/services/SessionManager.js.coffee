@@ -9,6 +9,7 @@ SessionManager = ($http, $q, $analytics)->
       $email: user.email
       $name: user.name
       $phone: user.phone_number
+      $created: user.created_at
       profile: user.profile
       coursesCount: user.courses_count
       studentsCount: user.students_count

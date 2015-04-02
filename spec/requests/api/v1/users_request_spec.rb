@@ -20,6 +20,7 @@ describe Api::V1::UsersController do
       "notifications_count" => 0,
       "profile" => "teacher",
       "students_count" => 0,
+      "created_at" => user.created_at.utc.iso8601
     }
   end
 

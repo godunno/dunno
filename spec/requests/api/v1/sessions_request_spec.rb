@@ -28,7 +28,8 @@ describe Api::V1::SessionsController do
             "authentication_token" => student.authentication_token,
             "profile" => "student",
             "courses_count" => 1,
-            "courses" => [course.access_code]
+            "courses" => [course.access_code],
+            "created_at" => student.user.created_at.utc.iso8601
           )
         end
 
@@ -103,7 +104,8 @@ describe Api::V1::SessionsController do
             "profile" => "teacher",
             "courses_count" => 2,
             "students_count" => 10,
-            "notifications_count" => 2
+            "notifications_count" => 2,
+            "created_at" => teacher.user.created_at.utc.iso8601
           )
         end
 
