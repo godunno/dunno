@@ -16,6 +16,11 @@ describe Api::V1::UsersController do
       "email" => user.email,
       "authentication_token" => user.authentication_token,
       "completed_tutorial" => completed_tutorial,
+      "courses_count" => 0,
+      "notifications_count" => 0,
+      "profile" => "teacher",
+      "students_count" => 0,
+      "created_at" => user.created_at.utc.iso8601
     }
   end
 
