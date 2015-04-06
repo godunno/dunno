@@ -103,6 +103,10 @@
   padding: .75em;
   text-align: right;
 
+  .new__topic__visibility {
+    vertical-align: top;
+  }
+
   .button {
     margin-bottom: 0;
   }
@@ -110,6 +114,10 @@
   .create__new__topic__item {
     border: 1px solid $secondary-color;
     font-weight: bold;
+
+    &.alert {
+      border-color: $red-color;
+    }
   }
 }
 

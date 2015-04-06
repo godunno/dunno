@@ -1,4 +1,6 @@
 .dropdown {
+  @include radius();
+
   &.select__event__status {
     height: 3.45em;
   }
@@ -8,7 +10,6 @@
   }
 
   &.secondary {
-    @include radius();
     background: $white;
     border: 1px solid $light-grey-color;
     color: $primary-color;
