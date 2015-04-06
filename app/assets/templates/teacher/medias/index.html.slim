@@ -64,16 +64,36 @@ header.page-header.title
         .data
           .top
             .large-8.columns
-              .title
+              .title.row
                 input.input type="text" ng-model="media.title" pu-elastic-input=true pu-elastic-input-maxwidth="95%" ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
                 i.icon.icon-pencil
+                
+              .events.row
+                span Usado em: 
+                span ng-repeat="course in media.courses"
+                  a ng-href="#courses/{{course.uuid}}"
+                    | {{course.name}} 
+                  | (
+                  a ng-href="#events/{{event.uuid}}/edit" ng-repeat="event in course.events"
+                    | {{event.start_at | date:'dd/MM/yyyy'}}
+                    span ng-if="!$last"
+                      | , 
+                  | )
+
             .large-4.columns
               i.type.icon ng-class="'icon-' + media.type"
               a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
           .bottom
             .large-11.columns
               i.icon.icon-tag.tags-label
-              tags-input ng-model="media.tags" on-tag-added="updateMedia(media)" on-tag-removed="updateMedia(media)" replace-spaces-with-dashes="false" placeholder="Nova tag"
+              tags-input[
+                ng-model="media.tags"
+                on-tag-added="updateMedia(media)"
+                on-tag-removed="updateMedia(media)"
+                replace-spaces-with-dashes="false"
+                placeholder="Nova tag"
+                on-tag-clicked="searchBy"
+              ]
             .large-1.column
               a.icon.icon-trash ng-click="removeMedia(media)"
 

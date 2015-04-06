@@ -141,6 +141,15 @@
       }
     }
 
+    .events {
+      font-size: 0.8em;
+      color: $light-grey-color;
+      padding-left: 7px;
+      a {
+        color: $light-grey-color;
+      }
+    }
+
     .url {
       float: right;
       font-size: 0.7em;
@@ -174,6 +183,11 @@
         padding-top: 2px;
         font-size: 0.625rem;
         border: 0;
+
+        span:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
 
         &.selected {
           background: $light-grey-color;
