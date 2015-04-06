@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :user do
-    name "MyString"
+    sequence(:name) { |n| "Test User ##{n}" }
     sequence(:phone_number, 1000) { |n| "+55 21 9999 #{n}" }
     sequence(:email) { |n| "user#{n}@example.com" }
     password { SecureRandom.base64(8) }
