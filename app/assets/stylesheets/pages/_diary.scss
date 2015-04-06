@@ -18,9 +18,18 @@
   }
 }
 
+.hide-for-small {
+  .previous__event {
+    margin-right: -1em;
+  }
+
+  .next__event {
+    margin-left: -1em;
+  }
+}
+
 .previous__event {
   border-radius: 3px 0 0 3px;
-  margin-right: -1em;
   padding-right: 1.5em;
   text-align: right;
 
@@ -31,7 +40,6 @@
 
 .next__event {
   border-radius: 0 3px 3px 0;
-  margin-left: -1em;
   padding-left: 1.5em;
   text-align: left;
 
@@ -161,13 +169,14 @@
   border-top: 3px solid lighten($light-grey-color, 20%);
 
   .topic__item.row {
-    margin: 0 1.25em;
+    margin: 0;
   }
 }
 
 .topic__item {
+  background: $white;
   border-bottom: 1px solid lighten($light-grey-color, 20%);
-  padding: 1.125em .25em;
+  padding: 1.125em 1.25em;
 
   &.done {
     input {
@@ -210,7 +219,6 @@
   .topic__item__handle {
     background: image-url('temp-handle.png') no-repeat;
     height: 25px;
-    margin-left: -1.125em;
     width: 7px;
   }
 
