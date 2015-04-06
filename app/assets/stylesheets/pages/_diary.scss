@@ -239,7 +239,10 @@
   }
 
   .topic__item__actions {
+    color: $light-grey-color;
     float: right;
+    font-size: 1.5em;
+    line-height: 1rem;
   }
 }
 
