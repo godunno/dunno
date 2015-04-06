@@ -5,7 +5,7 @@ SessionManager = ($http, $q, $analytics)->
 
   setCurrentUser = (user)->
     $analytics.setUsername(user.id)
-    $analytics.setUserPropertiesOnce
+    $analytics.setUserProperties
       $email: user.email
       $name: user.name
       $phone: user.phone_number
