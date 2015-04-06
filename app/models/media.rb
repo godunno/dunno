@@ -13,6 +13,8 @@ class Media < ActiveRecord::Base
 
   belongs_to :mediable, polymorphic: true
   belongs_to :teacher
+  has_many :topics
+  has_many :events, through: :topics
 
   mount_uploader :file_carrierwave, FileUploader
 

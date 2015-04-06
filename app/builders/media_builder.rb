@@ -7,5 +7,17 @@ class MediaBuilder < BaseBuilder
     json.tag_list(media.tag_list.as_json)
     json.released_at(format_time(media.released_at))
     json.url(media.url)
+
+    if options[:show_events]
+      json.courses do
+        json.array! media.events.group_by(&:course).to_a do |course, events|
+          json.(course, :uuid, :name)
+          json.events events do |event|
+            json.(event, :uuid)
+            json.start_at(format_time(event.start_at))
+          end
+        end
+      end
+    end
   end
 end
