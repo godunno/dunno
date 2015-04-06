@@ -149,22 +149,30 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           .new__topic__form.small-12.columns cg-busy="submittingMediaPromise"
             ul.small-block-grid-4.tabs.select__item__type
               li
-                a ng-click="itemType = 'text'"
+                a[
+                  ng-click="itemType = 'text'"
+                  ng-class="{active: itemType == 'text'}"]
                   i.icon.icon-note
                   br
                   | Texto
               li
-                a ng-click="itemType = 'file'"
+                a[
+                  ng-click="itemType = 'file'"
+                  ng-class="{active: itemType == 'file'}"]
                   i.icon.icon-file
                   br
                   | Arquivo
               li
-                a ng-click="itemType = 'url'"
+                a[
+                  ng-click="itemType = 'url'"
+                  ng-class="{active: itemType == 'url'}"]
                   i.icon.icon-link
                   br
                   | Link
               li
-                a ng-click="itemType = 'catalog'"
+                a[
+                  ng-click="itemType = 'catalog'"
+                  ng-class="{active: itemType == 'catalog'}"]
                   i.icon.icon-catalog
                   br
                   | Catálogo
@@ -275,7 +283,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                       i.icon.icon-unlock>
                       | Alunos
                 a.create__new__topic__item.radius.button.secondary.tiny[
-                  ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal}"
+                  ng-class="{disabled: newListItem._submittingMedia, personal: newListItem.personal, alert: newListItem.personal}"
                   ng-click="addItem()"]
                   | Inserir {{itemTypeDescription()}}
                 /
