@@ -184,7 +184,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   focus-wrapper=""
                   placeholder="Adicionar conteúdo"
                   ui-keydown="{'enter':'addItem($event)'}"
-                  name="topic_description"]
+                  name="topic_text_description"]
               .type.type__file ng-show="itemType == 'file'"
                 label.item__button.media__file__button[
                   ng-show="!newListItem.media"
@@ -207,7 +207,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     focus-wrapper=""
                     placeholder="Adicionar conteúdo"
                     ui-keydown="{'enter':'addItem($event)'}"
-                    name="topic_description"]
+                    name="topic_file_description"]
                 progress-bar
               .type.type__url ng-show="itemType == 'url'"
                 input[
@@ -225,7 +225,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     focus-wrapper=""
                     placeholder="Adicionar conteúdo"
                     ui-keydown="{'enter':'addItem($event)'}"
-                    name="topic_description"]
+                    name="topic_url_description"]
               .type.type__catalog ng-show="itemType == 'catalog'" ng-controller="MediasIndexCtrl"
                 ng-form name="topic_media_id"
                   .catalog__header
