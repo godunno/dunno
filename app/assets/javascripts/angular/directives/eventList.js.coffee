@@ -57,10 +57,11 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
     if confirm("Deseja remover esse item? Essa operação não poderá ser desfeita.")
       $scope.destroy(item)
       $scope.save($scope.event)
+      # TODO: Add to the next event's topics list.
       Utils.remove(list, item)
 
   $scope.canTransferItem = (item)->
-    !$scope.newRecord(item) && !$scope.newRecord($scope.event.next)
+    !$scope.newRecord(item) && !!$scope.event.next
 
   $scope.sortableOptions = (collection)->
     handle: '.handle'

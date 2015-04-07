@@ -289,49 +289,49 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 /
                   a.cancel ng-click="resetNewItem()"
                     | Cancelar
-        #topics-list.topic__items[
-          ui-sortable="sortableOptions('topics')"
-          ng-model="event.topics"]
-          .row.topic__item.clickable[
-            ng-controller="EventEditCtrl"
-            ng-class="{done: topic.done, personal: topic.personal}"
-            ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
-            ng-hide="topic.personal && !showPrivateTopics"]
-            .topic__item__handle.small-1.column
-            .topic__item__show.small-10.columns
-              input.topic__item__status[
-                type="checkbox"
-                ng-model="topic.done"
-                id="topic_{{topic.order}}_done"]
-              label.topic__item__status__checkbox for="topic_{{topic.order}}_done"
-              span.topic__item__image[
-                ng-if="!!topic.media"
-                style="background-image: url({{topic.media.thumbnail}});"]
-              span.topic__item__description ng-class="{preview: !!topic.media}"
-                input.topic__item__editing[
-                  type="text"
-                  ng-model="topic.description"
-                  pu-elastic-input=true
-                  pu-elastic-input-maxwidth="95%"
-                  ng-blur="save(event)"
-                  ng-focus="startEditing()"
-                  edit-in-place=true
-                ]
-            a.small-1.column.topic__item__actions dropdown-toggle="#actions_{{topic.order}}"
-              | ···
-            ul.topic__item__actions__list.f-dropdown id="actions_{{topic.order}}"
-              li
-                a[
-                  ng-click="removeItem(event.topics, topic)"
-                  title="Remover tarefa"]
-                  i.icon.icon-trash>
-                  | Apagar
-              li ng-if="canTransferItem(topic)"
-                a[
-                  ng-click="transferItem(event.topics, topic)"
-                  title="Transferir tarefa"]
-                  i.icon.icon-transfer>
-                  | Transferir
+          #topics-list.topic__items[
+            ui-sortable="sortableOptions('topics')"
+            ng-model="event.topics"]
+            .row.topic__item.clickable[
+              ng-controller="EventEditCtrl"
+              ng-class="{done: topic.done, personal: topic.personal}"
+              ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
+              ng-hide="topic.personal && !showPrivateTopics"]
+              .topic__item__handle.small-1.column
+              .topic__item__show.small-10.columns
+                input.topic__item__status[
+                  type="checkbox"
+                  ng-model="topic.done"
+                  id="topic_{{topic.order}}_done"]
+                label.topic__item__status__checkbox for="topic_{{topic.order}}_done"
+                span.topic__item__image[
+                  ng-if="!!topic.media"
+                  style="background-image: url({{topic.media.thumbnail}});"]
+                span.topic__item__description ng-class="{preview: !!topic.media}"
+                  input.topic__item__editing[
+                    type="text"
+                    ng-model="topic.description"
+                    pu-elastic-input=true
+                    pu-elastic-input-maxwidth="95%"
+                    ng-blur="save(event)"
+                    ng-focus="startEditing()"
+                    edit-in-place=true
+                  ]
+              a.small-1.column.topic__item__actions dropdown-toggle="#actions_{{topic.order}}"
+                | ···
+              ul.topic__item__actions__list.f-dropdown id="actions_{{topic.order}}"
+                li
+                  a[
+                    ng-click="removeItem(event.topics, topic)"
+                    title="Remover tarefa"]
+                    i.icon.icon-trash>
+                    | Apagar
+                li ng-if="canTransferItem(topic)"
+                  a[
+                    ng-click="transferItem(event.topics, topic)"
+                    title="Transferir tarefa"]
+                    i.icon.icon-transfer>
+                    | Transferir
       .hide-for-small.medium-3.columns
         a.next__event[
           ng-if="!!event.next.uuid"
