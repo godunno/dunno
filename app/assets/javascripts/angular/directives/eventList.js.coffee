@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-listCtrl = ($scope, $upload, $analytics, Media, Utils)->
+listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
   angular.extend($scope, Utils)
 
   list = -> $scope.event[$scope.collection]
@@ -8,17 +8,27 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
   generateOrderable = (list)->
     list = list.sort (a,b)-> a.order - b.order
     last = list[list.length - 1]
+    $rootScope.defaultTopicPrivacy ?= false
     if last?
       order = last.order + 1
     else
       order = 1
-    { order: order }
+    { order: order, personal: $rootScope.defaultTopicPrivacy }
 
-  generateOrderableItem = ->
+  $scope.resetNewItem = ->
     $scope.newListItem = generateOrderable(list())
+    $scope.itemType = 'text'
+
+  $scope.itemTypeDescription = ->
+    {
+      'text': 'texto',
+      'file': 'arquivo',
+      'url': 'link',
+      'catalog': 'do catálogo'
+    }[$scope.itemType]
 
   $scope.$on 'initializeEvent', ->
-    generateOrderableItem()
+    $scope.resetNewItem()
     list().sort (a,b)-> a.order - b.order
 
   $scope.addItem = ($event)->
@@ -30,7 +40,8 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
         eventUuid: $scope.event.uuid,
         courseUuid: $scope.event.course.uuid
       $scope.newItem(list(), $scope.newListItem)
-      generateOrderableItem()
+      $rootScope.defaultTopicPrivacy = $scope.newListItem.personal
+      $scope.resetNewItem()
       $scope.save($scope.event)
     if $scope._editingMediaUrl
       $scope.submitUrlMedia($scope.newListItem).then(run)
@@ -52,6 +63,7 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
     !$scope.newRecord(item) && !$scope.newRecord($scope.event.next)
 
   $scope.sortableOptions = (collection)->
+    handle: '.handle'
     stop: ->
       $analytics.eventTrack "Item Drag 'n Drop",
         eventUuid: $scope.event.uuid,
@@ -76,6 +88,8 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
       $analytics.eventTrack('Media Created', type: media.type, title: media.title, eventUuid: $scope.event.uuid)
       item.media = media
       item.media_id = media.uuid
+      $scope.event_form.topic_description.$setViewValue(media.title)
+      $scope.event_form.topic_description.$render()
     ).finally(->
       item._submittingMedia = false
       $scope.$broadcast("progress.stop")
@@ -109,21 +123,18 @@ listCtrl = ($scope, $upload, $analytics, Media, Utils)->
     submitMedia item, promise, true
     $scope.$broadcast("file.clean")
 
-  $scope.pickFromCatalog = ->
-    return if $scope.newListItem.media? && !confirm("Deseja substituir o anexo atual?")
-    $scope.$broadcast('catalog-picker.open')
-
   $scope.$on 'catalog-picker.selected', (_, media)->
     $analytics.eventTrack('Media Selected', type: media.type, title: media.title, eventUuid: $scope.event.uuid)
     $scope.newListItem.media = media
     $scope.newListItem.media_id = media.uuid
 
   $scope.removeMedia = (item)->
+    item.media?.remove()
     item.media_id = null
     item.media = null
     $scope.event_form.$setDirty()
 
-listCtrl.$inject = ['$scope', '$upload', '$analytics', 'Media', 'Utils']
+listCtrl.$inject = ['$scope', '$upload', '$analytics', '$rootScope', 'Media', 'Utils']
 DunnoApp.controller 'listCtrl', listCtrl
 
 DunnoApp.directive 'eventList', ->

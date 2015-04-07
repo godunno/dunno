@@ -40,4 +40,10 @@ describe Topic do
     expect { topic.save! }.not_to raise_error
   end
 
+  describe "#without_personal" do
+    let!(:topic) { create(:topic) }
+    let!(:personal_topic) { create(:topic, :personal) }
+
+    it { expect(Topic.without_personal).to eq([topic]) }
+  end
 end
