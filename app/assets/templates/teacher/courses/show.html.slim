@@ -20,11 +20,12 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
           a.close-reveal-modal
             | &#215;
       .students
-        strong count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
-        a.send-message.button.radius.btn-style-1.btn-sm data-reveal-id="send-notification"
-          i.icon.icon-buzz
-          span
-            | Enviar notificação
+        .students__title
+          strong.students__number count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
+          a.send-message.button.radius.secondary.tiny< data-reveal-id="send-notification"
+            i.icon.icon-buzz>
+            span
+              | Enviar notificação
         ul.list
           li ng-repeat="student in course.students | orderBy:'name'"
             h3
