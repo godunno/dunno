@@ -88,8 +88,7 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
       $analytics.eventTrack('Media Created', type: media.type, title: media.title, eventUuid: $scope.event.uuid)
       item.media = media
       item.media_id = media.uuid
-      $scope.event_form.topic_description.$setViewValue(media.title)
-      $scope.event_form.topic_description.$render()
+      item.description = media.title
     ).finally(->
       item._submittingMedia = false
       $scope.$broadcast("progress.stop")

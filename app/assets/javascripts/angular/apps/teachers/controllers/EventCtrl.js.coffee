@@ -37,7 +37,9 @@ EventCtrl = (
       "Salvo"
 
   unsavedItems = ->
-    $scope.event_form.topic_description?.$dirty ||
+    $scope.event_form.topic_text_description?.$dirty ||
+    $scope.event_form.topic_file_description?.$dirty ||
+    $scope.event_form.topic_url_description?.$dirty ||
     $scope.event_form.topic_private?.$dirty ||
     $scope.event_form.topic_media_url?.$dirty ||
     $scope.event_form.topic_media_file?.$dirty ||
