@@ -84,6 +84,7 @@ EventCtrl = (
     NavigationGuard.unregisterGuardian(checkDirty)
     $interval.cancel(autosave)
 
+  $scope.showPrivateTopics = true
   $scope.setPrivateTopicsVisibility = (visible)->
     $scope.showPrivateTopics = visible
 
