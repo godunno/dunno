@@ -261,9 +261,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                       cg-busy="loadingNextPage"]
                       | Carregar mais&hellip;
               .new__topic__actions
-                a.dropdown.button.tiny.new__topic__visibility[
-                  data-dropdown="topic-private"
-                  ng-class="{alert: newListItem.personal, secondary: !newListItem.personal}"]
+                a.dropdown.secondary.button.tiny.new__topic__visibility[
+                  data-dropdown="topic-private"]
                   span.private ng-if="newListItem.personal"
                     i.icon.icon-lock>
                     | Somente professor
