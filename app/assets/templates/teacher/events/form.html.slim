@@ -164,7 +164,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   | Arquivo
               li
                 a[
-                  ng-click="itemType = 'url'"
+                  ng-click="itemType = 'url'; startUrlMediaEditing()"
                   ng-class="{active: itemType == 'url'}"]
                   i.icon.icon-link
                   br
