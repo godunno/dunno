@@ -297,7 +297,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ng-class="{done: topic.done, personal: topic.personal}"
               ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
               ng-hide="topic.personal && !showPrivateTopics"]
-              .topic__item__handle.small-1.column
+              .handle.topic__item__handle.small-1.column
               .topic__item__show.small-10.columns
                 input.topic__item__status[
                   type="checkbox"
