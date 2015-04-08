@@ -4,19 +4,20 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
   angular.extend($scope, Utils)
 
   list = -> $scope.event[$scope.collection]
+  sortItems = -> list().sort (a,b)-> b.order - a.order
 
-  generateOrderable = (list)->
-    list = list.sort (a,b)-> a.order - b.order
-    last = list[list.length - 1]
+  generateOrderable = ->
+    sortItems()
+    first = list()[0]
     $rootScope.defaultTopicPrivacy ?= false
-    if last?
-      order = last.order + 1
+    if first?
+      order = first.order + 1
     else
       order = 1
     { order: order, personal: $rootScope.defaultTopicPrivacy }
 
   $scope.resetNewItem = ->
-    $scope.newListItem = generateOrderable(list())
+    $scope.newListItem = generateOrderable()
     $scope.itemType = 'text'
 
   $scope.itemTypeDescription = ->
@@ -29,7 +30,7 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
 
   $scope.$on 'initializeEvent', ->
     $scope.resetNewItem()
-    list().sort (a,b)-> a.order - b.order
+    sortItems()
 
   $scope.addItem = ($event)->
     $event.preventDefault() if $event?
@@ -39,7 +40,7 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
       $analytics.eventTrack 'Item Created',
         eventUuid: $scope.event.uuid,
         courseUuid: $scope.event.course.uuid
-      $scope.newItem(list(), $scope.newListItem)
+      list().unshift $scope.newListItem
       $rootScope.defaultTopicPrivacy = $scope.newListItem.personal
       $scope.resetNewItem()
       $scope.save($scope.event)
@@ -69,8 +70,8 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
       $analytics.eventTrack "Item Drag 'n Drop",
         eventUuid: $scope.event.uuid,
         courseUuid: $scope.event.course.uuid
-      for item, i in $scope.event[collection]
-        item.order = i + 1
+      for item, i in list()
+        item.order = list().length - i
       $scope.save($scope.event)
 
   submitMedia = (item, callback, showProgress)->
