@@ -18,7 +18,7 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
 
   $scope.resetNewItem = ->
     $scope.newListItem = generateOrderable()
-    $scope.itemType = 'text'
+    $scope.itemType = null
 
   $scope.itemTypeDescription = ->
     {
