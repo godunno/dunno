@@ -260,7 +260,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                       ng-if="next_page"
                       cg-busy="loadingNextPage"]
                       | Carregar mais&hellip;
-              .new__topic__actions
+              .new__topic__actions ng-if="itemType != null"
                 a.dropdown.secondary.button.tiny.new__topic__visibility[
                   data-dropdown="topic-private"]
                   span.private ng-if="newListItem.personal"
