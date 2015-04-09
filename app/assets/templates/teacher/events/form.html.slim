@@ -313,7 +313,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     ng-show="isEditing(topic)"
                     type="text"
                     ng-model="topic.description"
-                    ng-blur="save(event)"
+                    on-finish="finishEditing(topic)"
                     edit-in-place=true
                     focus-on="isEditing(topic)"
                   ]

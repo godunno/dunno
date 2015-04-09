@@ -70,7 +70,7 @@ header.page-header.title
                   ng-model="media.title"
                   pu-elastic-input=true
                   pu-elastic-input-maxwidth="95%"
-                  ng-blur="updateMedia(media)"
+                  on-finish="updateMedia(media)"
                   edit-in-place=true
                   placeholder="Título do anexo"
                 ]
