@@ -13,7 +13,10 @@ MediasIndexCtrl = ($scope, Media, Utils, MediaSearcher)->
     return list.length if type == 'all'
     list.filter((item)-> item.type == type).length
 
+  $scope.isEditing = (media) -> !!media._editing
+  $scope.startEditing = (media) -> media._editing = true
   $scope.updateMedia = (media)->
+    media._editing = false
     media.update_tag_list()
     media.update()
 

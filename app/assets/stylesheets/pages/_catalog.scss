@@ -122,7 +122,6 @@
     .title {
       .icon {
         display: none;
-        float: left;
         color: $light-grey-color;
         margin-top: 0.6rem;
       }
@@ -132,12 +131,12 @@
         border: none;
         box-shadow: none;
         margin-bottom: 0;
-        &:hover, &:focus {
+        &:focus {
           @include dotted-input($light-grey-color);
-          & + .icon {
-            display: block;
-          }
         }
+      }
+      a:hover ~ .icon {
+        display: inline-block;
       }
     }
 

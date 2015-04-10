@@ -1,10 +1,11 @@
 DunnoApp = angular.module("DunnoApp")
 
-editInPlace = ($parse) ->
+editInPlace = ->
   restrict: 'A'
   require: 'ngModel'
+  scope:
+    onFinish: '&'
   link: (scope, element, attrs, ngModelCtrl)->
-    onFinish = $parse(attrs.onFinish)
     ngModelCtrl.$$setOptions updateOn: 'blur', debounce: 0
     element.on 'keydown', (e)->
       esc = e.keyCode == 27
@@ -14,11 +15,7 @@ editInPlace = ($parse) ->
         element.blur()
       if enter
         element.blur()
-        onFinish(scope)
-        e.preventDefault() if e.preventDefault?
-        e.stopPropagation() if e.stopPropagation?
-        return false
-
-editInPlace.$inject = ['$parse']
+        scope.onFinish()
+        e.preventDefault()
 
 DunnoApp.directive "editInPlace", editInPlace
