@@ -307,14 +307,15 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   ng-if="!!topic.media"
                   style="background-image: url({{topic.media.thumbnail}});"]
                 span.topic__item__description ng-class="{preview: !!topic.media}"
+                  a ng-show="!isEditing(topic)" ng-click="startEditing(topic)"
+                    | {{topic.description}}
                   input.topic__item__editing[
+                    ng-show="isEditing(topic)"
                     type="text"
                     ng-model="topic.description"
-                    pu-elastic-input=true
-                    pu-elastic-input-maxwidth="95%"
-                    ng-blur="save(event)"
-                    ng-focus="startEditing()"
+                    on-finish="finishEditing(topic)"
                     edit-in-place=true
+                    focus-on="isEditing(topic)"
                   ]
               a.small-1.column.topic__item__actions dropdown-toggle="#actions_{{topic.order}}"
                 | ···

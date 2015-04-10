@@ -45,14 +45,14 @@ EventCtrl = (
     $scope.event_form.topic_media_file?.$dirty ||
     $scope.event_form.topic_media_id?.$dirty
 
+  anyEditing = (list) -> !!list.filter((i) -> i._editing).length
   $scope.saveButtonDisabled = ->
     unsavedItems() ||
-      $scope.isEditing ||
+      anyEditing($scope.event.topics) ||
       $scope.isSaving ||
       $scope.event_form.$pristine
 
   $scope.save = (event)->
-    $scope.isEditing = false
     $scope.isSaving = true
     deferred = $q.defer()
     event.save().then(->
@@ -71,7 +71,11 @@ EventCtrl = (
     $scope.save(event).then ->
       $window.location.href = $scope.courseLocation(event)
 
-  $scope.startEditing = -> $scope.isEditing = true
+  $scope.isEditing = (item) -> !!item._editing
+  $scope.startEditing = (item) -> item._editing = true
+  $scope.finishEditing = (item) ->
+    item._editing = false
+    $scope.save($scope.event)
 
   autosave = $interval(
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()

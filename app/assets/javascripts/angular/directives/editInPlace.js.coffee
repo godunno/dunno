@@ -2,17 +2,20 @@ DunnoApp = angular.module("DunnoApp")
 
 editInPlace = ->
   restrict: 'A'
-  link: (scope, element, attrs)->
+  require: 'ngModel'
+  scope:
+    onFinish: '&'
+  link: (scope, element, attrs, ngModelCtrl)->
+    ngModelCtrl.$$setOptions updateOn: 'blur', debounce: 0
     element.on 'keydown', (e)->
       esc = e.keyCode == 27
       enter = e.keyCode == 13
       if esc
-        document.execCommand("undo")
+        ngModelCtrl.$rollbackViewValue()
         element.blur()
       if enter
         element.blur()
-        e.preventDefault() if e.preventDefault?
-        e.stopPropagation() if e.stopPropagation?
-        return false
+        scope.onFinish()
+        e.preventDefault()
 
 DunnoApp.directive "editInPlace", editInPlace

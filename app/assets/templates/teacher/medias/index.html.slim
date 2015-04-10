@@ -65,13 +65,15 @@ header.page-header.title
           .top
             .large-8.columns
               .title
+                a ng-show="!isEditing(media)" ng-click="startEditing(media)"
+                  | {{media.title}}
                 input.input[
+                  ng-show="isEditing(media)"
                   type="text"
                   ng-model="media.title"
-                  pu-elastic-input=true
-                  pu-elastic-input-maxwidth="95%"
-                  ng-blur="updateMedia(media)"
+                  on-finish="updateMedia(media)"
                   edit-in-place=true
+                  focus-on="isEditing(media)"
                   placeholder="Título do anexo"
                 ]
                 i.icon.icon-pencil
