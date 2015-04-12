@@ -17,7 +17,7 @@ MediasIndexCtrl = ($scope, MediaSearcher) ->
   $scope.startEditing = (media) -> media._editing = true
   $scope.updateMedia = (media)->
     media._editing = false
-    media.update_tag_list()
+    media.updateTagList()
     media.update()
 
   $scope.removeMedia = (media)->
