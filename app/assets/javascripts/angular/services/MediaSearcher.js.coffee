@@ -24,7 +24,7 @@ MediaSearcher = (Media) ->
     @search.q = ""
     @fetch()
 
-  @format_media_url = (media) ->
+  @formatMediaUrl = (media) ->
     return media.filename if media.type == "file"
 
     parser = document.createElement('a')
