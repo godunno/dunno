@@ -1,36 +1,40 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-MediaSearcher = (Media)->
-  @inject = ($scope)->
-    $scope.search = { type: "all" }
+MediaSearcher = (Media) ->
+  @search = { type: "all" }
 
-    $scope.fetch = (event)->
-      event.preventDefault() if event?
-      $scope.$emit('wholePageLoading', Media.search(q: $scope.search.q, per_page: $scope.perPage).then (response)->
-        $scope.medias = response.medias
-        $scope.next_page = response.next_page
-      )
+  @fetch = (event) ->
+    event.preventDefault() if event?
+    @$emit('wholePageLoading', @searchMedia().then (response) =>
+      @medias = response.medias
+      @next_page = response.next_page
+    )
 
-    $scope.searchBy = (tag)->
-      $scope.search.q = tag
-      $scope.fetch()
+  @searchBy = (tag) ->
+    @search.q = tag
+    @fetch()
 
-    $scope.paginate = (page)->
-      $scope.loadingNextPage = Media.search(q: $scope.search.q, page: page, per_page: $scope.perPage).then (response)->
-        $scope.medias = ($scope.medias || []).concat response.medias
-        $scope.next_page = response.next_page
+  @paginate = (page) ->
+    @loadingNextPage = @searchMedia(page).then (response) =>
+      @medias = (@medias || []).concat response.medias
+      @next_page = response.next_page
 
-    $scope.clearSearch = ->
-      $scope.search.q = ""
-      $scope.fetch()
+  @clearSearch = ->
+    @search.q = ""
+    @fetch()
 
-    $scope.format_media_url = (media)->
-      return media.filename if media.type == "file"
+  @format_media_url = (media) ->
+    return media.filename if media.type == "file"
 
-      parser = document.createElement('a')
-      parser.href = media.url
-      parser.hostname
+    parser = document.createElement('a')
+    parser.href = media.url
+    parser.hostname
+
+
+  @searchMedia = (page) ->
+    Media.search(q: @search.q, page: page, per_page: @perPage)
+
 
   @
 

@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
 AddFromMediaCtrl = ($scope, Media, Utils, MediaSearcher)->
-  MediaSearcher.inject($scope)
+  angular.extend($scope, MediaSearcher)
   $scope.perPage = 3
 
   $scope.fetch()

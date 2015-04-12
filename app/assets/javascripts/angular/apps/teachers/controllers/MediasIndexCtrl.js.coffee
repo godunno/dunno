@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
-MediasIndexCtrl = ($scope, Media, Utils, MediaSearcher)->
-  MediaSearcher.inject($scope)
+MediasIndexCtrl = ($scope, Media, Utils, MediaSearcher) ->
+  angular.extend($scope, MediaSearcher)
 
   $scope.fetch()
 
