@@ -226,7 +226,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     placeholder="Adicionar conteúdo"
                     ui-keydown="{'enter':'addItem($event)'}"
                     name="topic_url_description"]
-              .type.type__catalog ng-show="itemType == 'catalog'" ng-controller="MediasIndexCtrl"
+              .type.type__catalog ng-show="itemType == 'catalog'" ng-controller="AddFromMediaCtrl"
                 ng-form name="topic_media_id"
                   .catalog__header
                     .catalog__search

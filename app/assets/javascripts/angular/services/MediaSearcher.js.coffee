@@ -7,7 +7,7 @@ MediaSearcher = (Media)->
 
     $scope.fetch = (event)->
       event.preventDefault() if event?
-      $scope.$emit('wholePageLoading', Media.search(q: $scope.search.q).then (response)->
+      $scope.$emit('wholePageLoading', Media.search(q: $scope.search.q, per_page: $scope.perPage).then (response)->
         $scope.medias = response.medias
         $scope.next_page = response.next_page
       )
@@ -17,7 +17,7 @@ MediaSearcher = (Media)->
       $scope.fetch()
 
     $scope.paginate = (page)->
-      $scope.loadingNextPage = Media.search(q: $scope.search.q, page: page).then (response)->
+      $scope.loadingNextPage = Media.search(q: $scope.search.q, page: page, per_page: $scope.perPage).then (response)->
         $scope.medias = ($scope.medias || []).concat response.medias
         $scope.next_page = response.next_page
 
