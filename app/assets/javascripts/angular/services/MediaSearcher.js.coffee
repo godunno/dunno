@@ -12,7 +12,7 @@ MediaSearcher = (Media) ->
     )
 
   @searchBy = (tag) ->
-    @search.q = tag
+    @search.q = tag.text
     @fetch()
 
   @paginate = (page) ->

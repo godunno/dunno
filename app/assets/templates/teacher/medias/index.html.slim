@@ -102,7 +102,7 @@ header.page-header.title
                 on-tag-removed="updateMedia(media)"
                 replace-spaces-with-dashes="false"
                 placeholder="Nova tag"
-                on-tag-clicked="searchBy"
+                on-tag-clicked="searchBy($tag)"
               ]
             .large-1.column
               a.icon.icon-trash ng-click="removeMedia(media)"
