@@ -100,11 +100,7 @@ class Media < ActiveRecord::Base
       query[:query][:filtered][:filter] = { term: options[:filter] }
     end
     result = __elasticsearch__.search(query)
-    result = result.page(options[:page] || 1)
+    result = result.per_page(options[:per_page] || 10).page(options[:page] || 1)
     result
-  end
-
-  def self.per_page
-    10
   end
 end

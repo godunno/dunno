@@ -59,7 +59,7 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   end
 
   def media_search_params
-    params.permit(:page, :q)
+    params.permit(:page, :q, :per_page)
   end
 
   def media_create_params

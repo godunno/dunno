@@ -226,7 +226,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     placeholder="Adicionar conteúdo"
                     ui-keydown="{'enter':'addItem($event)'}"
                     name="topic_url_description"]
-              .type.type__catalog ng-show="itemType == 'catalog'" ng-controller="MediasIndexCtrl"
+              .type.type__catalog ng-show="itemType == 'catalog'" ng-controller="AddFromMediaCtrl"
                 ng-form name="topic_media_id"
                   .catalog__header
                     .catalog__search
@@ -253,7 +253,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                         a.media__url ng-href="{{media.url}}" target="_blank"
                           i.media__type__icon.icon> ng-class="'icon-' + media.type"
                           span
-                            | {{format_media_url(media)}}
+                            | {{formatMediaUrl(media)}}
                   .load__more ng-if="next_page"
                     a.load__more__media[
                       ng-click="paginate(next_page)"

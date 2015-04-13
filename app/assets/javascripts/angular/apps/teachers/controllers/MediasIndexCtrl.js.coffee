@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
-MediasIndexCtrl = ($scope, Media, Utils, MediaSearcher)->
-  MediaSearcher.inject($scope)
+MediasIndexCtrl = ($scope, MediaSearcher) ->
+  angular.extend($scope, MediaSearcher)
 
   $scope.fetch()
 
@@ -17,7 +17,7 @@ MediasIndexCtrl = ($scope, Media, Utils, MediaSearcher)->
   $scope.startEditing = (media) -> media._editing = true
   $scope.updateMedia = (media)->
     media._editing = false
-    media.update_tag_list()
+    media.updateTagList()
     media.update()
 
   $scope.removeMedia = (media)->
@@ -27,5 +27,5 @@ MediasIndexCtrl = ($scope, Media, Utils, MediaSearcher)->
         page = if last then $scope.previous_page else $scope.current_page
         $scope.fetch(page: page)
 
-MediasIndexCtrl.$inject = ['$scope', 'Media', 'Utils', 'MediaSearcher']
+MediasIndexCtrl.$inject = ['$scope', 'MediaSearcher']
 DunnoApp.controller 'MediasIndexCtrl', MediasIndexCtrl

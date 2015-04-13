@@ -48,7 +48,7 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
       )
       deferred.promise
 
-    update_tag_list: -> @tag_list = @tags.map((tag)-> tag.text)
+    updateTagList: -> @tag_list = @tags.map((tag)-> tag.text)
 
     @search: (options)->
       deferred = $q.defer()
