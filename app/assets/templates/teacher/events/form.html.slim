@@ -176,7 +176,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   i.icon.icon-catalog
                   br
                   | Catálogo
-            .item__type
+            .item__type ng-show="itemType != null"
               .type.type__text ng-show="itemType == 'text'"
                 input.field__new__list__item[
                   ng-model="newListItem.description"
