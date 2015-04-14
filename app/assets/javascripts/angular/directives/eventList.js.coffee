@@ -13,6 +13,7 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
     sortItems()
 
   #### Novo tópico
+  # TODO: Transfer the responsibility of defining topic's order to back-end
   generateOrderable = ->
     sortItems()
     first = list()[0]

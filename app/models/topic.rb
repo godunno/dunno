@@ -5,7 +5,8 @@ class Topic < ActiveRecord::Base
   has_many :ratings, as: :rateable
   belongs_to :media
 
-  validate :ensure_description_or_media_present
+  validate :ensure_description_or_media_present, on: :create
+  validates :description, presence: true, on: :update
 
   scope :without_personal, -> { where(personal: false) }
 

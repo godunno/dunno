@@ -2,8 +2,8 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
   respond_to :json
 
   def update
-    topic.update(topic_params)
-    render nothing: true
+    topic.update!(topic_params)
+    respond_with topic
   end
 
   def destroy

@@ -11,23 +11,51 @@ describe Api::V1::Teacher::TopicsController do
       patch "/api/v1/teacher/topics/#{topic.uuid}.json", topic_params.merge(auth_params(teacher)).to_json
     end
 
-    describe "updating description" do
-      let!(:topic) { create(:topic, description: "One") }
-      let(:topic_params) { { topic: { description: "Other" } } }
+    context "successfuly updating" do
+      describe "#description" do
+        let!(:topic) { create(:topic, description: "One") }
+        let(:topic_params) { { topic: { description: "Other" } } }
 
-      it do
-        expect { do_action }
-        .to change { topic.reload.description }.from("One").to("Other")
+        it do
+          expect { do_action }
+          .to change { topic.reload.description }.from("One").to("Other")
+        end
+
+        it do
+          do_action
+          expect(json).to eq(
+            "uuid" => topic.uuid,
+            "order" => nil,
+            "done" => false,
+            "personal" => false,
+            "description" => "Other",
+            "media_id" => nil
+          )
+        end
+      end
+
+      describe "#done" do
+        let!(:topic) { create(:topic, done: true) }
+        let(:topic_params) { { topic: { done: false } } }
+
+        it do
+          expect { do_action }
+          .to change { topic.reload.done }.from(true).to(false)
+        end
       end
     end
 
-    describe "updating done" do
-      let!(:topic) { create(:topic, done: true) }
-      let(:topic_params) { { topic: { done: false } } }
-
+    context "failing to update" do
+      let!(:topic) { create(:topic) }
+      let(:topic_params) { { topic: { description: nil } } }
+      before { do_action }
+      it { expect(last_response.status).to eq(422) }
       it do
-        expect { do_action }
-        .to change { topic.reload.done }.from(true).to(false)
+        expect(json).to eq(
+          "errors" => {
+            "description" => [{ "error" => "blank" }]
+          }
+        )
       end
     end
   end
