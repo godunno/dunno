@@ -1,29 +1,30 @@
 DunnoApp = angular.module('DunnoApp')
 
 TopicEditCtrl = ($scope, Utils)->
-  $scope.isEditing = (item) -> !!item._editing
+  $scope.isEditing = (topic) -> !!topic._editing
 
-  $scope.startEditing = (item) ->
-    item._editing = true
+  $scope.startEditing = (topic) ->
+    topic._editing = true
     $scope.$emit('startEditing')
 
-  $scope.finishEditing = (item) ->
-    item._editing = false
-    $scope.$emit('finishEditing')
+  $scope.finishEditing = (topic) ->
+    topic._editing = false
+    topic.save().then ->
+      $scope.$emit('finishEditing')
 
-  $scope.transferItem = (topic)->
-    return unless confirm("Deseja transferir esse item? Essa operação não poderá ser desfeita.")
+  $scope.transferTopic = (topic)->
+    return unless confirm("Deseja transferir esse topic? Essa operação não poderá ser desfeita.")
     topic.transfer().then ->
       $scope.$emit('transferTopic', topic)
 
-  $scope.removeItem = (list, item)->
-    return unless confirm("Deseja remover esse item? Essa operação não poderá ser desfeita.")
-    Utils.destroy(item)
+  $scope.removeTopic = (list, topic)->
+    return unless confirm("Deseja remover esse topic? Essa operação não poderá ser desfeita.")
+    Utils.destroy(topic)
     # TODO: Add to the next event's topics list.
-    Utils.remove(list, item)
+    Utils.remove(list, topic)
 
-  $scope.canTransferItem = (item, event)->
-    !Utils.newRecord(item) && !!event.next
+  $scope.canTransfertopic = (topic, event)->
+    !Utils.newRecord(topic) && !!event.next
 
 TopicEditCtrl.$inject = ['$scope', 'Utils']
 DunnoApp.controller 'TopicEditCtrl', TopicEditCtrl
