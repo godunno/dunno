@@ -11,6 +11,7 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
     respond_with event
   end
 
+  # TODO: Use strong parameters
   def create
     @event_form = Form::EventForm.new(params[:event])
     if @event_form.save

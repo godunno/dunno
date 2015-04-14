@@ -13,7 +13,7 @@ describe Api::V1::Teacher::TopicsController do
 
     context "successfuly updating" do
       describe "#description" do
-        let!(:topic) { create(:topic, description: "One") }
+        let(:topic) { create(:topic, description: "One") }
         let(:topic_params) { { topic: { description: "Other" } } }
 
         it do
@@ -35,12 +35,23 @@ describe Api::V1::Teacher::TopicsController do
       end
 
       describe "#done" do
-        let!(:topic) { create(:topic, done: true) }
+        let(:topic) { create(:topic, done: true) }
         let(:topic_params) { { topic: { done: false } } }
 
         it do
           expect { do_action }
           .to change { topic.reload.done }.from(true).to(false)
+        end
+      end
+
+      describe "media's description", :wip do
+        let(:media) { create(:media, title: "One") }
+        let(:topic) { create(:topic, media: media) }
+        let(:topic_params) { { topic: { description: "Other", media_id: media.uuid } } }
+
+        it do
+          expect { do_action }
+          .to change { media.reload.title }.from("One").to("Other")
         end
       end
     end
