@@ -6,6 +6,13 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
   list = -> $scope.event[$scope.collection]
   sortItems = -> list().sort (a,b)-> b.order - a.order
 
+  $scope.$on 'initializeEvent', ->
+    #### Depende de novo tópico
+    $scope.resetNewItem()
+    ####
+    sortItems()
+
+  #### Novo tópico
   generateOrderable = ->
     sortItems()
     first = list()[0]
@@ -28,10 +35,6 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
       'catalog': 'do catálogo'
     }[$scope.itemType]
 
-  $scope.$on 'initializeEvent', ->
-    $scope.resetNewItem()
-    sortItems()
-
   $scope.addItem = ($event)->
     $event.preventDefault() if $event?
     run = ->
@@ -48,31 +51,6 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
       $scope.submitUrlMedia($scope.newListItem).then(run)
     else if !$scope.newListItem._submittingMedia
       run()
-
-  $scope.transferItem = (list, item)->
-    if confirm("Deseja transferir esse item? Essa operação não poderá ser desfeita.")
-      item.transfer().then ->
-        Utils.remove(list, item)
-
-  $scope.removeItem = (list, item)->
-    if confirm("Deseja remover esse item? Essa operação não poderá ser desfeita.")
-      $scope.destroy(item)
-      $scope.save($scope.event)
-      # TODO: Add to the next event's topics list.
-      Utils.remove(list, item)
-
-  $scope.canTransferItem = (item)->
-    !$scope.newRecord(item) && !!$scope.event.next
-
-  $scope.sortableOptions = (collection)->
-    handle: '.handle'
-    stop: ->
-      $analytics.eventTrack "Item Drag 'n Drop",
-        eventUuid: $scope.event.uuid,
-        courseUuid: $scope.event.course.uuid
-      for item, i in list()
-        item.order = list().length - i
-      $scope.save($scope.event)
 
   submitMedia = (item, callback, showProgress)->
     return if item.media? && !confirm("Deseja substituir o anexo atual?")
@@ -134,6 +112,20 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
     item.media_id = null
     item.media = null
     $scope.event_form.$setDirty()
+  ####
+
+  $scope.sortableOptions = (collection)->
+    handle: '.handle'
+    stop: ->
+      $analytics.eventTrack "Item Drag 'n Drop",
+        eventUuid: $scope.event.uuid,
+        courseUuid: $scope.event.course.uuid
+      for item, i in list()
+        item.order = list().length - i
+      $scope.save($scope.event)
+
+  $scope.$on 'transferTopic', (event, topic) ->
+    Utils.remove(list(), topic)
 
 listCtrl.$inject = ['$scope', '$upload', '$analytics', '$rootScope', 'Media', 'Utils']
 DunnoApp.controller 'listCtrl', listCtrl

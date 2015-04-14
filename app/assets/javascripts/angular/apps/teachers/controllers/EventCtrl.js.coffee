@@ -15,18 +15,14 @@ EventCtrl = (
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
+  # TODO: extract this get -> then -> assign to a service
+  $scope.$emit('wholePageLoading', Event.get(uuid: $routeParams.id).then (event)->
+    initializeEvent(event)
+  )
+
   initializeEvent = (event)->
     $scope.event = event
     $scope.$broadcast('initializeEvent')
-
-  initializeEvent(new Event())
-  $scope.event.course_id = $routeParams.course_id
-
-  # TODO: extract this get -> then -> assign to a service
-  if $routeParams.id
-    $scope.$emit('wholePageLoading', Event.get(uuid: $routeParams.id).then (event)->
-      initializeEvent(event)
-    )
 
   $scope.saveButtonMessage = ->
     if $scope.isSaving
@@ -35,22 +31,6 @@ EventCtrl = (
       "Salvar"
     else
       "Salvo"
-
-  unsavedItems = ->
-    $scope.event_form.topic_text_description?.$dirty ||
-    $scope.event_form.topic_file_description?.$dirty ||
-    $scope.event_form.topic_url_description?.$dirty ||
-    $scope.event_form.topic_private?.$dirty ||
-    $scope.event_form.topic_media_url?.$dirty ||
-    $scope.event_form.topic_media_file?.$dirty ||
-    $scope.event_form.topic_media_id?.$dirty
-
-  anyEditing = (list) -> !!list.filter((i) -> i._editing).length
-  $scope.saveButtonDisabled = ->
-    unsavedItems() ||
-      anyEditing($scope.event.topics) ||
-      $scope.isSaving ||
-      $scope.event_form.$pristine
 
   $scope.save = (event)->
     $scope.isSaving = true
@@ -71,12 +51,6 @@ EventCtrl = (
     $scope.save(event).then ->
       $window.location.href = $scope.courseLocation(event)
 
-  $scope.isEditing = (item) -> !!item._editing
-  $scope.startEditing = (item) -> item._editing = true
-  $scope.finishEditing = (item) ->
-    item._editing = false
-    $scope.save($scope.event)
-
   autosave = $interval(
     -> $scope.save($scope.event) if !$scope.saveButtonDisabled()
     AUTOSAVE_INTERVAL)
@@ -88,9 +62,40 @@ EventCtrl = (
     NavigationGuard.unregisterGuardian(checkDirty)
     $interval.cancel(autosave)
 
+  #### Lista de tópicos
   $scope.showPrivateTopics = true
   $scope.setPrivateTopicsVisibility = (visible)->
     $scope.showPrivateTopics = visible
+  ####
+
+  #### Novo tópico
+  unsavedItems = ->
+    $scope.event_form.topic_text_description?.$dirty ||
+    $scope.event_form.topic_file_description?.$dirty ||
+    $scope.event_form.topic_url_description?.$dirty ||
+    $scope.event_form.topic_private?.$dirty ||
+    $scope.event_form.topic_media_url?.$dirty ||
+    $scope.event_form.topic_media_file?.$dirty ||
+    $scope.event_form.topic_media_id?.$dirty
+  ####
+
+  edits = 0
+
+  anyEditing = -> edits > 0
+
+  $scope.$on 'startEditing', ->
+    edits++
+
+  $scope.$on 'finishEditing', ->
+    edits--
+
+  #### Depende de novo tópico
+  $scope.saveButtonDisabled = ->
+    unsavedItems() ||
+      anyEditing() ||
+      $scope.isSaving ||
+      $scope.event_form.$pristine
+  ####
 
 EventCtrl.$inject = ['$scope', '$routeParams', '$interval', '$window', '$q', 'Event', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
 DunnoApp.controller 'EventCtrl', EventCtrl

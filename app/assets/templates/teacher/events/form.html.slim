@@ -296,7 +296,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ui-sortable="sortableOptions('topics')"
             ng-model="event.topics"]
             .row.topic__item.clickable[
-              ng-controller="EventEditCtrl"
+              ng-controller="TopicEditCtrl"
               ng-class="{done: topic.done, personal: topic.personal}"
               ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
               ng-hide="topic.personal && !showPrivateTopics"]
@@ -330,9 +330,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     title="Remover tarefa"]
                     i.icon.icon-trash>
                     | Apagar
-                li ng-if="canTransferItem(topic)"
+                li ng-if="canTransferItem(topic, event)"
                   a[
-                    ng-click="transferItem(event.topics, topic)"
+                    ng-click="transferItem(topic)"
                     title="Transferir tarefa"]
                     i.icon.icon-transfer>
                     | Transferir
