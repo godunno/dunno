@@ -53,6 +53,16 @@
   }
 }
 
+form .row.collapse.mobile__day__navigation {
+  margin: 0 -.675em;
+}
+
+.select__event__status {
+  span {
+    white-space: nowrap;
+  }
+}
+
 .diary__header {
   background: $primary-color;
   border: 1px solid $primary-color;

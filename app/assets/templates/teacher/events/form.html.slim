@@ -30,7 +30,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 .diary__page
   form name="event_form"
     .row.event__status.medium-collapse
-      .small-6.medium-3.medium-offset-3.columns
+      .small-6.medium-2.medium-offset-3.columns
         a.select__event__status.small.dropdown.secondary.button data-dropdown="event-status"
           span.event__status__published ng-if="event.status == 'published'"
             i.icon.icon-published>
@@ -66,7 +66,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               i.icon.icon-canceled
             small
               | Cancelar aula e notificar os estudantes.
-      .small-6.medium-3.columns.end.form__event__status__save
+      .small-6.medium-4.columns.end.form__event__status__save
         a.save__and__exit[
           ng-click="finish(event)"
           analytics-on="click"
@@ -83,7 +83,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           | Salvar
     .row.medium-collapse
       .show-for-small.small-12.columns
-        .row.collapse
+        .row.collapse.mobile__day__navigation
           .small-6.columns
             a.previous__event[
               ng-if="!!event.previous.uuid"
