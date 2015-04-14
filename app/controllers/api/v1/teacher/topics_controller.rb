@@ -11,6 +11,7 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
     render nothing: true
   end
 
+  # TODO: Transfer as the first topic
   def transfer
     next_event = topic.event.next_not_canceled
     if next_event

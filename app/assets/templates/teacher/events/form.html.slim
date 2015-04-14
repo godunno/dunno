@@ -313,6 +313,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 span.topic__item__description ng-class="{preview: !!topic.media}"
                   a ng-show="!isEditing(topic)" ng-click="startEditing(topic)"
                     | {{topic.description}}
+                  / TODO: Validate description not empty if there's no media
                   input.topic__item__editing[
                     ng-show="isEditing(topic)"
                     type="text"
@@ -326,13 +327,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ul.topic__item__actions__list.f-dropdown id="actions_{{topic.order}}"
                 li
                   a[
-                    ng-click="removeItem(event.topics, topic)"
+                    ng-click="removeTopic(topic)"
                     title="Remover tarefa"]
                     i.icon.icon-trash>
                     | Apagar
-                li ng-if="canTransferItem(topic, event)"
+                li ng-if="canTransferTopic(topic, event)"
                   a[
-                    ng-click="transferItem(topic)"
+                    ng-click="transferTopic(topic)"
                     title="Transferir tarefa"]
                     i.icon.icon-transfer>
                     | Transferir

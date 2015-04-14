@@ -1,8 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
-  angular.extend($scope, Utils)
-
+listCtrl = ($scope, $analytics, $rootScope, Media, Utils)->
   list = -> $scope.event[$scope.collection]
   sortItems = -> list().sort (a,b)-> b.order - a.order
 
@@ -125,12 +123,16 @@ listCtrl = ($scope, $upload, $analytics, $rootScope, Media, Utils)->
         item.order = list().length - i
       $scope.save($scope.event)
 
-  $scope.$on 'transferTopic', (event, topic) ->
+  removeTopic = (event, topic) ->
     Utils.remove(list(), topic)
 
-listCtrl.$inject = ['$scope', '$upload', '$analytics', '$rootScope', 'Media', 'Utils']
+  $scope.$on 'transferTopic', removeTopic
+  $scope.$on 'removeTopic', removeTopic
+
+listCtrl.$inject = ['$scope', '$analytics', '$rootScope', 'Media', 'Utils']
 DunnoApp.controller 'listCtrl', listCtrl
 
+# TODO: Use as controller directly
 DunnoApp.directive 'eventList', ->
   restrict: 'A'
   scope: true

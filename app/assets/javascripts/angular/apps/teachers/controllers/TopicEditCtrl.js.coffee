@@ -12,18 +12,20 @@ TopicEditCtrl = ($scope, Utils)->
     topic.save().then ->
       $scope.$emit('finishEditing')
 
+  # TODO: Add to the next event's topics list.
+  # TODO: Loading
   $scope.transferTopic = (topic)->
     return unless confirm("Deseja transferir esse topic? Essa operação não poderá ser desfeita.")
     topic.transfer().then ->
       $scope.$emit('transferTopic', topic)
 
-  $scope.removeTopic = (list, topic)->
+  # TODO: Loading
+  $scope.removeTopic = (topic)->
     return unless confirm("Deseja remover esse topic? Essa operação não poderá ser desfeita.")
-    Utils.destroy(topic)
-    # TODO: Add to the next event's topics list.
-    Utils.remove(list, topic)
+    topic.remove().then ->
+      $scope.$emit('removeTopic', topic)
 
-  $scope.canTransfertopic = (topic, event)->
+  $scope.canTransferTopic = (topic, event)->
     !Utils.newRecord(topic) && !!event.next
 
 TopicEditCtrl.$inject = ['$scope', 'Utils']
