@@ -32,6 +32,18 @@ describe Api::V1::Teacher::TopicsController do
     end
   end
 
+  describe "DELETE /api/v1/teacher/topics/:uuid" do
+    let!(:topic) { create(:topic) }
+    def do_action
+      delete "/api/v1/teacher/topics/#{topic.uuid}.json", auth_params(teacher).to_json
+    end
+
+    it do
+      expect { do_action }
+      .to change { Topic.count }.from(1).to(0)
+    end
+  end
+
   describe "PATCH /api/v1/teacher/topics/:uuid/transfer" do
     let!(:topic) { create(:topic, event: event) }
     context "authenticated" do

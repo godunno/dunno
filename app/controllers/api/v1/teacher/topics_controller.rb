@@ -6,6 +6,11 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
     render nothing: true
   end
 
+  def destroy
+    topic.destroy
+    render nothing: true
+  end
+
   def transfer
     next_event = topic.event.next_not_canceled
     if next_event
