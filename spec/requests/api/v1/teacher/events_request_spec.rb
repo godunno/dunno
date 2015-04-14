@@ -10,8 +10,6 @@ describe Api::V1::Teacher::EventsController do
 
   describe "GET /api/v1/teacher/events.json" do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       let!(:course_from_another_teacher) { create(:course, teacher: create(:teacher)) }
@@ -186,8 +184,6 @@ describe Api::V1::Teacher::EventsController do
 
   describe "POST /api/v1/teacher/events.json" do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       let(:event_template) { build(:event, course: course) }
@@ -290,8 +286,6 @@ describe Api::V1::Teacher::EventsController do
 
   describe "PATCH /api/v1/teacher/events/:uuid.json" do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       skip "invalid event"
@@ -314,8 +308,6 @@ describe Api::V1::Teacher::EventsController do
   end
 
   describe "DELETE /api/v1/teacher/events/:uuid.json" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 

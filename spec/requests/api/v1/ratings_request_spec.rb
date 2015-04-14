@@ -6,8 +6,6 @@ describe Api::V1::RatingsController do
     let(:student) { create(:student) }
     let(:rating) { build :rating }
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       context "with valid thermometer id" do

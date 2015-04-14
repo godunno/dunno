@@ -170,7 +170,6 @@ describe Api::V1::Teacher::MediasController do
 
   describe "POST /api/v1/teacher/medias.json", :vcr do
     let(:teacher) { create :teacher }
-    it_behaves_like "API authentication required"
     context "authenticated" do
 
       def do_action

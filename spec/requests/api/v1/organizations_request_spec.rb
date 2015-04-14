@@ -5,12 +5,6 @@ describe Api::V1::OrganizationsController do
 
   describe "GET /api/v1/organizations" do
 
-    def do_action
-      get "/api/v1/organizations.xml", auth_params
-    end
-
-    it_behaves_like "request invalid content type XML"
-
     context "valid content type" do
       before do
 

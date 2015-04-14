@@ -8,8 +8,6 @@ describe Api::V1::AnswersController do
     let(:poll) { create(:poll, timeline: event.timeline) }
     let(:event) { create(:event) }
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       def do_action

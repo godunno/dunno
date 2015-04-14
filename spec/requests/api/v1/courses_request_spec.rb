@@ -49,8 +49,6 @@ describe Api::V1::CoursesController do
 
   describe "GET /api/v1/courses/:identifier.json" do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       def do_action
@@ -79,8 +77,6 @@ describe Api::V1::CoursesController do
   end
 
   describe "POST /api/v1/courses/:uuid/register" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 
@@ -135,8 +131,6 @@ describe Api::V1::CoursesController do
   end
 
   describe "DELETE /api/v1/courses/:uuid/unregister" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 

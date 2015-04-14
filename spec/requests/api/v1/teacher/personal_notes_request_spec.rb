@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Api::V1::Teacher::PersonalNotesController do
   describe "PATCH /api/v1/teacher/personal_notes/:uuid/transfer" do
-    it_behaves_like "API authentication required"
     context "authenticated" do
       let!(:teacher) { create(:teacher) }
       let!(:course) { create(:course, teacher: teacher) }

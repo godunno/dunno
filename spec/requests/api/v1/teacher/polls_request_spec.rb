@@ -4,8 +4,6 @@ describe Api::V1::Teacher::PollsController do
 
   describe "PATCH /api/v1/teacher/polls/:uuid/release.json" do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
       let(:poll) { create :poll }
 

@@ -1,6 +1,11 @@
 class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
   respond_to :json
 
+  def update
+    topic.update(topic_params)
+    render nothing: true
+  end
+
   def transfer
     next_event = topic.event.next_not_canceled
     if next_event
@@ -13,6 +18,10 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
   end
 
   private
+
+    def topic_params
+      params.require(:topic).permit(:description, :done)
+    end
 
     def topic
       @topic ||= Topic.find_by!(uuid: params[:id])

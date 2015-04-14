@@ -1,14 +1,40 @@
 require 'spec_helper'
 
 describe Api::V1::Teacher::TopicsController do
-  describe "PATCH /api/v1/teacher/topics/:uuid/transfer" do
-    it_behaves_like "API authentication required"
-    context "authenticated" do
-      let!(:teacher) { create(:teacher) }
-      let!(:course) { create(:course, teacher: teacher) }
-      let!(:event) { create(:event, course: course, start_at: Time.now) }
-      let!(:topic) { create(:topic, event: event) }
+  let!(:teacher) { create(:teacher) }
+  let!(:course) { create(:course, teacher: teacher) }
+  let!(:event) { create(:event, course: course, start_at: Time.now) }
 
+  describe "PATCH /api/v1/teacher/topics/:uuid" do
+
+    def do_action
+      patch "/api/v1/teacher/topics/#{topic.uuid}.json", topic_params.merge(auth_params(teacher)).to_json
+    end
+
+    describe "updating description" do
+      let!(:topic) { create(:topic, description: "One") }
+      let(:topic_params) { { topic: { description: "Other" } } }
+
+      it do
+        expect { do_action }
+        .to change { topic.reload.description }.from("One").to("Other")
+      end
+    end
+
+    describe "updating done" do
+      let!(:topic) { create(:topic, done: true) }
+      let(:topic_params) { { topic: { done: false } } }
+
+      it do
+        expect { do_action }
+        .to change { topic.reload.done }.from(true).to(false)
+      end
+    end
+  end
+
+  describe "PATCH /api/v1/teacher/topics/:uuid/transfer" do
+    let!(:topic) { create(:topic, event: event) }
+    context "authenticated" do
       def do_action
         patch "/api/v1/teacher/topics/#{topic.uuid}/transfer.json", auth_params(teacher).to_json
       end
@@ -18,7 +44,7 @@ describe Api::V1::Teacher::TopicsController do
 
         it "should transfer topic to the next event" do
           expect { do_action }.to change { topic.reload.event }
-            .from(event).to(next_event)
+          .from(event).to(next_event)
         end
       end
 
@@ -37,7 +63,7 @@ describe Api::V1::Teacher::TopicsController do
 
         it "should transfer topic to the next event" do
           expect { do_action }.to change { topic.reload.event }
-            .from(event).to(next_event)
+          .from(event).to(next_event)
         end
       end
     end

@@ -21,8 +21,6 @@ describe Api::V1::Teacher::EventsController do
 
   describe "GET /api/v1/teacher/courses.json" do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       def do_action
@@ -52,8 +50,6 @@ describe Api::V1::Teacher::EventsController do
   end
 
   describe "GET /api/v1/teacher/courses/:uuid.json" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 
@@ -153,8 +149,6 @@ describe Api::V1::Teacher::EventsController do
 
   describe "GET /api/v1/teacher/courses/:uuid/students.json" do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       before do
@@ -176,8 +170,6 @@ describe Api::V1::Teacher::EventsController do
   end
 
   describe "POST /api/v1/teacher/courses.json" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 
@@ -235,8 +227,6 @@ describe Api::V1::Teacher::EventsController do
 
   describe "PATCH /api/v1/teacher/courses/:uuid.json" do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       def do_action
@@ -260,8 +250,6 @@ describe Api::V1::Teacher::EventsController do
   end
 
   describe "DELETE /api/v1/teacher/courses/:uuid.json" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 

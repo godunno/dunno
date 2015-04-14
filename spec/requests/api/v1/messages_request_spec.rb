@@ -4,27 +4,11 @@ describe Api::V1::MessagesController do
 
   describe "POST /api/v1/timeline/messages", vcr: { match_requests_on: [:method, :host, :path]} do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       let!(:timeline) { event.timeline }
       let(:event) { create(:event) }
       let!(:student) { create(:student) }
-
-      def do_action
-        params = {
-          timeline_message: {
-            timeline_id: timeline.id,
-            student_id: student.id,
-            content: "Some message here"
-          }
-        }
-
-        post "/api/v1/timeline/messages.xml", params.merge(auth_params).to_json
-      end
-
-      it_behaves_like "request invalid content type XML"
 
       context "valid content type" do
 
@@ -97,8 +81,6 @@ describe Api::V1::MessagesController do
 
   describe "POST /api/v1/timeline/messages/:id/up", vcr: { match_requests_on: [:method, :host, :path]} do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       let(:event) { create(:event) }
@@ -155,8 +137,6 @@ describe Api::V1::MessagesController do
   end
 
   describe "POST /api/v1/timeline/messages/:id/down", vcr: { match_requests_on: [:method, :host, :path]} do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 
