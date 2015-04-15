@@ -184,7 +184,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   focus-wrapper=""
                   placeholder="Adicionar conteúdo"
                   ui-keydown="{'enter':'addItem($event)'}"
-                  name="topic_text_description"]
+                  name="topic_text_description"
+                  focus-on="itemType == 'text'"]
               .type.type__file ng-show="itemType == 'file'"
                 label.item__button.media__file__button[
                   ng-show="!newListItem.media"
@@ -207,7 +208,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     focus-wrapper=""
                     placeholder="Adicionar conteúdo"
                     ui-keydown="{'enter':'addItem($event)'}"
-                    name="topic_file_description"]
+                    name="topic_file_description"
+                    focus-on="itemType == 'file' && !!newListItem.media"]
                 progress-bar
               .type.type__url ng-show="itemType == 'url'"
                 input[
@@ -216,7 +218,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   name="topic_media_url"
                   ng-model="newListItem.media_url"
                   placeholder="http://"
-                  ui-keydown="{'enter':'submitUrlMedia(newListItem)'}"]
+                  ui-keydown="{'enter':'submitUrlMedia(newListItem)'}"
+                  focus-on="itemType == 'url' && !newListItem.media"]
                 .media ng-show="!!newListItem.media"
                   preview item="newListItem" removable="true"
                   input.field__new__list__item[
@@ -225,7 +228,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     focus-wrapper=""
                     placeholder="Adicionar conteúdo"
                     ui-keydown="{'enter':'addItem($event)'}"
-                    name="topic_url_description"]
+                    name="topic_url_description"
+                    focus-on="itemType == 'url' && !!newListItem.media"]
               .type.type__catalog ng-show="itemType == 'catalog'" ng-controller="AddFromMediaCtrl"
                 ng-form name="topic_media_id"
                   .catalog__header
