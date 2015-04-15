@@ -52,7 +52,7 @@ EventCtrl = (
       $window.location.href = $scope.courseLocation(event)
 
   checkDirty = (event)->
-    if $scope.event_form.$dirty || unsavedItems()
+    if anyEditing() || unsavedItems()
       "Algumas alterações ainda não foram efetuadas. Deseja continuar?"
   NavigationGuard.registerGuardian(checkDirty)
   $scope.$on '$destroy', ->
