@@ -43,11 +43,14 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             | Cancelada
         ul#event-status.event__status__list.f-dropdown[
           data-dropdown-content=""
-          dropdown-select=""]
+          dropdown-select=""
+        ]
           input.model[
             type="hidden"
             name="event_status"
-            ng-model="event.status"]
+            ng-model="event.status"
+            ng-change="save(event)"
+          ]
           li.published__event dropdown-select-item="'published'"
             span
               | Publicada
