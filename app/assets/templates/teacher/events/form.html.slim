@@ -306,7 +306,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 input.topic__item__status[
                   type="checkbox"
                   ng-model="topic.done"
-                  id="topic_{{topic.order}}_done"]
+                  ng-change="save(topic)"
+                  id="topic_{{topic.order}}_done"
+                ]
                 label.topic__item__status__checkbox for="topic_{{topic.order}}_done"
                 span.topic__item__image[
                   ng-if="!!topic.media"

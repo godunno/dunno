@@ -7,6 +7,9 @@ TopicEditCtrl = ($scope, Utils)->
     topic._editing = true
     $scope.$emit('startEditing')
 
+  $scope.save = (topic) ->
+    topic.save()
+
   $scope.finishEditing = (topic) ->
     topic._editing = false
     topic.save().then ->

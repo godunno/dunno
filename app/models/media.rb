@@ -16,6 +16,8 @@ class Media < ActiveRecord::Base
   has_many :topics
   has_many :events, through: :topics
 
+  validates :title, presence: true
+
   mount_uploader :file_carrierwave, FileUploader
 
   delegate :event, to: :mediable

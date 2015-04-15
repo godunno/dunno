@@ -9,6 +9,10 @@ describe Media do
     it { should belong_to(:teacher) }
   end
 
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:title) }
+  end
+
   describe "callbacks" do
     describe "after create" do
       context "new media" do

@@ -29,6 +29,17 @@ describe TopicForm do
         end
 
         it { expect { update! }.to change { media.title }.from("One").to("Another") }
+
+        context "changing done value" do
+          let(:topic_params) do
+            {
+              description: "Another",
+              done: true
+            }
+          end
+
+          it { expect { update! }.to change { topic.done }.from(false).to(true) }
+        end
       end
     end
 
