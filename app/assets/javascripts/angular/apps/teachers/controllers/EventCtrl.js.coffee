@@ -51,16 +51,12 @@ EventCtrl = (
     $scope.save(event).then ->
       $window.location.href = $scope.courseLocation(event)
 
-  autosave = $interval(
-    -> $scope.save($scope.event) if !$scope.saveButtonDisabled()
-    AUTOSAVE_INTERVAL)
   checkDirty = (event)->
     if $scope.event_form.$dirty || unsavedItems()
       "Algumas alterações ainda não foram efetuadas. Deseja continuar?"
   NavigationGuard.registerGuardian(checkDirty)
   $scope.$on '$destroy', ->
     NavigationGuard.unregisterGuardian(checkDirty)
-    $interval.cancel(autosave)
 
   #### Lista de tópicos
   $scope.showPrivateTopics = true

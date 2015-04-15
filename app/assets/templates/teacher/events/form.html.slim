@@ -319,9 +319,10 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     ng-show="isEditing(topic)"
                     type="text"
                     ng-model="topic.description"
-                    on-finish="finishEditing(topic)"
+                    on-success="finishEditing(topic)"
                     edit-in-place=true
                     focus-on="isEditing(topic)"
+                    required=true
                   ]
               a.small-1.column.topic__item__actions dropdown-toggle="#actions_{{topic.order}}"
                 | ···
