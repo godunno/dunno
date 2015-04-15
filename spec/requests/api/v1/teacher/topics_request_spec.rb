@@ -44,7 +44,7 @@ describe Api::V1::Teacher::TopicsController do
         end
       end
 
-      describe "media's description", :wip do
+      describe "media's description" do
         let(:media) { create(:media, title: "One") }
         let(:topic) { create(:topic, media: media) }
         let(:topic_params) { { topic: { description: "Other", media_id: media.uuid } } }

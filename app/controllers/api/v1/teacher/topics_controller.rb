@@ -2,8 +2,6 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
   respond_to :json
 
   def update
-    #Form::TopicForm.new(topic_params.merge(uuid: params[:id])).save!
-    # Reproduzir a interface do ActiveRecord
     TopicForm.new(topic).update!(topic_params)
     respond_with topic
   end
@@ -28,7 +26,7 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
   private
 
     def topic_params
-      params.require(:topic).permit(:description, :done, :media_id)
+      params.require(:topic).permit(:description, :done)
     end
 
     def topic
