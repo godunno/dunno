@@ -64,7 +64,8 @@ describe Api::V1::Teacher::TopicsController do
       it do
         expect(json).to eq(
           "errors" => {
-            "description" => [{ "error" => "blank" }]
+            "description" => [{ "error" => "blank_content" }],
+            "media" => [{ "error" => "blank_content" }]
           }
         )
       end

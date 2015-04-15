@@ -14,10 +14,6 @@ class User < ActiveRecord::Base
 
   before_save :ensure_authentication_token
 
-  def avatar
-    "http://placepic.me/avatars/600-600"
-  end
-
   def profile_name
     profile_type.downcase
   end

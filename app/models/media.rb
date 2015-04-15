@@ -67,12 +67,6 @@ class Media < ActiveRecord::Base
     }
   end
 
-  def release!
-    self.status = "released"
-    self.released_at = Time.now
-    save!
-  end
-
   def url
     super || file.try(:url)
   end

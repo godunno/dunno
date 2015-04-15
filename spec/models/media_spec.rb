@@ -25,16 +25,6 @@ describe Media do
     end
   end
 
-  describe "#release!" do
-    before do
-      Timecop.freeze
-    end
-    after { Timecop.return }
-
-    it { expect {media.release!}.to change(media, :status).from("available").to("released") }
-    it { expect {media.release!}.to change(media, :released_at).from(nil).to(Time.now) }
-  end
-
   describe "#type" do
     context "file" do
       let(:media) { build :media_with_file }

@@ -2,16 +2,11 @@ require 'spec_helper'
 
 describe Event do
 
-
   let(:event) { build(:event) }
 
   describe "associations" do
-    it { is_expected.to have_one(:timeline) }
     it { is_expected.to belong_to(:course).touch(true) }
     it { is_expected.to have_many(:topics) }
-    it { is_expected.to have_many(:thermometers) }
-    it { is_expected.to have_many(:personal_notes) }
-    it { is_expected.to belong_to(:beacon) }
   end
 
   describe "validations" do
@@ -72,20 +67,14 @@ describe Event do
       before do
         event.status = "draft"
         event.topics = []
-        event.personal_notes = []
       end
 
-      it "there's no topics or personal notes" do
+      it "there's no topics" do
         expect(event.formatted_status).to eq("empty")
       end
 
       it "there's at least one topic" do
         event.topics << build(:topic)
-        expect(event.reload.formatted_status).to eq("draft")
-      end
-
-      it "there's at least one personal note" do
-        event.personal_notes << build(:personal_note)
         expect(event.reload.formatted_status).to eq("draft")
       end
     end
@@ -94,10 +83,9 @@ describe Event do
       before do
         event.status = "published"
         event.topics = []
-        event.personal_notes = []
       end
 
-      it "there's no topics or personal notes" do
+      it "there's no topics" do
         Timecop.freeze(event.end_at - 1.hour) do
           expect(event.formatted_status).to eq("published")
         end
@@ -117,49 +105,6 @@ describe Event do
 
       it { expect(event.formatted_status).to eq("canceled") }
     end
-  end
-
-  describe "#close!" do
-    before do
-      event.open!
-      Timecop.freeze
-    end
-
-    after { Timecop.return }
-
-    it { expect {event.close!}.to change(event, :closed?).from(false).to(true) }
-    it { expect {event.close!}.to change(event, :closed_at).from(nil).to(Time.now) }
-    it "should not be opened after is closed" do
-      event.close!
-      expect(event).not_to be_opened
-    end
-    it "should not be able to close an unopened event" do
-      event.opened_at = nil
-      expect(event.close!).to be false
-      expect(event).not_to be_closed
-    end
-  end
-
-  describe "#open!" do
-    before do
-      Timecop.freeze
-    end
-    after { Timecop.return }
-
-    it { expect {event.open!}.to change(event, :opened?).from(false).to(true) }
-    it { expect {event.open!}.to change(event, :opened_at).from(nil).to(Time.now) }
-    it "should not be closed when it's opened" do
-      event.open!
-      expect(event).not_to be_closed
-    end
-  end
-
-  describe "#channel" do
-    before do
-      event.save!
-    end
-
-    it { expect(event.channel).to eq("event_#{event.uuid}") }
   end
 
   describe "#order" do
@@ -213,6 +158,4 @@ describe Event do
       end
     end
   end
-
-
 end

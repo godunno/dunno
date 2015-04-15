@@ -8,7 +8,6 @@ describe Api::V1::CoursesController do
   let!(:event) do
     create(:event, course: course)
   end
-  let(:event_pusher_events) { EventPusherEvents.new(student.user) }
 
   describe "GET /api/v1/courses.json" do
 

@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
   # ensure_security_headers # See more: https://github.com/twitter/secureheadere
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :event_pusher_events
-  helper_method :course_pusher_events
 
   protected
 
@@ -22,13 +20,5 @@ class ApplicationController < ActionController::Base
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) << :name
       devise_parameter_sanitizer.for(:sign_up) << :phone_number
-    end
-
-    def event_pusher_events
-      @event_pusher_events ||= EventPusherEvents.new(current_user)
-    end
-
-    def course_pusher_events
-      @course_pusher_events ||= CoursePusherEvents.new(current_user)
     end
 end
