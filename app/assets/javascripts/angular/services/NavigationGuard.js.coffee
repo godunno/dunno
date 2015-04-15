@@ -11,7 +11,7 @@ DunnoApp.factory "NavigationGuard", ['$window', '$rootScope', ($window, $rootSco
       (event or $window.event).returnValue = message
       message
 
-  locationChangeStartHandler = (event)->
+  exitHandler = (event)->
     if message = confirmMessage()
       if !confirm(message)
         event.preventDefault()
@@ -27,7 +27,8 @@ DunnoApp.factory "NavigationGuard", ['$window', '$rootScope', ($window, $rootSco
     $window.onbeforeunload = onBeforeUnloadHandler
 
   # https://github.com/angular/angular.js/issues/2109
-  $rootScope.$on('$locationChangeStart', locationChangeStartHandler)
+  $rootScope.$on('$locationChangeStart', exitHandler)
+  $rootScope.$on('dunno.exit', exitHandler)
 
   registerGuardian = (guardianCallback)->
     guardians.unshift guardianCallback

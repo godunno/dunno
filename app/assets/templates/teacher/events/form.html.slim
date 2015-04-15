@@ -79,11 +79,15 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           analytics-uuid="{{event.uuid}}"
           analytics-start-at="{{event.start_at}}"]
           | Salvar e sair
-        a.small.radius.button.secondary.btn-style-1.save__event[
-          ng-click="save(event)"
-          ng-disabled="saveButtonDisabled()"
-          ng-class="{ dirty: !saveButtonDisabled() }"]
-          | Salvar
+        a.small.radius.button.secondary.btn-style-1.publish__and__exit[
+          analytics-on="click"
+          analytics-event="Event Published"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"
+          analytics-uuid="{{event.uuid}}"
+          analytics-start-at="{{event.start_at}}"
+          ng-click="publish(event)"]
+          | Publicar e sair
     .row.medium-collapse
       .show-for-small.small-12.columns
         .row.collapse.mobile__day__navigation

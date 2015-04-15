@@ -24,21 +24,10 @@ EventCtrl = (
     $scope.event = event
     $scope.$broadcast('initializeEvent')
 
-  $scope.saveButtonMessage = ->
-    if $scope.isSaving
-      "Salvando..."
-    else if !$scope.saveButtonDisabled()
-      "Salvar"
-    else
-      "Salvo"
-
   $scope.save = (event)->
-    $scope.isSaving = true
     deferred = $q.defer()
     event.save().then(->
       initializeEvent(event)
-      $scope.isSaving = false
-      $scope.event_form.$setPristine()
       deferred.resolve()
     ).catch(-> deferred.reject())
     deferred.promise
@@ -48,8 +37,14 @@ EventCtrl = (
     "#courses/#{event.course.uuid}?month=#{event.start_at}"
 
   $scope.finish = (event)->
-    $scope.save(event).then ->
-      $window.location.href = $scope.courseLocation(event)
+    unless $scope.$emit('dunno.exit').defaultPrevented
+      $scope.save(event).then ->
+        $scope.event_form.$setPristine()
+        $window.location.href = $scope.courseLocation(event)
+
+  $scope.publish = (event)->
+    event.status = 'published'
+    $scope.finish(event)
 
   checkDirty = (event)->
     if anyEditing() || unsavedItems()
@@ -84,14 +79,6 @@ EventCtrl = (
 
   $scope.$on 'finishEditing', ->
     edits--
-
-  #### Depende de novo tópico
-  $scope.saveButtonDisabled = ->
-    unsavedItems() ||
-      anyEditing() ||
-      $scope.isSaving ||
-      $scope.event_form.$pristine
-  ####
 
 EventCtrl.$inject = ['$scope', '$routeParams', '$interval', '$window', '$q', 'Event', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
 DunnoApp.controller 'EventCtrl', EventCtrl
