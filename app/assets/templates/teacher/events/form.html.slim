@@ -246,7 +246,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                         type="text"
                         ng-model="search.q"
                         placeholder="Procure por assunto, palavra-chave ou tags"
-                        ui-keydown="{'enter':'fetch($event)'}"]
+                        ui-keydown="{'enter':'fetch($event)'}"
+                        focus-on="itemType == 'catalog'"]
                       / a.button.postfix.icon.icon-close ng-click="clearSearch()"
                       / a.button.postfix.icon.icon-search ng-click="fetch()"
                   .catalog__medias
