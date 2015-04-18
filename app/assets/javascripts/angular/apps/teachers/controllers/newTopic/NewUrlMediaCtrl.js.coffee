@@ -2,27 +2,28 @@ DunnoApp = angular.module('DunnoApp')
 
 NewUrlMediaCtrl = ($scope, Media) ->
   $scope.$on 'newTopic', ($event, topicType) ->
-    $scope.$broadcast 'saveTopic' if topicType == 'url'
+    return unless topicType == 'url'
+    saveTopic = -> $scope.$broadcast 'saveTopic'
+    if !$scope.media
+      $scope.submitUrlMedia().then(saveTopic)
+    else
+      saveTopic()
 
   reset = ->
     $scope.url = ''
+    $scope.media = null
 
   reset()
 
+  $scope.$on 'createdTopic', reset
+
   success = (media) ->
-    reset()
+    $scope.media = media
     $scope.$broadcast('newMedia', media)
 
   $scope.submitUrlMedia = ->
     media = new Media(url: $scope.url)
     $scope.submittingMediaPromise = media.create().then(success)
-
-  #$scope.addTopic = ->
-  #  superMethod = $scope.$parent.addTopic
-  #  if $scope.topic.media?
-  #    superMethod()
-  #  else
-  #    $scope.submitUrlMedia().then superMethod
 
 NewUrlMediaCtrl.$inject = ['$scope', 'Media']
 DunnoApp.controller 'NewUrlMediaCtrl', NewUrlMediaCtrl

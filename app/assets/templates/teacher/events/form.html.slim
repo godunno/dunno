@@ -231,13 +231,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               cg-busy="submittingMediaPromise"]
               form name="urlMediaForm"
                 input[
-                  ng-show="!topic.media"
+                  ng-show="!media"
                   type="text"
                   name="url"
                   ng-model="url"
                   placeholder="http://"
                   ui-keydown="{'enter':'submitUrlMedia()'}"
-                  focus-on="topicType == 'url' && !topic.media"]
+                  focus-on="topicType == 'url' && !media"]
               .media ng-show="!!topic.media" ng-controller="TopicAttributesCtrl"
                 preview item="topic" removable="true"
                 form name="urlTopicForm"
