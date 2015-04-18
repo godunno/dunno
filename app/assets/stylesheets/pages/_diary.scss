@@ -1,7 +1,14 @@
+.hide__personal__topics,
+.show__personal__topics,
+.back__button {
+  .icon {
+    vertical-align: middle;
+  }
+}
+
 .back__button {
   opacity: .5;
 }
-
 
 .previous__event,
 .next__event {
@@ -90,8 +97,7 @@ form .row.collapse.mobile__day__navigation {
 .new__topic__form {
   background: $white;
   border: 1px solid $light-grey-color;
-  border-top: 3px solid lighten($light-grey-color, 20%);
-  padding: 1em .75em;
+  padding: 0 .75em;
 
   .select__item__type {
     text-align: center;
@@ -147,7 +153,8 @@ form .row.collapse.mobile__day__navigation {
 .item__type {
   background: $white;
   border: 1px solid $dark-grey-color;
-  margin: 0 -.7rem;
+  box-shadow: lighten($light-grey-color, 20%) 0 3px 0;
+  margin: 0 -1rem;
   position: relative;
   z-index: 1;
 
@@ -192,15 +199,20 @@ form .row.collapse.mobile__day__navigation {
 .topic__item {
   background: $white;
   border-bottom: 1px solid lighten($light-grey-color, 20%);
-  padding: 1.125em 1.25em;
+  clear: both;
 
   &.done {
+    background: lighten($light-grey-color, 23%);
+
+    .topic__item__description a,
     input {
-      color: $secondary-color;
+      font-style: italic;
+      opacity: .5;
     }
   }
 
   &.personal {
+    .topic__item__description a,
     input {
       color: $red-color;
     }
@@ -214,6 +226,12 @@ form .row.collapse.mobile__day__navigation {
   .topic__item__actions,
   .topic__item__item__editing {
     display: inline-block;
+    vertical-align: middle;
+  }
+
+  .topic__item__description,
+  .topic__item__show {
+    max-width: 70%;
   }
 
   .topic__item__status {
@@ -222,8 +240,7 @@ form .row.collapse.mobile__day__navigation {
 
   input[type=checkbox] + label {
     background: image-url('temp-checkbox-unchecked.png');
-    display: block;
-    float: left;
+    display: inline-block;
     height: 14px;
     width: 15px;
   }
@@ -233,22 +250,33 @@ form .row.collapse.mobile__day__navigation {
   }
 
   .topic__item__handle {
-    background: image-url('temp-handle.png') no-repeat;
+    background: image-url('temp-handle.png') no-repeat center center;
+    cursor: -webkit-grab;
+    cursor: grab;
     height: 25px;
+    margin-bottom: -.5em;
+    padding: 2em 1em;
     width: 7px;
+  }
+
+  &.ui-sortable-helper {
+    .topic__item__handle {
+      cursor: -webkit-grabbing;
+      cursor: grabbing;
+    }
   }
 
   .topic__item__image {
     @include radius();
     background-size: cover;
     height: 2.75em;
+    margin-right: .5em;
     vertical-align: middle;
     width: 2.75em;
   }
 
   .topic__item__editing {
     background: transparent;
-    border: 0;
     box-shadow: none;
     margin: 0;
     width: 100%;
@@ -259,6 +287,7 @@ form .row.collapse.mobile__day__navigation {
     float: right;
     font-size: 1.5em;
     line-height: 1rem;
+    padding: .75em 1em;
   }
 }
 
@@ -346,6 +375,7 @@ form .row.collapse.mobile__day__navigation {
 
   .media__thumbnail {
     @include radius();
+    background-size: contain;
     height: 2.75em;
     margin-right: .5em;
     vertical-align: middle;
@@ -361,6 +391,10 @@ form .row.collapse.mobile__day__navigation {
     display: block;
     font-weight: normal;
     margin-bottom: .5em;
+  }
+
+  .media__data {
+    max-width: 70%;
   }
 
   .media__url {

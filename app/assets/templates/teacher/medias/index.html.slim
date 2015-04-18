@@ -71,10 +71,11 @@ header.page-header.title
                   ng-show="isEditing(media)"
                   type="text"
                   ng-model="media.title"
-                  on-finish="updateMedia(media)"
+                  on-success="updateMedia(media)"
                   edit-in-place=true
                   focus-on="isEditing(media)"
                   placeholder="Título do anexo"
+                  required=true
                 ]
                 i.icon.icon-pencil
                 

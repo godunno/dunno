@@ -67,19 +67,6 @@ describe Form::EventForm do
         it { expect(event_form).not_to be_valid }
         it { expect(event_form.errors).to include(topic_error) }
       end
-
-      context "trying to change nested model's timeline" do
-        let(:existing_thermometer) { create(:thermometer) }
-        let(:thermometer) { { uuid: existing_thermometer.uuid, content: 'UPDATED CONTENT' } }
-        let(:event) do
-          valid_event_hash.merge(thermometers: [thermometer])
-        end
-        before(:each) { event_form.save }
-
-        it { expect(event_form).not_to be_valid }
-        it { expect(event_form.errors).to include(:timeline) }
-        it { expect(existing_thermometer.reload.content).not_to eq(thermometer[:content]) }
-      end
     end
   end
 
@@ -147,22 +134,6 @@ describe Form::EventForm do
         it { expect(event_form).not_to be_valid }
         it { expect(event_form.errors).to include(topic_error) }
         it { expect(existing_topic.reload.description).not_to eq(topic[:description]) }
-      end
-
-      context "trying to change nested model's timeline" do
-        let(:existing_thermometer) { create(:thermometer) }
-        let(:thermometer) { { uuid: existing_thermometer.uuid, content: 'UPDATED CONTENT' } }
-        let(:event) do
-          valid_event_hash.merge({
-            uuid: existing_event.uuid,
-            thermometers: [thermometer]
-          })
-        end
-        before(:each) { event_form.save }
-
-        it { expect(event_form).not_to be_valid }
-        it { expect(event_form.errors).to include(:timeline) }
-        it { expect(existing_thermometer.reload.content).not_to eq(thermometer[:content]) }
       end
     end
 

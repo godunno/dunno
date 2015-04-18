@@ -4,7 +4,6 @@ class Course < ActiveRecord::Base
   WEEKDAYS = (0..6).to_a
 
   belongs_to :teacher
-  belongs_to :organization
   has_many :events
   has_many :weekly_schedules
   has_many :notifications
@@ -24,10 +23,6 @@ class Course < ActiveRecord::Base
   def add_student(student)
     students << student
     touch
-  end
-
-  def channel
-    "course_#{uuid}"
   end
 
   def order

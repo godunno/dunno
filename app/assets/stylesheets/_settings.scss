@@ -35,7 +35,7 @@ $rem-base: 16px;
 // $include-html-grid-classes: $include-html-classes;
 // $include-xl-html-grid-classes: false;
 
-$row-width: 98%;
+$row-width: rem-calc(960);
 
 // $total-columns: 12;
 

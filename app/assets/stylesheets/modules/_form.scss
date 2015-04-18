@@ -3,7 +3,7 @@
   @extend .warning;
 }
 
-.ng-invalid.ng-dirty {
+.ng-invalid.ng-dirty, .ng-invalid.ng-dirty:focus {
   border-color: #e10b00; // NEW_COLOUR
 }
 

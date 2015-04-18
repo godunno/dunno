@@ -9,6 +9,8 @@ class Topic < ActiveRecord::Base
 
   scope :without_personal, -> { where(personal: false) }
 
+  default_scope -> { order(order: :desc) }
+
   private
 
   def ensure_description_or_media_present

@@ -1,8 +1,8 @@
-
 .progress {
   @extend .round;
   margin-left: 1em;
   margin-right: 1em;
+  margin-top: .75em;
 
   .meter {
     transition: width 0.2s ease;

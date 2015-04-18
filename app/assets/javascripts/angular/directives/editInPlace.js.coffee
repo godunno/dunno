@@ -4,18 +4,31 @@ editInPlace = ->
   restrict: 'A'
   require: 'ngModel'
   scope:
-    onFinish: '&'
-  link: (scope, element, attrs, ngModelCtrl)->
-    ngModelCtrl.$$setOptions updateOn: 'blur', debounce: 0
-    element.on 'keydown', (e)->
+    onSuccess: '&'
+  link: (scope, element, attrs, ngModelCtrl) ->
+    originalValue = ngModelCtrl.$modelValue
+    element.focus ->
+      originalValue = ngModelCtrl.$modelValue
+
+    rollback = ->
+      ngModelCtrl.$setViewValue(originalValue)
+      ngModelCtrl.$render()
+
+    element.blur (e) ->
+      if ngModelCtrl.$invalid
+        rollback()
+      scope.onSuccess()
+
+    element.on 'keydown', (e) ->
       esc = e.keyCode == 27
       enter = e.keyCode == 13
+
       if esc
-        ngModelCtrl.$rollbackViewValue()
+        rollback()
         element.blur()
-      if enter
+
+      if enter && ngModelCtrl.$valid
         element.blur()
-        scope.onFinish()
         e.preventDefault()
 
 DunnoApp.directive "editInPlace", editInPlace

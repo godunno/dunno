@@ -27,6 +27,7 @@ describe Api::V1::Teacher::MediasController do
       it "should return the teacher's medias" do
         expect(json["medias"]).to eq(
           [{
+            "id"          => media.id,
             "uuid"        => media.uuid,
             "title"       => media.title,
             "description" => media.description,
@@ -35,7 +36,6 @@ describe Api::V1::Teacher::MediasController do
             "type"        => media.type,
             "thumbnail"   => media.thumbnail,
             "filename"    => nil,
-            "released_at" => media.released_at,
             "tag_list"    => media.tag_list,
             "url"         => media.url,
             "courses"     => [
@@ -71,6 +71,7 @@ describe Api::V1::Teacher::MediasController do
       it "should return the teacher's medias" do
         expect(json["medias"]).to eq(
           [{
+            "id"          => media.id,
             "uuid"        => media.uuid,
             "title"       => media.title,
             "description" => nil,
@@ -79,7 +80,6 @@ describe Api::V1::Teacher::MediasController do
             "type"        => media.type,
             "thumbnail"   => nil,
             "filename"    => media.original_filename,
-            "released_at" => media.released_at,
             "tag_list"    => media.tag_list,
             "url"         => media.url,
             "courses"      => []
@@ -106,6 +106,7 @@ describe Api::V1::Teacher::MediasController do
       it "should return only the searched terms" do
         expect(json["medias"]).to eq(
           [{
+            "id"          => awesome_media.id,
             "uuid"        => awesome_media.uuid,
             "title"       => awesome_media.title,
             "description" => awesome_media.description,
@@ -114,7 +115,6 @@ describe Api::V1::Teacher::MediasController do
             "type"        => awesome_media.type,
             "thumbnail"   => awesome_media.thumbnail,
             "filename"    => nil,
-            "released_at" => awesome_media.released_at,
             "tag_list"    => awesome_media.tag_list,
             "url"         => awesome_media.url,
             "courses"      => []
@@ -170,7 +170,6 @@ describe Api::V1::Teacher::MediasController do
 
   describe "POST /api/v1/teacher/medias.json", :vcr do
     let(:teacher) { create :teacher }
-    it_behaves_like "API authentication required"
     context "authenticated" do
 
       def do_action
@@ -192,6 +191,7 @@ describe Api::V1::Teacher::MediasController do
 
         it { expect(last_response.status).to eq(200) }
         it { expect(json["uuid"]).to eq(subject.uuid) }
+        it { expect(json["id"]).to eq(subject.id) }
         it { expect(subject.url).to eq(url) }
         it { expect(subject.title).to eq("Musum Ipsum") }
         it { expect(subject.description).to eq("O melhor Lorem Ipsum do mundis!") }
@@ -230,6 +230,7 @@ describe Api::V1::Teacher::MediasController do
 
         it { expect(last_response.status).to eq(200) }
         it { expect(json["uuid"]).to eq(subject.uuid) }
+        it { expect(json["id"]).to eq(subject.id) }
         it { expect(subject.original_filename).to eq("document.doc") }
         it { expect(subject.title).to eq("document.doc") }
         it { expect(subject.teacher).to eq(teacher) }
@@ -250,37 +251,6 @@ describe Api::V1::Teacher::MediasController do
         it { expect(last_response.status).to eq(422) }
         it { expect(json["errors"]).to have_key("url") }
         it { expect(json["errors"]).to have_key("file_url") }
-      end
-    end
-  end
-
-  describe "PATCH release" do
-    context "authenticated" do
-      let(:media) { create :media }
-
-      def do_action
-        patch "/api/v1/teacher/medias/#{media.uuid}/release", auth_params(:teacher).to_json
-      end
-
-      before do
-        Timecop.freeze
-        expect_any_instance_of(EventPusher).to receive(:release_media).with(media)
-        do_action
-        media.reload
-      end
-      after { Timecop.return }
-
-      it { expect(last_response.status).to eq(200) }
-      it { expect(media.status).to eq "released" }
-      it { expect(media.released_at.to_i).to eq Time.now.to_i }
-
-      context "releasing the same poll again" do
-        before do
-          allow_any_instance_of(EventPusher).to receive(:release_media)
-          do_action
-        end
-
-        it { expect(last_response.status).to eq(304) }
       end
     end
   end
@@ -327,39 +297,5 @@ describe Api::V1::Teacher::MediasController do
 
     it { expect(last_response.status).to eq(200) }
     it { expect(Media.find_by(id: media.id)).to be_nil }
-  end
-
-  describe "GET /api/v1/teacher/medias/preview.json", :vcr do
-
-    let(:params_hash) do
-      { url: url }
-    end
-
-    def do_action
-      get "/api/v1/teacher/medias/preview.json", auth_params(:teacher).merge(params_hash)
-    end
-
-    before { do_action }
-    subject { json }
-
-    context "Website URL" do
-      let(:url) { "http://mussumipsum.com/" }
-
-      it { expect(last_response.status).to eq(200) }
-      it "should have the correct response" do
-        expect(json).to eq(
-          "url" => "http://mussumipsum.com/",
-          "favicon" => "images/icon_mussum.ico",
-          "title" => "Musum Ipsum",
-          "description" => "O melhor Lorem Ipsum do mundis!",
-          "images" => [{
-            "src" => "http://mussumipsum.com/images/mussum_ipsum_og.jpg",
-            "size" => [450, 450],
-            "type" => "jpeg"
-          }],
-          "videos" => []
-        )
-      end
-    end
   end
 end

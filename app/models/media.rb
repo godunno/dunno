@@ -16,6 +16,8 @@ class Media < ActiveRecord::Base
   has_many :topics
   has_many :events, through: :topics
 
+  validates :title, presence: true
+
   mount_uploader :file_carrierwave, FileUploader
 
   delegate :event, to: :mediable
@@ -63,12 +65,6 @@ class Media < ActiveRecord::Base
       teacher_id: teacher_id,
       created_at: created_at
     }
-  end
-
-  def release!
-    self.status = "released"
-    self.released_at = Time.now
-    save!
   end
 
   def url
