@@ -304,10 +304,10 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   type="checkbox"
                   ng-model="topic.done"
                   ng-change="save(topic)"
-                  id="topic_{{topic.order}}_done"
+                  id="topic_{{topic.uuid}}_done"
                 ]
                 label.topic__item__status__checkbox[
-                  for="topic_{{topic.order}}_done"]
+                  for="topic_{{topic.uuid}}_done"]
                 span.topic__item__image[
                   ng-if="!!topic.media"
                   ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
@@ -324,9 +324,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     focus-on="isEditing(topic)"
                     required=true
                   ]
-            a.topic__item__actions dropdown-toggle="#actions_{{topic.order}}"
+            a.topic__item__actions dropdown-toggle="#actions_{{topic.uuid}}"
               | ···
-            ul.topic__item__actions__list.f-dropdown id="actions_{{topic.order}}"
+            ul.topic__item__actions__list.f-dropdown id="actions_{{topic.uuid}}"
               li
                 a[
                   ng-click="removeTopic(topic)"
