@@ -6,8 +6,9 @@
 
 .media__preview {
   background-color: $background-light-grey-color;
-  border-radius: .125em;
   border-bottom: 1px solid $light-grey-color;
+  border-radius: .125em;
+  overflow: hidden;
   padding: .75em;
   position: relative;
 
