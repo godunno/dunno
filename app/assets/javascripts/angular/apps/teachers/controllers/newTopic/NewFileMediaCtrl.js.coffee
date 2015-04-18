@@ -1,11 +1,14 @@
 DunnoApp = angular.module('DunnoApp')
 
 NewFileMediaCtrl = ($scope, Media) ->
+  $scope.$on 'newTopic', ($event, topicType) ->
+    $scope.$broadcast 'saveTopic' if topicType == 'file'
+
   reset = ->
     $scope.$broadcast("file.clean")
 
   success = (media) ->
-    $scope.$emit('newMedia', media)
+    $scope.$broadcast('newMedia', media)
 
   failure = (response) ->
     if response.error == 'too_large'

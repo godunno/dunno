@@ -157,7 +157,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           span
             | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
       #topics-container.row event-list="topics"
-        .new__topic__form.small-12.columns
+        .new__topic__form.small-12.columns ng-controller="NewTopicCtrl"
           ul.small-block-grid-4.tabs.select__item__type
             li
               a[
@@ -187,9 +187,9 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 i.icon.icon-catalog
                 br
                 | Catálogo
-          .item__type ng-show="topicType != null" ng-controller="NewTopicCtrl"
+          .item__type ng-show="topicType != null"
             .type.type__text ng-show="topicType == 'text'" ng-controller="NewTextTopicCtrl"
-              form name="textTopicForm"
+              form name="textTopicForm" ng-controller="TopicAttributesCtrl"
                 input.field__new__list__item[
                   ng-model="topic.description"
                   type="text"
@@ -198,10 +198,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   ui-keydown="{'enter':'addTopic()'}"
                   name="description"
                   focus-on="topicType == 'text'"]
-              ng-include src="'#{asset_path('teacher/topics/new_topic_actions.html')}'"
 
             .type.type__file ng-show="topicType == 'file'" ng-controller="NewFileMediaCtrl"
-              pre {{topic | json}}
               form name="fileMediaForm" ng-show="!topic.media"
                 label.item__button.media__file__button[
                   for="topic-file"]
@@ -215,7 +213,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   ng-file-select="submitFileMedia($files)"]
 
               / TODO: Extract to directive.
-              .type.type__media ng-show="!!topic.media" ng-controller="NewTextTopicCtrl"
+              .type.type__media ng-show="!!topic.media" ng-controller="TopicAttributesCtrl"
                 preview item="topic" removable="true"
                 form name="fileTopicForm"
                   input.field__new__list__item[
@@ -227,7 +225,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     name="description"
                     focus-on="topicType == 'file' && !!topic.media"]
               progress-bar
-              ng-include src="'#{asset_path('teacher/topics/new_topic_actions.html')}'"
             .type.type__url[
               ng-show="topicType == 'url'"
               ng-controller="NewUrlMediaCtrl"
@@ -241,7 +238,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   placeholder="http://"
                   ui-keydown="{'enter':'submitUrlMedia()'}"
                   focus-on="topicType == 'url' && !topic.media"]
-              .media ng-show="!!topic.media" ng-controller="NewTextTopicCtrl"
+              .media ng-show="!!topic.media" ng-controller="TopicAttributesCtrl"
                 preview item="topic" removable="true"
                 form name="urlTopicForm"
                   input.field__new__list__item[
@@ -252,7 +249,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     ui-keydown="{'enter':'addTopic()'}"
                     name="description"
                     focus-on="topicType == 'url' && !!topic.media"]
-              ng-include src="'#{asset_path('teacher/topics/new_topic_actions.html')}'"
+            ng-include src="'#{asset_path('teacher/topics/new_topic_actions.html')}'"
 
             /.type.type__catalog ng-show="topicType == 'catalog'" ng-controller="AddFromMediaCtrl"
             /  ng-form name="catalogTopicForm"

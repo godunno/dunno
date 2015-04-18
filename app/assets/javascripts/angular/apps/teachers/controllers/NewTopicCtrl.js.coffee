@@ -3,23 +3,22 @@ DunnoApp = angular.module('DunnoApp')
 NewTopicCtrl = ($scope, Topic) ->
   $scope.defaultTopicProperties ?= { personal: false }
 
-  setMedia = (e, media) ->
-    $scope.topic.media = media
-    $scope.topic.media_id = media.id
-    $scope.topic.description = media.title
-
-  $scope.$on 'newMedia', setMedia
+  $scope.topicTypeDescription = ->
+    {
+      'text': 'texto',
+      'file': 'arquivo',
+      'url': 'link',
+      'catalog': 'do catálogo'
+    }[$scope.topicType]
 
   reset = ->
-    $scope.topic = {}
+    $scope.topicType = null
   reset()
 
-  $scope.addTopic = ->
-    $scope.topic.event_id = $scope.event.id
-    $scope.topic.personal = $scope.defaultTopicProperties.personal
-    new Topic($scope.topic).create().then (topic) ->
-      reset()
-      $scope.$emit('newTopic', topic)
+  $scope.$on 'initializeEvent', reset
+  $scope.$on 'createdTopic', reset
+
+  $scope.addTopic = -> $scope.$broadcast('newTopic', $scope.topicType)
 
 NewTopicCtrl.$inject = ['$scope', 'Topic']
 DunnoApp.controller 'NewTopicCtrl', NewTopicCtrl
