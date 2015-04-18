@@ -200,7 +200,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   focus-on="topicType == 'text'"]
 
             .type.type__file ng-show="topicType == 'file'" ng-controller="NewFileMediaCtrl"
-              form name="fileMediaForm" ng-show="!topic.media"
+              form name="fileMediaForm" ng-show="status == 'newMedia'"
                 label.item__button.media__file__button[
                   for="topic-file"]
                   i.icon.icon-clips>
@@ -213,7 +213,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   ng-file-select="submitFileMedia($files)"]
 
               / TODO: Extract to directive.
-              .type.type__media ng-show="!!topic.media" ng-controller="TopicAttributesCtrl"
+              .type.type__media ng-show="status == 'createdMedia'" ng-controller="TopicAttributesCtrl"
                 preview item="topic" removable="true"
                 form name="fileTopicForm"
                   input.field__new__list__item[
@@ -223,7 +223,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     placeholder="Adicionar conteúdo"
                     ui-keydown="{'enter':'addTopic()'}"
                     name="description"
-                    focus-on="topicType == 'file' && !!topic.media"]
+                    focus-on="topicType == 'file' && status == 'createdMedia'"]
               progress-bar
             .type.type__url[
               ng-show="topicType == 'url'"
@@ -238,7 +238,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   placeholder="http://"
                   ui-keydown="{'enter':'submitUrlMedia()'}"
                   focus-on="topicType == 'url' && !media"]
-              .media ng-show="!!topic.media" ng-controller="TopicAttributesCtrl"
+              .media ng-show="!!media" ng-controller="TopicAttributesCtrl"
                 preview item="topic" removable="true"
                 form name="urlTopicForm"
                   input.field__new__list__item[
@@ -248,7 +248,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     placeholder="Adicionar conteúdo"
                     ui-keydown="{'enter':'addTopic()'}"
                     name="description"
-                    focus-on="topicType == 'url' && !!topic.media"]
+                    focus-on="topicType == 'url' && !!media"]
 
             .type.type__catalog ng-show="topicType == 'catalog'" ng-controller="AddFromMediaCtrl"
               span ng-controller="TopicAttributesCtrl"
@@ -310,7 +310,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   for="topic_{{topic.order}}_done"]
                 span.topic__item__image[
                   ng-if="!!topic.media"
-                  style="background-image: url({{topic.media.thumbnail}});"]
+                  ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
                 span.topic__item__description ng-class="{preview: !!topic.media}"
                   a ng-show="!isEditing(topic)" ng-click="startEditing(topic)"
                     | {{topic.description}}

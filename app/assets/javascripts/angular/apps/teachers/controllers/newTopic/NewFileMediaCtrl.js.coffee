@@ -4,11 +4,16 @@ NewFileMediaCtrl = ($scope, Media) ->
   $scope.$on 'newTopic', ($event, topicType) ->
     $scope.$broadcast 'saveTopic' if topicType == 'file'
 
+  $scope.$on 'createdTopic', reset
+
   reset = ->
     $scope.$broadcast("file.clean")
+    $scope.status = 'newMedia'
+  reset()
 
   success = (media) ->
     $scope.$broadcast('newMedia', media)
+    $scope.status = 'createdMedia'
 
   failure = (response) ->
     if response.error == 'too_large'
@@ -22,6 +27,7 @@ NewFileMediaCtrl = ($scope, Media) ->
 
   $scope.submitFileMedia = ($files)->
     $scope.$broadcast("progress.start")
+    $scope.status = 'submittingMedia'
     # TODO: Find out why the line bellow doesn't work
     # new Media(file: $files[0]).upload()
     media = new Media()
@@ -32,27 +38,10 @@ NewFileMediaCtrl = ($scope, Media) ->
       # promise.then(success, failure, notify)
       .then(null, null, progress) # notifying progress
       .finally(->
-        reset()
         $scope.$broadcast("progress.stop")
       )
 
-  #submitMedia = (callback, showProgress)->
-  #  #return if item.media? && !confirm("Deseja substituir o anexo atual?")
-  #  #item._submittingMedia = true
-  #  #if showProgress
-  #  $scope.$broadcast("progress.start")
-  #  callback.then((media)->
-  #    #media = if response.data? # response may be wrapped
-  #    #    response.data
-  #    #  else if Array.isArray(response)
-  #    #    response[0]
-  #    #  else
-  #    #    response
   #    #$analytics.eventTrack('Media Created', type: media.type, title: media.title, eventUuid: $scope.event.uuid)
-  #  ).finally(->
-  #    #item._submittingMedia = false
-  #    $scope.$broadcast("progress.stop")
-  #  )
 
 NewFileMediaCtrl.$inject = ['$scope', 'Media']
 DunnoApp.controller 'NewFileMediaCtrl', NewFileMediaCtrl
