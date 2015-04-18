@@ -249,43 +249,46 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     ui-keydown="{'enter':'addTopic()'}"
                     name="description"
                     focus-on="topicType == 'url' && !!topic.media"]
-            ng-include src="'#{asset_path('teacher/topics/new_topic_actions.html')}'"
 
-            /.type.type__catalog ng-show="topicType == 'catalog'" ng-controller="AddFromMediaCtrl"
-            /  ng-form name="catalogTopicForm"
-            /    .catalog__header
-            /      .catalog__search
-            /        i.icon.icon-search
-            /        input[
-            /          type="text"
-            /          ng-model="search.q"
-            /          placeholder="Procure por assunto, palavra-chave ou tags"
-            /          ui-keydown="{'enter':'fetch($event)'}"
-            /          focus-on="topicType == 'catalog'"]
-            /        / a.button.postfix.icon.icon-close ng-click="clearSearch()"
-            /        / a.button.postfix.icon.icon-search ng-click="fetch()"
-            /    .catalog__medias
-            /      .catalog__media ng-repeat="media in medias"
-            /        input.media__select[
-            /          type="radio"
-            /          ng-model="newListItem.media_id"
-            /          ng-value="media.uuid"
-            /          id="{{media.uuid}}"]
-            /        label.media__select__label for="{{media.uuid}}"
-            /        span.media__thumbnail style="background-image: url({{media.thumbnail}});"
-            /        span.media__data
-            /          strong.media__title
-            /            | {{media.title}}
-            /          a.media__url ng-href="{{media.url}}" target="_blank"
-            /            i.media__type__icon.icon> ng-class="'icon-' + media.type"
-            /            span
-            /              | {{formatMediaUrl(media)}}
-            /    .load__more ng-if="next_page"
-            /      a.load__more__media[
-            /        ng-click="paginate(next_page)"
-            /        ng-if="next_page"
-            /        cg-busy="loadingNextPage"]
-            /        | Carregar mais&hellip;
+            .type.type__catalog ng-show="topicType == 'catalog'" ng-controller="AddFromMediaCtrl"
+              span ng-controller="TopicAttributesCtrl"
+              ng-form name="catalogTopicForm"
+                .catalog__header
+                  .catalog__search
+                    i.icon.icon-search
+                    input[
+                      type="text"
+                      ng-model="search.q"
+                      placeholder="Procure por assunto, palavra-chave ou tags"
+                      ui-keydown="{'enter':'fetch($event)'}"
+                      focus-on="topicType == 'catalog'"]
+                    / a.button.postfix.icon.icon-close ng-click="clearSearch()"
+                    / a.button.postfix.icon.icon-search ng-click="fetch()"
+                .catalog__medias
+                  .catalog__media ng-repeat="media in medias"
+                    input.media__select[
+                      type="radio"
+                      ng-model="result.media"
+                      ng-change="selectMedia()"
+                      ng-value="media"
+                      id="{{media.uuid}}"]
+                    label.media__select__label for="{{media.uuid}}"
+                    span.media__thumbnail style="background-image: url({{media.thumbnail}});"
+                    span.media__data
+                      strong.media__title
+                        | {{media.title}}
+                      a.media__url ng-href="{{media.url}}" target="_blank"
+                        i.media__type__icon.icon> ng-class="'icon-' + media.type"
+                        span
+                          | {{formatMediaUrl(media)}}
+                .load__more ng-if="next_page"
+                  a.load__more__media[
+                    ng-click="paginate(next_page)"
+                    ng-if="next_page"
+                    cg-busy="loadingNextPage"]
+                    | Carregar mais&hellip;
+
+            ng-include src="'#{asset_path('teacher/topics/new_topic_actions.html')}'"
         #topics-list.topic__items[
           ui-sortable="sortableOptions('topics')"
           ng-model="event.topics"]
