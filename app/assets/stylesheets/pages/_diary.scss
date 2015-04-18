@@ -375,6 +375,7 @@ form .row.collapse.mobile__day__navigation {
 
   .media__thumbnail {
     @include radius();
+    background-size: contain;
     height: 2.75em;
     margin-right: .5em;
     vertical-align: middle;
@@ -390,6 +391,10 @@ form .row.collapse.mobile__day__navigation {
     display: block;
     font-weight: normal;
     margin-bottom: .5em;
+  }
+
+  .media__data {
+    max-width: 70%;
   }
 
   .media__url {
