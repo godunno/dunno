@@ -1,7 +1,14 @@
+.hide__personal__topics,
+.show__personal__topics,
+.back__button {
+  .icon {
+    vertical-align: middle;
+  }
+}
+
 .back__button {
   opacity: .5;
 }
-
 
 .previous__event,
 .next__event {
@@ -90,8 +97,7 @@ form .row.collapse.mobile__day__navigation {
 .new__topic__form {
   background: $white;
   border: 1px solid $light-grey-color;
-  border-top: 3px solid lighten($light-grey-color, 20%);
-  padding: 1em .75em;
+  padding: 0 .75em;
 
   .select__item__type {
     text-align: center;
@@ -147,7 +153,8 @@ form .row.collapse.mobile__day__navigation {
 .item__type {
   background: $white;
   border: 1px solid $dark-grey-color;
-  margin: 0 -.7rem;
+  box-shadow: lighten($light-grey-color, 20%) 0 3px 0;
+  margin: 0 -1rem;
   position: relative;
   z-index: 1;
 
@@ -195,12 +202,18 @@ form .row.collapse.mobile__day__navigation {
   padding: 1.125em 1.25em;
 
   &.done {
+    background: lighten($light-grey-color, 23%);
+
+    .topic__item__description a,
     input {
-      color: $secondary-color;
+      //color: $secondary-color;
+      font-style: italic;
+      opacity: .5;
     }
   }
 
   &.personal {
+    .topic__item__description a,
     input {
       color: $red-color;
     }
@@ -222,8 +235,8 @@ form .row.collapse.mobile__day__navigation {
 
   input[type=checkbox] + label {
     background: image-url('temp-checkbox-unchecked.png');
-    display: block;
-    float: left;
+    display: inline-block;
+    // float: left;
     height: 14px;
     width: 15px;
   }

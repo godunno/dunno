@@ -3,7 +3,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .small-3.columns
       a.back__button ng-href="{{courseLocation(event)}}"
-        span.icon.icon-arrow-back>
+        i.icon.icon-arrow-back>
         span
           | Voltar
     .small-6.columns
@@ -18,11 +18,15 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           span< ng-if="!!event.course.grade"
             | · {{event.course.grade}}
     .small-3.columns
-      a.hide-personal-topics ng-click="setPrivateTopicsVisibility(false)" ng-show="showPrivateTopics"
+      a.hide__personal__topics[
+        ng-click="setPrivateTopicsVisibility(false)"
+        ng-show="showPrivateTopics"]
         i.icon.icon-eye>
         span
           | Ocultar conteúdo privado
-      a.show-personal-topics ng-click="setPrivateTopicsVisibility(true)" ng-show="!showPrivateTopics"
+      a.show__personal__topics[
+        ng-click="setPrivateTopicsVisibility(true)"
+        ng-show="!showPrivateTopics"]
         i.icon.icon-eye>
         span
           | Mostrar conteúdo privado
