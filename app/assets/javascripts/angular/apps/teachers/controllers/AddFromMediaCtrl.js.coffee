@@ -1,10 +1,11 @@
 DunnoApp = angular.module('DunnoApp')
 
 AddFromMediaCtrl = ($scope, MediaSearcher)->
+  MediaSearcher.extend($scope)
+
   $scope.$on 'newTopic', ($event, topicType) ->
     $scope.$broadcast 'saveTopic' if topicType == 'catalog'
 
-  angular.extend($scope, MediaSearcher)
   $scope.perPage = 3
 
   $scope.fetch()
