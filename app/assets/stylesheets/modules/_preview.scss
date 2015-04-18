@@ -21,6 +21,8 @@
   .media__preview__image {
     @include radius();
     background-size: cover;
+    display: block;
+    float: left;
     height: 2.75em;
     vertical-align: middle;
     width: 2.75em;
@@ -28,8 +30,10 @@
 
   .media__preview__title,
   .media__preview__description {
-    font-size: .875em;
     color: $dark-grey-color;
+    display: block;
+    font-size: .875em;
+    margin-left: 4em;
   }
 
   .media__preview__title {
