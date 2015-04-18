@@ -50,7 +50,7 @@ Rails.application.routes.draw do
             patch :release
           end
         end
-        resources :topics, only: [:update, :destroy] do
+        resources :topics, only: [:create, :update, :destroy] do
           member do
             patch :transfer
           end

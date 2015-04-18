@@ -22,7 +22,7 @@ EventCtrl = (
 
   initializeEvent = (event)->
     $scope.event = event
-    $scope.$broadcast('initializeEvent')
+    $scope.$broadcast('initializeEvent', event)
 
   $scope.save = (event)->
     deferred = $q.defer()

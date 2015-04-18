@@ -45,4 +45,11 @@ describe Topic do
 
     it { expect(Topic.without_personal).to eq([topic]) }
   end
+
+  it "sorts by #order by default" do
+    last_topic = create(:topic, order: 1)
+    first_topic = create(:topic, order: 2)
+
+    expect(Topic.all).to eq([first_topic, last_topic])
+  end
 end

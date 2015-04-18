@@ -1,9 +1,15 @@
 class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
   respond_to :json
 
+  def create
+    event = current_teacher.events.find(create_params.delete(:event_id))
+    @topic = Topic.new
+    TopicForm.new(@topic, create_params).create!(event)
+    render status: :created
+  end
+
   def update
-    TopicForm.new(topic).update!(topic_params)
-    respond_with topic
+    TopicForm.new(topic, update_params).update!
   end
 
   def destroy
@@ -25,7 +31,11 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
 
   private
 
-    def topic_params
+    def create_params
+      params.require(:topic).permit(:description, :personal, :media_id, :event_id)
+    end
+
+    def update_params
       params.require(:topic).permit(:description, :done)
     end
 

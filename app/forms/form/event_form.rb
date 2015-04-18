@@ -15,7 +15,6 @@ class Form::EventForm < Form::Base
     self.status = params[:status] || model.status
     self.course = model.course || Course.where(id: params[:course_id]).first
     @topics = populate_children(Form::TopicForm, params[:topics])
-    @medias = populate_children(Form::MediaForm, params[:medias])
     @topics.each { |topic| topic.event = model }
   end
 

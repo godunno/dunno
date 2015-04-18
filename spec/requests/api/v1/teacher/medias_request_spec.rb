@@ -27,6 +27,7 @@ describe Api::V1::Teacher::MediasController do
       it "should return the teacher's medias" do
         expect(json["medias"]).to eq(
           [{
+            "id"          => media.id,
             "uuid"        => media.uuid,
             "title"       => media.title,
             "description" => media.description,
@@ -70,6 +71,7 @@ describe Api::V1::Teacher::MediasController do
       it "should return the teacher's medias" do
         expect(json["medias"]).to eq(
           [{
+            "id"          => media.id,
             "uuid"        => media.uuid,
             "title"       => media.title,
             "description" => nil,
@@ -104,6 +106,7 @@ describe Api::V1::Teacher::MediasController do
       it "should return only the searched terms" do
         expect(json["medias"]).to eq(
           [{
+            "id"          => awesome_media.id,
             "uuid"        => awesome_media.uuid,
             "title"       => awesome_media.title,
             "description" => awesome_media.description,
@@ -188,6 +191,7 @@ describe Api::V1::Teacher::MediasController do
 
         it { expect(last_response.status).to eq(200) }
         it { expect(json["uuid"]).to eq(subject.uuid) }
+        it { expect(json["id"]).to eq(subject.id) }
         it { expect(subject.url).to eq(url) }
         it { expect(subject.title).to eq("Musum Ipsum") }
         it { expect(subject.description).to eq("O melhor Lorem Ipsum do mundis!") }
@@ -226,6 +230,7 @@ describe Api::V1::Teacher::MediasController do
 
         it { expect(last_response.status).to eq(200) }
         it { expect(json["uuid"]).to eq(subject.uuid) }
+        it { expect(json["id"]).to eq(subject.id) }
         it { expect(subject.original_filename).to eq("document.doc") }
         it { expect(subject.title).to eq("document.doc") }
         it { expect(subject.teacher).to eq(teacher) }

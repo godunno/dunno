@@ -22,20 +22,18 @@ class Api::V1::Teacher::EventsController < Api::V1::TeacherApplicationController
   end
 
   def update
-    @event_form = Form::EventForm.new(params[:event].merge(uuid: params[:id]))
-    @event_form.save
-    @event = @event_form.model.reload
+    EventForm.new(event, update_params).update!
+    event.reload
     render :show
-  end
-
-  def destroy
-    event.destroy
-    render nothing: true
   end
 
   private
 
-    def event
-      @event ||= Event.find_by!(uuid: params[:id])
-    end
+  def update_params
+    params.require(:event).permit(:status, topics: [:uuid])
+  end
+
+  def event
+    @event ||= current_teacher.events.find_by!(uuid: params[:id])
+  end
 end

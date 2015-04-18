@@ -1,15 +1,30 @@
 class TopicForm
-  attr_reader :topic, :media
+  attr_reader :topic, :params
 
-  def initialize(topic)
+  def initialize(topic, params)
     @topic = topic
-    @media = topic.media
+    @params = params
   end
 
-  def update!(topic_params)
-    if media
-      media.update!(title: topic_params.delete(:description))
-    end
-    topic.update!(topic_params)
+  def create!(event)
+    topic.order = event.topics.first.try(:order).to_i + 1
+    topic.update!(params)
+    update_media!
+  end
+
+  def update!
+    update_media!
+    topic.update!(params)
+  end
+
+  private
+
+  def media
+    topic.media
+  end
+
+  def update_media!
+    return unless media
+    media.update!(title: params.delete(:description))
   end
 end

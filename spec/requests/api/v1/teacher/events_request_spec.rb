@@ -263,41 +263,63 @@ describe Api::V1::Teacher::EventsController do
 
     context "authenticated" do
 
-      skip "invalid event"
-
-      let(:start_at) { event.start_at + 1.hour }
-      let(:params_hash) { { event: { start_at: start_at.utc.iso8601, status: "published" } } }
-
       def do_action
         patch "/api/v1/teacher/events/#{event.uuid}.json", auth_params(teacher).merge(params_hash).to_json
       end
 
-      before do
-        event.save!
-        do_action
+      context "successfully updating" do
+        context "updating attributes" do
+          let(:params_hash) { { event: { status: "published" } } }
+          it do
+            expect { do_action }
+            .to change { event.reload.status }.from("draft").to("published")
+          end
+        end
+
+        context "reordering topics", :wip do
+          let!(:first_topic) { create :topic, event: event, order: 2 }
+          let!(:last_topic) { create :topic, event: event, order: 1 }
+
+          let(:params_hash) do
+            {
+              event: {
+                topics: [last_topic, first_topic].map do |topic|
+                  topic.attributes.slice("uuid")
+                end
+              }
+            }
+          end
+
+          it do
+            do_action
+            extract_uuid = -> (list) { list.map { |item| item["uuid"] } }
+            expect(extract_uuid.(json["topics"])).to eq(extract_uuid.([last_topic, first_topic]))
+          end
+        end
       end
 
-      it { expect(event.reload.start_at).to eq start_at }
-      it { expect(event.reload.status).to eq "published" }
-    end
-  end
+      context "failing to update event" do
+        context "reordering someone else's topics" do
+          let(:one_topic_from_someone) { create(:topic) }
+          let(:other_topic_from_someone) { create(:topic) }
+          let(:params_hash) do
+            {
+              event: {
+                topics: [one_topic_from_someone, other_topic_from_someone].map do |topic|
+                  topic.attributes.slice("uuid")
+                end
+              }
+            }
+          end
 
-  describe "DELETE /api/v1/teacher/events/:uuid.json" do
+          it { expect { do_action}.to raise_error(ActiveRecord::RecordNotFound) }
+        end
 
-    context "authenticated" do
-
-      def do_action
-        delete "/api/v1/teacher/events/#{event.uuid}.json", auth_params(teacher).to_json
-      end
-
-      before do
-        event.save!
-      end
-
-      it "should destroy the event" do
-        expect do
-          do_action
-        end.to change(Event, :count).by(-1)
+        context "someone else's event's attributes" do
+          let(:event) { create(:event) }
+          let(:params_hash) { { status: "published" } }
+          it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
+        end
       end
     end
   end
