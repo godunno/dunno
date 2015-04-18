@@ -199,14 +199,13 @@ form .row.collapse.mobile__day__navigation {
 .topic__item {
   background: $white;
   border-bottom: 1px solid lighten($light-grey-color, 20%);
-  padding: 1.125em 1.25em;
+  clear: both;
 
   &.done {
     background: lighten($light-grey-color, 23%);
 
     .topic__item__description a,
     input {
-      //color: $secondary-color;
       font-style: italic;
       opacity: .5;
     }
@@ -227,6 +226,12 @@ form .row.collapse.mobile__day__navigation {
   .topic__item__actions,
   .topic__item__item__editing {
     display: inline-block;
+    vertical-align: middle;
+  }
+
+  .topic__item__description,
+  .topic__item__show {
+    max-width: 70%;
   }
 
   .topic__item__status {
@@ -236,7 +241,6 @@ form .row.collapse.mobile__day__navigation {
   input[type=checkbox] + label {
     background: image-url('temp-checkbox-unchecked.png');
     display: inline-block;
-    // float: left;
     height: 14px;
     width: 15px;
   }
@@ -246,15 +250,27 @@ form .row.collapse.mobile__day__navigation {
   }
 
   .topic__item__handle {
-    background: image-url('temp-handle.png') no-repeat;
+    background: image-url('temp-handle.png') no-repeat center center;
+    cursor: -webkit-grab;
+    cursor: grab;
     height: 25px;
+    margin-bottom: -.5em;
+    padding: 2em 1em;
     width: 7px;
+  }
+
+  &.ui-sortable-helper {
+    .topic__item__handle {
+      cursor: -webkit-grabbing;
+      cursor: grabbing;
+    }
   }
 
   .topic__item__image {
     @include radius();
     background-size: cover;
     height: 2.75em;
+    margin-right: .5em;
     vertical-align: middle;
     width: 2.75em;
   }
@@ -271,6 +287,7 @@ form .row.collapse.mobile__day__navigation {
     float: right;
     font-size: 1.5em;
     line-height: 1rem;
+    padding: .5em 1em;
   }
 }
 

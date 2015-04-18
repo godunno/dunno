@@ -292,13 +292,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         #topics-list.topic__items[
           ui-sortable="sortableOptions('topics')"
           ng-model="event.topics"]
-          .row.topic__item.clickable[
+          .topic__item.clickable[
             ng-controller="TopicEditCtrl"
             ng-class="{done: topic.done, personal: topic.personal}"
             ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
             ng-hide="topic.personal && !showPrivateTopics"]
-            .handle.topic__item__handle.small-1.column
-            .topic__item__show.small-10.columns
+            .handle.topic__item__handle
+            .topic__item__show
               form
                 input.topic__item__status[
                   type="checkbox"
@@ -306,7 +306,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   ng-change="save(topic)"
                   id="topic_{{topic.order}}_done"
                 ]
-                label.topic__item__status__checkbox for="topic_{{topic.order}}_done"
+                label.topic__item__status__checkbox[
+                  for="topic_{{topic.order}}_done"]
                 span.topic__item__image[
                   ng-if="!!topic.media"
                   style="background-image: url({{topic.media.thumbnail}});"]
@@ -323,7 +324,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     focus-on="isEditing(topic)"
                     required=true
                   ]
-            a.small-1.column.topic__item__actions dropdown-toggle="#actions_{{topic.order}}"
+            a.topic__item__actions dropdown-toggle="#actions_{{topic.order}}"
               | ···
             ul.topic__item__actions__list.f-dropdown id="actions_{{topic.order}}"
               li
