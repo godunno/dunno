@@ -4,12 +4,13 @@ NewFileMediaCtrl = ($scope, Media) ->
   $scope.$on 'newTopic', ($event, topicType) ->
     $scope.$broadcast 'saveTopic' if topicType == 'file'
 
-  $scope.$on 'createdTopic', reset
-
   reset = ->
     $scope.$broadcast("file.clean")
     $scope.status = 'newMedia'
   reset()
+
+  $scope.$on 'createdTopic', reset
+  $scope.$on 'removeMedia', reset
 
   success = (media) ->
     $scope.$broadcast('newMedia', media)

@@ -16,6 +16,7 @@ NewUrlMediaCtrl = ($scope, Media) ->
   reset()
 
   $scope.$on 'createdTopic', reset
+  $scope.$on 'removeMedia', reset
 
   success = (media) ->
     $scope.media = media
