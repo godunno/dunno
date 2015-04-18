@@ -32,13 +32,6 @@ listCtrl = ($scope, $analytics, $rootScope, Media, Utils)->
   $scope.startUrlMediaEditing = ->
     $scope._editingMediaUrl = true
 
-  $scope.submitUrlMedia = (item)->
-    $scope._editingMediaUrl = false
-    media = new Media(url: item.media_url)
-    $scope.submittingMediaPromise = promise = media.create()
-    submitMedia item, promise
-    promise
-
   $scope.$on 'catalog-picker.selected', (_, media)->
     $analytics.eventTrack('Media Selected', type: media.type, title: media.title, eventUuid: $scope.event.uuid)
     $scope.newListItem.media = media

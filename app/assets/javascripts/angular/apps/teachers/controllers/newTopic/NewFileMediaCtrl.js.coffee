@@ -1,6 +1,9 @@
 DunnoApp = angular.module('DunnoApp')
 
 NewFileMediaCtrl = ($scope, Media) ->
+  reset = ->
+    $scope.$broadcast("file.clean")
+
   success = (media) ->
     $scope.$emit('newMedia', media)
 
@@ -26,9 +29,9 @@ NewFileMediaCtrl = ($scope, Media) ->
       # promise.then(success, failure, notify)
       .then(null, null, progress) # notifying progress
       .finally(->
+        reset()
         $scope.$broadcast("progress.stop")
       )
-    $scope.$broadcast("file.clean")
 
   #submitMedia = (callback, showProgress)->
   #  #return if item.media? && !confirm("Deseja substituir o anexo atual?")

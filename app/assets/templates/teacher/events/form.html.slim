@@ -153,7 +153,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           span
             | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
       #topics-container.row event-list="topics"
-        .new__topic__form.small-12.columns cg-busy="submittingMediaPromise"
+        .new__topic__form.small-12.columns
           ul.small-block-grid-4.tabs.select__item__type
             li
               a[
@@ -224,27 +224,32 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     focus-on="topicType == 'file' && !!topic.media"]
               progress-bar
               ng-include src="'#{asset_path('teacher/topics/new_topic_actions.html')}'"
-            /.type.type__url ng-show="topicType == 'url'"
-            /  form name="urlMediaForm"
-            /    input[
-            /      ng-show="!newListItem.media"
-            /      type="text"
-            /      name="url"
-            /      ng-model="newListItem.media_url"
-            /      placeholder="http://"
-            /      ui-keydown="{'enter':'submitUrlMedia(newListItem)'}"
-            /      focus-on="topicType == 'url' && !newListItem.media"]
-            /  .media ng-show="!!newListItem.media"
-            /    preview item="newListItem" removable="true"
-            /    form name="urlTopicForm"
-            /      input.field__new__list__item[
-            /        ng-model="newListItem.description"
-            /        type="text"
-            /        focus-wrapper=""
-            /        placeholder="Adicionar conteúdo"
-            /        ui-keydown="{'enter':'addTopic($event)'}"
-            /        name="description"
-            /        focus-on="topicType == 'url' && !!newListItem.media"]
+            .type.type__url[
+              ng-show="topicType == 'url'"
+              ng-controller="NewUrlMediaCtrl"
+              cg-busy="submittingMediaPromise"]
+              form name="urlMediaForm"
+                input[
+                  ng-show="!topic.media"
+                  type="text"
+                  name="url"
+                  ng-model="url"
+                  placeholder="http://"
+                  ui-keydown="{'enter':'submitUrlMedia()'}"
+                  focus-on="topicType == 'url' && !topic.media"]
+              .media ng-show="!!topic.media" ng-controller="NewTextTopicCtrl"
+                preview item="topic" removable="true"
+                form name="urlTopicForm"
+                  input.field__new__list__item[
+                    ng-model="topic.description"
+                    type="text"
+                    focus-wrapper=""
+                    placeholder="Adicionar conteúdo"
+                    ui-keydown="{'enter':'addTopic()'}"
+                    name="description"
+                    focus-on="topicType == 'url' && !!topic.media"]
+              ng-include src="'#{asset_path('teacher/topics/new_topic_actions.html')}'"
+
             /.type.type__catalog ng-show="topicType == 'catalog'" ng-controller="AddFromMediaCtrl"
             /  ng-form name="catalogTopicForm"
             /    .catalog__header
