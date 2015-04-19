@@ -1,6 +1,5 @@
 .reveal-modal {
   &.send-notification {
-    width: 40%;
     padding-bottom: 0;
 
     .abbreviation {
@@ -9,11 +8,6 @@
 
     a.button {
       z-index: 99;
-    }
-
-    .error {
-      padding-left: 0;
-      margin-top: 5.5em;
     }
 
     .preview {

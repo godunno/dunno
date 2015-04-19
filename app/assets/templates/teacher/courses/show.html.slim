@@ -20,12 +20,13 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
           a.close-reveal-modal
             | &#215;
       .students
-        .students__title
-          strong.students__number count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
-          a.send-message.button.radius.secondary.tiny< data-reveal-id="send-notification"
-            i.icon.icon-buzz>
-            span
-              | Enviar notificação
+        .students__title.row.collapse
+          strong.students__number.small-6.columns count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
+          .small-6.columns
+            a.send-message.expand.button.radius.secondary.tiny< data-reveal-id="send-notification"
+              i.icon.icon-buzz>
+              span
+                | Enviar notificação
         ul.list
           li ng-repeat="student in course.students | orderBy:'name'"
             h3
@@ -41,38 +42,14 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
       p
         | Clique aqui para enviar uma notificação através de SMS e email para seus alunos.
 #send-notification.reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" data-reveal=""
+  a.close-reveal-modal ng-click="reset()"
+    | &#215;
+  .modal-header
+    h3
+      | ENVIAR NOTIFICAÇÃO
+    p
+      | A notificação será entregue aos alunos por <b>SMS</b> ou <b>e-mail</b>, de acordo com as configurações de privacidade dos mesmos.
   form name="notification_form" ng-submit="save(notification)"
-    label for="abbreviation"
-      | Abreviação da Disciplina
-    input#abbreviation.abbreviation[
-      type="text"
-      ng-model="course.abbreviation"
-      maxlength="10"
-      required=true
-    ]
-    label for="message"
-      | Enviar mensagem
-    textarea#message[
-      name="message"
-      ng-model="notification.message"
-      rows="5"
-      ng-minlength="1"
-      maxlength="{{limit}}"
-      placeholder="Ex: A aula foi transferida para o laboratório."
-      required=true
-      ng-disabled="isSending()"
-      ng-focus="setReady()"
-    ]
-    span.counter
-      | Caracteres restantes: {{limit - notification.message.length}}
-    .hint
-      | A notificação será entregue aos alunos por SMS ou e-mail, de acordo com as configurações de privacidade dos mesmos.
-    label
-      | Preview:
-    .preview disabled=true
-      | [Dunno] {{course.abbreviation}} - {{notification.message | transliterate}}
-    .actions
-      input.button.btn-style-1.right type="submit" ng-disabled="notification_form.$invalid || !isReady()" value="{{sendButtonText()}}"
     span.error ng-if="notification_form.abbreviation.$invalid" ng-messages="notification_form.abbreviation.$error"
       span ng-message="blank"
         | A abreviação é obrigatória
@@ -87,7 +64,38 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
         | A mensagem é obrigatória
       span ng-message="too_long"
         | A mensagem é muito longa (máximo de 140 caracteres)
-    span.error ng-if="hasError && !notification_form.$invalid"
-      | Ocorreu um erro ao enviar a mensagem.
-  a.close-reveal-modal ng-click="reset()"
-    | &#215;
+    .row
+      .small-6.columns
+        label for="abbreviation"
+          | Abreviação da Disciplina
+        input#abbreviation.abbreviation[
+          type="text"
+          ng-model="course.abbreviation"
+          maxlength="10"
+          required=true
+        ]
+        label for="message"
+          | Mensagem
+        textarea#message[
+          name="message"
+          ng-model="notification.message"
+          rows="5"
+          ng-minlength="1"
+          maxlength="{{limit}}"
+          placeholder="Ex: A aula foi transferida para o laboratório."
+          required=true
+          ng-disabled="isSending()"
+          ng-focus="setReady()"
+        ]
+        span.counter
+          | Caracteres restantes: {{limit - notification.message.length}}
+      .small-6.columns
+        .hide-for-small
+          label
+            | Pré-visualização da mensagem
+          .preview.panel disabled=true
+            | [Dunno] {{course.abbreviation}} - {{notification.message | transliterate}}
+        span.error ng-if="hasError && !notification_form.$invalid"
+          | Ocorreu um erro ao enviar a mensagem.
+        .actions.right
+          input.button.secondary.small type="submit" ng-disabled="notification_form.$invalid || !isReady()" value="{{sendButtonText()}}"

@@ -43,15 +43,16 @@
     @extend %side-box;
 
     strong {
-      font-size: .75em;
+      line-height: 2em;
     }
 
     .send-message {
       margin-bottom: 0;
     }
 
-    .btn-sm {
-      padding: 0 10px;
+    .button.tiny {
+      padding-left: 1em;
+      padding-right: 1em;
     }
 
     .list {
@@ -239,5 +240,26 @@
       display: inline-block;
       line-height: 1em;
     }
+  }
+}
+
+.send-notification {
+  .modal-header {
+    border-bottom: 1px solid $light-grey-color;
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    text-align: center;
+  }
+
+
+  textarea {
+    margin-bottom: 0;
+  }
+
+  .counter {
+    color: $light-grey-color;
+    font-size: .875em;
+    display: block;
+    margin-bottom: 1.5em;
   }
 }
