@@ -247,12 +247,12 @@ form .row.collapse.mobile__day__navigation {
   }
 
   .topic__item__handle {
-    background: image-url('temp-handle.png') no-repeat center center;
+    color: $light-grey-color;
+    cursor: -webkit-grab;
     cursor: grab;
-    height: 25px;
-    margin-bottom: -.5em;
-    padding: 2em 1em;
-    width: 7px;
+    font-size: 1.5em;
+    margin-bottom: -.25em;
+    padding: 1em .5em;
   }
 
   &.ui-sortable-helper {
