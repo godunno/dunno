@@ -1,6 +1,6 @@
 .media__preview ng-if="!!item.media"
   a ng-href="{{item.media.url}}" target="_blank"
-    span.media__preview__image style="background-image: url({{item.media.thumbnail}});"
+    span.media__preview__image ng-style="{'background-image': 'url(' + item.media.thumbnail + ')'}"
     span.media__preview__title
       | {{item.description}}
     span.media__preview__description
