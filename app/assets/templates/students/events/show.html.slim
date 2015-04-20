@@ -2,7 +2,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .small-2.columns
       a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
-        span.icon.icon-arrow-back
+        i.icon.icon-back-arrow>
         span
           | Voltar
     .small-8.columns.end
@@ -28,7 +28,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             analytics-start-at="{{event.start_at}}"
             analytics-course-name="{{event.course.name}}"
             analytics-course-uuid="{{event.course.uuid}}"]
-            i.icon.icon-arrow-circle-left
+            i.icon.icon-chevron-left
             span
               | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
         .small-6.columns
@@ -44,7 +44,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             analytics-course-uuid="{{event.course.uuid}}"]
             span
               | {{event.next.start_at | date:'EEE, dd/MMMM'}}
-            i.icon.icon-arrow-circle-right
+            i.icon.icon-chevron-right
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"
@@ -56,7 +56,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         analytics-start-at="{{event.start_at}}"
         analytics-course-name="{{event.course.name}}"
         analytics-course-uuid="{{event.course.uuid}}"]
-        i.icon.icon-arrow-circle-left
+        i.icon.icon-chevron-left
         span
           | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
       .summary__tasks.previous__event__tasks
@@ -77,25 +77,25 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           span
             | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
       #topics-container.row
-        #topics-list.topic__items
+        #topics-list.topic__items.students__topics
           .topic__item[
             ng-class="{done: topic.done}"
             ng-repeat="topic in event.topics"]
             .handle.topic__item__handle
             .topic__item__show
-                input.topic__item__status[
-                  type="checkbox"
-                  ng-model="topic.done"
-                  ng-disabled="true"
-                ]
-                a.topic__item__image[
-                  ng-if="!!topic.media"
-                  ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"
-                  ng-href="{{topic.media.url}}"]
-                a.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!!topic.media" ng-href="{{topic.media.url}}"
-                  | {{topic.description}}
-                span.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!topic.media"
-                  | {{topic.description}}
+              input.topic__item__status[
+                type="checkbox"
+                ng-model="topic.done"
+                ng-disabled="true"
+              ]
+              a.topic__item__image[
+                ng-if="!!topic.media"
+                ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"
+                ng-href="{{topic.media.url}}"]
+              a.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!!topic.media" ng-href="{{topic.media.url}}"
+                | {{topic.description}}
+              span.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!topic.media"
+                | {{topic.description}}
     .hide-for-small.medium-3.columns
       a.next__event[
         ng-if="!!event.next.uuid"
@@ -109,7 +109,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         analytics-course-uuid="{{event.course.uuid}}"]
         span
           | {{event.next.start_at | date:'EEE, dd/MMMM'}}
-        i.icon.icon-arrow-circle-right
+        i.icon.icon-chevron-right
       .summary__tasks.next__event__tasks
         .summary__task ng-repeat="topic in event.next.topics"
           span
