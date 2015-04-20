@@ -106,7 +106,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             analytics-start-at="{{event.start_at}}"
             analytics-course-name="{{event.course.name}}"
             analytics-course-uuid="{{event.course.uuid}}"]
-            i.icon.icon-previous-day
+            i.icon.icon-chevron-left
             span
               | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
         .small-6.columns
@@ -122,7 +122,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             analytics-course-uuid="{{event.course.uuid}}"]
             span
               | {{event.next.start_at | date:'EEE, dd/MMMM'}}
-            i.icon.icon-next-day
+            i.icon.icon-chevron-right
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"
@@ -134,7 +134,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         analytics-start-at="{{event.start_at}}"
         analytics-course-name="{{event.course.name}}"
         analytics-course-uuid="{{event.course.uuid}}"]
-        i.icon.icon-previous-day
+        i.icon.icon-chevron-left
         span
           | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
       .summary__tasks.previous__event__tasks
@@ -357,7 +357,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         analytics-course-uuid="{{event.course.uuid}}"]
         span
           | {{event.next.start_at | date:'EEE, dd/MMMM'}}
-        i.icon.icon-next-day
+        i.icon.icon-chevron-right
       .summary__tasks.next__event__tasks
         .summary__task[
           ng-repeat="topic in event.next.topics"
