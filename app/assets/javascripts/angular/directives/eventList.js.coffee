@@ -38,6 +38,7 @@ listCtrl = ($scope, $analytics, $rootScope, Media, Utils)->
 
   $scope.sortableOptions = (collection)->
     handle: '.handle'
+    containment: 'parent'
     stop: ->
       $analytics.eventTrack "Item Drag 'n Drop",
         eventUuid: $scope.event.uuid,
