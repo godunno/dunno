@@ -308,12 +308,17 @@ form .row.collapse.mobile__day__navigation {
       padding-left: .5em;
     }
   }
+
 }
 
 .summary__task {
   border-bottom: 1px solid $light-grey-color;
   color: $primary-color;
   padding: .75em .125em;
+
+  &.personal {
+    color: $red-color;
+  }
 
   span {
     font-size: .75em;

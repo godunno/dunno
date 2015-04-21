@@ -140,7 +140,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       .summary__tasks.previous__event__tasks
         .summary__task[
           ng-repeat="topic in event.previous.topics"
-          ng-hide="topic.personal && !showPrivateTopics"]
+          ng-hide="topic.personal && !showPrivateTopics"
+          ng-class="{personal: topic.personal}"]
           span
             | {{topic.description}}
           a[
@@ -361,7 +362,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       .summary__tasks.next__event__tasks
         .summary__task[
           ng-repeat="topic in event.next.topics"
-          ng-hide="topic.personal && !showPrivateTopics"]
+          ng-hide="topic.personal && !showPrivateTopics"
+          ng-class="{personal: topic.personal}"]
           span
             | {{topic.description}}
           a[
