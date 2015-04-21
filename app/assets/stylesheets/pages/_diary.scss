@@ -202,7 +202,7 @@ form .row.collapse.mobile__day__navigation {
   clear: both;
 
   &.done {
-    background: lighten($light-grey-color, 23%);
+    background: lighten($light-grey-color, 21%);
 
     .topic__item__description a,
     input {
@@ -239,23 +239,20 @@ form .row.collapse.mobile__day__navigation {
   }
 
   input[type=checkbox] + label {
-    background: image-url('temp-checkbox-unchecked.png');
-    display: inline-block;
-    height: 14px;
-    width: 15px;
+    color: $light-grey-color;
   }
 
   input[type=checkbox]:checked + label {
-    background: image-url('temp-checkbox-checked.png');
+    color: $secondary-color;
   }
 
   .topic__item__handle {
-    background: image-url('temp-handle.png') no-repeat center center;
+    color: $light-grey-color;
+    cursor: -webkit-grab;
     cursor: grab;
-    height: 25px;
-    margin-bottom: -.5em;
-    padding: 2em 1em;
-    width: 7px;
+    font-size: 1.5em;
+    margin-bottom: -.25em;
+    padding: 1em .5em;
   }
 
   &.ui-sortable-helper {
@@ -286,6 +283,12 @@ form .row.collapse.mobile__day__navigation {
     font-size: 1.5em;
     line-height: 1rem;
     padding: .75em 1em;
+  }
+
+  .topic__url {
+    color: $secondary-color;
+    font-size: .75em;
+    display: block;
   }
 }
 

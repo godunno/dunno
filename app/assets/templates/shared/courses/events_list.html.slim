@@ -8,14 +8,14 @@
         .row
           .small-6.columns
             a.dates__header__previous-month ng-click="fetch(course.previous_month)"
-              i.icon.icon-arrow-circle-left
+              i.icon.icon-chevron-left
               span<
                 | {{course.previous_month | date:'MMM / yy'}}
           .small-6.columns
             a.dates__header__next-month ng-click="fetch(course.next_month)"
               span>
                 | {{course.next_month | date:'MMM / yy'}}
-              i.icon.icon-arrow-circle-right
+              i.icon.icon-chevron-right
   h2.dates__blankslate ng-if="!course.events || course.events.length == 0"
     | Não há aulas neste mês
   a.dates__date[
@@ -43,7 +43,7 @@
     span.date__order
       | Aula {{event.order | leadingZeros:2}}
     span.date__go
-      i.icon.icon-arrow
+      i.icon.icon-chevron-right
     span.date__status
       i.icon ng-class="'icon-' + statusFor(event)"
     span.date__classroom

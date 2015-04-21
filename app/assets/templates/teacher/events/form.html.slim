@@ -3,7 +3,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .small-3.columns
       a.back__button ng-href="{{courseLocation(event)}}"
-        i.icon.icon-arrow-back>
+        i.icon.icon-back-arrow>
         span
           | Voltar
     .small-6.columns
@@ -21,13 +21,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       a.hide__personal__topics[
         ng-click="setPrivateTopicsVisibility(false)"
         ng-show="showPrivateTopics"]
-        i.icon.icon-eye>
+        i.icon.icon-private>
         span
           | Ocultar conteúdo privado
       a.show__personal__topics[
         ng-click="setPrivateTopicsVisibility(true)"
         ng-show="!showPrivateTopics"]
-        i.icon.icon-eye>
+        i.icon.icon-private>
         span
           | Mostrar conteúdo privado
 
@@ -106,7 +106,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             analytics-start-at="{{event.start_at}}"
             analytics-course-name="{{event.course.name}}"
             analytics-course-uuid="{{event.course.uuid}}"]
-            i.icon.icon-arrow-circle-left
+            i.icon.icon-chevron-left
             span
               | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
         .small-6.columns
@@ -122,7 +122,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             analytics-course-uuid="{{event.course.uuid}}"]
             span
               | {{event.next.start_at | date:'EEE, dd/MMMM'}}
-            i.icon.icon-arrow-circle-right
+            i.icon.icon-chevron-right
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"
@@ -134,7 +134,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         analytics-start-at="{{event.start_at}}"
         analytics-course-name="{{event.course.name}}"
         analytics-course-uuid="{{event.course.uuid}}"]
-        i.icon.icon-arrow-circle-left
+        i.icon.icon-chevron-left
         span
           | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
       .summary__tasks.previous__event__tasks
@@ -163,7 +163,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               a[
                 ng-click="topicType = 'text'"
                 ng-class="{active: topicType == 'text'}"]
-                i.icon.icon-note
+                i.icon.icon-text
                 br
                 | Texto
             li
@@ -298,6 +298,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
             ng-hide="topic.personal && !showPrivateTopics"]
             .handle.topic__item__handle
+              i.icon.icon-handle
             .topic__item__show
               form
                 input.topic__item__status[
@@ -308,6 +309,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ]
                 label.topic__item__status__checkbox[
                   for="topic_{{topic.uuid}}_done"]
+                  i.icon.icon-plain-check
                 span.topic__item__image[
                   ng-if="!!topic.media"
                   ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
@@ -316,14 +318,17 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     | {{topic.description}}
                   / TODO: Validate description not empty if there's no media
                   input.topic__item__editing[
-                    ng-show="isEditing(topic)"
-                    type="text"
-                    ng-model="topic.description"
-                    on-success="finishEditing(topic)"
                     edit-in-place=true
                     focus-on="isEditing(topic)"
+                    ng-model="topic.description"
+                    ng-show="isEditing(topic)"
+                    on-success="finishEditing(topic)"
                     required=true
-                  ]
+                    type="text"]
+                  a.topic__url[
+                    href="topic.media.url"
+                    ng-show="topic.media.type == 'url'"]
+                    | {{topic.media.url}}
             a.topic__item__actions dropdown-toggle="#actions_{{topic.uuid}}"
               | ···
             ul.topic__item__actions__list.f-dropdown id="actions_{{topic.uuid}}"
@@ -352,7 +357,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         analytics-course-uuid="{{event.course.uuid}}"]
         span
           | {{event.next.start_at | date:'EEE, dd/MMMM'}}
-        i.icon.icon-arrow-circle-right
+        i.icon.icon-chevron-right
       .summary__tasks.next__event__tasks
         .summary__task[
           ng-repeat="topic in event.next.topics"
