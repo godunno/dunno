@@ -3,15 +3,13 @@ DunnoApp = angular.module('DunnoApp')
 EventCtrl = (
   $scope,
   $routeParams,
-  $interval,
   $window,
   $q,
   Event,
   Utils,
-  DateUtils,
-  NavigationGuard,
-  AUTOSAVE_INTERVAL)->
+  DateUtils)->
 
+  # TODO: Check if we can use these services directly instead of extending them.
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
@@ -24,6 +22,7 @@ EventCtrl = (
     $scope.event = event
     $scope.$broadcast('initializeEvent', event)
 
+  # TODO: We may not need to do all this, maybe event.save() already works.
   $scope.save = (event)->
     deferred = $q.defer()
     event.save().then(->
@@ -46,39 +45,10 @@ EventCtrl = (
     event.status = 'published'
     $scope.finish(event)
 
-  checkDirty = (event)->
-    if anyEditing() || unsavedItems()
-      "Algumas alterações ainda não foram efetuadas. Deseja continuar?"
-  NavigationGuard.registerGuardian(checkDirty)
-  $scope.$on '$destroy', ->
-    NavigationGuard.unregisterGuardian(checkDirty)
-
-  #### Lista de tópicos
+  # TODO: Extract this somewhere. Can't currently because we can't see this on EventListCtrl
   $scope.showPrivateTopics = true
   $scope.setPrivateTopicsVisibility = (visible)->
     $scope.showPrivateTopics = visible
-  ####
 
-  #### Novo tópico
-  unsavedItems = ->
-    $scope.event_form.topic_text_description?.$dirty ||
-    $scope.event_form.topic_file_description?.$dirty ||
-    $scope.event_form.topic_url_description?.$dirty ||
-    $scope.event_form.topic_private?.$dirty ||
-    $scope.event_form.topic_media_url?.$dirty ||
-    $scope.event_form.topic_media_file?.$dirty ||
-    $scope.event_form.topic_media_id?.$dirty
-  ####
-
-  edits = 0
-
-  anyEditing = -> edits > 0
-
-  $scope.$on 'startEditing', ->
-    edits++
-
-  $scope.$on 'finishEditing', ->
-    edits--
-
-EventCtrl.$inject = ['$scope', '$routeParams', '$interval', '$window', '$q', 'Event', 'Utils', 'DateUtils', 'NavigationGuard', 'AUTOSAVE_INTERVAL']
+EventCtrl.$inject = ['$scope', '$routeParams', '$window', '$q', 'Event', 'Utils', 'DateUtils']
 DunnoApp.controller 'EventCtrl', EventCtrl

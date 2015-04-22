@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-ApplicationCtrl = ($scope, $http, $window, $rootScope, SessionManager, TutorialsManager, NonLoggedRoutes)->
+ApplicationCtrl = ($scope, $window, $rootScope, SessionManager, TutorialsManager, NonLoggedRoutes, NavigationGuard)->
   $rootScope.$on '$locationChangeStart', (event)->
     event.preventDefault() if NonLoggedRoutes.isNonLoggedRoute()
 
@@ -21,6 +21,8 @@ ApplicationCtrl = ($scope, $http, $window, $rootScope, SessionManager, Tutorials
   $scope.$on 'wholePageLoading', (ev, promise)->
     $scope.wholePageLoading = promise
 
-ApplicationCtrl.$inject = ['$scope', '$http', '$window', '$rootScope', 'SessionManager', 'TutorialsManager', 'NonLoggedRoutes']
+  NavigationGuard.guard()
+
+ApplicationCtrl.$inject = ['$scope', '$window', '$rootScope', 'SessionManager', 'TutorialsManager', 'NonLoggedRoutes', 'NavigationGuard']
 DunnoApp.controller 'ApplicationCtrl', ApplicationCtrl
 DunnoAppStudent.controller 'ApplicationCtrl', ApplicationCtrl
