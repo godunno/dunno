@@ -311,7 +311,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 label.topic__item__status__checkbox[
                   for="topic_{{topic.uuid}}_done"]
                   i.icon.icon-plain-check
-                span.topic__item__image[
+                a.topic__item__image[
+                  ng-href="{{topic.media.url}}"
                   ng-if="!!topic.media"
                   ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
                 span.topic__item__description ng-class="{preview: !!topic.media}"
@@ -327,7 +328,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     required=true
                     type="text"]
                   a.topic__url[
-                    href="topic.media.url"
+                    ng-href="{{topic.media.url}}"
                     ng-show="topic.media.type == 'url'"]
                     | {{topic.media.url}}
             a.topic__item__actions dropdown-toggle="#actions_{{topic.uuid}}"
