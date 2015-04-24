@@ -9,19 +9,18 @@ NewUrlMediaCtrl = ($scope, Media) ->
     else
       saveTopic()
 
-  reset = ->
+  initialize = ->
     $scope.url = undefined
-    $scope.media = null
+    $scope.media = undefined
 
-  reset()
+  initialize()
 
-  $scope.$on 'createdTopic', ->
-    reset()
+  reset = ->
+    initialize()
     finishEditing()
 
-  $scope.$on 'removeMedia', ->
-    reset()
-    finishEditing()
+  $scope.$on 'createdTopic', reset
+  $scope.$on 'removeMedia', reset
 
   success = (media) ->
     $scope.media = media
