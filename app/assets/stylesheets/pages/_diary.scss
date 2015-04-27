@@ -234,6 +234,10 @@ form .row.collapse.mobile__day__navigation {
     max-width: 70%;
   }
 
+  .topic__item__description {
+    word-wrap: break-word;
+  }
+
   .topic__item__status {
     display: none;
   }
@@ -315,6 +319,7 @@ form .row.collapse.mobile__day__navigation {
   border-bottom: 1px solid $light-grey-color;
   color: $primary-color;
   padding: .75em .125em;
+  word-wrap: break-word;
 
   &.personal {
     color: $red-color;
