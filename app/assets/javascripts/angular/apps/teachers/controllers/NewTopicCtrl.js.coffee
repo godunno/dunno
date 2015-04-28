@@ -15,7 +15,6 @@ NewTopicCtrl = ($scope, Topic, $analytics) ->
     $scope.topicType = null
   reset()
 
-
   track = ($event, topic) ->
     $analytics.eventTrack 'Topic Created',
       private: topic.personal
@@ -23,8 +22,8 @@ NewTopicCtrl = ($scope, Topic, $analytics) ->
       type: $scope.topicType
 
   $scope.$on 'initializeEvent', reset
-  $scope.$on 'createdTopic', reset
   $scope.$on 'createdTopic', track
+  $scope.$on 'createdTopic', reset
 
   $scope.addTopic = -> $scope.$broadcast('newTopic', $scope.topicType)
 
