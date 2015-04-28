@@ -16,6 +16,8 @@ class Media < ActiveRecord::Base
   has_many :topics
   has_many :events, through: :topics
 
+  validates :title, presence: true
+
   mount_uploader :file_carrierwave, FileUploader
 
   delegate :event, to: :mediable
@@ -65,12 +67,6 @@ class Media < ActiveRecord::Base
     }
   end
 
-  def release!
-    self.status = "released"
-    self.released_at = Time.now
-    save!
-  end
-
   def url
     super || file.try(:url)
   end
@@ -100,11 +96,7 @@ class Media < ActiveRecord::Base
       query[:query][:filtered][:filter] = { term: options[:filter] }
     end
     result = __elasticsearch__.search(query)
-    result = result.page(options[:page] || 1)
+    result = result.per_page(options[:per_page] || 10).page(options[:page] || 1)
     result
-  end
-
-  def self.per_page
-    10
   end
 end

@@ -435,7 +435,7 @@ $header-font-color: $primary-color;
 // We use this to set the border styles for dropdowns.
 // $f-dropdown-border-style: solid;
 // $f-dropdown-border-width: 1px;
-// $f-dropdown-border-color: scale-color(#fff, $lightness: -20%);
+$f-dropdown-border-color: $dropdown-border-color;
 
 // We use these to style the triangle pip.
 // $f-dropdown-triangle-size: 6px;
@@ -459,7 +459,7 @@ $header-font-color: $primary-color;
 // $include-html-button-classes: $include-html-classes;
 
 // We use these to set the color of the pip in dropdown buttons
-// $dropdown-button-pip-color: #fff;
+$dropdown-button-pip-color: $dark-grey-color;
 // $dropdown-button-pip-color-alt: #333;
 
 // $button-pip-tny: rem-calc(6);
@@ -923,7 +923,7 @@ $progress-meter-color: #008cba;
 // $reveal-default-width: 80%;
 // $reveal-modal-padding: rem-calc(20);
 // $reveal-box-shadow: 0 0 10px rgba(#000,.4);
-$reveal-max-width: 100vw;
+$reveal-max-width: rem-calc(800);
 
 // We use these to style the reveal close button
 // $reveal-close-font-size: rem-calc(40);

@@ -2,17 +2,33 @@ DunnoApp = angular.module("DunnoApp")
 
 editInPlace = ->
   restrict: 'A'
-  link: (scope, element, attrs)->
-    element.on 'keydown', (e)->
+  require: 'ngModel'
+  scope:
+    onSuccess: '&'
+  link: (scope, element, attrs, ngModelCtrl) ->
+    originalValue = ngModelCtrl.$modelValue
+    element.focus ->
+      originalValue = ngModelCtrl.$modelValue
+
+    rollback = ->
+      ngModelCtrl.$setViewValue(originalValue)
+      ngModelCtrl.$render()
+
+    element.blur (e) ->
+      if ngModelCtrl.$invalid
+        rollback()
+      scope.onSuccess()
+
+    element.on 'keydown', (e) ->
       esc = e.keyCode == 27
       enter = e.keyCode == 13
+
       if esc
-        document.execCommand("undo")
+        rollback()
         element.blur()
-      if enter
+
+      if enter && ngModelCtrl.$valid
         element.blur()
-        e.preventDefault() if e.preventDefault?
-        e.stopPropagation() if e.stopPropagation?
-        return false
+        e.preventDefault()
 
 DunnoApp.directive "editInPlace", editInPlace

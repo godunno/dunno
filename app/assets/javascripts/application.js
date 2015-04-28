@@ -32,7 +32,7 @@
 //= require angular-messages
 //= require angular-ui-sortable
 //= require ng-file-upload
-//= require ng-tags-input
+//= require ngTagsInput/build/ng-tags-input.js
 //= require angular-elastic-input
 //= require angular-validation-match
 //= require angular-input-masks

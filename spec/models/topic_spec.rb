@@ -6,7 +6,6 @@ describe Topic do
 
   describe "associations" do
     it { is_expected.to belong_to(:event).touch(true) }
-    it { is_expected.to have_many(:ratings) }
     it { is_expected.to belong_to(:media) }
   end
 
@@ -40,4 +39,17 @@ describe Topic do
     expect { topic.save! }.not_to raise_error
   end
 
+  describe "#without_personal" do
+    let!(:topic) { create(:topic) }
+    let!(:personal_topic) { create(:topic, :personal) }
+
+    it { expect(Topic.without_personal).to eq([topic]) }
+  end
+
+  it "sorts by #order by default" do
+    last_topic = create(:topic, order: 1)
+    first_topic = create(:topic, order: 2)
+
+    expect(Topic.all).to eq([first_topic, last_topic])
+  end
 end

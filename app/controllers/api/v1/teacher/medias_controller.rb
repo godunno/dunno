@@ -27,25 +27,9 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
     end
   end
 
-  def release
-    if media.status == "available"
-      media.release!
-      EventPusher.new(media.event).release_media(media)
-      render json: "{}", status: 200
-    else
-      render json: { errors: [I18n.t('errors.already_released')] }, status: 304
-    end
-  end
-
   def destroy
     media.destroy
     render nothing: true
-  end
-
-  def preview
-    # TODO: extract to microservice
-    # TODO: deal with possible exceptions
-    render json: LinkThumbnailer.generate(params[:url])
   end
 
   private
@@ -59,7 +43,7 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   end
 
   def media_search_params
-    params.permit(:page, :q)
+    params.permit(:page, :q, :per_page)
   end
 
   def media_create_params

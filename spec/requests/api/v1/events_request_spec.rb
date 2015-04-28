@@ -7,24 +7,13 @@ describe Api::V1::EventsController do
   let(:topic) { create(:topic) }
   let(:topic_with_url) { create(:topic, media: media_with_url) }
   let(:topic_with_file) { create(:topic, media: media_with_file) }
-  let(:thermometer) { create(:thermometer) }
-  let(:poll) { create(:poll, options: [option]) }
-  let(:option) { create(:option) }
+  let(:personal_topic) { create(:topic, :personal) }
   let(:media_with_url) { build(:media_with_url) }
   let(:media_with_file) { build(:media_with_file) }
-  let(:beacon) { create(:beacon) }
   let!(:event) do
     create(:event, course: course,
-                   topics: [topic, topic_with_url, topic_with_file],
-                   thermometers: [thermometer],
-                   polls: [poll],
-                   beacon: beacon
+                   topics: [topic, personal_topic, topic_with_url, topic_with_file],
           )
-  end
-  let(:event_pusher_events) { EventPusherEvents.new(student.user) }
-
-  before do
-    [poll, media_with_url, media_with_file].each(&:release!)
   end
 
   describe "GET /api/v1/events" do
@@ -44,7 +33,7 @@ describe Api::V1::EventsController do
 
         let(:target) { event }
         subject { json[1] }
-        it_behaves_like "request return check", %w(id uuid channel status start_at end_at)
+        it_behaves_like "request return check", %w(id uuid status start_at end_at)
 
         it { expect(last_response.status).to eq(200) }
 
@@ -93,7 +82,6 @@ describe Api::V1::EventsController do
         let(:event_json) { json }
         let(:target) { event }
         subject { event_json }
-        it_behaves_like "request return check", %w(channel)
 
         describe "previous" do
           let(:target) { event.previous }
@@ -111,18 +99,20 @@ describe Api::V1::EventsController do
           let(:target) { topic }
           subject { event_json["topics"][0] }
           it_behaves_like "request return check", %w(description)
+
+          it { expect(find(event_json["topics"], personal_topic.uuid)).to be_nil }
         end
 
         describe "media with URL" do
           let(:target) { media_with_url }
           subject { find(event_json["topics"], topic_with_url.uuid)["media"] }
-          it_behaves_like "request return check", %w(uuid title description category url released_at)
+          it_behaves_like "request return check", %w(uuid title description category url)
         end
 
         describe "media with File" do
           let(:target) { media_with_file }
           subject { find(event_json["topics"], topic_with_file.uuid)["media"] }
-          it_behaves_like "request return check", %w(uuid title description category released_at)
+          it_behaves_like "request return check", %w(uuid title description category)
 
           it { expect(subject["url"]).to eq target.file.url }
         end

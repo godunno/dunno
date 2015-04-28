@@ -1,25 +1,32 @@
 # http://blog.somewhatabstract.com/2014/06/15/navigation-guard-using-angularjs-onbeforeunload/#rf1-1979
 
 DunnoApp = angular.module('DunnoApp')
+DunnoAppStudent = angular.module('DunnoAppStudent')
 
-DunnoApp.factory "NavigationGuard", ['$window', '$rootScope', ($window, $rootScope)->
+NavigationGuard = ($window, $rootScope) ->
 
-  guardians = []
+  edits = 0
+  startEditing = ->
+    edits++
+  finishEditing = ->
+    edits--
 
-  onBeforeUnloadHandler = (event)->
+  guard = ->
+    $rootScope.$on('startEditing', startEditing)
+    $rootScope.$on('finishEditing', finishEditing)
+
+  onBeforeUnloadHandler = (event) ->
     if message = confirmMessage()
       (event or $window.event).returnValue = message
       message
 
-  locationChangeStartHandler = (event)->
+  exitHandler = (event)->
     if message = confirmMessage()
       if !confirm(message)
         event.preventDefault()
 
   confirmMessage = ->
-    for guardian in guardians
-      message = guardian()
-      return message if message
+    return "Existem dados não salvos na página." if edits > 0
 
   if $window.addEventListener
     $window.addEventListener "beforeunload", onBeforeUnloadHandler
@@ -27,17 +34,14 @@ DunnoApp.factory "NavigationGuard", ['$window', '$rootScope', ($window, $rootSco
     $window.onbeforeunload = onBeforeUnloadHandler
 
   # https://github.com/angular/angular.js/issues/2109
-  $rootScope.$on('$locationChangeStart', locationChangeStartHandler)
-
-  registerGuardian = (guardianCallback)->
-    guardians.unshift guardianCallback
-
-  unregisterGuardian = (guardianCallback)->
-    index = guardians.indexOf(guardianCallback)
-    guardians.splice index, 1  if index >= 0
+  $rootScope.$on('$locationChangeStart', exitHandler)
+  $rootScope.$on('dunno.exit', exitHandler)
 
   {
-    registerGuardian: registerGuardian
-    unregisterGuardian: unregisterGuardian
+    guard: guard
   }
-]
+
+NavigationGuard.$inject = ['$window', '$rootScope']
+
+DunnoApp.factory "NavigationGuard", NavigationGuard
+DunnoAppStudent.factory "NavigationGuard", NavigationGuard

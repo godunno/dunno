@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Teacher do
   describe "associations" do
     it { is_expected.to have_one(:user) }
-    it { is_expected.to have_and_belong_to_many(:organizations) }
     it { is_expected.to have_many(:courses) }
     it { is_expected.to have_many(:medias) }
   end

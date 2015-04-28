@@ -4,7 +4,6 @@ describe Api::V1::Teacher::NotificationsController do
   let(:teacher) { create :teacher }
 
   describe "POST /api/v1/teacher/notifications.json" do
-    it_behaves_like "API authentication required"
     context "authenticated" do
       let(:message) { "MESSAGE" }
       let(:new_abbreviation) { "New Abbr" }

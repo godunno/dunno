@@ -16,4 +16,3 @@ DunnoApp.factory 'Event', ['RailsResource', 'railsSerializer', (RailsResource, r
 
     planned: -> @topics.length > 0
 ]
-

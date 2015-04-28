@@ -3,9 +3,8 @@ require 'spec_helper'
 describe Api::V1::Teacher::EventsController do
 
   let!(:teacher) { create :teacher }
-  let(:organization) { create :organization }
   let(:student) { create :student }
-  let(:course) { build :course, teacher: teacher, organization: organization, students: [student] }
+  let(:course) { build :course, teacher: teacher, students: [student] }
 
   def last_course
     Course.order('created_at desc').first
@@ -20,8 +19,6 @@ describe Api::V1::Teacher::EventsController do
   end
 
   describe "GET /api/v1/teacher/courses.json" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 
@@ -52,8 +49,6 @@ describe Api::V1::Teacher::EventsController do
   end
 
   describe "GET /api/v1/teacher/courses/:uuid.json" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 
@@ -153,8 +148,6 @@ describe Api::V1::Teacher::EventsController do
 
   describe "GET /api/v1/teacher/courses/:uuid/students.json" do
 
-    it_behaves_like "API authentication required"
-
     context "authenticated" do
 
       before do
@@ -169,15 +162,13 @@ describe Api::V1::Teacher::EventsController do
       describe "students" do
         let(:target) { student }
         subject { json[0] }
-        it_behaves_like "request return check", %w(uuid name email avatar)
+        it_behaves_like "request return check", %w(uuid name email)
       end
 
     end
   end
 
   describe "POST /api/v1/teacher/courses.json" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 
@@ -226,7 +217,6 @@ describe Api::V1::Teacher::EventsController do
         it { expect(last_response.status).to eq(200) }
         it { expect(subject.name).to eq(course.name) }
         it { expect(subject.teacher).to eq(teacher) }
-        #it { expect(subject.organization).to eq(organization) }
         it { expect(subject.start_date).to eq(course.start_date) }
         it { expect(subject.end_date).to eq(course.end_date) }
       end
@@ -234,8 +224,6 @@ describe Api::V1::Teacher::EventsController do
   end
 
   describe "PATCH /api/v1/teacher/courses/:uuid.json" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 
@@ -260,8 +248,6 @@ describe Api::V1::Teacher::EventsController do
   end
 
   describe "DELETE /api/v1/teacher/courses/:uuid.json" do
-
-    it_behaves_like "API authentication required"
 
     context "authenticated" do
 

@@ -18,7 +18,7 @@ modal-standalone.catalog-picker close-button=true
             | Inserir
         .bottom
           i.type.icon ng-class="'icon-' + media.type"
-          a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
+          a.url ng-href="{{media.url}}" target="_blank" {{formatMediaUrl(media)}}
 
   .row ng-if="!!medias && medias.length > 0" 
     a.load-more ng-click="paginate(next_page)" ng-if="next_page" cg-busy="loadingNextPage"

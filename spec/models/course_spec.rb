@@ -6,7 +6,6 @@ describe Course do
 
   describe "associations" do
     it { is_expected.to belong_to(:teacher) }
-    it { is_expected.to belong_to(:organization) }
     it { is_expected.to have_many(:events) }
     it { is_expected.to have_many(:weekly_schedules) }
     it { is_expected.to have_many(:notifications) }
@@ -60,14 +59,6 @@ describe Course do
         end
       end
     end
-  end
-
-  describe "#channel" do
-    before do
-      course.save!
-    end
-
-    it { expect(course.channel).to eq("course_#{course.uuid}") }
   end
 
   describe "#order" do

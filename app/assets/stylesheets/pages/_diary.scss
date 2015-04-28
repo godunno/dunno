@@ -1,450 +1,446 @@
-// TODO: Break diary.scss into smaller files.
-// scss-lint:disable NestingDepth SelectorDepth
-.diary-page {
-  margin-top: -20px;
+.hide__personal__topics,
+.show__personal__topics,
+.back__button {
+  .icon {
+    vertical-align: middle;
+  }
+}
 
-  .done-button {
-    height: 40px;
-    margin-left: -7px;
+.back__button {
+  opacity: .5;
+}
+
+.previous__event,
+.next__event {
+  background: $white;
+  border: 1px solid $navigation-event-border-color;
+  cursor: pointer;
+  display: block;
+  padding: 1em .75em;
+
+  span {
+    color: $primary-color;
+    font-size: .75em;
+    text-transform: uppercase;
+  }
+
+  .icon {
+    color: $secondary-color;
+    vertical-align: middle;
+  }
+}
+
+.hide-for-small {
+  .previous__event {
+    margin-right: -1em;
+  }
+
+  .next__event {
+    margin-left: -1em;
+  }
+}
+
+.previous__event {
+  border-radius: 3px 0 0 3px;
+  padding-right: 1.5em;
+  text-align: right;
+
+  .icon {
+    float: left;
+  }
+}
+
+.next__event {
+  border-radius: 0 3px 3px 0;
+  padding-left: 1.5em;
+  text-align: left;
+
+  .icon {
+    float: right;
+  }
+}
+
+form .row.collapse.mobile__day__navigation {
+  margin: 0 -.675em;
+}
+
+.select__event__status {
+  span {
+    white-space: nowrap;
+  }
+}
+
+.diary__header {
+  background: $primary-color;
+  border: 1px solid $primary-color;
+  border-radius: 4px 4px 0 0;
+  color: $white;
+  padding: 1em .75em;
+  position: relative;
+  z-index: 1;
+
+  .diary__date {
+    text-transform: uppercase;
+  }
+
+  .diary__time {
+    color: $dark-grey-color;
+    font-size: .75em;
+    text-align: right;
+
+    .icon {
+      vertical-align: middle;
+    }
+  }
+}
+
+.new__topic__form {
+  background: $white;
+  border: 1px solid $light-grey-color;
+  padding: 0 .75em;
+
+  .select__item__type {
     text-align: center;
-    position: relative;
-    top: -1px;
-    padding: 0 1em;
-  }
 
+    li {
+      padding-bottom: 0;
+    }
 
-  .status-list {
-    @include dropdown-container(list, bottom);
-    @include radius();
-    border-color: $light-grey-color;
+    a {
+      border-bottom: 4px solid $white;
+      color: $light-grey-color;
+      display: block;
+      padding: .5em 0;
 
-    .option {
-      @include grid-row();
-      cursor: pointer;
-      padding: 10px;
-
-      &:nth-last-child(n+2) {
-        border-bottom: 1px solid $light-grey-color;
-      }
-
-      .title {
-        @include grid-row();
-        color: $primary-color;
-        font-weight: 600;
-        text-transform: uppercase;
-
-        .icon {
-          float: right;
-          margin-left: 6px;
-          margin-top: 3px;
-        }
-      }
-
-      .subtitle {
-        @include grid-row();
-        color: $dark-grey-color;
-        font-size: .8rem;
-        line-height: 1.3em;
-        opacity: .7;
-      }
-
-      &.published {
-        .title {
-          color: $primary-color;
-        }
-
-        .subtitle {
-          color: $dark-grey-color;
-        }
+      &.active {
+        border-bottom-color: $secondary-color;
+        color: $secondary-color;
       }
     }
+
+    .icon {
+      display: inline-block;
+      font-size: 1.25em;
+      margin-top: .5em;
+    }
+  }
+}
+
+.new__topic__actions {
+  border-top: 1px dashed $secondary-color;
+  clear: both;
+  padding: .75em;
+  text-align: right;
+
+  .new__topic__visibility {
+    vertical-align: top;
   }
 
-  .field-new-list-item {
-    border: 0;
-    border-bottom: 1px solid #ccc !important; // NEW_COLOUR
+  .button {
     margin-bottom: 0;
-    padding-right: 21%;
+  }
 
-    &:focus {
-      box-shadow: none;
-      outline: none;
+  .create__new__topic__item {
+    border: 1px solid $secondary-color;
+    font-weight: bold;
+
+    &.alert {
+      border-color: $red-color;
+    }
+  }
+}
+
+.item__type {
+  background: $white;
+  border: 1px solid $dark-grey-color;
+  box-shadow: lighten($light-grey-color, 20%) 0 3px 0;
+  margin: 0 -1rem;
+  position: relative;
+  z-index: 1;
+
+  input,
+  .media__file__button {
+    background: $white;
+    border: 0;
+    box-shadow: none;
+    color: $primary-color;
+    display: block;
+    font-size: 1em;
+    height: 4em;
+    line-height: 1em;
+    margin: 0;
+    padding: 1.5rem 1rem;
+
+    &.file__input {
+      display: none;
+    }
+  }
+}
+
+.form__event__status__save {
+  text-align: right;
+}
+
+.save__and__exit {
+  margin: 0 1em;
+}
+
+.topic__items {
+  background: $white;
+  border: 1px solid $light-grey-color;
+  border-top: 3px solid lighten($light-grey-color, 20%);
+
+  .topic__item.row {
+    margin: 0;
+    overflow: hidden;
+  }
+}
+
+.topic__item {
+  background: $white;
+  border-bottom: 1px solid lighten($light-grey-color, 20%);
+  clear: both;
+
+  &.done {
+    background: lighten($light-grey-color, 21%);
+
+    .topic__item__description a,
+    input {
+      font-style: italic;
+      opacity: .5;
     }
   }
 
-  .wrapper-new-list-item {
-    border: 1px solid #ccc; // NEW_COLOUR
-    border-radius: 2px;
-    margin-bottom: 10px;
-
-    &.focus-wrapper {
-      border: 1px solid $blue-color; // NEW_COLOUR
-      box-shadow: 0 0 3px $blue-color; // NEW_COLOUR
-
+  &.personal {
+    .topic__item__description a,
+    input {
+      color: $red-color;
     }
   }
 
-  .media-url-input {
-    @include dropdown-container(content, right, 350px);
-    background: $background-light-grey-color;
-    padding: 8px;
-
-    &:before {
-      border-left-color: $background-light-grey-color;
-    }
+  .topic__item__handle,
+  .topic__item__image,
+  .topic__item__show,
+  .topic__item__status__checkbox,
+  .topic__item__description,
+  .topic__item__actions,
+  .topic__item__item__editing {
+    display: inline-block;
+    vertical-align: middle;
   }
 
-  .create-item-button {
-    @include radius;
-    background: $secondary-color;
-    color: $white;
-    float: right;
-    font-size: 1.1em;
-    height: 1.5em;
-    line-height: 1.4em;
-    margin-right: .30em;
-    margin-top: -1.80em;
-    padding: .2em .4em;
-
-    &.disabled {
-      background: #afb0b0; // NEW_COLOUR
-      cursor: auto;
-      pointer-events: none;
-    }
+  .topic__item__description,
+  .topic__item__show {
+    max-width: 70%;
   }
 
-  .item-button {
-    color: #afb0b0; // NEW_COLOUR
-    float: right;
-    font-size: 1.5em;
-    margin-top: -1.3em;
-
-    &.media-url-button {
-      margin-right: 2em;
-    }
-
-    &.media-file-button {
-      margin-right: 3.4em;
-    }
-
-    &.media-search-button {
-      margin-right: 4.8em;
-    }
-
-    &:hover,
-    &.active {
-      color: #5c5b5b; // NEW_COLOUR
-    }
+  .topic__item__description {
+    word-wrap: break-word;
   }
 
-  .file-input {
+  .topic__item__status {
     display: none;
   }
 
-  .progress {
-    margin-top: 10px;
+  input[type=checkbox] + label {
+    color: $light-grey-color;
   }
 
-  .vertical-container {
-    display: table-cell;
+  input[type=checkbox]:checked + label {
+    color: $secondary-color;
+  }
+
+  .topic__item__handle {
+    color: $light-grey-color;
+    cursor: -webkit-grab;
+    cursor: grab;
+    font-size: 1.5em;
+    margin-bottom: -.25em;
+    padding: 1em .5em;
+  }
+
+  &.ui-sortable-helper {
+    .topic__item__handle {
+      cursor: grabbing;
+    }
+  }
+
+  .topic__item__image {
+    @include radius();
+    background-size: cover;
+    height: 2.75em;
+    margin-right: .5em;
     vertical-align: middle;
+    width: 2.75em;
+  }
 
-    .vertical-center {
-      display: inline-block;
+  .topic__item__editing {
+    background: transparent;
+    box-shadow: none;
+    margin: 0;
+    width: 100%;
+  }
+
+  .topic__item__actions {
+    color: $light-grey-color;
+    float: right;
+    font-size: 1.5em;
+    line-height: 1rem;
+    padding: .75em 1em;
+  }
+
+  .topic__url {
+    color: $secondary-color;
+    font-size: .75em;
+    display: block;
+  }
+}
+
+.summary__tasks {
+  &.previous__event__tasks {
+    padding-left: 1em;
+
+    .summary__task {
+      padding-right: .5em;
     }
   }
 
-  .notes {
-    background-color: #fff7f6; // NEW_COLOUR
-    border-color: #f00; // NEW_COLOUR
+  &.next__event__tasks {
+    padding-right: 1em;
 
-    .tasks {
-      border-top: 1px solid rgba(255, 17, 5, .27); // NEW_COLOUR
-    }
-
-    .foot {
-      border-top: 1px solid rgba(255, 17, 5, .27); // NEW_COLOUR
+    .summary__task {
+      padding-left: .5em;
     }
   }
 
 }
 
-$diary-container-width: 750px;
-$diary-title-height: 90px;
-$diary-card-border: 1px solid #ddd; // NEW_COLOUR
+.summary__task {
+  border-bottom: 1px solid $light-grey-color;
+  color: $primary-color;
+  padding: .75em .125em;
+  word-wrap: break-word;
 
+  &.personal {
+    color: $red-color;
+  }
 
-
-.next-event:hover,
-.previous-event:hover {
   span {
-    opacity: .7;
+    font-size: .75em;
+  }
+
+  .icon {
+    background-color: $dark-grey-color;
+    border-radius: 2em;
+    color: $white;
+    float: right;
+    font-size: .875em;
+    height: 1.5em;
+    line-height: 1em;
+    padding: .25em;
+    vertical-align: middle;
+    width: 1.5em;
   }
 }
 
-.next-event,
-.previous-event {
-  display: block;
-  font-size: .75em;
-  margin-top: .25em;
-
-  span {
-    line-height: 2.5em;
-    opacity: 0;
-  }
-
-  .icon:before {
-    font-size: 1.8em;
-  }
-
-  .icon-arrow-circle-left:before {
-    margin-left: 10px;
-  }
-
-  .icon-arrow-circle-right:before {
-    margin-right: 10px;
+.students__topics {
+  .topic__item__handle {
+    visibility: hidden;
+    pointer-events: none;
   }
 }
 
-@media #{$small-only} {
-  .next-event,
-  .previous-event {
+.type__catalog {
+  .catalog__header {
+    border-bottom: 1px dashed $secondary-color;
+    position: relative;
+
     .icon {
-      float: none !important;
+      color: $light-grey-color;
+      left: 1em;
+      position: absolute;
+      top: 1.5em;
+    }
+
+    input {
+      font-size: 1em;
+      padding-left: 2.5em;
+    }
+  }
+
+  .load__more {
+    padding: 1em;
+
+    a {
+      color: $dark-grey-color;
       display: block;
+      font-size: .875em;
+      text-align: center;
+    }
+  }
+}
+
+.catalog__media {
+  border-bottom: 1px solid $light-grey-color;
+  padding: .75em 1em;
+
+  .media__thumbnail,
+  .media__data,
+  .media__select__label {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .media__thumbnail {
+    @include radius();
+    background-size: contain;
+    height: 2.75em;
+    margin-right: .5em;
+    vertical-align: middle;
+    width: 2.75em;
+  }
+
+  .media__select {
+    display: none;
+  }
+
+  .media__title {
+    color: $primary-color;
+    display: block;
+    font-weight: normal;
+    margin-bottom: .5em;
+  }
+
+  .media__data {
+    max-width: 70%;
+  }
+
+  .media__url {
+    .icon {
+      background-color: $dark-grey-color;
+      border-radius: 2em;
+      color: $white;
+      display: inline-block;
+      font-size: .875em;
+      height: 1.5em;
+      line-height: 1em;
+      padding: .25em;
+      vertical-align: middle;
+      width: 1.5em;
     }
 
     span {
-      /*display: none;*/
-      opacity: .7;
-      float: none !important;
-    }
-  }
-}
-
-.event-status {
-  margin: 20px auto;
-
-  label {
-    &.to {
-      color: $dark-grey-color;
-      font-size: 18px;
-    }
-
-    &.icon {
-      font-size: 24px;
-      margin-top: 5px;
+      color: $secondary-color;
     }
   }
 
-  .white {
-    background-color: $white;
+  input[type=radio] + label {
+    background: image-url('temp-radio-unchecked.png');
+    height: 16px;
+    width: 16px;
   }
 
-  .status {
-    text-align: right;
+  input[type=radio]:checked + label {
+    background: image-url('temp-radio-checked.png');
   }
-
-  .no-pad-left {
-    padding-left: 0 !important;
-  }
-
-  .no-pad-right {
-    padding-right: 0;
-  }
-
-  .time .to {
-    font-size: 14px;
-    margin-top: 8px;
-    text-align: center;
-  }
-
-  .select-status {
-    padding-right: 0;
-  }
-
-  .between-fields {
-    padding: 0 !important;
-    width: 26px;
-  }
-
-  .button.save {
-    background: none;
-    color: #999; // NEW_COLOUR
-    padding-left: 1em;
-    padding-right: 1em;
-  }
-
-  .button.save:disabled {
-    background: none;
-  }
-}
-
-.container {
-  background: $white;
-  border: $diary-card-border;
-  border-radius: .25em;
-  margin: 1.25em auto;
-  padding: 0;
-  /*width: $diary-container-width;*/
-
-  > .title {
-    border-left-style: solid;
-    border-left-width: 10px;
-    height: $diary-title-height;
-    padding: 30px 0 0 15px;
-    position: relative;
-
-    h1 {
-      font-size: 1.2rem;
-      font-weight: bold;
-      line-height: .5rem;
-      margin-top: 0;
-      text-align: left;
-      text-transform: uppercase;
-    }
-
-    .subtitle {
-      font-size: .7rem;
-    }
-  }
-
-  .diary-label {
-    border-left-color: $secondary-color;
-  }
-
-  .notes-label {
-    border-left-color: $red-color;
-  }
-
-  .tasks {
-    border-top: 1px solid #d8d8d8; // NEW_COLOUR
-  }
-
-  .item {
-    padding: 0 30px;
-
-    &.clickable {
-      cursor: pointer;
-    }
-
-    &.ui-sortable-helper {
-      // scss-lint:disable BangFormat
-      // Without this !important, occurs a flickering
-      // effect while moving the item.
-      background: $white;
-      border: 1px solid $secondary-color;
-      box-shadow: 0 0 5px #ccc; // NEW_COLOUR
-      cursor: move !important;
-      // scss-lint:enable BangFormat
-    }
-
-    .handle {
-      border: 2px dotted #ccc; // NEW_COLOUR
-      border-bottom: 0;
-      border-top: 0;
-      float: left;
-      height: 18px;
-      margin-left: -22px;
-      margin-top: 16px;
-      width: 6px;
-    }
-
-    > .row {
-      border-bottom: $diary-card-border;
-      margin: 0 auto;
-      padding: .75em 0;
-    }
-
-    .item-editing {
-      margin: 0;
-    }
-
-    .item-show {
-      position: relative;
-
-      .title {
-        margin: 0 .5em;
-        word-break: break-word;
-      }
-
-      .description {
-        word-break: break-word;
-      }
-    }
-
-    .tasks-buttons {
-      position: absolute;
-      right: 0;
-      top: 0;
-
-      .task-icon-right {
-        color: #bbb; // NEW_COLOUR
-        font-size: 1.1rem;
-        margin-left: 10px;
-        margin-top: 4px;
-
-        &:hover {
-          color: $primary-color;
-        }
-      }
-    }
-
-    // --- Show on hover --- //
-    .no-touch & {
-      .handle,
-      .task-icon-right {
-        display: none;
-      }
-
-      &:hover {
-        .handle,
-        .task-icon-right {
-          display: initial;
-        }
-      }
-    }
-    // --------------------- //
-  }
-
-  .task-box {
-    background: #ddd; // NEW_COLOUR
-    border-radius: $global-radius;
-    font-size: .8rem;
-    margin: 0 auto 10px;
-    padding: 15px;
-  }
-}
-
-.foot {
-  padding: 25px 30px;
-  position: relative;
-
-  a {
-    color: $dark-grey-color;
-  }
-}
-
-.add {
-  font-size: 1.5rem;
-  margin-left: 655px;
-  margin-top: 7px;
-  position: absolute;
-}
-
-.pos {
-  margin-right: 10px;
-}
-
-.icon {
-  font-size: 1rem;
-  line-height: .3rem;
-}
-
-.hint {
-  color: #4d4d4d; // NEW_COLOUR
-  display: block;
-  font-size: .75rem;
-  font-weight: normal;
-  line-height: 1.5;
 }

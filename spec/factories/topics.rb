@@ -4,5 +4,9 @@ FactoryGirl.define do
   factory :topic do
     event
     description "MyString"
+
+    trait :personal do
+      personal true
+    end
   end
 end

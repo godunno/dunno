@@ -9,6 +9,10 @@ describe Media do
     it { should belong_to(:teacher) }
   end
 
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:title) }
+  end
+
   describe "callbacks" do
     describe "after create" do
       context "new media" do
@@ -19,16 +23,6 @@ describe Media do
         end
       end
     end
-  end
-
-  describe "#release!" do
-    before do
-      Timecop.freeze
-    end
-    after { Timecop.return }
-
-    it { expect {media.release!}.to change(media, :status).from("available").to("released") }
-    it { expect {media.release!}.to change(media, :released_at).from(nil).to(Time.now) }
   end
 
   describe "#type" do
@@ -97,12 +91,18 @@ describe Media do
     end
   end
 
-  describe "::search" do
-    it "should be ordered from newest to oldest", :elasticsearch do
-      old_media = create(:media)
-      new_media = create(:media)
-      refresh_index!
+  describe "::search", :elasticsearch do
+    let!(:old_media) { create :media }
+    let!(:new_media) { create :media }
+
+    before { refresh_index! }
+
+    it "should be ordered from newest to oldest" do
       expect(Media.search.records.to_a).to eq([new_media, old_media])
+    end
+
+    it "can set a number of items per page" do
+      expect(Media.search(per_page: 1).records.to_a).to eq([new_media])
     end
   end
 end

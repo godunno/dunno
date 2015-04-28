@@ -64,8 +64,19 @@ header.page-header.title
         .data
           .top
             .large-8.columns
-              .title.row
-                input.input type="text" ng-model="media.title" pu-elastic-input=true pu-elastic-input-maxwidth="95%" ng-blur="updateMedia(media)" edit-in-place=true placeholder="Título do anexo"
+              .title
+                a ng-show="!isEditing(media)" ng-click="startEditing(media)"
+                  | {{media.title}}
+                input.input[
+                  ng-show="isEditing(media)"
+                  type="text"
+                  ng-model="media.title"
+                  on-success="updateMedia(media)"
+                  edit-in-place=true
+                  focus-on="isEditing(media)"
+                  placeholder="Título do anexo"
+                  required=true
+                ]
                 i.icon.icon-pencil
                 
               .events.row
@@ -82,7 +93,7 @@ header.page-header.title
 
             .large-4.columns
               i.type.icon ng-class="'icon-' + media.type"
-              a.url ng-href="{{media.url}}" target="_blank" {{format_media_url(media)}}
+              a.url ng-href="{{media.url}}" target="_blank" {{formatMediaUrl(media)}}
           .bottom
             .large-11.columns
               i.icon.icon-tag.tags-label
@@ -92,7 +103,7 @@ header.page-header.title
                 on-tag-removed="updateMedia(media)"
                 replace-spaces-with-dashes="false"
                 placeholder="Nova tag"
-                on-tag-clicked="searchBy"
+                on-tag-clicked="searchBy($tag)"
               ]
             .large-1.column
               a.icon.icon-trash ng-click="removeMedia(media)"

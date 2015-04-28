@@ -48,13 +48,12 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
       )
       deferred.promise
 
-    update_tag_list: -> @tag_list = @tags.map((tag)-> tag.text)
+    updateTagList: -> @tag_list = @tags.map((tag)-> tag.text)
 
     @search: (options)->
       deferred = $q.defer()
       Media.configure(fullResponse: true)
       @query(options).then((response)->
-        Media.configure(fullResponse: false)
         deferred.resolve(
           medias: response.data
           previous_page: response.originalData.previous_page
@@ -63,7 +62,9 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
         )
       , ->
         deferred.reject(arguments...)
-      )
+      ).finally ->
+        Media.configure(fullResponse: false)
+
       deferred.promise
 
   Media.interceptAfterResponse (response)->
