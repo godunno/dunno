@@ -275,10 +275,22 @@ form .row.collapse.mobile__day__navigation {
   }
 
   .topic__item__editing {
-    background: transparent;
-    box-shadow: none;
-    margin: 0;
-    width: 100%;
+    @extend .item__type;
+    // TODO: Avoid this override. Maybe a mixin?
+    margin: 0px -.25rem;
+
+    .edit__topic__actions {
+      @extend .new__topic__actions;
+
+      .cancel {
+        color: $light-grey-color;
+        float: left;
+      }
+
+      .save__edit__topic__item {
+        @extend .create__new__topic__item;
+      }
+    }
   }
 
   .topic__item__actions {

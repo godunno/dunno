@@ -3,17 +3,30 @@ DunnoApp = angular.module('DunnoApp')
 TopicEditCtrl = ($scope, Utils)->
   $scope.isEditing = (topic) -> !!topic._editing
 
-  $scope.startEditing = (topic) ->
-    topic._editing = true
-    $scope.$emit('startEditing')
+  initialize = ->
+    $scope.editingTopic = {}
+  initialize()
+
+  reset = ->
+    $scope.$emit('finishEditing')
+    initialize()
 
   $scope.save = (topic) ->
     topic.save()
 
+  $scope.startEditing = (topic) ->
+    angular.extend $scope.editingTopic, topic
+    topic._editing = true
+    $scope.$emit('startEditing')
+
   $scope.finishEditing = (topic) ->
+    angular.extend topic, $scope.editingTopic
     topic._editing = false
-    topic.save().then ->
-      $scope.$emit('finishEditing')
+    topic.save().then reset
+
+  $scope.cancelEditing = (topic) ->
+    topic._editing = false
+    reset()
 
   # TODO: Add to the next event's topics list.
   # TODO: Loading

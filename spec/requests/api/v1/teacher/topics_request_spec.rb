@@ -192,6 +192,16 @@ describe Api::V1::Teacher::TopicsController do
         end
       end
 
+      describe "#personal" do
+        let(:topic) { create(:topic, personal: true) }
+        let(:topic_params) { { topic: { personal: false } } }
+
+        it do
+          expect { do_action }
+          .to change { topic.reload.personal }.from(true).to(false)
+        end
+      end
+
       describe "media's description" do
         let(:media) { create(:media, title: "One") }
         let(:topic) { create(:topic, media: media) }
