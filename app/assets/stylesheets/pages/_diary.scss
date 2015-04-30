@@ -132,6 +132,11 @@ form .row.collapse.mobile__day__navigation {
   padding: .75em;
   text-align: right;
 
+  .cancel {
+    color: $light-grey-color;
+    float: left;
+  }
+
   .new__topic__visibility {
     vertical-align: top;
   }
@@ -158,8 +163,14 @@ form .row.collapse.mobile__day__navigation {
   position: relative;
   z-index: 1;
 
-  input,
-  .media__file__button {
+  .type__file {
+    text-align: center;
+    .media__file__button {
+      margin: .5em 0;
+    }
+  }
+
+  input {
     background: $white;
     border: 0;
     box-shadow: none;

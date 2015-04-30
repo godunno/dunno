@@ -162,28 +162,28 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           ul.small-block-grid-4.tabs.select__item__type
             li
               a[
-                ng-click="topicType = 'text'"
+                ng-click="selectTopicType('text')"
                 ng-class="{active: topicType == 'text'}"]
                 i.icon.icon-text
                 br
                 | Texto
             li
               a[
-                ng-click="topicType = 'file'"
+                ng-click="selectTopicType('file')"
                 ng-class="{active: topicType == 'file'}"]
                 i.icon.icon-file
                 br
                 | Arquivo
             li
               a[
-                ng-click="topicType = 'url'; startUrlMediaEditing()"
+                ng-click="selectTopicType('url'); startUrlMediaEditing()"
                 ng-class="{active: topicType == 'url'}"]
                 i.icon.icon-link
                 br
                 | Link
             li
               a[
-                ng-click="topicType = 'catalog'"
+                ng-click="selectTopicType('catalog')"
                 ng-class="{active: topicType == 'catalog'}"]
                 i.icon.icon-catalog
                 br
@@ -202,7 +202,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 
             .type.type__file ng-show="topicType == 'file'" ng-controller="NewFileMediaCtrl"
               form name="fileMediaForm" ng-show="status == 'newMedia'"
-                label.item__button.media__file__button[
+                label.item__button.media__file__button.radius.button.secondary[
                   for="topic-file"]
                   i.icon.icon-clips>
                   | Fazer upload
