@@ -21,6 +21,7 @@ NewFileMediaCtrl = ($scope, Media) ->
       alert 'O arquivo enviado é grande demais.'
     else
       alert 'Ocorreu um erro durante o envio do arquivo.'
+    reset()
 
   progress = (event) ->
     percentage = parseInt(100.0 * event.loaded / event.total)

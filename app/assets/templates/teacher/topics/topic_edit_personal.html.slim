@@ -1,0 +1,21 @@
+a.dropdown.secondary.button.tiny.new__topic__visibility[
+  data-dropdown="topic-private-{{topic.uuid}}"]
+  span.private ng-if="editingTopic.personal"
+    i.icon.icon-lock>
+    | Somente professor
+  span ng-if="!editingTopic.personal"
+    i.icon.icon-unlock>
+    | Alunos
+ul.f-dropdown[
+  id="topic-private-{{topic.uuid}}"
+  data-dropdown-content=""
+  dropdown-select=""]
+  input.model type="hidden" name="topic_private" ng-model="editingTopic.personal"
+  li.private dropdown-select-item="true"
+    span
+      i.icon.icon-lock>
+      | Somente professor
+  li dropdown-select-item="false"
+    span
+      i.icon.icon-unlock>
+      | Alunos
