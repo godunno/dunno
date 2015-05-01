@@ -17,9 +17,10 @@ NewUrlMediaCtrl = ($scope, Media) ->
 
   reset = ->
     initialize()
-    finishEditing()
+    finishEditing() if $scope.url?.length > 0
 
   $scope.$on 'createdTopic', reset
+  $scope.$on 'cancelTopic', reset
   $scope.$on 'removeMedia', reset
 
   success = (media) ->

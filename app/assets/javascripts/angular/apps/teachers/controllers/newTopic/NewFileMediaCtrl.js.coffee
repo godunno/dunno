@@ -11,6 +11,7 @@ NewFileMediaCtrl = ($scope, Media) ->
 
   $scope.$on 'createdTopic', reset
   $scope.$on 'removeMedia', reset
+  $scope.$on 'cancelTopic', reset
 
   success = (media) ->
     $scope.$broadcast('newMedia', media)

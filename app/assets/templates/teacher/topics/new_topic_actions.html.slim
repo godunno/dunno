@@ -1,5 +1,7 @@
+/ TODO: use one for each tab
 .new__topic__actions
-  / TODO: Extract to partial and replicate in every tab
+  a.cancel ng-click="cancel()"
+    | Cancelar
   a.dropdown.secondary.button.tiny.new__topic__visibility[
     data-dropdown="topic-private"]
     span.private ng-if="defaultTopicProperties.personal"
@@ -21,9 +23,6 @@
         i.icon.icon-unlock>
         | Alunos
   a.create__new__topic__item.radius.button.secondary.tiny[
-    ng-class="{disabled: topic._submittingMedia, alert: defaultTopicProperties.personal}"
+    ng-class="{disabled: !canAddTopic, alert: defaultTopicProperties.personal}"
     ng-click="addTopic()"]
     | Inserir {{topicTypeDescription()}}
-  /
-    a.cancel ng-click="resetNewItem()"
-      | Cancelar
