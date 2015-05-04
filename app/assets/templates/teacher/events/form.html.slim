@@ -17,18 +17,18 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             | {{event.formatted_classroom}}
           span< ng-if="!!event.course.grade"
             | · {{event.course.grade}}
-    .small-3.columns
+    .small-3.columns.right-aligned
       a.hide__personal__topics[
         ng-click="setPrivateTopicsVisibility(false)"
         ng-show="showPrivateTopics"]
         i.icon.icon-private>
-        span
+        span.hide-for-small
           | Ocultar conteúdo privado
       a.show__personal__topics[
         ng-click="setPrivateTopicsVisibility(true)"
         ng-show="!showPrivateTopics"]
-        i.icon.icon-private>
-        span
+        i.icon.icon-eye>
+        span.hide-for-small
           | Mostrar conteúdo privado
 
 .diary__page
@@ -92,7 +92,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         analytics-start-at="{{event.start_at}}"
         ng-click="publish(event)"]
         | Publicar e sair
-  .row.medium-collapse
+  .row.collapse
     .show-for-small.small-12.columns
       .row.collapse.mobile__day__navigation
         .small-6.columns
@@ -202,7 +202,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 
             .type.type__file ng-show="topicType == 'file'" ng-controller="NewFileMediaCtrl"
               form name="fileMediaForm" ng-show="status == 'newMedia'"
-                label.item__button.media__file__button.radius.button.secondary[
+                label.item__button.media__file__button.small.radius.button.secondary[
                   for="topic-file"]
                   i.icon.icon-clips>
                   | Fazer upload
