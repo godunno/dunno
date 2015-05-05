@@ -61,3 +61,7 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
   border: $btn-style-transparent-2-border;
   color: $btn-style-transparent-2-font-color;
 }
+
+a.disabled {
+  pointer-events: none;
+}
