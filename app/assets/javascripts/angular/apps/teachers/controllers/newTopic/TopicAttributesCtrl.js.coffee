@@ -19,6 +19,7 @@ TopicAttributesCtrl = ($scope, Topic) ->
     $scope.topic.personal = $scope.defaultTopicProperties.personal
     new Topic($scope.topic).create().then (topic) ->
       $scope.$emit('createdTopic', topic)
+      reset()
 
   $scope.$on 'newMedia', setMedia
   $scope.$on 'saveTopic', saveTopic

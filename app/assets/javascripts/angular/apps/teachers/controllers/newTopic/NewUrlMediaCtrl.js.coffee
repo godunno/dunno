@@ -16,8 +16,8 @@ NewUrlMediaCtrl = ($scope, Media) ->
   initialize()
 
   reset = ->
-    initialize()
     finishEditing() if $scope.url?.length > 0
+    initialize()
 
   $scope.$on 'createdTopic', reset
   $scope.$on 'cancelTopic', reset
@@ -28,6 +28,7 @@ NewUrlMediaCtrl = ($scope, Media) ->
     $scope.$broadcast('newMedia', media)
 
   $scope.submitUrlMedia = ->
+    return unless $scope.canAddTopic
     media = new Media(url: $scope.url)
     $scope.submittingMediaPromise = media.create().then(success)
 
