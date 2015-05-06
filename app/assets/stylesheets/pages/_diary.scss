@@ -1,3 +1,8 @@
+// NEED TO REFACTOR
+.columns.right-aligned {
+  text-align: right;
+}
+
 .hide__personal__topics,
 .show__personal__topics,
 .back__button {
@@ -8,6 +13,7 @@
 
 .back__button {
   opacity: .5;
+  white-space: nowrap;
 }
 
 .previous__event,
@@ -26,6 +32,7 @@
 
   .icon {
     color: $secondary-color;
+    line-height: 1.75em;
     vertical-align: middle;
   }
 }
@@ -86,6 +93,7 @@ form .row.collapse.mobile__day__navigation {
   .diary__time {
     color: $dark-grey-color;
     font-size: .75em;
+    line-height: 2em;
     text-align: right;
 
     .icon {
@@ -132,6 +140,11 @@ form .row.collapse.mobile__day__navigation {
   padding: .75em;
   text-align: right;
 
+  .cancel {
+    color: $light-grey-color;
+    float: left;
+  }
+
   .new__topic__visibility {
     vertical-align: top;
   }
@@ -158,8 +171,19 @@ form .row.collapse.mobile__day__navigation {
   position: relative;
   z-index: 1;
 
-  input,
-  .media__file__button {
+  .type__file {
+    text-align: center;
+
+    .media__file__button {
+      margin: .5em 0;
+
+      .icon {
+        vertical-align: middle;
+      }
+    }
+  }
+
+  input {
     background: $white;
     border: 0;
     box-shadow: none;
@@ -231,7 +255,7 @@ form .row.collapse.mobile__day__navigation {
 
   .topic__item__description,
   .topic__item__show {
-    max-width: 70%;
+    max-width: 62%;
   }
 
   .topic__item__description {
@@ -275,10 +299,21 @@ form .row.collapse.mobile__day__navigation {
   }
 
   .topic__item__editing {
-    background: transparent;
-    box-shadow: none;
-    margin: 0;
-    width: 100%;
+    @extend .item__type;
+    margin: 0 -.25rem;
+
+    .edit__topic__actions {
+      @extend .new__topic__actions;
+
+      .cancel {
+        color: $light-grey-color;
+        float: left;
+      }
+
+      .save__edit__topic__item {
+        @extend .create__new__topic__item;
+      }
+    }
   }
 
   .topic__item__actions {
@@ -286,7 +321,7 @@ form .row.collapse.mobile__day__navigation {
     float: right;
     font-size: 1.5em;
     line-height: 1rem;
-    padding: .75em 1em;
+    padding: .75em .5em;
   }
 
   .topic__url {
@@ -387,8 +422,8 @@ form .row.collapse.mobile__day__navigation {
   .media__thumbnail,
   .media__data,
   .media__select__label {
-    display: inline-block;
-    vertical-align: middle;
+      display: inline-block;
+      vertical-align: middle;
   }
 
   .media__thumbnail {
@@ -412,7 +447,7 @@ form .row.collapse.mobile__day__navigation {
   }
 
   .media__data {
-    max-width: 70%;
+    max-width: 60%;
   }
 
   .media__url {

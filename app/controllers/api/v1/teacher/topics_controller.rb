@@ -36,7 +36,7 @@ class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
     end
 
     def update_params
-      params.require(:topic).permit(:description, :done)
+      params.require(:topic).permit(:description, :done, :personal)
     end
 
     def topic

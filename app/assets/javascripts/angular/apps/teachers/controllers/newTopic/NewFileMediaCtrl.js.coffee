@@ -11,6 +11,7 @@ NewFileMediaCtrl = ($scope, Media) ->
 
   $scope.$on 'createdTopic', reset
   $scope.$on 'removeMedia', reset
+  $scope.$on 'cancelTopic', reset
 
   success = (media) ->
     $scope.$broadcast('newMedia', media)
@@ -21,6 +22,7 @@ NewFileMediaCtrl = ($scope, Media) ->
       alert 'O arquivo enviado é grande demais.'
     else
       alert 'Ocorreu um erro durante o envio do arquivo.'
+    reset()
 
   progress = (event) ->
     percentage = parseInt(100.0 * event.loaded / event.total)

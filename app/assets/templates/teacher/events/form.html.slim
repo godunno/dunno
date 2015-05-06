@@ -17,18 +17,18 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             | {{event.formatted_classroom}}
           span< ng-if="!!event.course.grade"
             | · {{event.course.grade}}
-    .small-3.columns
+    .small-3.columns.right-aligned
       a.hide__personal__topics[
         ng-click="setPrivateTopicsVisibility(false)"
         ng-show="showPrivateTopics"]
         i.icon.icon-private>
-        span
+        span.hide-for-small
           | Ocultar conteúdo privado
       a.show__personal__topics[
         ng-click="setPrivateTopicsVisibility(true)"
         ng-show="!showPrivateTopics"]
-        i.icon.icon-private>
-        span
+        i.icon.icon-eye>
+        span.hide-for-small
           | Mostrar conteúdo privado
 
 .diary__page
@@ -92,7 +92,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         analytics-start-at="{{event.start_at}}"
         ng-click="publish(event)"]
         | Publicar e sair
-  .row.medium-collapse
+  .row.collapse
     .show-for-small.small-12.columns
       .row.collapse.mobile__day__navigation
         .small-6.columns
@@ -162,28 +162,28 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           ul.small-block-grid-4.tabs.select__item__type
             li
               a[
-                ng-click="topicType = 'text'"
+                ng-click="selectTopicType('text')"
                 ng-class="{active: topicType == 'text'}"]
                 i.icon.icon-text
                 br
                 | Texto
             li
               a[
-                ng-click="topicType = 'file'"
+                ng-click="selectTopicType('file')"
                 ng-class="{active: topicType == 'file'}"]
                 i.icon.icon-file
                 br
                 | Arquivo
             li
               a[
-                ng-click="topicType = 'url'; startUrlMediaEditing()"
+                ng-click="selectTopicType('url'); startUrlMediaEditing()"
                 ng-class="{active: topicType == 'url'}"]
                 i.icon.icon-link
                 br
                 | Link
             li
               a[
-                ng-click="topicType = 'catalog'"
+                ng-click="selectTopicType('catalog')"
                 ng-class="{active: topicType == 'catalog'}"]
                 i.icon.icon-catalog
                 br
@@ -202,7 +202,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 
             .type.type__file ng-show="topicType == 'file'" ng-controller="NewFileMediaCtrl"
               form name="fileMediaForm" ng-show="status == 'newMedia'"
-                label.item__button.media__file__button[
+                label.item__button.media__file__button.small.radius.button.secondary[
                   for="topic-file"]
                   i.icon.icon-clips>
                   | Fazer upload
@@ -298,10 +298,10 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ng-class="{done: topic.done, personal: topic.personal}"
             ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
             ng-hide="topic.personal && !showPrivateTopics"]
-            .handle.topic__item__handle
-              i.icon.icon-handle
-            .topic__item__show
-              form
+            .topic__item-bla ng-show="!isEditing(topic)"
+              .handle.topic__item__handle
+                i.icon.icon-handle
+              form.topic__item__show
                 input.topic__item__status[
                   type="checkbox"
                   ng-model="topic.done"
@@ -316,36 +316,44 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   ng-if="!!topic.media"
                   ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
                 span.topic__item__description ng-class="{preview: !!topic.media}"
-                  a ng-show="!isEditing(topic)" ng-click="startEditing(topic)"
+                  a ng-click="startEditing(topic)"
                     | {{topic.description}}
-                  / TODO: Validate description not empty if there's no media
-                  input.topic__item__editing[
-                    focus-on="isEditing(topic)"
-                    ng-model="topic.description"
-                    ng-show="isEditing(topic)"
-                    on-success="finishEditing(topic)"
-                    edit-in-place=true
-                    required=true
-                    type="text"]
                   a.topic__url[
                     ng-href="{{topic.media.url}}"
                     ng-show="topic.media.type == 'url'"]
                     | {{topic.media.url}}
-            a.topic__item__actions dropdown-toggle="#actions_{{topic.uuid}}"
-              | ···
-            ul.topic__item__actions__list.f-dropdown id="actions_{{topic.uuid}}"
-              li
-                a[
-                  ng-click="removeTopic(topic)"
-                  title="Remover tarefa"]
-                  i.icon.icon-trash>
-                  | Apagar
-              li ng-if="canTransferTopic(topic, event)"
-                a[
-                  ng-click="transferTopic(topic)"
-                  title="Transferir tarefa"]
-                  i.icon.icon-transfer>
-                  | Transferir
+              a.topic__item__actions dropdown-toggle="#actions_{{topic.uuid}}"
+                | ···
+              ul.topic__item__actions__list.f-dropdown id="actions_{{topic.uuid}}"
+                li
+                  a[
+                    ng-click="removeTopic(topic)"
+                    title="Remover tarefa"]
+                    i.icon.icon-trash>
+                    | Apagar
+                li ng-if="canTransferTopic(topic, event)"
+                  a[
+                    ng-click="transferTopic(topic)"
+                    title="Transferir tarefa"]
+                    i.icon.icon-transfer>
+                    | Transferir
+            .topic__item__editing ng-show="isEditing(topic)"
+              form name="topicEditForm" ng-submit="finishEditing(topic)"
+                input.topic__item__editing[
+                  name="description"
+                  focus-on="isEditing(topic)"
+                  ng-model="editingTopic.description"
+                  on-success="finishEditing(topic)"
+                  required=true
+                  type="text"]
+                .edit__topic__actions
+                  a.cancel ng-click="cancelEditing(topic)"
+                    | Cancelar
+                  ng-include src="'#{asset_path('teacher/topics/topic_edit_personal.html')}'"
+                  a.save__edit__topic__item.radius.button.secondary.tiny[
+                    ng-click="finishEditing(topic)"
+                    ng-disabled="topicEditForm.$invalid"]
+                    | Salvar
     .hide-for-small.medium-3.columns
       a.next__event[
         ng-if="!!event.next.uuid"

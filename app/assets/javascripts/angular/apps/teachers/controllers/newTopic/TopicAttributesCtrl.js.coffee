@@ -1,9 +1,13 @@
 DunnoApp = angular.module('DunnoApp')
 
 TopicAttributesCtrl = ($scope, Topic) ->
-  reset = ->
+  initialize = ->
     $scope.topic = {}
-  reset()
+  initialize()
+
+  reset = ->
+    finishEditing() if $scope.topic.description?.length > 0
+    initialize()
 
   setMedia = (e, media) ->
     $scope.topic.media = media
@@ -14,15 +18,13 @@ TopicAttributesCtrl = ($scope, Topic) ->
     $scope.topic.event_id = $scope.event.id
     $scope.topic.personal = $scope.defaultTopicProperties.personal
     new Topic($scope.topic).create().then (topic) ->
-      reset()
-      finishEditing()
       $scope.$emit('createdTopic', topic)
+      reset()
 
   $scope.$on 'newMedia', setMedia
   $scope.$on 'saveTopic', saveTopic
-  $scope.$on 'removeMedia', ->
-    reset()
-    finishEditing()
+  $scope.$on 'cancelTopic', reset
+  $scope.$on 'removeMedia', reset
 
   setNewStartWatcher = ->
     $scope.$watch 'topic.description', (value) ->
