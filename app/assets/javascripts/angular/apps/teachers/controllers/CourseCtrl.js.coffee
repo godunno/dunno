@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
 # TODO: Separar controller de show e edit
-CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
+CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils, course)->
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
@@ -19,8 +19,7 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
       $location.search('month', month)
     )
 
-  if $routeParams.id
-    $scope.fetch()
+  $scope.course = course
 
   $scope.save = (course)->
     $scope.isSending = true
@@ -41,7 +40,7 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils)->
   $scope.eventPath = (event)-> "#/events/#{event.uuid}/edit"
 
 CourseCtrl.$inject = [
-  '$scope', 'Course', '$location', '$routeParams', 'Utils', 'DateUtils'
+  '$scope', 'Course', '$location', '$routeParams', 'Utils', 'DateUtils', 'course'
 ]
 DunnoApp.controller 'CourseCtrl', CourseCtrl
 
