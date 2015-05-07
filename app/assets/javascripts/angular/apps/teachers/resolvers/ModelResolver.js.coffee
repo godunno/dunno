@@ -1,4 +1,5 @@
 DunnoApp = angular.module('DunnoApp')
+DunnoAppStudent = angular.module('DunnoAppStudent')
 
 ModelResolver = ($rootScope) ->
   @resolve = (promise) ->
@@ -8,3 +9,4 @@ ModelResolver = ($rootScope) ->
 
 ModelResolver.$inject = ['$rootScope']
 DunnoApp.service 'ModelResolver', ModelResolver
+DunnoAppStudent.service 'ModelResolver', ModelResolver

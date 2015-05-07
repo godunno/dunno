@@ -1,10 +1,7 @@
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-EventCtrl = ($scope, $routeParams, Event)->
-  if $routeParams.id
-    $scope.$emit('wholePageLoading', Event.get(uuid: $routeParams.id).then (event)->
-      $scope.event = event
-    )
+EventCtrl = ($scope, $routeParams, event)->
+  $scope.event = event
 
-EventCtrl.$inject = ['$scope', '$routeParams', 'Event']
+EventCtrl.$inject = ['$scope', '$routeParams', 'event']
 DunnoAppStudent.controller 'EventCtrl', EventCtrl
