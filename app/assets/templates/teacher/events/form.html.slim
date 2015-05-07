@@ -313,6 +313,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   i.icon.icon-plain-check
                 a.topic__item__image[
                   ng-href="{{topic.media.url}}"
+                  target="_blank"
                   ng-if="!!topic.media"
                   ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
                 span.topic__item__description ng-class="{preview: !!topic.media}"
@@ -320,6 +321,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     | {{topic.description}}
                   a.topic__url[
                     ng-href="{{topic.media.url}}"
+                    target="_blank"
                     ng-show="topic.media.type == 'url'"]
                     | {{topic.media.url}}
               a.topic__item__actions dropdown-toggle="#actions_{{topic.uuid}}"

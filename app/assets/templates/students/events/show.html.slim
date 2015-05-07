@@ -90,9 +90,14 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               ]
               a.topic__item__image[
                 ng-if="!!topic.media"
+                target="_blank"
                 ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"
                 ng-href="{{topic.media.url}}"]
-              a.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!!topic.media" ng-href="{{topic.media.url}}"
+              a.topic__item__description[
+                ng-class="{preview: !!topic.media}"
+                ng-if="!!topic.media"
+                ng-href="{{topic.media.url}}"
+                target="_blank"]
                 | {{topic.description}}
               span.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!topic.media"
                 | {{topic.description}}
