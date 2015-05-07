@@ -5,6 +5,7 @@ EventCtrl = (
   $routeParams,
   $window,
   $q,
+  event,
   Event,
   Utils,
   DateUtils)->
@@ -13,14 +14,11 @@ EventCtrl = (
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
-  # TODO: extract this get -> then -> assign to a service
-  $scope.$emit('wholePageLoading', Event.get(uuid: $routeParams.id).then (event)->
-    initializeEvent(event)
-  )
-
   initializeEvent = (event)->
     $scope.event = event
     $scope.$broadcast('initializeEvent', event)
+
+  initializeEvent(event)
 
   # TODO: We may not need to do all this, maybe event.save() already works.
   $scope.save = (event)->
@@ -50,5 +48,5 @@ EventCtrl = (
   $scope.setPrivateTopicsVisibility = (visible)->
     $scope.showPrivateTopics = visible
 
-EventCtrl.$inject = ['$scope', '$routeParams', '$window', '$q', 'Event', 'Utils', 'DateUtils']
+EventCtrl.$inject = ['$scope', '$routeParams', '$window', '$q', 'event', 'Event', 'Utils', 'DateUtils']
 DunnoApp.controller 'EventCtrl', EventCtrl
