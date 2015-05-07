@@ -313,6 +313,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   i.icon.icon-plain-check
                 a.topic__item__image[
                   ng-href="{{topic.media.url}}"
+                  target="_blank"
                   ng-if="!!topic.media"
                   ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
                 span.topic__item__description ng-class="{preview: !!topic.media}"
@@ -320,6 +321,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     | {{topic.description}}
                   a.topic__url[
                     ng-href="{{topic.media.url}}"
+                    target="_blank"
                     ng-show="topic.media.type == 'url'"]
                     | {{topic.media.url}}
               a.topic__item__actions dropdown-toggle="#actions_{{topic.uuid}}"
@@ -351,6 +353,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     | Cancelar
                   ng-include src="'#{asset_path('teacher/topics/topic_edit_personal.html')}'"
                   a.save__edit__topic__item.radius.button.secondary.tiny[
+                    ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
                     ng-click="finishEditing(topic)"
                     ng-disabled="topicEditForm.$invalid"]
                     | Salvar

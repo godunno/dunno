@@ -1,11 +1,8 @@
 DunnoApp = angular.module('DunnoApp')
 
-EventsIndexCtrl = ($scope, Event, $location, $routeParams, DateUtils)->
+EventsIndexCtrl = ($scope, events, DateUtils)->
   angular.extend($scope, DateUtils)
+  $scope.events = events
 
-  $scope.$emit('wholePageLoading', Event.query().then (events)->
-    $scope.events = events
-  )
-
-EventsIndexCtrl.$inject = ['$scope', 'Event', '$location', '$routeParams', 'DateUtils']
+EventsIndexCtrl.$inject = ['$scope', 'events', 'DateUtils']
 DunnoApp.controller 'EventsIndexCtrl', EventsIndexCtrl
