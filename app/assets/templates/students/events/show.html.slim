@@ -1,7 +1,7 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .small-2.columns
-      a.button.radius.btn-style-2 href="#/courses/{{event.course.uuid}}"
+      a.back__button href="#/courses/{{event.course.uuid}}"
         i.icon.icon-back-arrow>
         span
           | Voltar
@@ -14,7 +14,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         span< ng-if="!!event.course.grade"
           | · {{event.course.grade}}
 .event-show
-  .row.medium-collapse
+  .row.collapse
     .show-for-small.small-12.columns
       .row.collapse.mobile__day__navigation
         .small-6.columns
