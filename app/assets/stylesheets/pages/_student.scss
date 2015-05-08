@@ -337,10 +337,42 @@
 }
 
 .student-dashboard {
+  .students__topics {
+    .topic__item__handle {
+      display: none;
+    }
+  }
+
+  .page-header {
+    margin-bottom: 0;
+  }
+
+  .back__button {
+    white-space: nowrap;
+  }
+
   .event-show {
     .title {
       font-size: 1em;
       font-weight: 600;
+    }
+  }
+  .topic__item__show .topic__item__description {
+    margin-left: 4em;
+    display: block;
+    max-width: 100%;
+  }
+
+  .topic__item {
+    padding: .5em 1em;
+
+    .topic__item__image {
+      float: left;
+    }
+
+    .topic__item__description,
+    .topic__item__show {
+      width: 100%;
     }
   }
 }
