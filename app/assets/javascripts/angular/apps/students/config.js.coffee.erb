@@ -22,7 +22,7 @@ DunnoApp.config(["railsSerializerProvider", (railsSerializerProvider)->
 ])
 
 DunnoApp.value('cgBusyDefaults',
-  message: 'Carregando...',
+  templateUrl: '<%= asset_path('shared/_loading.html') %>',
   minDuration: 500,
   wrapperClass: 'cg-busy cg-busy-animation ng-animate'
 )
