@@ -1,4 +1,4 @@
-DunnoApp = angular.module('DunnoAppStudent')
+DunnoAppStudent = angular.module('DunnoAppStudent')
 
 # TODO: Separar controller de show e add
 CourseCtrl = ($scope, $location, $routeParams, course, Course, DateUtils, SessionManager)->
@@ -29,16 +29,6 @@ CourseCtrl = ($scope, $location, $routeParams, course, Course, DateUtils, Sessio
 
   $scope.course = course
 
-  $scope.search = (access_code)->
-    if (SessionManager.currentUser().courses.indexOf access_code) != -1
-      $location.path "/courses/#{access_code}"
-    else
-      $scope.error = false
-      $scope.$emit('wholePageLoading', Course.get(access_code: access_code).then (course)->
-        $location.path "/courses/#{access_code}/confirm_registration"
-      , -> $scope.error = true
-      )
-
   $scope.register = (course)->
     course.register().then ->
       SessionManager.fetchUser().then ->
@@ -50,5 +40,4 @@ CourseCtrl = ($scope, $location, $routeParams, course, Course, DateUtils, Sessio
 CourseCtrl.$inject = [
   '$scope', '$location', '$routeParams', 'course', 'Course', 'DateUtils', 'SessionManager'
 ]
-DunnoApp.controller 'CourseCtrl', CourseCtrl
-
+DunnoAppStudent.controller 'CourseCtrl', CourseCtrl

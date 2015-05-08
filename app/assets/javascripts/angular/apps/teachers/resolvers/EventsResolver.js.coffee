@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
-resolver = (ModelResolver, Event) ->
-  ModelResolver.resolve Event.query()
+resolver = (PageLoading, Event) ->
+  PageLoading.resolve Event.query()
 
-resolver.$inject = ['ModelResolver', 'Event']
-DunnoApp.constant 'EventsResolver', events: resolver
+resolver.$inject = ['PageLoading', 'Event']
+DunnoApp.constant 'EventsResolver', resolver

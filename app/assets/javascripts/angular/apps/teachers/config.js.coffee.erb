@@ -9,14 +9,14 @@ DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails', 'ui.key
 
 Router = ($routeProvider, CoursesResolver, CourseResolver, EventsResolver, EventResolver, MediasResolver)->
   $routeProvider.
-    when('/courses',               controller: 'CoursesIndexCtrl', templateUrl: '<%= asset_path('teacher/courses/index.html') %>', resolve: CoursesResolver).
+    when('/courses',               controller: 'CoursesIndexCtrl', templateUrl: '<%= asset_path('teacher/courses/index.html') %>', resolve: { courses: CoursesResolver }).
     when('/courses/new',           controller: 'CourseCtrl',       templateUrl: '<%= asset_path('teacher/courses/form.html') %>').
-    when('/courses/:id/edit',      controller: 'CourseCtrl',       templateUrl: '<%= asset_path('teacher/courses/form.html') %>', resolve: CourseResolver).
-    when('/courses/:id',           controller: 'CourseCtrl',       templateUrl: '<%= asset_path('teacher/courses/show.html') %>', resolve: CourseResolver, reloadOnSearch: false).
-    when('/events',                controller: 'EventsIndexCtrl',  templateUrl: '<%= asset_path('teacher/events/index.html') %>', resolve: EventsResolver).
+    when('/courses/:id/edit',      controller: 'CourseCtrl',       templateUrl: '<%= asset_path('teacher/courses/form.html') %>', resolve: { course: CourseResolver }).
+    when('/courses/:id',           controller: 'CourseCtrl',       templateUrl: '<%= asset_path('teacher/courses/show.html') %>', resolve: { course: CourseResolver }, reloadOnSearch: false).
+    when('/events',                controller: 'EventsIndexCtrl',  templateUrl: '<%= asset_path('teacher/events/index.html') %>', resolve: { events: EventsResolver }).
     when('/events/new',            controller: 'EventCtrl',        templateUrl: '<%= asset_path('teacher/events/form.html') %>').
-    when('/events/:id/edit',       controller: 'EventCtrl',        templateUrl: '<%= asset_path('teacher/events/form.html') %>', resolve: EventResolver).
-    when('/catalog',               controller: 'MediasIndexCtrl',  templateUrl: '<%= asset_path('teacher/medias/index.html') %>', resolve: MediasResolver).
+    when('/events/:id/edit',       controller: 'EventCtrl',        templateUrl: '<%= asset_path('teacher/events/form.html') %>', resolve: { event: EventResolver }).
+    when('/catalog',               controller: 'MediasIndexCtrl',  templateUrl: '<%= asset_path('teacher/medias/index.html') %>', resolve: { searchResult: MediasResolver }).
     when('/profile/edit',          controller: 'ProfileCtrl',      templateUrl: '<%= asset_path('shared/profile/form.html') %>').
     when('/profile/password/edit', controller: 'ProfileCtrl',      templateUrl: '<%= asset_path('shared/password/form.html') %>').
     otherwise(redirectTo: '/courses')
