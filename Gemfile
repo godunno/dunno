@@ -48,6 +48,7 @@ gem 'airbrake',                   '4.1.0'
 gem 'rails-assets-angular',       '1.3.2'
 gem 'rails-assets-angular-route', '1.3.2'
 gem 'rails-assets-angular-resource', '1.3.2'
+gem 'rails-assets-angular-mocks', '1.3.2'
 gem 'rails-assets-angularjs-rails-resource', '1.2.1'
 gem 'rails-assets-angular--bower-angular-i18n', '1.3.11'
 gem 'rails-assets-angular-animate', '1.3.2'
@@ -105,4 +106,5 @@ group :development, :test do
   gem 'webmock',                  '1.20.4'
   gem 'timecop',                  '0.7.1'
   gem 'rspec_api_documentation',  '4.3.0'
+  gem 'teaspoon-jasmine',         '2.2.0'
 end
