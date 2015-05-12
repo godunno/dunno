@@ -36,7 +36,7 @@ EventCtrl = (
   $scope.finish = (event)->
     unless $scope.$emit('dunno.exit').defaultPrevented
       $scope.save(event).then ->
-        $scope.event_form.$setPristine()
+        $scope.eventForm.$setPristine()
         $window.location.href = $scope.courseLocation(event)
 
   $scope.publish = (event)->
