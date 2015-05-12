@@ -34,64 +34,80 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 .diary__page
   .row.event__status.medium-collapse
     .small-6.medium-2.medium-offset-3.columns
-      form name="eventForm"
-        a.select__event__status.small.dropdown.secondary.button data-dropdown="event-status"
-          span.event__status__published ng-if="event.status == 'published'"
-            i.icon.icon-published>
-            | Publicada
-          span.event__status__draft ng-if="event.status == 'draft'"
+      a.event__cancel__link[href='#']
+        | Cancelar Aula
+    .small-6.medium-4.columns.end.event__status__group
+      span
+        | Status da aula:
+      ul.button-group.round
+        li
+          a.button.tiny.event__status__button.event__status__draft.event__status__current[href='#']
             i.icon.icon-draft>
-            | Rascunho
-          span.event__status__canceled ng-if="event.status == 'canceled'"
-            i.icon.icon-canceled>
-            | Cancelada
-        ul#event-status.event__status__list.f-dropdown[
-          data-dropdown-content=""
-          dropdown-select=""
-        ]
-          input.model[
-            type="hidden"
-            name="event_status"
-            ng-model="event.status"
-            ng-change="save(event)"
-          ]
-          li.published__event dropdown-select-item="'published'"
-            span
+            | Despublicada
+        li
+          a.button.tiny.event__status__button.event__status__published[href='#']
+            | Publicada
+            i.icon.icon-published<
+    /
+      .small-6.medium-2.medium-offset-3.columns
+        form name="eventForm"
+          a.select__event__status.small.dropdown.secondary.button data-dropdown="event-status"
+            span.event__status__published ng-if="event.status == 'published'"
+              i.icon.icon-published>
               | Publicada
-              i.icon.icon-published
-            small
-              | Estudantes podem ver as tarefas.
-          li.drafted__event dropdown-select-item="'draft'"
-            span
+            span.event__status__draft ng-if="event.status == 'draft'"
+              i.icon.icon-draft>
               | Rascunho
-              i.icon.icon-draft
-            small
-              | Estudantes não conseguem visualizar as tarefas.
-          li.canceled__event dropdown-select-item="'canceled'"
-            span
-              | Cancelar
-              i.icon.icon-canceled
-            small
-              | Cancelar aula e notificar os estudantes.
-    .small-6.medium-4.columns.end.form__event__status__save
-      a.save__and__exit[
-        ng-click="finish(event)"
-        analytics-on="click"
-        analytics-event="Event Finish Editing"
-        analytics-course-name="{{event.course.name}}"
-        analytics-course-uuid="{{event.course.uuid}}"
-        analytics-uuid="{{event.uuid}}"
-        analytics-start-at="{{event.start_at}}"]
-        | Salvar e sair
-      a.small.radius.button.secondary.btn-style-1.publish__and__exit[
-        analytics-on="click"
-        analytics-event="Event Published"
-        analytics-course-name="{{event.course.name}}"
-        analytics-course-uuid="{{event.course.uuid}}"
-        analytics-uuid="{{event.uuid}}"
-        analytics-start-at="{{event.start_at}}"
-        ng-click="publish(event)"]
-        | Publicar e sair
+            span.event__status__canceled ng-if="event.status == 'canceled'"
+              i.icon.icon-canceled>
+              | Cancelada
+          ul#event-status.event__status__list.f-dropdown[
+            data-dropdown-content=""
+            dropdown-select=""
+          ]
+            input.model[
+              type="hidden"
+              name="event_status"
+              ng-model="event.status"
+              ng-change="save(event)"
+            ]
+            li.published__event dropdown-select-item="'published'"
+              span
+                | Publicada
+                i.icon.icon-published
+              small
+                | Estudantes podem ver as tarefas.
+            li.drafted__event dropdown-select-item="'draft'"
+              span
+                | Rascunho
+                i.icon.icon-draft
+              small
+                | Estudantes não conseguem visualizar as tarefas.
+            li.canceled__event dropdown-select-item="'canceled'"
+              span
+                | Cancelar
+                i.icon.icon-canceled
+              small
+                | Cancelar aula e notificar os estudantes.
+      .small-6.medium-4.columns.end.form__event__status__save
+        a.save__and__exit[
+          ng-click="finish(event)"
+          analytics-on="click"
+          analytics-event="Event Finish Editing"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"
+          analytics-uuid="{{event.uuid}}"
+          analytics-start-at="{{event.start_at}}"]
+          | Salvar e sair
+        a.small.radius.button.secondary.btn-style-1.publish__and__exit[
+          analytics-on="click"
+          analytics-event="Event Published"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"
+          analytics-uuid="{{event.uuid}}"
+          analytics-start-at="{{event.start_at}}"
+          ng-click="publish(event)"]
+          | Publicar e sair
   .row.collapse
     .show-for-small.small-12.columns
       .row.collapse.mobile__day__navigation

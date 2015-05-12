@@ -476,3 +476,30 @@ form .row.collapse.mobile__day__navigation {
     background: image-url('temp-radio-checked.png');
   }
 }
+
+.event__cancel__link {
+  color: $red-color;
+  font-size: .75em;
+}
+
+.event__status__group {
+  text-align: right;
+
+  span {
+    font-size: .75em;
+  }
+
+  .button-group {
+    display: inline-block;
+  }
+
+  .event__status__button {
+    background: lighten($light-grey-color, 15%);
+    border: 1px solid lighten($light-grey-color, 10%) !important;
+    color: $primary-color;
+
+    &.event__status__current {
+      background: $white;
+    }
+  }
+}
