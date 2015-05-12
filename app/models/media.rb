@@ -39,12 +39,16 @@ class Media < ActiveRecord::Base
         type: :stop,
         stopwords: '[_portuguese_]',
         ignore_case: true
+      },
+      stemmer: {
+        type: :stemmer,
+        language: :portuguese
       }
     },
     analyzer: {
       custom_analyzer: {
         tokenizer: :ngram,
-        filter: %w(asciifolding lowercase stopwords snowball),
+        filter: %w(stopwords asciifolding lowercase snowball stemmer),
         type: :custom
       }
     }
@@ -85,7 +89,8 @@ class Media < ActiveRecord::Base
             # Fulltext search
             query_string: {
               query: query_string,
-              fields: %w(title tags)
+              fields: %w(title tags),
+              analyzer: :custom_analyzer
             }
           }
         }
