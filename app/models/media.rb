@@ -39,12 +39,16 @@ class Media < ActiveRecord::Base
         type: :stop,
         stopwords: '[_portuguese_]',
         ignore_case: true
+      },
+      stemmer: {
+        type: :stemmer,
+        language: :portuguese
       }
     },
     analyzer: {
       custom_analyzer: {
         tokenizer: :ngram,
-        filter: %w(asciifolding lowercase stopwords snowball),
+        filter: %w(stopwords asciifolding lowercase snowball stemmer),
         type: :custom
       }
     }
@@ -76,6 +80,9 @@ class Media < ActiveRecord::Base
     return "url" if url.present?
   end
 
+  # TODO: Add regression tests for cases we'd like not to break.
+  # i.e. search 'oracoes coordenadas' and find 'exercícios 8 ano conjunções
+  # coordenativas'
   def self.search(options = {})
     query_string = options[:q].present? ? options[:q] : '*'
     query = {
@@ -85,7 +92,8 @@ class Media < ActiveRecord::Base
             # Fulltext search
             query_string: {
               query: query_string,
-              fields: %w(title tags)
+              fields: %w(title tags),
+              analyzer: :custom_analyzer
             }
           }
         }
