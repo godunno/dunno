@@ -1,7 +1,8 @@
 DunnoApp = angular.module('DunnoApp')
 
-DunnoApp.directive 'focusOn', ->
+DunnoApp.directive 'focusOn', ['$timeout', ($timeout) ->
   restrict: 'A'
   link: (scope, element, attr)->
     scope.$watch attr.focusOn, (newValue) ->
-      setTimeout((-> element.focus()), 0) if !!newValue
+      $timeout(-> element.focus()) if !!newValue
+]
