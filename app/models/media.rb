@@ -80,6 +80,9 @@ class Media < ActiveRecord::Base
     return "url" if url.present?
   end
 
+  # TODO: Add regression tests for cases we'd like not to break.
+  # i.e. search 'oracoes coordenadas' and find 'exercícios 8 ano conjunções
+  # coordenativas'
   def self.search(options = {})
     query_string = options[:q].present? ? options[:q] : '*'
     query = {
