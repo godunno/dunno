@@ -330,13 +330,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 li
                   a[
                     ng-click="removeTopic(topic)"
-                    title="Remover tarefa"]
+                    title="Remover conteúdo"]
                     i.icon.icon-trash>
                     | Apagar
                 li ng-if="canTransferTopic(topic, event)"
                   a[
                     ng-click="transferTopic(topic)"
-                    title="Transferir tarefa"]
+                    title="Transferir conteúdo para próxima aula"]
                     i.icon.icon-transfer>
                     | Transferir
             .topic__item__editing ng-show="isEditing(topic)"
@@ -390,7 +390,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         | Adicione conteúdo visível para os estudantes e suas anotações privadas.
     tutorial-step
       p
-        | Adicione links e arquivos em suas tarefas. Estes materiais ficarão disponíveis no catálogo.
+        | Adicione links, arquivos ou textos. Estes materiais ficarão disponíveis no catálogo, e podem ser reutilizados em outras aulas.
     tutorial-step
       p
         | Publique a aula para que seus estudantes possam visualizá-la.
