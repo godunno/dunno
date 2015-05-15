@@ -1,7 +1,8 @@
 describe "weekday filter", ->
-  weekday = null
-
   beforeEach module('DunnoApp')
+  beforeEach teacherAppDefaultMocks
+
+  weekday = null
   beforeEach ->
     inject ($filter) ->
       weekday = $filter('weekday')

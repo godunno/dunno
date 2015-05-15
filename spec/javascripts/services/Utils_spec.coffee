@@ -1,7 +1,8 @@
 describe "Utils", ->
-  Utils = null
-
   beforeEach module('DunnoApp')
+  beforeEach teacherAppDefaultMocks
+
+  Utils = null
   beforeEach ->
     inject (_Utils_) ->
       Utils = _Utils_

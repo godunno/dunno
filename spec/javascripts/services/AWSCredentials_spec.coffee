@@ -1,5 +1,6 @@
 describe "AWSCredentials service", ->
   beforeEach module('DunnoApp')
+  beforeEach teacherAppDefaultMocks
 
   credentials =
     access_key: 'access key id'
@@ -12,13 +13,7 @@ describe "AWSCredentials service", ->
   beforeEach ->
     inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      window.h = $httpBackend
       $httpBackend.whenGET('/api/v1/utils/s3/credentials').respond 200, credentials
-
-      # TODO: Find from where the hell are comming these requests
-      $httpBackend.whenGET('/assets/teacher/courses/index.html').respond 200, "pindamanhangaba"
-      $httpBackend.whenGET('/api/v1/teacher/courses').respond 200, "ugabuga"
-
       AWSCredentials = $injector.get('AWSCredentials')
       $httpBackend.flush()
 
