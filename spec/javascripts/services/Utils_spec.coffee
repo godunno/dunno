@@ -1,4 +1,4 @@
-describe "Utils", ->
+describe "Utils service", ->
   beforeEach module('DunnoApp')
   beforeEach teacherAppDefaultMocks
 
