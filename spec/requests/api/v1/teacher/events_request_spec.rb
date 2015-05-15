@@ -82,6 +82,7 @@ describe Api::V1::Teacher::EventsController do
              status: "published",
              end_at: 1.hour.ago,
              topics: [topic, personal_topic],
+             course: course,
              classroom: classroom
             )
     end
