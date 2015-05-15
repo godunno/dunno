@@ -43,7 +43,7 @@ header.page-header.title
                   span
                     | {{topic.description}}
               .remaining ng-if="event.topics.length > 3"
-                | Mais {{event.topics.length - 3}} tarefas
+                | Mais {{event.topics.length - 3}} conteúdos
             .planning ng-if="!event.planned()"
               a.button.radius.vertical-center.btn-style-1 href="#events/{{event.uuid}}/edit"
                 | PLANEJAR
