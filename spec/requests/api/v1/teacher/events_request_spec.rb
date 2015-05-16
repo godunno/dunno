@@ -82,6 +82,7 @@ describe Api::V1::Teacher::EventsController do
              status: "published",
              end_at: 1.hour.ago,
              topics: [topic, personal_topic],
+             course: course,
              classroom: classroom
             )
     end
@@ -128,7 +129,7 @@ describe Api::V1::Teacher::EventsController do
           it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
 
           describe "topics" do
-            before { skip } 
+            before { skip }
             let(:target) { previous_event_topic }
             let(:previous_event_topic_json) { find(event_json["previous"]["topics"], previous_event_topic.uuid) }
             subject { previous_event_topic_json }
@@ -148,7 +149,7 @@ describe Api::V1::Teacher::EventsController do
           it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
 
           describe "topics" do
-            before { skip } 
+            before { skip }
             let(:target) { next_event_topic }
             let(:next_event_topic_json) { find(event_json["next"]["topics"], next_event_topic.uuid) }
             subject { next_event_topic_json }
@@ -276,7 +277,7 @@ describe Api::V1::Teacher::EventsController do
           end
         end
 
-        context "reordering topics", :wip do
+        context "reordering topics" do
           let!(:first_topic) { create :topic, event: event, order: 2 }
           let!(:last_topic) { create :topic, event: event, order: 1 }
 
