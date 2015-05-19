@@ -1,6 +1,22 @@
 describe "SessionManager service", ->
-  beforeEach module 'DunnoApp'
-  beforeEach teacherAppDefaultMocks
+  LocalStorageWrapper =
+    set: (key, item) -> LocalStorageWrapper[key] = item
+    get: (key) -> LocalStorageWrapper[key] || null
+    remove: (key) -> LocalStorageWrapper[key] = null
+
+  $analytics =
+    eventTrack: angular.noop
+    setUsername: angular.noop
+    setUserProperties: angular.noop
+    settings:
+      pageTracking: {}
+
+  beforeEach module 'DunnoApp', ($provide) ->
+    $provide.value('LocalStorageWrapper', LocalStorageWrapper)
+    $provide.value('$analytics', $analytics)
+    null
+
+  beforeEach teacherAppMockDefaultRoutes
 
   user = name: "John Doe"
   SessionManager = null

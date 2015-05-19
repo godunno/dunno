@@ -1,6 +1,6 @@
 describe "EventsIndexCtrl", ->
   beforeEach module('DunnoApp')
-  beforeEach teacherAppDefaultMocks
+  beforeEach teacherAppMockDefaultRoutes
 
   $controller = null
   beforeEach ->

@@ -1,14 +1,14 @@
 DunnoApp = angular.module('DunnoApp')
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-LocalStorage = ->
-  set: (key, item) ->
+LocalStorageWrapper = ->
+  set = (key, item) ->
     localStorage.setItem(key, angular.toJson(item))
 
-  remove: (key) ->
+  remove = (key) ->
     localStorage.remove(key)
 
-  get: (key) ->
+  get = (key) ->
     angular.fromJson(localStorage.getItem(key))
 
   {
@@ -17,5 +17,5 @@ LocalStorage = ->
     get: get
   }
 
-DunnoApp.factory "LocalStorage", LocalStorage
-DunnoAppStudent.factory "LocalStorage", LocalStorage
+DunnoApp.factory "LocalStorageWrapper", LocalStorageWrapper
+DunnoAppStudent.factory "LocalStorageWrapper", LocalStorageWrapper

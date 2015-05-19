@@ -1,6 +1,6 @@
 describe "Dropdown service", ->
   beforeEach module('DunnoApp')
-  beforeEach teacherAppDefaultMocks
+  beforeEach teacherAppMockDefaultRoutes
 
   Dropdown = null
   beforeEach ->

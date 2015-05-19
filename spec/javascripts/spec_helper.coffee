@@ -32,24 +32,7 @@
 #
 # For more information: http://github.com/modeset/teaspoon
 
-window.teacherAppDefaultMocks = ->
-  LocalStorage =
-    set: (key, item) -> LocalStorage[key] = item
-    get: (key) -> LocalStorage[key] || null
-    remove: (key) -> LocalStorage[key] = null
-
-  $analytics =
-    eventTrack: angular.noop
-    setUsername: angular.noop
-    setUserProperties: angular.noop
-    settings:
-      pageTracking: {}
-
-  module ($provide) ->
-    $provide.value('LocalStorage', LocalStorage)
-    $provide.value('$analytics', $analytics)
-    null
-
+window.teacherAppMockDefaultRoutes = ->
   inject ($httpBackend) ->
     $httpBackend.whenGET('/assets/teacher/courses/index.html').respond 200, ''
     $httpBackend.whenGET('/api/v1/teacher/courses').respond 200, []

@@ -1,6 +1,6 @@
 describe "progressBar directive", ->
   beforeEach module('DunnoApp')
-  beforeEach teacherAppDefaultMocks
+  beforeEach teacherAppMockDefaultRoutes
 
   scope = null
   progress = null
