@@ -31,3 +31,8 @@
 # the configuration and use this file as a manifest.
 #
 # For more information: http://github.com/modeset/teaspoon
+
+window.teacherAppMockDefaultRoutes = ->
+  inject ($httpBackend) ->
+    $httpBackend.whenGET('/assets/teacher/courses/index.html').respond 200, ''
+    $httpBackend.whenGET('/api/v1/teacher/courses').respond 200, []
