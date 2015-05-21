@@ -24,22 +24,18 @@ class CoursesImport
       courses = Set.new
       SpreadsheetParser.parse(url, header_rows: 2).each do |row|
         class_name = fix_possible_float(row[1])
-        course = teacher.courses.find_by(name: row[0], class_name: class_name) || Course.new
+        course = teacher.courses.find_or_initialize_by(name: row[0], class_name: class_name)
         course.update!(
-          teacher: teacher,
-          name: row[0],
-          class_name: class_name,
           start_date: row[2],
           end_date: row[3]
         )
         row[6..12].each_with_index.map do |value, index|
           next unless value == 'x'
-          WeeklySchedule.create!(
             start_time: format_time(row[4]),
             end_time: format_time(row[5]),
+          course.weekly_schedules.create!(
             weekday: index,
             classroom: fix_possible_float(row[13]),
-            course: course
           )
         end
         courses << course
