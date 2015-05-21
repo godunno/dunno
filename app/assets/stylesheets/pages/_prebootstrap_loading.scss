@@ -1,28 +1,3 @@
-// Based on http://css-spinners.com/css/spinner/spinner.css
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@mixin spinner($color: rgba(0, 0, 51, 0.3)) {
-  // :not(:required) hides this rule from IE9 and below
-  &:not(:required) {
-    animation: spinner 1500ms infinite linear;
-    border-radius: .5em;
-    box-shadow: $color 1.5em 0 0 0, $color 1.1em 1.1em 0 0, $color 0 1.5em 0 0, $color -1.1em 1.1em 0 0, $color -1.5em 0 0 0, $color -1.1em -1.1em 0 0, $color 0 -1.5em 0 0, $color 1.1em -1.1em 0 0;
-    font-size: 10px;
-    height: 1em;
-    overflow: hidden;
-    text-indent: 100%;
-    width: 1em;
-  }
-}
-
 #prebootstrap-loading {
   background: $primary-color;
   height: 100vh;
@@ -39,7 +14,6 @@
   }
 
   .spinner {
-    @include spinner(rgba(255, 255, 255, .3));
-    margin: 40px auto;
+    @include spinner($diameter: 50px, $color: rgba(255, 255, 255, .3));
   }
 }

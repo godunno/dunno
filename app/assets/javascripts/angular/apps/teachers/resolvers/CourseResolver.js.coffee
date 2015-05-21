@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
-resolver = ($route, ModelResolver, Course) ->
-  ModelResolver.resolve Course.get(uuid: $route.current.params.id)
+resolver = ($route, PageLoading, Course) ->
+  PageLoading.resolve Course.get(uuid: $route.current.params.id)
 
-resolver.$inject = ['$route', 'ModelResolver', 'Course']
-DunnoApp.constant 'CourseResolver', course: resolver
+resolver.$inject = ['$route', 'PageLoading', 'Course']
+DunnoApp.constant 'CourseResolver', resolver
