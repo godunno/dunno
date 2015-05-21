@@ -109,7 +109,7 @@
       restrict: 'EA',
       transclude: true,
       replace: true,
-      templateUrl: '<%= asset_path('components/actionsheet/actionsheet.html') %>',
+      templateUrl: '<%= asset_path('foundation/components/actionsheet/actionsheet.html') %>',
       controller: 'ZfActionSheetController',
       compile: compile
     };
@@ -166,7 +166,7 @@
       restrict: 'EA',
       transclude: true,
       replace: true,
-      templateUrl: '<%= asset_path('components/actionsheet/actionsheet-content.html') %>',
+      templateUrl: '<%= asset_path('foundation/components/actionsheet/actionsheet-content.html') %>',
       require: '^zfActionSheet',
       scope: {
         position: '@?'
@@ -207,7 +207,7 @@
       restrict: 'EA',
       transclude: true,
       replace: true,
-      templateUrl: '<%= asset_path('components/actionsheet/actionsheet-button.html') %>',
+      templateUrl: '<%= asset_path('foundation/components/actionsheet/actionsheet-button.html') %>',
       require: '^zfActionSheet',
       scope: {
         title: '@?'
