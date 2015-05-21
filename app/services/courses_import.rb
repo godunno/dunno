@@ -31,9 +31,9 @@ class CoursesImport
         )
         row[6..12].each_with_index.map do |value, index|
           next unless value == 'x'
+          course.weekly_schedules.create!(
             start_time: format_time(row[4]),
             end_time: format_time(row[5]),
-          course.weekly_schedules.create!(
             weekday: index,
             classroom: fix_possible_float(row[13]),
           )
