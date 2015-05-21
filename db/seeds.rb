@@ -21,11 +21,6 @@ teacher = Teacher.create!(user: User.new(
   authentication_token: "VfHCJUg1xTqhNPLyU5ym"
 ))
 
-org = Organization.new(name: "Dunno Test")
-org.save!
-org.update_attribute(:uuid, "65bcc7ce-0ea0-44cd-8d9d-74a43ac02e3d")
-
-teacher.organizations << org
 
 course = Form::CourseForm.create(
   name: "Programming I", class_name: "TR230", teacher: teacher,
@@ -46,17 +41,6 @@ course.events.reload
 
 e1, e2, e3, e4 = course.events[0..3]
 
-Thermometer.new(content: "lineaer algebra", timeline: e1.timeline).save!
-Thermometer.new(content: "big data - data science", timeline: e1.timeline).save!
-o1 = Option.new(content: "jiban")
-o2 = Option.new(content: "jyraia")
-Poll.create!(content: "what do you watched on Manchete channel?", options: [o1, o2], timeline: e1.timeline, status: "available")
-
 Topic.new(description: "Machine Learning", order: 1, event: e1).save!
 Topic.new(description: "AI", order: 2, event: e1).save!
 Topic.new(description: "Visual Computing", order: 3, event: e1).save!
-
-Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], timeline: e2.timeline, status: "available")
-Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], timeline: e2.timeline, status: "available")
-Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], timeline: e3.timeline, status: "available")
-Poll.create!(content: "What did you watch on Manchete channel?", options: [Option.new(content: "fake"),Option.new(content: "fake2")], timeline: e4.timeline, status: "available")
