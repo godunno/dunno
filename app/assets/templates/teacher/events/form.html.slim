@@ -34,18 +34,32 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 .diary__page
   .row.event__status.medium-collapse
     .small-6.medium-2.medium-offset-3.columns
-      a.event__cancel__link[href='#']
+      .event__uncancel ng-if="event.status == 'canceled'"
+        span.event__cancelled Aula cancelada
+        a.event__uncancel__link ng-click="setStatus(event, 'draft')"
+          | Desfazer
+        span.warning
+          | (Aula ficará Despublicada)
+      a.event__cancel__link[
+        ng-if="event.status != 'canceled'"
+        ng-click="setStatus(event, 'canceled')"]
         | Cancelar Aula
     .small-6.medium-4.columns.end.event__status__group
       span
         | Status da aula:
       ul.button-group.round
         li
-          a.button.tiny.event__status__button.event__status__draft.event__status__current[href='#']
+          a.button.tiny.event__status__button.event__status__draft[
+            ng-disabled="event.status == 'canceled'"
+            ng-class="{event__status__current: event.status == 'draft'}"
+            ng-click="setStatus(event, 'draft')"]
             i.icon.icon-draft>
             | Despublicada
         li
-          a.button.tiny.event__status__button.event__status__published[href='#']
+          a.button.tiny.event__status__button.event__status__published[
+            ng-disabled="event.status == 'canceled'"
+            ng-class="{event__status__current: event.status == 'published'}"
+            ng-click="setStatus(event, 'published')"]
             | Publicada
             i.icon.icon-published<
     /

@@ -501,5 +501,9 @@ form .row.collapse.mobile__day__navigation {
     &.event__status__current {
       background: $white;
     }
+
+    &[disabled] {
+      pointer-events: none;
+    }
   }
 }
