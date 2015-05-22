@@ -1,7 +1,8 @@
-describe "Utils", ->
-  Utils = null
-
+describe "Utils service", ->
   beforeEach module('DunnoApp')
+  beforeEach teacherAppMockDefaultRoutes
+
+  Utils = null
   beforeEach ->
     inject (_Utils_) ->
       Utils = _Utils_
