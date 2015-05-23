@@ -12,7 +12,6 @@
 }
 
 .back__button {
-  opacity: .5;
   white-space: nowrap;
 }
 
@@ -23,6 +22,7 @@
   cursor: pointer;
   display: block;
   padding: 1em .75em;
+  text-align: center;
 
   span {
     color: $primary-color;
@@ -50,7 +50,6 @@
 .previous__event {
   border-radius: 3px 0 0 3px;
   padding-right: 1.5em;
-  text-align: right;
 
   .icon {
     float: left;
@@ -60,7 +59,6 @@
 .next__event {
   border-radius: 0 3px 3px 0;
   padding-left: 1.5em;
-  text-align: left;
 
   .icon {
     float: right;
@@ -86,14 +84,25 @@ form .row.collapse.mobile__day__navigation {
   position: relative;
   z-index: 1;
 
+  &.event__cancelled {
+    background: $red-color;
+    border-color: $red-color;
+  }
+
+  &.event__published {
+    background: $secondary-color;
+    border-color: $secondary-color;
+  }
+
   .diary__date {
     text-transform: uppercase;
   }
 
   .diary__time {
-    color: $dark-grey-color;
+    color: $white;
     font-size: .75em;
     line-height: 2em;
+    opacity: .5;
     text-align: right;
 
     .icon {
@@ -485,12 +494,18 @@ form .row.collapse.mobile__day__navigation {
 .event__status__group {
   text-align: right;
 
+  i.icon {
+    vertical-align: middle;
+    color: $light-grey-color;
+  }
+
   span {
     font-size: .75em;
   }
 
   .button-group {
     display: inline-block;
+    margin-left: .5em;
   }
 
   .event__status__button {
@@ -500,10 +515,34 @@ form .row.collapse.mobile__day__navigation {
 
     &.event__status__current {
       background: $white;
+
+      &.event__status__published {
+        i.icon {
+          color: $secondary-color;
+        }
+      }
     }
 
     &[disabled] {
       pointer-events: none;
     }
+
+  }
+}
+
+
+.event__uncancel {
+  line-height: 1;
+
+  .event__cancelled {
+    color: $red-color;
+  }
+
+  small {
+    color: $light-grey-color;
+  }
+
+  a {
+    text-decoration: underline;
   }
 }
