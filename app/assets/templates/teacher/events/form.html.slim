@@ -1,4 +1,3 @@
-/ TODO: Break file into smaller partials.
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .small-3.columns
@@ -9,14 +8,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .small-6.columns
       h2
         | {{event.course.name}}
-      /
-        p.translucent.subtitle-head
-          span
-            | {{event.course.institution}}
-          span.event-classroom
-            | {{event.formatted_classroom}}
-          span< ng-if="!!event.course.grade"
-            | · {{event.course.grade}}
     .small-3.columns.right-aligned
       a.hide__personal__topics[
         ng-click="setPrivateTopicsVisibility(false)"
@@ -34,64 +25,39 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 .diary__page
   .row.event__status.medium-collapse
     .small-6.medium-2.medium-offset-3.columns
-      form name="eventForm"
-        a.select__event__status.small.dropdown.secondary.button data-dropdown="event-status"
-          span.event__status__published ng-if="event.status == 'published'"
-            i.icon.icon-published>
-            | Publicada
-          span.event__status__draft ng-if="event.status == 'draft'"
+      .event__uncancel[
+        ng-if="event.status == 'canceled'"]
+        span.event__cancelled
+          | Aula Cancelada
+        br
+        small
+          a.event__uncancel__link ng-click="setStatus(event, 'draft')"
+            | Desfazer
+          span<
+            | (Aula ficará Despublicada)
+      a.event__cancel__link[
+        ng-if="event.status != 'canceled'"
+        ng-click="setStatus(event, 'canceled')"]
+        | Cancelar Aula
+      br
+    .small-6.medium-4.columns.end.event__status__group
+      span[ng-if="event.status != 'canceled'"]
+        | Status da aula:
+      ul.button-group.round
+        li
+          a.button.tiny.event__status__button.event__status__draft[
+            ng-disabled="event.status == 'canceled'"
+            ng-class="{event__status__current: event.status == 'draft'}"
+            ng-click="setStatus(event, 'draft')"]
             i.icon.icon-draft>
-            | Rascunho
-          span.event__status__canceled ng-if="event.status == 'canceled'"
-            i.icon.icon-canceled>
-            | Cancelada
-        ul#event-status.event__status__list.f-dropdown[
-          data-dropdown-content=""
-          dropdown-select=""
-        ]
-          input.model[
-            type="hidden"
-            name="event_status"
-            ng-model="event.status"
-            ng-change="save(event)"
-          ]
-          li.published__event dropdown-select-item="'published'"
-            span
-              | Publicada
-              i.icon.icon-published
-            small
-              | Estudantes podem ver as tarefas.
-          li.drafted__event dropdown-select-item="'draft'"
-            span
-              | Rascunho
-              i.icon.icon-draft
-            small
-              | Estudantes não conseguem visualizar as tarefas.
-          li.canceled__event dropdown-select-item="'canceled'"
-            span
-              | Cancelar
-              i.icon.icon-canceled
-            small
-              | Cancelar aula e notificar os estudantes.
-    .small-6.medium-4.columns.end.form__event__status__save
-      a.save__and__exit[
-        ng-click="finish(event)"
-        analytics-on="click"
-        analytics-event="Event Finish Editing"
-        analytics-course-name="{{event.course.name}}"
-        analytics-course-uuid="{{event.course.uuid}}"
-        analytics-uuid="{{event.uuid}}"
-        analytics-start-at="{{event.start_at}}"]
-        | Salvar e sair
-      a.small.radius.button.secondary.btn-style-1.publish__and__exit[
-        analytics-on="click"
-        analytics-event="Event Published"
-        analytics-course-name="{{event.course.name}}"
-        analytics-course-uuid="{{event.course.uuid}}"
-        analytics-uuid="{{event.uuid}}"
-        analytics-start-at="{{event.start_at}}"
-        ng-click="publish(event)"]
-        | Publicar e sair
+            | Despublicada
+        li
+          a.button.tiny.event__status__button.event__status__published[
+            ng-disabled="event.status == 'canceled'"
+            ng-class="{event__status__current: event.status == 'published'}"
+            ng-click="setStatus(event, 'published')"]
+            | Publicada
+            i.icon.icon-published<
   .row.collapse
     .show-for-small.small-12.columns
       .row.collapse.mobile__day__navigation
@@ -150,7 +116,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             target="_blank"]
             i.type.icon ng-class="'icon-' + topic.media.type"
     .small-12.medium-6.columns
-      .row.diary__header
+      .row.diary__header[
+        ng-class="{event__cancelled: event.status == 'canceled', event__published: event.status == 'published'}"]
         .small-6.columns.diary__date
           | {{event.start_at | date:'EEE, dd/MMMM'}}
         .small-6.columns.diary__time
@@ -279,7 +246,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                       strong.media__title
                         | {{media.title}}
                       a.media__url ng-href="{{media.url}}" target="_blank"
-                        i.media__type__icon.icon> ng-class="'icon-' + media.type"
+                        i.media__type__icon.icon>[
+                          ng-class="'icon-' + media.type"]
                         span
                           | {{formatMediaUrl(media)}}
                 .load__more ng-if="next_page"
