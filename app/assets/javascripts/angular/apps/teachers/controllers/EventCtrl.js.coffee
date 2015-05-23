@@ -48,5 +48,10 @@ EventCtrl = (
   $scope.setPrivateTopicsVisibility = (visible)->
     $scope.showPrivateTopics = visible
 
+  $scope.setStatus = (event, status) ->
+    return if status == 'canceled' && !confirm('Deseja cancelar esta aula?')
+    event.status = status
+    $scope.$emit('wholePageLoading', $scope.save(event))
+
 EventCtrl.$inject = ['$scope', '$routeParams', '$window', '$q', 'event', 'Event', 'Utils', 'DateUtils']
 DunnoApp.controller 'EventCtrl', EventCtrl
