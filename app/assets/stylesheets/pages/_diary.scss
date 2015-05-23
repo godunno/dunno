@@ -35,6 +35,21 @@
     line-height: 1.75em;
     vertical-align: middle;
   }
+
+  &.mobile__day__navigation {
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+}
+
+.event__cancelled,
+.event__published {
+  .mobile__day__navigation {
+    i.icon {
+      color: $white;
+    }
+  }
 }
 
 .hide-for-small {
@@ -63,10 +78,6 @@
   .icon {
     float: right;
   }
-}
-
-form .row.collapse.mobile__day__navigation {
-  margin: 0 -.675em;
 }
 
 .select__event__status {
@@ -489,6 +500,7 @@ form .row.collapse.mobile__day__navigation {
 .event__cancel__link {
   color: $red-color;
   font-size: .75em;
+  white-space: nowrap;
 }
 
 .event__status__group {
@@ -506,6 +518,7 @@ form .row.collapse.mobile__day__navigation {
   .button-group {
     display: inline-block;
     margin-left: .5em;
+    white-space: nowrap;
   }
 
   .event__status__button {
