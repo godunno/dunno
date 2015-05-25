@@ -1,6 +1,6 @@
 scss_files: 'app/assets/stylesheets/**/*.scss'
 
-exclude: 'app/assets/stylesheets/modules/_action-sheet.scss', 'app/assets/stylesheets/modules/_loading.scss'
+exclude: ['app/assets/stylesheets/modules/_action-sheet.scss', 'app/assets/stylesheets/modules/_loading.scss']
 
 linters:
   SingleLinePerSelector:
