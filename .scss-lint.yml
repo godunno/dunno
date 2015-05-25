@@ -1,4 +1,7 @@
 scss_files: 'app/assets/stylesheets/**/*.scss'
+
+exclude: 'app/assets/stylesheets/modules/_action-sheet.scss'
+
 linters:
   SingleLinePerSelector:
     enabled: true
