@@ -3,7 +3,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .small-3.columns
       a.back__button ng-href="{{courseLocation(event)}}"
         i.icon.icon-back-arrow>
-        span
+        span.hide-for-small
           | Voltar
     .small-6.columns
       h2
@@ -24,7 +24,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 
 .diary__page
   .row.event__status.medium-collapse
-    .small-6.medium-2.medium-offset-3.columns
+    .small-3.medium-2.medium-offset-3.columns
       .event__uncancel[
         ng-if="event.status == 'canceled'"]
         span.event__cancelled
@@ -40,8 +40,8 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         ng-click="setStatus(event, 'canceled')"]
         | Cancelar Aula
       br
-    .small-6.medium-4.columns.end.event__status__group
-      span[ng-if="event.status != 'canceled'"]
+    .small-9.medium-4.columns.end.event__status__group
+      span.hidden-for-small[ng-if="event.status != 'canceled'"]
         | Status da aula:
       ul.button-group.round
         li
@@ -58,37 +58,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ng-click="setStatus(event, 'published')"]
             | Publicada
             i.icon.icon-published<
-  .row.collapse
-    .show-for-small.small-12.columns
-      .row.collapse.mobile__day__navigation
-        .small-6.columns
-          a.previous__event[
-            ng-if="!!event.previous.uuid"
-            href="#events/{{event.previous.uuid}}/edit"
-            analytics-on="click"
-            analytics-event="Event Navigation"
-            analytics-name="previous"
-            analytics-uuid="{{event.uuid}}"
-            analytics-start-at="{{event.start_at}}"
-            analytics-course-name="{{event.course.name}}"
-            analytics-course-uuid="{{event.course.uuid}}"]
-            i.icon.icon-chevron-left
-            span
-              | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
-        .small-6.columns
-          a.next__event[
-            ng-if="!!event.next.uuid"
-            href="#events/{{event.next.uuid}}/edit"
-            analytics-on="click"
-            analytics-event="Event Navigation"
-            analytics-name="next"
-            analytics-uuid="{{event.uuid}}"
-            analytics-start-at="{{event.start_at}}"
-            analytics-course-name="{{event.course.name}}"
-            analytics-course-uuid="{{event.course.uuid}}"]
-            span
-              | {{event.next.start_at | date:'EEE, dd/MMMM'}}
-            i.icon.icon-chevron-right
+  .row
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"
@@ -116,14 +86,38 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             target="_blank"]
             i.type.icon ng-class="'icon-' + topic.media.type"
     .small-12.medium-6.columns
-      .row.diary__header[
+      .row.small-collapse.diary__header[
         ng-class="{event__cancelled: event.status == 'canceled', event__published: event.status == 'published'}"]
-        .small-6.columns.diary__date
+        .show-for-small.small-1.columns
+          a.previous__event.mobile__day__navigation[
+            ng-if="!!event.previous.uuid"
+            href="#events/{{event.previous.uuid}}/edit"
+            analytics-on="click"
+            analytics-event="Event Navigation"
+            analytics-name="previous"
+            analytics-uuid="{{event.uuid}}"
+            analytics-start-at="{{event.start_at}}"
+            analytics-course-name="{{event.course.name}}"
+            analytics-course-uuid="{{event.course.uuid}}"]
+            i.icon.icon-chevron-left
+        .small-5.medium-6.columns.diary__date
           | {{event.start_at | date:'EEE, dd/MMMM'}}
-        .small-6.columns.diary__time
+        .small-5.medium-6.columns.diary__time
           i.icon.icon-clock>
           span
             | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
+        .show-for-small.small-1.columns
+          a.next__event.mobile__day__navigation[
+            ng-if="!!event.next.uuid"
+            href="#events/{{event.next.uuid}}/edit"
+            analytics-on="click"
+            analytics-event="Event Navigation"
+            analytics-name="next"
+            analytics-uuid="{{event.uuid}}"
+            analytics-start-at="{{event.start_at}}"
+            analytics-course-name="{{event.course.name}}"
+            analytics-course-uuid="{{event.course.uuid}}"]
+            i.icon.icon-chevron-right
       #topics-container.row event-list="topics"
         .new__topic__form.small-12.columns ng-controller="NewTopicCtrl"
           ul.small-block-grid-4.tabs.select__item__type
@@ -270,45 +264,47 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               .handle.topic__item__handle
                 i.icon.icon-handle
               form.topic__item__show
-                input.topic__item__status[
-                  type="checkbox"
-                  ng-model="topic.done"
-                  ng-change="save(topic)"
-                  id="topic_{{topic.uuid}}_done"
-                ]
-                label.topic__item__status__checkbox[
-                  for="topic_{{topic.uuid}}_done"]
-                  i.icon.icon-plain-check
-                a.topic__item__image[
-                  ng-href="{{topic.media.url}}"
-                  target="_blank"
-                  ng-if="!!topic.media"
-                  ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
-                span.topic__item__description ng-class="{preview: !!topic.media}"
-                  a ng-click="startEditing(topic)"
-                    | {{topic.description}}
-                  a.topic__url[
-                    ng-href="{{topic.media.url}}"
-                    target="_blank"
-                    ng-show="topic.media.type == 'url'"]
-                    | {{topic.media.url}}
-              zf-action-sheet.topic__item__actions
-                zf-as-button.topic__item__actions__button
-                  | ...
-                zf-as-content position="top"
-                  ul.topic__item__actions__list
-                    li
-                      a[
-                        ng-click="removeTopic(topic)"
-                        title="Remover conteúdo"]
-                        i.icon.icon-trash>
-                        | Apagar
-                    li ng-if="canTransferTopic(topic, event)"
-                      a[
-                        ng-click="transferTopic(topic)"
-                        title="Transferir conteúdo para próxima aula"]
-                        i.icon.icon-transfer>
-                        | Transferir
+                zf-action-sheet.topic__item__actions
+                  zf-as-button.topic__item__actions__button
+                    | ...
+                  zf-as-content position="top"
+                    ul.topic__item__actions__list
+                      li
+                        a[
+                          ng-click="removeTopic(topic)"
+                          title="Remover conteúdo"]
+                          i.icon.icon-trash>
+                          | Apagar
+                      li ng-if="canTransferTopic(topic, event)"
+                        a[
+                          ng-click="transferTopic(topic)"
+                          title="Transferir conteúdo para próxima aula"]
+                          i.icon.icon-transfer>
+                          | Transferir
+                .topic__item__contents
+                  input.topic__item__status[
+                    type="checkbox"
+                    ng-model="topic.done"
+                    ng-change="save(topic)"
+                    id="topic_{{topic.uuid}}_done"
+                  ]
+                  label.topic__item__status__checkbox[
+                    for="topic_{{topic.uuid}}_done"]
+                    i.icon.icon-plain-check
+                  span.topic__item__description ng-class="{preview: !!topic.media}"
+                    a.topic__item__image[
+                      ng-href="{{topic.media.url}}"
+                      target="_blank"
+                      ng-if="!!topic.media"
+                      ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
+                    span.topic__item__description__contents[ng-class="{topic__contains__media: !!topic.media}"]
+                      a ng-click="startEditing(topic)"
+                        | {{topic.description}}
+                      a.topic__url[
+                        ng-href="{{topic.media.url}}"
+                        target="_blank"
+                        ng-show="topic.media.type == 'url'"]
+                        | {{topic.media.url}}
             .topic__item__editing ng-show="isEditing(topic)"
               form name="topicEditForm" ng-submit="finishEditing(topic)"
                 input.topic__item__editing[
