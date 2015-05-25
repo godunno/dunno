@@ -1,10 +1,6 @@
-// CORES
+// BASIC COLORS
 $primary-color: #2b3738;   // Dunno grey
 $secondary-color: #1cc678; // Dunno green
-
-$dark-grey-color:   #70797a;
-$light-grey-color:  #bebebe;
-$background-light-grey-color: #f2f2f2;
 
 $red-color:     #ff5950;
 $yellow-color:  #fedd59;
@@ -13,26 +9,17 @@ $orange-color:  #ff926a;
 $purple-color:  #a893ff;
 $brown-color:   #d18c66;
 
+// BASIC PALETTE
+$black: #000;
+$dark-grey-color:   #70797a;
+$light-grey-color:  #bebebe;
+$white: #fff;
+
+
+$background-light-grey-color: #f2f2f2;
+
+
 $navigation-event-border-color: #cccecf;
 $dropdown-border-color: #d7d9da;
 
 $disabled-color: #c5c5c5;
-
-$white: #fff;
-$black: #000;
-
-// LIST OF NEW_COLOURS
-// FIFTY SHADES OF GREY
-// #fff7f6
-// #d8d8d8
-// #ddd
-// #ccc
-// #bbb
-// #afb0b0
-// #999
-// #5c5b5b
-// #4d4d4d
-//
-// #fecf16   / Can I replace with $yellow-color?
-// #f00      / Can I replace with $red-color?
-// #3c90c5   / Can I replace with $blue-color?
