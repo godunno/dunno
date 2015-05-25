@@ -27,5 +27,3 @@ linters:
     enabled: false
   NameFormat:
     enabled: false
-  VendorPrefixes:
-    enabled: false
