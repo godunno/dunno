@@ -5,7 +5,7 @@
   margin-top: .75em;
 
   .meter {
-    transition: width 0.2s ease;
-    background: #1cc678;
+    background: $secondary-color;
+    transition: width .2s ease;
   }
 }

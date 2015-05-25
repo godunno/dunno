@@ -2,26 +2,30 @@
   @include reveal-modal-style(
     $bg: $primary-color
   );
+
   @include radius(10px);
-  text-align: center;
-  width: 25em;
   padding: 2em 3em;
+  text-align: center;
   top: 320px;
+  width: 25em;
 
   .content {
-    color: #ffffff;
-    font-family: "Chalkduster";
+    color: $white;
+    font-family: 'Chalkduster';
   }
 
   .steps {
     margin-left: 0;
+
     .step {
-      list-style: none;
       display: inline-block;
+      list-style: none;
+
       .icon {
         color: $dark-grey-color;
+
         &.active {
-          color: #ffffff;
+          color: $white;
         }
       }
     }
@@ -44,10 +48,10 @@
   .arrow {
     &.step-1 {
       @include tutorial-arrow(1, 1);
-      width: 109px;
       height: 95px;
-      top: -40px;
       left: -70px;
+      top: -40px;
+      width: 109px;
     }
   }
 }
@@ -56,24 +60,26 @@
   .arrow {
     &.step-1 {
       @include tutorial-arrow(2, 1);
-      width: 133px;
       height: 84px;
-      top: -40px;
       left: 360px;
+      top: -40px;
+      width: 133px;
     }
+
     &.step-2 {
       @include tutorial-arrow(2, 2);
-      width: 129px;
       height: 67px;
-      top: 0px;
       left: -110px;
+      top: 0;
+      width: 129px;
     }
+
     &.step-3 {
       @include tutorial-arrow(2, 3);
-      width: 111px;
       height: 54px;
-      top: 70px;
       left: 370px;
+      top: 70px;
+      width: 111px;
     }
   }
 }
@@ -82,24 +88,26 @@
   .arrow {
     &.step-1 {
       @include tutorial-arrow(3, 1);
-      width: 131px;
       height: 218px;
-      top: 100px;
       left: -60px;
+      top: 100px;
+      width: 131px;
     }
+
     &.step-2 {
       @include tutorial-arrow(3, 2);
-      width: 111px;
       height: 54px;
-      top: 170px;
       left: 360px;
+      top: 170px;
+      width: 111px;
     }
+
     &.step-3 {
       @include tutorial-arrow(3, 3);
-      width: 101px;
       height: 105px;
-      top: -20px;
       left: 350px;
+      top: -20px;
+      width: 101px;
     }
   }
 }

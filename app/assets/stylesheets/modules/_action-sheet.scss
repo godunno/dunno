@@ -217,8 +217,8 @@ $dark-color: #000 !default;
 
 @include exports(action-sheet) {
   .action-sheet-container {
-    position: relative;
     display: inline-block;
+    position: relative;
 
     .button {
       margin-left: 0;
@@ -238,32 +238,54 @@ $dark-color: #000 !default;
     }
 
     &.primary {
-      background: $primary-color;
-      color: isitlight($primary-color);
-      border: 0;
-      &::before { display: none; }
-      &::before, &::after { border-top-color: $primary-color; }
-      &.top::before, &.top::after { border-bottom-color: $primary-color; }
-
       @include action-sheet-menu(
-        $color: isitlight($primary-color),
-        $border-color: smartscale($primary-color, 10%),
+        $color: isitlight($primary-color), 
+        $border-color: smartscale($primary-color, 10%), 
         $background-hover: smartscale($primary-color)
       );
-    }
-    &.dark {
-      background: $dark-color;
-      color: isitlight($dark-color);
+      background: $primary-color;
       border: 0;
-      &::before { display: none; }
-      &::before, &::after { border-top-color: $dark-color; }
-      &.top::before, &.top::after { border-bottom-color: $dark-color; }
+      color: isitlight($primary-color);
 
+      &::before {
+        display: none;
+      }
+
+      &::before,
+      &::after {
+        border-top-color: $primary-color;
+      }
+
+      &.top::before,
+      &.top::after {
+        border-bottom-color: $primary-color;
+      }
+    }
+
+    &.dark {
       @include action-sheet-menu(
-        $color: isitlight($dark-color),
-        $border-color: smartscale($dark-color, 10%),
+        $color: isitlight($dark-color), 
+        $border-color: smartscale($dark-color, 10%), 
         $background-hover: smartscale($dark-color)
       );
+
+      background: $dark-color;
+      border: 0;
+      color: isitlight($dark-color);
+
+      &::before {
+        display: none;
+      }
+
+      &::before,
+      &::after {
+        border-top-color: $dark-color;
+      }
+
+      &.top::before,
+      &.top::after {
+        border-bottom-color: $dark-color;
+      }
     }
   }
 }

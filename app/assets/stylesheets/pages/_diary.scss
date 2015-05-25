@@ -1,4 +1,3 @@
-// NEED TO REFACTOR
 .columns.right-aligned {
   text-align: right;
 }
@@ -350,8 +349,8 @@
 
   .topic__url {
     color: $secondary-color;
-    font-size: .75em;
     display: block;
+    font-size: .75em;
   }
 }
 
@@ -439,8 +438,8 @@
   .media__thumbnail,
   .media__data,
   .media__select__label {
-      display: inline-block;
-      vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
   }
 
   .media__thumbnail {
@@ -507,8 +506,8 @@
   text-align: right;
 
   i.icon {
-    vertical-align: middle;
     color: $light-grey-color;
+    vertical-align: middle;
   }
 
   span {
