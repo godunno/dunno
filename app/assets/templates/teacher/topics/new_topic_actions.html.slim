@@ -3,7 +3,7 @@
   a.cancel ng-click="cancel()"
     | Cancelar
   a.dropdown.secondary.button.tiny.new__topic__visibility[
-    data-dropdown="topic-private"]
+    dropdown-toggle="#topic-private"]
     span.private ng-if="defaultTopicProperties.personal"
       i.icon.icon-lock>
       | Somente professor
@@ -11,7 +11,6 @@
       i.icon.icon-unlock>
       | Alunos
   ul#topic-private.f-dropdown[
-    data-dropdown-content=""
     dropdown-select=""]
     input.model type="hidden" name="topic_private" ng-model="defaultTopicProperties.personal"
     li.private dropdown-select-item="true"
