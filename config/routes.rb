@@ -61,6 +61,7 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :medias, only: [:index]
       resources :ratings, only: :create
       resources :answers, only: :create
       resource :timeline, only: [] do

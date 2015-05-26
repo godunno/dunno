@@ -33,7 +33,10 @@ MediaSearcher = (Media) ->
       parser.hostname
 
     $scope.searchMedia = (page) ->
-      Media.search(q: $scope.search.q, page: page, per_page: $scope.perPage)
+      params = q: $scope.search.q, page: page
+      angular.extend params, $scope.searchParams || {}
+      console.log params
+      Media.search(params)
 
   @
 

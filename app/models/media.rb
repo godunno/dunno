@@ -56,7 +56,8 @@ class Media < ActiveRecord::Base
     mapping do
       indexes :title, type: :string, analyzer: :custom_analyzer
       indexes :tags, type: :string, analyzer: :custom_analyzer
-      indexes :teacher_id, type: :integer
+      indexes :teacher_id, type: :integer, index: :not_analyzed
+      indexes :course_uuid, type: :string, index: :not_analyzed
       indexes :created_at, type: :date
     end
   end
@@ -67,6 +68,7 @@ class Media < ActiveRecord::Base
       title: title,
       tags: tag_list.to_a,
       teacher_id: teacher_id,
+      course_uuid: topics.map(&:event).map(&:course).map(&:uuid).uniq,
       created_at: created_at
     }
   end

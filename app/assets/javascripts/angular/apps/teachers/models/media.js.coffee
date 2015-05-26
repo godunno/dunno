@@ -1,8 +1,10 @@
 DunnoApp = angular.module('DunnoApp')
-Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
+DunnoAppStudent = angular.module('DunnoAppStudent')
+
+Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager, ROOT_API_PATH) ->
   class Media extends RailsResource
     @configure(
-      url: '/api/v1/teacher/medias'
+      url: "#{ROOT_API_PATH}/medias"
       name: 'media'
       idAttribute: 'uuid'
       updateMethod: 'patch'
@@ -75,5 +77,6 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
 
   Media
 
-Media.$inject = ['RailsResource', '$upload', '$q', 'AWSCredentials', 'SessionManager']
+Media.$inject = ['RailsResource', '$upload', '$q', 'AWSCredentials', 'SessionManager', 'ROOT_API_PATH']
 DunnoApp.factory 'Media', Media
+DunnoAppStudent.factory 'Media', Media

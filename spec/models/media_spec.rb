@@ -104,5 +104,27 @@ describe Media do
     it "can set a number of items per page" do
       expect(Media.search(per_page: 1).records.to_a).to eq([new_media])
     end
+
+    describe "filter by" do
+      let!(:teacher) { create(:teacher) }
+      let!(:course) { create(:course, teacher: teacher) }
+      let!(:event) { create(:event, course: course) }
+      let!(:topic) { create(:topic, event: event) }
+      let!(:media) { create(:media, topics: [topic], teacher: teacher) }
+
+      before { refresh_index! }
+
+      describe "teacher_id" do
+        it do
+          expect(Media.search(filter: { teacher_id: teacher.id }).records.to_a).to eq([media])
+        end
+      end
+
+      describe "course_id" do
+        it do
+          expect(Media.search(filter: { course_uuid: course.uuid }).records.to_a).to eq([media])
+        end
+      end
+    end
   end
 end

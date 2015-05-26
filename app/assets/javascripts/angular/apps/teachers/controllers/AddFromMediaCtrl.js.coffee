@@ -6,7 +6,8 @@ AddFromMediaCtrl = ($scope, MediaSearcher)->
   $scope.$on 'newTopic', ($event, topicType) ->
     $scope.$broadcast 'saveTopic' if topicType == 'catalog'
 
-  $scope.perPage = 3
+  $scope.searchParams =
+    per_page: 3
 
   $scope.fetch()
 
