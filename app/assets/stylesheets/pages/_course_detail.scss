@@ -114,22 +114,17 @@
   margin: 0 0 2em;
 }
 
-@media #{$small-only} {
-  .dates__header__current-month {
-    text-align: center;
-  }
-}
-
 .dates__header {
   border-bottom: 2px solid $light-grey-color;
+  font-size: .875em;
   padding: .7rem 1rem .5rem;
   text-transform: uppercase;
-
 
   .dates__header__current-month {
     display: block;
     font-weight: bold;
     line-height: 2.5rem;
+    text-align: center;
   }
 
   .dates__header__next-month,
@@ -137,10 +132,11 @@
     @include radius;
     background-color: $background-light-grey-color;
     color: $light-grey-color;
-    display: block;
-    font-size: .9rem;
-    padding: .5rem;
+    display: inline-block;
+    font-size: .75rem;
+    padding: .5rem .25rem;
     text-align: center;
+    white-space: nowrap;
 
     &:hover {
       color: $primary-color;
@@ -208,11 +204,10 @@
   .date__order,
   .date__go {
     display: inline-block;
-    padding: .25em .5em;
+    padding: .25em;
   }
 
   .date__day {
-    font-size: 1.1rem;
     font-weight: bold;
   }
 
@@ -220,17 +215,30 @@
     text-transform: uppercase;
   }
 
+  .date__time,
+  .date__order {
+    color: $light-grey-color;
+  }
+
+  .date__more__info {
+    display: block;
+    float: right;
+    font-size: .875em;
+    line-height: 1;
+    padding: .15em .25em;
+    width: 22%;
+  }
+
+  .date__classroom,
+  .date__order {
+    display: block;
+  }
+
   .date__classroom,
   .date__status,
   .date__order,
   .date__go {
-    float: right;
     text-align: right;
-  }
-
-  .date__order,
-  .date__go {
-    width: 5em;
   }
 
   .date__go {
