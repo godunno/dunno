@@ -264,45 +264,47 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               .handle.topic__item__handle
                 i.icon.icon-handle
               form.topic__item__show
-                input.topic__item__status[
-                  type="checkbox"
-                  ng-model="topic.done"
-                  ng-change="save(topic)"
-                  id="topic_{{topic.uuid}}_done"
-                ]
-                label.topic__item__status__checkbox[
-                  for="topic_{{topic.uuid}}_done"]
-                  i.icon.icon-plain-check
-                a.topic__item__image[
-                  ng-href="{{topic.media.url}}"
-                  target="_blank"
-                  ng-if="!!topic.media"
-                  ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
-                span.topic__item__description ng-class="{preview: !!topic.media}"
-                  a ng-click="startEditing(topic)"
-                    | {{topic.description}}
-                  a.topic__url[
-                    ng-href="{{topic.media.url}}"
-                    target="_blank"
-                    ng-show="topic.media.type == 'url'"]
-                    | {{topic.media.url}}
-              zf-action-sheet.topic__item__actions
-                zf-as-button.topic__item__actions__button
-                  | ...
-                zf-as-content position="top"
-                  ul.topic__item__actions__list
-                    li
-                      a[
-                        ng-click="removeTopic(topic)"
-                        title="Remover conteúdo"]
-                        i.icon.icon-trash>
-                        | Apagar
-                    li ng-if="canTransferTopic(topic, event)"
-                      a[
-                        ng-click="transferTopic(topic)"
-                        title="Transferir conteúdo para próxima aula"]
-                        i.icon.icon-transfer>
-                        | Transferir
+                zf-action-sheet.topic__item__actions
+                  zf-as-button.topic__item__actions__button
+                    | ...
+                  zf-as-content position="top"
+                    ul.topic__item__actions__list
+                      li
+                        a[
+                          ng-click="removeTopic(topic)"
+                          title="Remover conteúdo"]
+                          i.icon.icon-trash>
+                          | Apagar
+                      li ng-if="canTransferTopic(topic, event)"
+                        a[
+                          ng-click="transferTopic(topic)"
+                          title="Transferir conteúdo para próxima aula"]
+                          i.icon.icon-transfer>
+                          | Transferir
+                .topic__item__contents
+                  input.topic__item__status[
+                    type="checkbox"
+                    ng-model="topic.done"
+                    ng-change="save(topic)"
+                    id="topic_{{topic.uuid}}_done"
+                  ]
+                  label.topic__item__status__checkbox[
+                    for="topic_{{topic.uuid}}_done"]
+                    i.icon.icon-plain-check
+                  span.topic__item__description ng-class="{preview: !!topic.media}"
+                    a.topic__item__image[
+                      ng-href="{{topic.media.url}}"
+                      target="_blank"
+                      ng-if="!!topic.media"
+                      ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
+                    span.topic__item__description__contents[ng-class="{topic__contains__media: !!topic.media}"]
+                      a ng-click="startEditing(topic)"
+                        | {{topic.description}}
+                      a.topic__url[
+                        ng-href="{{topic.media.url}}"
+                        target="_blank"
+                        ng-show="topic.media.type == 'url'"]
+                        | {{topic.media.url}}
             .topic__item__editing ng-show="isEditing(topic)"
               form name="topicEditForm" ng-submit="finishEditing(topic)"
                 input.topic__item__editing[

@@ -32,8 +32,8 @@
 
   .type.icon {
     @extend %media-type;
-    float: left;
     display: block;
+    float: left;
   }
 
   .count {
@@ -49,8 +49,8 @@
   .type-list {
     @include dropdown-container(list, bottom);
     @include radius();
-    width: $dropdown-width;
     border-color: $light-grey-color;
+    width: $dropdown-width;
 
     .option {
       cursor: pointer;
@@ -77,33 +77,33 @@
   }
 
   .medias {
-    margin-top: .5em;
-    margin-left: 0;
-    list-style: none;
+    background-color: $white;
     border-radius: 5px;
     box-shadow: $box-shadow;
-    background-color: $white;
+    list-style: none;
+    margin-left: 0;
+    margin-top: .5em;
   }
 
   .media {
     @include grid-row;
-    width: initial;
+    border-bottom: 1px solid $light-grey-color;
     display: block;
     padding: 1.5em;
     position: relative;
-    border-bottom: 1px solid $light-grey-color;
+    width: initial;
 
     &:last-of-type {
-      border-bottom: none;
+      border-bottom: 0;
     }
 
     &:hover .vertical-bar {
-      width: 3px;
-      height: 100%;
       background: $secondary-color;
+      height: 100%;
+      left: 0;
       position: absolute;
       top: 0;
-      left: 0;
+      width: 3px;
     }
 
     > li {
@@ -121,38 +121,42 @@
 
     .title {
       .icon {
-        display: none;
         color: $light-grey-color;
-        margin-top: 0.6rem;
+        display: none;
+        margin-top: .6rem;
       }
+
       .input {
-        float: left;
         background: none;
-        border: none;
+        border: 0;
         box-shadow: none;
+        float: left;
         margin-bottom: 0;
+
         &:focus {
           @include dotted-input($light-grey-color);
         }
       }
+
       a:hover ~ .icon {
         display: inline-block;
       }
     }
 
     .events {
-      font-size: 0.8em;
       color: $light-grey-color;
+      font-size: .8em;
       padding-left: 7px;
+
       a {
         color: $light-grey-color;
       }
     }
 
     .url {
-      float: right;
-      font-size: 0.7em;
       color: $secondary-color;
+      float: right;
+      font-size: .7em;
       margin-right: 1em;
     }
 
@@ -161,31 +165,33 @@
     }
 
     .tags-label {
-      float: left;
-      margin-top: 0.5rem;
       color: $light-grey-color;
+      float: left;
+      margin-top: .5rem;
     }
 
     .tags {
-      border: none;
+      border: 0;
       box-shadow: none;
+
       &.focused {
         outline: none;
       }
+
       .tag-item {
         @include label($radius: 2px);
         background: $light-grey-color;
-        margin-left: 0.5em;
+        border: 0;
+        font-size: .625rem;
         font-weight: 300;
         height: 21px;
-        margin-top: 0px;
+        margin-left: .5em;
+        margin-top: 0;
         padding-top: 2px;
-        font-size: 0.625rem;
-        border: 0;
 
         span:hover {
-          text-decoration: underline;
           cursor: pointer;
+          text-decoration: underline;
         }
 
         &.selected {
@@ -198,14 +204,16 @@
           opacity: .8;
         }
       }
+
       .input {
-        font-weight: 300;
         border: 1px dashed $light-grey-color;
-        height: 21px;
-        margin: 0 0 0 10px;
-        font-size: 11px;
         border-radius: 2px;
         box-shadow: none;
+        font-size: 11px;
+        font-weight: 300;
+        height: 21px;
+        margin: 0 0 0 10px;
+
         &:focus {
           @include dotted-input($secondary-color);
           background: $white;
@@ -214,13 +222,14 @@
     }
 
     .icon-trash {
-      float: right;
       color: $light-grey-color;
-      width: 1.3em;
+      float: right;
       height: 1.3em;
-      text-align: center;
-      padding: .1em;
       margin-top: 10px;
+      padding: .1em;
+      text-align: center;
+      width: 1.3em;
+
       &:hover {
         color: $primary-color;
       }

@@ -30,9 +30,9 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
 
   &:active,
   &:hover {
-    opacity: 1;
     background-color: $btn-style-transparent-bg-color;
     color: $primary-color;
+    opacity: 1;
   }
 
   &.disabled {
