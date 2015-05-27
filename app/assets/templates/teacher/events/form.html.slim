@@ -119,7 +119,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             analytics-course-uuid="{{event.course.uuid}}"]
             i.icon.icon-chevron-right
       #topics-container.row event-list="topics"
-        .new__topic__form.small-12.columns ng-controller="NewTopicCtrl"
+        .new__topic__form.small-12.columns ng-controller="NewTopicCtrl" ng-if="event.status != 'canceled'"
           ul.small-block-grid-4.tabs.select__item__type
             li
               a[
