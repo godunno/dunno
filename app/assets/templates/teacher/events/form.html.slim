@@ -127,7 +127,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-class="{active: topicType == 'text'}"]
                 i.icon.icon-text
                 span.hide-for-small
-                  br
                   | Texto
             li
               a[
@@ -135,7 +134,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-class="{active: topicType == 'file'}"]
                 i.icon.icon-file
                 span.hide-for-small
-                  br
                   | Arquivo
             li
               a[
@@ -143,7 +141,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-class="{active: topicType == 'url'}"]
                 i.icon.icon-link
                 span.hide-for-small
-                  br
                   | Link
             li
               a[
@@ -151,7 +148,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-class="{active: topicType == 'catalog'}"]
                 i.icon.icon-catalog
                 span.hide-for-small
-                  br
                   | Catálogo
           .item__type ng-show="topicType != null"
             .type.type__text ng-show="topicType == 'text'" ng-controller="NewTextTopicCtrl"
