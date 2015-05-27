@@ -15,6 +15,7 @@ class Media < ActiveRecord::Base
   belongs_to :teacher
   has_many :topics
   has_many :events, through: :topics
+  has_many :courses, through: :events
 
   validates :title, presence: true
 
@@ -68,7 +69,7 @@ class Media < ActiveRecord::Base
       title: title,
       tags: tag_list.to_a,
       teacher_id: teacher_id,
-      course_uuid: topics.map(&:event).map(&:course).map(&:uuid).uniq,
+      course_uuid: courses.map(&:uuid).uniq,
       created_at: created_at
     }
   end

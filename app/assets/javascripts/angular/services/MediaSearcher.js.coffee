@@ -35,7 +35,6 @@ MediaSearcher = (Media) ->
     $scope.searchMedia = (page) ->
       params = q: $scope.search.q, page: page
       angular.extend params, $scope.searchParams || {}
-      console.log params
       Media.search(params)
 
   @

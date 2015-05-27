@@ -11,9 +11,9 @@ header.page-header.title ng-class="'scheme-' + course.order"
   .row
     .small-12.medium-8.columns ng-include="'#{asset_path('shared/courses/events_list.html')}'"
     .small-12.medium-4.columns
-      .type__catalog ng-controller="CourseCatalogCtrl"
-        .catalog__header
-          .catalog__search
+      .medias ng-controller="CourseMediasCtrl"
+        .medias__header
+          .medias__search
             i.icon.icon-search
             input[
               type="text"
@@ -22,8 +22,8 @@ header.page-header.title ng-class="'scheme-' + course.order"
               ui-keydown="{'enter':'fetch($event)'}" ]
             / a.button.postfix.icon.icon-close ng-click="clearSearch()"
             / a.button.postfix.icon.icon-search ng-click="fetch()"
-        .catalog__medias
-          .catalog__media ng-repeat="media in medias"
+        .course__medias
+          .course__media ng-repeat="media in medias"
             span.media__thumbnail style="background-image: url({{media.thumbnail}});"
             span.media__data
               strong.media__title

@@ -1,6 +1,6 @@
 DunnoAppStudent = angular.module('DunnoAppStudent')
 
-CourseCatalogCtrl = ($scope, MediaSearcher)->
+CourseMediasCtrl = ($scope, MediaSearcher)->
   MediaSearcher.extend($scope)
 
   $scope.searchParams =
@@ -9,5 +9,5 @@ CourseCatalogCtrl = ($scope, MediaSearcher)->
 
   $scope.fetch()
 
-CourseCatalogCtrl.$inject = ['$scope', 'MediaSearcher']
-DunnoAppStudent.controller 'CourseCatalogCtrl', CourseCatalogCtrl
+CourseMediasCtrl.$inject = ['$scope', 'MediaSearcher']
+DunnoAppStudent.controller 'CourseMediasCtrl', CourseMediasCtrl
