@@ -162,21 +162,14 @@
     color: $light-grey-color;
   }
 
-  .no-touch &:hover {
-    background-color: $background-light-grey-color;
-    color: $primary-color;
-
-    .date__order {
-      display: none;
-    }
-
-    .date__go {
-      display: inline-block;
-    }
-  }
-
   &:nth-last-child(n+2) {
     border-bottom: 1px solid $light-grey-color;
+  }
+
+  &:after {
+    clear: both;
+    content: ' ';
+    display: block;
   }
 
   &:first-child {
