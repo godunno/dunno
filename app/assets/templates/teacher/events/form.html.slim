@@ -126,29 +126,33 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-click="selectTopicType('text')"
                 ng-class="{active: topicType == 'text'}"]
                 i.icon.icon-text
-                br
-                | Texto
+                span.hide-for-small
+                  br
+                  | Texto
             li
               a[
                 ng-click="selectTopicType('file')"
                 ng-class="{active: topicType == 'file'}"]
                 i.icon.icon-file
-                br
-                | Arquivo
+                span.hide-for-small
+                  br
+                  | Arquivo
             li
               a[
                 ng-click="selectTopicType('url'); startUrlMediaEditing()"
                 ng-class="{active: topicType == 'url'}"]
                 i.icon.icon-link
-                br
-                | Link
+                span.hide-for-small
+                  br
+                  | Link
             li
               a[
                 ng-click="selectTopicType('catalog')"
                 ng-class="{active: topicType == 'catalog'}"]
                 i.icon.icon-catalog
-                br
-                | Catálogo
+                span.hide-for-small
+                  br
+                  | Catálogo
           .item__type ng-show="topicType != null"
             .type.type__text ng-show="topicType == 'text'" ng-controller="NewTextTopicCtrl"
               form name="textTopicForm" ng-controller="TopicAttributesCtrl"
