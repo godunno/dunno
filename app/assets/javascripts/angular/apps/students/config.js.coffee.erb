@@ -2,7 +2,7 @@
 #= depend_on_asset "students/courses/confirm_registration.html"
 #= depend_on_asset "students/courses/search.html"
 
-DunnoApp = angular.module 'DunnoAppStudent', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel']
+DunnoApp = angular.module 'DunnoAppStudent', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'angularFileUpload']
 
 Router = ($routeProvider, CoursesResolver, CourseResolver, EventResolver)->
   $routeProvider.
@@ -26,6 +26,8 @@ DunnoApp.value('cgBusyDefaults',
   minDuration: 500,
   wrapperClass: 'cg-busy cg-busy-animation ng-animate'
 )
+
+DunnoApp.constant('ROOT_API_PATH', '/api/v1')
 
 DunnoApp.config ['$animateProvider', ($animateProvider) ->
   $animateProvider.classNameFilter(/ng-animate/)
