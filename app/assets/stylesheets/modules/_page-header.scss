@@ -53,6 +53,10 @@
 }
 
 @media #{$small-only} {
+  .page-header {
+    margin-bottom: 1em;
+  }
+
   .event-start-date,
   .event-start-time {
     display: block;

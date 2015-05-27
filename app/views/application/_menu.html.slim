@@ -1,7 +1,8 @@
 nav.tab-bar.show-for-small
-  a.left-off-canvas-toggle.menu-icon
-    span
-      | Dunno
+  a.icons.icon-dunno-logo href="#"
+  .right-small
+    a.right-off-canvas-toggle.menu-icon
+      span
 .contain-to-grid
   nav.top-bar.hide-for-small data-topbar=""
     .row
@@ -20,7 +21,7 @@ nav.tab-bar.show-for-small
           li
             a ng-click="sign_out()"
               | Sair
-aside.left-off-canvas-menu
+aside.right-off-canvas-menu
   ul.off-canvas-list
     li
       = yield
