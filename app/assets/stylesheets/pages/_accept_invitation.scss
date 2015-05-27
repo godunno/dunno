@@ -51,7 +51,7 @@
         }
 
         &:after {
-          background: asset_url("input-arrow.png") no-repeat center center;
+          background: asset_url('input-arrow.png') no-repeat center center;
           content: ' ';
           display: inline-block;
           height: 2.25em;
