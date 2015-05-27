@@ -387,6 +387,8 @@
 }
 
 .summary__tasks {
+  min-height: 1em;
+
   &.previous__event__tasks {
     padding-left: 1em;
 
