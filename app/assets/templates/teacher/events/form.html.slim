@@ -119,36 +119,36 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             analytics-course-uuid="{{event.course.uuid}}"]
             i.icon.icon-chevron-right
       #topics-container.row event-list="topics"
-        .new__topic__form.small-12.columns ng-controller="NewTopicCtrl"
+        .new__topic__form.small-12.columns ng-controller="NewTopicCtrl" ng-if="event.status != 'canceled'"
           ul.small-block-grid-4.tabs.select__item__type
             li
               a[
                 ng-click="selectTopicType('text')"
                 ng-class="{active: topicType == 'text'}"]
                 i.icon.icon-text
-                br
-                | Texto
+                span.hide-for-small
+                  | Texto
             li
               a[
                 ng-click="selectTopicType('file')"
                 ng-class="{active: topicType == 'file'}"]
                 i.icon.icon-file
-                br
-                | Arquivo
+                span.hide-for-small
+                  | Arquivo
             li
               a[
                 ng-click="selectTopicType('url'); startUrlMediaEditing()"
                 ng-class="{active: topicType == 'url'}"]
                 i.icon.icon-link
-                br
-                | Link
+                span.hide-for-small
+                  | Link
             li
               a[
                 ng-click="selectTopicType('catalog')"
                 ng-class="{active: topicType == 'catalog'}"]
                 i.icon.icon-catalog
-                br
-                | Catálogo
+                span.hide-for-small
+                  | Catálogo
           .item__type ng-show="topicType != null"
             .type.type__text ng-show="topicType == 'text'" ng-controller="NewTextTopicCtrl"
               form name="textTopicForm" ng-controller="TopicAttributesCtrl"

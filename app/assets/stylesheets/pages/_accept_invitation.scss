@@ -14,9 +14,13 @@
 
   .container,
   footer {
-    background: $white;
     margin-top: 3em;
     text-align: center;
+  }
+
+  .instructions,
+  footer {
+    background: $white;
   }
 
   .instructions,
@@ -25,42 +29,56 @@
     padding: 2em;
   }
 
-  .container {
-    .instructions {
-      > .description {
-        margin: 2em auto;
-        width: 50%;
+  .instructions {
+
+    .steps {
+      $number-radius: 40px;
+
+      .step {
+        position: relative;
+
+        .number {
+          @include ball($number-radius);
+          border-color: $light-grey-color;
+          color: $orange-color;
+          font-weight: 300;
+          margin: 0 auto;
+        }
+
+        .description {
+          font-size: .8em;
+          text-transform: uppercase;
+        }
+
+        &:after {
+          background: asset_url('input-arrow.png') no-repeat center center;
+          content: ' ';
+          display: inline-block;
+          height: 2.25em;
+          margin-top: 1.45em;
+          position: absolute;
+          right: -1em;
+          top: 0;
+          width: 2.25em;
+        }
+
+        &:last-child:after {
+          display: none;
+        }
+
+        @media #{$small-only} {
+          &:after {
+            display: none;
+          }
+        }
       }
 
-      .steps {
-        @include inline-list;
-        list-style: none;
-        margin: 0 auto;
-        width: 75%;
-
-        $number-radius: 40px;
-
-        .step {
-          .number {
-            @include ball($number-radius);
-            border-color: $light-grey-color;
-            color: $orange-color;
-            font-weight: 300;
-            margin: 0 auto;
-          }
-
-          .description {
-            font-size: .8em;
-            text-transform: uppercase;
-            width: 8em;
-          }
-        }
-
-        .arrow {
-          margin-top: $number-radius - 18px;
-        }
+      .arrow {
+        margin-top: $number-radius - 18px;
       }
     }
+  }
+  .container {
 
     .loading {
       background: $primary-color;

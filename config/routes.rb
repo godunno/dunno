@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root controller: 'static', action: '/'
   devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/users' }
   mount_roboto
+
+  # TODO: Simplify these routes
   as :user do
     post 'api/v1/users/sign_in' => 'api/v1/sessions#create'
     post 'api/v1/users' => 'dashboard/users#create'
@@ -34,40 +36,19 @@ Rails.application.routes.draw do
       namespace :teacher do
         resources :notifications, only: [:create]
         resources :courses, only: [:index, :create, :update, :destroy, :show] do
+          # TODO: Check if this route is used
           member do
             get :students
           end
         end
         resources :events, only: [:index, :create, :update, :destroy, :show]
-        resources :polls, only: [] do
-          member do
-            patch :release
-          end
-        end
         resources :medias, only: [:index, :create, :update, :destroy] do
+          # TODO: Remove this route
           get 'preview', on: :collection
-          member do
-            patch :release
-          end
         end
         resources :topics, only: [:create, :update, :destroy] do
           member do
             patch :transfer
-          end
-        end
-        resources :personal_notes, only: [] do
-          member do
-            patch :transfer
-          end
-        end
-      end
-      resources :ratings, only: :create
-      resources :answers, only: :create
-      resource :timeline, only: [] do
-        resources :messages, only: [:create] do
-          member do
-            post :up
-            post :down
           end
         end
       end
@@ -78,9 +59,6 @@ Rails.application.routes.draw do
           delete :unregister
         end
       end
-      resources :organizations, only: [:index] do
-      end
-
       namespace :utils do
         get 's3/credentials' => 's3#credentials'
       end

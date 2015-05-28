@@ -124,13 +124,12 @@
 .new__topic__form {
   background: $white;
   border: 1px solid $light-grey-color;
-  padding: 0 .75em;
 
   .select__item__type {
     text-align: center;
 
     li {
-      padding-bottom: 0;
+      padding: 0;
     }
 
     a {
@@ -142,13 +141,23 @@
       &.active {
         border-bottom-color: $secondary-color;
         color: $secondary-color;
+
+        .icon {
+          background-color: $secondary-color;
+        }
       }
     }
 
     .icon {
+      background-color: $light-grey-color;
+      border-radius: 3em;
+      color: $white;
       display: inline-block;
       font-size: 1.25em;
+      height: 1.75em;
+      line-height: 2em;
       margin-top: .5em;
+      width: 1.75em;
     }
   }
 }
@@ -245,8 +254,8 @@
   clear: both;
 
   &:after {
-    content: '';
     clear: both;
+    content: '';
     display: block;
   }
 
@@ -293,8 +302,8 @@
   }
 
   .topic__item__description {
-    margin-left: 2.5em;
     display: block;
+    margin-left: 2.5em;
     word-wrap: break-word;
   }
 
@@ -387,6 +396,8 @@
 }
 
 .summary__tasks {
+  min-height: 1em;
+
   &.previous__event__tasks {
     padding-left: 1em;
 

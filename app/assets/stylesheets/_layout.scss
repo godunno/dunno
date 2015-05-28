@@ -3,6 +3,16 @@ $page-header-margin: 2em;
 $page-subtitle-height: 4em;
 $box-shadow: 0 2px 2px #ccc; // NEW_COLOUR
 
+.tab-bar.show-for-small {
+  .icons.icon-dunno-logo {
+    color: $white;
+    font-size: 1.5em;
+    margin-left: .5em;
+    opacity: .5;
+    vertical-align: -4px;
+  }
+}
+
 .vertical-center {
   position: relative;
   top: 50%;

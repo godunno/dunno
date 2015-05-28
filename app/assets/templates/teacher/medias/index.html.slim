@@ -60,7 +60,7 @@ header.page-header.title
     ul.medias.large-12
       li.media ng-repeat="media in medias"
         .vertical-bar
-        .thumbnail
+        a.thumbnail ng-href="{{media.url}}"
           img ng-src="{{media.thumbnail}}"
         .data
           .top
