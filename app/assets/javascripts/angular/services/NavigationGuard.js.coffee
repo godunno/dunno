@@ -6,6 +6,7 @@ DunnoAppStudent = angular.module('DunnoAppStudent')
 NavigationGuard = ($window, $rootScope) ->
 
   edits = 0
+  reset = -> edits = 0
   startEditing = ->
     edits++
   finishEditing = ->
@@ -22,7 +23,9 @@ NavigationGuard = ($window, $rootScope) ->
 
   exitHandler = (event)->
     if message = confirmMessage()
-      if !confirm(message)
+      if confirm(message)
+        reset()
+      else
         event.preventDefault()
 
   confirmMessage = ->
