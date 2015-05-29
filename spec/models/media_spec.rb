@@ -6,7 +6,7 @@ describe Media do
 
   describe "associations" do
     it { should belong_to(:mediable) }
-    it { should belong_to(:teacher) }
+    it { should belong_to(:profile) }
   end
 
   describe "validations" do

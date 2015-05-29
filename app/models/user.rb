@@ -7,16 +7,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable,
          :validatable, :async
 
-  belongs_to :profile, polymorphic: true
+  belongs_to :profile
   has_many :api_keys
 
   validates :name, :phone_number, presence: true
 
   before_save :ensure_authentication_token
-
-  def profile_name
-    profile_type.downcase
-  end
 
   private
 

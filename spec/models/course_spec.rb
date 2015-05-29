@@ -5,15 +5,15 @@ describe Course do
   subject(:course) { build(:course) }
 
   describe "associations" do
-    it { is_expected.to belong_to(:teacher) }
+    it { is_expected.to have_one(:teacher) }
+    it { is_expected.to have_many(:students) }
     it { is_expected.to have_many(:events) }
     it { is_expected.to have_many(:weekly_schedules) }
     it { is_expected.to have_many(:notifications) }
-    it { is_expected.to have_and_belong_to_many(:students) }
   end
 
   describe "validations" do
-    [:teacher, :start_date, :end_date].each do |attr|
+    %w(start_date end_date).each do |attr|
       it { is_expected.to validate_presence_of(attr) }
     end
 
@@ -84,10 +84,10 @@ describe Course do
     end
   end
 
-  describe ".add_student" do
+  describe "#add_student" do
     before { course.save! }
 
-    let(:student) { create(:student) }
+    let(:student) { create(:profile) }
     context "adding a new student" do
       it { expect { course.add_student(student) }.to change { course.students.size }.by(1)  }
 
@@ -110,6 +110,20 @@ describe Course do
       abbreviation = "Calc I"
       course = create :course, name: "Cálculo I", abbreviation: abbreviation
       expect(course.abbreviation).to eq(abbreviation)
+    end
+  end
+
+  describe "memberships" do
+    let(:course) { create(:course, teacher: teacher, students: [student]) }
+    let(:teacher) { create(:profile) }
+    let(:student) { create(:profile) }
+
+    describe "#teacher" do
+      it { expect(course.teacher).to eq(teacher) }
+    end
+
+    describe "#students" do
+      it { expect(course.students).to eq([student]) }
     end
   end
 end

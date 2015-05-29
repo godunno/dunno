@@ -44,17 +44,4 @@ describe User do
       end
     end
   end
-
-  describe "#profile_name" do
-    let(:user) { create(:user, profile: profile) }
-    context "when user is teacher" do
-      let(:profile) { create(:teacher) }
-      it { expect(user.profile_name).to eq("teacher") }
-    end
-
-    context "when user is student" do
-      let(:profile) { create(:student) }
-      it { expect(user.profile_name).to eq("student") }
-    end
-  end
 end
