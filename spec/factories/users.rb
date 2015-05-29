@@ -8,7 +8,7 @@ FactoryGirl.define do
     password { SecureRandom.base64(8) }
 
     trait :teacher_profile do
-      association :profile, factory: :teacher
+      association :profile, factory: :profile
     end
     trait :with_api_key do
       after(:create) do |user|
