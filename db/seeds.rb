@@ -1,4 +1,4 @@
-student = Student.create!(user: User.new(
+student = Profile.create!(user: User.new(
   name: "João da Silva",
   email: "joao@gmail.com",
   password: "#dunnovc",
@@ -6,14 +6,14 @@ student = Student.create!(user: User.new(
   authentication_token: "svyZww54cxoE3nE8Hqgo"
 ))
 
-Teacher.create!(user: User.new(
+Profile.create!(user: User.new(
   name: "Lucas Boscacci",
   email: "lucasboscacci@gmail.com",
   password: "MatteoLucas",
   phone_number: "+55 21 99999 9991"
 ))
 
-teacher = Teacher.create!(user: User.new(
+teacher = Profile.create!(user: User.new(
   name: "Girafales",
   email: "prof@dunno.vc",
   password: "#dunnovc",
@@ -32,8 +32,7 @@ course = Form::CourseForm.create(
 )
 course.update_attribute(:access_code, "5fd1")
 
-student.courses << course
-student.save
+course.add_student(student)
 
 CourseScheduler.new(course).schedule!
 
