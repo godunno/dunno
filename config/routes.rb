@@ -27,8 +27,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'dashboard/teacher' => 'dashboard/application#teacher'
-  get 'dashboard/student' => 'dashboard/application#student'
+  get 'dashboard' => 'dashboard/application#index'
 
   namespace :api do
     namespace :v1 do
@@ -52,7 +51,7 @@ Rails.application.routes.draw do
           end
         end
       end
-      resources :events, only: [:index, :show]
+      resources :events, only: [:index, :show, :create, :update]
       resources :courses, only: [:index, :show] do
         member do
           post :register

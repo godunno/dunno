@@ -3,6 +3,12 @@ class Api::V1::ApplicationController < ApplicationController
   before_action :authenticate_user!
   rescue_from ActiveRecord::RecordInvalid, with: :render_invalid_record
 
+  protected
+
+  def current_profile
+    current_user.profile
+  end
+
   private
 
   def render_invalid_record(exception)

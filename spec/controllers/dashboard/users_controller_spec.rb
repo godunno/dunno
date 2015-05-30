@@ -36,7 +36,6 @@ describe Dashboard::UsersController do
       it { expect(saved_user.email).to eq(user.email) }
       it { expect(saved_user.name).to eq(user.name) }
       it { expect(saved_user.phone_number).to eq(user.phone_number) }
-      it { expect(saved_user.profile).to be_a(Student) }
     end
   end
 
