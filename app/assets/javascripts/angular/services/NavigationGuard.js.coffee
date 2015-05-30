@@ -29,7 +29,7 @@ NavigationGuard = ($window, $rootScope) ->
         event.preventDefault()
 
   confirmMessage = ->
-    return "Existem dados não salvos na página." if edits > 0
+    return "Existem conteúdos que não foram inseridos na aula ainda." if edits > 0
 
   if $window.addEventListener
     $window.addEventListener "beforeunload", onBeforeUnloadHandler
