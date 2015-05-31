@@ -6,6 +6,7 @@ DunnoAppStudent = angular.module('DunnoAppStudent')
 NavigationGuard = ($window, $rootScope) ->
 
   edits = 0
+  reset = -> edits = 0
   startEditing = ->
     edits++
   finishEditing = ->
@@ -22,11 +23,13 @@ NavigationGuard = ($window, $rootScope) ->
 
   exitHandler = (event)->
     if message = confirmMessage()
-      if !confirm(message)
+      if confirm(message)
+        reset()
+      else
         event.preventDefault()
 
   confirmMessage = ->
-    return "Existem dados não salvos na página." if edits > 0
+    return "Existem conteúdos que não foram inseridos na aula ainda." if edits > 0
 
   if $window.addEventListener
     $window.addEventListener "beforeunload", onBeforeUnloadHandler
