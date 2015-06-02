@@ -154,6 +154,18 @@
   display: block;
   line-height: 2.5em;
 
+  &:hover {
+    background-color: darken($white, 10%);
+
+    .date__time,
+    .date__classroom,
+    .date__day,
+    .date__weekday,
+    .date__order {
+      color: $primary-color;
+    }
+  }
+
   &.has-tooltip {
     cursor: help;
   }
