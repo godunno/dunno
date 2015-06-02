@@ -63,7 +63,7 @@ header.page-header.title
                   ng-href="#events/{{event.uuid}}/edit"
                   ng-repeat="event in course.events"]
                   | {{event.start_at | date:'dd/MM/yyyy'}}
-                  span ng-if="!$last"
+                  span> ng-if="!$last"
                     | ,
                 | )
           a.media__url ng-href="{{media.url}}" target="_blank"

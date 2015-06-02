@@ -200,10 +200,10 @@
   z-index: 1;
 
   .type__file {
-    text-align: center;
-
     .media__file__button {
-      margin: .5em 0;
+      display: block;
+      margin: .5em auto;
+      width: 12em;
 
       .icon {
         vertical-align: middle;
