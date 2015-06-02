@@ -694,7 +694,7 @@ $off-canvas-bg: darken($primary-color, 10%);
 
 // Off Canvas Menu List Variables
 // $off-canvas-label-padding: 0.3rem rem-calc(15);
-$off-canvas-label-color: $dark-grey-color;
+$off-canvas-label-color: $white;
 // $off-canvas-label-text-transform: uppercase;
 // $off-canvas-label-font-weight: $font-weight-bold;
 $off-canvas-label-bg: rgba(255, 255, 255, .05);
@@ -702,11 +702,11 @@ $off-canvas-label-bg: rgba(255, 255, 255, .05);
 // $off-canvas-label-border-bottom: none;
 // $off-canvas-label-margin:0;
 // $off-canvas-link-padding: rem-calc(10, 15);
-$off-canvas-link-color: $dark-grey-color;
+$off-canvas-link-color: $white;
 // $off-canvas-link-border-bottom: 1px solid scale-color($off-canvas-bg, $lightness: -25%);
 
 // Off Canvas Menu Icon Variables
-$tabbar-menu-icon-color: $dark-grey-color;
+$tabbar-menu-icon-color: $white;
 $tabbar-menu-icon-hover: $dark-grey-color;
 
 // $tabbar-menu-icon-text-indent: rem-calc(35);
@@ -1206,9 +1206,9 @@ $topbar-dropdown-toggle-color: $black;
 // $topbar-dropdown-toggle-alpha: 0.4;
 
 // Set the link colors and styles for top-level nav
-$topbar-link-color: $dark-grey-color;
-$topbar-link-color-hover: $white;
-$topbar-link-color-active: $white;
+$topbar-link-color: $white;
+$topbar-link-color-hover: darken($white, 20%);
+$topbar-link-color-active: $secondary-color;
 $topbar-link-color-active-hover: $primary-color;
 // $topbar-link-weight: $font-weight-normal;
 $topbar-link-font-size: rem-calc(15);

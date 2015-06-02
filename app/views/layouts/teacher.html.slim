@@ -18,12 +18,16 @@ html lang="pt" ng-app="DunnoApp"
     .off-canvas-wrap data-offcanvas=''
       .inner-wrap
         = render layout: 'application/menu' do
+          / TODO: add active class whenever inside one of this contexts
           li
-            a href="#events" Aulas
+            a href="#events"
+              | Aulas
           li
-            a href="#courses" Disciplinas
+            a href="#courses"
+              | Disciplinas
           li
-            a href="#catalog" Catálogo
+            a href="#catalog"
+              | Catálogo
 
         .content ng-view="" cg-busy="wholePageLoading" ng-class="controller"
 
