@@ -52,10 +52,12 @@ Rails.application.routes.draw do
         end
       end
       resources :events, only: [:index, :show, :create, :update]
-      resources :courses, only: [:index, :show] do
+      resources :courses, only: [:index, :show, :create, :update, :destroy] do
         member do
           post :register
           delete :unregister
+          # TODO: Check if this route is used
+          get :students
         end
       end
       namespace :utils do
