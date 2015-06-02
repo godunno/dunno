@@ -6,7 +6,7 @@ LocalStorageWrapper = ->
     localStorage.setItem(key, angular.toJson(item))
 
   remove = (key) ->
-    localStorage.remove(key)
+    localStorage.removeItem(key)
 
   get = (key) ->
     angular.fromJson(localStorage.getItem(key))
