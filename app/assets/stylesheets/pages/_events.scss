@@ -122,14 +122,16 @@
             padding: 8px 0;
 
             .image {
-              display: inline-block;
+              display: none;
               vertical-align: top;
               width: 10%;
             }
 
             span {
-              display: inline-block;
-              width: 90%;
+              display: block;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
           }
         }
