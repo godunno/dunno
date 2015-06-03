@@ -1,4 +1,5 @@
 .catalog__page {
+  // TODO: extract to blankslate component
   .catalog__blankslate {
     .catalog__how-to {
       margin-top: 4em;
@@ -19,6 +20,7 @@
     }
   }
 
+  // TODO: extract to list search component
   .search-wrapper {
     position: relative;
 
@@ -38,12 +40,12 @@
       position: absolute;
     }
   }
+}
 
-  .catalog__medias {
-    @include radius();
-    background: $white;
-    border: 1px solid $light-grey-color;
-  }
+.catalog__medias {
+  @include radius();
+  background: $white;
+  border: 1px solid $light-grey-color;
 }
 
 .catalog__media {
