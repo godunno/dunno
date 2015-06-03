@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe Api::V1::Teacher::TopicsController do
-  let!(:teacher) { create(:teacher) }
+describe Api::V1::TopicsController do
+  let!(:teacher) { create(:profile) }
   let!(:course) { create(:course, teacher: teacher) }
   let!(:event) { create(:event, course: course, start_at: Time.now) }
 
-  describe "POST /api/v1/teacher/topics" do
+  describe "POST /api/v1/topics" do
     def do_action
-      post "/api/v1/teacher/topics.json", topic_params.merge(auth_params(teacher)).to_json
+      post "/api/v1/topics.json", topic_params.merge(auth_params(teacher)).to_json
     end
 
     context "successfully creating" do
@@ -154,10 +154,10 @@ describe Api::V1::Teacher::TopicsController do
     end
   end
 
-  describe "PATCH /api/v1/teacher/topics/:uuid" do
+  describe "PATCH /api/v1/topics/:uuid" do
 
     def do_action
-      patch "/api/v1/teacher/topics/#{topic.uuid}.json", topic_params.merge(auth_params(teacher)).to_json
+      patch "/api/v1/topics/#{topic.uuid}.json", topic_params.merge(auth_params(teacher)).to_json
     end
 
     context "successfuly updating" do
@@ -230,10 +230,10 @@ describe Api::V1::Teacher::TopicsController do
     end
   end
 
-  describe "DELETE /api/v1/teacher/topics/:uuid" do
+  describe "DELETE /api/v1/topics/:uuid" do
     let!(:topic) { create(:topic) }
     def do_action
-      delete "/api/v1/teacher/topics/#{topic.uuid}.json", auth_params(teacher).to_json
+      delete "/api/v1/topics/#{topic.uuid}.json", auth_params(teacher).to_json
     end
 
     it do
@@ -242,11 +242,11 @@ describe Api::V1::Teacher::TopicsController do
     end
   end
 
-  describe "PATCH /api/v1/teacher/topics/:uuid/transfer" do
+  describe "PATCH /api/v1/topics/:uuid/transfer" do
     let!(:topic) { create(:topic, event: event) }
     context "authenticated" do
       def do_action
-        patch "/api/v1/teacher/topics/#{topic.uuid}/transfer.json", auth_params(teacher).to_json
+        patch "/api/v1/topics/#{topic.uuid}/transfer.json", auth_params(teacher).to_json
       end
 
       context "there is a next event" do

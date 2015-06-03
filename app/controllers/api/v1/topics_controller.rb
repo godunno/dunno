@@ -1,8 +1,8 @@
-class Api::V1::Teacher::TopicsController < Api::V1::TeacherApplicationController
+class Api::V1::TopicsController < Api::V1::ApplicationController
   respond_to :json
 
   def create
-    event = current_teacher.events.find(create_params.delete(:event_id))
+    event = current_profile.events.find(create_params.delete(:event_id))
     @topic = Topic.new
     TopicForm.new(@topic, create_params).create!(event)
     render status: :created

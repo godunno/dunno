@@ -1,17 +1,17 @@
-class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
+class Api::V1::MediasController < Api::V1::ApplicationController
   respond_to :json
 
   def index
     @result = Media.search(media_search_params.merge(
       filter: {
-        teacher_id: current_teacher.id
+        profile_id: current_profile.id
       }
     ))
   end
 
   def create
     media_form = Form::MediaForm.new(media_create_params)
-    media_form.teacher = current_teacher
+    media_form.profile = current_profile
     if media_form.save
       @media = media_form.model
     else
@@ -35,7 +35,7 @@ class Api::V1::Teacher::MediasController < Api::V1::TeacherApplicationController
   private
 
   def media
-    @media ||= Media.where(uuid: params[:id]).first!
+    @media ||= current_profile.medias.find_by!(uuid: params[:id])
   end
 
   def media_params

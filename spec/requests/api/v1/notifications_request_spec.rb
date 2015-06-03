@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Api::V1::Teacher::NotificationsController do
-  let(:teacher) { create :teacher }
+describe Api::V1::NotificationsController do
+  let(:teacher) { create :profile }
 
-  describe "POST /api/v1/teacher/notifications.json" do
+  describe "POST /api/v1/notifications.json" do
     context "authenticated" do
       let(:message) { "MESSAGE" }
       let(:new_abbreviation) { "New Abbr" }
@@ -20,11 +20,11 @@ describe Api::V1::Teacher::NotificationsController do
       end
 
       def do_action
-        post "/api/v1/teacher/notifications.json", auth_params(teacher).merge(params_hash).to_json
+        post "/api/v1/notifications.json", auth_params(teacher).merge(params_hash).to_json
       end
 
       context "trying to notificate another teacher's course" do
-        let(:course) { create :course, teacher: create(:teacher) }
+        let(:course) { create :course, teacher: create(:profile) }
 
         it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
       end

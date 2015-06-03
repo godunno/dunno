@@ -92,8 +92,9 @@ describe Media do
   end
 
   describe "::search", :elasticsearch do
-    let!(:old_media) { create :media }
-    let!(:new_media) { create :media }
+    let(:profile) { create(:profile) }
+    let!(:old_media) { create(:media) }
+    let!(:new_media) { create(:media, profile: profile) }
 
     before { refresh_index! }
 
@@ -103,6 +104,10 @@ describe Media do
 
     it "can set a number of items per page" do
       expect(Media.search(per_page: 1).records.to_a).to eq([new_media])
+    end
+
+    it "can filter by profile" do
+      expect(Media.search(filter: { profile_id: profile.id }).records.to_a).to eq([new_media])
     end
   end
 end
