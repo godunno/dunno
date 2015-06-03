@@ -2,9 +2,9 @@
   // TODO: extract to blankslate component
   .catalog__blankslate {
     .catalog__how-to {
-      margin-top: 4em;
       font-family: 'Chalkduster';
       font-size: 1.4em;
+      margin-top: 4em;
 
       img {
         float: right;
@@ -25,8 +25,8 @@
     position: relative;
 
     input {
-      max-height: 3.23em;
       height: 3.23em;
+      max-height: 3.23em;
       padding-right: 2em;
     }
 
@@ -34,10 +34,10 @@
       background: none;
       color: $light-grey-color;
       font-size: 1.5em;
-      right: .25em;
-      top: .35em;
       padding: 0;
       position: absolute;
+      right: .25em;
+      top: .35em;
     }
   }
 }
