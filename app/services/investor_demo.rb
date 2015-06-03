@@ -11,7 +11,7 @@ class InvestorDemo
     User.create!(
       name: name,
       email: email,
-      phone_number: "021967135534",
+      phone_number: "21967135534",
       password: SecureRandom.hex(4),
       profile: Teacher.new
     )
