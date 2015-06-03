@@ -44,4 +44,17 @@ describe User do
       end
     end
   end
+
+  describe "#profile_name" do
+    it "has the role of teacher in a course" do
+      user.profile = create(:profile)
+      create(:course, teacher: user.profile)
+      expect(user.profile_name).to eq('teacher')
+    end
+
+    it "doesn't have the role of teacher in any course" do
+      user.profile = create(:profile)
+      expect(user.profile_name).to eq('student')
+    end
+  end
 end

@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
 
   before_save :ensure_authentication_token
 
+  def profile_name
+    profile.memberships.where(role: 'teacher').any? ? 'teacher' : 'student'
+  end
+
   private
 
     def ensure_authentication_token
