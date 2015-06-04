@@ -14,15 +14,16 @@ header.page-header.title
       name="media_search"
       ng-submit="fetch()"]
       .row.collapse
-        .small-10.columns.search-wrapper
+        .small-11.columns.search-wrapper
           input[
             name="q"
             ng-model="search.q"
             placeholder="Procure por assunto, palavra-chave ou tags"
             type="text"]
           a.button.icon.icon-close ng-click="clearSearch()"
-        .small-2.columns
-          button.button.small.icon.icon-search.expand
+        .small-1.columns
+          button.button.small.secondary.expand
+            .icon.icon-search
   .small-12.columns
     h2 ng-if="medias.length == 0 && !showTutorial()"
       | Nenhum resultado encontrado.
