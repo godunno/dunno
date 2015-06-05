@@ -688,6 +688,3 @@ DEPENDENCIES
   virtus (= 1.0.4)
   webmock (= 1.20.4)
   will_paginate (= 3.0.7)
-
-BUNDLED WITH
-   1.10.2
