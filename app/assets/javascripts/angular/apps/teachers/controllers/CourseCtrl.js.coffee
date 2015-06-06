@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
 # TODO: Separar controller de show e edit
-CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils, course)->
+CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)->
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
@@ -9,9 +9,14 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils, course)
 
   $scope.course.weekly_schedules = [{}]
 
-  $scope.eventClass = (event)-> DateUtils.locationInTime(event.start_at)
+  $scope.eventClass = (event)->
+    klass = DateUtils.locationInTime(event.start_at)
+    klass += " has-tooltip" if $scope.hideEvent(event)
+    klass
 
-  $scope.statusFor = (event)-> event.formatted_status
+  $scope.statusFor = (event)->
+    return "empty" if $scope.course.isStudent() && event.formatted_status == "draft"
+    event.formatted_status
 
   $scope.fetch = (month)->
     $scope.$emit('wholePageLoading', Course.get({ uuid: $routeParams.id }, { month: month || $routeParams.month }).then (course)->
@@ -37,10 +42,28 @@ CourseCtrl = ($scope, Course, $location, $routeParams, Utils, DateUtils, course)
       course.end_date   = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
       course
 
-  $scope.eventPath = (event)-> "#/events/#{event.uuid}/edit"
+  $scope.eventPath = (event)->
+    return if $scope.hideEvent(event)
+    "#/events/#{event.uuid}"
+
+  $scope.hideEvent = (event)->
+    return false if $scope.course.isTeacher()
+    (['empty', 'canceled'].indexOf $scope.statusFor(event)) != -1
+
+  $scope.tooltipMessage = (event)->
+    return undefined unless $scope.hideEvent(event)
+    if $scope.statusFor(event) == 'canceled'
+      'Esta aula foi cancelada'
+    else
+      'Esta aula ainda está vazia'
+
+  $scope.register = (course)->
+    course.register().then ->
+      SessionManager.fetchUser().then ->
+        $location.path "/courses"
 
 CourseCtrl.$inject = [
-  '$scope', 'Course', '$location', '$routeParams', 'Utils', 'DateUtils', 'course'
+  '$scope', '$location', '$routeParams', 'Course', 'Utils', 'DateUtils', 'course'
 ]
 DunnoApp.controller 'CourseCtrl', CourseCtrl
 
