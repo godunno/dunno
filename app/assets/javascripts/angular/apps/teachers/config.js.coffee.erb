@@ -45,11 +45,11 @@ Router = ($routeProvider, CoursesResolver, CourseResolver, EventsResolver, Event
 
     ).when('/events/new'
       controller: 'EventCtrl'
-      templateUrl: '<%= asset_path('events/form.html') %>'
+      templateUrl: '<%= asset_path('events/show.html') %>'
 
     ).when('/events/:id'
       controller: 'EventCtrl'
-      templateUrl: '<%= asset_path('events/form.html') %>'
+      templateUrl: '<%= asset_path('events/show.html') %>'
       resolve: { event: EventResolver }
 
     ).when('/catalog'
