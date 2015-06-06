@@ -34,4 +34,13 @@ describe Profile, type: :model do
       end
     end
   end
+
+  describe "#role_in" do
+    let(:course) { create(:course, teacher: teacher, students: [student]) }
+    let(:teacher) { create(:profile) }
+    let(:student) { create(:profile) }
+
+    it { expect(teacher.role_in(course)).to eq('teacher') }
+    it { expect(student.role_in(course)).to eq('student') }
+  end
 end

@@ -1,2 +1,2 @@
-ng-include src="students/courses/show.html" ng-if="course.isStudent()"
-ng-include src="teacher/courses/show.html" ng-if="course.isTeacher()"
+ng-include src="students/courses/show.html" ng-if="course.user_role == 'student'"
+ng-include src="teacher/courses/show.html" ng-if="course.user_role == 'teacher'"

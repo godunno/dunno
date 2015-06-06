@@ -15,7 +15,7 @@ CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)
     klass
 
   $scope.statusFor = (event)->
-    return "empty" if $scope.course.isStudent() && event.formatted_status == "draft"
+    return "empty" if $scope.course.user_role == 'student' && event.formatted_status == "draft"
     event.formatted_status
 
   $scope.fetch = (month)->
@@ -47,7 +47,7 @@ CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)
     "#/events/#{event.uuid}"
 
   $scope.hideEvent = (event)->
-    return false if $scope.course.isTeacher()
+    return false if $scope.course.user_role == 'teacher'
     (['empty', 'canceled'].indexOf $scope.statusFor(event)) != -1
 
   $scope.tooltipMessage = (event)->

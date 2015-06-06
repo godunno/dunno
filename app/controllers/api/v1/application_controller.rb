@@ -2,6 +2,7 @@ class Api::V1::ApplicationController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :authenticate_user!
   rescue_from ActiveRecord::RecordInvalid, with: :render_invalid_record
+  helper_method :current_profile
 
   protected
 

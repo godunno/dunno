@@ -1,5 +1,5 @@
 json.course do
-  CourseBuilder.new(@course).build!(json, show_teacher: true)
+  CourseBuilder.new(@course).build!(json, show_teacher: true, profile: current_profile)
   json.cache! ['course-show/events', @events.maximum(:updated_at)] do
     json.events @events do |event|
       json.cache! ['course-show/event', event] do

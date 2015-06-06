@@ -43,6 +43,7 @@ describe Api::V1::CoursesController do
           "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
           "weekly_schedules" => [],
           "students_count" => 1,
+          "user_role" => "teacher",
           "teacher" => { "name" => teacher.name }
         }])
       end
@@ -56,7 +57,7 @@ describe Api::V1::CoursesController do
     let!(:event_from_another_teacher) { create(:event, course: create(:course, teacher: create(:profile))) }
     let!(:event_from_another_course) { create(:event, course: create(:course, teacher: teacher)) }
 
-    shared_examples_for "get course" do
+    shared_examples_for "get course" do |role|
 
       def do_action(parameters = {})
         get "/api/v1/courses/#{identifier}.json", auth_params(profile).merge(parameters)
@@ -86,6 +87,7 @@ describe Api::V1::CoursesController do
               "weekly_schedules" => [],
               "students_count" => 1,
               "teacher" => {"name" => teacher.name},
+              "user_role" => role,
               "events" => [{
                 "id" => event.id,
                 "uuid" => event.uuid,
@@ -173,12 +175,12 @@ describe Api::V1::CoursesController do
 
     context "as teacher" do
       let(:profile) { teacher }
-      it_behaves_like "get course"
+      it_behaves_like "get course", 'teacher'
     end
 
     context "as student" do
       let(:profile) { student }
-      it_behaves_like "get course"
+      it_behaves_like "get course", 'student'
     end
   end
 
