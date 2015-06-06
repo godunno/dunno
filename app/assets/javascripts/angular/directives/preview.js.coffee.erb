@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 previewCtrl = ['$scope', ($scope)->
   $scope.removeMedia = ->
@@ -18,5 +17,3 @@ preview = ->
 
 DunnoApp.controller 'previewCtrl', previewCtrl
 DunnoApp.directive 'preview', preview
-DunnoAppStudent.controller 'previewCtrl', previewCtrl
-DunnoAppStudent.directive 'preview', preview

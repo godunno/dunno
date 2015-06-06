@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 ErrorParser = ->
   @setErrors = (errors, form, scope)->
@@ -18,4 +17,3 @@ ErrorParser = ->
   @
 
 DunnoApp.service 'ErrorParser', ErrorParser
-DunnoAppStudent.service 'ErrorParser', ErrorParser

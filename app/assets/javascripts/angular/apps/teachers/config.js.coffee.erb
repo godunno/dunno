@@ -1,9 +1,9 @@
-#= depend_on_asset "teacher/courses/index.html"
-#= depend_on_asset "teacher/courses/form.html"
-#= depend_on_asset "teacher/courses/show.html"
-#= depend_on_asset "teacher/events/index.html"
-#= depend_on_asset "teacher/events/form.html"
-#= depend_on_asset "teacher/medias/index.html"
+#= depend_on_asset "courses/index.html"
+#= depend_on_asset "courses/form.html"
+#= depend_on_asset "courses/show.html"
+#= depend_on_asset "events/index.html"
+#= depend_on_asset "events/show.html"
+#= depend_on_asset "medias/index.html"
 
 DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet']
 
@@ -18,6 +18,15 @@ Router = ($routeProvider, CoursesResolver, CourseResolver, EventsResolver, Event
       controller: 'CourseCtrl'
       templateUrl: '<%= asset_path('courses/form.html') %>'
 
+    ).when('/courses/search'
+      controller: 'CourseSearchCtrl'
+      templateUrl: '<%= asset_path('courses/search.html') %>'
+
+    ).when('/courses/:id/confirm_registration'
+      controller: 'CourseCtrl'
+      templateUrl: '<%= asset_path('courses/confirm_registration.html') %>'
+      resolve: { course: CourseResolver }
+
     ).when('/courses/:id/edit',
       controller: 'CourseCtrl'
       templateUrl: '<%= asset_path('courses/form.html') %>'
@@ -28,15 +37,6 @@ Router = ($routeProvider, CoursesResolver, CourseResolver, EventsResolver, Event
       templateUrl: '<%= asset_path('courses/show.html') %>'
       resolve: { course: CourseResolver }
       reloadOnSearch: false
-
-    ).when('/courses/search'
-      controller: 'CourseSearchCtrl'
-      templateUrl: '<%= asset_path('courses/search.html') %>'
-
-    ).when('/courses/:id/confirm_registration'
-      controller: 'CourseCtrl'
-      templateUrl: '<%= asset_path('courses/confirm_registration.html') %>'
-      resolve: { course: CourseResolver }
 
     ).when('/events'
       controller: 'EventsIndexCtrl'
@@ -76,7 +76,7 @@ DunnoApp.config(["railsSerializerProvider", "tagsInputConfigProvider", (railsSer
 DunnoApp.constant('AUTOSAVE_INTERVAL', 5000)
 
 DunnoApp.value('cgBusyDefaults',
-  templateUrl: '<%= asset_path('shared/_loading.html') %>',
+  templateUrl: '<%= asset_path('_loading.html') %>',
   minDuration: 500,
   wrapperClass: 'cg-busy cg-busy-animation ng-animate'
 )

@@ -62,7 +62,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"
-        href="#events/{{event.previous.uuid}}/edit"
+        href="#events/{{event.previous.uuid}}"
         analytics-on="click"
         analytics-event="Event Navigation"
         analytics-name="previous"
@@ -91,7 +91,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .show-for-small.small-1.columns
           a.previous__event.mobile__day__navigation[
             ng-if="!!event.previous.uuid"
-            href="#events/{{event.previous.uuid}}/edit"
+            href="#events/{{event.previous.uuid}}"
             analytics-on="click"
             analytics-event="Event Navigation"
             analytics-name="previous"
@@ -109,7 +109,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .show-for-small.small-1.columns
           a.next__event.mobile__day__navigation[
             ng-if="!!event.next.uuid"
-            href="#events/{{event.next.uuid}}/edit"
+            href="#events/{{event.next.uuid}}"
             analytics-on="click"
             analytics-event="Event Navigation"
             analytics-name="next"
@@ -250,7 +250,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     cg-busy="loadingNextPage"]
                     | Carregar mais&hellip;
 
-            ng-include src="'#{asset_path('teacher/topics/new_topic_actions.html')}'"
+            ng-include src="'#{asset_path('topics/new_topic_actions.html')}'"
         #topics-list.topic__items[
           ui-sortable="sortableOptions('topics')"
           ng-model="event.topics"]
@@ -316,7 +316,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 .edit__topic__actions
                   a.cancel.button.tiny.transparent.radius ng-click="cancelEditing(topic)"
                     | Cancelar
-                  ng-include src="'#{asset_path('teacher/topics/topic_edit_personal.html')}'"
+                  ng-include src="'#{asset_path('topics/topic_edit_personal.html')}'"
                   a.save__edit__topic__item.radius.button.secondary.tiny[
                     ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
                     ng-click="finishEditing(topic)"
@@ -325,7 +325,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .hide-for-small.medium-3.columns
       a.next__event[
         ng-if="!!event.next.uuid"
-        href="#events/{{event.next.uuid}}/edit"
+        href="#events/{{event.next.uuid}}"
         analytics-on="click"
         analytics-event="Event Navigation"
         analytics-name="next"

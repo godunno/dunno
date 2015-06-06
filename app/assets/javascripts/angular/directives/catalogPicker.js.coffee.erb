@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 CatalogPickerCtrl = ($scope, $rootScope, MediaSearcher)->
   MediaSearcher.inject($scope)
@@ -8,11 +7,10 @@ CatalogPickerCtrl = ($scope, $rootScope, MediaSearcher)->
 CatalogPickerCtrl.$inject = ['$scope', '$rootScope', 'MediaSearcher']
 
 DunnoApp.controller 'CatalogPickerCtrl', CatalogPickerCtrl
-DunnoAppStudent.controller 'CatalogPickerCtrl', CatalogPickerCtrl
 
 catalogPicker = ->
   controller: 'CatalogPickerCtrl'
-  templateUrl: '<%= asset_path('shared/catalog/_picker.html') %>'
+  templateUrl: '<%= asset_path('catalog/_picker.html') %>'
   link: (scope, element, attrs)->
     scope.select = (media)->
       scope.$emit('catalog-picker.selected', media)
@@ -23,4 +21,3 @@ catalogPicker = ->
       scope.fetch()
 
 DunnoApp.directive 'catalogPicker', catalogPicker
-DunnoAppStudent.directive 'catalogPicker', catalogPicker

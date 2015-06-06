@@ -1,4 +1,4 @@
-DunnoAppStudent = angular.module('DunnoAppStudent')
+DunnoApp = angular.module('DunnoApp')
 
 CourseSearchCtrl = ($scope, $location, Course, SessionManager, PageLoading)->
   $scope.search = (access_code)->
@@ -12,4 +12,4 @@ CourseSearchCtrl = ($scope, $location, Course, SessionManager, PageLoading)->
         $scope.error = true
 
 CourseSearchCtrl.$inject = ['$scope', '$location', 'Course', 'SessionManager', 'PageLoading']
-DunnoAppStudent.controller 'CourseSearchCtrl', CourseSearchCtrl
+DunnoApp.controller 'CourseSearchCtrl', CourseSearchCtrl

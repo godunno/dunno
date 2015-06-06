@@ -1,7 +1,7 @@
 json.array! @events do |event|
-  EventBuilder.new(event).build!(
-    json,
-    show_topics: true,
-    show_course: true
-  )
+  json.partial! 'api/v1/events/event', event: event
+  json.course do
+    json.partial! 'api/v1/courses/course', course: event.course
+  end
+  json.topics event.topics, partial: 'api/v1/topics/topic', as: :topic
 end

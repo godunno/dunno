@@ -1,7 +1,6 @@
 # http://blog.somewhatabstract.com/2014/06/15/navigation-guard-using-angularjs-onbeforeunload/#rf1-1979
 
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 NavigationGuard = ($window, $rootScope) ->
 
@@ -47,4 +46,3 @@ NavigationGuard = ($window, $rootScope) ->
 NavigationGuard.$inject = ['$window', '$rootScope']
 
 DunnoApp.factory "NavigationGuard", NavigationGuard
-DunnoAppStudent.factory "NavigationGuard", NavigationGuard

@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 ApplicationCtrl = ($scope, $window, $rootScope, SessionManager, TutorialsManager, NonLoggedRoutes, NavigationGuard)->
   $rootScope.$on '$locationChangeStart', (event)->
@@ -25,4 +24,3 @@ ApplicationCtrl = ($scope, $window, $rootScope, SessionManager, TutorialsManager
 
 ApplicationCtrl.$inject = ['$scope', '$window', '$rootScope', 'SessionManager', 'TutorialsManager', 'NonLoggedRoutes', 'NavigationGuard']
 DunnoApp.controller 'ApplicationCtrl', ApplicationCtrl
-DunnoAppStudent.controller 'ApplicationCtrl', ApplicationCtrl
