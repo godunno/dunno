@@ -15,6 +15,7 @@ $overlay-z-index: 999;
 }
 
 .overlay {
+  @include radius(.3125em);
   height: 100%;
   left: 0;
   position: absolute;
