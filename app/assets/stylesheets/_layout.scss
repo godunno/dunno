@@ -81,10 +81,9 @@ $box-shadow: 0 2px 2px $light-grey-color;
   *zoom: 1;
 }
 
-.inner-wrap {
-  // height: 100vh;
-}
-
+.inner-wrap,
 .content {
-  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  position: absolute;
 }
