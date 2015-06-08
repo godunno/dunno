@@ -14,7 +14,6 @@
 
 .overlay.published {
   background-color: $primary-color;
-  opacity: .9;
   text-align: center;
   text-transform: uppercase;
 }
@@ -26,4 +25,23 @@
 
 .card-content.padding {
   padding: 1.25em;
+}
+
+.card {
+  .overlay {
+    .button {
+      transform: translateY(-30%);
+      transition: all .15s ease-in-out;
+    }
+
+    &:hover {
+      .button {
+        transform: translateY(-50%);
+
+        &:hover {
+          opacity: .8;
+        }
+      }
+    }
+  }
 }

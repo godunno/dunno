@@ -4,12 +4,12 @@ $overlay-z-index: 999;
   position: relative;
 
   .overlay {
-    display: none;
+    opacity: 0;
   }
 
   .no-touch &:hover {
     .overlay {
-      display: block;
+      opacity: .9;
     }
   }
 }
@@ -20,6 +20,7 @@ $overlay-z-index: 999;
   left: 0;
   position: absolute;
   top: 0;
+  transition: all .1s ease-in-out;
   width: 100%;
   z-index: $overlay-z-index;
 }
