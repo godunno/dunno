@@ -1,15 +1,7 @@
-@media #{$small-only} {
-  .login-page {
-    .logo {
-      height: 66px;
-    }
-  }
-}
-
-
 .login-page {
   background-color: $primary-color;
-  height: 100%;
+  min-height: 100%;
+  padding-bottom: 2em;
 
   @media #{$small-only} {
     min-height: 100%;
@@ -18,8 +10,20 @@
 
   .root-proxy {
     display: block;
-    padding: 2em 0;
+    padding: 3rem 0;
     text-align: center;
+
+    @media #{$small-only} {
+      padding: 1rem 0;
+    }
+  }
+
+  .logo {
+    height: 112px;
+
+    @media #{$small-only} {
+      height: 66px;
+    }
   }
 
   a {
@@ -27,21 +31,22 @@
   }
 
   .login-container {
-    @include rounded-container(6px);
-  }
-
-  .login-form,
-  .login-info {
+    @include radius();
     background-color: $white;
-    margin: auto;
-    overflow: hidden;
+
+    h4 {
+      padding: 2rem 0;
+      text-align: center;
+
+      @media #{$small-only} {
+        padding: 1rem 0;
+      }
+    }
   }
 
-  .login-info {
-    border-bottom: 1px solid $light-grey-color;
-    font-size: 1.2em; // 19.2px
-    padding: 1em;
-    text-align: center;
+  .login-form {
+    border-top: 1px solid $light-grey-color;
+    overflow: hidden;
   }
 
   .signup,
@@ -85,11 +90,9 @@
 }
 
 .login-form {
-  padding: 1em;
+  padding: 1rem 1.5rem;
 
   label {
-    font-size: 1em; // 16px
-    font-weight: 700;
     text-transform: uppercase;
   }
 
@@ -128,5 +131,9 @@
   [type='password'],
   [type='button'] {
     min-height: 2.75em; // = 44px / apple min touch target size
+  }
+
+  .error {
+    margin-top: -1rem;
   }
 }
