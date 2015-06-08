@@ -148,7 +148,7 @@ $h4-font-size: rem-calc(22);
 // $subheader-bottom-margin: .5rem;
 
 // A general <small> styling
-$small-font-size: 80%;
+$small-font-size: rem-calc(14);
 // $small-font-color: scale-color($header-font-color, $lightness: 35%);
 
 // We use these to style paragraphs

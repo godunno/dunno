@@ -45,10 +45,11 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
   a.close-reveal-modal ng-click="reset()"
     | &#215;
   .modal-header
-    h3
-      | ENVIAR NOTIFICAÇÃO
+    h5
+      | Enviar Notificação
     p
-      | A notificação será entregue aos alunos por <b>SMS</b> ou <b>e-mail</b>, de acordo com as configurações de privacidade dos mesmos.
+      small
+        | A notificação será entregue aos alunos por <b>SMS</b> ou <b>e-mail</b>, de acordo com as configurações de privacidade dos mesmos.
   form name="notification_form" ng-submit="save(notification)"
     span.error ng-if="notification_form.abbreviation.$invalid" ng-messages="notification_form.abbreviation.$error"
       span ng-message="blank"
@@ -65,9 +66,10 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
       span ng-message="too_long"
         | A mensagem é muito longa (máximo de 140 caracteres)
     .row
-      .small-6.columns
+      .small-12.medium-7.columns
         label for="abbreviation"
-          | Abreviação da Disciplina
+          b
+            | Abreviação da Disciplina
         input#abbreviation.abbreviation[
           type="text"
           ng-model="course.abbreviation"
@@ -75,7 +77,8 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
           required=true
         ]
         label for="message"
-          | Mensagem
+          b
+            | Mensagem
         textarea#message[
           name="message"
           ng-model="notification.message"
@@ -87,15 +90,21 @@ div ng-include="'#{asset_path('shared/_course_page_header.html')}'"
           ng-disabled="isSending()"
           ng-focus="setReady()"
         ]
-        span.counter
-          | Caracteres restantes: {{limit - notification.message.length}}
-      .small-6.columns
-        .hide-for-small
-          label
+        .row.collapse
+          .small-12.medium-6.columns
+            span.counter
+              | Caracteres restantes: {{limit - notification.message.length}}
+          .small-12.medium-6.columns
+            .actions.right
+              input.button.secondary.small.radius[
+                type="submit"
+                ng-disabled="notification_form.$invalid || !isReady()"
+                value="{{sendButtonText()}}"]
+      .medium-5.columns.hide-for-small
+        label
+          b
             | Pré-visualização da mensagem
-          .preview.panel disabled=true
-            | [Dunno] {{course.abbreviation}} - {{notification.message | transliterate}}
+        .preview.panel disabled=true
+          | [Dunno] {{course.abbreviation}} - {{notification.message | transliterate}}
         span.error ng-if="hasError && !notification_form.$invalid"
           | Ocorreu um erro ao enviar a mensagem.
-        .actions.right
-          input.button.secondary.small type="submit" ng-disabled="notification_form.$invalid || !isReady()" value="{{sendButtonText()}}"
