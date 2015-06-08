@@ -72,7 +72,8 @@ describe Api::V1::EventsController do
               "order" => course.order,
               "access_code" => course.access_code,
               "institution" => course.institution,
-              "abbreviation" => course.abbreviation,
+              "user_role" => profile.role_in(course),
+              "teacher" => { "name" => course.teacher.name },
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
               "weekly_schedules" => [],
               "students_count" => 0
