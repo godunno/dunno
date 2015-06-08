@@ -200,10 +200,10 @@
   z-index: 1;
 
   .type__file {
-    text-align: center;
-
     .media__file__button {
-      margin: .5em 0;
+      display: block;
+      margin: .5em auto;
+      width: 12em;
 
       .icon {
         vertical-align: middle;
@@ -413,7 +413,6 @@
       padding-left: .5em;
     }
   }
-
 }
 
 .summary__task {
@@ -471,71 +470,6 @@
       font-size: .875em;
       text-align: center;
     }
-  }
-}
-
-.catalog__media {
-  border-bottom: 1px solid $light-grey-color;
-  padding: .75em 1em;
-
-  .media__thumbnail,
-  .media__data,
-  .media__select__label {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  .media__thumbnail {
-    @include radius();
-    background-size: contain;
-    height: 2.75em;
-    margin-right: .5em;
-    vertical-align: middle;
-    width: 2.75em;
-  }
-
-  .media__select {
-    display: none;
-  }
-
-  .media__title {
-    color: $primary-color;
-    display: block;
-    font-weight: normal;
-    margin-bottom: .5em;
-  }
-
-  .media__data {
-    max-width: 60%;
-  }
-
-  .media__url {
-    .icon {
-      background-color: $dark-grey-color;
-      border-radius: 2em;
-      color: $white;
-      display: inline-block;
-      font-size: .875em;
-      height: 1.5em;
-      line-height: 1em;
-      padding: .25em;
-      vertical-align: middle;
-      width: 1.5em;
-    }
-
-    span {
-      color: $secondary-color;
-    }
-  }
-
-  input[type=radio] + label {
-    background: image-url('temp-radio-unchecked.png');
-    height: 16px;
-    width: 16px;
-  }
-
-  input[type=radio]:checked + label {
-    background: image-url('temp-radio-checked.png');
   }
 }
 

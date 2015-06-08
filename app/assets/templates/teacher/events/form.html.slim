@@ -235,15 +235,16 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                       ng-value="media"
                       id="{{media.uuid}}"]
                     label.media__select__label for="{{media.uuid}}"
-                    span.media__thumbnail style="background-image: url({{media.thumbnail}});"
-                    span.media__data
-                      strong.media__title
-                        | {{media.title}}
-                      a.media__url ng-href="{{media.url}}" target="_blank"
-                        i.media__type__icon.icon>[
-                          ng-class="'icon-' + media.type"]
-                        span
-                          | {{formatMediaUrl(media)}}
+                    .media__contents
+                      span.media__thumbnail style="background-image: url({{media.thumbnail}});"
+                      span.media__data
+                        strong.media__title
+                          | {{media.title}}
+                        a.media__url ng-href="{{media.url}}" target="_blank"
+                          i.media__type__icon.icon>[
+                            ng-class="'icon-' + media.type"]
+                          span
+                            | {{formatMediaUrl(media)}}
                 .load__more ng-if="next_page"
                   a.load__more__media[
                     ng-click="paginate(next_page)"
