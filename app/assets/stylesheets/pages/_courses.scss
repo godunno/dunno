@@ -1,47 +1,18 @@
-.list--courses {
+.courses__list {
   @extend %cards-container;
 }
 
-.card--course {
+.course__card {
   a {
     @extend %card;
   }
 
-  .period {
+  .course__period {
     text-transform: capitalize;
   }
-}
 
-.overlay.published {
-  background-color: $primary-color;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.course-title {
-  margin-bottom: 0;
-  margin-top: 0;
-}
-
-.card-content.padding {
-  padding: 1.25em;
-}
-
-.card {
-  .overlay {
-    .button {
-      transform: translateY(-30%);
-      transition: all .15s ease-in-out;
-    }
-
-    &:hover {
-      .button {
-        transform: translateY(-50%);
-
-        &:hover {
-          opacity: .8;
-        }
-      }
-    }
+  .course__institution,
+  .course__students__count {
+    text-align: right;
   }
 }

@@ -1,37 +1,45 @@
 header.page-header.title
   .row
-    .large-4.columns
-      /a.button.btn-style-1.radius href="#courses/new" Criar nova disciplina
-    .large-4.large-centered.columns
+    /
+      a.button.tiny.radius[href="#courses/new"]
+        | Criar nova disciplina
+    .small-12.columns
       h1
         | Disciplinas
-/ TODO: markup cleanup
-.courses-page
+.courses__page
   .row
-    ul.list--courses.small-block-grid-1.medium-block-grid-2
-      li.card.card--course ng-repeat="course in courses"
-        a.has-overlay ng-attr-id="{{ 'course-' + course.uuid }}" href="#/courses/{{course.uuid}}" analytics-on="click" analytics-event="Course Accessed" analytics-name="{{course.name}}" analytics-uuid="{{course.uuid}}"
+    ul.courses__list.small-block-grid-1.medium-block-grid-2
+      li.course__card ng-repeat="course in courses"
+        a.has-overlay[
+          ng-attr-id="{{ 'course-' + course.uuid }}"
+          href="#/courses/{{course.uuid}}"
+          analytics-on="click"
+          analytics-event="Course Accessed"
+          analytics-name="{{course.name}}"
+          analytics-uuid="{{course.uuid}}"]
           .overlay.published
             .button.btn-style-transparent-1.radius.vertical-center
               | ver disciplina
-          div.title.padding ng-class="'scheme-' + course.order"
-            h2.card-title
+          .card__header[
+            ng-class="'scheme-' + course.order"]
+            h2.card__title
               | {{course.name}}
-            .card-subtitle.translucent.padding-top
-              strong
+            .card__subtitle.row
+              strong.small-6.columns
                 | {{course.class_name}}
-              span.right
+              span.small-6.columns.course__institution
                 | {{course.institution}}
-          .card-content.padding
-            .translucent
-              .cf
-                .period.left
-                  i.icon.icon-calendar.margin-right
-                  span
-                    | {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
-                .students.right
-                  i.icon.icon-users.margin-right
-                  span count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
+          .card__content.row
+            .small-6.columns.course__period
+              i.icon.icon-calendar>
+              span
+                | {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
+            .small-6.columns.course__students__count
+              i.icon.icon-users>
+              span[
+                count="course.students_count"
+                ng-pluralize=true
+                when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}"]
   tutorial.tutorial-1 ng-if="tutorialEnabled(1)" on-close="tutorialClosed(1)"
     p
       | Comece entrando em uma de suas disciplinas.

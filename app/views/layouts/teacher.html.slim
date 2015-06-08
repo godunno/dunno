@@ -7,7 +7,7 @@ html lang="pt" ng-app="DunnoApp"
     title Dunno
 
     / TODO: remove unused fonts to improve page load performance
-    link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'
+    link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'
 
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "modernizer"
@@ -18,14 +18,14 @@ html lang="pt" ng-app="DunnoApp"
     .off-canvas-wrap data-offcanvas=''
       .inner-wrap
         = render layout: 'application/menu' do
-          / TODO: add active class whenever inside one of this contexts
-          li
+          / TODO: keep active class to <LI>s inside the scopes
+          li ng-class="{active: controller == 'events-index-page'}"
             a href="#events"
               | Aulas
-          li
+          li ng-class="{active: controller == 'courses-index-page'}"
             a href="#courses"
               | Disciplinas
-          li
+          li ng-class="{active: controller == 'medias-index-page'}"
             a href="#catalog"
               | Catálogo
 
@@ -33,8 +33,9 @@ html lang="pt" ng-app="DunnoApp"
 
         = render partial: 'application/first_access_modal'
 
-    footer
-      /= "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe
+    /
+      footer
+        = "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe
 
     = javascript_include_tag "application"
 

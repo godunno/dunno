@@ -36,26 +36,6 @@ $box-shadow: 0 2px 2px $light-grey-color;
   opacity: .5;
 }
 
-.weekday {
-  text-transform: uppercase;
-}
-
-.padding {
-  padding: 10px 20px;
-}
-
-.padding-top {
-  padding-top: 10px;
-}
-
-.margin-right {
-  margin-right: 10px;
-}
-
-.margin-top {
-  margin-top: 10px;
-}
-
 // http://nicolasgallagher.com/micro-clearfix-hack/
 // For modern browsers
 // 1. The space content is one way to avoid an Opera bug when the
@@ -79,6 +59,10 @@ $box-shadow: 0 2px 2px $light-grey-color;
 // scss-lint:disable PropertySpelling
 .cf {
   *zoom: 1;
+}
+
+.off-canvas-wrap {
+  min-height: 100%;
 }
 
 .inner-wrap,
