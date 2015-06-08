@@ -183,7 +183,7 @@
 
   .create__new__topic__item {
     border: 1px solid $secondary-color;
-    font-weight: bold;
+    font-weight: $font-weight-bold;
 
     &.alert {
       border-color: $red-color;

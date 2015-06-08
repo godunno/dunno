@@ -41,7 +41,7 @@
           @include ball($number-radius);
           border-color: $light-grey-color;
           color: $orange-color;
-          font-weight: 300;
+          font-weight: $font-weight-light;
           margin: 0 auto;
         }
 
@@ -85,7 +85,7 @@
       color: $white;
 
       p {
-        font-weight: 300;
+        font-weight: $font-weight-light;
         margin: 0;
 
         &.last {
@@ -110,7 +110,7 @@
 
       .loading-item {
         font-size: .8em;
-        font-weight: 100;
+        font-weight: $font-weight-light;
         letter-spacing: .05em;
         margin-left: 1.2em;
         text-align: left;

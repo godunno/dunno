@@ -76,7 +76,7 @@
 
   li {
     display: inline-block;
-    font-weight: 300;
+    font-weight: $font-weight-light;
 
     &::after {
       content: ' | ';
