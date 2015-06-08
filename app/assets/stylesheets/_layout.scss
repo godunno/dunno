@@ -1,7 +1,7 @@
 $page-title-height: 4em;
 $page-header-margin: 2em;
 $page-subtitle-height: 4em;
-$box-shadow: 0 2px 2px #ccc; // NEW_COLOUR
+$box-shadow: 0 2px 2px $light-grey-color;
 
 .tab-bar.show-for-small {
   .icons.icon-dunno-logo {

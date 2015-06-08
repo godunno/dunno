@@ -1,7 +1,6 @@
 .page-header {
   background: $white;
-  // TODO: Use Compass' shadow
-  box-shadow: 0 1.5px 1px #d3d3d3; // NEW_COLOUR
+  box-shadow: $box-shadow;
   margin-bottom: $page-header-margin;
   padding: 1em 0;
 

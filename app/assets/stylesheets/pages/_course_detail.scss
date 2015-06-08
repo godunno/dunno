@@ -61,7 +61,7 @@
       padding: 0;
 
       li {
-        border-bottom: 1px solid #d0d0d0; // NEW_COLOUR
+        border-bottom: 1px solid $light-grey-color;
         padding: .25em 0;
 
         &:last-child {
