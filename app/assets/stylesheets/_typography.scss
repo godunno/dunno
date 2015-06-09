@@ -1,12 +1,14 @@
-.t-light {
-  color: $light-grey-color;
-}
+$font-weight-bold: 700;
+$font-weight-normal: 400;
+$font-weight-light: 300;
 
-.upcase {
+h1,
+h2 {
+  font-weight: $font-weight-light;
+  text-align: center;
   text-transform: uppercase;
 }
 
-.t-size-1 {
-  font-size: 1.4em;
-  font-weight: 300;
+.weekday {
+  text-transform: uppercase;
 }

@@ -1,17 +1,9 @@
 .dropdown {
   @include radius();
 
-  &.select__event__status {
-    height: 3.45em;
-  }
-
-  &.new__topic__visibility {
-    height: 3.3em;
-  }
-
   &.secondary {
-    background: $white;
-    border: 1px solid $light-grey-color;
+    background: lighten($light-grey-color, 10%);
+    border: 0;
     color: $primary-color;
 
     &:hover {
@@ -26,7 +18,7 @@
 
   .icon {
     font-size: 1em;
-    vertical-align: middle;
+    vertical-align: top;
   }
 }
 
@@ -46,7 +38,7 @@
   span {
     color: $primary-color;
     display: block;
-    font-weight: bold;
+    font-weight: $font-weight-bold;
   }
 
   small {

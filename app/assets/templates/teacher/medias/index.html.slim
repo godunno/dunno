@@ -22,7 +22,7 @@ header.page-header.title
             type="text"]
           a.button.icon.icon-close ng-click="clearSearch()"
         .small-1.columns
-          button.button.small.secondary.expand
+          button.button.secondary.expand
             .icon.icon-search
   .small-12.columns
     h2 ng-if="medias.length == 0 && !showTutorial()"
@@ -67,7 +67,9 @@ header.page-header.title
                   span> ng-if="!$last"
                     | ,
                 | )
-          a.media__url ng-href="{{media.url}}" target="_blank"
+          a.media__url[
+            ng-href="{{media.url}}"
+            target="_blank"]
             i.media__type__icon.icon>[
               ng-class="'icon-' + media.type"]
             span
@@ -83,9 +85,10 @@ header.page-header.title
             /
               TODO: integrate this with JS (should come right after the input)
               i.icon.icon-tag
-  .row ng-if="!!medias && medias.length > 0"
-    a.load-more.button.large.secondary[
-      cg-busy="loadingNextPage"
-      ng-click="paginate(next_page)"
-      ng-if="next_page"]
-      | Carregar Mais
+    .row ng-if="!!medias && medias.length > 0"
+      .small-6.medium-3.small-centered.columns
+        a.media__load__more.radius.button.expand.secondary[
+          cg-busy="loadingNextPage"
+          ng-click="paginate(next_page)"
+          ng-if="next_page"]
+          | Carregar Mais

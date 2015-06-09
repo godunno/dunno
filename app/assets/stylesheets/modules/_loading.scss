@@ -137,3 +137,9 @@
 .in-app-loading {
   @include spinner($diameter: 50px, $color: rgba(0, 0, 0, .3));
 }
+
+.cg-busy.cg-busy-backdrop,
+.cg-busy.cg-busy-animation {
+  max-height: 100vh;
+  min-height: 100vh;
+}

@@ -27,7 +27,7 @@
       }
 
       .subtitle {
-        color: rgba(43, 55, 56, .8); // NEW_COLOUR
+        color: transparentize($primary-color, .2);
         font-size: 11px;
       }
     }
@@ -75,15 +75,15 @@
       padding: 10px 20px;
 
       .weekday-hour {
-        color: rgba(43, 55, 56, .42); // NEW_COLOUR
+        color: transparentize($primary-color, .6);
         font-size: 11px;
         margin-top: 27px;
         text-align: center;
       }
 
       .status {
-        border-bottom: 1px solid #f0f0f0; // NEW_COLOUR
-        border-top: 1px solid #f0f0f0; // NEW_COLOUR
+        border-bottom: 1px solid $light-grey-color;
+        border-top: 1px solid $light-grey-color;
         margin-top: 20px;
 
         span {
@@ -100,7 +100,7 @@
 
       .course {
         font-size: 11px;
-        font-weight: 700;
+        font-weight: $font-weight-bold;
         padding: 10px 0;
       }
 
@@ -116,7 +116,7 @@
           padding: 0;
 
           .task {
-            color: #828282; // NEW_COLOUR
+            color: $dark-grey-color;
             font-size: 12px;
             overflow: hidden;
             padding: 8px 0;
@@ -153,4 +153,4 @@
 $event-card-width: 300px;
 $event-card-title-height: 80px;
 $event-card-notes-height: 320px;
-$event-card-border: solid 1px #ddd; // NEW_COLOUR
+$event-card-border: solid 1px $light-grey-color;

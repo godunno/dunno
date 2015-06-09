@@ -1,0 +1,155 @@
+.create-course-page {
+  h3.form-caption {
+    font-weight: $font-weight-bold;
+    margin: 0;
+  }
+
+  h4 {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .warning {
+    color: $red-color;
+  }
+
+  .label-error {
+    font-size: .875em;
+  }
+
+  a.save {
+    background-color: $secondary-color;
+    color: $white;
+  }
+
+  a.cancel {
+    color: $dark-grey-color;
+  }
+
+  .form-container {
+    @include radius(5px);
+    background-color: $white;
+    margin: 1.25em 0 2.5em;
+    padding: 1.25em;
+
+    input.input-error,
+    select.input-error {
+      border: 1px solid $red-color;
+      margin-bottom: 0;
+    }
+
+    .sep {
+      background-color: $light-grey-color;
+      height: 1px;
+      margin: .75em 1em 1rem;
+    }
+
+    .box {
+      background-color: $light-grey-color;
+      margin-bottom: 1em;
+      padding: .75em;
+
+      .dunno-font {
+        color: $dark-grey-color;
+        display: inline-block;
+        font-family: 'Dunno-icon-font';
+        font-size: 1.5em;
+        margin-top: 1.25em;
+      }
+
+      input,
+      select {
+        border: 1px solid $dark-grey-color;
+        margin-bottom: 0;
+      }
+
+      .right {
+        text-align: right;
+      }
+    }
+
+    .btn-black {
+      @include radius();
+      background-color: $black;
+      color: $white;
+      display: inline-block;
+      font-size: 12px;
+      font-weight: $font-weight-normal;
+      padding: 4px 10px;
+
+      span.plus {
+        display: inline-block;
+        font-family: 'Dunno-icon-font';
+        font-size: .875em;
+        margin-right: 10px;
+      }
+    }
+
+    span.help {
+      color: $medium-grey-color;
+      display: inline-block;
+      font-size: .875em;
+      margin-top: -40px;
+    }
+  }
+
+  .weekdays-container {
+    div {
+      vertical-align: top;
+    }
+
+    .monday {
+      display: inline-block;
+      width: 12%;
+    }
+
+    .weekdays {
+      display: inline-block;
+      width: 88%;
+
+      .day {
+        display: inline-block;
+        margin-left: 2.66%;
+        text-align: center;
+        width: 14%;
+
+        .day-form {
+          background-color: $light-grey-color;
+          padding: 10px;
+          text-align: left;
+        }
+      }
+    }
+
+    .day {
+      .dashed {
+        @include radius();
+        border: 2px dashed transparentize($black, .4);
+        color: $black;
+        display: inline-block;
+        font-size: 13px;
+        opacity: .62;
+        padding: 8px 0;
+        text-align: center;
+        width: 100%;
+      }
+
+      .has-period {
+        @include radius(0);
+        background-color: $primary-color;
+        border: 0;
+        color: $white;
+        padding: 12px 0;
+      }
+
+      input {
+        border: 1px solid $medium-grey-color;
+        margin-bottom: .5rem;
+      }
+
+      .add-period {
+        margin-top: 7px;
+      }
+    }
+  }
+}

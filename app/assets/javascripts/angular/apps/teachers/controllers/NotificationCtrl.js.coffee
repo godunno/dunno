@@ -38,7 +38,7 @@ NotificationCtrl = ($scope, $timeout, $analytics, Notification, ErrorParser)->
 
   $scope.sendButtonText = ->
     switch $scope.status
-      when 'ready' then 'Enviar'
+      when 'ready' then 'Enviar mensagem'
       when 'sending' then 'Enviando...'
       when 'sent' then 'Enviado com sucesso!'
 

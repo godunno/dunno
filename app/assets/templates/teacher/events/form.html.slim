@@ -126,28 +126,28 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                 ng-click="selectTopicType('text')"
                 ng-class="{active: topicType == 'text'}"]
                 i.icon.icon-text
-                span.hide-for-small
+                small.hide-for-small
                   | Texto
             li
               a[
                 ng-click="selectTopicType('file')"
                 ng-class="{active: topicType == 'file'}"]
                 i.icon.icon-file
-                span.hide-for-small
+                small.hide-for-small
                   | Arquivo
             li
               a[
                 ng-click="selectTopicType('url'); startUrlMediaEditing()"
                 ng-class="{active: topicType == 'url'}"]
                 i.icon.icon-link
-                span.hide-for-small
+                small.hide-for-small
                   | Link
             li
               a[
                 ng-click="selectTopicType('catalog')"
                 ng-class="{active: topicType == 'catalog'}"]
                 i.icon.icon-catalog
-                span.hide-for-small
+                small.hide-for-small
                   | Catálogo
           .item__type ng-show="topicType != null"
             .type.type__text ng-show="topicType == 'text'" ng-controller="NewTextTopicCtrl"
@@ -165,7 +165,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               form name="fileMediaForm" ng-show="status == 'newMedia'"
                 label.item__button.media__file__button.small.radius.button.secondary[
                   for="topic-file"]
-                  i.icon.icon-clips>
                   | Fazer upload
                 input#topic-file.file__input[
                   ng-file-model=true
@@ -236,7 +235,6 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                       id="{{media.uuid}}"]
                     label.media__select__label for="{{media.uuid}}"
                     .media__contents
-                      span.media__thumbnail style="background-image: url({{media.thumbnail}});"
                       span.media__data
                         strong.media__title
                           | {{media.title}}
@@ -316,7 +314,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   required=true
                   type="text"]
                 .edit__topic__actions
-                  a.cancel ng-click="cancelEditing(topic)"
+                  a.cancel.button.tiny.transparent.radius ng-click="cancelEditing(topic)"
                     | Cancelar
                   ng-include src="'#{asset_path('teacher/topics/topic_edit_personal.html')}'"
                   a.save__edit__topic__item.radius.button.secondary.tiny[

@@ -45,8 +45,6 @@ $row-width: rem-calc(960);
 $body-bg: $background-light-grey-color;
 $body-font-color: $primary-color;
 $body-font-family: "Lato", sans-serif;
-
-//"Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
 
@@ -61,10 +59,10 @@ $body-font-family: "Lato", sans-serif;
 // We use these as default colors throughout
 // $primary-color: #008CBA;
 // $secondary-color: #e7e7e7;
-// $alert-color: #f04124;
-// $success-color: #43AC6A;
-// $warning-color: #f08a24;
-// $info-color: #a0d3e8;
+$alert-color: $red-color;
+$success-color: $secondary-color;
+$warning-color: $orange-color;
+$info-color: $blue-color;
 
 // We use these to make sure border radius matches unless we want it different.
 $global-radius: 3px;
@@ -135,10 +133,10 @@ $header-font-color: $primary-color;
 // $header-text-rendering: optimizeLegibility;
 
 // We use these to control header font sizes
-// $h1-font-size: rem-calc(44);
-// $h2-font-size: rem-calc(37);
+$h1-font-size: rem-calc(28);
+$h2-font-size: rem-calc(28);
 // $h3-font-size: rem-calc(27);
-// $h4-font-size: rem-calc(23);
+$h4-font-size: rem-calc(22);
 // $h5-font-size: rem-calc(18);
 // $h6-font-size: 1rem;
 
@@ -150,7 +148,7 @@ $header-font-color: $primary-color;
 // $subheader-bottom-margin: .5rem;
 
 // A general <small> styling
-$small-font-size: 80%;
+$small-font-size: rem-calc(14);
 // $small-font-color: scale-color($header-font-color, $lightness: 35%);
 
 // We use these to style paragraphs
@@ -512,7 +510,7 @@ $dropdown-button-pip-color: $dark-grey-color;
 
 // We use these to style the labels in different ways
 // $form-label-pointer: pointer;
-// $form-label-font-size: rem-calc(14);
+$form-label-font-size: rem-calc(16);
 // $form-label-font-weight: $font-weight-normal;
 // $form-label-line-height: 1.5;
 // $form-label-font-color: scale-color(#000, $lightness: 30%);
@@ -520,11 +518,11 @@ $dropdown-button-pip-color: $dark-grey-color;
 // $form-label-bottom-margin: 0;
 // $input-font-family: inherit;
 // $input-font-color: rgba(0,0,0,0.75);
-// $input-font-size: rem-calc(14);
+$input-font-size: rem-calc(16);
 // $input-bg-color: #fff;
 // $input-focus-bg-color: scale-color(#fff, $lightness: -2%);
-$input-border-color: #d7d7d7;
-$input-focus-border-color: #3c90c5;
+$input-border-color: $medium-grey-color;
+$input-focus-border-color: $blue-color;
 // $input-border-style: solid;
 // $input-border-width: 1px;
 $input-border-radius: 2px;
@@ -1209,7 +1207,7 @@ $topbar-dropdown-toggle-color: $black;
 $topbar-link-color: $white;
 $topbar-link-color-hover: darken($white, 20%);
 $topbar-link-color-active: $secondary-color;
-$topbar-link-color-active-hover: $primary-color;
+$topbar-link-color-active-hover: $secondary-color;
 // $topbar-link-weight: $font-weight-normal;
 $topbar-link-font-size: rem-calc(15);
 
@@ -1217,8 +1215,8 @@ $topbar-link-font-size: rem-calc(15);
 // $topbar-link-bg: $topbar-bg;
 // $topbar-link-bg-color-hover: #272727;
 $topbar-link-bg-hover: $primary-color;
-// $topbar-link-bg-active: $primary-color;
-// $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
+$topbar-link-bg-active: $primary-color;
+$topbar-link-bg-active-hover: $primary-color;
 // $topbar-link-font-family: $body-font-family;
 // $topbar-link-text-transform: none;
 // $topbar-link-padding: $topbar-height / 3;

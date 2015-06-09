@@ -3,9 +3,62 @@
 }
 
 %card {
-  border-radius: .3125em;
+  @include radius(.3125em);
   box-shadow: $box-shadow;
   display: block;
   margin-bottom: 1em;
   overflow: hidden;
+
+  .card__header,
+  .card__content {
+    padding: 1em;
+  }
+
+  .card__header {
+    .card__title {
+      font-size: 1.5em;
+      line-height: 3rem;
+    }
+
+    .card__subtitle {
+      opacity: .5;
+
+      .right {
+        margin-left: 1em;
+      }
+    }
+  }
+
+  .card__subtitle,
+  .card__content {
+    font-size: .875em;
+  }
+
+  .card__content {
+    background-color: $white;
+    color: $medium-grey-color;
+  }
+
+  .overlay {
+    &.published {
+      background-color: $primary-color;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .button {
+      transform: translateY(-30%);
+      transition: all .15s ease-in-out;
+    }
+
+    &:hover {
+      .button {
+        transform: translateY(-50%);
+
+        &:hover {
+          opacity: .8;
+        }
+      }
+    }
+  }
 }

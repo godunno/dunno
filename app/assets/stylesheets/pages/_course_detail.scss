@@ -14,17 +14,17 @@
 
     .title {
       font-size: 16px;
-      font-weight: 300;
+      font-weight: $font-weight-light;
     }
 
     h3 {
       font-size: 26px;
-      font-weight: 700;
+      font-weight: $font-weight-bold;
     }
 
     .description {
       font-size: 13px;
-      font-weight: 300;
+      font-weight: $font-weight-light;
     }
 
     .icon-expand {
@@ -61,7 +61,7 @@
       padding: 0;
 
       li {
-        border-bottom: 1px solid #d0d0d0; // NEW_COLOUR
+        border-bottom: 1px solid $light-grey-color;
         padding: .25em 0;
 
         &:last-child {
@@ -90,7 +90,7 @@
 
   .description {
     font-size: 6vh;
-    font-weight: 200;
+    font-weight: $font-weight-light;
   }
 
   .title {
@@ -100,7 +100,7 @@
 
   .link-to-sign-in {
     font-size: 6vh;
-    font-weight: 300;
+    font-weight: $font-weight-light;
     position: relative;
     top: 10vh;
   }
@@ -122,7 +122,7 @@
 
   .dates__header__current-month {
     display: block;
-    font-weight: bold;
+    font-weight: $font-weight-bold;
     line-height: 2.5rem;
     text-align: center;
   }
@@ -213,7 +213,7 @@
   }
 
   .date__day {
-    font-weight: bold;
+    font-weight: $font-weight-bold;
   }
 
   .date__weekday {
@@ -262,11 +262,16 @@
     margin-bottom: 2em;
     padding-bottom: 1em;
     text-align: center;
-  }
 
+    h5 {
+      text-transform: uppercase;
+    }
 
-  textarea {
-    margin-bottom: 0;
+    p {
+      color: $medium-grey-color;
+      margin: 0 auto;
+      width: 70%;
+    }
   }
 
   .counter {
