@@ -85,9 +85,10 @@ header.page-header.title
             /
               TODO: integrate this with JS (should come right after the input)
               i.icon.icon-tag
-  .row ng-if="!!medias && medias.length > 0"
-    a.load-more.button.large.secondary[
-      cg-busy="loadingNextPage"
-      ng-click="paginate(next_page)"
-      ng-if="next_page"]
-      | Carregar Mais
+    .row ng-if="!!medias && medias.length > 0"
+      .small-6.medium-3.small-centered.columns
+        a.media__load__more.radius.button.expand.secondary[
+          cg-busy="loadingNextPage"
+          ng-click="paginate(next_page)"
+          ng-if="next_page"]
+          | Carregar Mais
