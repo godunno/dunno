@@ -1,0 +1,252 @@
+.catalog__page {
+  // TODO: extract to blankslate component
+  .catalog__blankslate {
+    .catalog__how-to {
+      font-family: 'Chalkduster';
+      font-size: 1.4em;
+      margin-top: 4em;
+
+      img {
+        float: right;
+        width: 50%;
+
+        @media #{$small-only} {
+          display: block;
+          float: none;
+          margin-bottom: 1em;
+          width: auto;
+        }
+      }
+    }
+  }
+
+  // TODO: extract to list search component
+  .search-wrapper {
+    position: relative;
+
+    input {
+      height: 3.23em;
+      max-height: 3.23em;
+      padding-right: 2em;
+    }
+
+    .icon-close {
+      background: none;
+      color: $light-grey-color;
+      font-size: 1.5em;
+      padding: 0;
+      position: absolute;
+      right: .25em;
+      top: .35em;
+    }
+  }
+}
+
+.catalog__medias {
+  @include radius();
+  background: $white;
+  border: 1px solid $light-grey-color;
+}
+
+.catalog__media {
+  border-bottom: 1px solid $light-grey-color;
+  padding: .75em 1em;
+
+  .media__select__label {
+    float: left;
+    margin-top: 1em;
+  }
+
+  .media__thumbnail {
+    @include radius();
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid $light-grey-color;
+    border-radius: 50%;
+    display: block;
+    float: left;
+    height: 4em;
+    margin-right: .5em;
+    vertical-align: middle;
+    width: 4em;
+  }
+
+  .media__select {
+    display: none;
+  }
+
+  .media__title {
+    color: $primary-color;
+    display: block;
+    font-weight: normal;
+    margin-right: 2em;
+  }
+
+  .media__remove {
+    float: right;
+  }
+
+  .media__events__usage {
+    color: $light-grey-color;
+  }
+
+  .media__data,
+  .catalog__media__body {
+    display: block;
+    margin-left: 5em;
+  }
+
+  .media__contents {
+    margin-left: 2em;
+
+    &:after {
+      clear: both;
+      content: ' ';
+      display: block;
+    }
+  }
+
+  .media__url {
+    .icon {
+      background-color: $dark-grey-color;
+      border-radius: 2em;
+      color: $white;
+      display: inline-block;
+      font-size: .875em;
+      height: 1.5em;
+      line-height: 1em;
+      padding: .25em;
+      vertical-align: middle;
+      width: 1.5em;
+    }
+
+    span {
+      color: $secondary-color;
+    }
+  }
+
+  input[type=radio] + label {
+    background: image-url('temp-radio-unchecked.png');
+    height: 16px;
+    width: 16px;
+  }
+
+  input[type=radio]:checked + label {
+    background: image-url('temp-radio-checked.png');
+  }
+}
+
+.tags-label {
+  color: $light-grey-color;
+  float: left;
+  margin-top: .5rem;
+}
+
+.media__tags {
+  .tags {
+    background: none;
+    border: 0;
+    box-shadow: none;
+
+    &.focused {
+      box-shadow: none;
+      outline: none;
+    }
+
+    .tags__input {
+      float: left;
+    }
+
+    .tag-item {
+      @include label($radius: 2px);
+      background: $light-grey-color;
+      border: 0;
+      font-size: 1em;
+      font-weight: 300;
+      margin: 0 .25em .25em 0;
+
+      span:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      &.selected {
+        background: $light-grey-color;
+        border: 1px solid $red-color;
+      }
+
+      .remove-button {
+        color: $white;
+        opacity: .8;
+      }
+    }
+
+    .input {
+      border: 1px solid $light-grey-color;
+      font-family: inherit;
+      margin: 0;
+    }
+  }
+}
+
+
+.catalog-picker .modal {
+  width: 50vw;
+
+  .medias {
+    clear: both;
+    height: 60vh;
+    overflow: scroll;
+
+    .media {
+      border-bottom: 1px solid $light-grey-color;
+      padding: 1rem 0;
+
+      .data {
+        margin-left: 5px;
+        width: 85%;
+      }
+
+      .top {
+        .title {
+          float: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 75%;
+        }
+
+        a {
+          font-size: .8rem;
+          visibility: hidden;
+
+          &.select {
+            @include button($padding: rem-calc(6), $bg: $secondary-color, $radius: true);
+            float: right;
+          }
+
+          &.open {
+            @include button($padding: rem-calc(6), $radius: true);
+            float: right;
+            margin-left: .8rem;
+          }
+        }
+      }
+
+      &:hover .top a {
+        visibility: visible;
+      }
+
+      .bottom {
+        clear: both;
+        word-wrap: break-word;
+
+        .url {
+          color: $secondary-color;
+          margin-left: .5rem;
+        }
+      }
+    }
+  }
+}

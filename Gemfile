@@ -77,7 +77,7 @@ group :development do
   gem 'pronto',                   '0.4.1'
   gem 'pronto-rubocop',           '0.4.1'
   gem 'pronto-flay',              '0.4.0'
-  gem 'pronto-scss',              '0.4.0',     require: false
+  gem 'pronto-scss',              '0.4.6',     require: false
   gem 'rubocop',                  '0.29.0'
   gem 'foreman',                  '0.77.0'
   gem 'letter_opener',            '1.3.0'
