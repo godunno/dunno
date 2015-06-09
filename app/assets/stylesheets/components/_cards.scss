@@ -1,0 +1,45 @@
+%cards-container {
+  padding: 0 1em;
+}
+
+%card {
+  border-radius: .3125em;
+  box-shadow: $box-shadow;
+  display: block;
+  margin-bottom: 1em;
+  overflow: hidden;
+}
+
+$card-border: solid 1px $light-grey-color;
+
+@mixin rounded-container($radius: $global-radius) {
+  > div:nth-child(1) {
+    @include side-radius(top, $radius);
+  }
+
+  > div:nth-last-child(1) {
+    @include side-radius(bottom, $radius);
+  }
+}
+
+.card {
+  @include rounded-container;
+}
+
+.card-title {
+  font-size: 24px;
+  line-height: 50px;
+}
+
+.card-subtitle {
+  font-size: 14px;
+
+  .right {
+    margin-left: 1em;
+  }
+}
+
+.card-content {
+  background-color: $white;
+  font-size: 14px;
+}

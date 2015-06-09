@@ -12,3 +12,17 @@
   font-weight: normal;
   font-style: normal;
 }
+
+.t-light {
+  color: $light-grey-color;
+}
+
+.important,
+.upcase {
+  text-transform: uppercase;
+}
+
+.t-size-1 {
+  font-size: 1.4em;
+  font-weight: 300;
+}

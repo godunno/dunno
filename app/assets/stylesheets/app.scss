@@ -1,39 +1,42 @@
-@import 'shared/colors';
-@import 'settings';
-@import 'foundation';
-@import 'layout';
-@import 'base';
-@import 'typography';
-@import 'icons';
-@import 'fonts';
-@import 'foundation/helpers/breakpoints';
-@import 'modules/form';
-@import 'modules/text';
-@import 'modules/dropdown';
-@import 'modules/progress';
-@import 'modules/ball';
-@import 'modules/preview';
-@import 'modules/tutorial';
-@import 'modules/loading';
-@import 'modules/cards';
-@import 'modules/page-header';
-@import 'modules/action-sheet';
-@import 'shared/buttons';
-@import 'shared/schemes';
-@import 'shared/overlay';
-@import 'shared/icons_aliases';
-@import 'shared/modal';
-@import 'pages/courses';
-@import 'pages/catalog';
-@import 'pages/events';
-@import 'pages/diary';
-@import 'pages/login';
-@import 'pages/course_detail';
-@import 'pages/create_course';
-@import 'pages/student';
-@import 'pages/accept_invitation';
-@import 'pages/first_access';
-@import 'pages/edit_profile';
-@import 'pages/prebootstrap_loading';
+@import 'utils/variables';
 
-@import 'components/catalog';
+@import 'settings', 'foundation'; // foundation setup
+
+@import 'base/reset',
+        'base/typography';
+
+@import 'vendors/icons',
+        'vendors/action-sheet';
+
+@import 'themes/theme',
+        'themes/schemes';
+
+@import 'utils/icons_aliases';
+
+@import 'components/catalog',
+        'components/dropdown',
+        'components/progress',
+        'components/preview',
+        'components/cards',
+        'components/page-header',
+        'components/buttons',
+        'components/overlay',
+        'components/ball';
+
+@import 'layouts/forms',
+        'layouts/modal',
+        'layouts/tutorial',
+        'layouts/loading';
+
+// page specific styles
+@import 'pages/courses',
+        'pages/events',
+        'pages/diary',
+        'pages/login',
+        'pages/course_detail',
+        'pages/create_course',
+        'pages/student',
+        'pages/accept_invitation',
+        'pages/first_access',
+        'pages/edit_profile',
+        'pages/prebootstrap_loading';
