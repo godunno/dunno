@@ -1,51 +1,3 @@
-.catalog__page {
-  // TODO: extract to blankslate component
-  .catalog__blankslate {
-    .catalog__how-to {
-      font-family: 'Chalkduster';
-      font-size: 1.4em;
-      margin-top: 4em;
-
-      img {
-        float: right;
-        width: 50%;
-
-        @media #{$small-only} {
-          display: block;
-          float: none;
-          margin-bottom: 1em;
-          width: auto;
-        }
-      }
-    }
-  }
-
-  // TODO: extract to list search component
-  .search-wrapper {
-    position: relative;
-
-    input {
-      height: 3.23em;
-      max-height: 3.23em;
-      padding-right: 3em;
-    }
-
-    .icon-close {
-      background: none;
-      color: $light-grey-color;
-      font-size: 1.5em;
-      padding: 0;
-      position: absolute;
-      right: .25em;
-      top: .5em;
-    }
-  }
-
-  .media__load__more {
-    margin-top: 1em;
-  }
-}
-
 .catalog__medias {
   @include radius();
   background: $white;
@@ -69,7 +21,7 @@
 
   .media__select__label {
     float: left;
-    margin-top: 1em;
+    margin-top: 1.75em;
   }
 
   .media__select {
@@ -106,11 +58,10 @@
   .media__data,
   .catalog__media__body {
     display: block;
-    margin-left: 5em;
   }
 
   .media__contents {
-    margin-left: 2em;
+    margin-left: 2.5em;
 
     &:after {
       clear: both;
