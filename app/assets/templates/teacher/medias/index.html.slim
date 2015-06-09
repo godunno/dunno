@@ -22,7 +22,7 @@ header.page-header.title
             type="text"]
           a.button.icon.icon-close ng-click="clearSearch()"
         .small-1.columns
-          button.button.small.secondary.expand
+          button.button.secondary.expand
             .icon.icon-search
   .small-12.columns
     h2 ng-if="medias.length == 0 && !showTutorial()"
@@ -67,7 +67,9 @@ header.page-header.title
                   span> ng-if="!$last"
                     | ,
                 | )
-          a.media__url ng-href="{{media.url}}" target="_blank"
+          a.media__url[
+            ng-href="{{media.url}}"
+            target="_blank"]
             i.media__type__icon.icon>[
               ng-class="'icon-' + media.type"]
             span

@@ -27,7 +27,7 @@
     input {
       height: 3.23em;
       max-height: 3.23em;
-      padding-right: 2em;
+      padding-right: 3em;
     }
 
     .icon-close {
@@ -37,7 +37,7 @@
       padding: 0;
       position: absolute;
       right: .25em;
-      top: .35em;
+      top: .5em;
     }
   }
 }
@@ -59,28 +59,60 @@
     vertical-align: middle;
   }
 
-  .media__thumbnail {
-    @include radius();
-    background-size: contain;
-    height: 2.75em;
-    margin-right: .5em;
-    vertical-align: middle;
-    width: 2.75em;
+  .media__remove {
+    float: right;
+  }
+
+  .media__select__label {
+    float: left;
+    margin-top: 1em;
   }
 
   .media__select {
     display: none;
   }
 
+  .media__thumbnail {
+    @include radius();
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid $light-grey-color;
+    border-radius: 50%;
+    display: block;
+    float: left;
+    height: 4em;
+    margin-right: .5em;
+    vertical-align: middle;
+    width: 4em;
+  }
+
   .media__title {
     color: $primary-color;
     display: block;
     font-weight: $font-weight-normal;
-    margin-bottom: .5em;
+    line-height: 2.5em;
+    margin-right: 2em;
+
+    input {
+      margin: 0;
+    }
   }
 
-  .media__data {
-    max-width: 60%;
+  .media__data,
+  .catalog__media__body {
+    display: block;
+    margin-left: 5em;
+  }
+
+  .media__contents {
+    margin-left: 2em;
+
+    &:after {
+      clear: both;
+      content: ' ';
+      display: block;
+    }
   }
 
   .media__url {
