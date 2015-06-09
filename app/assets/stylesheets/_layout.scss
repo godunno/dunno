@@ -69,5 +69,8 @@ $box-shadow: 0 2px 2px $light-grey-color;
 .content {
   min-height: 100%;
   min-width: 100%;
-  position: absolute;
+}
+
+.right-off-canvas-menu {
+  min-height: 100vh;
 }
