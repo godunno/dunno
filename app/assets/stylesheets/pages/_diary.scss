@@ -425,14 +425,20 @@
   }
 
   span {
+    display: block;
     font-size: .75em;
+    margin-right: 2em;
+  }
+
+  a {
+    float: right;
   }
 
   .icon {
     background-color: $dark-grey-color;
     border-radius: 2em;
     color: $white;
-    float: right;
+    display: inline-block;
     font-size: .875em;
     height: 1.5em;
     line-height: 1em;
