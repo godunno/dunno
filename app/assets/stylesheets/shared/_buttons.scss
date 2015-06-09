@@ -10,6 +10,12 @@ $btn-style-transparent-1-border: 1px solid $btn-style-transparent-1-font-color;
 $btn-style-transparent-2-font-color: $primary-color;
 $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
 
+.button {
+  &:focus {
+    outline: none;
+  }
+}
+
 .btn-style-1 {
   background-color: $secondary-color;
 
