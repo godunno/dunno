@@ -269,7 +269,7 @@
   }
 
   &.personal {
-    .topic__item__description a,
+    .topic__item__description a:first-child,
     input {
       color: $red-color;
     }
