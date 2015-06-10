@@ -1,0 +1,53 @@
+.summary__tasks {
+  min-height: 1em;
+
+  &.previous__event__tasks {
+    padding-left: 1em;
+
+    .summary__task {
+      padding-right: .5em;
+    }
+  }
+
+  &.next__event__tasks {
+    padding-right: 1em;
+
+    .summary__task {
+      padding-left: .5em;
+    }
+  }
+}
+
+.summary__task {
+  border-bottom: 1px solid $light-grey-color;
+  color: $primary-color;
+  padding: .75em .125em;
+  word-wrap: break-word;
+
+  &.personal {
+    color: $red-color;
+  }
+
+  span {
+    display: block;
+    font-size: .75em;
+    margin-right: 2em;
+  }
+
+  a {
+    float: right;
+  }
+
+  .icon {
+    background-color: $dark-grey-color;
+    border-radius: 2em;
+    color: $white;
+    display: inline-block;
+    font-size: .875em;
+    height: 1.5em;
+    line-height: 1em;
+    padding: .25em;
+    vertical-align: top;
+    width: 1.5em;
+  }
+}
