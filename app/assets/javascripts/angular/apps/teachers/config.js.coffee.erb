@@ -7,7 +7,7 @@
 
 DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet']
 
-Router = ($routeProvider, CoursesResolver, CourseResolver, EventsResolver, EventResolver, MediasResolver)->
+Router = ($routeProvider, CoursesResolver, CourseResolver, CourseRegistrationResolver, EventsResolver, EventResolver, MediasResolver)->
   $routeProvider
     .when('/courses',
       controller: 'CoursesIndexCtrl'
@@ -23,9 +23,9 @@ Router = ($routeProvider, CoursesResolver, CourseResolver, EventsResolver, Event
       templateUrl: '<%= asset_path('courses/search.html') %>'
 
     ).when('/courses/:id/confirm_registration'
-      controller: 'CourseCtrl'
+      controller: 'CourseConfirmRegistrationCtrl'
       templateUrl: '<%= asset_path('courses/confirm_registration.html') %>'
-      resolve: { course: CourseResolver }
+      resolve: { course: CourseRegistrationResolver }
 
     ).when('/courses/:id/edit',
       controller: 'CourseCtrl'
@@ -66,7 +66,7 @@ Router = ($routeProvider, CoursesResolver, CourseResolver, EventsResolver, Event
       templateUrl: '<%= asset_path('password/form.html') %>'
 
     ).otherwise(redirectTo: '/courses')
-Router.$inject = ['$routeProvider', 'CoursesResolver', 'CourseResolver', 'EventsResolver', 'EventResolver', 'MediasResolver']
+Router.$inject = ['$routeProvider', 'CoursesResolver', 'CourseResolver', 'CourseRegistrationResolver', 'EventsResolver', 'EventResolver', 'MediasResolver']
 DunnoApp.config Router
 
 DunnoApp.config(["railsSerializerProvider", "tagsInputConfigProvider", (railsSerializerProvider, tagsInputConfigProvider)->

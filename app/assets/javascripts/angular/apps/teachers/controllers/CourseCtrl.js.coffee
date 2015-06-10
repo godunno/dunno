@@ -57,11 +57,6 @@ CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)
     else
       'Esta aula ainda está vazia'
 
-  $scope.register = (course)->
-    course.register().then ->
-      SessionManager.fetchUser().then ->
-        $location.path "/courses"
-
 CourseCtrl.$inject = [
   '$scope', '$location', '$routeParams', 'Course', 'Utils', 'DateUtils', 'course'
 ]

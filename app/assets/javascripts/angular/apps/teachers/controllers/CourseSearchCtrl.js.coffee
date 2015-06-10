@@ -6,7 +6,7 @@ CourseSearchCtrl = ($scope, $location, Course, SessionManager, PageLoading)->
       $location.path "/courses/#{access_code}"
     else
       $scope.error = false
-      PageLoading.resolve Course.get(access_code: access_code).then((course)->
+      PageLoading.resolve Course.search(access_code).then((course)->
         $location.path "/courses/#{access_code}/confirm_registration"
       ).catch ->
         $scope.error = true

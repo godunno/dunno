@@ -404,6 +404,8 @@ describe Api::V1::CoursesController do
       it do
         expect(json).to eq(
           "course" => {
+            "uuid" => unregistered_course.uuid,
+            "access_code" => unregistered_course.access_code,
             "name" => unregistered_course.name,
             "class_name" => unregistered_course.class_name,
             "institution" => unregistered_course.institution,

@@ -9,9 +9,16 @@ DunnoApp.factory 'Course', ['RailsResource', (RailsResource)->
       updateMethod: 'patch'
     )
 
+    @search: (identifier) ->
+      new Course(uuid: identifier).search()
+
+    search: ->
+      Course.$get(@$url('search'))
+
     register: ->
-      this.$post(Course.resourceUrl(this) + '/register')
+      @$post(@$url('/register'))
+
     unregister: ->
-      this.$delete(Course.resourceUrl(this) + '/unregister')
+      @$delete(@$url('/unregister'))
 ]
 
