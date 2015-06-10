@@ -1,0 +1,166 @@
+.topic__items {
+  background: $white;
+  border: 1px solid $light-grey-color;
+  border-top: 3px solid lighten($light-grey-color, 20%);
+
+  .topic__item.row {
+    margin: 0;
+    overflow: hidden;
+  }
+}
+
+.topic__item {
+  background: $white;
+  border-bottom: 1px solid lighten($light-grey-color, 20%);
+  clear: both;
+
+  &:after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+
+  &.done {
+    background: lighten($light-grey-color, 21%);
+
+    .topic__item__description a,
+    input {
+      font-style: italic;
+      opacity: .5;
+    }
+  }
+
+  &.personal {
+    .topic__item__description a:first-child,
+    input {
+      color: $red-color;
+    }
+  }
+
+  .topic__item__handle,
+  .topic__item__image,
+  .topic__item__show,
+  .topic__item__status__checkbox,
+  .topic__item__description,
+  .topic__item__actions,
+  .topic__item__item__editing {
+    vertical-align: middle;
+  }
+
+  .topic__item__handle,
+  .topic__item__image,
+  .topic__item__status__checkbox {
+    float: left;
+  }
+
+  .topic__item__status__checkbox {
+    margin: 0;
+    padding: .5em;
+  }
+
+  .topic__item__show {
+    margin-left: 3em;
+  }
+
+  .topic__item__description {
+    display: block;
+    margin-left: 2.5em;
+    word-wrap: break-word;
+  }
+
+  .topic__item__description__contents {
+    display: block;
+
+    &.topic__contains__media {
+      margin-left: 3.5em;
+    }
+  }
+
+  .topic__item__status {
+    display: none;
+  }
+
+  input[type=checkbox] + label {
+    color: $light-grey-color;
+  }
+
+  input[type=checkbox]:checked + label {
+    color: $secondary-color;
+  }
+
+  .topic__item__handle {
+    color: $light-grey-color;
+    cursor: grab;
+    float: left;
+    font-size: 1.5em;
+    margin-bottom: -.25em;
+    padding: 1em .5em;
+  }
+
+  &.ui-sortable-helper {
+    border-color: $secondary-color;
+    box-shadow: $box-shadow;
+
+    .topic__item__handle {
+      cursor: grabbing;
+    }
+  }
+
+  &.ui-sortable-placeholder {
+    border-bottom: 2px dashed $secondary-color;
+    border-top: 2px dashed $secondary-color;
+    visibility: visible !important; //scss-lint:disable ImportantRule
+  }
+
+  .topic__item__image {
+    @include radius();
+    background: no-repeat center center;
+    background-size: cover;
+    display: inline-block;
+    height: 2.75em;
+    margin-right: .5em;
+    vertical-align: middle;
+    width: 2.75em;
+  }
+
+  .topic__item__editing {
+    @extend .item__type;
+    margin: 0 -.25rem;
+
+    .edit__topic__actions {
+      @extend .new__topic__actions;
+
+      .cancel {
+        color: $light-grey-color;
+        float: left;
+      }
+
+      .save__edit__topic__item {
+        @extend .create__new__topic__item;
+      }
+    }
+  }
+
+  .topic__item__contents {
+    margin-right: 3em;
+    padding: 1.5em 0;
+  }
+
+  .topic__item__actions {
+    color: $light-grey-color;
+    float: right;
+    font-size: 1.5em;
+    line-height: 1rem;
+    padding: .75em .5em;
+
+    .topic__item__actions__button {
+      cursor: pointer;
+    }
+  }
+
+  .topic__url {
+    color: $secondary-color;
+    display: block;
+    font-size: .75em;
+  }
+}
