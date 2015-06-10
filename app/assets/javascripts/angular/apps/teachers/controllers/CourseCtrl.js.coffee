@@ -14,10 +14,6 @@ CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)
     klass += " has-tooltip" if $scope.hideEvent(event)
     klass
 
-  $scope.statusFor = (event)->
-    return "empty" if $scope.course.user_role == 'student' && event.formatted_status == "draft"
-    event.formatted_status
-
   $scope.fetch = (month)->
     $scope.$emit('wholePageLoading', Course.get({ uuid: $routeParams.id }, { month: month || $routeParams.month }).then (course)->
       $scope.course = formatToView(course)
@@ -48,11 +44,11 @@ CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)
 
   $scope.hideEvent = (event)->
     return false if $scope.course.user_role == 'teacher'
-    (['empty', 'canceled'].indexOf $scope.statusFor(event)) != -1
+    (['empty', 'canceled'].indexOf event.formatted_status) != -1
 
   $scope.tooltipMessage = (event)->
     return undefined unless $scope.hideEvent(event)
-    if $scope.statusFor(event) == 'canceled'
+    if event.formatted_status == 'canceled'
       'Esta aula foi cancelada'
     else
       'Esta aula ainda está vazia'

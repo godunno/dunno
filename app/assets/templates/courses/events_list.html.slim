@@ -37,7 +37,7 @@
       span.date__classroom
         | {{event.formatted_classroom}}
     span.date__status
-      i.icon[ng-class="'icon-' + statusFor(event)"]
+      i.icon[ng-class="'icon-' + event.formatted_status"]
     span.date__timestamp
       span.date__day
         | {{asDate(event.start_at) | date:'dd'}}

@@ -93,7 +93,7 @@ describe Api::V1::CoursesController do
                 "uuid" => event.uuid,
                 "order" => event.order,
                 "status" => event.status,
-                "formatted_status" => event.formatted_status,
+                "formatted_status" => event.formatted_status(profile),
                 "start_at" => event.start_at.utc.iso8601,
                 "end_at" => event.end_at.utc.iso8601,
                 "formatted_classroom" => "101"

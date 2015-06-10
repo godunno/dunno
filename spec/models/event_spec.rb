@@ -58,10 +58,10 @@ describe Event do
   end
 
   describe "#formatted_status" do
-
-    before do
-      event.save!
-    end
+    let(:teacher) { create(:profile) }
+    let(:student) { create(:profile) }
+    let(:course) { create(:course, teacher: teacher, students: [student]) }
+    let(:event) { create(:event, course: course) }
 
     context "it's draft and" do
       before do
@@ -70,12 +70,21 @@ describe Event do
       end
 
       it "there's no topics" do
-        expect(event.formatted_status).to eq("empty")
+        expect(event.formatted_status(teacher)).to eq("empty")
       end
 
-      it "there's at least one topic" do
-        event.topics << build(:topic)
-        expect(event.reload.formatted_status).to eq("draft")
+      context "there's at least one topic" do
+        before do
+          event.topics << build(:topic)
+        end
+
+        context "as teacher" do
+          it { expect(event.reload.formatted_status(teacher)).to eq("draft") }
+        end
+
+        context "as student" do
+          it { expect(event.reload.formatted_status(student)).to eq("empty") }
+        end
       end
     end
 
@@ -87,13 +96,13 @@ describe Event do
 
       it "there's no topics" do
         Timecop.freeze(event.end_at - 1.hour) do
-          expect(event.formatted_status).to eq("published")
+          expect(event.formatted_status(teacher)).to eq("published")
         end
       end
 
       it "it already happened" do
         Timecop.freeze(event.end_at + 1.hour) do
-          expect(event.formatted_status).to eq("happened")
+          expect(event.formatted_status(teacher)).to eq("happened")
         end
       end
     end
@@ -103,7 +112,7 @@ describe Event do
         event.status = "canceled"
       end
 
-      it { expect(event.formatted_status).to eq("canceled") }
+      it { expect(event.formatted_status(teacher)).to eq("canceled") }
     end
   end
 

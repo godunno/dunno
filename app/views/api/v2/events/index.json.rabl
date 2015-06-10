@@ -2,7 +2,9 @@ object false
 
 child @events do
   attributes :id, :start_at
-  attribute formatted_status: :status
+  node(:status) do |event|
+    event.formatted_status(current_profile)
+  end
 end
 node(:prev) do
   api_v2_course_events_url(

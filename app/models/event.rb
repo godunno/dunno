@@ -35,8 +35,8 @@ class Event < ActiveRecord::Base
     neighbors[order - 1 + 1] if order < neighbors.length
   end
 
-  def formatted_status
-    return "empty" if empty?
+  def formatted_status(profile)
+    return "empty" if empty? || draft? && profile.role_in(course) == 'student'
     return "happened" if happened?
     status
   end

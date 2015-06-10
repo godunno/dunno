@@ -57,7 +57,7 @@ describe Api::V1::EventsController do
             "uuid" => event.uuid,
             "order" => event.order,
             "status" => event.status,
-            "formatted_status" => event.formatted_status,
+            "formatted_status" => event.formatted_status(profile),
             "start_at" => event.start_at.utc.iso8601,
             "end_at" => event.end_at.utc.iso8601,
             "formatted_classroom" => "101",
@@ -125,9 +125,10 @@ describe Api::V1::EventsController do
       let(:target) { event }
 
       subject { event_json }
-      it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
+      it_behaves_like "request return check", %w(uuid order status start_at end_at)
 
       it { expect(last_response.status).to eq(200) }
+      it { expect(subject["formatted_status"]).to eq(event.formatted_status(profile)) }
       it { expect(subject["formatted_classroom"]).to eq("#{course.class_name} - #{classroom}") }
 
       describe "course" do
@@ -139,7 +140,8 @@ describe Api::V1::EventsController do
       describe "previous" do
         let(:target) { previous_event }
         subject { event_json["previous"] }
-        it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
+        it_behaves_like "request return check", %w(uuid order status start_at end_at)
+        it { expect(subject["formatted_status"]).to eq(previous_event.formatted_status(profile)) }
 
         describe "topics" do
           before { skip }
@@ -159,7 +161,8 @@ describe Api::V1::EventsController do
       describe "next" do
         let(:target) { next_event }
         subject { event_json["next"] }
-        it_behaves_like "request return check", %w(uuid order status formatted_status start_at end_at)
+        it_behaves_like "request return check", %w(uuid order status start_at end_at)
+        it { expect(subject["formatted_status"]).to eq(next_event.formatted_status(profile)) }
 
         describe "topics" do
           before { skip }
