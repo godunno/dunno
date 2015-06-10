@@ -78,13 +78,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           ng-repeat="topic in event.previous.topics"
           ng-hide="topic.personal && !showPrivateTopics"
           ng-class="{personal: topic.personal}"]
-          span
-            | {{topic.description}}
           a[
             ng-href="{{topic.media.url}}"
             ng-if="!!topic.media"
             target="_blank"]
             i.type.icon ng-class="'icon-' + topic.media.type"
+          span
+            | {{topic.description}}
     .small-12.medium-6.columns
       .row.small-collapse.diary__header[
         ng-class="{event__cancelled: event.status == 'canceled', event__published: event.status == 'published'}"]
@@ -341,13 +341,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           ng-repeat="topic in event.next.topics"
           ng-hide="topic.personal && !showPrivateTopics"
           ng-class="{personal: topic.personal}"]
-          span
-            | {{topic.description}}
           a[
             ng-href="{{topic.media.url}}"
             ng-if="!!topic.media"
             target="_blank"]
             i.type.icon ng-class="'icon-' + topic.media.type"
+          span
+            | {{topic.description}}
 
   tutorial.tutorial-3 ng-if="tutorialEnabled(3)" on-close="tutorialClosed(3)"
     tutorial-step
