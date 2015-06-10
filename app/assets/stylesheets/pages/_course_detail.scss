@@ -194,7 +194,12 @@
 
   &.today .date__day {
     background: $secondary-color;
+    border-radius: 50%;
     color: $white;
+    height: 2em;
+    line-height: 1.5em;
+    text-align: center;
+    width: 2em;
   }
 
   &.future .date__day {
