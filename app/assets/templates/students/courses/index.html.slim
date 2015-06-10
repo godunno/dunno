@@ -9,29 +9,35 @@ header.page-header.title
         | Adicionar disciplina
 .student-courses
   .row
-    ul.list--courses.small-block-grid-1.medium-block-grid-2
-      li.card.card--course.has-overlay ng-repeat="course in courses"
-        a href="#/courses/{{course.uuid}}" analytics-on="click" analytics-event="Course Accessed" analytics-name="{{course.name}}" analytics-uuid="{{course.uuid}}" analytics-teacher-name="{{course.teacher.name}}"
+    ul.courses__list.small-block-grid-1.medium-block-grid-2
+      li.course__card ng-repeat="course in courses"
+        a.has-overlay[
+          href="#/courses/{{course.uuid}}"
+          analytics-on="click"
+          analytics-event="Course Accessed"
+          analytics-name="{{course.name}}"
+          analytics-uuid="{{course.uuid}}"
+          analytics-teacher-name="{{course.teacher.name}}"]
           .overlay.published
             .button.btn-style-transparent-1.radius.vertical-center
               | ver disciplina
-          .title.padding ng-class="'scheme-' + course.order"
-            h2.card-title
+          .card__header ng-class="'scheme-' + course.order"
+            h2.card__title
               | {{course.name}}
-            .card-subtitle.translucent.padding-top
-              strong
-                | {{course.class_name}}
-              span.right
-                | {{course.institution}}
-              span.right
-                | {{course.teacher.name}}
-          .card-content.padding
-            .translucent
-              .cf
-                .period.left
-                  i.icon.icon-calendar.margin-right
-                  span
-                    | {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
-                .students.right
-                  i.icon.icon-users.margin-right
-                  span count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
+            .card__subtitle.row
+              .small-6.columns
+                strong
+                  | {{course.class_name}}
+              .small-6.columns.course__institution
+                span
+                  | {{course.institution}}
+                span
+                  | {{course.teacher.name}}
+          .card__content.row
+            .small-6.columns.course__period
+              i.icon.icon-calendar>
+              span
+                | {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
+            .small-6.columns.course__students__count
+              i.icon.icon-users>
+              span count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
