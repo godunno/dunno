@@ -336,15 +336,24 @@
   }
 
   &.ui-sortable-helper {
+    border-color: $secondary-color;
+    box-shadow: $box-shadow;
+
     .topic__item__handle {
       cursor: grabbing;
     }
   }
 
+  &.ui-sortable-placeholder {
+    border-bottom: 2px dashed $secondary-color;
+    border-top: 2px dashed $secondary-color;
+    visibility: visible !important; //scss-lint:disable ImportantRule
+  }
+
   .topic__item__image {
     @include radius();
     background: no-repeat center center;
-    background-size: contain;
+    background-size: cover;
     display: inline-block;
     height: 2.75em;
     margin-right: .5em;
