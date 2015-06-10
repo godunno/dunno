@@ -6,8 +6,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def show
-    @course = Course.find_by_identifier!(params[:id])
-    @pagination = PaginateEventsByMonth.new(@course.events, params[:month])
+    @pagination = PaginateEventsByMonth.new(course.events, params[:month])
     @events = @pagination.events
   end
 
@@ -37,7 +36,6 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def register
-    # TODO: test
     course = Course.find_by_identifier!(params[:id])
     begin
       course.add_student current_profile
@@ -55,7 +53,6 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def unregister
-    course = Course.find_by_identifier!(params[:id])
     course.students.destroy(current_profile)
     status = 200
     render nothing: true, status: status
@@ -65,10 +62,14 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     @students = course.students
   end
 
+  def search
+    @course = Course.find_by_identifier!(params[:id])
+  end
+
   private
 
   def course
-    @course ||= current_profile.courses.find_by!(uuid: params[:id])
+    @course ||= current_profile.courses.find_by_identifier!(params[:id])
   end
 
   def course_params

@@ -47,6 +47,7 @@ Rails.application.routes.draw do
         member do
           post :register
           delete :unregister
+          get :search
           # TODO: Check if this route is used
           get :students
         end

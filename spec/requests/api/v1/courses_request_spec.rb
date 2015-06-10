@@ -121,17 +121,14 @@ describe Api::V1::CoursesController do
           it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
         end
 
-        # TODO: Forbid access to not registered course, and create a search which 
-        # returns only basic information.
-        #
-        # context "course not registered" do
-        #   let!(:course) { create(:course, teacher: create(:profile)) }
-        #   let(:identifier) { course.uuid }
+        context "course not registered" do
+          let!(:course) { create(:course, teacher: create(:profile)) }
+          let(:identifier) { course.uuid }
 
-        #   it do
-        #     expect { do_action }.to raise_error(ActiveRecord::RecordNotFound)
-        #   end
-        # end
+          it do
+            expect { do_action }.to raise_error(ActiveRecord::RecordNotFound)
+          end
+        end
       end
 
       context "in previous month" do
@@ -383,6 +380,37 @@ describe Api::V1::CoursesController do
       expect do
         do_action
       end.to change(Course, :count).by(-1)
+    end
+  end
+
+  describe "GET /api/v1/courses/:access_code/search" do
+    let(:unregistered_course) { create(:course, teacher: teacher) }
+
+    def do_action
+      get "/api/v1/courses/#{identifier}/search.json", auth_params(student)
+    end
+
+    context "non existent course" do
+      let(:identifier) { 'not-found' }
+
+      it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
+
+    context "existent course" do
+      let(:identifier) { unregistered_course.access_code }
+
+      before { do_action }
+
+      it do
+        expect(json).to eq(
+          "course" => {
+            "name" => unregistered_course.name,
+            "class_name" => unregistered_course.class_name,
+            "institution" => unregistered_course.institution,
+            "teacher" => { "name" =>  teacher.name}
+          }
+        )
+      end
     end
   end
 end

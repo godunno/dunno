@@ -73,13 +73,18 @@ describe Course do
   end
 
   describe "::find_by_identifier!" do
-    before { course.save! }
+    before do
+      course.save!
+      create(:course)
+    end
 
-    it { expect(Course.find_by_identifier!(course.uuid)).to eq(course) }
-    it { expect(Course.find_by_identifier!(course.access_code)).to eq(course) }
+    subject { Course.all }
+
+    it { expect(subject.find_by_identifier!(course.uuid)).to eq(course) }
+    it { expect(subject.find_by_identifier!(course.access_code)).to eq(course) }
 
     it "raises error on not found" do
-      expect { Course.find_by_identifier!('bla') }
+      expect { subject.find_by_identifier!('bla') }
       .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
