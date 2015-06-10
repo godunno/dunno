@@ -353,10 +353,13 @@
       font-weight: $font-weight-bold;
     }
   }
-  .topic__item__show .topic__item__description {
-    display: block;
-    margin-left: 4em;
-    max-width: 100%;
+
+  .topic__item__show {
+    .topic__item__description {
+      display: block;
+      margin-left: 0;
+      max-width: 100%;
+    }
   }
 
   .topic__item {
@@ -364,6 +367,10 @@
 
     .topic__item__image {
       float: left;
+    }
+
+    .topic__item__show {
+      margin-left: 0;
     }
 
     .topic__item__description,
