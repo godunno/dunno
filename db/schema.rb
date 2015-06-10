@@ -17,16 +17,6 @@ ActiveRecord::Schema.define(version: 20150529014644) do
   enable_extension "plpgsql"
   enable_extension "hstore"
 
-  create_table "answers", force: true do |t|
-    t.integer  "student_id"
-    t.integer  "option_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "answers", ["option_id"], name: "index_answers_on_option_id", using: :btree
-  add_index "answers", ["student_id"], name: "index_answers_on_student_id", using: :btree
-
   create_table "api_keys", force: true do |t|
     t.string   "token"
     t.integer  "user_id"
@@ -36,41 +26,6 @@ ActiveRecord::Schema.define(version: 20150529014644) do
 
   add_index "api_keys", ["token"], name: "index_api_keys_on_token", unique: true, using: :btree
   add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
-
-  create_table "artifacts", force: true do |t|
-    t.integer  "teacher_id"
-    t.integer  "heir_id"
-    t.string   "heir_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "timeline_id"
-  end
-
-  add_index "artifacts", ["heir_id", "heir_type"], name: "index_artifacts_on_heir_id_and_heir_type", unique: true, using: :btree
-  add_index "artifacts", ["teacher_id"], name: "index_artifacts_on_teacher_id", using: :btree
-  add_index "artifacts", ["timeline_id"], name: "index_artifacts_on_timeline_id", using: :btree
-
-  create_table "attendances", force: true do |t|
-    t.integer  "student_id"
-    t.integer  "event_id"
-    t.boolean  "validated",  default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "attendances", ["event_id"], name: "index_attendances_on_event_id", using: :btree
-  add_index "attendances", ["student_id"], name: "index_attendances_on_student_id", using: :btree
-
-  create_table "beacons", force: true do |t|
-    t.uuid     "uuid"
-    t.integer  "major",      limit: 8
-    t.integer  "minor",      limit: 8
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "beacons", ["uuid"], name: "index_beacons_on_uuid", unique: true, using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -167,76 +122,10 @@ ActiveRecord::Schema.define(version: 20150529014644) do
 
   add_index "notifications", ["course_id"], name: "index_notifications_on_course_id", using: :btree
 
-  create_table "options", force: true do |t|
-    t.string   "content"
-    t.integer  "poll_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "uuid"
-    t.boolean  "correct"
-  end
-
-  add_index "options", ["poll_id"], name: "index_options_on_poll_id", using: :btree
-  add_index "options", ["uuid"], name: "index_options_on_uuid", unique: true, using: :btree
-
-  create_table "organizations", force: true do |t|
-    t.string   "name"
-    t.string   "uuid"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "organizations", ["uuid"], name: "index_organizations_on_uuid", unique: true, using: :btree
-
-  create_table "organizations_teachers", id: false, force: true do |t|
-    t.integer "organization_id", null: false
-    t.integer "teacher_id",      null: false
-  end
-
-  create_table "personal_notes", force: true do |t|
-    t.text     "description"
-    t.boolean  "done"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.uuid     "uuid"
-    t.integer  "order"
-    t.integer  "media_id"
-  end
-
-  add_index "personal_notes", ["event_id"], name: "index_personal_notes_on_event_id", using: :btree
-  add_index "personal_notes", ["media_id"], name: "index_personal_notes_on_media_id", using: :btree
-  add_index "personal_notes", ["uuid"], name: "index_personal_notes_on_uuid", unique: true, using: :btree
-
-  create_table "polls", force: true do |t|
-    t.string   "content"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "status",      default: "available"
-    t.string   "uuid"
-    t.datetime "released_at"
-  end
-
-  add_index "polls", ["event_id"], name: "index_polls_on_event_id", using: :btree
-  add_index "polls", ["uuid"], name: "index_polls_on_uuid", unique: true, using: :btree
-
   create_table "profiles", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "ratings", force: true do |t|
-    t.float    "value",         default: 0.0
-    t.integer  "rateable_id"
-    t.string   "rateable_type"
-    t.integer  "student_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ratings", ["rateable_id", "rateable_type", "student_id"], name: "index_ratings_on_rateable_id_and_rateable_type_and_student_id", unique: true, using: :btree
-  add_index "ratings", ["student_id"], name: "index_ratings_on_student_id", using: :btree
 
   create_table "students", force: true do |t|
     t.datetime "created_at"
@@ -267,47 +156,6 @@ ActiveRecord::Schema.define(version: 20150529014644) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "thermometers", force: true do |t|
-    t.integer  "event_id"
-    t.string   "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "uuid"
-  end
-
-  add_index "thermometers", ["event_id"], name: "index_thermometers_on_event_id", using: :btree
-  add_index "thermometers", ["uuid"], name: "index_thermometers_on_uuid", unique: true, using: :btree
-
-  create_table "timeline_interactions", force: true do |t|
-    t.integer  "interaction_id",   null: false
-    t.string   "interaction_type", null: false
-    t.integer  "timeline_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "timeline_interactions", ["timeline_id"], name: "index_timeline_interactions_on_timeline_id", using: :btree
-
-  create_table "timeline_messages", force: true do |t|
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "student_id"
-    t.uuid     "uuid"
-  end
-
-  add_index "timeline_messages", ["student_id"], name: "index_timeline_messages_on_student_id", using: :btree
-  add_index "timeline_messages", ["uuid"], name: "index_timeline_messages_on_uuid", unique: true, using: :btree
-
-  create_table "timelines", force: true do |t|
-    t.datetime "start_at",   null: false
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "timelines", ["event_id"], name: "index_timelines_on_event_id", using: :btree
 
   create_table "topics", force: true do |t|
     t.text     "description"
@@ -356,21 +204,6 @@ ActiveRecord::Schema.define(version: 20150529014644) do
   add_index "users", ["profile_id"], name: "index_users_on_profile_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
-
-  create_table "votes", force: true do |t|
-    t.integer  "votable_id"
-    t.string   "votable_type"
-    t.integer  "voter_id"
-    t.string   "voter_type"
-    t.boolean  "vote_flag"
-    t.string   "vote_scope"
-    t.integer  "vote_weight"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
-  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
   create_table "weekly_schedules", force: true do |t|
     t.integer  "weekday"
