@@ -36,7 +36,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def register
-    course = Course.find_by_identifier!(params[:id])
+    @course = course(Course.all)
     begin
       course.add_student current_profile
       TrackerWrapper.new(course.teacher.user).track('Student Joined',
@@ -63,13 +63,13 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def search
-    @course = Course.find_by_identifier!(params[:id])
+    @course = course(Course.all)
   end
 
   private
 
-  def course
-    @course ||= current_profile.courses.find_by_identifier!(params[:id])
+  def course(scope = current_profile.courses)
+    @course ||= scope.find_by_identifier!(params[:id])
   end
 
   def course_params
