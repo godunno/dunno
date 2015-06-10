@@ -1,6 +1,10 @@
 scss_files: 'app/assets/stylesheets/**/*.scss'
 
-exclude: ['app/assets/stylesheets/modules/_action-sheet.scss', 'app/assets/stylesheets/modules/_loading.scss']
+exclude:
+  - 'app/assets/stylesheets/modules/_action-sheet.scss'
+  - 'app/assets/stylesheets/modules/_loading.scss'
+  - 'app/assets/stylesheets/_icons.scss'
+  - 'app/assets/stylesheets/mailers/*'
 
 linters:
   SingleLinePerSelector:

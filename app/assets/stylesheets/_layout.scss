@@ -1,7 +1,7 @@
 $page-title-height: 4em;
 $page-header-margin: 2em;
 $page-subtitle-height: 4em;
-$box-shadow: 0 2px 2px #ccc; // NEW_COLOUR
+$box-shadow: 0 2px 2px $light-grey-color;
 
 .tab-bar.show-for-small {
   .icons.icon-dunno-logo {
@@ -36,26 +36,6 @@ $box-shadow: 0 2px 2px #ccc; // NEW_COLOUR
   opacity: .5;
 }
 
-.weekday {
-  text-transform: uppercase;
-}
-
-.padding {
-  padding: 10px 20px;
-}
-
-.padding-top {
-  padding-top: 10px;
-}
-
-.margin-right {
-  margin-right: 10px;
-}
-
-.margin-top {
-  margin-top: 10px;
-}
-
 // http://nicolasgallagher.com/micro-clearfix-hack/
 // For modern browsers
 // 1. The space content is one way to avoid an Opera bug when the
@@ -81,10 +61,16 @@ $box-shadow: 0 2px 2px #ccc; // NEW_COLOUR
   *zoom: 1;
 }
 
-.inner-wrap {
-  // height: 100vh;
+.off-canvas-wrap {
+  min-height: 100%;
 }
 
+.inner-wrap,
 .content {
-  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.right-off-canvas-menu {
+  min-height: 100vh;
 }

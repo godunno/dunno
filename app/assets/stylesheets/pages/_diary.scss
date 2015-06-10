@@ -182,8 +182,7 @@
   }
 
   .create__new__topic__item {
-    border: 1px solid $secondary-color;
-    font-weight: bold;
+    font-weight: $font-weight-bold;
 
     &.alert {
       border-color: $red-color;
@@ -195,7 +194,7 @@
   background: $white;
   border: 1px solid $dark-grey-color;
   box-shadow: lighten($light-grey-color, 20%) 0 3px 0;
-  margin: 0 -1rem;
+  margin: 0 -1.15rem;
   position: relative;
   z-index: 1;
 
@@ -270,7 +269,7 @@
   }
 
   &.personal {
-    .topic__item__description a,
+    .topic__item__description a:first-child,
     input {
       color: $red-color;
     }
@@ -426,14 +425,20 @@
   }
 
   span {
+    display: block;
     font-size: .75em;
+    margin-right: 2em;
+  }
+
+  a {
+    float: right;
   }
 
   .icon {
     background-color: $dark-grey-color;
     border-radius: 2em;
     color: $white;
-    float: right;
+    display: inline-block;
     font-size: .875em;
     height: 1.5em;
     line-height: 1em;
@@ -499,7 +504,7 @@
 
   .event__status__button {
     background: lighten($light-grey-color, 15%);
-    border: 1px solid lighten($light-grey-color, 10%) !important;
+    border: 1px solid lighten($light-grey-color, 10%) !important; // scss-lint:disable ImportantRule
     color: $primary-color;
 
     &.event__status__current {

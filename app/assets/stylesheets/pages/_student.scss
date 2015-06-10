@@ -7,7 +7,7 @@
 
     p {
       color: $primary-color;
-      font-weight: 300;
+      font-weight: $font-weight-light;
       margin: 0;
       text-align: center;
     }
@@ -23,7 +23,7 @@
       background-position: 300px center;
       background-repeat: no-repeat;
       font-size: 22px;
-      font-weight: 300;
+      font-weight: $font-weight-light;
       padding: 30px 50px 30px 20px;
     }
 
@@ -70,7 +70,7 @@
             color: $primary-color;
             display: inline-block;
             font-size: 16px;
-            font-weight: 400;
+            font-weight: $font-weight-normal;
             margin: 0;
           }
 
@@ -101,7 +101,7 @@
               display: inline-block;
               float: left;
               font-size: 14px;
-              font-weight: 300;
+              font-weight: $font-weight-light;
               margin: 0;
             }
 
@@ -110,7 +110,7 @@
               display: inline-block;
               float: right;
               font-size: 10px;
-              font-weight: 300;
+              font-weight: $font-weight-light;
               margin: 2px 0 0;
             }
           }
@@ -131,7 +131,7 @@
     p {
       color: $primary-color;
       font-size: 16px;
-      font-weight: 300;
+      font-weight: $font-weight-light;
       padding: 20px;
     }
   }
@@ -140,7 +140,7 @@
 .student-confirmation {
   h2 {
     font-size: 26px;
-    font-weight: 300;
+    font-weight: $font-weight-light;
     margin: 40px 0;
     padding: 20px 0;
     text-align: center;
@@ -185,7 +185,7 @@
         label {
           color: $light-grey-color;
           font-size: 12px;
-          font-weight: 300;
+          font-weight: $font-weight-light;
           margin-right: 30px;
           padding: 10px 0;
         }
@@ -196,11 +196,11 @@
 
         .text {
           font-size: 18px;
-          font-weight: 300;
+          font-weight: $font-weight-light;
         }
 
         .strong {
-          font-weight: 700;
+          font-weight: $font-weight-bold;
         }
       }
     }
@@ -212,7 +212,7 @@
         width: 100%;
 
         label {
-          font-weight: 700;
+          font-weight: $font-weight-bold;
         }
 
         .ios-label {
@@ -282,7 +282,7 @@
   }
 
   .checkbox-label {
-    background: #d8d8d8; // NEW_COLOUR
+    background: $light-grey-color;
     border-radius: 16px;
     cursor: pointer;
     display: block;
@@ -310,7 +310,7 @@
     content: attr(data-off);
     display: block;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: $font-weight-light;
     height: 100%;
     position: absolute;
     right: 14px;
@@ -350,13 +350,16 @@
   .event-show {
     .title {
       font-size: 1em;
-      font-weight: 600;
+      font-weight: $font-weight-bold;
     }
   }
-  .topic__item__show .topic__item__description {
-    display: block;
-    margin-left: 4em;
-    max-width: 100%;
+
+  .topic__item__show {
+    .topic__item__description {
+      display: block;
+      margin-left: 0;
+      max-width: 100%;
+    }
   }
 
   .topic__item {
@@ -364,6 +367,10 @@
 
     .topic__item__image {
       float: left;
+    }
+
+    .topic__item__show {
+      margin-left: 0;
     }
 
     .topic__item__description,

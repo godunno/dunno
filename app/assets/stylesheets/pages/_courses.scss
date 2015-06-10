@@ -1,29 +1,18 @@
-.list--courses {
+.courses__list {
   @extend %cards-container;
 }
 
-.card--course {
+.course__card {
   a {
     @extend %card;
   }
 
-  .period {
+  .course__period {
     text-transform: capitalize;
   }
-}
 
-.overlay.published {
-  background-color: $primary-color;
-  opacity: .9;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.course-title {
-  margin-bottom: 0;
-  margin-top: 0;
-}
-
-.card-content.padding {
-  padding: 1.25em;
+  .course__institution,
+  .course__students__count {
+    text-align: right;
+  }
 }

@@ -96,7 +96,8 @@ header.page-header.title ng-class="newRecord(course) ? '' : 'scheme-' + course.o
                 | Sala / Prédio:
               input.radius ng-model="weekly_schedule.classroom" type="text" ng-disabled="!newRecord(course)" placeholder="Ex: Sala 430"
             .medium-3.columns.right ng-if="newRecord(course)"
-              a.dunno-font ng-click="remove(course.weekly_schedules, weekly_schedule)" x
+              a[ng-click="remove(course.weekly_schedules, weekly_schedule)"]
+                i.icon.icon-remove
         a.btn-black.radius ng-if="newRecord(course)" ng-click="newItem(course.weekly_schedules, weekly_schedule)"
           span.plus
             | A
