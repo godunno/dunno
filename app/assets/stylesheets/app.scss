@@ -1,42 +1,51 @@
-@import 'utils/variables';
+@import
+  'utils/variables',
+  'utils/icons_aliases';
 
-@import 'settings', 'foundation'; // foundation setup
+@import
+  'settings', // foundation setup
+  'foundation';
 
-@import 'base/reset',
-        'base/typography';
+@import
+  'base/reset',
+  'base/typography';
 
-@import 'vendors/icons',
-        'vendors/action-sheet';
+@import
+  'vendors/action-sheet',
+  'vendors/icons',
+  'vendors/loading';
 
-@import 'themes/theme',
-        'themes/schemes';
+@import
+  'themes/schemes',
+  'themes/theme';
 
-@import 'utils/icons_aliases';
+@import
+  'components/ball',
+  'components/buttons',
+  'components/cards',
+  'components/catalog',
+  'components/dropdown',
+  'components/overlay',
+  'components/page-header',
+  'components/preview',
+  'components/progress';
 
-@import 'components/catalog',
-        'components/dropdown',
-        'components/progress',
-        'components/preview',
-        'components/cards',
-        'components/page-header',
-        'components/buttons',
-        'components/overlay',
-        'components/ball';
-
-@import 'layouts/forms',
-        'layouts/modal',
-        'layouts/tutorial',
-        'layouts/loading';
+@import
+  'layouts/forms',
+  'layouts/modal',
+  'layouts/tutorial';
 
 // page specific styles
-@import 'pages/courses',
-        'pages/events',
-        'pages/diary',
-        'pages/login',
-        'pages/course_detail',
-        'pages/create_course',
-        'pages/student',
-        'pages/accept_invitation',
-        'pages/first_access',
-        'pages/edit_profile',
-        'pages/prebootstrap_loading';
+@import
+  'pages/accept_invitation',
+  'pages/catalog',
+  'pages/course_detail',
+  'pages/courses',
+  'pages/create_course',
+  'pages/diary',
+  'pages/edit_profile',
+  'pages/events',
+  'pages/first_access',
+  'pages/login',
+  'pages/prebootstrap_loading',
+  'pages/student';

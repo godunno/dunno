@@ -13,16 +13,15 @@
   font-style: normal;
 }
 
-.t-light {
-  color: $light-grey-color;
-}
-
-.important,
-.upcase {
+h1,
+h2 {
+  font-weight: $font-weight-light;
+  text-align: center;
   text-transform: uppercase;
 }
 
-.t-size-1 {
-  font-size: 1.4em;
-  font-weight: 300;
+.weekday,
+.important,
+.upcase {
+  text-transform: uppercase;
 }

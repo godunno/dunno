@@ -1,15 +1,12 @@
-// BASIC COLORS
+// COLORS
 $primary-color: #2b3738;
 $secondary-color: #1cc678;
-
 $red-color: #ff5950;
 $orange-color: #ff926a;
 $brown-color: #d18c66;
 $yellow-color: #fedd59;
 $blue-color: #54c5ff;
 $purple-color: #a893ff;
-
-// BASIC PALETTE
 $black: #000;
 $dark-grey-color: #70797a;
 $medium-grey-color: lighten($dark-grey-color, 16%);
@@ -22,4 +19,7 @@ $navigation-event-border-color: #cccecf;
 $dropdown-border-color: #d7d9da;
 $disabled-color: #c5c5c5;
 
-
+// TYPOGRAPHY
+$font-weight-bold: 700;
+$font-weight-normal: 400;
+$font-weight-light: 300;
