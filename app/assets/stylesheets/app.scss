@@ -16,10 +16,6 @@
   'vendors/loading';
 
 @import
-  'themes/schemes',
-  'themes/theme';
-
-@import
   'components/ball',
   'components/buttons',
   'components/cards',
@@ -49,3 +45,7 @@
   'pages/login',
   'pages/prebootstrap_loading',
   'pages/student';
+
+@import
+  'themes/schemes', // import this last to avoid an !important rule.
+  'themes/theme';
