@@ -19,13 +19,13 @@ html lang="pt" ng-app="DunnoApp"
       .inner-wrap
         = render layout: 'application/menu' do
           / TODO: keep active class to <LI>s inside the scopes
-          li ng-class="{active: controller == 'events-index-page'}"
+          li ng-class="{active: controller == 'events-index-page'}" ng-if="currentUser().profile == 'teacher'"
             a href="#events"
               | Aulas
           li ng-class="{active: controller == 'courses-index-page'}"
             a href="#courses"
               | Disciplinas
-          li ng-class="{active: controller == 'medias-index-page'}"
+          li ng-class="{active: controller == 'medias-index-page'}" ng-if="currentUser().profile == 'teacher'"
             a href="#catalog"
               | Catálogo
 
