@@ -11,7 +11,7 @@ CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)
 
   $scope.eventClass = (event)->
     klass = DateUtils.locationInTime(event.start_at)
-    klass += " has-tooltip" if $scope.hideEvent(event)
+    klass += " has-tooltip" unless $scope.canAccessEvent(event)
     klass
 
   $scope.fetch = (month)->
@@ -39,15 +39,15 @@ CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)
       course
 
   $scope.eventPath = (event)->
-    return if $scope.hideEvent(event)
+    return unless $scope.canAccessEvent(event)
     "#/events/#{event.uuid}"
 
-  $scope.hideEvent = (event)->
-    return false if $scope.course.user_role == 'teacher'
-    (['empty', 'canceled'].indexOf event.formatted_status) != -1
+  $scope.canAccessEvent = (event)->
+    return true if $scope.course.user_role == 'teacher'
+    event.status == 'published'
 
   $scope.tooltipMessage = (event)->
-    return undefined unless $scope.hideEvent(event)
+    return undefined if $scope.canAccessEvent(event)
     if event.formatted_status == 'canceled'
       'Esta aula foi cancelada'
     else
