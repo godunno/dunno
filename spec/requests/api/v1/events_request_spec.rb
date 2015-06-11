@@ -307,7 +307,7 @@ describe Api::V1::EventsController do
           it do
             do_action
             extract_uuid = -> (list) { list.map { |item| item["uuid"] } }
-            expect(extract_uuid.(json["topics"])).to eq(extract_uuid.call([last_topic, first_topic]))
+            expect(extract_uuid.(json["topics"])).to eq(extract_uuid.([last_topic, first_topic]))
           end
         end
       end

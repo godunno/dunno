@@ -70,7 +70,7 @@ describe Api::V1::SessionsController do
         end
         after { Warden.test_reset! }
         it { expect(last_response.status).to eq(302) }
-        it { expect(last_response.location).to match(/\/dashboard$/) }
+        it { expect(last_response.location).to match(%r{/dashboard$}) }
       end
     end
   end
@@ -149,7 +149,7 @@ describe Api::V1::SessionsController do
         end
         after { Warden.test_reset! }
         it { expect(last_response.status).to eq(302) }
-        it { expect(last_response.location).to match(/\/dashboard$/) }
+        it { expect(last_response.location).to match(%r{/dashboard$}) }
       end
     end
   end
