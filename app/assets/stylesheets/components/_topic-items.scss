@@ -37,6 +37,10 @@
     }
   }
 
+  .topic__item__description__contents *:not(.topic__url) {
+    cursor: text;
+  }
+
   .icon,
   .topic__item__handle,
   .topic__item__image,
@@ -90,13 +94,16 @@
     color: $secondary-color;
   }
 
+  .topic__item-bla {
+    overflow: hidden;
+  }
+
   .topic__item__handle {
     color: $light-grey-color;
     cursor: grab;
     float: left;
     font-size: 1.5em;
-    margin-bottom: -.25em;
-    padding: .5em;
+    padding: .75em .5em;
   }
 
   &.ui-sortable-helper {
@@ -120,7 +127,7 @@
     background-size: cover;
     display: inline-block;
     height: 2.75em;
-    margin-right: .5em;
+    margin: .25em .5em 0 0;
     vertical-align: middle;
     width: 2.75em;
   }

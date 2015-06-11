@@ -297,7 +297,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                       ng-if="!!topic.media"
                       ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
                     span.topic__item__description__contents[ng-class="{topic__contains__media: !!topic.media}"]
-                      a ng-click="startEditing(topic)"
+                      a.topic__description ng-click="startEditing(topic)"
                         | {{topic.description}}
                       a.topic__url[
                         ng-href="{{topic.media.url}}"
