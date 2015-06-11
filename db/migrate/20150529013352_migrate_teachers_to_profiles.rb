@@ -12,8 +12,6 @@ class MigrateTeachersToProfiles < ActiveRecord::Migration
       teacher.courses.find_each do |course|
         course.update!(teacher: profile)
       end
-
-      teacher.destroy!
     end
   end
 end

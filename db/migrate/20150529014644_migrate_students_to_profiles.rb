@@ -8,8 +8,6 @@ class MigrateStudentsToProfiles < ActiveRecord::Migration
       student.courses.find_each do |course|
         course.add_student(profile)
       end
-
-      student.destroy!
     end
   end
 end
