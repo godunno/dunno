@@ -1,16 +1,4 @@
-shared_examples_for "closed event" do
-
-  before(:each) do
-    event.open!
-    event.close!
-    do_action
-  end
-
-  it { expect(last_response.status).to eq(403) }
-end
-
 shared_examples_for "incorrect sign in" do
-
   before(:each) do
     do_action
   end
@@ -32,9 +20,4 @@ shared_examples_for "request return check" do |attributes|
       end
     end
   end
-end
-
-shared_examples_for "creating an artifact" do
-  it { expect(subject.teacher).to eq teacher }
-  it { expect(subject.event).to eq event }
 end

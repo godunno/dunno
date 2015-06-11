@@ -26,6 +26,7 @@ class CoursesImport
         class_name = fix_possible_float(row[1])
         course = teacher.courses.find_or_initialize_by(name: row[0], class_name: class_name)
         course.update!(
+          teacher: teacher,
           start_date: row[2],
           end_date: row[3]
         )
