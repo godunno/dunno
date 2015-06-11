@@ -201,7 +201,8 @@
     width: 2em;
   }
 
-  &.future .date__day {
+  &.future .date__day,
+  &.future .date__weekday {
     color: $primary-color;
   }
 
@@ -216,12 +217,22 @@
     padding: .25em;
   }
 
+  .date__status {
+    margin: 0 .25em;
+    vertical-align: middle;
+  }
+
   .date__day {
     font-weight: $font-weight-bold;
   }
 
   .date__weekday {
+    min-width: 3em;
     text-transform: uppercase;
+  }
+
+  .date__time {
+    font-size: .875em;
   }
 
   .date__time,
