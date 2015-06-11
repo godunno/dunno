@@ -1,8 +1,8 @@
 // scss-lint:disable SelectorFormat NestingDepth SelectorDepth PlaceholderInExtend IdSelector
 %side-box {
+  @include box-shadow();
   background-color: $white;
   border-radius: 5px;
-  box-shadow: $box-shadow;
   margin-bottom: 21px;
   padding: 20px;
 }
@@ -107,10 +107,9 @@
 }
 
 .dates {
-  @extend .cf;
+  @include box-shadow();
   background-color: $white;
   border-radius: 5px;
-  box-shadow: $box-shadow;
   margin: 0 0 2em;
 }
 

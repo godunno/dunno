@@ -1,4 +1,3 @@
-// scss-lint:disable BorderZero PlaceholderInExtend
 .required {
   @extend .warning;
 }
@@ -24,19 +23,19 @@ input[type=checkbox] {
 }
 
 @mixin dotted-input($border-color) {
-  outline: none;
-  box-shadow: none;
-  border: none;
   border-bottom: 1px dashed $border-color;
+  border: 0;
+  box-shadow: none;
+  outline: none;
 }
 
 .standalone-form {
   margin: auto;
 
   .box {
-    @include radius;
+    @include box-shadow();
+    @include radius();
     background: $white;
-    box-shadow: $box-shadow;
     padding: 1.5em;
     a {
       color: $secondary-color;
@@ -49,7 +48,7 @@ input[type=checkbox] {
 
   [disabled]:not(input[type="submit"]) {
     background: transparent;
-    border: none;
+    border: 0;
     box-shadow: none;
     color: $dark-grey-color;
     padding: 0;

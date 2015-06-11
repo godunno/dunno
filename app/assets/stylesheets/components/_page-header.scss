@@ -1,15 +1,15 @@
 .page-header {
+  @include box-shadow();
   background: $white;
-  box-shadow: $box-shadow;
-  margin-bottom: $page-header-margin;
+  margin-bottom: 2em;
   padding: 1em 0;
+
+  @media #{$small-only} {
+    margin-bottom: 1em;
+  }
 
   &.subtitle {
     margin-top: -2em;
-
-    h2 {
-      font-size: 1.3em;
-    }
 
     .columns,
     .column {
@@ -22,9 +22,6 @@
   }
 
   h2 {
-    font-size: 1.8em;
-    font-weight: $font-weight-light;
-    line-height: 1;
     margin: 0;
     padding: 0;
 
@@ -48,14 +45,9 @@
     font-size: .875em;
     margin-top: .5em;
   }
-
 }
 
 @media #{$small-only} {
-  .page-header {
-    margin-bottom: 1em;
-  }
-
   .event-start-date,
   .event-start-time {
     display: block;

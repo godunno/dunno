@@ -98,8 +98,8 @@
   }
 
   &.ui-sortable-helper {
+    @include box-shadow();
     border-color: $secondary-color;
-    box-shadow: $box-shadow;
 
     .topic__item__handle {
       cursor: grabbing;
