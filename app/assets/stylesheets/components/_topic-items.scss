@@ -37,8 +37,17 @@
     }
   }
 
-  .topic__item__description__contents *:not(.topic__url) {
-    cursor: text;
+  .topic__item__description__contents {
+    display: block;
+    line-height: 2em;
+
+    &.topic__contains__media {
+      margin-left: 3.5em;
+    }
+
+    *:not(.topic__url) {
+      cursor: text;
+    }
   }
 
   .icon,
@@ -71,15 +80,6 @@
     display: block;
     margin-left: 2.5em;
     word-wrap: break-word;
-  }
-
-  .topic__item__description__contents {
-    display: block;
-    line-height: 2em;
-
-    &.topic__contains__media {
-      margin-left: 3.5em;
-    }
   }
 
   .topic__item__status {
