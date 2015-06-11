@@ -16,6 +16,7 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
   }
 
   &.transparent {
+    // TODO: use foundation button() for creating new buttons.
     background: none;
     color: $black;
     opacity: .85;
@@ -31,6 +32,7 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
 }
 
 .btn-style-1 {
+  // TODO: use foundation button() for creating new buttons.
   background-color: $secondary-color;
 
   &:active,
@@ -44,6 +46,7 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
 }
 
 .btn-style-2 {
+  // TODO: use foundation button() for creating new buttons.
   background-color: $btn-style-transparent-bg-color;
   color: $primary-color;
   opacity: .6;
