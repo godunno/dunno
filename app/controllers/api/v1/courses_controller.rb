@@ -27,7 +27,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def update
     course.update(course_params)
-    render json: {uuid: course.uuid}
+    render json: { uuid: course.uuid }
   end
 
   def destroy

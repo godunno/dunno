@@ -11,13 +11,13 @@ describe Membership, type: :model do
     let(:profile) { create(:profile) }
 
     it "doesn't allow associate the same profile to the same course more than once" do
-      expect {
+      expect do
         Membership.create!(course: course, profile: profile, role: 'some role')
-      }.not_to raise_error
+      end.not_to raise_error
 
-      expect {
+      expect do
         Membership.create!(course: course, profile: profile, role: 'another role')
-      }.to raise_error
+      end.to raise_error
     end
 
     %w(profile role).each do |attr|

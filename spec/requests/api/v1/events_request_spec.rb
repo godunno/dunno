@@ -36,7 +36,6 @@ describe Api::V1::EventsController do
     end
 
     describe "collection" do
-
       before do
         do_action
       end
@@ -52,7 +51,7 @@ describe Api::V1::EventsController do
         subject { json[1] }
         it { expect(last_response.status).to eq(200) }
         it do
-          expect(subject).to eq({
+          expect(subject).to eq(
             "id" => event.id,
             "uuid" => event.uuid,
             "order" => event.order,
@@ -78,7 +77,7 @@ describe Api::V1::EventsController do
               "weekly_schedules" => [],
               "students_count" => 1
             }
-          })
+          )
         end
       end
     end
@@ -276,9 +275,7 @@ describe Api::V1::EventsController do
   end
 
   describe "PATCH /api/v1/events/:uuid.json" do
-
     context "authenticated" do
-
       def do_action
         patch "/api/v1/events/#{event.uuid}.json", auth_params(profile).merge(params_hash).to_json
       end
@@ -288,7 +285,8 @@ describe Api::V1::EventsController do
           let(:params_hash) { { event: { status: "published" } } }
           it do
             expect { do_action }
-            .to change { event.reload.status }.from("draft").to("published")
+              .to change { event.reload.status }
+              .from("draft").to("published")
           end
         end
 
@@ -309,7 +307,7 @@ describe Api::V1::EventsController do
           it do
             do_action
             extract_uuid = -> (list) { list.map { |item| item["uuid"] } }
-            expect(extract_uuid.(json["topics"])).to eq(extract_uuid.([last_topic, first_topic]))
+            expect(extract_uuid.(json["topics"])).to eq(extract_uuid.call([last_topic, first_topic]))
           end
         end
       end
@@ -328,7 +326,7 @@ describe Api::V1::EventsController do
             }
           end
 
-          it { expect { do_action}.to raise_error(ActiveRecord::RecordNotFound) }
+          it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
         end
 
         context "someone else's event's attributes" do

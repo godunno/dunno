@@ -58,7 +58,6 @@ describe Api::V1::CoursesController do
     let!(:event_from_another_course) { create(:event, course: create(:course, teacher: teacher)) }
 
     shared_examples_for "get course" do |role|
-
       def do_action(parameters = {})
         get "/api/v1/courses/#{identifier}.json", auth_params(profile).merge(parameters)
       end
@@ -72,7 +71,7 @@ describe Api::V1::CoursesController do
 
           it { expect(last_response.status).to eq(200) }
           it do
-            expect(subject).to eq({
+            expect(subject).to eq(
               "uuid" => course.uuid,
               "name" => course.name,
               "start_date" => course.start_date.to_s,
@@ -86,7 +85,7 @@ describe Api::V1::CoursesController do
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
               "weekly_schedules" => [],
               "students_count" => 1,
-              "teacher" => {"name" => teacher.name},
+              "teacher" => { "name" => teacher.name },
               "user_role" => role,
               "events" => [{
                 "id" => event.id,
@@ -101,7 +100,7 @@ describe Api::V1::CoursesController do
               "previous_month" => 1.month.ago.beginning_of_month.utc.iso8601,
               "current_month" => Time.current.beginning_of_month.utc.iso8601,
               "next_month" => 1.month.from_now.beginning_of_month.utc.iso8601
-            })
+            )
           end
         end
 
@@ -365,7 +364,7 @@ describe Api::V1::CoursesController do
 
     it { expect(last_response.status).to eq(200) }
     it { expect(course.reload.name).to eq "Some name" }
-    it { expect(json).to eq({ "uuid" => course.uuid }) }
+    it { expect(json).to eq("uuid" => course.uuid) }
   end
 
   describe "DELETE /api/v1/courses/:uuid.json" do
@@ -409,7 +408,7 @@ describe Api::V1::CoursesController do
             "name" => unregistered_course.name,
             "class_name" => unregistered_course.class_name,
             "institution" => unregistered_course.institution,
-            "teacher" => { "name" =>  teacher.name}
+            "teacher" => { "name" =>  teacher.name }
           }
         )
       end

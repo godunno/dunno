@@ -12,7 +12,6 @@ class Media < ActiveRecord::Base
   acts_as_ordered_taggable
 
   belongs_to :mediable, polymorphic: true
-  #belongs_to :teacher
   belongs_to :profile
   has_many :topics
   has_many :events, through: :topics

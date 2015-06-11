@@ -17,7 +17,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
     if @event_form.save
       render nothing: true
     else
-      render json: {errors: @event_form.errors}, status: 400
+      render json: { errors: @event_form.errors }, status: 400
     end
   end
 
