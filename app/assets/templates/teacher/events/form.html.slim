@@ -58,7 +58,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ng-click="setStatus(event, 'published')"]
             | Publicada
             i.icon.icon-published<
-  .row
+  .row.collapse
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"

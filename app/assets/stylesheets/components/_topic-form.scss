@@ -85,7 +85,7 @@
 .item__type {
   background: $white;
   border: 1px solid $dark-grey-color;
-  box-shadow: lighten($light-grey-color, 20%) 0 3px 0;
+  box-shadow: transparentize($light-grey-color, .8) 0 4px 0;
   margin: 0 -1.15rem;
   position: relative;
   z-index: 1;
