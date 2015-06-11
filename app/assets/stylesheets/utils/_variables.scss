@@ -10,22 +10,14 @@ $purple-color: #a893ff;
 $black: #000;
 $dark-grey-color: #70797a;
 $medium-grey-color: lighten($dark-grey-color, 16%);
-$light-grey-color: #bebebe;
+$light-grey-color: lighten($dark-grey-color, 30%);
 $white: #fff;
-
-// TODO: Generate this from BASIC PALETTE
-$background-light-grey-color: #f2f2f2;
-$navigation-event-border-color: #cccecf;
-$dropdown-border-color: #d7d9da;
-$disabled-color: #c5c5c5;
+$background-light-grey-color: darken($white, 5%);
+$navigation-event-border-color: lighten($dark-grey-color, 35%);
+$dropdown-border-color: lighten($dark-grey-color, 40%);
+$disabled-color: lighten($light-grey-color, 5%);
 
 // TYPOGRAPHY
 $font-weight-bold: 700;
 $font-weight-normal: 400;
 $font-weight-light: 300;
-
-// GENERAL
-$box-shadow: 0 2px 2px $light-grey-color;
-$page-title-height: 4em;
-$page-header-margin: 2em;
-$page-subtitle-height: 4em;
