@@ -76,7 +76,7 @@ describe Api::V1::EventsController do
               "teacher" => { "name" => course.teacher.name },
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
               "weekly_schedules" => [],
-              "students_count" => 0
+              "students_count" => 1
             }
           })
         end

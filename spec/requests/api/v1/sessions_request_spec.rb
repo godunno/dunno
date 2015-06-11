@@ -5,7 +5,7 @@ describe Api::V1::SessionsController do
   let(:course) { create(:course) }
 
   describe "student" do
-    let!(:student) { create(:profile, user: create(:user, password: password), memberships: [create(:student_membership, course: course)]) }
+    let!(:student) { create(:profile, user: create(:user, password: password), memberships: [create(:membership, course: course)]) }
 
     describe "POST /api/v1/users/sign_in" do
 
