@@ -1,20 +1,22 @@
-a.dropdown.secondary.button.tiny.new__topic__visibility[
-  dropdown-toggle="#topic-private-{{topic.uuid}}"]
-  span.private ng-if="editingTopic.personal"
-    i.icon.icon-lock>
-    | Somente professor
-  span ng-if="!editingTopic.personal"
-    i.icon.icon-unlock>
-    | Alunos
-ul.f-dropdown[
-  id="topic-private-{{topic.uuid}}"
-  dropdown-select=""]
-  input.model type="hidden" name="topic_private" ng-model="editingTopic.personal"
-  li.private dropdown-select-item="true"
-    a
+zf-action-sheet
+  zf-as-button.radius.dropdown.secondary.button.tiny.new__topic__visibility
+    span.private ng-if="editingTopic.personal"
       i.icon.icon-lock>
       | Somente professor
-  li dropdown-select-item="false"
-    a
+    span ng-if="!editingTopic.personal"
       i.icon.icon-unlock>
       | Alunos
+  zf-as-content position="top"
+    ul[id="topic-private-{{topic.uuid}}"]
+      input.model[
+        name="topic_private"
+        ng-model="editingTopic.personal"
+        type="hidden"]
+      li.private
+        a
+          i.icon.icon-lock>
+          | Somente professor
+      li
+        a
+          i.icon.icon-unlock>
+          | Alunos
