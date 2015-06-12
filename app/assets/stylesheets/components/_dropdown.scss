@@ -1,0 +1,26 @@
+.dropdown {
+  &.secondary {
+    background: lighten($light-grey-color, 10%);
+    border: 0;
+    color: $primary-color;
+
+    &:hover {
+      background: lighten($light-grey-color, 20%);
+      color: $primary-color;
+    }
+
+    &:active {
+      background: $white;
+    }
+  }
+
+  .icon {
+    font-size: 1em;
+    vertical-align: top;
+  }
+}
+
+.f-dropdown {
+  border-color: $light-grey-color;
+  text-align: left;
+}

@@ -1,8 +1,8 @@
 // scss-lint:disable SelectorFormat NestingDepth SelectorDepth PlaceholderInExtend IdSelector
 %side-box {
+  @include box-shadow();
   background-color: $white;
   border-radius: 5px;
-  box-shadow: $box-shadow;
   margin-bottom: 21px;
   padding: 20px;
 }
@@ -107,10 +107,9 @@
 }
 
 .dates {
-  @extend .cf;
+  @include box-shadow();
   background-color: $white;
   border-radius: 5px;
-  box-shadow: $box-shadow;
   margin: 0 0 2em;
 }
 
@@ -194,10 +193,16 @@
 
   &.today .date__day {
     background: $secondary-color;
+    border-radius: 50%;
     color: $white;
+    height: 2em;
+    line-height: 1.5em;
+    text-align: center;
+    width: 2em;
   }
 
-  &.future .date__day {
+  &.future .date__day,
+  &.future .date__weekday {
     color: $primary-color;
   }
 
@@ -212,12 +217,22 @@
     padding: .25em;
   }
 
+  .date__status {
+    margin: 0 .25em;
+    vertical-align: middle;
+  }
+
   .date__day {
     font-weight: $font-weight-bold;
   }
 
   .date__weekday {
+    min-width: 3em;
     text-transform: uppercase;
+  }
+
+  .date__time {
+    font-size: .875em;
   }
 
   .date__time,

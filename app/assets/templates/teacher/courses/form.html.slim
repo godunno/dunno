@@ -9,66 +9,93 @@ header.page-header.title ng-class="newRecord(course) ? '' : 'scheme-' + course.o
   form ng-submit="save(course)"
     .row
       .form-container
-        .row
-          .medium-12.columns
-            label for="name"
-              | Nome da disciplina
-              span.required *
-            input.radius id="name" ng-model="course.name" type="text" placeholder="Ex: Matemática" required="" autofocus=""
-        .row
+        .small-12.columns
+          label for="name"
+            | Nome da disciplina
+            span.required<
+              | *
+          input#name.radius[
+            autofocus=""
+            ng-model="course.name"
+            placeholder="Ex: Matemática"
+            required=""
+            type="text"]
+        .small-12.medium-3.columns
+          label for="class_name"
+            | Nome da turma
+            span.required<
+              | *
+          input#class_name.radius[
+            ng-model="course.class_name"
+            placeholder="Ex: TR230"
+            required=""
+            type="text"]
+          /
+            input.radius.input-error[
+              ng-model="course.class_name"
+              placeholder="Ex: TR230"
+              type="text"]
+            small.alert
+              | Nome da turma é obrigatório
+        .small-12.medium-4.columns
+          label for="grade"
+            | Nível
+          input#grade.radius[
+            ng-model="course.grade"
+            placeholder="Ex: 1º Fundamental"
+            type="text"]
+        .small-12.medium-5.columns
+          label for="institution"
+            | Instituição
+          input#institution.radius[
+            ng-model="course.institution"
+            placeholder="Ex: Colégio Padre Anchieta"
+            type="text"]
+        .small-12.columns
           .sep
-        .row
-          .medium-3.columns
-            label for="class_name"
-              | Nome da turma
-              span.required *
-            input.radius id="class_name" ng-model="course.class_name" type="text" placeholder="Ex: TR230" required=""
-            /input.radius.input-error ng-model="course.class_name" type="text" placeholder="Ex: TR230"
-            /span.warning.label-error Nome da turma é obrigatório
-          .medium-4.columns
-            label for="grade"
-              | Nível
-            input.radius id="grade" ng-model="course.grade" type="text" placeholder="Ex: 1º Fundamental"
-          .medium-5.columns
-            label for="institution"
-              | Instituição
-            input.radius id="institution" ng-model="course.institution" type="text" placeholder="Ex: Colégio Padre Anchieta"
-    .row
-      h3.form-caption.important
-        | Horários de aula
-      span.warning.label-error ng-if="newRecord(course)"
-        span.important>
-          | ATENÇÃO:
-        | Essas datas não poderão ser alteradas no futuro.
-      span.warning.label-error ng-if="!newRecord(course)"
-        | Essas datas não podem ser alteradas.
-      .form-container
-        .row
-          .medium-4.large-3.columns
-            label for="start_date"
-              | Data de início das aulas
-              span.warning
-                | *
-            input.radius id="start_date" ng-model="course.start_date" mask="99/99/9999" ng-disabled="!newRecord(course)" type="text" placeholder="Ex: 12/08/2014"
-          .medium-4.large-3.columns
-            label for="end_date"
-              | Data de término das aulas
-              span.warning
-                | *
-            input.radius id="end_date" ng-model="course.end_date" mask="99/99/9999" ng-disabled="!newRecord(course)" type="text" placeholder="Ex: 13/12/2014"
-          .medium-6.columns
-        .row
+          .panel.callout.radius
+            h5
+              | Horários de aula
+            p
+              small ng-if="newRecord(course)"
+                strong>
+                  | ATENÇÃO:
+                | Essas datas não poderão ser alteradas no futuro.
+              small ng-if="!newRecord(course)"
+                | Essas datas não podem ser alteradas.
+        .small-12.medium-6.columns
+          label for="start_date"
+            | Data de início das aulas
+            span.required<
+              | *
+          input#start_date.radius[
+            mask="99/99/9999"
+            ng-disabled="!newRecord(course)"
+            ng-model="course.start_date"
+            placeholder="Ex: 12/08/2014"
+            type="text"]
+        .small-12.medium-6.columns
+          label for="end_date"
+            | Data de término das aulas
+            span.required<
+              | *
+          input#end_date.radius[
+            mask="99/99/9999"
+            ng-disabled="!newRecord(course)"
+            ng-model="course.end_date"
+            placeholder="Ex: 13/12/2014"
+            type="text"]
+        .small-12.columns ng-repeat="weekly_schedule in course.weekly_schedules"
           .sep
-        .row
-          .large-12.columns
-            h4
-              | Aulas desta disciplina na semana
-        .box ng-repeat="weekly_schedule in course.weekly_schedules"
+          h6
+            | Aulas desta disciplina na semana
           .row
-            .medium-3.columns
+            .small-12.medium-3.columns
               label
                 | Dia da semana:
-              select.radius ng-model="weekly_schedule.weekday" ng-disabled="!newRecord(course)"
+              select.radius[
+                ng-disabled="!newRecord(course)"
+                ng-model="weekly_schedule.weekday"]
                 option value="0"
                   | Domingo
                 option value="1"
@@ -83,32 +110,49 @@ header.page-header.title ng-class="newRecord(course) ? '' : 'scheme-' + course.o
                   | Sexta-feira
                 option value="6"
                   | Sábado
-            .medium-2.columns
+            .small-12.medium-3.columns
               label
                 | Começa às:
-              input.radius ng-model="weekly_schedule.start_time" mask="99:99" ng-disabled="!newRecord(course)" type="text" placeholder="Ex: 10:00"
-            .medium-2.columns
+              input.radius[
+                mask="99:99"
+                ng-disabled="!newRecord(course)"
+                ng-model="weekly_schedule.start_time"
+                placeholder="Ex: 10:00"
+                type="text"]
+            .small-12.medium-3.columns
               label
                 | Termina às:
-              input.radius ng-model="weekly_schedule.end_time" mask="99:99" ng-disabled="!newRecord(course)" type="text" placeholder="Ex: 12:00"
-            .medium-2.columns
+              input.radius[
+                mask="99:99"
+                ng-disabled="!newRecord(course)"
+                ng-model="weekly_schedule.end_time"
+                placeholder="Ex: 12:00"
+                type="text"]
+            .small-12.medium-3.columns
               label
                 | Sala / Prédio:
-              input.radius ng-model="weekly_schedule.classroom" type="text" ng-disabled="!newRecord(course)" placeholder="Ex: Sala 430"
+              input.radius[
+                ng-disabled="!newRecord(course)"
+                ng-model="weekly_schedule.classroom"
+                placeholder="Ex: Sala 430"
+                type="text"]
             .medium-3.columns.right ng-if="newRecord(course)"
               a[ng-click="remove(course.weekly_schedules, weekly_schedule)"]
                 i.icon.icon-remove
-        a.btn-black.radius ng-if="newRecord(course)" ng-click="newItem(course.weekly_schedules, weekly_schedule)"
-          span.plus
-            | A
-          span
-            | Adicionar tempo
-    .row
-      .large-3.columns
-        a.button.btn-style-1.radius.alert.left ng-click="delete(course)"
+          a.btn-black.radius[
+            ng-click="newItem(course.weekly_schedules, weekly_schedule)"
+            ng-if="newRecord(course)"]
+            span.plus
+              | A
+            span
+              | Adicionar tempo
+        .small-12.column
+          input.small.button.secondary.radius.right[
+            ng-disabled="isSending"
+            type="submit"
+            value="Salvar disciplina"]
+          a.small.button.transparent.radius.cancel.left href="#courses"
+            | Cancelar
+      .small-12.medium-3.medium-centered.columns
+        a.remove__course.small.button.radius.expand.alert ng-click="delete(course)"
           | Apagar disciplina
-      .large-1.large-offset-5.column
-        a.radius.cancel href="#courses"
-          | Cancelar
-      .large-3.columns
-        input.button.btn-style-1.radius type="submit" ng-disabled="isSending" value="Salvar disciplina"

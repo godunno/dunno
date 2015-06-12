@@ -1,0 +1,38 @@
+.tab-bar.show-for-small {
+  .icons.icon-dunno-logo {
+    color: $white;
+    font-size: 1.5em;
+    margin-left: .5em;
+    opacity: .5;
+    vertical-align: -4px;
+  }
+}
+
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.label.secondary {
+  background-color: $light-grey-color;
+  color: $primary-color;
+}
+
+.translucent {
+  opacity: .5;
+}
+
+.off-canvas-wrap {
+  min-height: 100%;
+}
+
+.inner-wrap,
+.content {
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.right-off-canvas-menu {
+  min-height: 100vh;
+}
