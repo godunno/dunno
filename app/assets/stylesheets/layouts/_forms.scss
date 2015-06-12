@@ -1,15 +1,14 @@
 .required {
-  @extend .warning;
+  color: $red-color;
+  font-size: 1.25em;
+  font-weight: $font-weight-bold;
+  line-height: 0;
+  vertical-align: middle;
 }
 
 .ng-invalid.ng-dirty,
 .ng-invalid.ng-dirty:focus {
   border-color: $red-color;
-}
-
-.error {
-  background: none;
-  color: $red-color;
 }
 
 .done {
