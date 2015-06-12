@@ -3,22 +3,26 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
 
   def create
     event = current_profile.events.find(create_params.delete(:event_id))
+    authorize event, :update?
     @topic = Topic.new
     TopicForm.new(@topic, create_params).create!(event)
     render status: :created
   end
 
   def update
+    authorize topic.event, :update?
     TopicForm.new(topic, update_params).update!
   end
 
   def destroy
+    authorize topic.event, :update?
     topic.destroy
     render nothing: true
   end
 
   # TODO: Transfer as the first topic
   def transfer
+    authorize topic.event, :update?
     next_event = topic.event.next_not_canceled
     if next_event
       topic.update!(event: next_event)

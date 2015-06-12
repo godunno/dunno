@@ -6,12 +6,14 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def show
+    authorize course
     @pagination = PaginateEventsByMonth.new(course.events, params[:month])
     @events = @pagination.events
   end
 
   def create
     course_form = Form::CourseForm.new(course_params.merge(teacher: current_profile))
+    authorize course_form
 
     begin
       ActiveRecord::Base.transaction do
@@ -26,44 +28,45 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def update
+    authorize course
     course.update(course_params)
     render json: { uuid: course.uuid }
   end
 
   def destroy
+    authorize course
     course.destroy
     render nothing: true
   end
 
   def register
     @course = course(Course.all)
-    begin
-      course.add_student current_profile
-      TrackerWrapper.new(course.teacher.user).track('Student Joined',
-                                                    id: current_user.id,
-                                                    name: current_user.name,
-                                                    courseName: course.name,
-                                                    courseUuid: course.uuid
-                                                   )
-      status = 200
-    rescue ActiveRecord::RecordNotUnique
-      status = 400
-    end
-    render nothing: true, status: status
+    authorize @course
+    course.add_student current_profile
+    TrackerWrapper.new(course.teacher.user).track('Student Joined',
+                                                  id: current_user.id,
+                                                  name: current_user.name,
+                                                  courseName: course.name,
+                                                  courseUuid: course.uuid
+                                                 )
+    render nothing: true
   end
 
   def unregister
+    authorize course
     course.students.destroy(current_profile)
     status = 200
     render nothing: true, status: status
   end
 
   def students
+    authorize course
     @students = course.students
   end
 
   def search
     @course = course(Course.all)
+    authorize @course
   end
 
   private

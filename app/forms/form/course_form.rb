@@ -8,6 +8,7 @@ module Form
     attribute :class_name, String
     attribute :grade, String
     attribute :institution, String
+    attribute :teacher
 
     validates :name, :start_date, :end_date, :class_name, presence: true
 
@@ -15,7 +16,7 @@ module Form
       super(params.slice(*attributes_list(
         :name, :start_date, :end_date, :class_name, :grade, :institution
       )))
-      @teacher = params[:teacher]
+      self.teacher = params[:teacher]
       @weekly_schedules = populate_children(
         Form::WeeklyScheduleForm, params[:weekly_schedules]
       )
@@ -40,7 +41,7 @@ module Form
     private
 
       def persist!
-        model.teacher = @teacher
+        model.teacher = teacher
         model.name = name
         model.start_date = start_date
         model.end_date = end_date

@@ -2,16 +2,13 @@ class Api::V1::MediasController < Api::V1::ApplicationController
   respond_to :json
 
   def index
-    @result = Media.search(media_search_params.merge(
-      filter: {
-        profile_id: current_profile.id
-      }
-    ))
+    @result = Media.search_by_profile(current_profile, media_search_params)
   end
 
   def create
     media_form = Form::MediaForm.new(media_create_params)
     media_form.profile = current_profile
+    authorize media_form
     if media_form.save
       @media = media_form.model
     else
@@ -20,6 +17,7 @@ class Api::V1::MediasController < Api::V1::ApplicationController
   end
 
   def update
+    authorize media
     if media.update(media_params)
       render nothing: true, status: 200
     else
@@ -28,6 +26,7 @@ class Api::V1::MediasController < Api::V1::ApplicationController
   end
 
   def destroy
+    authorize media
     media.destroy
     render nothing: true
   end

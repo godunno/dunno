@@ -80,6 +80,12 @@ class Media < ActiveRecord::Base
     return "url" if url.present?
   end
 
+  def self.search_by_profile(profile, options)
+    search(options.merge(filter: { profile_id: profile.id }))
+  end
+
+  private
+
   # TODO: Add regression tests for cases we'd like not to break.
   # i.e. search 'oracoes coordenadas' and find 'exercícios 8 ano conjunções
   # coordenativas'

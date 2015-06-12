@@ -91,23 +91,32 @@ describe Media do
     end
   end
 
-  describe "::search", :elasticsearch do
+  describe ".search_by_profile", :elasticsearch do
     let(:profile) { create(:profile) }
-    let!(:old_media) { create(:media) }
-    let!(:new_media) { create(:media, profile: profile) }
+    let!(:old_media) { create(:media, profile: profile, title: "Another Title", tag_list: %w(cool stuff)) }
+    let!(:new_media) { create(:media, profile: profile, title: "Some Title") }
+    let!(:media_from_another_profile) { create(:media) }
 
     before { refresh_index! }
 
-    it "should be ordered from newest to oldest" do
-      expect(Media.search.records.to_a).to eq([new_media, old_media])
-    end
-
     it "can set a number of items per page" do
-      expect(Media.search(per_page: 1).records.to_a).to eq([new_media])
+      expect(Media.search_by_profile(profile, per_page: 1).records.to_a).to eq([new_media])
     end
 
-    it "can filter by profile" do
-      expect(Media.search(filter: { profile_id: profile.id }).records.to_a).to eq([new_media])
+    it "paginates" do
+      expect(Media.search_by_profile(profile, per_page: 1, page: 2).records.to_a).to eq([old_media])
+    end
+
+    it "orders all from newest to oldest" do
+      expect(Media.search_by_profile(profile, {}).records.to_a).to eq([new_media, old_media])
+    end
+
+    it "searches by title" do
+      expect(Media.search_by_profile(profile, q: "Some").records.to_a).to eq([new_media])
+    end
+
+    it "searches by tag" do
+      expect(Media.search_by_profile(profile, q: "cool").records.to_a).to eq([old_media])
     end
   end
 end

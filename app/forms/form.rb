@@ -12,6 +12,7 @@ module Form
     end
 
     attr_reader :model
+    delegate :model_name, to: :model_class
     attribute :_destroy, Boolean
 
     def initialize(attributes)

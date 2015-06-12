@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Api::V1::EventsController do
 
-  let(:profile) { create(:profile, memberships: [build(:membership, course: course)]) }
-  let(:course) { create(:course) }
+  let(:profile) { create(:profile) }
+  let(:course) { create(:course, teacher: profile) }
   let(:event) { create(:event, course: course) }
 
   describe "GET /api/v1/events" do
@@ -75,7 +75,7 @@ describe Api::V1::EventsController do
               "teacher" => { "name" => course.teacher.name },
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
               "weekly_schedules" => [],
-              "students_count" => 1
+              "students_count" => 0
             }
           )
         end
@@ -230,13 +230,11 @@ describe Api::V1::EventsController do
       end
 
       context "trying to create an invalid event" do
-        before :each do
+        before do
           event_template.course = nil
-          do_action
         end
 
-        it { expect(last_response.status).to eq(400) }
-        it { expect(json['errors']).to have_key('course') }
+        it { expect { do_action }.to raise_error(Pundit::NotAuthorizedError) }
       end
 
       skip "trying to create event on another profile's course"

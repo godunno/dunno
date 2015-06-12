@@ -162,7 +162,7 @@ describe Api::V1::TopicsController do
 
     context "successfuly updating" do
       describe "#description" do
-        let(:topic) { create(:topic, description: "One") }
+        let(:topic) { create(:topic, event: event, description: "One") }
         let(:topic_params) { { topic: { description: "Other" } } }
 
         it do
@@ -183,7 +183,7 @@ describe Api::V1::TopicsController do
       end
 
       describe "#done" do
-        let(:topic) { create(:topic, done: true) }
+        let(:topic) { create(:topic, event: event, done: true) }
         let(:topic_params) { { topic: { done: false } } }
 
         it do
@@ -193,7 +193,7 @@ describe Api::V1::TopicsController do
       end
 
       describe "#personal" do
-        let(:topic) { create(:topic, personal: true) }
+        let(:topic) { create(:topic, event: event, personal: true) }
         let(:topic_params) { { topic: { personal: false } } }
 
         it do
@@ -204,7 +204,7 @@ describe Api::V1::TopicsController do
 
       describe "media's description" do
         let(:media) { create(:media, title: "One") }
-        let(:topic) { create(:topic, media: media) }
+        let(:topic) { create(:topic, event: event, media: media) }
         let(:topic_params) { { topic: { description: "Other", media_id: media.uuid } } }
 
         it do
@@ -215,7 +215,7 @@ describe Api::V1::TopicsController do
     end
 
     context "failing to update" do
-      let!(:topic) { create(:topic) }
+      let!(:topic) { create(:topic, event: event) }
       let(:topic_params) { { topic: { description: nil } } }
       before { do_action }
       it { expect(last_response.status).to eq(422) }
@@ -231,7 +231,7 @@ describe Api::V1::TopicsController do
   end
 
   describe "DELETE /api/v1/topics/:uuid" do
-    let!(:topic) { create(:topic) }
+    let!(:topic) { create(:topic, event: event) }
     def do_action
       delete "/api/v1/topics/#{topic.uuid}.json", auth_params(teacher).to_json
     end

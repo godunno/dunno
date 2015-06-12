@@ -8,12 +8,14 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   end
 
   def show
+    authorize event, :show?
     respond_with(event)
   end
 
   # TODO: Add authorization
   def create
     @event_form = Form::EventForm.new(params[:event])
+    authorize @event_form
     if @event_form.save
       render nothing: true
     else
@@ -23,6 +25,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
 
   # TODO: Add authorization
   def update
+    authorize event.course
     EventForm.new(event, update_params).update!
     event.reload
     render :show

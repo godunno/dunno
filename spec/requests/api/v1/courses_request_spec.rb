@@ -222,10 +222,12 @@ describe Api::V1::CoursesController do
       context "already registered to course" do
         let(:identifier) { new_course.uuid }
 
-        before { 2.times { do_action } }
+        before { do_action }
 
-        it { expect(last_response.status).to eq(400) }
-        it { expect(new_course.students.reload).to eq([student]) }
+        it do
+          expect { do_action }.to raise_error(Pundit::NotAuthorizedError)
+          expect(new_course.students.reload).to eq([student])
+        end
       end
     end
   end

@@ -1,6 +1,9 @@
 class Api::V1::ApplicationController < ApplicationController
+  include Pundit
+
   before_action :authenticate_user_from_token!
   before_action :authenticate_user!
+  after_action :verify_authorized, except: :index
   rescue_from ActiveRecord::RecordInvalid, with: :render_invalid_record
   helper_method :current_profile
 
@@ -9,6 +12,8 @@ class Api::V1::ApplicationController < ApplicationController
   def current_profile
     current_user.profile
   end
+
+  alias_method :pundit_user, :current_profile
 
   private
 
