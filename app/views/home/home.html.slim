@@ -1,2 +1,104 @@
-p
-  | Hello, Dunno!
+section.hero__section
+  .row
+    .hero
+      h1
+        | DENTRO E FORA DA SALA DE AULA
+      p
+        | Um aplicativo que vai auxiliar a gestão das aulas e estimular a comunicação e o engajamento entre professores e estudantes.
+      .call__to__action__buttons
+        a.button.large.radius.secondary>
+          | Quero usar o Dunno
+        a.button.large.radius.outline.secondary
+          | Faça um teste na prática
+
+section.features__section
+  ruby:
+    @features = [
+      {
+        description: 'Todas as aulas e trabalhos de grupo em um único local',
+        icon: 'documents'
+      },{
+        description: 'Colaboração para construir os encontros',
+        icon: 'comments'
+      },{
+        description: 'Controle total de datas de provas e entregas de trabalho',
+        icon: 'calendar'
+      },{
+        description: 'Tarefas compartilhadas com os alunos',
+        icon: 'tasks'
+      }
+    ]
+  .row
+    .features__screenshot
+      img[src='http://placehold.it/650x545']
+    ul.features.small-block-grid-4
+      - @features.each do |feature|
+        li.feature
+          i.icon[class="icon-#{feature[:icon]}"]
+          = feature[:description]
+
+section.video__section
+  .row
+    h3
+      | AUTONOMIA E SEGURANÇA
+    p
+      | O principal objetivo do Dunno é auxiliar os professores a melhorar a produtividade em aula e a interação com seus alunos.
+    button.button
+      i.icon.icon-video
+      span
+        | Assista ao vídeo
+
+section.students__section
+  .row
+    h2
+      | PARA ALUNOS
+    .slide__one
+      h3
+        | SEMPRE POR DENTRO
+      p
+        | Professores planejam suas aulas e escolhem se permitem ou não o acesso dos alunos. Os alunos acompanham as tarefas dentro e fora de sala de aula.  (E muito mais por vir!)
+
+section.teacher__section
+  .row
+    h2
+      | PARA PROFESSORES
+    .slide__one
+      h3
+        | LEMBRE O QUE FOI DADO EM AULA
+      p
+        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      img[src='http://placehold.it/600x600']
+
+section.testimonials__section
+  .row
+    h2
+      | QUEM JÁ ESTÁ UTILIZANDO
+    p
+      = image_tag 'site/logo-pucrio.png'
+      = image_tag 'site/logo-iva-sttiho.png'
+  ul.small-block-grid-4
+    - 12.times do
+      li
+        img src='http://placehold.it/350x250'
+
+section.invitation__section
+  .row
+    h2
+      | Em breve também para mais alunos e professores!
+    p
+      | Hoje o Dunno está em fase Beta, estando disponível para um grupo de professores da PUC Rio e seus alunos. Se você estiver interessado, deixe seu email e você será avisado para logo poder utilizar o Dunno
+    form
+      input[placeholder='Deixe seu email' type='text']
+      button.button
+        | QUERO SER AVISADO
+
+footer
+  .row
+    span.copyright>
+      | Dunno #{Time.new.year}
+    - ['Sobre o Dunno', 'Política de Privacidade'].each do |link|
+      a> href='#'
+        = link
+    - [ {slug: 'facebook'}, {slug: 'twitter'} ].each do |social_link|
+      a> href='#'
+        i.icon class="icon-#{social_link[:slug]}"

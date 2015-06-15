@@ -8,6 +8,8 @@ html.no-js lang='pt'
       | Dunno
     / TODO: improve SEO: page description
     meta name='description' content=''
+    / TODO: improve SEO: page metatags
+    / TODO: opengraph stuff
     meta name='viewport' content='width=device-width, initial-scale=1'
     link rel='apple-touch-icon-precomposed' sizes='152x152' href='apple-touch-icon-precomposed.png'
     link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'
@@ -18,6 +20,31 @@ html.no-js lang='pt'
     /![if lt IE 8]
       p.browserupgrade
         | Você está usando um navegador <strong>desatualizado</strong>. Por favor <a href="http://browsehappy.com/">atualize seu navegador</a> para melhorar sua experiência de navegação.
+    / TODO: check why sticky isn't working properly.
+    .sticky
+      nav.top-bar[data-topbar role='navigation' data-options='sticky_on: small, medium, large']
+        ul.title-area
+          li.name
+            h1
+              a href='#'
+                = image_tag 'site/logo.png', class: 'logo'
+          / TODO: check why this is not working. JS perhaps?
+          li.toggle-topbar.menu-icon
+            a href="#"
+              span
+                | Menu
+        section.top-bar-section
+          ul.right
+            li.active.has-form
+              a.button.small.outline href='#'
+                | ACESSAR MEU DUNNO
+          ul.left
+            li
+              a href='#'
+                | PARA O ALUNO
+            li
+              a href='#'
+                | PARA O PROFESSOR
     = yield
     = javascript_include_tag 'home'
     / TODO: ANALYTICS
