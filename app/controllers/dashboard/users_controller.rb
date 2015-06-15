@@ -16,6 +16,7 @@ class Dashboard::UsersController < Devise::RegistrationsController
       render nothing: true, status: 401
     else
       sign_in(@user)
+      render layout: false
     end
   end
 
