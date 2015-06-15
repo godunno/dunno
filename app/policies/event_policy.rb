@@ -4,7 +4,7 @@ class EventPolicy < ApplicationPolicy
   end
 
   def create?
-    authorize_from_course_policy(:create?)
+    authorize_from_course_policy(:update?)
   end
 
   alias_method :update?, :create?

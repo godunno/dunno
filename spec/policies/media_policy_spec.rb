@@ -9,16 +9,16 @@ describe MediaPolicy do
   subject { described_class }
 
   permissions :create? do
-    it { expect(subject).to permit(anyone, Media.new) }
+    it { is_expected.to permit(anyone, Media.new) }
   end
 
   permissions :update? do
-    it { expect(subject).to permit(author, media) }
-    it { expect(subject).not_to permit(anyone, media) }
+    it { is_expected.to permit(author, media) }
+    it { is_expected.not_to permit(anyone, media) }
   end
 
   permissions :destroy? do
-    it { expect(subject).to permit(author, media) }
-    it { expect(subject).not_to permit(anyone, media) }
+    it { is_expected.to permit(author, media) }
+    it { is_expected.not_to permit(anyone, media) }
   end
 end

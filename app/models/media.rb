@@ -84,8 +84,6 @@ class Media < ActiveRecord::Base
     search(options.merge(filter: { profile_id: profile.id }))
   end
 
-  private
-
   # TODO: Add regression tests for cases we'd like not to break.
   # i.e. search 'oracoes coordenadas' and find 'exercícios 8 ano conjunções
   # coordenativas'
@@ -113,4 +111,6 @@ class Media < ActiveRecord::Base
     result = result.per_page(options[:per_page] || 10).page(options[:page] || 1)
     result
   end
+
+  private_class_method :search
 end

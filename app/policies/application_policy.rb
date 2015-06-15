@@ -6,12 +6,8 @@ class ApplicationPolicy
     @record = record
   end
 
-  def index?
-    false
-  end
-
   def show?
-    scope.where(:id => record.id).exists?
+    false
   end
 
   def create?
@@ -32,22 +28,5 @@ class ApplicationPolicy
 
   def destroy?
     false
-  end
-
-  def scope
-    Pundit.policy_scope!(profile, record.class)
-  end
-
-  class Scope
-    attr_reader :profile, :scope
-
-    def initialize(profile, scope)
-      @profile = profile
-      @scope = scope
-    end
-
-    def resolve
-      scope
-    end
   end
 end

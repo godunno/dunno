@@ -8,7 +8,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   end
 
   def show
-    authorize event, :show?
+    authorize event
     respond_with(event)
   end
 
