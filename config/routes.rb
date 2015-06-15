@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  root controller: 'static', action: '/'
+  root 'home#home'
+
   devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/users' }
   mount_roboto
 
