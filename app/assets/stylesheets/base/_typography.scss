@@ -12,3 +12,16 @@
   font-weight: normal;
   font-style: normal;
 }
+
+h1,
+h2 {
+  font-weight: $font-weight-light;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.weekday,
+.important,
+.upcase {
+  text-transform: uppercase;
+}

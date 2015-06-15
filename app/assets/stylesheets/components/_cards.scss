@@ -3,8 +3,8 @@
 }
 
 %card {
+  @include box-shadow();
   @include radius(.3125em);
-  box-shadow: $box-shadow;
   display: block;
   margin-bottom: 1em;
   overflow: hidden;

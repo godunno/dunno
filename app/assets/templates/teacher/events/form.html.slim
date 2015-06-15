@@ -1,7 +1,7 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .small-3.columns
-      a.back__button ng-href="{{courseLocation(event)}}"
+      a.back__button.button.small.transparent ng-href="{{courseLocation(event)}}"
         i.icon.icon-back-arrow>
         span.hide-for-small
           | Voltar
@@ -9,13 +9,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
       h2
         | {{event.course.name}}
     .small-3.columns.right-aligned
-      a.hide__personal__topics[
+      a.button.small.transparent.hide__personal__topics[
         ng-click="setPrivateTopicsVisibility(false)"
         ng-show="showPrivateTopics"]
         i.icon.icon-private>
         span.hide-for-small
           | Ocultar conteúdo privado
-      a.show__personal__topics[
+      a.button.small.transparent.show__personal__topics[
         ng-click="setPrivateTopicsVisibility(true)"
         ng-show="!showPrivateTopics"]
         i.icon.icon-eye>
@@ -58,7 +58,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
             ng-click="setStatus(event, 'published')"]
             | Publicada
             i.icon.icon-published<
-  .row
+  .row.collapse
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"
@@ -297,7 +297,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                       ng-if="!!topic.media"
                       ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
                     span.topic__item__description__contents[ng-class="{topic__contains__media: !!topic.media}"]
-                      a ng-click="startEditing(topic)"
+                      a.topic__description ng-click="startEditing(topic)"
                         | {{topic.description}}
                       a.topic__url[
                         ng-href="{{topic.media.url}}"

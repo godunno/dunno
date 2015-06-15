@@ -1,7 +1,0 @@
-<% colors = SHARED_CONFIG["v1"]["courses"]["schemes"] %>
-<% colors.each_with_index do |scheme, index| %>
- .scheme-<%= index + 1%> {
-  border-color: $light-grey-color;
-  background: <%= scheme %>;
- }
-<% end %>

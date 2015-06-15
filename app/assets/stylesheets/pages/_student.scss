@@ -166,9 +166,9 @@
     width: 30%;
 
     .box {
-      @include radius;
+      @include box-shadow();
+      @include radius();
       background-color: $white;
-      box-shadow: $box-shadow;
       padding: 1em 2em;
 
       hr {
