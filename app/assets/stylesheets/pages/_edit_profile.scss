@@ -6,7 +6,7 @@
     }
 
     .success {
-      color: $secondary-color;
+      color: $dunno-green-color;
     }
 
     .password {
@@ -19,7 +19,7 @@
       margin-left: 12px;
       .icon-valid {
         @extend .icon-plain-check;
-        color: $secondary-color;
+        color: $dunno-green-color;
       }
       .icon-invalid {
         @extend .icon-error;

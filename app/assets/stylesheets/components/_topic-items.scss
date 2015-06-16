@@ -47,6 +47,7 @@
 
     *:not(.topic__url) {
       cursor: text;
+      color: $dunno-dark-color;
     }
   }
 
@@ -101,7 +102,7 @@
   }
 
   input[type=checkbox]:checked + label {
-    color: $secondary-color;
+    color: $dunno-green-color;
   }
 
   .topic__item__handle {
@@ -114,7 +115,7 @@
 
   &.ui-sortable-helper {
     @include box-shadow();
-    border-color: $secondary-color;
+    border-color: $dunno-green-color;
 
     .topic__item__handle {
       cursor: grabbing;
@@ -122,8 +123,8 @@
   }
 
   &.ui-sortable-placeholder {
-    border-bottom: 2px dashed $secondary-color;
-    border-top: 2px dashed $secondary-color;
+    border-bottom: 2px dashed $dunno-green-color;
+    border-top: 2px dashed $dunno-green-color;
     visibility: visible !important; //scss-lint:disable ImportantRule
   }
 
@@ -173,7 +174,7 @@
   }
 
   .topic__url {
-    color: $secondary-color;
+    color: $dunno-green-color;
     display: block;
     font-size: .875em;
     line-height: 1em;

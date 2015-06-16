@@ -1,5 +1,5 @@
-$btn-style-1-bg-color: $secondary-color;
-$btn-style-1-hover-bg-color: #149e5f;
+$btn-style-1-bg-color: $dunno-green-color;
+$btn-style-1-hover-bg-color: lighten($dunno-green-color, 10%);
 $btn-style-1-disabled-bg-color: $disabled-color;
 
 $btn-style-transparent-bg-color: transparent;
@@ -7,7 +7,7 @@ $btn-style-transparent-bg-color: transparent;
 $btn-style-transparent-1-font-color: $white;
 $btn-style-transparent-1-border: 1px solid $btn-style-transparent-1-font-color;
 
-$btn-style-transparent-2-font-color: $primary-color;
+$btn-style-transparent-2-font-color: $dunno-dark-color;
 $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
 
 .button {
@@ -33,7 +33,7 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
 
 .btn-style-1 {
   // TODO: use foundation button() for creating new buttons.
-  background-color: $secondary-color;
+  background-color: $dunno-green-color;
 
   &:active,
   &:hover {
@@ -48,13 +48,13 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
 .btn-style-2 {
   // TODO: use foundation button() for creating new buttons.
   background-color: $btn-style-transparent-bg-color;
-  color: $primary-color;
+  color: $dunno-dark-color;
   opacity: .6;
 
   &:active,
   &:hover {
     background-color: $btn-style-transparent-bg-color;
-    color: $primary-color;
+    color: $dunno-dark-color;
     opacity: 1;
   }
 

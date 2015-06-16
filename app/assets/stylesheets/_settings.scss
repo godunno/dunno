@@ -43,8 +43,8 @@ $row-width: rem-calc(960);
 
 // We use these to control various global styles
 $body-bg: $background-light-grey-color;
-$body-font-color: $primary-color;
-$body-font-family: "Lato", sans-serif;
+$body-font-color: $dunno-dark-color;
+$body-font-family: 'Lato', sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
 
@@ -57,8 +57,8 @@ $body-font-family: "Lato", sans-serif;
 // $default-float: left;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
-// $secondary-color: #e7e7e7;
+$primary-color: $dunno-green-color; // #008CBA;
+$secondary-color: $light-grey-color; // #e7e7e7;
 $alert-color: $red-color;
 $success-color: $secondary-color;
 $warning-color: $orange-color;
@@ -125,7 +125,7 @@ $global-radius: 3px;
 // $header-font-family: $body-font-family;
 // $header-font-weight: $font-weight-normal;
 // $header-font-style: normal;
-$header-font-color: $primary-color;
+$header-font-color: $dunno-dark-color;
 
 // $header-line-height: 1.4;
 // $header-top-margin: .2rem;
@@ -670,7 +670,7 @@ $input-box-shadow: none;
 
 // $include-html-off-canvas-classes: $include-html-classes;
 
-$tabbar-bg: $primary-color;
+$tabbar-bg: $dunno-dark-color;
 // $tabbar-height: rem-calc(45);
 // $tabbar-line-height: $tabbar-height;
 $tabbar-color: $dark-grey-color;
@@ -688,7 +688,7 @@ $tabbar-header-color: $dark-grey-color;
 
 // Off Canvas Menu Variables
 // $off-canvas-width: rem-calc(250);
-$off-canvas-bg: darken($primary-color, 10%);
+$off-canvas-bg: darken($dunno-dark-color, 10%);
 
 // Off Canvas Menu List Variables
 // $off-canvas-label-padding: 0.3rem rem-calc(15);
@@ -902,7 +902,7 @@ $progress-bar-color: $background-light-grey-color;
 
 // We use these to set the meter colors
 // $progress-meter-color: $primary-color;
-$progress-meter-color: #008cba;
+$progress-meter-color: $blue-color;
 // $progress-meter-secondary-color: $secondary-color;
 // $progress-meter-success-color: $success-color;
 // $progress-meter-alert-color: $alert-color;
@@ -1180,7 +1180,7 @@ $table-border-size: 0;
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: $primary-color;
+$topbar-bg-color: $dunno-dark-color;
 
 // $topbar-bg: $topbar-bg-color;
 
@@ -1195,9 +1195,9 @@ $topbar-title-font-size: rem-calc(25);
 
 // Style the top bar dropdown elements
 $topbar-dropdown-bg: $white;
-$topbar-dropdown-link-color: $primary-color;
+$topbar-dropdown-link-color: $dunno-dark-color;
 $topbar-dropdown-link-bg: $white;
-$topbar-dropdown-link-color-hover: $secondary-color;
+$topbar-dropdown-link-color-hover: $dunno-green-color;
 // $topbar-dropdown-link-weight: $font-weight-normal;
 // $topbar-dropdown-toggle-size: 5px;
 $topbar-dropdown-toggle-color: $black;
@@ -1206,17 +1206,17 @@ $topbar-dropdown-toggle-color: $black;
 // Set the link colors and styles for top-level nav
 $topbar-link-color: $white;
 $topbar-link-color-hover: darken($white, 20%);
-$topbar-link-color-active: $secondary-color;
-$topbar-link-color-active-hover: $secondary-color;
+$topbar-link-color-active: $dunno-green-color;
+$topbar-link-color-active-hover: $dunno-green-color;
 // $topbar-link-weight: $font-weight-normal;
 $topbar-link-font-size: rem-calc(15);
 
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
 // $topbar-link-bg: $topbar-bg;
 // $topbar-link-bg-color-hover: #272727;
-$topbar-link-bg-hover: $primary-color;
-$topbar-link-bg-active: $primary-color;
-$topbar-link-bg-active-hover: $primary-color;
+$topbar-link-bg-hover: $dunno-dark-color;
+$topbar-link-bg-active: $dunno-dark-color;
+$topbar-link-bg-active-hover: $dunno-dark-color;
 // $topbar-link-font-family: $body-font-family;
 // $topbar-link-text-transform: none;
 // $topbar-link-padding: $topbar-height / 3;

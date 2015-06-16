@@ -3,7 +3,7 @@
 @import 'settings', 'foundation'; // foundation setup
 
 %inverted__section {
-  background-color: $primary-color;
+  background-color: $dunno-dark-color;
   color: $white;
   text-align: center;
 
@@ -78,7 +78,7 @@
   .feature {
     .icon {
       @include radius(50%);
-      background: $secondary-color;
+      background: $dunno-green-color;
       color: $white;
       display: block;
       height: 3em;

@@ -21,6 +21,7 @@
     }
 
     .card__subtitle {
+      color: $dunno-dark-color;
       opacity: .5;
 
       .right {
@@ -41,7 +42,7 @@
 
   .overlay {
     &.published {
-      background-color: $primary-color;
+      background-color: $dunno-dark-color;
       text-align: center;
       text-transform: uppercase;
     }

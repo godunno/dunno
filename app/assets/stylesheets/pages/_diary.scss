@@ -25,13 +25,13 @@
   text-align: center;
 
   span {
-    color: $primary-color;
+    color: $dunno-dark-color;
     font-size: .75em;
     text-transform: uppercase;
   }
 
   .icon {
-    color: $secondary-color;
+    color: $dunno-green-color;
     line-height: 1.75em;
     vertical-align: middle;
   }
@@ -88,8 +88,8 @@
 
 .diary__header {
   @include radius(.25rem .25rem 0 0);
-  background: $primary-color;
-  border: 1px solid $primary-color;
+  background: $dunno-dark-color;
+  border: 1px solid $dunno-dark-color;
   color: $white;
   padding: 1em .75em;
   position: relative;
@@ -105,8 +105,8 @@
   }
 
   &.event__published {
-    background: $secondary-color;
-    border-color: $secondary-color;
+    background: $dunno-green-color;
+    border-color: $dunno-green-color;
   }
 
   .diary__date {
@@ -161,14 +161,14 @@
   .event__status__button {
     background: lighten($light-grey-color, 15%);
     border: 1px solid lighten($light-grey-color, 10%) !important; // scss-lint:disable ImportantRule
-    color: $primary-color;
+    color: $dunno-dark-color;
 
     &.event__status__current {
       background: $white;
 
       &.event__status__published {
         i.icon {
-          color: $secondary-color;
+          color: $dunno-green-color;
         }
       }
     }

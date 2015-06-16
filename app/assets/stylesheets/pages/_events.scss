@@ -27,13 +27,13 @@
       }
 
       .subtitle {
-        color: transparentize($primary-color, .2);
+        color: transparentize($dunno-dark-color, .2);
         font-size: 11px;
       }
     }
 
     .day-month {
-      background-color: $primary-color;
+      background-color: $dunno-dark-color;
       border-radius: 50%;
       color: $white;
       display: block;
@@ -76,7 +76,7 @@
       padding: 10px 20px;
 
       .weekday-hour {
-        color: transparentize($primary-color, .6);
+        color: transparentize($dunno-dark-color, .6);
         font-size: 11px;
         margin-top: 27px;
         text-align: center;

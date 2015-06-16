@@ -2,11 +2,11 @@
   &.secondary {
     background: lighten($light-grey-color, 10%);
     border: 0;
-    color: $primary-color;
+    color: $dunno-dark-color;
 
     &:hover {
       background: lighten($light-grey-color, 20%);
-      color: $primary-color;
+      color: $dunno-dark-color;
     }
 
     &:active {

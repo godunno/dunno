@@ -27,11 +27,12 @@
       }
 
       &.active {
-        border-bottom-color: $secondary-color;
-        color: $secondary-color;
+        border-bottom-color: $dunno-green-color;
+        color: $dunno-green-color;
 
         .icon {
-          background-color: $secondary-color;
+          background-color: $dunno-green-color;
+          position: relative;
           top: -.25em;
         }
       }
@@ -55,7 +56,7 @@
 }
 
 %topic-save-button {
-  border: 1px solid;
+  border-top: 1px dashed $dunno-green-color;
   font-weight: $font-weight-bold;
 
   &.alert {
@@ -112,7 +113,7 @@
     background: $white;
     border: 0;
     box-shadow: none;
-    color: $primary-color;
+    color: $dunno-dark-color;
     display: block;
     font-size: 1em;
     height: 4em;
@@ -137,7 +138,7 @@
 
 .type__catalog {
   .catalog__header {
-    border-bottom: 1px dashed $secondary-color;
+    border-bottom: 1px dashed $dunno-green-color;
     position: relative;
 
     .icon {
