@@ -19,27 +19,69 @@
 // TODO: clean this using @include button();
 .button {
   &.outline {
-    &.secondary {
-      background: transparent;
-      border: 1px solid $secondary-color;
-      color: $secondary-color;
-      height: 3.05em;
-      margin-left: 1em;
-      vertical-align: top;
+    background: transparent;
+    color: $dunno-green-color;
+    margin-left: 1em;
+    vertical-align: top;
+  }
+}
+
+section {
+  &.students__section,
+  &.teacher__section,
+  &.testimonials__section {
+    padding: 8em 0;
+  }
+
+  &.students__section,
+  &.teacher__section {
+    h4 {
+      font-size: 2.75em;
+      font-weight: $font-weight-light;
     }
+  }
+
+  &.teacher__section {
+    // TODO: Get texture background
+    background-color: lighten($light-grey-color, 10%);
+  }
+
+  &.testimonials__section {
+    background-color: $white;
+    padding: 4em 0;
+    text-align: center;
+
+    .testimonials__trusted__by {
+      margin: 0 3rem 6.25rem;
+    }
+  }
+
+  .section__title {
+    // TODO: Get outline box image;
+    border: 1px solid $light-grey-color;
+    border-radius: 2rem/5rem;
+    font-size: .875em;
+    font-weight: $font-weight-bold;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin: 0 auto 5.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    width: 17rem;
   }
 }
 
 .top-bar {
   .name {
     .logo {
-      max-height: 1.25em;
+      max-height: 1.25rem;
     }
   }
 }
 
 .hero__section {
   @extend %inverted__section;
+  // TODO: replace with darker background.
   background-image: asset-url('site/hero-background.jpg');
   background-position: center center;
   background-repeat: no-repeat;
@@ -47,7 +89,12 @@
   color: $white;
   text-align: center;
 
-  h1 {
+  .button {
+    border: 1px solid $dunno-green-color;
+    font-weight: 700;
+  }
+
+  .hero__title {
     font-size: 3.125em;
     font-weight: $font-weight-light;
     padding-top: 8rem;
@@ -93,18 +140,55 @@
   padding: 10em 0;
 }
 
-.testimonials__section {
-  background-color: $white;
-  padding: 4em 0;
-  text-align: center;
-}
-
 .invitation__section {
   @extend %inverted__section;
   padding: 4em 0;
+
+  h2 {
+    font-size: 2.625em;
+    font-weight: $font-weight-light;
+    margin-bottom: .5em;
+  }
+
+  p {
+    margin: 0 auto 3.75em;
+    max-width: 45em;
+  }
 }
 
 footer {
   background-color: $white;
   padding: 2em 0;
+}
+
+
+.slide {
+  min-height: 35rem;
+  position: relative;
+}
+
+.slide__content {
+  float: left;
+  margin: 7em 0;
+
+  .students__section & {
+    width: 19rem;
+  }
+
+  .teacher__section & {
+    width: 25rem;
+  }
+}
+
+.slide__image {
+  position: absolute;
+  right: 0;
+
+  .students__section & {
+    margin-left: 32rem;
+  }
+
+  .teacher__section & {
+    margin-left: 36rem;
+  }
 }
