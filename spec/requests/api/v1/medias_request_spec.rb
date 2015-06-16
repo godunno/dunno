@@ -180,7 +180,7 @@ describe Api::V1::MediasController do
           "media" => {
             "url" => url
           }
-        }.merge(auth_params(profile)).to_json
+        }
       end
 
       before { do_action }
