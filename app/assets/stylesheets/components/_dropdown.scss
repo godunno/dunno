@@ -1,17 +1,6 @@
 .dropdown {
   &.secondary {
-    background: lighten($light-grey-color, 10%);
     border: 0;
-    color: $dunno-dark-color;
-
-    &:hover {
-      background: lighten($light-grey-color, 20%);
-      color: $dunno-dark-color;
-    }
-
-    &:active {
-      background: $white;
-    }
   }
 
   .icon {

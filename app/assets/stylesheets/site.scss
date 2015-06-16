@@ -2,6 +2,8 @@
 
 @import 'settings', 'foundation'; // foundation setup
 
+@import 'components/buttons';
+
 %inverted__section {
   background-color: $dunno-dark-color;
   color: $white;
@@ -123,6 +125,9 @@ section {
   }
 
   .feature {
+    color: $dunno-green-color;
+    text-align: center;
+
     .icon {
       @include radius(50%);
       background: $dunno-green-color;

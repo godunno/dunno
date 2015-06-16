@@ -46,8 +46,8 @@
     }
 
     *:not(.topic__url) {
-      cursor: text;
       color: $dunno-dark-color;
+      cursor: text;
     }
   }
 

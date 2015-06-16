@@ -18,7 +18,6 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
   &.transparent {
     // TODO: use foundation button() for creating new buttons.
     background: none;
-    color: $black;
     opacity: .85;
 
     &:hover {
