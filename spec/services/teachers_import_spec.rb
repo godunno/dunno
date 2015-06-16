@@ -14,7 +14,7 @@ describe TeachersImport do
       TeachersImport.new(url).import!
     end
 
-    subject { Teacher.first }
+    subject { Profile.first }
 
     it { expect(subject.name).to eq(name) }
     it { expect(subject.email).to eq(email) }

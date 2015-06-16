@@ -3,10 +3,10 @@ require 'spec_helper'
 describe Api::V1::SessionsController do
   let(:password) { '12345678' }
   let(:course) { create(:course) }
-  let!(:student) { create(:student, user: create(:user, password: password), courses: [course]) }
-  let!(:teacher) { create(:teacher, user: create(:user, password: password, completed_tutorial: true)) }
 
   describe "student" do
+    let!(:student) { create(:profile, user: create(:user, password: password), memberships: [create(:membership, course: course)]) }
+
     describe "POST /api/v1/users/sign_in" do
 
       context "correct authentication" do
@@ -20,7 +20,7 @@ describe Api::V1::SessionsController do
 
         it do
           expect(json).to eq(
-            "root_path" => "/dashboard/student",
+            "root_path" => "/dashboard",
             "id" => student.user.id,
             "name" => student.name,
             "phone_number" => student.phone_number,
@@ -70,19 +70,21 @@ describe Api::V1::SessionsController do
         end
         after { Warden.test_reset! }
         it { expect(last_response.status).to eq(302) }
-        it { expect(last_response.location).to match(%r{/dashboard/student$}) }
+        it { expect(last_response.location).to match(%r{/dashboard$}) }
       end
     end
   end
 
   describe "teacher" do
+    let!(:teacher) { create(:profile, user: create(:user, password: password, completed_tutorial: true)) }
+
     describe "POST /api/v1/users/sign_in" do
 
       context "correct authentication" do
 
         before(:each) do
           2.times.map { create(:course, teacher: teacher) }.each do |course|
-            5.times { course.students << create(:student) }
+            5.times { course.students << create(:profile) }
             create(:notification, course: course)
           end
 
@@ -94,7 +96,7 @@ describe Api::V1::SessionsController do
 
         it do
           expect(json).to eq(
-            "root_path" => "/dashboard/teacher",
+            "root_path" => "/dashboard",
             "id" => teacher.user.id,
             "name" => teacher.name,
             "phone_number" => teacher.phone_number,
@@ -147,7 +149,7 @@ describe Api::V1::SessionsController do
         end
         after { Warden.test_reset! }
         it { expect(last_response.status).to eq(302) }
-        it { expect(last_response.location).to match(%r{/dashboard/teacher$}) }
+        it { expect(last_response.location).to match(%r{/dashboard$}) }
       end
     end
   end

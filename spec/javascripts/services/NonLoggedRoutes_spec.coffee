@@ -16,5 +16,5 @@ describe "NonLoggedRoutes service", ->
     expect(NonLoggedRoutes.isNonLoggedRoute()).toBe(true)
 
   it "knows it's a logged route", ->
-    $window.location.pathname = '/dashboard/teacher/courses'
+    $window.location.pathname = '/dashboard/courses'
     expect(NonLoggedRoutes.isNonLoggedRoute()).toBe(false)

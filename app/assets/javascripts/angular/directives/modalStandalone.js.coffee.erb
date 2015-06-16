@@ -3,7 +3,7 @@ DunnoApp = angular.module('DunnoApp')
 DunnoApp.directive 'modalStandalone', ->
   restrict: 'E'
   transclude: true
-  templateUrl: '<%= asset_path('shared/_modal.html') %>'
+  templateUrl: '<%= asset_path('_modal.html') %>'
   link: (scope, element, attrs)->
     background = $('<div class="modal-bg">')
     $('body').append(background)

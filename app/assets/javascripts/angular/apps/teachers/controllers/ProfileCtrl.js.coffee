@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 ProfileCtrl = ($scope, $http, SessionManager, ErrorParser)->
   $scope.user = SessionManager.currentUser()
@@ -22,4 +21,3 @@ ProfileCtrl = ($scope, $http, SessionManager, ErrorParser)->
 
 ProfileCtrl.$inject = ['$scope', '$http', 'SessionManager', 'ErrorParser']
 DunnoApp.controller 'ProfileCtrl', ProfileCtrl
-DunnoAppStudent.controller 'ProfileCtrl', ProfileCtrl

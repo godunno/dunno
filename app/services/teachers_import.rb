@@ -1,3 +1,4 @@
+# TODO: change name
 class TeachersImport
   attr_reader :url
 
@@ -17,7 +18,7 @@ class TeachersImport
           email: row[1],
           phone_number: row[2],
           password: SecureRandom.hex(4),
-          profile: Teacher.new
+          profile: Profile.new
         )
       end
     end

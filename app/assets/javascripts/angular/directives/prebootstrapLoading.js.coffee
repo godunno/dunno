@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 prebootstrapLoading = ->
   restrict: 'A'
@@ -7,4 +6,3 @@ prebootstrapLoading = ->
     element.fadeOut(500, element.remove)
 
 DunnoApp.directive 'prebootstrapLoading', prebootstrapLoading
-DunnoAppStudent.directive 'prebootstrapLoading', prebootstrapLoading

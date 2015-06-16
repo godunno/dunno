@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 setClassFromController = ($rootScope) ->
   $rootScope.$on '$routeChangeSuccess', (ev, data) ->
@@ -11,7 +10,6 @@ setClassFromController = ($rootScope) ->
 setClassFromController.$inject = ['$rootScope']
 
 DunnoApp.run setClassFromController
-DunnoAppStudent.run setClassFromController
 
 checkProfile = ($rootScope, $window, SessionManager, NonLoggedRoutes)->
   $rootScope.$on '$routeChangeSuccess', (ev, data) ->
@@ -21,4 +19,3 @@ checkProfile = ($rootScope, $window, SessionManager, NonLoggedRoutes)->
 
 checkProfile.$inject = ['$rootScope', '$window', 'SessionManager', 'NonLoggedRoutes']
 DunnoApp.run checkProfile
-DunnoAppStudent.run checkProfile

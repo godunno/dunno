@@ -27,36 +27,29 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'dashboard/teacher' => 'dashboard/application#teacher'
-  get 'dashboard/student' => 'dashboard/application#student'
+  get 'dashboard' => 'dashboard/application#index'
 
   namespace :api do
     namespace :v1 do
       resource :config, only: :show
-      namespace :teacher do
-        resources :notifications, only: [:create]
-        resources :courses, only: [:index, :create, :update, :destroy, :show] do
-          # TODO: Check if this route is used
-          member do
-            get :students
-          end
-        end
-        resources :events, only: [:index, :create, :update, :destroy, :show]
-        resources :medias, only: [:index, :create, :update, :destroy] do
-          # TODO: Remove this route
-          get 'preview', on: :collection
-        end
-        resources :topics, only: [:create, :update, :destroy] do
-          member do
-            patch :transfer
-          end
+      resources :notifications, only: [:create]
+      resources :medias, only: [:index, :create, :update, :destroy] do
+        # TODO: Remove this route
+        get 'preview', on: :collection
+      end
+      resources :topics, only: [:create, :update, :destroy] do
+        member do
+          patch :transfer
         end
       end
-      resources :events, only: [:index, :show]
-      resources :courses, only: [:index, :show] do
+      resources :events, only: [:index, :show, :create, :update]
+      resources :courses, only: [:index, :show, :create, :update, :destroy] do
         member do
           post :register
           delete :unregister
+          get :search
+          # TODO: Check if this route is used
+          get :students
         end
       end
       namespace :utils do

@@ -3,13 +3,15 @@ class Course < ActiveRecord::Base
 
   WEEKDAYS = (0..6).to_a
 
-  belongs_to :teacher
+  has_one :teacher_membership, -> { where(role: 'teacher') }, class_name: 'Membership'
+  has_many :student_memberships, -> { where(role: 'student') }, class_name: 'Membership'
+  has_one :teacher, through: :teacher_membership, class_name: 'Profile', source: :profile
+  has_many :students, through: :student_memberships, class_name: 'Profile', source: :profile
   has_many :events
   has_many :weekly_schedules
   has_many :notifications
-  has_and_belongs_to_many :students
 
-  validates :teacher, :name, :start_date, :end_date, :class_name, presence: true
+  validates :name, :start_date, :end_date, :class_name, presence: true
   validates :abbreviation, length: { maximum: 10 }
 
   before_create :set_access_code

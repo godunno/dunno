@@ -2,7 +2,7 @@ DunnoApp = angular.module('DunnoApp')
 Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
   class Media extends RailsResource
     @configure(
-      url: '/api/v1/teacher/medias'
+      url: '/api/v1/medias'
       name: 'media'
       idAttribute: 'uuid'
       updateMethod: 'patch'

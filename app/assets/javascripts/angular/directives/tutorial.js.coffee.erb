@@ -30,7 +30,7 @@ DunnoApp.directive 'tutorial', ['$parse', 'AssetsPreloader', ($parse, AssetsPrel
   restrict: 'E'
   transclude: true
   replace: true
-  templateUrl: '<%= asset_path('shared/tutorial/_tutorial.html') %>'
+  templateUrl: '<%= asset_path('tutorial/_tutorial.html') %>'
   controller: 'tutorialCtrl'
   link: (scope, element, attrs)->
     scope.onClose = -> $parse(attrs.onClose)(scope)
@@ -41,7 +41,7 @@ DunnoApp.directive 'tutorialStep', ->
   restrict: 'E'
   require: '^tutorial'
   transclude: true
-  templateUrl: '<%= asset_path('shared/tutorial/_tutorialStep.html') %>'
+  templateUrl: '<%= asset_path('tutorial/_tutorialStep.html') %>'
   scope: true
   link: (scope, element, attrs, tutorial)->
     scope.id = tutorial.increaseStep()

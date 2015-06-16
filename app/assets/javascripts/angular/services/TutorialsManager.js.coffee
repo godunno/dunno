@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 TutorialsManager = ($http, $analytics, $location, SessionManager)->
   user = SessionManager.currentUser()
@@ -36,4 +35,3 @@ TutorialsManager = ($http, $analytics, $location, SessionManager)->
 
 TutorialsManager.$inject = ['$http', '$analytics', '$location', 'SessionManager']
 DunnoApp.factory "TutorialsManager", TutorialsManager
-DunnoAppStudent.factory "TutorialsManager", TutorialsManager

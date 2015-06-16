@@ -343,6 +343,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.3)
       pry (>= 0.9.10)
+    pundit (1.0.1)
+      activesupport (>= 3.0.0)
     rabl (0.11.6)
       activesupport (>= 2.3.14)
     rack (1.5.2)
@@ -629,6 +631,7 @@ DEPENDENCIES
   pronto-rubocop (= 0.4.1)
   pronto-scss (= 0.4.6)
   pry-rails (= 0.3.3)
+  pundit (= 1.0.1)
   rabl (= 0.11.6)
   rack-canonical-host (= 0.1.0)
   rails (= 4.1.6)
@@ -677,6 +680,3 @@ DEPENDENCIES
   virtus (= 1.0.4)
   webmock (= 1.20.4)
   will_paginate (= 3.0.7)
-
-BUNDLED WITH
-   1.10.3

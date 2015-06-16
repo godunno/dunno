@@ -1,26 +1,72 @@
-#= depend_on_asset "teacher/courses/index.html"
-#= depend_on_asset "teacher/courses/form.html"
-#= depend_on_asset "teacher/courses/show.html"
-#= depend_on_asset "teacher/events/index.html"
-#= depend_on_asset "teacher/events/form.html"
-#= depend_on_asset "teacher/medias/index.html"
+#= depend_on_asset "courses/index.html"
+#= depend_on_asset "courses/form.html"
+#= depend_on_asset "courses/show.html"
+#= depend_on_asset "events/index.html"
+#= depend_on_asset "events/show.html"
+#= depend_on_asset "medias/index.html"
 
 DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet']
 
-Router = ($routeProvider, CoursesResolver, CourseResolver, EventsResolver, EventResolver, MediasResolver)->
-  $routeProvider.
-    when('/courses',               controller: 'CoursesIndexCtrl', templateUrl: '<%= asset_path('teacher/courses/index.html') %>', resolve: { courses: CoursesResolver }).
-    when('/courses/new',           controller: 'CourseCtrl',       templateUrl: '<%= asset_path('teacher/courses/form.html') %>').
-    when('/courses/:id/edit',      controller: 'CourseCtrl',       templateUrl: '<%= asset_path('teacher/courses/form.html') %>', resolve: { course: CourseResolver }).
-    when('/courses/:id',           controller: 'CourseCtrl',       templateUrl: '<%= asset_path('teacher/courses/show.html') %>', resolve: { course: CourseResolver }, reloadOnSearch: false).
-    when('/events',                controller: 'EventsIndexCtrl',  templateUrl: '<%= asset_path('teacher/events/index.html') %>', resolve: { events: EventsResolver }).
-    when('/events/new',            controller: 'EventCtrl',        templateUrl: '<%= asset_path('teacher/events/form.html') %>').
-    when('/events/:id/edit',       controller: 'EventCtrl',        templateUrl: '<%= asset_path('teacher/events/form.html') %>', resolve: { event: EventResolver }).
-    when('/catalog',               controller: 'MediasIndexCtrl',  templateUrl: '<%= asset_path('teacher/medias/index.html') %>', resolve: { searchResult: MediasResolver }).
-    when('/profile/edit',          controller: 'ProfileCtrl',      templateUrl: '<%= asset_path('shared/profile/form.html') %>').
-    when('/profile/password/edit', controller: 'ProfileCtrl',      templateUrl: '<%= asset_path('shared/password/form.html') %>').
-    otherwise(redirectTo: '/courses')
-Router.$inject = ['$routeProvider', 'CoursesResolver', 'CourseResolver', 'EventsResolver', 'EventResolver', 'MediasResolver']
+Router = ($routeProvider, CoursesResolver, CourseResolver, CourseRegistrationResolver, EventsResolver, EventResolver, MediasResolver)->
+  $routeProvider
+    .when('/courses',
+      controller: 'CoursesIndexCtrl'
+      templateUrl: '<%= asset_path('courses/index.html') %>'
+      resolve: { courses: CoursesResolver }
+
+    ).when('/courses/new',
+      controller: 'CourseCtrl'
+      templateUrl: '<%= asset_path('courses/form.html') %>'
+
+    ).when('/courses/search'
+      controller: 'CourseSearchCtrl'
+      templateUrl: '<%= asset_path('courses/search.html') %>'
+
+    ).when('/courses/:id/confirm_registration'
+      controller: 'CourseConfirmRegistrationCtrl'
+      templateUrl: '<%= asset_path('courses/confirm_registration.html') %>'
+      resolve: { course: CourseRegistrationResolver }
+
+    ).when('/courses/:id/edit',
+      controller: 'CourseCtrl'
+      templateUrl: '<%= asset_path('courses/form.html') %>'
+      resolve: { course: CourseResolver }
+
+    ).when('/courses/:id',
+      controller: 'CourseCtrl'
+      templateUrl: '<%= asset_path('courses/show.html') %>'
+      resolve: { course: CourseResolver }
+      reloadOnSearch: false
+
+    ).when('/events'
+      controller: 'EventsIndexCtrl'
+      templateUrl: '<%= asset_path('events/index.html') %>'
+      resolve: { events: EventsResolver }
+
+    ).when('/events/new'
+      controller: 'EventCtrl'
+      templateUrl: '<%= asset_path('events/show.html') %>'
+
+    ).when('/events/:id'
+      controller: 'EventCtrl'
+      templateUrl: '<%= asset_path('events/show.html') %>'
+      resolve: { event: EventResolver }
+
+    ).when('/catalog'
+      controller: 'MediasIndexCtrl'
+      templateUrl: '<%= asset_path('medias/index.html') %>'
+      resolve: { searchResult: MediasResolver }
+
+    ).when('/profile/edit'
+      controller: 'ProfileCtrl'
+      templateUrl: '<%= asset_path('profile/form.html') %>'
+
+    ).when('/profile/password/edit'
+      controller: 'ProfileCtrl'
+      templateUrl: '<%= asset_path('password/form.html') %>'
+
+    ).otherwise(redirectTo: '/courses')
+Router.$inject = ['$routeProvider', 'CoursesResolver', 'CourseResolver', 'CourseRegistrationResolver', 'EventsResolver', 'EventResolver', 'MediasResolver']
 DunnoApp.config Router
 
 DunnoApp.config(["railsSerializerProvider", "tagsInputConfigProvider", (railsSerializerProvider, tagsInputConfigProvider)->
@@ -30,7 +76,7 @@ DunnoApp.config(["railsSerializerProvider", "tagsInputConfigProvider", (railsSer
 DunnoApp.constant('AUTOSAVE_INTERVAL', 5000)
 
 DunnoApp.value('cgBusyDefaults',
-  templateUrl: '<%= asset_path('shared/_loading.html') %>',
+  templateUrl: '<%= asset_path('_loading.html') %>',
   minDuration: 500,
   wrapperClass: 'cg-busy cg-busy-animation ng-animate'
 )
