@@ -1,23 +1,3 @@
-GIT
-  remote: git://github.com/lunks/phonie.git
-  revision: 2876d461921665ed8b999919a0b816e8e929ae9a
-  branch: patch/add-new-br-numbers
-  specs:
-    phonie (3.1.9)
-
-GIT
-  remote: git://github.com/mrodrigues/link_thumbnailer.git
-  revision: cc7b8221ea803ae8eaf2f22d752dd1bae878803b
-  specs:
-    link_thumbnailer (2.5.0)
-      activesupport (>= 3.0)
-      fastimage (~> 1.6)
-      json (~> 1.8, >= 1.7.7)
-      net-http-persistent (~> 2.9)
-      nokogiri (~> 1.6)
-      rake (>= 0.9)
-      video_info (~> 2.4)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -161,7 +141,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
-    fastimage (1.6.8)
+    fastimage (1.7.0)
       addressable (~> 2.3, >= 2.3.5)
     ffi (1.9.8)
     fission (0.5.0)
@@ -300,6 +280,14 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.3.0)
       launchy (~> 2.2)
+    link_thumbnailer (2.5.2)
+      activesupport (>= 3.0)
+      fastimage (~> 1.6)
+      json (~> 1.8, >= 1.7.7)
+      net-http-persistent (~> 2.9)
+      nokogiri (~> 1.6)
+      rake (>= 0.9)
+      video_info (~> 2.4)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     memcachier (0.0.2)
@@ -333,6 +321,7 @@ GEM
     parser (2.2.0.2)
       ast (>= 1.1, < 3.0)
     pg (0.18.1)
+    phonie (3.1.11)
     powerpack (0.1.0)
     pronto (0.4.1)
       gitlab (~> 3.3)
@@ -380,6 +369,9 @@ GEM
     rails-assets-angular-busy (4.1.2)
       rails-assets-angular (~> 1.3)
       rails-assets-angular-animate (~> 1.3)
+    rails-assets-angular-elastic-input (2.0.2)
+      rails-assets-angular (>= 1.0.6)
+      rails-assets-jquery (>= 1.6.0)
     rails-assets-angular-foundation (0.5.1)
       rails-assets-angular (>= 1)
     rails-assets-angular-messages (1.3.2)
@@ -410,9 +402,6 @@ GEM
       rails-assets-waypoints (~> 2.0.3)
     rails-assets-lunks--ngTagsInput (3.0.0)
     rails-assets-modernizr (2.8.3)
-    rails-assets-mrodrigues--angular-elastic-input (2.0.1)
-      rails-assets-angular (>= 1.0.6)
-      rails-assets-jquery (>= 1.6.0)
     rails-assets-mrodrigues--angular-input-masks (1.3.1)
       rails-assets-angular (~> 1.3.0)
       rails-assets-br-validations (~> 0.2.3)
@@ -576,7 +565,7 @@ GEM
       rack
       raindrops (~> 0.7)
     vcr (2.9.3)
-    video_info (2.4.1)
+    video_info (2.4.2)
       addressable
       htmlentities
       multi_json
@@ -628,13 +617,13 @@ DEPENDENCIES
   jbuilder (= 2.2.6)
   jquery-rails (= 3.1.2)
   letter_opener (= 1.3.0)
-  link_thumbnailer (= 2.5.0)!
+  link_thumbnailer (= 2.5.2)
   memcachier (= 0.0.2)
   mixpanel-ruby (= 1.7.0)
   newrelic_rpm (= 3.9.9.275)
   oj (= 2.11.4)
   pg (= 0.18.1)
-  phonie (= 3.1.9)!
+  phonie (= 3.1.11)
   pronto (= 0.4.1)
   pronto-flay (= 0.4.0)
   pronto-rubocop (= 0.4.1)
@@ -647,6 +636,7 @@ DEPENDENCIES
   rails-assets-angular--bower-angular-i18n (= 1.3.11)!
   rails-assets-angular-animate (= 1.3.2)!
   rails-assets-angular-busy (= 4.1.2)!
+  rails-assets-angular-elastic-input (= 2.0.2)!
   rails-assets-angular-foundation (= 0.5.1)!
   rails-assets-angular-messages (= 1.3.2)!
   rails-assets-angular-mocks (= 1.3.2)!
@@ -660,7 +650,6 @@ DEPENDENCIES
   rails-assets-lunks--angulartics (= 0.18.0)!
   rails-assets-lunks--ngTagsInput (= 3.0.0)!
   rails-assets-modernizr (= 2.8.3)!
-  rails-assets-mrodrigues--angular-elastic-input (= 2.0.1)!
   rails-assets-mrodrigues--angular-input-masks (= 1.3.1)!
   rails-assets-ng-file-upload (= 1.6.12)!
   rails-assets-ng-file-upload-shim (= 1.6.12)!

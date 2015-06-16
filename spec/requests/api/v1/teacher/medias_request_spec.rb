@@ -177,7 +177,7 @@ describe Api::V1::Teacher::MediasController do
       end
 
       context "creating media with URL" do
-        let(:url) { "http://mussumipsum.com/" }
+        let(:url) { "http://silviosantosipsum.com/" }
         let(:params_hash) do
           {
             "media" => {
@@ -193,22 +193,23 @@ describe Api::V1::Teacher::MediasController do
         it { expect(json["uuid"]).to eq(subject.uuid) }
         it { expect(json["id"]).to eq(subject.id) }
         it { expect(subject.url).to eq(url) }
-        it { expect(subject.title).to eq("Musum Ipsum") }
-        it { expect(subject.description).to eq("O melhor Lorem Ipsum do mundis!") }
-        it { expect(subject.thumbnail).to eq("http://mussumipsum.com/images/mussum_ipsum_og.jpg") }
+        it { expect(subject.title).to eq("Silvio Santos Ipsum - O Lorem Ipsum do Silvio Santos") }
+        it { expect(subject.description).to eq("Silvio Santos Ipsum. Um site voltado para desenvolvedores que precisam de um texto de exemplo para seus clientes.") }
+        it { expect(subject.thumbnail).to eq("http://silviosantosipsum.com/images/silvio03.png") }
         it { expect(subject.teacher).to eq(teacher) }
         it { expect(json["preview"]).to eq(subject.preview) }
         it "should have the correct preview" do
           expect(json["preview"]).to eq(
-            "url" => "http://mussumipsum.com/",
-            "favicon" => "images/icon_mussum.ico",
-            "title" => "Musum Ipsum",
-            "description" => "O melhor Lorem Ipsum do mundis!",
-            "images" => [{
-              "src" => "http://mussumipsum.com/images/mussum_ipsum_og.jpg",
-              "size" => [450, 450],
-              "type" => "jpeg"
-            }],
+            "url" => "http://silviosantosipsum.com/",
+            "favicon" => "image/32x32/100/images/favicon.png",
+            "title" => "Silvio Santos Ipsum - O Lorem Ipsum do Silvio Santos",
+            "description" => "Silvio Santos Ipsum. Um site voltado para desenvolvedores que precisam de um texto de exemplo para seus clientes.",
+            "images" => [
+              {"src"=>"http://silviosantosipsum.com/images/silvio03.png", "size"=>[450, 450], "type"=>"png"},
+              {"src"=>"http://silviosantosipsum.com/images/silvio01.png", "size"=>[300, 524], "type"=>"png"},
+              {"src"=>"http://silviosantosipsum.com/images/thumb-silvio-santos-ipsum.png", "size"=>[237, 80], "type"=>"png"},
+              {"src"=>"http://assets.pinterest.com/images/pidgets/pin_it_button.png", "size"=>[40, 20], "type"=>"png"}
+            ],
             "videos" => []
           )
         end

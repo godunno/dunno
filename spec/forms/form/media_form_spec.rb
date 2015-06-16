@@ -9,7 +9,7 @@ describe Form::MediaForm do
   describe "validations" do
 
     it "should validate URL's format" do
-      allow(LinkThumbnailer).to receive(:generate).and_return(double("LinkThumbnailer", as_json: spy("preview"), title: "Title", description: "", images: []))
+      allow(LinkThumbnailerWrapper).to receive(:generate).and_return(double("LinkThumbnailerWrapper", as_json: spy("preview"), title: "Title", description: "", images: []))
       ["http://www.example.com", "http://example.com", "http://www.example.com/path/", "https://www.example.com", "www.example.com"].each do |url|
         media[:url] = url
         expect(Form::MediaForm.new(media)).to be_valid
@@ -50,7 +50,7 @@ describe Form::MediaForm do
 
   it "should truncate too long descriptions" do
     long_description = "a" * 256
-    allow(LinkThumbnailer).to(
+    allow(LinkThumbnailerWrapper).to(
       receive(:generate).and_return(
         double("preview", title: "Title", description: long_description, images: [])
       )
