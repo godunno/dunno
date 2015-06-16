@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - nginx/1.6.2 (Ubuntu)
       Date:
-      - Tue, 16 Jun 2015 19:48:16 GMT
+      - Tue, 16 Jun 2015 19:48:22 GMT
       Content-Type:
       - text/html
       Transfer-Encoding:
@@ -257,16 +257,16 @@ http_interactions:
         diBjbGFzcz0iYXJjdGNsZSI+PGRpdiBjbGFzcz0ic2luZ2xlX3RlYXNlciBp
         Y29ucyBzdHlsZTIiPjxkaXYgY2xhc3M9Imljb25zX2ludHJvaW1nIGltYWdl
         LWljb24iPjxpIGNsYXNzPSJydC1pY29uLWJ1bGIiPjwvaT48L2Rpdj48aDI+
-        MzIuOTc2PC9oMj48aDM+VGV4dG9zIGdlcmFkb3M8L2gzPjwvZGl2PjwvZGl2
+        MzIuOTc3PC9oMj48aDM+VGV4dG9zIGdlcmFkb3M8L2gzPjwvZGl2PjwvZGl2
         PjwvZGl2PjxkaXYgY2xhc3M9ImJsb2NrIGNvbC1zbS0zIj48ZGl2IGNsYXNz
         PSJhcmN0Y2xlIj48ZGl2IGNsYXNzPSJzaW5nbGVfdGVhc2VyIGljb25zIHN0
         eWxlMiI+PGRpdiBjbGFzcz0iaWNvbnNfaW50cm9pbWcgaW1hZ2UtaWNvbiI+
-        PGkgY2xhc3M9InJ0LWljb24tZXllIj48L2k+PC9kaXY+PGgyPjI3LjgwNTwv
+        PGkgY2xhc3M9InJ0LWljb24tZXllIj48L2k+PC9kaXY+PGgyPjI3LjgwNzwv
         aDI+PGgzPlZlemVzIHZpc2l0YWRhczwvaDM+PC9kaXY+PC9kaXY+PC9kaXY+
         PGRpdiBjbGFzcz0iYmxvY2sgY29sLXNtLTMiPjxkaXYgY2xhc3M9ImFyY3Rj
         bGUiPjxkaXYgY2xhc3M9InNpbmdsZV90ZWFzZXIgaWNvbnMgc3R5bGUyIj48
         ZGl2IGNsYXNzPSJpY29uc19pbnRyb2ltZyBpbWFnZS1pY29uIj48aSBjbGFz
-        cz0icnQtaWNvbi1wZW4yIj48L2k+PC9kaXY+PGgyPjgwLjc1NTwvaDI+PGgz
+        cz0icnQtaWNvbi1wZW4yIj48L2k+PC9kaXY+PGgyPjgwLjc2MDwvaDI+PGgz
         PlBhcsOhZ3JhZm9zIGdlcmFkb3M8L2gzPjwvZGl2PjwvZGl2PjwvZGl2Pjwv
         ZGl2PjwvZGl2Pjwvc2VjdGlvbj48L2Rpdj48IS0tIGNvbnRlbnQgLS0+PGZv
         b3RlciBpZD0iZm9vdGVyIiBjbGFzcz0iYmctY29sb3IwIj48ZGl2IGNsYXNz
@@ -375,7 +375,7 @@ http_interactions:
         ZS5pbnNlcnRCZWZvcmUoanMsIGZqcyk7Cgl9KGRvY3VtZW50LCAnc2NyaXB0
         JywgJ2ZhY2Vib29rLWpzc2RrJykpOzwvc2NyaXB0PjwvYm9keT48L2h0bWw+
     http_version: 
-  recorded_at: Tue, 16 Jun 2015 19:48:16 GMT
+  recorded_at: Tue, 16 Jun 2015 19:48:22 GMT
 - request:
     method: get
     uri: http://silviosantosipsum.com/
@@ -402,7 +402,7 @@ http_interactions:
       Server:
       - nginx/1.6.2 (Ubuntu)
       Date:
-      - Tue, 16 Jun 2015 19:48:16 GMT
+      - Tue, 16 Jun 2015 19:48:22 GMT
       Content-Type:
       - text/html
       Transfer-Encoding:
@@ -638,16 +638,16 @@ http_interactions:
         diBjbGFzcz0iYXJjdGNsZSI+PGRpdiBjbGFzcz0ic2luZ2xlX3RlYXNlciBp
         Y29ucyBzdHlsZTIiPjxkaXYgY2xhc3M9Imljb25zX2ludHJvaW1nIGltYWdl
         LWljb24iPjxpIGNsYXNzPSJydC1pY29uLWJ1bGIiPjwvaT48L2Rpdj48aDI+
-        MzIuOTc2PC9oMj48aDM+VGV4dG9zIGdlcmFkb3M8L2gzPjwvZGl2PjwvZGl2
+        MzIuOTc3PC9oMj48aDM+VGV4dG9zIGdlcmFkb3M8L2gzPjwvZGl2PjwvZGl2
         PjwvZGl2PjxkaXYgY2xhc3M9ImJsb2NrIGNvbC1zbS0zIj48ZGl2IGNsYXNz
         PSJhcmN0Y2xlIj48ZGl2IGNsYXNzPSJzaW5nbGVfdGVhc2VyIGljb25zIHN0
         eWxlMiI+PGRpdiBjbGFzcz0iaWNvbnNfaW50cm9pbWcgaW1hZ2UtaWNvbiI+
-        PGkgY2xhc3M9InJ0LWljb24tZXllIj48L2k+PC9kaXY+PGgyPjI3LjgwNjwv
+        PGkgY2xhc3M9InJ0LWljb24tZXllIj48L2k+PC9kaXY+PGgyPjI3LjgwODwv
         aDI+PGgzPlZlemVzIHZpc2l0YWRhczwvaDM+PC9kaXY+PC9kaXY+PC9kaXY+
         PGRpdiBjbGFzcz0iYmxvY2sgY29sLXNtLTMiPjxkaXYgY2xhc3M9ImFyY3Rj
         bGUiPjxkaXYgY2xhc3M9InNpbmdsZV90ZWFzZXIgaWNvbnMgc3R5bGUyIj48
         ZGl2IGNsYXNzPSJpY29uc19pbnRyb2ltZyBpbWFnZS1pY29uIj48aSBjbGFz
-        cz0icnQtaWNvbi1wZW4yIj48L2k+PC9kaXY+PGgyPjgwLjc1NTwvaDI+PGgz
+        cz0icnQtaWNvbi1wZW4yIj48L2k+PC9kaXY+PGgyPjgwLjc2MDwvaDI+PGgz
         PlBhcsOhZ3JhZm9zIGdlcmFkb3M8L2gzPjwvZGl2PjwvZGl2PjwvZGl2Pjwv
         ZGl2PjwvZGl2Pjwvc2VjdGlvbj48L2Rpdj48IS0tIGNvbnRlbnQgLS0+PGZv
         b3RlciBpZD0iZm9vdGVyIiBjbGFzcz0iYmctY29sb3IwIj48ZGl2IGNsYXNz
@@ -756,7 +756,7 @@ http_interactions:
         ZS5pbnNlcnRCZWZvcmUoanMsIGZqcyk7Cgl9KGRvY3VtZW50LCAnc2NyaXB0
         JywgJ2ZhY2Vib29rLWpzc2RrJykpOzwvc2NyaXB0PjwvYm9keT48L2h0bWw+
     http_version: 
-  recorded_at: Tue, 16 Jun 2015 19:48:16 GMT
+  recorded_at: Tue, 16 Jun 2015 19:48:22 GMT
 - request:
     method: get
     uri: http://silviosantosipsum.com/images/thumb-silvio-santos-ipsum.png
@@ -778,7 +778,7 @@ http_interactions:
       Server:
       - nginx/1.6.2 (Ubuntu)
       Date:
-      - Tue, 16 Jun 2015 19:48:17 GMT
+      - Tue, 16 Jun 2015 19:48:23 GMT
       Content-Type:
       - image/png
       Content-Length:
@@ -960,7 +960,7 @@ http_interactions:
         LcgTtQG7bLbD5bMHbpm9+L0L5zYjK+NMhB829bqXLbbYEmICZscLIjqqFqER
         /LfN8LsmNi0UCKZNW2w5n8p/AMasONIRWotLAAAAAElFTkSuQmCC
     http_version: 
-  recorded_at: Tue, 16 Jun 2015 19:48:17 GMT
+  recorded_at: Tue, 16 Jun 2015 19:48:23 GMT
 - request:
     method: get
     uri: http://silviosantosipsum.com/images/thumb-silvio-santos-ipsum.png
@@ -982,7 +982,7 @@ http_interactions:
       Server:
       - nginx/1.6.2 (Ubuntu)
       Date:
-      - Tue, 16 Jun 2015 19:48:17 GMT
+      - Tue, 16 Jun 2015 19:48:23 GMT
       Content-Type:
       - image/png
       Content-Length:
@@ -1164,7 +1164,7 @@ http_interactions:
         LcgTtQG7bLbD5bMHbpm9+L0L5zYjK+NMhB829bqXLbbYEmICZscLIjqqFqER
         /LfN8LsmNi0UCKZNW2w5n8p/AMasONIRWotLAAAAAElFTkSuQmCC
     http_version: 
-  recorded_at: Tue, 16 Jun 2015 19:48:17 GMT
+  recorded_at: Tue, 16 Jun 2015 19:48:23 GMT
 - request:
     method: get
     uri: http://silviosantosipsum.com/images/silvio03.png
@@ -1186,7 +1186,7 @@ http_interactions:
       Server:
       - nginx/1.6.2 (Ubuntu)
       Date:
-      - Tue, 16 Jun 2015 19:48:17 GMT
+      - Tue, 16 Jun 2015 19:48:23 GMT
       Content-Type:
       - image/png
       Content-Length:
@@ -5647,7 +5647,7 @@ http_interactions:
         x8OyQPIP8P/1KHw/dRCsjzojrI/6eAA3aPUN34MFQnWQq486I6yP+rjHC2V9
         4X18QLY+6qPm8f8Dx6gCqrZupDwAAAAASUVORK5CYII=
     http_version: 
-  recorded_at: Tue, 16 Jun 2015 19:48:18 GMT
+  recorded_at: Tue, 16 Jun 2015 19:48:24 GMT
 - request:
     method: get
     uri: http://silviosantosipsum.com/images/silvio03.png
@@ -5669,7 +5669,7 @@ http_interactions:
       Server:
       - nginx/1.6.2 (Ubuntu)
       Date:
-      - Tue, 16 Jun 2015 19:48:18 GMT
+      - Tue, 16 Jun 2015 19:48:24 GMT
       Content-Type:
       - image/png
       Content-Length:
@@ -10130,7 +10130,75 @@ http_interactions:
         x8OyQPIP8P/1KHw/dRCsjzojrI/6eAA3aPUN34MFQnWQq486I6yP+rjHC2V9
         4X18QLY+6qPm8f8Dx6gCqrZupDwAAAAASUVORK5CYII=
     http_version: 
-  recorded_at: Tue, 16 Jun 2015 19:48:18 GMT
+  recorded_at: Tue, 16 Jun 2015 19:48:24 GMT
+- request:
+    method: get
+    uri: http://assets.pinterest.com/images/pidgets/pin_it_button.png
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 4BHIfQrPZqNgX7rApaQ51w+IKNjNRphICUo/sbOSbE8QGgGwKqyEl5DcthVIISrUYZ5JmyEkdbs=
+      X-Amz-Request-Id:
+      - FE807AACD45C5902
+      X-Amz-Version-Id:
+      - 1qhDjc8hVnJB92azBCmUKfK7.iE7Iffq
+      Last-Modified:
+      - Mon, 15 Jun 2015 21:30:38 GMT
+      Etag:
+      - '"cf5ce2d2dcfa060f6032b0af60d45aa2"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - image/png
+      Content-Length:
+      - '909'
+      Server:
+      - AmazonS3
+      Cache-Control:
+      - max-age=66117
+      Date:
+      - Tue, 16 Jun 2015 19:48:25 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAADVElEQVR42tWW
+        +UtUURTH+6k/pIWgqGwxMqkoiqisqLQVbaOVAiOhRWihhRYCQ2ih3TSzLIt+
+        KFISypxVZ1HHrUadzdnfMs4446jf7jvQvGLeGP1QTA++cO459577eeee97jj
+        NJov45luMAWYkCYKEhNjkwBL+vqsiMfjSJOHWBiTBHpZAgwMDQ1hdHQ0rSQx
+        SWwSIEZGRtJSEhsBDg8PK2rQ7YGt5CYsO/fDtGoj2rbvgfPBE8QHByn+lzU2
+        oGA0Q5uxAOb12+Aqq4TvfS1spbehm5UNy479iMeG/h0ga8okmddtQeeRIsRZ
+        L8TEEKKBAPl5gwmqiTPgqXlLY9HSAVdFFdm/UzTIwXH/cSLXoMcLx91HqebL
+        gKwhk6SaMB2cVo8oz6MpexmMKzf8iJH9tfgc2W2smtqMbLJ/J8eDMsobVOto
+        bD1/Baac3FTzZcBYLJYk9eQMBHXNCGp0lLTjSFEi1rx0Nb6dvUR2//NX8H9u
+        JJvTGxBoUMFb+xHWi9fgq6v/JWegUQNnRVXCNixfy/r7AHhzqxKDDBiNRpPU
+        kpsP2617EHt6QdU0mMgvfuuhI3ZVVoMzt1LM8+4DaE1eATRT56L75FkY2Uel
+        m7vo55xU+e4TZxDhBSk/rW0r2If+6tdKDDJgJBJJUkDfDPf7OrhevqFEvgYV
+        +bvYBro5CxHyemG9WgLNtHkIczzFtDOy0FF4nOxWtrFl7+FEPtHuAL1MXT2N
+        bXcfQj9/CSLhMI0VJAOGw+GUshwohHlTAYyrc9F+sBC6zMXwfmqgmDEnD+2H
+        jpLt1xsIwPmihsH7oJ4yG/byZz/yMP8r+isMCALCAwMwrd2M7tMXxtpbBhxg
+        C1KIqtJ75z5Etwf+JgNCQY78IUGgPu1jX6GXVbdp4QqoJs2E4HDCzXqQqvU5
+        kZtgWvP3grfZ0VlUTHHbo3KKeT41KO0tA4ZCIUUJHi+0M7PA2+2KcXNePh13
+        95lLBNqydRf5fexF1AxWgvA2qslnK3vK+jMTLdt2w1Fdg45jp2Bcw07g8DFY
+        r5cq5ZcBRVFUFOd0wVZRRfafiu93I9jTO+Yczm5ncqSKy4CCIKSj/h/AAHvA
+        83xaiTElrlslXV3t8Pv94DguHUQsjEkCvPLzlT+Yjlf+72LTPFmlB6OmAAAA
+        AElFTkSuQmCC
+    http_version: 
+  recorded_at: Tue, 16 Jun 2015 19:48:25 GMT
 - request:
     method: get
     uri: http://assets.pinterest.com/images/pidgets/pin_it_button.png
@@ -10168,9 +10236,9 @@ http_interactions:
       Server:
       - AmazonS3
       Cache-Control:
-      - max-age=60474
+      - max-age=60468
       Date:
-      - Tue, 16 Jun 2015 19:48:19 GMT
+      - Tue, 16 Jun 2015 19:48:25 GMT
       Connection:
       - keep-alive
     body:
@@ -10198,75 +10266,7 @@ http_interactions:
         83xaiTElrlslXV3t8Pv94DguHUQsjEkCvPLzlT+Yjlf+72LTPFmlB6OmAAAA
         AElFTkSuQmCC
     http_version: 
-  recorded_at: Tue, 16 Jun 2015 19:48:19 GMT
-- request:
-    method: get
-    uri: http://assets.pinterest.com/images/pidgets/pin_it_button.png
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - identity
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      X-Amz-Id-2:
-      - vd/8aHsb3g0qr4WkM0Ai5RvKS72KNnlABitoHeAaJ4i5LXkm+jbV+u+Gsmow/K/laPFLH24CNX4=
-      X-Amz-Request-Id:
-      - 8DC676253167A57E
-      X-Amz-Version-Id:
-      - 1qhDjc8hVnJB92azBCmUKfK7.iE7Iffq
-      Last-Modified:
-      - Mon, 15 Jun 2015 21:30:38 GMT
-      Etag:
-      - '"cf5ce2d2dcfa060f6032b0af60d45aa2"'
-      Accept-Ranges:
-      - bytes
-      Content-Type:
-      - image/png
-      Content-Length:
-      - '909'
-      Server:
-      - AmazonS3
-      Cache-Control:
-      - max-age=60473
-      Date:
-      - Tue, 16 Jun 2015 19:48:20 GMT
-      Connection:
-      - keep-alive
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAADVElEQVR42tWW
-        +UtUURTH+6k/pIWgqGwxMqkoiqisqLQVbaOVAiOhRWihhRYCQ2ih3TSzLIt+
-        KFISypxVZ1HHrUadzdnfMs4446jf7jvQvGLeGP1QTA++cO459577eeee97jj
-        NJov45luMAWYkCYKEhNjkwBL+vqsiMfjSJOHWBiTBHpZAgwMDQ1hdHQ0rSQx
-        SWwSIEZGRtJSEhsBDg8PK2rQ7YGt5CYsO/fDtGoj2rbvgfPBE8QHByn+lzU2
-        oGA0Q5uxAOb12+Aqq4TvfS1spbehm5UNy479iMeG/h0ga8okmddtQeeRIsRZ
-        L8TEEKKBAPl5gwmqiTPgqXlLY9HSAVdFFdm/UzTIwXH/cSLXoMcLx91HqebL
-        gKwhk6SaMB2cVo8oz6MpexmMKzf8iJH9tfgc2W2smtqMbLJ/J8eDMsobVOto
-        bD1/Baac3FTzZcBYLJYk9eQMBHXNCGp0lLTjSFEi1rx0Nb6dvUR2//NX8H9u
-        JJvTGxBoUMFb+xHWi9fgq6v/JWegUQNnRVXCNixfy/r7AHhzqxKDDBiNRpPU
-        kpsP2617EHt6QdU0mMgvfuuhI3ZVVoMzt1LM8+4DaE1eATRT56L75FkY2Uel
-        m7vo55xU+e4TZxDhBSk/rW0r2If+6tdKDDJgJBJJUkDfDPf7OrhevqFEvgYV
-        +bvYBro5CxHyemG9WgLNtHkIczzFtDOy0FF4nOxWtrFl7+FEPtHuAL1MXT2N
-        bXcfQj9/CSLhMI0VJAOGw+GUshwohHlTAYyrc9F+sBC6zMXwfmqgmDEnD+2H
-        jpLt1xsIwPmihsH7oJ4yG/byZz/yMP8r+isMCALCAwMwrd2M7tMXxtpbBhxg
-        C1KIqtJ75z5Etwf+JgNCQY78IUGgPu1jX6GXVbdp4QqoJs2E4HDCzXqQqvU5
-        kZtgWvP3grfZ0VlUTHHbo3KKeT41KO0tA4ZCIUUJHi+0M7PA2+2KcXNePh13
-        95lLBNqydRf5fexF1AxWgvA2qslnK3vK+jMTLdt2w1Fdg45jp2Bcw07g8DFY
-        r5cq5ZcBRVFUFOd0wVZRRfafiu93I9jTO+Yczm5ncqSKy4CCIKSj/h/AAHvA
-        83xaiTElrlslXV3t8Pv94DguHUQsjEkCvPLzlT+Yjlf+72LTPFmlB6OmAAAA
-        AElFTkSuQmCC
-    http_version: 
-  recorded_at: Tue, 16 Jun 2015 19:48:20 GMT
+  recorded_at: Tue, 16 Jun 2015 19:48:25 GMT
 - request:
     method: get
     uri: http://silviosantosipsum.com/images/silvio01.png
@@ -10288,7 +10288,7 @@ http_interactions:
       Server:
       - nginx/1.6.2 (Ubuntu)
       Date:
-      - Tue, 16 Jun 2015 19:48:20 GMT
+      - Tue, 16 Jun 2015 19:48:25 GMT
       Content-Type:
       - image/png
       Content-Length:
@@ -14391,7 +14391,7 @@ http_interactions:
         bT2fz433vlRKfgECrZQb7OyUQJ1l2RawtvVbq62r2rb+QWWtldZa6b2XQB0C
         Vbe1rd9O/f8AvuTToX7WoZ4AAAAASUVORK5CYII=
     http_version: 
-  recorded_at: Tue, 16 Jun 2015 19:48:20 GMT
+  recorded_at: Tue, 16 Jun 2015 19:48:26 GMT
 - request:
     method: get
     uri: http://silviosantosipsum.com/images/silvio01.png
@@ -14413,7 +14413,7 @@ http_interactions:
       Server:
       - nginx/1.6.2 (Ubuntu)
       Date:
-      - Tue, 16 Jun 2015 19:48:21 GMT
+      - Tue, 16 Jun 2015 19:48:26 GMT
       Content-Type:
       - image/png
       Content-Length:
@@ -18516,5 +18516,5 @@ http_interactions:
         bT2fz433vlRKfgECrZQb7OyUQJ1l2RawtvVbq62r2rb+QWWtldZa6b2XQB0C
         Vbe1rd9O/f8AvuTToX7WoZ4AAAAASUVORK5CYII=
     http_version: 
-  recorded_at: Tue, 16 Jun 2015 19:48:21 GMT
+  recorded_at: Tue, 16 Jun 2015 19:48:26 GMT
 recorded_with: VCR 2.9.3
