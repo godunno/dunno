@@ -205,10 +205,10 @@ describe Api::V1::Teacher::MediasController do
             "title" => "Silvio Santos Ipsum - O Lorem Ipsum do Silvio Santos",
             "description" => "Silvio Santos Ipsum. Um site voltado para desenvolvedores que precisam de um texto de exemplo para seus clientes.",
             "images" => [
-              {"src"=>"http://silviosantosipsum.com/images/silvio03.png", "size"=>[450, 450], "type"=>"png"},
-              {"src"=>"http://silviosantosipsum.com/images/silvio01.png", "size"=>[300, 524], "type"=>"png"},
-              {"src"=>"http://silviosantosipsum.com/images/thumb-silvio-santos-ipsum.png", "size"=>[237, 80], "type"=>"png"},
-              {"src"=>"http://assets.pinterest.com/images/pidgets/pin_it_button.png", "size"=>[40, 20], "type"=>"png"}
+              { "src" => "http://silviosantosipsum.com/images/silvio03.png", "size" => [450, 450], "type" => "png" },
+              { "src" => "http://silviosantosipsum.com/images/silvio01.png", "size" => [300, 524], "type" => "png" },
+              { "src" => "http://silviosantosipsum.com/images/thumb-silvio-santos-ipsum.png", "size" => [237, 80], "type" => "png" },
+              { "src" => "http://assets.pinterest.com/images/pidgets/pin_it_button.png", "size" => [40, 20], "type" => "png"}
             ],
             "videos" => []
           )
