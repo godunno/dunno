@@ -6,14 +6,26 @@ class LinkThumbnailerWrapper
   end
 
   def generate
-    LinkThumbnailer.generate(url)
-  rescue ArgumentError
-    Hashie::Mash.new(title: url, images: [src: url])
+    parse_link
   rescue SocketError, Net::HTTP::Persistent::Error, Net::OpenTimeout
     Hashie::Mash.new(title: url, images: [])
   end
 
   def self.generate(url)
     new(url).generate
+  end
+
+  private
+  def parse_link
+    return image_as_link if image?
+    LinkThumbnailer.generate(url)
+  end
+
+  def image_as_link
+    Hashie::Mash.new(title: url, images: [src: url])
+  end
+
+  def image?
+    FastImage.type(url)
   end
 end
