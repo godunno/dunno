@@ -1194,9 +1194,9 @@ $topbar-height: rem-calc(65);
 $topbar-title-font-size: rem-calc(25);
 
 // Style the top bar dropdown elements
-// $topbar-dropdown-bg: $white;
-// $topbar-dropdown-link-color: $dunno-dark-color;
-// $topbar-dropdown-link-bg: $white;
+$topbar-dropdown-bg: $white;
+$topbar-dropdown-link-color: $dunno-dark-color;
+$topbar-dropdown-link-bg: $white;
 $topbar-dropdown-link-color-hover: $dunno-green-color;
 // $topbar-dropdown-link-weight: $font-weight-normal;
 // $topbar-dropdown-toggle-size: 5px;
