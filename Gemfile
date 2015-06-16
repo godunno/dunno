@@ -57,7 +57,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-ng-file-upload',      '1.6.12'
   gem 'rails-assets-ng-file-upload-shim', '1.6.12'
   gem 'rails-assets-lunks--ngTagsInput', '3.0.0'
-  gem 'rails-assets-mrodrigues--angular-elastic-input', '2.0.1'
+  gem 'rails-assets-angular-elastic-input', '2.0.2'
   gem 'rails-assets-angular-validation-match', '1.3.0'
   gem 'rails-assets-mrodrigues--angular-input-masks', '1.3.1'
   gem 'rails-assets-angular-foundation', '0.5.1'
