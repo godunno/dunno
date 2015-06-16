@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe LinkThumbnailerWrapper do
-  it "should be able to receive image", :vcr do
+describe LinkThumbnailerWrapper, :vcr do
+  it "should be able to receive image" do
     url = "http://placehold.it/350x150"
     link_thumbnailer = LinkThumbnailerWrapper.new(url)
     result = nil
@@ -10,7 +10,7 @@ describe LinkThumbnailerWrapper do
     expect(result.images[0].src).to eq(url)
   end
 
-  it "should be able to receive non existent URL", :vcr do
+  it "should be able to receive non existent URL" do
     url = "http://www.nao-existe.com"
     link_thumbnailer = LinkThumbnailerWrapper.new(url)
     result = nil
