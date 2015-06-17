@@ -38,6 +38,29 @@
 }
 
 section {
+  &.hero__section {
+    @extend %inverted__section;
+    background-image: asset-url('site/section-hero-background.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: $white;
+    text-align: center;
+
+    .hero__title {
+      font-size: 3.125em;
+      font-weight: $font-weight-light;
+      padding-top: 8rem;
+    }
+
+    p {
+      font-size: 1.25em;
+      margin: 0 auto;
+      margin-bottom: 2em;
+      max-width: 41rem;
+    }
+  }
+
   &.students__section,
   &.teacher__section,
   &.testimonials__section {
@@ -89,7 +112,7 @@ section {
 
   &.video__section {
     @extend %inverted__section;
-    background-image: asset-url('site/video-background.jpg');
+    background-image: asset-url('site/section-video-background.jpg');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -113,28 +136,6 @@ section {
   }
 }
 
-.hero__section {
-  @extend %inverted__section;
-  background-image: asset-url('site/hero-background.jpg');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: $white;
-  text-align: center;
-
-  .hero__title {
-    font-size: 3.125em;
-    font-weight: $font-weight-light;
-    padding-top: 8rem;
-  }
-
-  p {
-    font-size: 1.25em;
-    margin: 0 auto;
-    margin-bottom: 2em;
-    max-width: 41rem;
-  }
-}
 
 .call__to__action__buttons {
   padding-bottom: 17em;
@@ -151,6 +152,8 @@ section {
 }
 
 .features__section {
+  margin-bottom: 6rem;
+
   .features__screenshot {
     text-align: center;
 
