@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable,
          :validatable, :async
 
-  belongs_to :profile
-  has_many :api_keys
+  belongs_to :profile, dependent: :destroy
+  has_many :api_keys, dependent: :destroy
 
   validates :name, :phone_number, presence: true
 
