@@ -6,10 +6,10 @@ describe InvestorDemo do
 
   before do
     course_scheduler = double("CourseScheduler")
-    expect(CourseScheduler).to receive(:new).
-      exactly(4).times.and_return(course_scheduler)
-    expect(course_scheduler).to receive(:schedule!).
-      exactly(4).times
+    expect(CourseScheduler).to receive(:new)
+      .exactly(4).times.and_return(course_scheduler)
+    expect(course_scheduler).to receive(:schedule!)
+      .exactly(4).times
   end
 
   it "creates a user" do
@@ -26,6 +26,7 @@ describe InvestorDemo do
   end
 
   it "sends an e-mail" do
-    expect { create_investor }.to change { ActionMailer::Base.deliveries.size }.by(1)
+    expect { create_investor }
+      .to change { ActionMailer::Base.deliveries.size }.by(1)
   end
 end

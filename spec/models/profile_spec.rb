@@ -59,8 +59,8 @@ describe Profile, type: :model do
     end
 
     it "will raise an error if no attributes are sent" do
-      expect { profile.create_course!({}) }.
-        to raise_error(ActiveRecord::RecordInvalid)
+      expect { profile.create_course!({}) }
+        .to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 end
