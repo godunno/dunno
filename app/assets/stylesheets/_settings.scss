@@ -1194,13 +1194,13 @@ $topbar-height: rem-calc(65);
 $topbar-title-font-size: rem-calc(25);
 
 // Style the top bar dropdown elements
-$topbar-dropdown-bg: $white;
-$topbar-dropdown-link-color: $dunno-dark-color;
-$topbar-dropdown-link-bg: $white;
+// $topbar-dropdown-bg: $white;
+// $topbar-dropdown-link-color: $dunno-dark-color;
+// $topbar-dropdown-link-bg: $white;
 $topbar-dropdown-link-color-hover: $dunno-green-color;
 // $topbar-dropdown-link-weight: $font-weight-normal;
 // $topbar-dropdown-toggle-size: 5px;
-$topbar-dropdown-toggle-color: $black;
+// $topbar-dropdown-toggle-color: $black;
 // $topbar-dropdown-toggle-alpha: 0.4;
 
 // Set the link colors and styles for top-level nav
@@ -1209,19 +1209,19 @@ $topbar-link-color-hover: darken($white, 20%);
 $topbar-link-color-active: $dunno-green-color;
 $topbar-link-color-active-hover: $dunno-green-color;
 // $topbar-link-weight: $font-weight-normal;
-$topbar-link-font-size: rem-calc(15);
+$topbar-link-font-size: rem-calc(14);
 
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
-// $topbar-link-bg: $topbar-bg;
-// $topbar-link-bg-color-hover: #272727;
-$topbar-link-bg-hover: $dunno-dark-color;
-$topbar-link-bg-active: $dunno-dark-color;
-$topbar-link-bg-active-hover: $dunno-dark-color;
+$topbar-link-bg: transparent;
+$topbar-link-bg-color-hover: transparent;
+$topbar-link-bg-hover: transparent;
+$topbar-link-bg-active: transparent;
+$topbar-link-bg-active-hover: transparent;
 // $topbar-link-font-family: $body-font-family;
 // $topbar-link-text-transform: none;
 // $topbar-link-padding: $topbar-height / 3;
 
-// $topbar-button-font-size: 0.75rem;
+$topbar-button-font-size: rem-calc(14);
 // $topbar-button-top: 7px;
 
 // $topbar-dropdown-label-color: #777;
@@ -1234,10 +1234,10 @@ $topbar-dropdown-label-bg: $white;
 // $topbar-menu-link-transform: uppercase;
 // $topbar-menu-link-font-size: rem-calc(13);
 // $topbar-menu-link-weight: $font-weight-bold;
-$topbar-menu-link-color: $dark-grey-color;
-$topbar-menu-icon-color: $dark-grey-color;
-$topbar-menu-link-color-toggled: $white;
-$topbar-menu-icon-color-toggled: $white;
+// $topbar-menu-link-color: $dark-grey-color;
+// $topbar-menu-icon-color: $dark-grey-color;
+// $topbar-menu-link-color-toggled: $white;
+// $topbar-menu-icon-color-toggled: $white;
 
 // Transitions and breakpoint styles
 // $topbar-transition-speed: 300ms;

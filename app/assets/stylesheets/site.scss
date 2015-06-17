@@ -1,199 +1,25 @@
-@import 'utils/variables';
+@import
+  'utils/variables',
+  'utils/mixins',
+  'utils/icons_aliases';
 
-@import 'settings', 'foundation'; // foundation setup
+@import
+  'settings', // foundation setup
+  'foundation';
 
-@import 'components/buttons';
+@import
+  'base/reset',
+  'base/typography';
 
-%inverted__section {
-  background-color: $dunno-dark-color;
-  color: $white;
-  text-align: center;
+@import
+  'vendors/icons';
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h6 {
-    color: $white;
-  }
-}
+@import
+  'layouts/home';
 
-// TODO: clean this using @include button();
-.button {
-  &.outline {
-    background: transparent;
-    color: $dunno-green-color;
-    margin-left: 1em;
-    vertical-align: top;
-  }
-}
+@import
+  'components/buttons';
 
-section {
-  &.students__section,
-  &.teacher__section,
-  &.testimonials__section {
-    padding: 8em 0;
-  }
-
-  &.students__section,
-  &.teacher__section {
-    h4 {
-      font-size: 2.75em;
-      font-weight: $font-weight-light;
-    }
-  }
-
-  &.teacher__section {
-    // TODO: Get texture background
-    background-color: lighten($light-grey-color, 10%);
-  }
-
-  &.testimonials__section {
-    background-color: $white;
-    padding: 4em 0;
-    text-align: center;
-
-    .testimonials__trusted__by {
-      margin: 0 3rem 6.25rem;
-    }
-  }
-
-  .section__title {
-    // TODO: Get outline box image;
-    border: 1px solid $light-grey-color;
-    border-radius: 2rem/5rem;
-    font-size: .875em;
-    font-weight: $font-weight-bold;
-    height: 2.5rem;
-    line-height: 2.5rem;
-    margin: 0 auto 5.5rem;
-    text-align: center;
-    text-transform: uppercase;
-    width: 17rem;
-  }
-}
-
-.top-bar {
-  .name {
-    .logo {
-      max-height: 1.25rem;
-    }
-  }
-}
-
-.hero__section {
-  @extend %inverted__section;
-  // TODO: replace with darker background.
-  background-image: asset-url('site/hero-background.jpg');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: $white;
-  text-align: center;
-
-  .button {
-    border: 1px solid $dunno-green-color;
-    font-weight: 700;
-  }
-
-  .hero__title {
-    font-size: 3.125em;
-    font-weight: $font-weight-light;
-    padding-top: 8rem;
-  }
-
-  p {
-    font-size: 1.25em;
-    margin: 0 auto;
-    margin-bottom: 2em;
-    max-width: 41rem;
-  }
-
-  .call__to__action__buttons {
-    padding-bottom: 14em;
-  }
-}
-
-.features__section {
-  .features__screenshot {
-    text-align: center;
-
-    img {
-      margin-bottom: 3em;
-      margin-top: -10em;
-    }
-  }
-
-  .feature {
-    color: $dunno-green-color;
-    text-align: center;
-
-    .icon {
-      @include radius(50%);
-      background: $dunno-green-color;
-      color: $white;
-      display: block;
-      height: 3em;
-      margin: 0 auto 1em;
-      width: 3em;
-    }
-  }
-}
-
-.video__section {
-  @extend %inverted__section;
-  padding: 10em 0;
-}
-
-.invitation__section {
-  @extend %inverted__section;
-  padding: 4em 0;
-
-  h2 {
-    font-size: 2.625em;
-    font-weight: $font-weight-light;
-    margin-bottom: .5em;
-  }
-
-  p {
-    margin: 0 auto 3.75em;
-    max-width: 45em;
-  }
-}
-
-footer {
-  background-color: $white;
-  padding: 2em 0;
-}
-
-
-.slide {
-  min-height: 35rem;
-  position: relative;
-}
-
-.slide__content {
-  float: left;
-  margin: 7em 0;
-
-  .students__section & {
-    width: 19rem;
-  }
-
-  .teacher__section & {
-    width: 25rem;
-  }
-}
-
-.slide__image {
-  position: absolute;
-  right: 0;
-
-  .students__section & {
-    margin-left: 32rem;
-  }
-
-  .teacher__section & {
-    margin-left: 36rem;
-  }
-}
+@import
+  'themes/schemes', // import this last to avoid an !important rule.
+  'themes/theme';

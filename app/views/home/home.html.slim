@@ -1,4 +1,31 @@
 section.hero__section
+  / TODO: move this to a shared partial
+  / TODO: check why sticky isn't working properly.
+  .sticky
+    nav.top-bar.at-the-top[data-topbar role='navigation']
+      ul.title-area
+        li.name
+          h1
+            a href='#'
+              = image_tag 'site/logo.png', class: 'logo'
+        / TODO: check why this is not working. JS perhaps?
+        li.toggle-topbar.menu-icon
+          a href="#"
+            span
+              | Menu
+      section.top-bar-section
+        ul.right
+          li.has-form
+            span
+              = link_to new_user_session_path, class: 'button transparent outline radius' do
+                | ACESSAR MEU DUNNO
+        ul.left
+          li
+            a href='#teacher-section-anchor'
+              | PARA O PROFESSOR
+          li
+            a href='#students-section-anchor'
+              | PARA O ALUNO
   .row
     .hero
       h2.hero__title
@@ -8,7 +35,7 @@ section.hero__section
       .call__to__action__buttons
         a.button.large.radius>
           | Quero usar o Dunno
-        a.button.large.radius.outline
+        a.button.large.radius.transparent
           | Faça um teste na prática
 
 section.features__section
@@ -16,16 +43,16 @@ section.features__section
     @features = [
       {
         description: 'Todas as aulas e trabalhos de grupo em um único local',
-        icon: 'documents'
+        icon: 'icon-files'
       },{
         description: 'Colaboração para construir os encontros',
-        icon: 'comments'
+        icon: 'icon-chat'
       },{
         description: 'Controle total de datas de provas e entregas de trabalho',
-        icon: 'calendar'
+        icon: 'icon-calendar'
       },{
         description: 'Tarefas compartilhadas com os alunos',
-        icon: 'tasks'
+        icon: 'icon-plain-check'
       }
     ]
   .row
@@ -43,36 +70,42 @@ section.video__section
       | AUTONOMIA E SEGURANÇA
     p
       | O principal objetivo do Dunno é auxiliar os professores a melhorar a produtividade em aula e a interação com seus alunos.
-    button.button.transparent.radius
-      i.icon.icon-video
+    button.button.transparent
+      i.icon.icon-play-circle
       span
         | Assista ao vídeo
 
-section.students__section
-  h3.section__title
-    | PARA ALUNOS
-  .slide
-    .slide__image
-      img[src='http://placehold.it/850x630']
-    .row
-      .slide__content
-        h4
-          | SEMPRE POR DENTRO
-        p
-          | Professores planejam suas aulas e escolhem se permitem ou não o acesso dos alunos. Os alunos acompanham as tarefas dentro e fora de sala de aula.  (E muito mais por vir!)
-
-section.teacher__section
+/ TODO: mobile should show everything (text above / image below)
+section#teacher-section-anchor.teacher__section
   h3.section__title
     | PARA PROFESSORES
-  .slide
-    .slide__image
-      img[src='http://placehold.it/600x600']
-    .row
-      .slide__content
-        h4
-          | LEMBRE O QUE FOI DADO EM AULA
-        p
-          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  - 4.times do
+    / TODO: max four slides
+    .slide
+      .slide__image
+        img[src='http://placehold.it/600x600']
+      .row
+        .slide__content
+          h4
+            | LEMBRE O QUE FOI DADO EM AULA
+          p
+            | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+section#students-section-anchor.students__section
+  h3.section__title
+    | PARA ALUNOS
+  - 2.times do
+    .slide
+      / TODO: max two slides
+      .slide__image
+        img[src='http://placehold.it/850x630']
+      .row
+        .slide__content
+          h4
+            | SEMPRE POR DENTRO
+          p
+            | Professores planejam suas aulas e escolhem se permitem ou não o acesso dos alunos. Os alunos acompanham as tarefas dentro e fora de sala de aula.  (E muito mais por vir!)
+
 
 section.testimonials__section
   .row
@@ -81,10 +114,10 @@ section.testimonials__section
     p
       = image_tag 'site/logo-pucrio.png', class: 'testimonials__trusted__by'
       = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
-  ul.small-block-grid-1.medium-block-grid-2.large-block-grid-4
+  ul.testimonials__list.small-block-grid-1.medium-block-grid-2.large-block-grid-4
     - 12.times do
       li
-        img src="http://placehold.it/350x250/#{rand(000..999)}/FFF"
+        img src="http://placehold.it/450x350/#{rand(000..999)}/FFF"
 
 section.invitation__section
   .row
@@ -93,12 +126,9 @@ section.invitation__section
     p
       | Hoje o Dunno está em fase Beta, estando disponível para um grupo de professores da PUC Rio e seus alunos. Se você estiver interessado, deixe seu email e você será avisado para logo poder utilizar o Dunno.
     form
-      .row.collapse
-        .small-5.small-offset-2.columns
-          input[placeholder='Deixe seu email' type='text']
-        .small-3.columns.end
-          button.button.radius.postfix
-            | QUERO SER AVISADO
+      input.radius[placeholder='Deixe seu email' type='email']
+      button.button.radius
+        | QUERO SER AVISADO
 
 footer
   .row

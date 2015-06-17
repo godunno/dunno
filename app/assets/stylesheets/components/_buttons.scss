@@ -12,21 +12,30 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
 
 .button {
   &:focus {
+    opacity: .7;
     outline: none;
   }
 
   &.transparent {
     // TODO: use foundation button() for creating new buttons.
-    background: none;
+    background: transparent;
     opacity: .85;
 
     &:hover {
+      background: transparent;
       opacity: 1;
     }
 
     &:active {
+      background: transparent;
       opacity: .85;
     }
+  }
+
+  &.outline {
+    // TODO: use foundation button() for creating new buttons.
+    border: 1px solid $dunno-green-color;
+    color: $dunno-green-color;
   }
 }
 
