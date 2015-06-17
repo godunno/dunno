@@ -57,11 +57,11 @@ section.features__section
     ]
   .row
     .features__screenshot
-      img[src='http://placehold.it/650x545']
+      = image_tag 'site/section-features-desktop.png'
     ul.features.small-block-grid-4
       - @features.each do |feature|
         li.feature
-          i.icon[class="icon-#{feature[:icon]}"]
+          i.icon[class="#{feature[:icon]}"]
           = feature[:description]
 
 section.video__section
@@ -83,7 +83,7 @@ section#teacher-section-anchor.teacher__section
     / TODO: max four slides
     .slide
       .slide__image
-        img[src='http://placehold.it/600x600']
+        = image_tag 'site/section-teacher-notebook.png'
       .row
         .slide__content
           h4
@@ -96,9 +96,8 @@ section#students-section-anchor.students__section
     | PARA ALUNOS
   - 2.times do
     .slide
-      / TODO: max two slides
       .slide__image
-        img[src='http://placehold.it/850x630']
+        = image_tag 'site/section-students-smartphone-comp-1.png'
       .row
         .slide__content
           h4
@@ -115,9 +114,32 @@ section.testimonials__section
       = image_tag 'site/logo-pucrio.png', class: 'testimonials__trusted__by'
       = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
   ul.testimonials__list.small-block-grid-1.medium-block-grid-2.large-block-grid-4
-    - 12.times do
-      li
-        img src="http://placehold.it/450x350/#{rand(000..999)}/FFF"
+    - 10.times do |i|
+      - i = i + 1
+      li[class="#{i == 10 ? 'two__columns' : ''}#{i == 8 ? 'vertical__copy' : ''}"]
+        - if i == 1 || i == 2 || i == 3 || i == 4 || i == 5 || i == 7 || i == 10
+          = image_tag "site/section-testimonials-#{i}.jpg"
+        - elsif i == 6
+          p.testimonial__copy
+            span
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+            br
+            strong.by__line
+              | Fulano da Silva
+        - elsif i == 8
+          p.testimonial__copy
+            span
+              | Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            br
+            strong.by__line
+              | Ciclano da Silva
+        - elsif i == 9
+          p.testimonial__copy.green__background
+            span
+              | Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            br
+            strong.by__line
+              | Beltrano da Silva
 
 section.invitation__section
   .row
@@ -137,6 +159,7 @@ footer
     - ['Sobre o Dunno', 'Política de Privacidade'].each do |link|
       a> href='#'
         = link
-    - [ { slug: 'facebook' }, { slug: 'twitter' } ].each do |social_link|
-      a> href='#'
-        i.icon class="icon-#{social_link[:slug]}"
+    .social__links.right
+      - [ { slug: 'facebook' }, { slug: 'twitter' } ].each do |social_link|
+        a> href='#'
+          i.icon class="icon-#{social_link[:slug]}"
