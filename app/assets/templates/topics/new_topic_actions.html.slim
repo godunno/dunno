@@ -2,7 +2,7 @@
 .new__topic__actions
   a.cancel.button.transparent.tiny.radius ng-click="cancel()"
     | Cancelar
-  zf-action-sheet
+  zf-action-sheet close-action-sheet-on-click=true
     zf-as-button.radius.dropdown.secondary.button.tiny.new__topic__visibility
       span.private ng-if="defaultTopicProperties.personal"
         i.icon.icon-lock>
@@ -12,16 +12,12 @@
         | Alunos
     zf-as-content position="top"
       ul#topic-private
-        input.model[
-          name="topic_private"
-          ng-model="defaultTopicProperties.personal"
-          type="hidden"]
         li.private
-          a
+          a ng-click="defaultTopicProperties.personal = true"
             i.icon.icon-lock>
             | Somente professor
         li
-          a
+          a ng-click="defaultTopicProperties.personal = false"
             i.icon.icon-unlock>
             | Alunos
   a.create__new__topic__item.radius.button.secondary.tiny<[

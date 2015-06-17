@@ -1,4 +1,4 @@
-zf-action-sheet
+zf-action-sheet close-action-sheet-on-click=true
   zf-as-button.radius.dropdown.secondary.button.tiny.new__topic__visibility
     span.private ng-if="editingTopic.personal"
       i.icon.icon-lock>
@@ -8,15 +8,11 @@ zf-action-sheet
       | Alunos
   zf-as-content position="top"
     ul[id="topic-private-{{topic.uuid}}"]
-      input.model[
-        name="topic_private"
-        ng-model="editingTopic.personal"
-        type="hidden"]
       li.private
-        a
+        a ng-click="editingTopic.personal = true"
           i.icon.icon-lock>
           | Somente professor
       li
-        a
+        a ng-click="editingTopic.personal = false"
           i.icon.icon-unlock>
           | Alunos
