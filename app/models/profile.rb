@@ -11,4 +11,8 @@ class Profile < ActiveRecord::Base
   def role_in(course)
     memberships.find_by!(course: course).role
   end
+
+  def create_course!(attributes)
+    Course.create!(attributes.merge(teacher: self))
+  end
 end
