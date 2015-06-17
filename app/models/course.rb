@@ -36,7 +36,7 @@ class Course < ActiveRecord::Base
   end
 
   def abbreviation
-    super || Abbreviate.abbreviate(name)
+    super || (Abbreviate.abbreviate(name) if name.present?)
   end
 
   private
