@@ -6,9 +6,9 @@ describe Profile, type: :model do
 
   describe "associations" do
     it { is_expected.to have_one(:user) }
-    it { is_expected.to have_many(:memberships) }
+    it { is_expected.to have_many(:memberships).dependent(:destroy) }
     it { is_expected.to have_many(:courses) }
-    it { is_expected.to have_many(:medias) }
+    it { is_expected.to have_many(:medias).dependent(:destroy) }
   end
 
   describe "delegation" do
