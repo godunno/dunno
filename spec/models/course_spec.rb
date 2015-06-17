@@ -13,7 +13,7 @@ describe Course do
   end
 
   describe "validations" do
-    %w(start_date end_date).each do |attr|
+    %w(class_name name start_date end_date teacher).each do |attr|
       it { is_expected.to validate_presence_of(attr) }
     end
 
