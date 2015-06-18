@@ -19,13 +19,6 @@ section.hero__section
             span
               = link_to new_user_session_path, class: 'button transparent outline radius' do
                 | ACESSAR MEU DUNNO
-        ul.left
-          li
-            a href='#teacher-section-anchor'
-              | PARA O PROFESSOR
-          li
-            a href='#students-section-anchor'
-              | PARA O ALUNO
   .row
     .hero
       h2.hero__title
@@ -36,75 +29,86 @@ section.hero__section
         a.button.large.radius>
           | Quero usar o Dunno
         a.button.large.radius.transparent
-          | Faça um teste na prática
-
-section.features__section
+          i.icon.icon-play-circle>
+          | Assista ao vídeo
+section.texture__background__section.features__section
   ruby:
     @features = [
       {
-        description: 'Todas as aulas e trabalhos de grupo em um único local',
+        description: 'Notificações via SMS e e-mail',
         icon: 'icon-files'
       },{
-        description: 'Colaboração para construir os encontros',
-        icon: 'icon-chat'
+        description: 'Diário com lembretes e controle de visualização',
+        icon: 'icon-tasks'
       },{
-        description: 'Controle total de datas de provas e entregas de trabalho',
+        description: 'Aulas já organizadas para alunos ausentes',
         icon: 'icon-calendar'
       },{
-        description: 'Tarefas compartilhadas com os alunos',
-        icon: 'icon-plain-check'
+        description: 'Melhor organização de arquivos e links',
+        icon: 'icon-chat'
       }
     ]
   .row
-    .features__screenshot
-      = image_tag 'site/section-features-desktop.png'
+    #features__screenshot.features__screenshot
+      = image_tag 'site/section-features-desktop.png', class: 'showing__feature__1'
     ul.features.small-block-grid-4
-      - @features.each do |feature|
-        li.feature
-          i.icon[class="#{feature[:icon]}"]
-          = feature[:description]
+      - @features.each_with_index do |feature, i|
+        - i = i + 1
+        li
+          a.feature[class="#{i == 1 ? 'active' : ''} feature__#{i}" data-feature=i href='#']
+            i.icon[class="#{feature[:icon]}"]
+            = feature[:description]
+            span.pointing__arrow
+              | I'm a pointing arrow!
+    = content_for :extra_scripts do
+      javascript:
+        $(function() {
+          $('.feature').on('click', function (e) {
+            e.preventDefault();
+            var _self = $(this);
+            var index = _self.data('feature');
+            if (!_self.hasClass('active')) {
+              $('.feature.active').removeClass('active');
+              $(this).toggleClass('active');
+              $('#features__screenshot')
+                .find('img')
+                  .removeClass()
+                  .addClass('showing__feature__'+index);
+            }
 
-section.video__section
-  .row
-    h2
-      | AUTONOMIA E SEGURANÇA
-    p
-      | O principal objetivo do Dunno é auxiliar os professores a melhorar a produtividade em aula e a interação com seus alunos.
-    button.button.transparent
-      i.icon.icon-play-circle
-      span
-        | Assista ao vídeo
+            // $('#features__screenshot img').class('showing__feature+ +')
+          });
+        });
 
-/ TODO: mobile should show everything (text above / image below)
-section#teacher-section-anchor.teacher__section
-  h3.section__title
-    | PARA PROFESSORES
-  - 4.times do
-    / TODO: max four slides
-    .slide
+ruby:
+  @slides = [
+    {
+      title: 'Notificação de novos conteúdos da aula via SMS e e-mail.',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    },{
+      title: 'Diário com lembretes que só você pode ter acesso.',
+      content: 'Professores planejam suas aulas e escolhem se permitem ou não o acesso dos alunos. Os alunos acompanham as tarefas dentro e fora de sala de aula. (E muito mais por vir!)'
+    },{
+      title: 'Melhor organização de seus arquivos e links.',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    },{
+      title: 'Aula já organizada para alunos ausentes',
+      content: 'Professores planejam suas aulas e escolhem se permitem ou não o acesso dos alunos. Os alunos acompanham as tarefas dentro e fora de sala de aula.  (E muito mais por vir!)'
+    }
+  ]
+
+- @slides.each_with_index do |slide, i|
+  - i = i + 1
+  section.slide__section[class="#{i % 2 == 0 ? 'texture__background__section' : 'white__background__section'}"]
+    .slide[class="slide__#{i}"]
       .slide__image
-        = image_tag 'site/section-teacher-notebook.png'
+        = image_tag "site/section-slide-#{i}.png"
       .row
         .slide__content
           h4
-            | LEMBRE O QUE FOI DADO EM AULA
+            = slide[:title]
           p
-            | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-section#students-section-anchor.students__section
-  h3.section__title
-    | PARA ALUNOS
-  - 2.times do
-    .slide
-      .slide__image
-        = image_tag 'site/section-students-smartphone-comp-1.png'
-      .row
-        .slide__content
-          h4
-            | SEMPRE POR DENTRO
-          p
-            | Professores planejam suas aulas e escolhem se permitem ou não o acesso dos alunos. Os alunos acompanham as tarefas dentro e fora de sala de aula.  (E muito mais por vir!)
-
+            = slide[:content]
 
 section.testimonials__section
   .row
@@ -140,6 +144,17 @@ section.testimonials__section
             br
             strong.by__line
               | Beltrano da Silva
+
+section.video__section
+  .row
+    h2
+      | AUTONOMIA E SEGURANÇA
+    p
+      | O principal objetivo do Dunno é auxiliar os professores a melhorar a produtividade em aula e a interação com seus alunos.
+    button.button.transparent
+      i.icon.icon-play-circle
+      span
+        | Assista ao vídeo
 
 section.invitation__section
   .row

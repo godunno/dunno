@@ -61,60 +61,129 @@ section {
     }
   }
 
-  &.features__section {
-    background-color: $white;
+  &.texture__background__section {
+    background: darken($white, 3.5%) asset-url('site/section-teacher-background.png') repeat center center;
+  }
 
+  &.white__background__section {
+    background: $white;
+  }
+
+  &.features__section {
     .features__screenshot {
       text-align: center;
 
       img {
+        background-position: 59% 15%;
+        background-repeat: no-repeat;
+        background-size: 91% 62%;
         margin-bottom: 3em;
         margin-top: -10em;
+        max-width: 47rem;
+        width: 100%;
+
+        &.showing__feature__1 {
+          background-image: asset-url('site/feature-1.png');
+        }
+
+        &.showing__feature__2 {
+          background-image: asset-url('site/feature-2.png');
+        }
+
+        &.showing__feature__3 {
+          background-image: asset-url('site/feature-3.png');
+        }
+
+        &.showing__feature__4 {
+          background-image: asset-url('site/feature-4.png');
+        }
       }
     }
 
     .features {
       margin-bottom: 6rem;
+
+      li {
+        position: relative;
+      }
     }
 
     .feature {
-      color: $dunno-green-color;
+      color: $dunno-dark-color;
+      display: block;
+      opacity: .3;
       text-align: center;
+
+      .pointing__arrow {
+        display: none;
+      }
+
+      @media #{$large-only} {
+        position: absolute;
+
+        &.feature__1 {
+          left: -2rem;
+          max-width: 9rem;
+          top: -16rem;
+        }
+
+        &.feature__2 {
+          left: -7rem;
+          max-width: 14rem;
+          top: -8rem;
+        }
+
+        &.feature__3 {
+          left: 18rem;
+          top: -9rem;
+          width: 14rem;
+        }
+
+        &.feature__4 {
+          left: 9rem;
+          top: -24rem;
+          width: 7rem;
+        }
+
+        .pointing__arrow {
+          display: block;
+        }
+      }
+
+      &.active {
+        color: $dunno-green-color;
+        opacity: 1;
+
+        .icon {
+          background: $dunno-green-color;
+        }
+      }
 
       .icon {
         @include radius(50%);
-        background: $dunno-green-color;
+        background: $dunno-dark-color;
         color: $white;
         display: block;
         font-size: 1.5em;
-        height: 3rem;
-        line-height: 3rem;
+        height: 3.375rem;
+        line-height: 3.6rem;
         margin: 0 auto 1rem;
-        width: 3rem;
+        padding: 0 1rem;
+        width: 3.375rem;
       }
     }
   }
 
-  &.students__section,
-  &.teacher__section,
+  &.slide__section,
   &.testimonials__section {
     padding: 8em 0;
   }
 
-  &.students__section,
-  &.teacher__section {
+  &.slide__section {
     h4 {
       font-size: 2.75em;
       font-weight: $font-weight-light;
     }
-  }
-
-  &.teacher__section {
-    background-color: $white;
-  }
-
-  &.students__section {
-    background: darken($white, 3.5%) asset-url('site/section-teacher-background.png') repeat center center;
   }
 
   &.testimonials__section {
@@ -190,7 +259,7 @@ section {
   }
 
   &.invitation__section {
-    @extend %inverted__section;
+    background-color: $white;
     padding: 4em 0;
 
     h2 {
@@ -204,14 +273,18 @@ section {
       max-width: 45em;
     }
 
+    form {
+      text-align: center;
+    }
+
     input[type=email],
     .button {
-      border: 0;
       display: inline-block;
       height: auto;
     }
 
     input[type=email] {
+      border-color: $medium-grey-color;
       font-size: 1.25em;
       margin-right: .5rem;
       padding: 1rem;
@@ -219,6 +292,7 @@ section {
     }
 
     .button {
+      border: 1px solid $dunno-green-color;
       padding: 1.157rem;
       vertical-align: top;
     }
@@ -236,7 +310,6 @@ section {
     text-transform: uppercase;
     width: 17rem;
   }
-
 }
 
 
@@ -251,12 +324,17 @@ section {
     &.transparent {
       color: $dunno-green-color;
     }
+
+    .icon {
+      color: $white;
+      position: relative;
+      top: 2px;
+    }
   }
 }
 
 
 footer {
-  background-color: $white;
   color: $light-grey-color;
   padding: 2em 0;
 
@@ -271,33 +349,26 @@ footer {
 }
 
 .slide {
-  margin-bottom: 4em;
-  min-height: 100vh;
+  margin-bottom: 6rem;
   position: relative;
+
+  &.slide__2,
+  &.slide__4 {
+    margin-bottom: 2rem;
+
+    img {
+      margin-top: -10rem;
+    }
+  }
 }
 
 .slide__content {
   float: left;
-  margin: 7em 0;
-
-  .students__section & {
-    width: 19rem;
-  }
-
-  .teacher__section & {
-    width: 25rem;
-  }
+  width: 19rem;
 }
 
 .slide__image {
+  margin-left: 36rem;
   position: absolute;
   right: 0;
-
-  .students__section & {
-    margin-left: 32rem;
-  }
-
-  .teacher__section & {
-    margin-left: 36rem;
-  }
 }

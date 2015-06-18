@@ -1182,7 +1182,7 @@ $table-border-size: 0;
 // Background color for the top bar
 $topbar-bg-color: $dunno-dark-color;
 
-// $topbar-bg: $topbar-bg-color;
+$topbar-bg: $topbar-bg-color;
 
 // Height and margin
 $topbar-height: rem-calc(65);
@@ -1202,6 +1202,10 @@ $topbar-dropdown-link-color-hover: $dunno-green-color;
 // $topbar-dropdown-toggle-size: 5px;
 // $topbar-dropdown-toggle-color: $black;
 // $topbar-dropdown-toggle-alpha: 0.4;
+
+$topbar-dropdown-bg: transparent;
+$topbar-dropdown-link-bg: transparent;
+$topbar-dropdown-label-bg: transparent;
 
 // Set the link colors and styles for top-level nav
 $topbar-link-color: $white;
