@@ -50,7 +50,6 @@
     }
   }
 
-  .icon,
   .topic__item__handle,
   .topic__item__image,
   .topic__item__show,
@@ -129,26 +128,25 @@
   }
 
   .topic__item__editing {
-    @extend .item__type;
-    margin: 0 -.25rem;
+    @extend %item-box;
+    margin: 0 -.1875em;
 
-    .edit__topic__actions {
-      @extend .new__topic__actions;
-
-      .cancel {
-        color: $light-grey-color;
-        float: left;
-      }
-
-      .save__edit__topic__item {
-        @extend .create__new__topic__item;
-      }
+    @media #{$small-only} {
+      margin: 0 -.0625rem;
     }
+  }
+
+  .edit__topic__actions {
+    @extend %topic-actions;
+  }
+
+  .save__edit__topic__item {
+    @extend %topic-save-button;
   }
 
   .topic__item__contents {
     margin-right: 3em;
-    padding: .5em 0;
+    padding: .85rem 0 .5rem;
   }
 
   .topic__item__actions {
@@ -156,7 +154,7 @@
     float: right;
     font-size: 1.5em;
     line-height: 1rem;
-    padding: .5em;
+    padding: 1.25rem .5rem 0;
 
     .topic__item__actions__button {
       cursor: pointer;
