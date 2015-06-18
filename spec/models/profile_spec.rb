@@ -6,9 +6,9 @@ describe Profile, type: :model do
 
   describe "associations" do
     it { is_expected.to have_one(:user) }
-    it { is_expected.to have_many(:memberships) }
+    it { is_expected.to have_many(:memberships).dependent(:destroy) }
     it { is_expected.to have_many(:courses) }
-    it { is_expected.to have_many(:medias) }
+    it { is_expected.to have_many(:medias).dependent(:destroy) }
   end
 
   describe "delegation" do
@@ -42,5 +42,25 @@ describe Profile, type: :model do
 
     it { expect(teacher.role_in(course)).to eq('teacher') }
     it { expect(student.role_in(course)).to eq('student') }
+  end
+
+  describe "#create_course!" do
+    let!(:profile) { create(:profile) }
+    let(:created_course) { Course.last }
+
+    it "creates a course belonging to this profile as teacher" do
+      profile.create_course!(attributes_for(:course))
+      expect(created_course.teacher).to eq profile
+    end
+
+    it "will ignore another profile being passed as teacher" do
+      profile.create_course!(attributes_for(:course, teacher: create(:profile)))
+      expect(created_course.teacher).to eq profile
+    end
+
+    it "will raise an error if no attributes are sent" do
+      expect { profile.create_course!({}) }
+        .to raise_error(ActiveRecord::RecordInvalid)
+    end
   end
 end

@@ -5,8 +5,8 @@ describe User do
   it { expect(user).to be_valid }
 
   describe "association" do
-    it { is_expected.to belong_to(:profile) }
-    it { is_expected.to have_many(:api_keys) }
+    it { is_expected.to belong_to(:profile).dependent(:destroy) }
+    it { is_expected.to have_many(:api_keys).dependent(:destroy) }
   end
 
   describe "validations" do
