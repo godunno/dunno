@@ -12,20 +12,37 @@
   }
 }
 
-.top-bar {
-  &.at-the-top {
-    background: transparent;
-    padding-top: 4em;
+body {
+  &.f-topbar-fixed {
+    padding-top: 0 !important;
+  }
+}
 
-    * {
-      background: transparent;
-    }
+.top-bar {
+  background-color: transparent;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+
+  .fixed & {
+    background-color: $dunno-dark-color;
+  }
+
+  * {
+    background-color: transparent;
   }
 
   .name {
-    .logo {
-      max-height: 1.5rem;
+    h1 {
+      a {
+        padding-left: 2.625rem;
+      }
     }
+  }
+
+  .logo {
+    margin-top: -.5rem;
+    max-height: 1.5rem;
   }
 
   .button.outline {
@@ -33,7 +50,7 @@
     color: $white;
     height: auto;
     padding: 1rem;
-    top: 0;
+    top: .4375rem;
   }
 }
 
@@ -69,33 +86,88 @@ section {
     background: $white;
   }
 
+  &.green__background__section {
+    background: $dunno-green-color;
+    color: $white;
+
+    h4 {
+      color: $white;
+    }
+  }
+
   &.features__section {
     .features__screenshot {
+      position: relative;
       text-align: center;
 
-      img {
+      .feature__screenshot {
         background-position: 59% 15%;
         background-repeat: no-repeat;
-        background-size: 91% 62%;
+        background-size: 92% 65%;
         margin-bottom: 3em;
         margin-top: -10em;
         max-width: 47rem;
         width: 100%;
+      }
 
-        &.showing__feature__1 {
-          background-image: asset-url('site/feature-1.png');
+      .feature__screenshot__detail {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: block;
+        height: 19.6875rem;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 19.75rem;
+      }
+
+
+      &.showing__feature__1 {
+        .feature__screenshot {
+          background-image: asset-url('site/feature-1.jpg');
         }
 
-        &.showing__feature__2 {
-          background-image: asset-url('site/feature-2.png');
+        .feature__screenshot__detail {
+          background-image: asset-url('site/feature-1-loupe.png');
+          left: 8rem;
+          top: -2rem;
+        }
+      }
+
+      &.showing__feature__2 {
+        .feature__screenshot {
+          background-image: asset-url('site/feature-2.jpg');
         }
 
-        &.showing__feature__3 {
-          background-image: asset-url('site/feature-3.png');
+        .feature__screenshot__detail {
+          background-image: asset-url('site/feature-2-loupe.png');
+          left: 16rem;
+          top: -2rem;
+        }
+      }
+
+      &.showing__feature__3 {
+        .feature__screenshot {
+          background-image: asset-url('site/feature-3.jpg');
         }
 
-        &.showing__feature__4 {
-          background-image: asset-url('site/feature-4.png');
+        .feature__screenshot__detail {
+          background-image: asset-url('site/feature-3-loupe.png');
+          left: 27rem;
+          top: 3rem;
+        }
+      }
+
+      &.showing__feature__4 {
+        .feature__screenshot {
+          background-image: asset-url('site/feature-4.jpg');
+        }
+
+        .feature__screenshot__detail {
+          background-image: asset-url('site/feature-4-loupe.png');
+          left: 30rem;
+          top: -4rem;
         }
       }
     }
@@ -118,11 +190,11 @@ section {
         display: none;
       }
 
-      @media #{$large-only} {
+      @media #{$large-up} {
         position: absolute;
 
         &.feature__1 {
-          left: -2rem;
+          left: -5rem;
           max-width: 9rem;
           top: -16rem;
         }
@@ -171,6 +243,47 @@ section {
         padding: 0 1rem;
         width: 3.375rem;
       }
+    }
+
+    .pointing__arrow {
+      background-color: transparent;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      position: absolute;
+      z-index: 2;
+    }
+
+    .pointing__arrow__1 {
+      background-image: asset-url('site/poiting-arrow-1.png');
+      height: 3.25rem;
+      left: 6rem;
+      top: -3rem;
+      width: 6.125rem;
+    }
+
+    .pointing__arrow__2 {
+      background-image: asset-url('site/poiting-arrow-2.png');
+      height: 7rem;
+      left: 7rem;
+      top: -8rem;
+      width: 3.6875rem;
+    }
+
+    .pointing__arrow__3 {
+      background-image: asset-url('site/poiting-arrow-3.png');
+      height: 5.375rem;
+      left: -6rem;
+      top: -3rem;
+      width: 10.1875rem;
+    }
+
+    .pointing__arrow__4 {
+      background-image: asset-url('site/poiting-arrow-4.png');
+      height: 4.1875rem;
+      left: -7rem;
+      top: 1rem;
+      width: 7.9375rem;
     }
   }
 

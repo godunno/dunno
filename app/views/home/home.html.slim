@@ -1,6 +1,5 @@
 section.hero__section
   / TODO: move this to a shared partial
-  / TODO: check why sticky isn't working properly.
   .sticky
     nav.top-bar.at-the-top[data-topbar role='navigation']
       ul.title-area
@@ -8,7 +7,6 @@ section.hero__section
           h1
             a href='#'
               = image_tag 'site/logo.png', class: 'logo'
-        / TODO: check why this is not working. JS perhaps?
         li.toggle-topbar.menu-icon
           a href="#"
             span
@@ -37,21 +35,22 @@ section.texture__background__section.features__section
     @features = [
       {
         description: 'Tenha uma visão geral das suas aulas.',
-        icon: 'icon-calendar'
+        icon: 'icon-buzz'
       },{
         description: 'Envie lembretes. Seus estudantes escolhem se por SMS, e-mail ou ambos.',
-        icon: 'icon-chat'
+        icon: 'icon-task-list'
       },{
         description: 'Compartilhe o material da sua aula de forma organizada com seus estudantes.',
-        icon: 'icon-files'
+        icon: 'icon-calendar'
       },{
         description: 'Seus conteúdos e tarefas em um só lugar.',
-        icon: 'icon-tasks'
+        icon: 'icon-catalog'
       }
     ]
   .row
-    #features__screenshot.features__screenshot
-      = image_tag 'site/section-features-desktop.png', class: 'showing__feature__1'
+    #features__screenshot.features__screenshot.showing__feature__1
+      = image_tag 'site/section-features-desktop.png', class: 'feature__screenshot'
+      span.feature__screenshot__detail
     ul.features.small-block-grid-4
       - @features.each_with_index do |feature, i|
         - i = i + 1
@@ -59,27 +58,7 @@ section.texture__background__section.features__section
           a.feature[class="#{i == 1 ? 'active' : ''} feature__#{i}" data-feature=i href='#']
             i.icon[class="#{feature[:icon]}"]
             = feature[:description]
-            span.pointing__arrow
-              | -
-    = content_for :extra_scripts do
-      javascript:
-        $(function() {
-          $('.feature').on('click', function (e) {
-            e.preventDefault();
-            var _self = $(this);
-            var index = _self.data('feature');
-            if (!_self.hasClass('active')) {
-              $('.feature.active').removeClass('active');
-              $(this).toggleClass('active');
-              $('#features__screenshot')
-                .find('img')
-                  .removeClass()
-                  .addClass('showing__feature__'+index);
-            }
-
-            // $('#features__screenshot img').class('showing__feature+ +')
-          });
-        });
+            span.pointing__arrow[class="pointing__arrow__#{i}"]
 
 ruby:
   @slides = [
@@ -100,7 +79,7 @@ ruby:
 
 - @slides.each_with_index do |slide, i|
   - i = i + 1
-  section.slide__section[class="#{i % 2 == 0 ? 'texture__background__section' : 'white__background__section'}"]
+  section.slide__section[class="#{i % 2 == 0 ? 'green__background__section' : 'white__background__section'}"]
     .slide[class="slide__#{i}"]
       .slide__image
         = image_tag "site/section-slide-#{i}.png"
