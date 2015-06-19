@@ -3,7 +3,7 @@
   border: 1px solid $light-grey-color;
 
   .select__item__type {
-    margin: 0 -.95em;
+    margin: 0 -.9375em;
     text-align: center;
 
     li {
@@ -54,7 +54,16 @@
   }
 }
 
-.new__topic__actions {
+%topic-save-button {
+  border: 1px solid;
+  font-weight: $font-weight-bold;
+
+  &.alert {
+    border-color: $red-color;
+  }
+}
+
+%topic-actions {
   border-top: 1px dashed $secondary-color;
   clear: both;
   padding: .75em;
@@ -63,6 +72,8 @@
   .cancel {
     color: $light-grey-color;
     float: left;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .button {
@@ -70,19 +81,18 @@
   }
 
   .create__new__topic__item {
-    font-weight: $font-weight-bold;
-
-    &.alert {
-      border-color: $red-color;
-    }
+    @extend %topic-save-button;
   }
 }
 
-.item__type {
+.new__topic__actions {
+  @extend %topic-actions;
+}
+
+%item-box {
   background: $white;
   border: 1px solid $dark-grey-color;
   box-shadow: transparentize($light-grey-color, .8) 0 4px 0;
-  margin: 0 -1.15rem;
   position: relative;
   z-index: 1;
 
@@ -113,6 +123,15 @@
     &.file__input {
       display: none;
     }
+  }
+}
+
+.item__type {
+  @extend %item-box;
+  margin: 0 -1.125rem;
+
+  @media #{$small-only} {
+    margin: 0 -1rem;
   }
 }
 
