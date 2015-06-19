@@ -14,7 +14,7 @@
 
 body {
   &.f-topbar-fixed {
-    padding-top: 0 !important;
+    padding-top: 0 !important; // scss-lint:disable ImportantRule
   }
 }
 
