@@ -107,8 +107,9 @@ ruby:
         .slide__content
           h4
             = slide[:title]
-          p
-            = slide[:content]
+          - slide[:content].each do |content|
+            p
+              = content
 
 section.testimonials__section
   .row
