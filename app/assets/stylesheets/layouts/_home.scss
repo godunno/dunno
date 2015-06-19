@@ -293,6 +293,8 @@ section {
   }
 
   &.slide__section {
+    min-height: 100vh;
+
     h4 {
       font-size: 2.75em;
       font-weight: $font-weight-light;
@@ -463,25 +465,18 @@ footer {
 
 .slide {
   margin-bottom: 6rem;
+  min-height: 50vh;
   position: relative;
-
-  &.slide__2,
-  &.slide__4 {
-    margin-bottom: 2rem;
-
-    img {
-      margin-top: -10rem;
-    }
-  }
 }
 
 .slide__content {
   float: left;
+  margin-top: 7rem;
   width: 19rem;
 }
 
 .slide__image {
-  margin-left: 36rem;
+  margin-left: 40rem;
   position: absolute;
   right: 0;
 }
