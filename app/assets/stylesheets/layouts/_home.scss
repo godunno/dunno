@@ -610,20 +610,27 @@ footer {
 .slide__content {
   float: left;
   margin-top: 7rem;
-  width: 19rem;
+  padding: 0 5rem;
+  width: 50vw;
 
   @media #{$small-only} {
     float: none;
     margin: 0 1rem;
     text-align: center;
+    padding: 0 2rem;
     width: auto;
   }
 }
 
 .slide__image {
-  margin-left: 40rem;
+  margin-left: 50vw;
+  overflow: hidden;
   position: absolute;
   right: 0;
+
+  img {
+    margin-left: 2rem;
+  }
 
   @media #{$small-only} {
     margin: 0;

@@ -78,15 +78,14 @@ ruby:
   - i = i + 1
   section.slide__section[class="#{i % 2 == 0 ? 'green__background__section' : 'white__background__section'}"]
     .slide[class="slide__#{i}"]
-      .slide__image
+      .slide__content.wow.fadeIn
+        h4
+          = slide[:title]
+        - slide[:content].each do |content|
+          p
+            = content
+      .slide__image.wow.fadeInUp
         = image_tag "site/section-slide-#{i}.png"
-      .row
-        .slide__content
-          h4
-            = slide[:title]
-          - slide[:content].each do |content|
-            p
-              = content
 
 section.testimonials__section
   .row
