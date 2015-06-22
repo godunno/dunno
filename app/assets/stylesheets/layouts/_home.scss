@@ -24,6 +24,25 @@ body {
   width: 100%;
   z-index: 1;
 
+  .title-area {
+    @media #{$small-only} {
+      float: left;
+      max-width: 7.5rem;
+    }
+  }
+
+  .top-bar-section {
+    @media #{$small-only} {
+      float: right;
+    }
+  }
+
+  .has-form {
+    @media #{$small-only} {
+      padding: 0 .5rem 0 0;
+    }
+  }
+
   .fixed & {
     background-color: $dunno-dark-color;
   }
@@ -34,8 +53,14 @@ body {
 
   .name {
     h1 {
+      text-align: left;
+
       a {
-        padding-left: 2.625rem;
+        width: auto;
+
+        @media #{$small-only} {
+          padding: 0 0 0 .5rem;
+        }
       }
     }
   }
@@ -45,12 +70,18 @@ body {
     max-height: 1.5rem;
   }
 
-  .button.outline {
-    border-color: transparentize($white, .7);
-    color: $white;
-    height: auto;
-    padding: 1rem;
-    top: .4375rem;
+  .button {
+    &.tiny {
+      font-size: .75rem;
+    }
+
+    &.outline {
+      border-color: transparentize($white, .7);
+      color: $white;
+      height: auto;
+      padding: 1rem;
+      top: .4375rem;
+    }
   }
 }
 
@@ -64,10 +95,20 @@ section {
     color: $white;
     text-align: center;
 
+    .hero {
+      @media #{$small-only} {
+        margin: 0 1rem;
+      }
+    }
+
     .hero__title {
       font-size: 3.125em;
       font-weight: $font-weight-light;
       padding-top: 8rem;
+
+      @media #{$small-only} {
+        font-size: 2.8125em;
+      }
     }
 
     p {
@@ -75,6 +116,10 @@ section {
       margin: 0 auto;
       margin-bottom: 2em;
       max-width: 41rem;
+
+      @media #{$small-only} {
+        margin-bottom: 1rem;
+      }
     }
   }
 
@@ -132,6 +177,12 @@ section {
           background-image: asset-url('site/feature-1-loupe.png');
           left: 8rem;
           top: -2rem;
+
+          @media #{$small-only} {
+            left: 3rem;
+            top: -12rem;
+            width: 80%;
+          }
         }
       }
 
@@ -144,6 +195,12 @@ section {
           background-image: asset-url('site/feature-2-loupe.png');
           left: 16rem;
           top: -2rem;
+
+          @media #{$small-only} {
+            left: 3rem;
+            top: -12rem;
+            width: 80%;
+          }
         }
       }
 
@@ -156,6 +213,12 @@ section {
           background-image: asset-url('site/feature-3-loupe.png');
           left: 27rem;
           top: 3rem;
+
+          @media #{$small-only} {
+            left: 3rem;
+            top: -12rem;
+            width: 80%;
+          }
         }
       }
 
@@ -168,6 +231,12 @@ section {
           background-image: asset-url('site/feature-4-loupe.png');
           left: 30rem;
           top: -4rem;
+
+          @media #{$small-only} {
+            left: 3rem;
+            top: -12rem;
+            width: 80%;
+          }
         }
       }
     }
@@ -177,6 +246,23 @@ section {
 
       li {
         position: relative;
+      }
+    }
+
+    @media #{$small-only} {
+      .features li {
+        position: static;
+      }
+
+      .feature__description {
+        display: none;
+        left: 0;
+        min-width: 100vw;
+        position: absolute;
+      }
+
+      .active .feature__description {
+        display: block;
       }
     }
 
@@ -290,10 +376,18 @@ section {
   &.slide__section,
   &.testimonials__section {
     padding: 8em 0;
+
+    @media #{$small-only} {
+      padding: 2rem 0;
+    }
   }
 
   &.slide__section {
     min-height: 100vh;
+
+    @media #{$small-only} {
+      min-height: 0;
+    }
 
     h4 {
       font-size: 2.75em;
@@ -377,6 +471,13 @@ section {
     background-color: $white;
     padding: 4em 0;
 
+    .row {
+      @media #{$small-only} {
+        padding: 0 1rem;
+        text-align: center;
+      }
+    }
+
     h2 {
       font-size: 2.625em;
       font-weight: $font-weight-light;
@@ -402,8 +503,9 @@ section {
       border-color: $medium-grey-color;
       font-size: 1.25em;
       margin-right: .5rem;
+      max-width: 24rem;
       padding: 1rem;
-      width: 24rem;
+      width: 100%;
     }
 
     .button {
@@ -429,12 +531,20 @@ section {
 
 
 .call__to__action__buttons {
-  padding-bottom: 17em;
+  padding-bottom: 17rem;
+
+  @media #{$small-only} {
+    padding-bottom: 12rem;
+  }
 
   .button {
     border: 1px solid $dunno-green-color;
     font-weight: 700;
-    margin: 0 1.5em;
+    margin: 0 1.5rem 1rem;
+
+    @media #{$small-only} {
+      display: block;
+    }
 
     &.transparent {
       color: $dunno-green-color;
@@ -461,22 +571,57 @@ footer {
     font-size: 2em;
     margin-top: -1rem;
   }
+
+  @media #{$small-only} {
+    text-align: center;
+
+    a {
+      display: block;
+    }
+
+    .social__links {
+      float: none !important; // scss-lint:disable ImportantRule
+      margin-top: 1rem;
+
+      a {
+        display: inline-block;
+        margin: 0 1rem;
+      }
+    }
+  }
 }
 
 .slide {
   margin-bottom: 6rem;
   min-height: 50vh;
   position: relative;
+
+  @media #{$small-only} {
+    margin: 3rem 0;
+    min-height: auto;
+  }
 }
 
 .slide__content {
   float: left;
   margin-top: 7rem;
   width: 19rem;
+
+  @media #{$small-only} {
+    float: none;
+    margin: 0 1rem;
+    text-align: center;
+    width: auto;
+  }
 }
 
 .slide__image {
   margin-left: 40rem;
   position: absolute;
   right: 0;
+
+  @media #{$small-only} {
+    margin: 0;
+    position: static;
+  }
 }

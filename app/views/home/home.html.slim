@@ -7,16 +7,13 @@ section.hero__section
           h1
             a href='#'
               = image_tag 'site/logo.png', class: 'logo'
-        li.toggle-topbar.menu-icon
-          a href="#"
-            span
-              | Menu
       section.top-bar-section
         ul.right
           li.has-form
             span
-              = link_to new_user_session_path, class: 'button transparent outline radius' do
-                | ACESSAR MEU DUNNO
+              = link_to new_user_session_path, class: 'button transparent outline radius tiny' do
+                strong
+                  | ACESSAR MEU DUNNO
   .row
     .hero
       h2.hero__title
@@ -57,7 +54,7 @@ section.texture__background__section.features__section
         li
           a.feature[class="#{i == 1 ? 'active' : ''} feature__#{i}" data-feature=i href='#']
             i.icon[class="#{feature[:icon]}"]
-            = feature[:description]
+            span.feature__description= feature[:description]
             span.pointing__arrow[class="pointing__arrow__#{i}"]
 
 ruby:
