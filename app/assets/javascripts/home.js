@@ -1,6 +1,7 @@
 //= require jquery
 //= require foundation/foundation
 //= require foundation/foundation.topbar
+//= require wow.min
 
 $(function () {
   $(document).foundation();
@@ -17,4 +18,7 @@ $(function () {
         .addClass('features__screenshot showing__feature__'+index);
     }
   });
+
+  new WOW().init();
 });
+
