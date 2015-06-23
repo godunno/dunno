@@ -336,46 +336,27 @@
   }
 }
 
-.student-dashboard {
-  .students__topics {
-    .topic__item__handle {
-      display: none;
-    }
-  }
-
-  .back__button {
-    white-space: nowrap;
-  }
-
-  .event-show {
-    .title {
-      font-size: 1em;
-      font-weight: $font-weight-bold;
-    }
-  }
-
-  .topic__item__show {
-    .topic__item__description {
-      display: block;
-      margin-left: 0;
-      max-width: 100%;
-    }
-  }
-
+.students__topics {
   .topic__item {
     padding: .5em 1em;
 
     .topic__item__image {
-      float: left;
+      vertical-align: top;
     }
 
-    .topic__item__show {
+    .topic__item__description {
+      padding-top: .5rem;
+    }
+
+    .topic__item__handle {
+      display: none;
+    }
+
+    .topic__item__show,
+    .topic__item__description {
+      display: block;
       margin-left: 0;
-    }
-
-    .topic__item__description,
-    .topic__item__show {
-      width: 100%;
+      max-width: 100%;
     }
   }
 }

@@ -1,50 +1,22 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
-    .small-2.columns
-      a.back__button href="#/courses/{{event.course.uuid}}"
+    .small-3.columns
+      a.back__button.button.small.transparent href="#/courses/{{event.course.uuid}}"
         i.icon.icon-back-arrow>
-        span
+        span.hide-for-small
           | Voltar
-    .small-8.columns.end
-      h2
+    .small-6.columns.end
+      h2.page__header__title
         | {{event.course.name}}
-      p.translucent.subtitle-head
-        span
-          | {{event.course.institution}} · {{event.formatted_classroom}}
-        span< ng-if="!!event.course.grade"
-          | · {{event.course.grade}}
-.event-show
+      ul.page__header__subtitle
+        li ng-if="!!event.course.institution"
+          | {{event.course.institution}}
+        li ng-if="!!event.formatted_classroom"
+          | {{event.formatted_classroom}}
+        li ng-if="!!event.course.grade"
+          | {{event.course.grade}}
+.diary__page
   .row.collapse
-    .show-for-small.small-12.columns
-      .row.collapse.mobile__day__navigation
-        .small-6.columns
-          a.previous__event[
-            ng-if="!!event.previous.uuid"
-            href="#events/{{event.previous.uuid}}"
-            analytics-on="click"
-            analytics-event="Event Navigation"
-            analytics-name="previous"
-            analytics-uuid="{{event.uuid}}"
-            analytics-start-at="{{event.start_at}}"
-            analytics-course-name="{{event.course.name}}"
-            analytics-course-uuid="{{event.course.uuid}}"]
-            i.icon.icon-chevron-left
-            span
-              | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
-        .small-6.columns
-          a.next__event[
-            ng-if="!!event.next.uuid"
-            href="#events/{{event.next.uuid}}"
-            analytics-on="click"
-            analytics-event="Event Navigation"
-            analytics-name="next"
-            analytics-uuid="{{event.uuid}}"
-            analytics-start-at="{{event.start_at}}"
-            analytics-course-name="{{event.course.name}}"
-            analytics-course-uuid="{{event.course.uuid}}"]
-            span
-              | {{event.next.start_at | date:'EEE, dd/MMMM'}}
-            i.icon.icon-chevron-right
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"
@@ -61,27 +33,52 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
           | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
       .summary__tasks.previous__event__tasks
         .summary__task ng-repeat="topic in event.previous.topics"
-          span
-            | {{topic.description}}
           a[
+            analytics-course-name="{{event.course.name}}"
+            analytics-course-uuid="{{event.course.uuid}}"
+            analytics-event-uuid="{{event.uuid}}"
+            analytics-event="Media Clicked"
+            analytics-on="click"
+            analytics-uuid="{{media.uuid}}"
             ng-href="{{topic.media.url}}"
             ng-if="!!topic.media"
-            target="_blank"
+            target="_blank"]
+            i.type.icon ng-class="'icon-' + topic.media.type"
+          span
+            | {{topic.description}}
+    .small-12.medium-6.columns
+      .row.small-collapse.diary__header[
+        ng-class="{event__cancelled: event.status == 'canceled', event__published: event.status == 'published'}"]
+        .show-for-small.small-1.columns
+          a.previous__event.mobile__day__navigation[
+            ng-if="!!event.previous.uuid"
+            href="#events/{{event.previous.uuid}}"
             analytics-on="click"
-            analytics-event="Media Clicked"
-            analytics-uuid="{{media.uuid}}"
-            analytics-event-uuid="{{event.uuid}}"
+            analytics-event="Event Navigation"
+            analytics-name="previous"
+            analytics-uuid="{{event.uuid}}"
+            analytics-start-at="{{event.start_at}}"
             analytics-course-name="{{event.course.name}}"
             analytics-course-uuid="{{event.course.uuid}}"]
-            i.type.icon ng-class="'icon-' + topic.media.type"
-    .small-12.medium-6.columns
-      .row.diary__header
-        .small-6.columns.diary__date
+            i.icon.icon-chevron-left
+        .small-5.medium-6.columns.diary__date
           | {{event.start_at | date:'EEE, dd/MMMM'}}
-        .small-6.columns.diary__time
+        .small-5.medium-6.columns.diary__time
           i.icon.icon-clock>
           span
             | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
+        .show-for-small.small-1.columns
+          a.next__event.mobile__day__navigation[
+            ng-if="!!event.next.uuid"
+            href="#events/{{event.next.uuid}}"
+            analytics-on="click"
+            analytics-event="Event Navigation"
+            analytics-name="next"
+            analytics-uuid="{{event.uuid}}"
+            analytics-start-at="{{event.start_at}}"
+            analytics-course-name="{{event.course.name}}"
+            analytics-course-uuid="{{event.course.uuid}}"]
+            i.icon.icon-chevron-right
       #topics-container.row
         #topics-list.topic__items.students__topics
           .topic__item[
@@ -135,16 +132,16 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         i.icon.icon-chevron-right
       .summary__tasks.next__event__tasks
         .summary__task ng-repeat="topic in event.next.topics"
-          span
-            | {{topic.description}}
           a[
+            analytics-course-name="{{event.course.name}}"
+            analytics-course-uuid="{{event.course.uuid}}"
+            analytics-event-uuid="{{event.uuid}}"
+            analytics-event="Media Clicked"
+            analytics-on="click"
+            analytics-uuid="{{media.uuid}}"
             ng-href="{{topic.media.url}}"
             ng-if="!!topic.media"
-            target="_blank"
-            analytics-on="click"
-            analytics-event="Media Clicked"
-            analytics-uuid="{{media.uuid}}"
-            analytics-event-uuid="{{event.uuid}}"
-            analytics-course-name="{{event.course.name}}"
-            analytics-course-uuid="{{event.course.uuid}}"]
+            target="_blank"]
             i.type.icon ng-class="'icon-' + topic.media.type"
+          span
+            | {{topic.description}}
