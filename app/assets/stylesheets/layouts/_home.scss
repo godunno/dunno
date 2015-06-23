@@ -320,6 +320,10 @@ section {
         .icon {
           background: $dunno-green-color;
         }
+
+        .pointing__arrow {
+          opacity: 1;
+        }
       }
 
       .icon {
@@ -341,6 +345,7 @@ section {
       background-position: center center;
       background-repeat: no-repeat;
       background-size: contain;
+      opacity: 0;
       position: absolute;
       z-index: 2;
     }
@@ -616,8 +621,8 @@ footer {
   @media #{$small-only} {
     float: none;
     margin: 0 1rem;
-    text-align: center;
     padding: 0 2rem;
+    text-align: center;
     width: auto;
   }
 }

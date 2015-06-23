@@ -6,6 +6,9 @@
 $(function () {
   $(document).foundation();
 
+  // TODO: convert to function
+  // TODO: add slider behaviour (automatic switching)
+  // TODO: add wow animated effect
   $('.feature').on('click', function (e) {
     e.preventDefault();
     var _self = $(this);
