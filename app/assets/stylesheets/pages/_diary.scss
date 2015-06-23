@@ -87,13 +87,17 @@
 }
 
 .diary__header {
+  @include radius(.25rem .25rem 0 0);
   background: $primary-color;
   border: 1px solid $primary-color;
-  border-radius: 4px 4px 0 0;
   color: $white;
   padding: 1em .75em;
   position: relative;
   z-index: 1;
+
+  @media #{$small-only} {
+    @include radius(0);
+  }
 
   &.event__cancelled {
     background: $red-color;

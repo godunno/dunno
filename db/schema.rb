@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515182357) do
+ActiveRecord::Schema.define(version: 20150611042116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20150515182357) do
   create_table "courses", force: true do |t|
     t.string   "name"
     t.integer  "teacher_id"
-    t.integer  "organization_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uuid"
@@ -40,11 +39,10 @@ ActiveRecord::Schema.define(version: 20150515182357) do
     t.string   "grade"
     t.string   "institution"
     t.string   "access_code"
-    t.string   "abbreviation",    limit: 10
+    t.string   "abbreviation", limit: 10
   end
 
   add_index "courses", ["created_at"], name: "index_courses_on_created_at", using: :btree
-  add_index "courses", ["organization_id"], name: "index_courses_on_organization_id", using: :btree
   add_index "courses", ["teacher_id"], name: "index_courses_on_teacher_id", using: :btree
   add_index "courses", ["uuid"], name: "index_courses_on_uuid", unique: true, using: :btree
 
@@ -65,13 +63,11 @@ ActiveRecord::Schema.define(version: 20150515182357) do
     t.integer  "course_id"
     t.datetime "closed_at"
     t.datetime "opened_at"
-    t.integer  "beacon_id"
     t.datetime "end_at"
     t.integer  "status",     default: 0
     t.string   "classroom"
   end
 
-  add_index "events", ["beacon_id"], name: "index_events_on_beacon_id", using: :btree
   add_index "events", ["course_id"], name: "index_events_on_course_id", using: :btree
   add_index "events", ["uuid"], name: "index_events_on_uuid", unique: true, using: :btree
 
@@ -93,11 +89,25 @@ ActiveRecord::Schema.define(version: 20150515182357) do
     t.string   "thumbnail"
     t.string   "original_filename"
     t.string   "file_url"
+    t.integer  "profile_id"
   end
 
   add_index "medias", ["mediable_id", "mediable_type"], name: "index_medias_on_mediable_id_and_mediable_type", using: :btree
+  add_index "medias", ["profile_id"], name: "index_medias_on_profile_id", using: :btree
   add_index "medias", ["teacher_id"], name: "index_medias_on_teacher_id", using: :btree
   add_index "medias", ["uuid"], name: "index_medias_on_uuid", unique: true, using: :btree
+
+  create_table "memberships", force: true do |t|
+    t.integer  "profile_id", null: false
+    t.integer  "course_id",  null: false
+    t.string   "role",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memberships", ["course_id", "profile_id"], name: "index_memberships_on_course_id_and_profile_id", unique: true, using: :btree
+  add_index "memberships", ["course_id"], name: "index_memberships_on_course_id", using: :btree
+  add_index "memberships", ["profile_id"], name: "index_memberships_on_profile_id", using: :btree
 
   create_table "notifications", force: true do |t|
     t.string   "message"
@@ -107,6 +117,11 @@ ActiveRecord::Schema.define(version: 20150515182357) do
   end
 
   add_index "notifications", ["course_id"], name: "index_notifications_on_course_id", using: :btree
+
+  create_table "profiles", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "students", force: true do |t|
     t.datetime "created_at"

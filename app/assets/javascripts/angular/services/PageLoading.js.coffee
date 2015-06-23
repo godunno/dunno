@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 PageLoading = ($rootScope) ->
   @resolve = (promise) ->
@@ -9,4 +8,3 @@ PageLoading = ($rootScope) ->
 
 PageLoading.$inject = ['$rootScope']
 DunnoApp.service 'PageLoading', PageLoading
-DunnoAppStudent.service 'PageLoading', PageLoading

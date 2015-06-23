@@ -17,4 +17,3 @@ Utils = ->
   @
 
 angular.module('DunnoApp').service 'Utils', Utils
-angular.module('DunnoAppStudent').service 'Utils', Utils

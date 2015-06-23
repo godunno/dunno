@@ -2,7 +2,7 @@ DunnoApp = angular.module('DunnoApp')
 DunnoApp.factory 'Topic', ['RailsResource', (RailsResource)->
   class Topic extends RailsResource
     @configure(
-      url: '/api/v1/teacher/topics'
+      url: '/api/v1/topics'
       name: 'topic'
       idAttribute: 'uuid'
       updateMethod: 'patch'

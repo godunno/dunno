@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CoursesImport do
   let(:scheduler) { spy('CourseScheduler') }
-  let(:teacher) { create(:teacher) }
+  let(:teacher) { create(:profile) }
   let(:name) { "Programação II" }
   let(:class_name) { "TR302" }
   let(:start_date) { Date.parse("01-02-2015") }

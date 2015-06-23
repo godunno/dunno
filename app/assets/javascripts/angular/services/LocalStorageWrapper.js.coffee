@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 LocalStorageWrapper = ->
   set = (key, item) ->
@@ -18,4 +17,3 @@ LocalStorageWrapper = ->
   }
 
 DunnoApp.factory "LocalStorageWrapper", LocalStorageWrapper
-DunnoAppStudent.factory "LocalStorageWrapper", LocalStorageWrapper

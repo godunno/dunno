@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 MediaSearcher = (Media) ->
   @extend = ($scope) ->
@@ -40,4 +39,3 @@ MediaSearcher = (Media) ->
 MediaSearcher.$inject = ['Media']
 
 DunnoApp.service 'MediaSearcher', MediaSearcher
-DunnoAppStudent.service 'MediaSearcher', MediaSearcher

@@ -1,5 +1,4 @@
 DunnoApp = angular.module('DunnoApp')
-DunnoAppStudent = angular.module('DunnoAppStudent')
 
 previewCtrl = ['$scope', ($scope)->
   $scope.removeMedia = ->
@@ -14,9 +13,7 @@ preview = ->
     item: '='
     removable: '='
   controller: 'previewCtrl'
-  templateUrl: '<%= asset_path('teacher/events/_preview.html') %>'
+  templateUrl: '<%= asset_path('events/_preview.html') %>'
 
 DunnoApp.controller 'previewCtrl', previewCtrl
 DunnoApp.directive 'preview', preview
-DunnoAppStudent.controller 'previewCtrl', previewCtrl
-DunnoAppStudent.directive 'preview', preview

@@ -4,7 +4,7 @@ module Form
 
     model_class ::Media
 
-    attr_accessor :teacher, :preview
+    attr_accessor :profile, :preview
 
     attribute :title, String
     attribute :description, String
@@ -39,7 +39,7 @@ module Form
       model.original_filename = original_filename
       model.preview           = preview.as_json
       model.tag_list          = tag_list
-      model.teacher           = teacher
+      model.profile           = profile
       model.save!
     end
 

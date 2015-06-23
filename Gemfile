@@ -40,6 +40,7 @@ gem 'mixpanel-ruby',              '1.7.0'
 gem 'carrierwave',                '0.10.0'
 gem 'fog',                        '1.28.0'
 gem 'airbrake',                   '4.1.0'
+gem 'pundit',                     '1.0.1'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular',       '1.3.2'

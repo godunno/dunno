@@ -9,12 +9,7 @@ class ApplicationController < ActionController::Base
   protected
 
     def after_sign_in_path_for(resource_or_scope)
-      profile = resource_or_scope.profile
-      case profile
-      when Teacher then dashboard_teacher_path
-      when Student then dashboard_student_path
-      else raise "Invalid profile: #{profile.inspect}"
-      end
+      dashboard_path
     end
 
     def configure_permitted_parameters

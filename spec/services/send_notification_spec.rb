@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SendNotification do
   let(:users) do
-    3.times.map { create(:student) }
+    3.times.map { create(:profile) }
   end
 
   let(:message) { "MESSAGE" }

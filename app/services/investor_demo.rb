@@ -1,10 +1,12 @@
 class InvestorDemo
   attr_reader :teacher
   def initialize(name, email)
-    user = create_user(name, email)
-    @teacher = user.profile
-    create_courses
-    import(user)
+    User.transaction do
+      user = create_user(name, email)
+      @teacher = user.profile
+      create_courses
+      import(user)
+    end
   end
 
   def create_user(name, email)
@@ -13,7 +15,7 @@ class InvestorDemo
       email: email,
       phone_number: "21967135534",
       password: SecureRandom.hex(4),
-      profile: Teacher.new
+      profile: Profile.new
     )
   end
 
@@ -25,14 +27,13 @@ class InvestorDemo
     week_days = [1, 3, 4, 5]
 
     4.times do |n|
-      new_course = teacher.courses.new({
+      new_course = teacher.create_course!(
         name: names[n],
         class_name: class_names[n],
         start_date: Date.current.at_beginning_of_month.next_month,
         end_date: 1.year.from_now
-      })
+      )
 
-      new_course.save!
 
       new_course.weekly_schedules.create!({
         start_time: "09:00",

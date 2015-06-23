@@ -1,4 +1,5 @@
 class Api::V1::UsersController < Api::V1::ApplicationController
+  before_action :skip_authorization, only: [:update, :update_password]
   def update
     current_user.update!(user_params)
     @resource = current_user

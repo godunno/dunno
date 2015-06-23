@@ -22,6 +22,15 @@ DoubleNegation:
 StringLiterals:
   Enabled: false
 
+Style/IndentHash:
+  EnforcedStyle: consistent
+
+Style/LambdaCall:
+  Enabled: false
+
+Style/RegexpLiteral:
+  MaxSlashes: 0
+
 AllCops:
   Exclude:
     - "bin/**/*"

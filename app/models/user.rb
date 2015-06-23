@@ -7,15 +7,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable,
          :validatable, :async
 
-  belongs_to :profile, polymorphic: true
-  has_many :api_keys
+  belongs_to :profile, dependent: :destroy
+  has_many :api_keys, dependent: :destroy
 
   validates :name, :phone_number, presence: true
 
   before_save :ensure_authentication_token
 
   def profile_name
-    profile_type.downcase
+    profile.memberships.where(role: 'teacher').any? ? 'teacher' : 'student'
   end
 
   private

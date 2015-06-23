@@ -5,18 +5,20 @@ describe Api::V1::UsersController do
   let(:name) { user.name }
   let(:phone_number) { user.phone_number }
   let(:completed_tutorial) { false }
-  let(:user) { create(:user, profile: create(:teacher), password: password) }
+  let(:profile) { create(:profile) }
+  let!(:course) { create(:course, teacher: profile) }
+  let(:user) { create(:user, profile: profile, password: password) }
 
   let(:user_response_json) do
     {
-      "root_path" => "/dashboard/teacher",
+      "root_path" => "/dashboard",
       "id" => user.id,
       "name" => name,
       "phone_number" => phone_number,
       "email" => user.email,
       "authentication_token" => user.authentication_token,
       "completed_tutorial" => completed_tutorial,
-      "courses_count" => 0,
+      "courses_count" => 1,
       "notifications_count" => 0,
       "profile" => "teacher",
       "students_count" => 0,

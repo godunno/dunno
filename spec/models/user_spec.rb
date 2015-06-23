@@ -5,8 +5,8 @@ describe User do
   it { expect(user).to be_valid }
 
   describe "association" do
-    it { is_expected.to belong_to(:profile) }
-    it { is_expected.to have_many(:api_keys) }
+    it { is_expected.to belong_to(:profile).dependent(:destroy) }
+    it { is_expected.to have_many(:api_keys).dependent(:destroy) }
   end
 
   describe "validations" do
@@ -46,15 +46,15 @@ describe User do
   end
 
   describe "#profile_name" do
-    let(:user) { create(:user, profile: profile) }
-    context "when user is teacher" do
-      let(:profile) { create(:teacher) }
-      it { expect(user.profile_name).to eq("teacher") }
+    it "has the role of teacher in a course" do
+      user.profile = create(:profile)
+      create(:course, teacher: user.profile)
+      expect(user.profile_name).to eq('teacher')
     end
 
-    context "when user is student" do
-      let(:profile) { create(:student) }
-      it { expect(user.profile_name).to eq("student") }
+    it "doesn't have the role of teacher in any course" do
+      user.profile = create(:profile)
+      expect(user.profile_name).to eq('student')
     end
   end
 end

@@ -12,7 +12,7 @@ class Media < ActiveRecord::Base
   acts_as_ordered_taggable
 
   belongs_to :mediable, polymorphic: true
-  belongs_to :teacher
+  belongs_to :profile
   has_many :topics
   has_many :events, through: :topics
 
@@ -56,7 +56,7 @@ class Media < ActiveRecord::Base
     mapping do
       indexes :title, type: :string, analyzer: :custom_analyzer
       indexes :tags, type: :string, analyzer: :custom_analyzer
-      indexes :teacher_id, type: :integer
+      indexes :profile_id, type: :integer
       indexes :created_at, type: :date
     end
   end
@@ -66,7 +66,7 @@ class Media < ActiveRecord::Base
     {
       title: title,
       tags: tag_list.to_a,
-      teacher_id: teacher_id,
+      profile_id: profile_id,
       created_at: created_at
     }
   end
@@ -78,6 +78,10 @@ class Media < ActiveRecord::Base
   def type
     return "file" if file.present?
     return "url" if url.present?
+  end
+
+  def self.search_by_profile(profile, options)
+    search(options.merge(filter: { profile_id: profile.id }))
   end
 
   # TODO: Add regression tests for cases we'd like not to break.
@@ -107,4 +111,6 @@ class Media < ActiveRecord::Base
     result = result.per_page(options[:per_page] || 10).page(options[:page] || 1)
     result
   end
+
+  private_class_method :search
 end
