@@ -20,7 +20,7 @@ section.hero__section
         | DENTRO E FORA DA SALA DE AULA
       p.wow.fadeInDown
         | Um aplicativo que vai auxiliar a gestão das aulas e estimular a comunicação e o engajamento entre professores e estudantes.
-      .call__to__action__buttons.wow.fadeInUp
+      .call__to__action__buttons.wow.zoomIn
         a.button.large.radius>
           | Quero usar o Dunno
         a.button.large.radius.transparent
@@ -47,7 +47,7 @@ section.texture__background__section.features__section
   .row
     #features__screenshot.features__screenshot.showing__feature__1
       = image_tag 'site/section-features-desktop.png', class: 'feature__screenshot'
-      span.feature__screenshot__detail
+      span.feature__screenshot__detail.wow.bounceIn
     ul.features.small-block-grid-4
       - @features.each_with_index do |feature, i|
         - i = i + 1
@@ -151,7 +151,9 @@ footer
     - ['Sobre o Dunno', 'Política de Privacidade'].each do |link|
       a> href='#'
         = link
-    .social__links.right
+    | <a href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
+    /
+      .social__links.right
       - [ { slug: 'facebook' }, { slug: 'twitter' } ].each do |social_link|
         a> href='#'
           i.icon class="icon-#{social_link[:slug]}"

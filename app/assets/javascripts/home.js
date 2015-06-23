@@ -8,7 +8,7 @@ $(function () {
 
   // TODO: convert to function
   // TODO: add slider behaviour (automatic switching)
-  // TODO: add wow animated effect
+  // TODO: add wow animated effect on change
   $('.feature').on('click', function (e) {
     e.preventDefault();
     var _self = $(this);
@@ -22,6 +22,15 @@ $(function () {
     }
   });
 
-  new WOW().init();
+  wow = new WOW(
+    {
+      boxClass:     'wow',      // default
+      animateClass: 'animated', // default
+      offset:       300,
+      mobile:       true,       // default
+      live:         true        // default
+    }
+  )
+  wow.init();
 });
 
