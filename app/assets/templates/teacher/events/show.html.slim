@@ -299,6 +299,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     span.topic__item__description__contents[ng-class="{topic__contains__media: !!topic.media}"]
                       a.topic__description ng-click="startEditing(topic)"
                         | {{topic.description}}
+                        i.icon.icon-pencil<
                       a.topic__url[
                         ng-href="{{topic.media.url}}"
                         target="_blank"

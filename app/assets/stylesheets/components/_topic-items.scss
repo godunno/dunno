@@ -68,7 +68,7 @@
 
   .topic__item__status__checkbox {
     margin: 0;
-    padding: .5em;
+    padding: .5em 0;
   }
 
   .topic__item__show {
@@ -79,6 +79,17 @@
     display: block;
     margin-left: 2.5em;
     word-wrap: break-word;
+
+    &:hover {
+      .icon {
+        opacity: 1;
+      }
+    }
+
+    .icon {
+      opacity: .3;
+      vertical-align: middle;
+    }
   }
 
   .topic__item__status {
