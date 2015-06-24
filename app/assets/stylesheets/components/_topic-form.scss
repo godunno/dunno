@@ -22,7 +22,6 @@
 
         .icon {
           background-color: $medium-grey-color;
-          position: relative;
           top: -.25em;
         }
       }
@@ -33,7 +32,6 @@
 
         .icon {
           background-color: $secondary-color;
-          position: relative;
           top: -.25em;
         }
       }
@@ -48,7 +46,9 @@
       height: 1.75em;
       line-height: 2em;
       margin-top: .5em;
-      transition: all .25s ease-in-out;
+      position: relative;
+      top: 0;
+      transition: all .08s linear;
       width: 1.75em;
     }
   }

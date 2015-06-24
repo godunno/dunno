@@ -6,8 +6,15 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         span.hide-for-small
           | Voltar
     .small-6.columns
-      h2
+      h2.page__header__title
         | {{event.course.name}}
+      ul.page__header__subtitle
+        li ng-if="!!event.course.institution"
+          | {{event.course.institution}}
+        li ng-if="!!event.formatted_classroom"
+          | {{event.formatted_classroom}}
+        li ng-if="!!event.course.grade"
+          | {{event.course.grade}}
     .small-3.columns.right-aligned
       a.button.small.transparent.hide__personal__topics[
         ng-click="setPrivateTopicsVisibility(false)"
@@ -299,6 +306,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                     span.topic__item__description__contents[ng-class="{topic__contains__media: !!topic.media}"]
                       a.topic__description ng-click="startEditing(topic)"
                         | {{topic.description}}
+                        i.icon.icon-pencil<
                       a.topic__url[
                         ng-href="{{topic.media.url}}"
                         target="_blank"
