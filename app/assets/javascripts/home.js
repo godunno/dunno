@@ -1,7 +1,7 @@
 //= require jquery
 //= require foundation/foundation
 //= require foundation/foundation.topbar
-//= require wow.min
+//= require wow
 
 $(function () {
   $(document).foundation();

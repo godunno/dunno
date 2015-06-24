@@ -47,7 +47,7 @@ section.texture__background__section.features__section
   .row
     #features__screenshot.features__screenshot.showing__feature__1
       = image_tag 'site/section-features-desktop.png', class: 'feature__screenshot'
-      span.feature__screenshot__detail.wow.bounceIn
+      span.feature__screenshot__detail.wow.fadeIn
     ul.features.small-block-grid-4
       - @features.each_with_index do |feature, i|
         - i = i + 1
@@ -148,9 +148,10 @@ footer
   .row
     span.copyright>
       | Dunno #{Time.new.year}
-    - ['Sobre o Dunno', 'Política de Privacidade'].each do |link|
-      a> href='#'
-        = link
+    /
+      - ['Sobre o Dunno', 'Política de Privacidade'].each do |link|
+        a> href='#'
+          = link
     | <a href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
     /
       .social__links.right
