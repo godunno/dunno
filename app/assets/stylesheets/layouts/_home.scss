@@ -405,6 +405,7 @@ section {
 
   &.slide__section {
     min-height: 100vh;
+    overflow: hidden;
 
     @media #{$small-only} {
       min-height: 0;
