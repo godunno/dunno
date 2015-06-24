@@ -64,7 +64,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-foundation', '0.5.1'
   gem 'rails-assets-angular-busy', '4.1.2'
   gem 'rails-assets-lunks--angulartics', '0.18.0'
-  gem 'rails-assets-wow'
+  gem 'rails-assets-wow', '1.1.2'
 end
 
 group :production, :staging do
