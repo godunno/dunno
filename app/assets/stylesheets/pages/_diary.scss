@@ -195,3 +195,19 @@
     text-decoration: underline;
   }
 }
+
+.diary__page {
+  .catalog__media {
+    .media__select__label {
+      margin-top: .875rem;
+    }
+
+    .media__data {
+      font-size: .875rem;
+    }
+
+    .media__title {
+      line-height: inherit;
+    }
+  }
+}
