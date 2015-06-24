@@ -95,33 +95,34 @@ section.testimonials__section
     p
       = image_tag 'site/logo-pucrio.png', class: 'testimonials__trusted__by'
       = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
-  ul.testimonials__list.small-block-grid-1.medium-block-grid-2.large-block-grid-4
-    - 10.times do |i|
-      - i = i + 1
-      li[class="#{i == 10 ? 'two__columns' : ''}#{i == 8 ? 'vertical__copy' : ''}"]
-        - if i == 1 || i == 2 || i == 3 || i == 4 || i == 5 || i == 7 || i == 10
-          = image_tag "site/section-testimonials-#{i}.jpg"
-        - elsif i == 6
-          p.testimonial__copy
-            span
-              | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
-            br
-            strong.by__line
-              | Fulano da Silva
-        - elsif i == 8
-          p.testimonial__copy
-            span
-              | Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            br
-            strong.by__line
-              | Ciclano da Silva
-        - elsif i == 9
-          p.testimonial__copy.green__background
-            span
-              | Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            br
-            strong.by__line
-              | Beltrano da Silva
+  /
+    ul.testimonials__list.small-block-grid-1.medium-block-grid-2.large-block-grid-4
+      - 10.times do |i|
+        - i = i + 1
+        li[class="#{i == 10 ? 'two__columns' : ''}#{i == 8 ? 'vertical__copy' : ''}"]
+          - if i == 1 || i == 2 || i == 3 || i == 4 || i == 5 || i == 7 || i == 10
+            = image_tag "site/section-testimonials-#{i}.jpg"
+          - elsif i == 6
+            p.testimonial__copy
+              span
+                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+              br
+              strong.by__line
+                | Fulano da Silva
+          - elsif i == 8
+            p.testimonial__copy
+              span
+                | Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              br
+              strong.by__line
+                | Ciclano da Silva
+          - elsif i == 9
+            p.testimonial__copy.green__background
+              span
+                | Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              br
+              strong.by__line
+                | Beltrano da Silva
 
 /
   section.video__section
