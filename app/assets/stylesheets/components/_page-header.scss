@@ -61,3 +61,27 @@
   opacity: .6;
   text-align: center;
 }
+
+
+.page__header__subtitle {
+  list-style: none;
+  margin: 0;
+  opacity: .5;
+  padding: 0;
+  text-align: center;
+
+  li {
+    display: inline;
+
+    &:after {
+      content: ' · ';
+      margin: 0 1rem;
+    }
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+}
