@@ -40,40 +40,35 @@ $(function () {
   var controller = new ScrollMagic.Controller();
 
   var scene = new ScrollMagic.Scene({
-    triggerElement: "#quero-usar-o-Dunno",
+    triggerElement: '#quero-usar-o-Dunno',
     duration: 200,
-    triggerHook: "onLeave"
+    triggerHook: 'onLeave'
   }).addTo(controller);
 
-  // build tween
-  var tween = TweenMax.from("#animate", 0.5, {
-    autoAlpha: 0,
-    scale: 0.7
-  });
-
-  // change behaviour of controller to animate scroll instead of jump
   controller.scrollTo(function (newpos) {
-    TweenMax.to(window, 2.5, {
-      scrollTo: {
-        y: newpos
+    TweenMax.to(
+      window,
+      1.5,
+      {
+        scrollTo: { y: newpos },
+        // TODO: investigate how to add this only at the end of the tween
+        onComplete: focusField('#invitation__email')
       }
-    });
+    )
   });
 
-  //  bind scroll to anchor links
-  $(document).on("click", ".invitation__link", function (e) {
-    var id = $(this).attr("href");
+  $(document).on('click', '.invitation__link', function (e) {
+    var id = $(this).attr('href');
     if ($(id).length > 0) {
       e.preventDefault();
-
-      // trigger scroll
       controller.scrollTo(id);
-
-      // if supported by the browser we can even update the URL.
       if (window.history && window.history.pushState) {
-        history.pushState("", document.title, id);
+        history.pushState('', document.title, id);
       }
     }
   });
 });
 
+function focusField(element) {
+  $(element).focus();
+}
