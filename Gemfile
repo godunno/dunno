@@ -65,6 +65,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-busy', '4.1.2'
   gem 'rails-assets-lunks--angulartics', '0.18.0'
   gem 'rails-assets-wow', '1.1.2'
+  gem 'rails-assets-scrollmagic', '2.0.5'
+  gem 'rails-assets-greensock', '1.17.0'
 end
 
 group :production, :staging do

@@ -21,7 +21,7 @@ section.hero__section
       p.wow.fadeInDown
         | Um aplicativo que vai auxiliar a gestão das aulas e estimular a comunicação e o engajamento entre professores e estudantes.
       .call__to__action__buttons.wow.zoomIn
-        a.button.large.radius>
+        a.button.large.radius.invitation__link>[href='#quero-usar-o-Dunno']
           | Quero usar o Dunno
         /
           a.button.large.radius.transparent
@@ -85,8 +85,9 @@ ruby:
         - slide[:content].each do |content|
           p
             = content
-      .slide__image.wow.fadeInUp
-        = image_tag "site/section-slide-#{i}.png"
+      .slide__image
+        / .wow.fadeInUp
+        = image_tag "site/section-slide-#{i}.png", id: "slide__image__#{i}"
 
 section.testimonials__section
   .row
@@ -137,6 +138,7 @@ section.testimonials__section
           | Assista ao vídeo
 
 section.invitation__section
+  a#quero-usar-o-Dunno
   .row
     h2
       | Em breve também para mais alunos e professores!
