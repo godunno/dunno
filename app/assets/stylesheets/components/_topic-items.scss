@@ -102,10 +102,18 @@
 
   input[type=checkbox] + label {
     color: $light-grey-color;
+
+    &:hover {
+      color: $dunno-dark-color;
+    }
   }
 
   input[type=checkbox]:checked + label {
     color: $dunno-green-color;
+
+    &:hover {
+      opacity: .5;
+    }
   }
 
   .topic__item__handle {
@@ -114,6 +122,10 @@
     float: left;
     font-size: 1.5em;
     padding: .75em .5em;
+
+    &:hover {
+      color: $dunno-dark-color;
+    }
   }
 
   &.ui-sortable-helper {
@@ -172,7 +184,12 @@
     padding: 1.25rem .5rem 0;
 
     .topic__item__actions__button {
+      color: $light-grey-color;
       cursor: pointer;
+
+      &:hover {
+        color: $dunno-dark-color;
+      }
     }
   }
 
