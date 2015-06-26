@@ -56,7 +56,6 @@
 }
 
 %topic-save-button {
-  border-top: 1px dashed $dunno-green-color;
   font-weight: $font-weight-bold;
 
   &.alert {
@@ -65,7 +64,7 @@
 }
 
 %topic-actions {
-  border-top: 1px dashed $secondary-color;
+  border-top: 1px dashed $dunno-green-color;
   clear: both;
   padding: .75em;
   text-align: right;
