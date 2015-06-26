@@ -27,6 +27,12 @@ body {
     top: 0;
     transition: top .3s ease-in-out;
   }
+
+  &:not(.fixed) {
+    .top-bar {
+      padding: rem-calc(66) rem-calc(44) 0;
+    }
+  }
 }
 
 .top-bar {
@@ -120,7 +126,7 @@ section {
     .hero__title {
       font-size: 3.125em;
       font-weight: $font-weight-light;
-      padding-top: 8rem;
+      padding-top: 12rem;
 
       @media #{$small-only} {
         font-size: 2.8125em;

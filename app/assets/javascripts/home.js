@@ -8,7 +8,11 @@
 //= require scrollmagic/plugins/animation.gsap
 
 $(function () {
-  $(document).foundation();
+  $(document).foundation({
+    topbar: {
+      start_offset: 140
+    }
+  });
 
   // TODO: convert to function
   // TODO: add slider behaviour (automatic switching)
