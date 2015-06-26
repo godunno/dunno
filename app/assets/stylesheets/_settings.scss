@@ -194,11 +194,11 @@ $small-font-size: rem-calc(14);
 // $definition-list-margin-bottom: rem-calc(12);
 
 // We use these to style blockquotes
-// $blockquote-font-color: scale-color($header-font-color, $lightness: 35%);
-// $blockquote-padding: rem-calc(9 20 0 19);
-// $blockquote-border: 1px solid #ddd;
-// $blockquote-cite-font-size: rem-calc(13);
-// $blockquote-cite-font-color: scale-color($header-font-color, $lightness: 23%);
+$blockquote-font-color: $dunno-dark-color;
+$blockquote-padding: 0;
+$blockquote-border: 0;
+$blockquote-cite-font-size: rem-calc(14);
+$blockquote-cite-font-color: $medium-grey-color;
 // $blockquote-cite-link-color: $blockquote-cite-font-color;
 
 // Acronym styles

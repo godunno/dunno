@@ -432,39 +432,66 @@ section {
       margin: 0 3rem 6.25rem;
     }
 
-    .testimonials__list {
-      margin: 0 .625rem;
+    .primary__testimonial__wrapper {
+      margin-bottom: 6rem;
+    }
 
-      @media #{$medium-up} {
-        .two__columns {
-          width: 50%;
+    blockquote {
+      overflow: hidden;
+
+      q {
+        display: block;
+        font-size: rem-calc(20);
+      }
+
+      cite {
+        font-style: normal;
+        max-width: 12rem;
+        text-align: center;
+
+        &::before {
+          content: '';
+        }
+
+        span {
+          display: block;
+          margin-top: 1rem;
+          text-transform: uppercase;
+        }
+
+        img {
+          @include radius(50%);
+          display: block;
+          margin: 0 auto;
+          max-height: 7.5rem;
         }
       }
-    }
 
-    .testimonial__copy {
-      font-size: 1.125em;
-      margin-bottom: 0;
-      padding: 1em 2em;
-      text-align: left;
+      &.primary__testimonial {
+        q {
+          font-size: rem-calc(28);
+          padding-top: 3.5rem;
+        }
 
-      &.green__background {
-        background-color: $dunno-green-color;
-        color: $white;
+        cite {
+          float: left;
+          margin-right: 1rem;
+
+          img {
+            max-height: 7.5rem;
+          }
+        }
       }
 
-      .by__line {
-        font-size: .625rem;
-        text-transform: uppercase;
-      }
-    }
+      &.secondary__testimonial {
+        text-align: center;
 
-    .vertical__copy {
-      position: relative;
+        cite {
+          margin: 2rem auto 0;
 
-      @media #{$large-only} {
-        .testimonial__copy {
-          position: absolute;
+          img {
+            max-height: 5rem;
+          }
         }
       }
     }

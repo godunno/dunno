@@ -96,34 +96,46 @@ section.testimonials__section
     p
       = image_tag 'site/logo-pucrio.png', class: 'testimonials__trusted__by'
       = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
-  /
-    ul.testimonials__list.small-block-grid-1.medium-block-grid-2.large-block-grid-4
-      - 10.times do |i|
-        - i = i + 1
-        li[class="#{i == 10 ? 'two__columns' : ''}#{i == 8 ? 'vertical__copy' : ''}"]
-          - if i == 1 || i == 2 || i == 3 || i == 4 || i == 5 || i == 7 || i == 10
-            = image_tag "site/section-testimonials-#{i}.jpg"
-          - elsif i == 6
-            p.testimonial__copy
-              span
-                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
-              br
-              strong.by__line
-                | Fulano da Silva
-          - elsif i == 8
-            p.testimonial__copy
-              span
-                | Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              br
-              strong.by__line
-                | Ciclano da Silva
-          - elsif i == 9
-            p.testimonial__copy.green__background
-              span
-                | Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              br
-              strong.by__line
-                | Beltrano da Silva
+  .row.primary__testimonial__wrapper
+    .panel.radius
+      blockquote.primary__testimonial
+        cite
+          = image_tag 'site/testimonials-picture-1.jpg'
+          span
+            | Helena "Ximena" FernándezA
+          | Professora de Ensino Fundamental na Escola Mundial
+        q
+          | Consegui com o Dunno tudo o que eu queria: os alunos muito mais atentos em sala de aula e participando em todos os momentos!
+  .row
+    ruby:
+      @testimonials = [
+        {
+          name: 'Maria Joaquina Villaseñor',
+          from: 'Aluna do Ensino Fundamental na Escola Mundial',
+          quote: 'Estudar ficou muito mais fácil com o Dunno. Uso em aula e em casa para acompanahr as novidades que a professora compartilha.',
+          photo: 'site/testimonials-picture-2.jpg'
+        },{
+          name: 'Godinez',
+          from: 'Aluno da escola pública do Chaves',
+          quote: 'Melhorei minhas notas e agora não preciso mais jogar a moeda para fazer as provas.',
+          photo: 'site/testimonials-picture-3.jpg'
+        },{
+          name: 'Girafales',
+          from: 'Professor da escola pública do Chaves',
+          quote: 'Por que causa, motivo, razão ou circunstância? Que foi que você disse? Tá Tá Tá Tá Tá Tá! Silêncio!',
+          photo: 'site/testimonials-picture-4.jpg'
+        }
+      ]
+    - @testimonials.each do |testimonial|
+      .small-4.columns
+        blockquote.secondary__testimonial
+          q
+            = testimonial[:quote]
+          cite
+            = image_tag testimonial[:photo]
+            span
+              = testimonial[:name]
+            = testimonial[:from]
 
 /
   section.video__section
