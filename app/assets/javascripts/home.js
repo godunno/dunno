@@ -1,6 +1,7 @@
 //= require jquery
 //= require foundation/foundation
 //= require foundation/foundation.topbar
+//= require foundation/foundation.reveal
 //= require wow
 //= require greensock
 //= require greensock/plugins/ScrollToPlugin

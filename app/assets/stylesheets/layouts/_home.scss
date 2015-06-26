@@ -687,3 +687,20 @@ footer {
     position: static;
   }
 }
+
+.home__page {
+  .flex-video {
+    margin-bottom: 0;
+  }
+
+  .reveal-modal {
+    background: transparent;
+    border: 0;
+    padding: 0;
+
+    .close-reveal-modal {
+      right: -1.5rem;
+      top: -2.5rem;
+    }
+  }
+}

@@ -1,5 +1,4 @@
 section.hero__section
-  / TODO: move this to a shared partial
   .sticky
     nav.top-bar.at-the-top[data-topbar role='navigation']
       ul.title-area
@@ -23,10 +22,9 @@ section.hero__section
       .call__to__action__buttons.wow.zoomIn
         a.button.large.radius.invitation__link>[href='#quero-usar-o-Dunno']
           | Quero usar o Dunno
-        /
-          a.button.large.radius.transparent
-            i.icon.icon-play-circle>
-            | Assista ao vídeo
+        a.button.large.radius.transparent[data-reveal-id='watch__dunno__video' href='#']
+          i.icon.icon-play-circle>
+          | Assista ao vídeo
 
 section.texture__background__section.features__section
   ruby:
@@ -85,8 +83,7 @@ ruby:
         - slide[:content].each do |content|
           p
             = content
-      .slide__image
-        / .wow.fadeInUp
+      .slide__image.wow.fadeInRight
         = image_tag "site/section-slide-#{i}.png", id: "slide__image__#{i}"
 
 section.testimonials__section
@@ -137,17 +134,31 @@ section.testimonials__section
               = testimonial[:name]
             = testimonial[:from]
 
-/
-  section.video__section
-    .row
-      h2
-        | AUTONOMIA E SEGURANÇA
-      p
-        | O principal objetivo do Dunno é auxiliar os professores a melhorar a produtividade em aula e a interação com seus alunos.
-      button.button.transparent
-        i.icon.icon-play-circle
-        span
-          | Assista ao vídeo
+section.video__section
+  .row
+    h2
+      | AUTONOMIA E SEGURANÇA
+    p
+      | O principal objetivo do Dunno é auxiliar os professores a melhorar a produtividade em aula e a interação com seus alunos.
+    button.button.transparent[data-reveal-id='watch__dunno__video']
+      i.icon.icon-play-circle
+      span
+        | Assista ao vídeo
+    #watch__dunno__video.reveal-modal.xlarge[
+      aria-hidden="true" role="dialog"
+      aria-labelledby="videoModalTitle"
+      data-reveal]
+      .flex-video.widescreen.vimeo
+        iframe[
+          allowfullscreen
+          frameborder="0"
+          height="281"
+          mozallowfullscreen
+          src="https://player.vimeo.com/video/107469289"
+          webkitallowfullscreen
+          width="500"]
+      a.close-reveal-modal[aria-label="Close"]
+        | ×
 
 section.invitation__section
   a#quero-usar-o-Dunno
