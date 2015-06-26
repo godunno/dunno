@@ -400,14 +400,6 @@ section {
     }
   }
 
-  &.testimonials__section {
-    padding: 8em 0;
-
-    @media #{$small-only} {
-      padding: 2rem 0;
-    }
-  }
-
   &.slide__section {
     overflow: hidden;
 
@@ -435,8 +427,12 @@ section {
 
   &.testimonials__section {
     background-color: $white;
-    padding: 4em 0;
+    padding: 8em 0;
     text-align: center;
+
+    @media #{$small-only} {
+      padding: 2rem 0;
+    }
 
     .testimonials__trusted__by {
       margin: 0 3rem 6.25rem;
