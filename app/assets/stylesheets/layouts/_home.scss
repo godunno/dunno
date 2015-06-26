@@ -571,6 +571,10 @@ section {
       max-width: 24rem;
       padding: 1rem;
       width: 100%;
+
+      &:focus {
+        border-color: $dunno-dark-color;
+      }
     }
 
     .button {

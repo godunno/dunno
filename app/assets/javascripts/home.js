@@ -33,11 +33,11 @@ $(function () {
 
   wow = new WOW(
     {
-      boxClass:     'wow',      // default
-      animateClass: 'animated', // default
-      offset:       300,
-      mobile:       true,       // default
-      live:         true        // default
+      boxClass: 'wow',
+      animateClass: 'animated',
+      offset: 300,
+      mobile: true,
+      live: true
     }
   )
   wow.init();
