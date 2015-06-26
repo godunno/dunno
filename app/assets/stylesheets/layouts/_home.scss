@@ -400,7 +400,6 @@ section {
     }
   }
 
-  &.slide__section,
   &.testimonials__section {
     padding: 8em 0;
 
@@ -410,7 +409,6 @@ section {
   }
 
   &.slide__section {
-    min-height: 100vh;
     overflow: hidden;
 
     @media #{$small-only} {
@@ -420,6 +418,18 @@ section {
     h4 {
       font-size: 2.75em;
       font-weight: $font-weight-light;
+    }
+
+    &.slide__section__1 {
+      padding: 1rem 0;
+    }
+
+    &.slide__section__3 {
+      padding: 2rem 0;
+    }
+
+    &.slide__section__4 {
+      padding: 7.5rem 0 6.25rem;
     }
   }
 
@@ -647,10 +657,6 @@ footer {
 }
 
 .slide {
-  margin-bottom: 6rem;
-  min-height: 50vh;
-  position: relative;
-
   @media #{$small-only} {
     margin: 3rem 0;
     min-height: auto;
@@ -661,7 +667,7 @@ footer {
   float: left;
   margin-top: 7rem;
   padding: 0 5rem;
-  width: 50vw;
+  width: 40vw;
 
   @media #{$small-only} {
     float: none;
@@ -673,10 +679,9 @@ footer {
 }
 
 .slide__image {
-  margin-left: 50vw;
+  margin-left: 40vw;
   overflow: hidden;
-  position: absolute;
-  right: 0;
+  padding: 2rem 0;
 
   img {
     margin-left: 2rem;

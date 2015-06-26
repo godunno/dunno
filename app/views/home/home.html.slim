@@ -75,7 +75,7 @@ ruby:
 
 - @slides.each_with_index do |slide, i|
   - i = i + 1
-  section.slide__section[class="#{i % 2 == 0 ? 'green__background__section' : 'white__background__section'}"]
+  section.slide__section[class="slide__section__#{i} #{i % 2 == 0 ? 'green__background__section' : 'white__background__section'}"]
     .slide[class="slide__#{i}"]
       .slide__content.wow.fadeIn
         h4
