@@ -1,12 +1,12 @@
 DunnoApp = angular.module('DunnoApp')
 
-MediasIndexCtrl = ($scope, searchResult, MediaSearcher) ->
+MediasIndexCtrl = ($scope, searchResult, MediaSearcher, Utils) ->
   MediaSearcher.extend($scope)
 
   $scope.medias = searchResult.medias
   $scope.next_page = searchResult.next_page
 
-  $scope.showTutorial = -> !$scope.medias || ($scope.medias.length == 0 && $scope.media_search.q.$untouched)
+  $scope.showTutorial = -> !$scope.medias || (noMedias() && $scope.media_search.q.$untouched)
 
   # TODO: get the count from the server
   $scope.countType = (list, type)->
@@ -24,9 +24,12 @@ MediasIndexCtrl = ($scope, searchResult, MediaSearcher) ->
   $scope.removeMedia = (media)->
     if confirm("Deseja remover este anexo? Ele também será removida dos diários. Esta operação não poderá ser desfeita.")
       media.remove().then ->
-        last = $scope.medias.length == 1
-        page = if last then $scope.previous_page else $scope.current_page
-        $scope.fetch(page: page)
+        Utils.remove $scope.medias, media
+        $scope.fetch() if noMedias()
 
-MediasIndexCtrl.$inject = ['$scope', 'searchResult', 'MediaSearcher']
+  noMedias = ->
+    $scope.medias.length == 0
+
+
+MediasIndexCtrl.$inject = ['$scope', 'searchResult', 'MediaSearcher', 'Utils']
 DunnoApp.controller 'MediasIndexCtrl', MediasIndexCtrl
