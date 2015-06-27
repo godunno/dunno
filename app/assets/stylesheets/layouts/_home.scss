@@ -721,6 +721,11 @@ footer {
     border: 0;
     padding: 0;
 
+    &:focus {
+      opacity: .75;
+      outline: none;
+    }
+
     .close-reveal-modal {
       right: -1.5rem;
       top: -2.5rem;
