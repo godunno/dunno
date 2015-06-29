@@ -530,11 +530,11 @@ section {
   &.invitation__section {
     background-color: $white;
     padding: 4em 0;
+    text-align: center;
 
     .row {
       @media #{$small-only} {
         padding: 0 1rem;
-        text-align: center;
       }
     }
 
@@ -591,8 +591,14 @@ section {
     text-transform: uppercase;
     width: 17rem;
   }
-}
 
+
+  &.video__section,
+  &.invitation__section,
+  &.testimonials__section {
+    position: relative;
+  }
+}
 
 .call__to__action__buttons {
   padding-bottom: 17rem;
@@ -624,8 +630,10 @@ section {
 
 
 footer {
+  background-color: $background-light-grey-color;
   color: $light-grey-color;
   padding: 2em 0;
+  position: relative;
 
   a {
     margin: 0 1rem;
@@ -656,6 +664,8 @@ footer {
 }
 
 .slide {
+  min-height: 100vh;
+
   @media #{$small-only} {
     min-height: auto;
   }
@@ -663,8 +673,7 @@ footer {
 
 .slide__content {
   float: left;
-  margin: 35vh 0;
-  padding: 0 5rem;
+  padding: 10rem 5rem;
   width: 40vw;
 
   @media #{$small-only} {
@@ -677,8 +686,7 @@ footer {
 }
 
 .slide__image {
-  margin-bottom: 25vh;
-  margin-left: 40vw;
+  margin: 10rem 0 0 40vw;
   overflow: hidden;
   padding: 2rem 0;
   text-align: right;

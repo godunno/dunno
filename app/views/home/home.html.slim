@@ -18,7 +18,7 @@ section.hero__section
       h2.hero__title.wow.fadeInDown
         | DENTRO E FORA DA SALA DE AULA
       p.wow.fadeInDown
-        | Um aplicativo que vai auxiliar a gestão das aulas e estimular a comunicação e o engajamento entre professores e estudantes.
+        | Um aplicativo que auxilia a organização das aulas e estimula a comunicação e o engajamento entre professores e alunos.
       .call__to__action__buttons.wow.zoomIn
         a.button.large.radius.invitation__link>[href='#quero-usar-o-Dunno']
           | Quero usar o Dunno
@@ -61,8 +61,8 @@ ruby:
     {
       title: 'Notifique seus estudantes.',
       content: [
-        'Não vai ter aula, tem um material novo importante ou você só quer relemberar seus <b>estudantes</b> do trabalho que é pra semana que vem?',
-        'Envie uma mensagem para seus <b>estudantes</b> através do Dunno. Eles escolhem se recebem por SMS, e-mail ou ambos.'
+        'Tem um novo material importante, não terá uma aula ou você só quer relembrar seus alunos do trabalho que é para a semana que vem?',
+        'Envie uma mensagem para os estudantes através do Dunno, e eles escolhem se receberão por SMS, e-mail ou ambos.'
       ]
     },{
       title: 'Seu diário, suas escolhas.',
@@ -79,7 +79,7 @@ ruby:
     },{
       title: 'Organizado e simples.',
       content: [
-        'Não importa se você dá aula em mais de uma turma ou mais de um colégio. Suas aulas e seus materiais estão um único lugar.'
+        'Não importa se você dá aulas em mais de uma turma ou instituição: suas aulas e seus conteúdos estão em um único lugar!'
       ]
     }
   ]
@@ -99,35 +99,20 @@ ruby:
 
 - content_for :extra_scripts
   javascript:
-    var controller = new ScrollMagic.Controller();
     $(function () {
-      var scene_one = new ScrollMagic.Scene({
-        triggerElement: '#slide__1',
-        duration: 200
-      })
-        .setPin('#slide__image__1')
+      var controller = new ScrollMagic.Controller({
+        globalSceneOptions: {
+          triggerHook: 'onLeave'
+        }
+      });
+      var slides = document.querySelectorAll('section.slide__section');
+      for (var i=0; i<slides.length; i++) {
+        new ScrollMagic.Scene({
+          triggerElement: slides[i]
+        })
+        .setPin(slides[i])
         .addTo(controller);
-
-      var scene_two = new ScrollMagic.Scene({
-        triggerElement: '#slide__2',
-        duration: 200
-      })
-        .setPin('#slide__image__2')
-        .addTo(controller);
-
-      var scene_three = new ScrollMagic.Scene({
-        triggerElement: '#slide__3',
-        duration: 200
-      })
-        .setPin('#slide__image__3')
-        .addTo(controller);
-
-      var scene_four = new ScrollMagic.Scene({
-        triggerElement: '#slide__4',
-        duration: 200
-      })
-        .setPin('#slide__image__4')
-        .addTo(controller);
+      }
     });
 
 section.testimonials__section
@@ -210,7 +195,7 @@ section.invitation__section
     h2
       | Em breve também para mais alunos e professores!
     p
-      | Hoje o Dunno está em fase Beta, estando disponível para um grupo de professores da PUC Rio e seus alunos. Se você estiver interessado, deixe seu email e você será avisado para logo poder utilizar o Dunno.
+      | Hoje o Dunno está em fase Beta, disponível apenas para um grupo de professores da PUC-Rio e seus alunos. Se você está interessado, deixe seu e-mail para, em breve, avisarmos que o Dunno está disponível para você também.
     form action='http://dunno2.createsend.com/t/t/s/kthduy/' method='post'
       input.radius#invitation__email[placeholder='Deixe seu email' name='cm-kthduy-kthduy' type='email']
       button.button.radius[type='submit']
