@@ -203,9 +203,9 @@ section {
           top: -2rem;
 
           @media #{$small-only} {
-            left: 3rem;
-            top: -12rem;
-            width: 80%;
+            left: 0;
+            top: -10rem;
+            width: 60%;
           }
         }
       }
@@ -221,9 +221,9 @@ section {
           top: -2rem;
 
           @media #{$small-only} {
-            left: 3rem;
-            top: -12rem;
-            width: 80%;
+            left: 0;
+            top: -10rem;
+            width: 60%;
           }
         }
       }
@@ -239,9 +239,9 @@ section {
           top: 3rem;
 
           @media #{$small-only} {
-            left: 3rem;
-            top: -12rem;
-            width: 80%;
+            left: 7rem;
+            top: -1rem;
+            width: 60%;
           }
         }
       }
@@ -257,9 +257,9 @@ section {
           top: -4rem;
 
           @media #{$small-only} {
-            left: 3rem;
-            top: -12rem;
-            width: 80%;
+            left: 8rem;
+            top: -9rem;
+            width: 60%;
           }
         }
       }
@@ -412,22 +412,10 @@ section {
       font-weight: $font-weight-light;
     }
 
-    &.slide__section__1 {
-      padding: 1rem 0;
-    }
-
     &.slide__section__2 {
       .slide__content {
         margin-top: 14rem;
       }
-    }
-
-    &.slide__section__3 {
-      padding: 2rem 0;
-    }
-
-    &.slide__section__4 {
-      padding: 7.5rem 0 6.25rem;
     }
   }
 
@@ -675,7 +663,6 @@ footer {
 
 .slide {
   @media #{$small-only} {
-    margin: 3rem 0;
     min-height: auto;
   }
 }
@@ -688,7 +675,7 @@ footer {
 
   @media #{$small-only} {
     float: none;
-    margin: 0 1rem;
+    margin: 7rem 1rem 0;
     padding: 0 2rem;
     text-align: center;
     width: auto;
@@ -701,13 +688,18 @@ footer {
   padding: 2rem 0;
   text-align: right;
 
-  img {
-    margin-left: 2rem;
-  }
-
   @media #{$small-only} {
     margin: 0;
+    padding: 0;
     position: static;
+  }
+
+  img {
+    margin-left: 2rem;
+
+    @media #{$small-only} {
+      margin: 0 0 -5rem;
+    }
   }
 }
 
