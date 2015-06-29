@@ -87,15 +87,48 @@ ruby:
 - @slides.each_with_index do |slide, i|
   - i = i + 1
   section.slide__section[id="slide__section__#{i}" class="slide__section__#{i} #{i % 2 == 0 ? 'green__background__section' : 'white__background__section'}"]
-    .slide[class="slide__#{i}"]
+    .slide[id="slide__#{i}" class="slide__#{i}"]
       .slide__content.wow.fadeIn
         h4
           = slide[:title]
         - slide[:content].each do |content|
           p
             == content
-      .slide__image.wow.fadeInRight
-        = image_tag "site/section-slide-#{i}.png", id: "slide__image__#{i}"
+      .slide__image.wow.fadeInUp[id="slide__image__#{i}"]
+        = image_tag "site/section-slide-#{i}.png"
+
+- content_for :extra_scripts
+  javascript:
+    var controller = new ScrollMagic.Controller();
+    $(function () {
+      var scene_one = new ScrollMagic.Scene({
+        triggerElement: '#slide__1',
+        duration: 200
+      })
+        .setPin('#slide__image__1')
+        .addTo(controller);
+
+      var scene_two = new ScrollMagic.Scene({
+        triggerElement: '#slide__2',
+        duration: 200
+      })
+        .setPin('#slide__image__2')
+        .addTo(controller);
+
+      var scene_three = new ScrollMagic.Scene({
+        triggerElement: '#slide__3',
+        duration: 200
+      })
+        .setPin('#slide__image__3')
+        .addTo(controller);
+
+      var scene_four = new ScrollMagic.Scene({
+        triggerElement: '#slide__4',
+        duration: 200
+      })
+        .setPin('#slide__image__4')
+        .addTo(controller);
+    });
 
 section.testimonials__section
   .row

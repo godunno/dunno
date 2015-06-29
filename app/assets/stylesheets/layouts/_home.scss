@@ -411,12 +411,6 @@ section {
       font-size: 2.75em;
       font-weight: $font-weight-light;
     }
-
-    &.slide__section__2 {
-      .slide__content {
-        margin-top: 14rem;
-      }
-    }
   }
 
   &.testimonials__section {
@@ -669,7 +663,7 @@ footer {
 
 .slide__content {
   float: left;
-  margin-top: 7rem;
+  margin: 35vh 0;
   padding: 0 5rem;
   width: 40vw;
 
@@ -683,6 +677,7 @@ footer {
 }
 
 .slide__image {
+  margin-bottom: 25vh;
   margin-left: 40vw;
   overflow: hidden;
   padding: 2rem 0;
