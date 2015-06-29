@@ -30,16 +30,16 @@ section.texture__background__section.features__section
   ruby:
     @features = [
       {
-        description: 'Tenha uma visão geral das suas aulas.',
+        description: 'Envie lembretes por SMS e e-mail.',
         icon: 'icon-buzz'
       },{
-        description: 'Envie lembretes. Seus estudantes escolhem se por SMS, e-mail ou ambos.',
+        description: 'Tenha uma visão geral das suas aulas.',
         icon: 'icon-task-list'
       },{
-        description: 'Compartilhe o material da sua aula de forma organizada com seus estudantes.',
+        description: 'Compartilhe facilmente seus arquivos.',
         icon: 'icon-calendar'
       },{
-        description: 'Seus conteúdos e tarefas em um só lugar.',
+        description: 'Seus conteúdos organizados.',
         icon: 'icon-catalog'
       }
     ]
@@ -60,29 +60,40 @@ ruby:
   @slides = [
     {
       title: 'Notifique seus estudantes.',
-      content: ['Não vai ter aula, tem um material novo importante ou você só quer relemberar seus estudantes do trabalho que é pra semana que vem?', 'Envie uma mensagem para seus estudantes através do Dunno. Eles escolhem se recebem por SMS, e-mail ou ambos.']
+      content: [
+        'Não vai ter aula, tem um material novo importante ou você só quer relemberar seus <b>estudantes</b> do trabalho que é pra semana que vem?',
+        'Envie uma mensagem para seus <b>estudantes</b> através do Dunno. Eles escolhem se recebem por SMS, e-mail ou ambos.'
+      ]
     },{
       title: 'Seu diário, suas escolhas.',
-      content: ['O diário de cada aula tem o conteúdo que você envia especificamente para aquela aula.', 'Tem uma prova surpresa ou um lembrete só pra você? Marque o conteúdo como privado e seus estudantes não terão acesso.', 'Você também decide quando os estudantes vão ver a aula que você preparou.']
+      content: [
+        'O diário de cada aula tem o conteúdo que você envia especificamente para aquela aula.',
+        'Tem uma prova surpresa ou um lembrete só pra você? Marque o conteúdo como privado e seus estudantes não terão acesso.', 'Você também decide quando os estudantes vão ver a aula que você preparou.'
+      ]
     },{
       title: 'Os materiais da sua aula facilmente acessíveis.',
-      content: ['Precisa enviar todo o material já dado na sua aula para alguém que foi transferido?' , 'Seus arquivos e links estão organizados e são de fácil acesso tanto para você quanto para os seus estudantes.']
+      content: [
+        'Precisa enviar todo o material já dado na sua aula para alguém que foi transferido?',
+        'Seus arquivos e links estão organizados e são de fácil acesso tanto para você quanto para os seus estudantes.'
+      ]
     },{
       title: 'Organizado e simples.',
-      content: ['Não importa se você dá aula em mais de uma turma ou mais de um colégio. Suas aulas e seus materiais estão um único lugar.']
+      content: [
+        'Não importa se você dá aula em mais de uma turma ou mais de um colégio. Suas aulas e seus materiais estão um único lugar.'
+      ]
     }
   ]
 
 - @slides.each_with_index do |slide, i|
   - i = i + 1
-  section.slide__section[class="slide__section__#{i} #{i % 2 == 0 ? 'green__background__section' : 'white__background__section'}"]
+  section.slide__section[id="slide__section__#{i}" class="slide__section__#{i} #{i % 2 == 0 ? 'green__background__section' : 'white__background__section'}"]
     .slide[class="slide__#{i}"]
       .slide__content.wow.fadeIn
         h4
           = slide[:title]
         - slide[:content].each do |content|
           p
-            = content
+            == content
       .slide__image.wow.fadeInRight
         = image_tag "site/section-slide-#{i}.png", id: "slide__image__#{i}"
 
@@ -99,7 +110,7 @@ section.testimonials__section
         cite
           = image_tag 'site/testimonials-picture-1.jpg'
           span
-            | Helena "Ximena" FernándezA
+            | Helena "Ximena" Fernández
           | Professora de Ensino Fundamental na Escola Mundial
         q
           | Consegui com o Dunno tudo o que eu queria: os alunos muito mais atentos em sala de aula e participando em todos os momentos!
@@ -109,7 +120,7 @@ section.testimonials__section
         {
           name: 'Maria Joaquina Villaseñor',
           from: 'Aluna do Ensino Fundamental na Escola Mundial',
-          quote: 'Estudar ficou muito mais fácil com o Dunno. Uso em aula e em casa para acompanahr as novidades que a professora compartilha.',
+          quote: 'Estudar ficou muito mais fácil com o Dunno. Uso em aula e em casa para acompanhar as novidades que a professora compartilha.',
           photo: 'site/testimonials-picture-2.jpg'
         },{
           name: 'Godinez',

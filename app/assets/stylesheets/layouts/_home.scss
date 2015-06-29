@@ -293,6 +293,8 @@ section {
     .feature {
       color: $dunno-dark-color;
       display: block;
+      margin: 0 auto;
+      max-width: 8rem;
       opacity: .3;
       text-align: center;
 
@@ -304,27 +306,23 @@ section {
         position: absolute;
 
         &.feature__1 {
-          left: -5rem;
-          max-width: 9rem;
+          left: -2rem;
           top: -16rem;
         }
 
         &.feature__2 {
-          left: -7rem;
-          max-width: 14rem;
+          left: -3rem;
           top: -8rem;
         }
 
         &.feature__3 {
-          left: 18rem;
+          left: 22rem;
           top: -9rem;
-          width: 14rem;
         }
 
         &.feature__4 {
           left: 9rem;
           top: -24rem;
-          width: 7rem;
         }
 
         .pointing__arrow {
@@ -380,7 +378,7 @@ section {
     .pointing__arrow__2 {
       background-image: asset-url('site/poiting-arrow-2.png');
       height: 7rem;
-      left: 7rem;
+      left: 4rem;
       top: -8rem;
       width: 3.6875rem;
     }
@@ -388,7 +386,7 @@ section {
     .pointing__arrow__3 {
       background-image: asset-url('site/poiting-arrow-3.png');
       height: 5.375rem;
-      left: -6rem;
+      left: -10rem;
       top: -3rem;
       width: 10.1875rem;
     }
@@ -416,6 +414,12 @@ section {
 
     &.slide__section__1 {
       padding: 1rem 0;
+    }
+
+    &.slide__section__2 {
+      .slide__content {
+        margin-top: 14rem;
+      }
     }
 
     &.slide__section__3 {
@@ -709,6 +713,7 @@ footer {
 
 .home__page {
   .flex-video {
+    background-color: $black;
     margin-bottom: 0;
   }
 
