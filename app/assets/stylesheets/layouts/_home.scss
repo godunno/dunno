@@ -240,7 +240,7 @@ section {
 
           @media #{$small-only} {
             left: 7rem;
-            top: -1rem;
+            top: -7rem;
             width: 60%;
           }
         }
@@ -405,11 +405,6 @@ section {
 
     @media #{$small-only} {
       min-height: 0;
-    }
-
-    h4 {
-      font-size: 2.75em;
-      font-weight: $font-weight-light;
     }
   }
 
@@ -664,6 +659,7 @@ footer {
 }
 
 .slide {
+  max-height: 100vh;
   min-height: 100vh;
 
   @media #{$small-only} {
@@ -673,26 +669,35 @@ footer {
 
 .slide__content {
   float: left;
-  padding: 10rem 5rem;
+  padding: 12vw 5rem;
   width: 40vw;
+
+  h4 {
+    font-size: 2.75em;
+    font-weight: $font-weight-light;
+
+    @media #{$small-only} {
+      font-size: 2rem;
+    }
+  }
 
   @media #{$small-only} {
     float: none;
-    margin: 7rem 1rem 0;
-    padding: 0 2rem;
+    margin: 5rem 1rem 0;
+    padding: 0;
     text-align: center;
     width: auto;
   }
 }
 
 .slide__image {
-  margin: 10rem 0 0 40vw;
+  margin: 12vw 0 0 40vw;
   overflow: hidden;
   padding: 2rem 0;
   text-align: right;
 
   @media #{$small-only} {
-    margin: 0;
+    margin: 0 0 0 4rem;
     padding: 0;
     position: static;
   }
@@ -701,7 +706,7 @@ footer {
     margin-left: 2rem;
 
     @media #{$small-only} {
-      margin: 0 0 -5rem;
+      margin: 0;
     }
   }
 }
