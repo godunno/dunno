@@ -28,22 +28,6 @@ section.hero__section
             | Assista ao vídeo
 
 section.texture__background__section.features__section
-  ruby:
-    @features = [
-      {
-        description: 'Envie lembretes por SMS e e-mail.',
-        icon: 'icon-buzz'
-      },{
-        description: 'Tenha uma visão geral das suas aulas.',
-        icon: 'icon-task-list'
-      },{
-        description: 'Compartilhe facilmente seus arquivos.',
-        icon: 'icon-calendar'
-      },{
-        description: 'Seus conteúdos organizados.',
-        icon: 'icon-catalog'
-      }
-    ]
   .row
     #features__screenshot.features__screenshot.showing__feature__1
       = image_tag 'site/section-features-desktop.png', class: 'feature__screenshot'
@@ -56,35 +40,6 @@ section.texture__background__section.features__section
             i.icon[class="#{feature[:icon]}"]
             span.feature__description= feature[:description]
             span.pointing__arrow[class="pointing__arrow__#{i}"]
-
-ruby:
-  @slides = [
-    {
-      title: 'Notifique seus estudantes.',
-      content: [
-        'Tem um novo material importante, não terá uma aula ou você só quer relembrar seus alunos do trabalho que é para a semana que vem?',
-        'Envie uma mensagem para os estudantes através do Dunno, e eles escolhem se receberão por SMS, e-mail ou ambos.'
-      ]
-    },{
-      title: 'Seu diário, suas escolhas.',
-      content: [
-        'O diário de cada aula tem o conteúdo que você envia especificamente para aquela aula.',
-        'Tem uma prova surpresa ou um lembrete só pra você? Marque o conteúdo como privado e seus estudantes não terão acesso.',
-        'Você também decide quando os estudantes poderão acessar a aula que você preparou.'
-      ]
-    },{
-      title: 'Os materiais da sua aula facilmente acessíveis.',
-      content: [
-        'Precisa enviar todo o material já dado na sua aula para alguém que foi transferido?',
-        'Seus arquivos e links estão organizados e são de fácil acesso tanto para você quanto para os seus estudantes.'
-      ]
-    },{
-      title: 'Organizado e simples.',
-      content: [
-        'Não importa se você dá aulas em mais de uma turma ou instituição: suas aulas e seus conteúdos estão em um único lugar!'
-      ]
-    }
-  ]
 
 - @slides.each_with_index do |slide, i|
   - i = i + 1
@@ -100,24 +55,6 @@ ruby:
             == content
       .slide__image.wow.fadeInUp[id="slide__image__#{i}"]
         = image_tag "site/section-slide-#{i}.png"
-
-- content_for :extra_scripts
-  javascript:
-    $(function () {
-      var controller = new ScrollMagic.Controller({
-        globalSceneOptions: {
-          triggerHook: 'onLeave'
-        }
-      });
-      var slides = document.querySelectorAll('section.slide__section');
-      for (var i=0; i<slides.length; i++) {
-        new ScrollMagic.Scene({
-          triggerElement: slides[i]
-        })
-        .setPin(slides[i])
-        .addTo(controller);
-      }
-    });
 
 /
   section.testimonials__section
@@ -138,25 +75,6 @@ ruby:
           q
             | Consegui com o Dunno tudo o que eu queria: os alunos muito mais atentos em sala de aula e participando em todos os momentos!
     .row
-      ruby:
-        @testimonials = [
-          {
-            name: 'Maria Joaquina Villaseñor',
-            from: 'Aluna do Ensino Fundamental na Escola Mundial',
-            quote: 'Estudar ficou muito mais fácil com o Dunno. Uso em aula e em casa para acompanhar as novidades que a professora compartilha.',
-            photo: 'site/testimonials-picture-2.jpg'
-          },{
-            name: 'Godinez',
-            from: 'Aluno da escola pública do Chaves',
-            quote: 'Melhorei minhas notas e agora não preciso mais jogar a moeda para fazer as provas.',
-            photo: 'site/testimonials-picture-3.jpg'
-          },{
-            name: 'Girafales',
-            from: 'Professor da escola pública do Chaves',
-            quote: 'Por que causa, motivo, razão ou circunstância? Que foi que você disse? Tá Tá Tá Tá Tá Tá! Silêncio!',
-            photo: 'site/testimonials-picture-4.jpg'
-          }
-        ]
       - @testimonials.each do |testimonial|
         .small-12.medium-4.columns
           blockquote.secondary__testimonial

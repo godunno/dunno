@@ -13,7 +13,8 @@ focusField = (element) ->
   return
 
 $ ->
-  $(document).foundation topbar: start_offset: 140
+  $(document).foundation
+    topbar: start_offset: 140
   # TODO: convert to function
   # TODO: add slider behaviour (automatic switching)
   # TODO: add wow animated effect on change
