@@ -22,9 +22,10 @@ section.hero__section
       .call__to__action__buttons.wow.zoomIn
         a.button.large.radius.invitation__link>[href='#quero-usar-o-Dunno']
           | Quero usar o Dunno
-        a.button.large.radius.transparent[data-reveal-id='watch__dunno__video' href='#']
-          i.icon.icon-play-circle>
-          | Assista ao vídeo
+        /
+          a.button.large.radius.transparent[data-reveal-id='watch__dunno__video' href='#']
+            i.icon.icon-play-circle>
+            | Assista ao vídeo
 
 section.texture__background__section.features__section
   ruby:
@@ -118,79 +119,81 @@ ruby:
       }
     });
 
-section.testimonials__section
-  .row
-    h3.section__title
-      | QUEM JÁ ESTÁ UTILIZANDO
-    p
-      = image_tag 'site/logo-pucrio.png', class: 'testimonials__trusted__by'
-      = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
-  .row.primary__testimonial__wrapper
-    .panel.radius
-      blockquote.primary__testimonial
-        cite
-          = image_tag 'site/testimonials-picture-1.jpg'
-          span
-            | Helena "Ximena" Fernández
-          | Professora de Ensino Fundamental na Escola Mundial
-        q
-          | Consegui com o Dunno tudo o que eu queria: os alunos muito mais atentos em sala de aula e participando em todos os momentos!
-  .row
-    ruby:
-      @testimonials = [
-        {
-          name: 'Maria Joaquina Villaseñor',
-          from: 'Aluna do Ensino Fundamental na Escola Mundial',
-          quote: 'Estudar ficou muito mais fácil com o Dunno. Uso em aula e em casa para acompanhar as novidades que a professora compartilha.',
-          photo: 'site/testimonials-picture-2.jpg'
-        },{
-          name: 'Godinez',
-          from: 'Aluno da escola pública do Chaves',
-          quote: 'Melhorei minhas notas e agora não preciso mais jogar a moeda para fazer as provas.',
-          photo: 'site/testimonials-picture-3.jpg'
-        },{
-          name: 'Girafales',
-          from: 'Professor da escola pública do Chaves',
-          quote: 'Por que causa, motivo, razão ou circunstância? Que foi que você disse? Tá Tá Tá Tá Tá Tá! Silêncio!',
-          photo: 'site/testimonials-picture-4.jpg'
-        }
-      ]
-    - @testimonials.each do |testimonial|
-      .small-12.medium-4.columns
-        blockquote.secondary__testimonial
-          q
-            = testimonial[:quote]
+/
+  section.testimonials__section
+    .row
+      h3.section__title
+        | QUEM JÁ ESTÁ UTILIZANDO
+      p
+        = image_tag 'site/logo-pucrio.png', class: 'testimonials__trusted__by'
+        = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
+    .row.primary__testimonial__wrapper
+      .panel.radius
+        blockquote.primary__testimonial
           cite
-            = image_tag testimonial[:photo]
+            = image_tag 'site/testimonials-picture-1.jpg'
             span
-              = testimonial[:name]
-            = testimonial[:from]
+              | Helena "Ximena" Fernández
+            | Professora de Ensino Fundamental na Escola Mundial
+          q
+            | Consegui com o Dunno tudo o que eu queria: os alunos muito mais atentos em sala de aula e participando em todos os momentos!
+    .row
+      ruby:
+        @testimonials = [
+          {
+            name: 'Maria Joaquina Villaseñor',
+            from: 'Aluna do Ensino Fundamental na Escola Mundial',
+            quote: 'Estudar ficou muito mais fácil com o Dunno. Uso em aula e em casa para acompanhar as novidades que a professora compartilha.',
+            photo: 'site/testimonials-picture-2.jpg'
+          },{
+            name: 'Godinez',
+            from: 'Aluno da escola pública do Chaves',
+            quote: 'Melhorei minhas notas e agora não preciso mais jogar a moeda para fazer as provas.',
+            photo: 'site/testimonials-picture-3.jpg'
+          },{
+            name: 'Girafales',
+            from: 'Professor da escola pública do Chaves',
+            quote: 'Por que causa, motivo, razão ou circunstância? Que foi que você disse? Tá Tá Tá Tá Tá Tá! Silêncio!',
+            photo: 'site/testimonials-picture-4.jpg'
+          }
+        ]
+      - @testimonials.each do |testimonial|
+        .small-12.medium-4.columns
+          blockquote.secondary__testimonial
+            q
+              = testimonial[:quote]
+            cite
+              = image_tag testimonial[:photo]
+              span
+                = testimonial[:name]
+              = testimonial[:from]
 
-section.video__section
-  .row
-    h2
-      | AUTONOMIA E SEGURANÇA
-    p
-      | O principal objetivo do Dunno é auxiliar os professores a melhorar a produtividade em aula e a interação com seus alunos.
-    button.button.transparent[data-reveal-id='watch__dunno__video']
-      i.icon.icon-play-circle
-      span
-        | Assista ao vídeo
-    #watch__dunno__video.reveal-modal.xlarge[
-      aria-hidden="true" role="dialog"
-      aria-labelledby="videoModalTitle"
-      data-reveal]
-      .flex-video.widescreen.vimeo
-        iframe[
-          allowfullscreen
-          frameborder="0"
-          height="281"
-          mozallowfullscreen
-          src="https://player.vimeo.com/video/107469289"
-          webkitallowfullscreen
-          width="500"]
-      a.close-reveal-modal[aria-label="Close"]
-        | ×
+/
+  section.video__section
+    .row
+      h2
+        | AUTONOMIA E SEGURANÇA
+      p
+        | O principal objetivo do Dunno é auxiliar os professores a melhorar a produtividade em aula e a interação com seus alunos.
+      button.button.transparent[data-reveal-id='watch__dunno__video']
+        i.icon.icon-play-circle
+        span
+          | Assista ao vídeo
+      #watch__dunno__video.reveal-modal.xlarge[
+        aria-hidden="true" role="dialog"
+        aria-labelledby="videoModalTitle"
+        data-reveal]
+        .flex-video.widescreen.vimeo
+          iframe[
+            allowfullscreen
+            frameborder="0"
+            height="281"
+            mozallowfullscreen
+            src="https://player.vimeo.com/video/107469289"
+            webkitallowfullscreen
+            width="500"]
+        a.close-reveal-modal[aria-label="Close"]
+          | ×
 
 section.invitation__section
   a#quero-usar-o-Dunno
