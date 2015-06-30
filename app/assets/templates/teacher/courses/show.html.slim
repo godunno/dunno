@@ -23,7 +23,7 @@ div ng-include="'#{asset_path('_course_page_header.html')}'"
         .students__title.row.collapse
           strong.students__number.small-6.columns count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
           .small-6.columns
-            a.send-message.expand.button.radius.secondary.tiny< data-reveal-id="send-notification"
+            a.send-message.expand.button.radius.tiny< data-reveal-id="send-notification"
               i.icon.icon-buzz>
               span
                 | Enviar notificação
@@ -96,7 +96,7 @@ div ng-include="'#{asset_path('_course_page_header.html')}'"
               | Caracteres restantes: {{limit - notification.message.length}}
           .small-12.medium-6.columns
             .actions.right
-              input.button.secondary.small.radius[
+              input.button.small.radius[
                 type="submit"
                 ng-disabled="notification_form.$invalid || !isReady()"
                 value="{{sendButtonText()}}"]

@@ -19,7 +19,7 @@ gem 'tod',                        '1.5.0'
 gem 'recurrence',                 '1.3.0'
 gem 'virtus',                     '1.0.4'
 gem 'twilio-ruby',                '3.14.4'
-gem 'foundation-rails',           '5.5.1.0'
+gem 'foundation-rails',           '5.5.2.1'
 gem 'roboto',                     '0.2.0'
 gem 'newrelic_rpm',               '3.9.9.275'
 gem 'link_thumbnailer',           '2.5.2'
@@ -64,6 +64,9 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-foundation', '0.5.1'
   gem 'rails-assets-angular-busy', '4.1.2'
   gem 'rails-assets-lunks--angulartics', '0.18.0'
+  gem 'rails-assets-wow', '1.1.2'
+  gem 'rails-assets-scrollmagic', '2.0.5'
+  gem 'rails-assets-greensock', '1.17.0'
 end
 
 group :production, :staging do

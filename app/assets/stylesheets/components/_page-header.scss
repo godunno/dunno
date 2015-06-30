@@ -21,6 +21,12 @@
     height: inherit;
   }
 
+  h1,
+  h2 {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
   h2 {
     margin: 0;
     padding: 0;
@@ -33,6 +39,10 @@
   .button {
     margin: 0;
     white-space: nowrap;
+
+    &.transparent {
+      color: $dunno-dark-color;
+    }
   }
 
   .event-classroom {

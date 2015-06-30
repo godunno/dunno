@@ -1,0 +1,140 @@
+section.hero__section
+  .sticky
+    nav.top-bar.at-the-top[data-topbar role='navigation']
+      ul.title-area
+        li.name
+          h1
+            a href='#'
+              = image_tag 'site/logo.png', class: 'logo'
+      section.top-bar-section
+        ul.right
+          li.has-form
+            span
+              = link_to new_user_session_path, class: 'button transparent outline radius tiny' do
+                strong
+                  | ACESSAR MEU DUNNO
+  .row
+    .hero
+      h2.hero__title.wow.fadeInDown
+        | DENTRO E FORA DA SALA DE AULA
+      p.wow.fadeInDown
+        | Um aplicativo que auxilia a organização das aulas e estimula a comunicação e o engajamento entre professores e alunos.
+      .call__to__action__buttons.wow.zoomIn
+        a.button.large.radius.invitation__link>[href='#quero-usar-o-Dunno']
+          | Quero usar o Dunno
+        /
+          a.button.large.radius.transparent[data-reveal-id='watch__dunno__video' href='#']
+            i.icon.icon-play-circle>
+            | Assista ao vídeo
+
+section.texture__background__section.features__section
+  .row
+    #features__screenshot.features__screenshot.showing__feature__1
+      = image_tag 'site/section-features-desktop.png', class: 'feature__screenshot'
+      span.feature__screenshot__detail.wow.fadeIn
+    ul.features.small-block-grid-4
+      - @features.each_with_index do |feature, i|
+        - i = i + 1
+        li
+          a.feature[class="#{i == 1 ? 'active' : ''} feature__#{i}" data-feature=i href='#']
+            i.icon[class="#{feature[:icon]}"]
+            span.feature__description= feature[:description]
+            span.pointing__arrow[class="pointing__arrow__#{i}"]
+
+- @slides.each_with_index do |slide, i|
+  - i = i + 1
+  section.slide__section[id="slide__section__#{i}" class="slide__section__#{i} #{i % 2 == 0 ? 'green__background__section' : 'white__background__section'}"]
+    .slide[id="slide__#{i}" class="slide__#{i}"]
+      / TODO: reduce white space.
+      / TODO: avoid scroll and no movement
+      .slide__content.wow.fadeIn
+        h4
+          = slide[:title]
+        - slide[:content].each do |content|
+          p
+            == content
+      .slide__image.wow.fadeInUp[id="slide__image__#{i}"]
+        = image_tag "site/section-slide-#{i}.png"
+
+/
+  section.testimonials__section
+    .row
+      h3.section__title
+        | QUEM JÁ ESTÁ UTILIZANDO
+      p
+        = image_tag 'site/logo-pucrio.png', class: 'testimonials__trusted__by'
+        = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
+    .row.primary__testimonial__wrapper
+      .panel.radius
+        blockquote.primary__testimonial
+          cite
+            = image_tag 'site/testimonials-picture-1.jpg'
+            span
+              | Helena "Ximena" Fernández
+            | Professora de Ensino Fundamental na Escola Mundial
+          q
+            | Consegui com o Dunno tudo o que eu queria: os alunos muito mais atentos em sala de aula e participando em todos os momentos!
+    .row
+      - @testimonials.each do |testimonial|
+        .small-12.medium-4.columns
+          blockquote.secondary__testimonial
+            q
+              = testimonial[:quote]
+            cite
+              = image_tag testimonial[:photo]
+              span
+                = testimonial[:name]
+              = testimonial[:from]
+
+/
+  section.video__section
+    .row
+      h2
+        | AUTONOMIA E SEGURANÇA
+      p
+        | O principal objetivo do Dunno é auxiliar os professores a melhorar a produtividade em aula e a interação com seus alunos.
+      button.button.transparent[data-reveal-id='watch__dunno__video']
+        i.icon.icon-play-circle
+        span
+          | Assista ao vídeo
+      #watch__dunno__video.reveal-modal.xlarge[
+        aria-hidden="true" role="dialog"
+        aria-labelledby="videoModalTitle"
+        data-reveal]
+        .flex-video.widescreen.vimeo
+          iframe[
+            allowfullscreen
+            frameborder="0"
+            height="281"
+            mozallowfullscreen
+            src="https://player.vimeo.com/video/107469289"
+            webkitallowfullscreen
+            width="500"]
+        a.close-reveal-modal[aria-label="Close"]
+          | ×
+
+section.invitation__section
+  a#quero-usar-o-Dunno
+  .row
+    h2
+      | Em breve também para mais alunos e professores!
+    p
+      | Hoje o Dunno está em fase Beta, disponível apenas para um grupo de professores da PUC-Rio e seus alunos. Se você está interessado, deixe seu e-mail para, em breve, avisarmos que o Dunno está disponível para você também.
+    form action='http://dunno2.createsend.com/t/t/s/kthduy/' method='post'
+      input.radius#invitation__email[placeholder='Deixe seu email' name='cm-kthduy-kthduy' type='email']
+      button.button.radius[type='submit']
+        | QUERO SER AVISADO
+
+footer
+  .row
+    span.copyright>
+      | Dunno #{Time.new.year}
+    | <a target='_blank' href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
+    /
+      - ['Sobre o Dunno', 'Política de Privacidade'].each do |link|
+        a> href='#'
+          = link
+      .social__links.right
+      - [ { slug: 'facebook' }, { slug: 'twitter' } ].each do |social_link|
+        a> href='#'
+          i.icon class="icon-#{social_link[:slug]}"

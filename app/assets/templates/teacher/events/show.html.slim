@@ -2,7 +2,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .small-3.columns
       a.back__button.button.small.transparent ng-href="{{courseLocation(event)}}"
-        i.icon.icon-back-arrow>
+        i.icon.icon-arrow-back>
         span.hide-for-small
           | Voltar
     .small-6.columns
@@ -170,7 +170,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
 
             .type.type__file ng-show="topicType == 'file'" ng-controller="NewFileMediaCtrl"
               form name="fileMediaForm" ng-show="status == 'newMedia'"
-                label.item__button.media__file__button.small.radius.button.secondary[
+                label.item__button.media__file__button.small.radius.button[
                   for="topic-file"]
                   | Fazer upload
                 input#topic-file.file__input[
@@ -272,7 +272,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               form.topic__item__show
                 zf-action-sheet.topic__item__actions close-action-sheet-on-click=true
                   zf-as-button.topic__item__actions__button
-                    | ...
+                    | …
                   zf-as-content position="top"
                     ul.topic__item__actions__list
                       li
@@ -325,7 +325,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
                   a.cancel.button.tiny.transparent.radius ng-click="cancelEditing(topic)"
                     | Cancelar
                   ng-include src="'#{asset_path('topics/topic_edit_personal.html')}'"
-                  a.save__edit__topic__item.radius.button.secondary.tiny[
+                  a.save__edit__topic__item.radius.button.tiny<[
                     ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
                     ng-click="finishEditing(topic)"
                     ng-disabled="topicEditForm.$invalid"]

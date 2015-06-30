@@ -9,7 +9,7 @@
   }
   &.icon-published {
     @extend .icon-circle-small;
-    color: $secondary-color;
+    color: $dunno-green-color;
   }
   &.icon-canceled {
     @extend .icon-circle-small;
@@ -17,7 +17,7 @@
   }
   &.icon-happened {
     @extend .icon-check;
-    color: $secondary-color;
+    color: $dunno-green-color;
   }
   &.icon-file {
     @extend .icon-clips;

@@ -1,0 +1,25 @@
+@import
+  'utils/variables',
+  'utils/mixins',
+  'utils/icons_aliases';
+
+@import
+  'settings', // foundation setup
+  'foundation';
+
+@import
+  'base/reset',
+  'base/typography';
+
+@import
+  'vendors/icons';
+
+@import
+  'layouts/home';
+
+@import
+  'components/buttons';
+
+@import
+  'themes/schemes', // import this last to avoid an !important rule.
+  'themes/theme';
