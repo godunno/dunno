@@ -18,7 +18,12 @@
   'layouts/home';
 
 @import
-  'components/buttons';
+  'components/buttons',
+  'components/site/slideshow',
+  'components/site/slides';
+
+@import
+  'pages/home';
 
 @import
   'themes/schemes', // import this last to avoid an !important rule.

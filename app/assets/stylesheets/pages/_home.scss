@@ -1,0 +1,35 @@
+.home__page {
+  .flex-video {
+    background-color: $black;
+    margin-bottom: 0;
+  }
+
+  .reveal-modal-bg {
+    background: darken($dunno-dark-color, 10%);
+  }
+
+  .reveal-modal {
+    background: transparent;
+    border: 0;
+    padding: 0;
+
+    &:focus {
+      opacity: .75;
+      outline: none;
+    }
+
+    .close-reveal-modal {
+      right: -1.5rem;
+      top: -2.5rem;
+    }
+
+    @media #{$small-only} {
+      margin-top: 6rem;
+
+      .close-reveal-modal {
+        margin-right: -.25em;
+        right: 50%;
+      }
+    }
+  }
+}

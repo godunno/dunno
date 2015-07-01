@@ -30,15 +30,18 @@ section.hero__section
 section.texture__background__section.features__section
   .row
     #features__screenshot.features__screenshot.showing__feature__1
-      = image_tag 'site/section-features-desktop.png', class: 'feature__screenshot'
-      span.feature__screenshot__detail.wow.fadeIn
+      = image_tag 'site/section-features-desktop.png', class: 'feature__desktop'
+      - 1.upto(4) do |i|
+        = image_tag "site/feature-#{i}.png", class: "feature__screenshot feature__screenshot__#{i}"
+        = image_tag "site/feature-#{i}-loupe.png", class: "feature__screenshot__detail feature__screenshot__detail__#{i}"
     ul.features.small-block-grid-4
       - @features.each_with_index do |feature, i|
         - i = i + 1
         li
           a.feature[class="#{i == 1 ? 'active' : ''} feature__#{i}" data-feature=i href='#']
             i.icon[class="#{feature[:icon]}"]
-            span.feature__description= feature[:description]
+            span.feature__description
+              = feature[:description]
             span.pointing__arrow[class="pointing__arrow__#{i}"]
 
 - @slides.each_with_index do |slide, i|
@@ -56,14 +59,14 @@ section.texture__background__section.features__section
       .slide__image.wow.fadeInUp[id="slide__image__#{i}"]
         = image_tag "site/section-slide-#{i}.png"
 
-/
-  section.testimonials__section
-    .row
-      h3.section__title
-        | QUEM JÁ ESTÁ UTILIZANDO
-      p
-        = image_tag 'site/logo-pucrio.png', class: 'testimonials__trusted__by'
-        = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
+section.testimonials__section
+  .row
+    h3.section__title
+      | COM A CONFIANÇA DE
+    p
+      = image_tag 'site/logo-pucrio.png', class: 'testimonials__trusted__by'
+      = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
+  /
     .row.primary__testimonial__wrapper
       .panel.radius
         blockquote.primary__testimonial
