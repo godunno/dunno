@@ -40,20 +40,11 @@ $ ->
   while i < slides.length
     new (ScrollMagic.Scene)(triggerElement: slides[i]).setPin(slides[i]).addTo controller
     i++
-  scene = new (ScrollMagic.Scene)(
-    triggerElement: '#quero-usar-o-Dunno'
-    duration: 200
-    triggerHook: 'onLeave').addTo(controller)
-  controller.scrollTo (newpos) ->
-    TweenMax.to window, 1.5,
-      scrollTo: y: newpos
-      onComplete: focusField('#invitation__email')
-    return
   $(document).on 'click', '.invitation__link', (e) ->
     id = $(this).attr('href')
     if $(id).length > 0
       e.preventDefault()
-      controller.scrollTo id
+      focusField('#invitation__email')
       if window.history and window.history.pushState
         history.pushState '', document.title, id
     return
