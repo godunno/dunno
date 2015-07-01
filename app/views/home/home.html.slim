@@ -31,8 +31,7 @@ section.texture__background__section.features__section
   .row
     #features__screenshot.features__screenshot.showing__feature__1
       = image_tag 'site/section-features-desktop.png', class: 'feature__desktop'
-      - 4.times do |i|
-        - i = i + 1
+      - 1.upto(4) do |i|
         = image_tag "site/feature-#{i}.png", class: "feature__screenshot feature__screenshot__#{i}"
         = image_tag "site/feature-#{i}-loupe.png", class: "feature__screenshot__detail feature__screenshot__detail__#{i}"
     ul.features.small-block-grid-4
