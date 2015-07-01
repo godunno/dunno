@@ -15,12 +15,15 @@
   'vendors/icons';
 
 @import
-  'layouts/home';
+  'layouts/home',
+  'layouts/site/footer';
 
 @import
   'components/buttons',
+  'components/site/slides',
   'components/site/slideshow',
-  'components/site/slides';
+  'components/site/sticky',
+  'components/site/top-bar';
 
 @import
   'pages/home';

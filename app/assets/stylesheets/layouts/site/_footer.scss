@@ -1,0 +1,33 @@
+footer {
+  background-color: $background-light-grey-color;
+  color: $light-grey-color;
+  padding: 2em 0;
+  position: relative;
+
+  a {
+    margin: 0 1rem;
+  }
+
+  .social__links {
+    font-size: 2em;
+    margin-top: -1rem;
+  }
+
+  @media #{$small-only} {
+    text-align: center;
+
+    a {
+      display: block;
+    }
+
+    .social__links {
+      float: none !important; // scss-lint:disable ImportantRule
+      margin-top: 1rem;
+
+      a {
+        display: inline-block;
+        margin: 0 1rem;
+      }
+    }
+  }
+}
