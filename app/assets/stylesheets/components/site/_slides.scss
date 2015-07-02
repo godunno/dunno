@@ -29,7 +29,7 @@
 .slide__content {
   @media #{$small-up} {
     min-width: 100%;
-    padding: 5rem 0;
+    padding: 2rem 0;
   }
 
   @media #{$medium-up} {
@@ -48,8 +48,11 @@
 }
 
 .slide__image {
-  overflow: hidden;
   text-align: right;
+
+  @media #{$medium-up} {
+    overflow: hidden;
+  }
 
   img {
     position: relative;
