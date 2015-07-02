@@ -12,95 +12,20 @@
   }
 }
 
-body {
-  &.f-topbar-fixed {
-    padding-top: 0 !important; // scss-lint:disable ImportantRule
-  }
+.texture__background__section {
+  background: darken($white, 3.5%) asset-url('site/section-teacher-background.png') repeat center center;
 }
 
-.sticky {
-  position: static;
-  top: -4rem;
-
-  &.fixed {
-    position: fixed;
-    top: 0;
-    transition: top .3s ease-in-out;
-  }
-
-  @media #{$medium-up} {
-    &:not(.fixed) {
-      .top-bar {
-        padding: rem-calc(66) rem-calc(44) 0;
-      }
-    }
-  }
+.white__background__section {
+  background: $white;
 }
 
-.top-bar {
-  background-color: transparent;
-  position: absolute;
-  width: 100%;
-  z-index: 1;
+.green__background__section {
+  background: $dunno-green-color;
+  color: $white;
 
-  .title-area {
-    @media #{$small-only} {
-      float: left;
-      max-width: 7.5rem;
-    }
-  }
-
-  .top-bar-section {
-    @media #{$small-only} {
-      float: right;
-    }
-  }
-
-  .has-form {
-    @media #{$small-only} {
-      padding: 0 .5rem 0 0;
-    }
-  }
-
-  .fixed & {
-    background-color: $dunno-dark-color;
-  }
-
-  * {
-    background-color: transparent;
-  }
-
-  .name {
-    h1 {
-      text-align: left;
-
-      a {
-        width: auto;
-
-        @media #{$small-only} {
-          padding: 0 0 0 .5rem;
-        }
-      }
-    }
-  }
-
-  .logo {
-    margin-top: -.5rem;
-    max-height: 1.5rem;
-  }
-
-  .button {
-    &.tiny {
-      font-size: .75rem;
-    }
-
-    &.outline {
-      border-color: transparentize($white, .7);
-      color: $white;
-      height: auto;
-      padding: 1rem;
-      top: .4375rem;
-    }
+  h4 {
+    color: $white;
   }
 }
 
@@ -158,7 +83,7 @@ body {
     padding-top: 12rem;
 
     @media #{$small-only} {
-      font-size: 2.8125em;
+      font-size: 2.25rem;
       padding-top: 6rem;
     }
   }
@@ -170,29 +95,15 @@ body {
     max-width: 41rem;
 
     @media #{$small-only} {
+      font-size: 1rem;
       margin-bottom: 1rem;
     }
   }
 }
 
-.texture__background__section {
-  background: darken($white, 3.5%) asset-url('site/section-teacher-background.png') repeat center center;
-}
-
-.white__background__section {
-  background: $white;
-}
-
-.green__background__section {
-  background: $dunno-green-color;
-  color: $white;
-
-  h4 {
-    color: $white;
-  }
-}
-
 .slide__section {
+  max-height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
 
   @media #{$small-only} {
@@ -383,38 +294,4 @@ body {
 .invitation__section,
 .testimonials__section {
   position: relative;
-}
-
-footer {
-  background-color: $background-light-grey-color;
-  color: $light-grey-color;
-  padding: 2em 0;
-  position: relative;
-
-  a {
-    margin: 0 1rem;
-  }
-
-  .social__links {
-    font-size: 2em;
-    margin-top: -1rem;
-  }
-
-  @media #{$small-only} {
-    text-align: center;
-
-    a {
-      display: block;
-    }
-
-    .social__links {
-      float: none !important; // scss-lint:disable ImportantRule
-      margin-top: 1rem;
-
-      a {
-        display: inline-block;
-        margin: 0 1rem;
-      }
-    }
-  }
 }

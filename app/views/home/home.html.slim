@@ -56,8 +56,8 @@ section.texture__background__section.features__section
         - slide[:content].each do |content|
           p
             == content
-      .slide__image.wow.fadeInUp[id="slide__image__#{i}"]
-        = image_tag "site/section-slide-#{i}.png"
+      .slide__image[id="slide__image__#{i}"]
+        = image_tag "site/section-slide-#{i}.png", class: 'wow bounceInRight'
 
 section.testimonials__section
   .row

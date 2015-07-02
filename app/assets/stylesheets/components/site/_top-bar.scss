@@ -1,0 +1,66 @@
+.top-bar {
+  background-color: transparent;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+
+  .title-area {
+    @media #{$small-only} {
+      float: left;
+      max-width: 7.5rem;
+    }
+  }
+
+  .top-bar-section {
+    @media #{$small-only} {
+      float: right;
+    }
+  }
+
+  .has-form {
+    @media #{$small-only} {
+      padding: 0 .5rem 0 0;
+    }
+  }
+
+  .fixed & {
+    background-color: $dunno-dark-color;
+  }
+
+  * {
+    background-color: transparent;
+  }
+
+  .name {
+    h1 {
+      text-align: left;
+
+      a {
+        width: auto;
+
+        @media #{$small-only} {
+          padding: 0 0 0 .5rem;
+        }
+      }
+    }
+  }
+
+  .logo {
+    margin-top: -.5rem;
+    max-height: 1.5rem;
+  }
+
+  .button {
+    &.tiny {
+      font-size: .75rem;
+    }
+
+    &.outline {
+      border-color: transparentize($white, .7);
+      color: $white;
+      height: auto;
+      padding: 1rem;
+      top: .4375rem;
+    }
+  }
+}
