@@ -9,16 +9,9 @@ body {
   top: -4rem;
 
   &.fixed {
+    position: fixed;
     top: 0;
     transition: top .3s ease-in-out;
-
-    @media #{$small-up} {
-      position: static;
-    }
-
-    @media #{$medium-up} {
-      position: fixed;
-    }
   }
 
   @media #{$medium-up} {
