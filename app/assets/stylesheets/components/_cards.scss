@@ -16,8 +16,12 @@
 
   .card__header {
     .card__title {
-      font-size: 1.5em;
+      font-size: 1.25em;
       line-height: 3rem;
+      overflow: hidden;
+      padding: 1.5rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .card__subtitle {
@@ -33,6 +37,17 @@
   .card__subtitle,
   .card__content {
     font-size: .875em;
+  }
+
+  .card__subtitle {
+    strong,
+    span {
+      display: block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .card__content {
