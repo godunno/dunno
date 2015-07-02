@@ -33,7 +33,7 @@ $ ->
     boxClass: 'wow'
     animateClass: 'animated'
     offset: 450
-    mobile: true
+    mobile: false
     live: true)
   wow.init()
   controller = new (ScrollMagic.Controller)(globalSceneOptions: triggerHook: 'onLeave')
