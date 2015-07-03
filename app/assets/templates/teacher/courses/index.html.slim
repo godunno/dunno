@@ -1,15 +1,16 @@
 ui-view
   header.page-header.title
     .row
-      /
-        a.button.tiny.radius[href="#courses/new"]
-          | Criar nova disciplina
-      .small-12.columns
+      .small-10.small-offset-1.columns
         h1
           | Disciplinas
+      /
+        .small-1.column
+          a.button.round[href="#courses/new"]
+            | +
   .courses__page
     .row
-      ul.courses__list.small-block-grid-1.medium-block-grid-2
+      ul.courses__list.small-block-grid-1.medium-block-grid-3
         li.course__card ng-repeat="course in courses"
           a.has-overlay[
             ng-attr-id="{{ 'course-' + course.uuid }}"
@@ -25,22 +26,15 @@ ui-view
               ng-class="'scheme-' + course.order"]
               h2.card__title
                 | {{course.name}}
-              .card__subtitle.row
-                strong.small-4.columns
-                  | {{course.class_name}}
-                span.small-8.columns.course__institution
-                  | {{course.institution}}
             .card__content.row
-              .small-6.columns.course__period
-                i.icon.icon-calendar>
-                span
-                  | {{course.start_date | date:'dd MMMM'}} - {{course.end_date | date:'dd MMMM'}}
-              .small-6.columns.course__students__count
-                i.icon.icon-users>
-                span[
-                  count="course.students_count"
-                  ng-pluralize=true
-                  when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}"]
-    tutorial.tutorial-1 ng-if="tutorialEnabled(1)" on-close="tutorialClosed(1)"
+              .small-2.columns
+                .course__avatar[style="background-image: url('/assets/placeholder-avatar.jpg');"]
+              span.small-8.columns.course__institution
+                | {{course.institution}}
+              .small-2.columns
+                i.icon.icon-users
+    tutorial.tutorial-1[
+      ng-if="tutorialEnabled(1)"
+      on-close="tutorialClosed(1)"]
       p
         | Comece entrando em uma de suas disciplinas.
