@@ -161,10 +161,12 @@
   .event__status__button {
     background: lighten($light-grey-color, 15%);
     border: 1px solid lighten($light-grey-color, 10%) !important; // scss-lint:disable ImportantRule
-    color: $dunno-dark-color;
+    color: $medium-grey-color;
+    font-weight: $font-weight-bold;
 
     &.event__status__current {
       background: $white;
+      color: $dunno-dark-color;
 
       &.event__status__published {
         i.icon {

@@ -3,8 +3,10 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .small-12.columns
       h2
         | {{event.course.name}}
-      p.translucent.subtitle-head
-        span
-          | {{event.course.institution}} · {{event.course.class_name}}
-        span< ng-if="!!event.course.grade"
-          | · {{event.course.grade}}
+      ul.page__header__subtitle
+        li ng-if="!!course.institution"
+          | {{course.institution}}
+        li ng-if="!!course.class_name"
+          | {{course.class_name}}
+        li ng-if="!!course.grade"
+          | {{course.grade}}
