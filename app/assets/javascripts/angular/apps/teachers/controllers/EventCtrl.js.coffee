@@ -33,10 +33,9 @@ EventCtrl = (
     "#courses/#{event.course.uuid}?month=#{event.start_at}"
 
   $scope.finish = (event)->
-    unless $scope.$emit('dunno.exit').defaultPrevented
-      $scope.save(event).then ->
-        $scope.eventForm.$setPristine()
-        $window.location.href = $scope.courseLocation(event)
+    $scope.save(event).then ->
+      $scope.eventForm.$setPristine()
+      $window.location.href = $scope.courseLocation(event)
 
   $scope.publish = (event)->
     event.status = 'published'
