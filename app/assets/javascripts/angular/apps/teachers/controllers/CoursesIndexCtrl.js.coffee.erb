@@ -1,6 +1,6 @@
 DunnoApp = angular.module('DunnoApp')
 
-CoursesIndexCtrl = ($scope, $routeParams, $location, SessionManager, AssetsPreloader, Utils, courses)->
+CoursesIndexCtrl = ($scope, $location, SessionManager, AssetsPreloader, Utils, courses)->
   $scope.courses = courses
 
   $scope.unregister = (course)->
@@ -17,5 +17,5 @@ CoursesIndexCtrl = ($scope, $routeParams, $location, SessionManager, AssetsPrelo
       <% end %>
     <% end %>
     AssetsPreloader.loadFont('Chalkduster')
-CoursesIndexCtrl.$inject = ['$scope', '$routeParams', '$location', 'SessionManager', 'AssetsPreloader', 'Utils', 'courses']
+CoursesIndexCtrl.$inject = ['$scope', '$location', 'SessionManager', 'AssetsPreloader', 'Utils', 'courses']
 DunnoApp.controller 'CoursesIndexCtrl', CoursesIndexCtrl

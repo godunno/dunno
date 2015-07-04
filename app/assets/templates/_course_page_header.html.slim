@@ -9,5 +9,5 @@ header.page-header.title ng-class="'scheme-' + (course.order % 12)"
         span< ng-if="!!course.grade"
           | · {{course.grade}}
     .small-2.columns
-      a.button.transparent.radius.small.right href="#courses/{{course.uuid}}/edit"
+      a.button.transparent.radius.small.right ui-sref="courses.edit({ id: course.uuid })"
         | Editar
