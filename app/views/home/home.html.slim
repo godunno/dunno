@@ -46,7 +46,10 @@ section.texture__background__section.features__section
 
 - @slides.each_with_index do |slide, i|
   - i = i + 1
-  section.slide__section[id="slide__section__#{i}" class="slide__section__#{i} #{i % 2 == 0 ? 'green__background__section' : 'white__background__section'}"]
+  section.slide__section[
+    id="slide__section__#{i}"
+    class="#{cycle('white__background__section', 'green__background__section')}"
+  ]
     .slide[id="slide__#{i}" class="slide__#{i}"]
       / TODO: reduce white space.
       / TODO: avoid scroll and no movement
