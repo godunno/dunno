@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
 # TODO: Separar controller de show e edit
-CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)->
+CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils, course)->
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
@@ -15,7 +15,7 @@ CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)
     klass
 
   $scope.fetch = (month) ->
-    $scope.$emit('wholePageLoading', Course.get({ uuid: $routeParams.id }, { month: month || $routeParams.month }).then (course)->
+    $scope.$emit('wholePageLoading', Course.get({ uuid: $stateParams.id }, { month: month || $stateParams.month }).then (course)->
       $scope.course = formatToView(course)
       $location.search('month', month)
     )
@@ -38,9 +38,9 @@ CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)
       course.end_date   = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
       course
 
-  $scope.eventPath = (event) ->
+  $scope.goToEvent = (event) ->
     return unless $scope.canAccessEvent(event)
-    "#/events/#{event.uuid}"
+    $state.go('events.show', { id: event.uuid })
 
   $scope.canAccessEvent = (event) ->
     event.status == 'published' || $scope.course.user_role == 'teacher'
@@ -53,7 +53,7 @@ CourseCtrl = ($scope, $location, $routeParams, Course, Utils, DateUtils, course)
       'Esta aula ainda está vazia'
 
 CourseCtrl.$inject = [
-  '$scope', '$location', '$routeParams', 'Course', 'Utils', 'DateUtils', 'course'
+  '$scope', '$location', '$stateParams', '$state', 'Course', 'Utils', 'DateUtils', 'course'
 ]
 DunnoApp.controller 'CourseCtrl', CourseCtrl
 

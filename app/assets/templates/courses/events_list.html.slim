@@ -18,7 +18,7 @@
     | Não há aulas neste mês
   a.dates__date[
     ng-attr-id="{{ 'event-' + event.uuid }}"
-    ng-href="{{eventPath(event)}}"
+    ng-click="goToEvent(event)"
     ng-repeat="event in course.events | orderBy:'start_at'"
     ng-class="eventClass(event)"
     ng-attr-tooltip="{{tooltipMessage(event)}}"

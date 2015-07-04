@@ -2,7 +2,6 @@ DunnoApp = angular.module('DunnoApp')
 
 EventCtrl = (
   $scope,
-  $routeParams,
   $window,
   $q,
   event,
@@ -53,5 +52,5 @@ EventCtrl = (
     event.status = status
     $scope.$emit('wholePageLoading', $scope.save(event))
 
-EventCtrl.$inject = ['$scope', '$routeParams', '$window', '$q', 'event', 'Event', 'Utils', 'DateUtils']
+EventCtrl.$inject = ['$scope', '$window', '$q', 'event', 'Event', 'Utils', 'DateUtils']
 DunnoApp.controller 'EventCtrl', EventCtrl
