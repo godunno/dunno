@@ -39,7 +39,7 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       resolve: { course: CourseResolver }
     )
     .state('courses.show',
-      url: '/:id'
+      url: '/:id?month'
       controller: 'CourseCtrl'
       templateUrl: '<%= asset_path('courses/show.html') %>'
       resolve: { course: CourseResolver }
