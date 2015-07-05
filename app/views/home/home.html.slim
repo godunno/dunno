@@ -15,11 +15,11 @@ section.hero__section
                   | ACESSAR MEU DUNNO
   .row
     .hero
-      h2.hero__title.wow.fadeInDown
+      h2.hero__title
         | DENTRO E FORA DA SALA DE AULA
-      p.wow.fadeInDown
+      p
         | Um aplicativo que auxilia a organização das aulas e estimula a comunicação e o engajamento entre professores e alunos.
-      .call__to__action__buttons.wow.zoomIn
+      .call__to__action__buttons
         a.button.large.radius.invitation__link>[href='#quero-usar-o-Dunno']
           | Quero usar o Dunno
         /
@@ -46,18 +46,22 @@ section.texture__background__section.features__section
 
 - @slides.each_with_index do |slide, i|
   - i = i + 1
-  section.slide__section[id="slide__section__#{i}" class="slide__section__#{i} #{i % 2 == 0 ? 'green__background__section' : 'white__background__section'}"]
-    .slide[id="slide__#{i}" class="slide__#{i}"]
-      / TODO: reduce white space.
-      / TODO: avoid scroll and no movement
-      .slide__content.wow.fadeIn
+  section.slide__section[
+    id="slide__section__#{i}"
+    class="#{cycle('white__background__section', 'green__background__section')}"
+  ]
+    .slide[
+      id="slide__#{i}"
+      class="slide__#{i}"
+    ]
+      .slide__content
         h4
           = slide[:title]
         - slide[:content].each do |content|
           p
             == content
       .slide__image[id="slide__image__#{i}"]
-        = image_tag "site/section-slide-#{i}.png", class: 'wow bounceInRight'
+        = image_tag "site/section-slide-#{i}.png"
 
 section.testimonials__section
   .row
@@ -120,9 +124,9 @@ section.invitation__section
   a#quero-usar-o-Dunno
   .row
     h2
-      | Em breve também para mais alunos e professores!
+      | Em breve também para mais estudantes e professores!
     p
-      | Hoje o Dunno está em fase Beta, disponível apenas para um grupo de professores da PUC-Rio e seus alunos. Se você está interessado, deixe seu e-mail para, em breve, avisarmos que o Dunno está disponível para você também.
+      | Hoje o Dunno está em fase Beta, disponível apenas para um grupo de professores. Se você está interessado, deixe seu e-mail para, em breve, avisarmos que o Dunno está disponível para você também.
     form action='http://dunno2.createsend.com/t/t/s/kthduy/' method='post'
       input.radius#invitation__email[placeholder='Deixe seu email' name='cm-kthduy-kthduy' type='email']
       button.button.radius[type='submit']

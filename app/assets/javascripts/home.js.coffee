@@ -2,46 +2,67 @@
 #= require foundation/foundation
 #= require foundation/foundation.topbar
 #= require foundation/foundation.reveal
-#= require wow
 #= require greensock
 #= require greensock/plugins/ScrollToPlugin
 #= require scrollmagic
 #= require scrollmagic/plugins/animation.gsap
 
-focusField = (element) ->
-  $(element).focus()
-  return
-
 $ ->
+  setupFoundationAndTopBar()
+  setupScreenshots()
+  setupSlides()
+
+setupFoundationAndTopBar = ->
   $(document).foundation
     topbar:
       start_offset: 140
       sticky_on: 'medium, large'
-  # TODO: convert to function
-  # TODO: add slider behaviour (automatic switching)
-  # TODO: add wow animated effect on change
+
+setupScreenshots = ->
   $('.feature').on 'click', (e) ->
+    self = $(this)
+
     e.preventDefault()
-    _self = $(this)
-    index = _self.data('feature')
-    if !_self.hasClass('active')
-      $('.feature.active').removeClass 'active'
-      $(this).toggleClass 'active'
-      $('#features__screenshot').removeClass().addClass 'features__screenshot showing__feature__' + index
-    return
-  wow = new WOW(
-    boxClass: 'wow'
-    animateClass: 'animated'
-    offset: 450
-    mobile: false
-    live: true)
-  wow.init()
-  controller = new (ScrollMagic.Controller)(globalSceneOptions: triggerHook: 'onLeave')
+
+    index = self.data('feature')
+
+    $('.feature.active').removeClass 'active'
+    self.addClass 'active'
+
+    $('#features__screenshot')
+    .removeClass()
+    .addClass 'features__screenshot showing__feature__' + index
+
+setupSlides = ->
+  controller = new ScrollMagic.Controller()
   slides = document.querySelectorAll('section.slide__section')
-  i = 0
-  while i < slides.length
-    new (ScrollMagic.Scene)(triggerElement: slides[i]).setPin(slides[i]).addTo controller
-    i++
+
+  for slide in slides
+    scene = setupScene(slide)
+    controller.addScene(scene)
+    .addTo(controller)
+
+setupScene = (slide) ->
+  animationEffects = new TimelineLite()
+  .fromTo(
+    slide.querySelector('.slide__image'),
+    .5,
+    { x: 1000, force3D: true },
+    { x: 0 }
+  )
+  .to(
+    slide.querySelector('.slide__content'),
+    1,
+    { force3D: true, opacity: 1 }
+    , 0
+  )
+
+  new ScrollMagic.Scene
+    triggerElement: slide
+    duration: 500
+  .setTween(animationEffects)
+
+
   $(document).on 'click', '.invitation__link', (e) ->
     id = $(this).attr('href')
     if $(id).length > 0
@@ -49,5 +70,3 @@ $ ->
       focusField('#invitation__email')
       if window.history and window.history.pushState
         history.pushState '', document.title, id
-    return
-  return
