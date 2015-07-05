@@ -40,7 +40,6 @@ setupSlides = ->
   for slide in slides
     scene = setupScene(slide)
     controller.addScene(scene)
-    .addTo(controller)
 
 setupScene = (slide) ->
   animationEffects = new TimelineLite()
@@ -63,10 +62,10 @@ setupScene = (slide) ->
   .setTween(animationEffects)
 
 
-  $(document).on 'click', '.invitation__link', (e) ->
-    id = $(this).attr('href')
-    if $(id).length > 0
-      e.preventDefault()
-      focusField('#invitation__email')
-      if window.history and window.history.pushState
-        history.pushState '', document.title, id
+$(document).on 'click', '.invitation__link', (e) ->
+  id = $(this).attr('href')
+  if $(id).length > 0
+    e.preventDefault()
+    $('#invitation__email').focus()
+    if window.history and window.history.pushState
+      history.pushState '', document.title, id
