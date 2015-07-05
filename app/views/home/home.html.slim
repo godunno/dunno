@@ -50,9 +50,10 @@ section.texture__background__section.features__section
     id="slide__section__#{i}"
     class="#{cycle('white__background__section', 'green__background__section')}"
   ]
-    .slide[id="slide__#{i}" class="slide__#{i}"]
-      / TODO: reduce white space.
-      / TODO: avoid scroll and no movement
+    .slide[
+      id="slide__#{i}"
+      class="slide__#{i}"
+    ]
       .slide__content
         h4
           = slide[:title]
