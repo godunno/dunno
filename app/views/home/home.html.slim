@@ -37,8 +37,8 @@ section.texture__background__section.features__section
     ul.features.small-block-grid-4
       - @features.each_with_index do |feature, i|
         - i = i + 1
-        li
-          a.feature[class="#{i == 1 ? 'active' : ''} feature__#{i}" data-feature=i href='#']
+        li.feature__item
+          a.feature[class="#{i == 1 ? 'active' : ''} feature__#{i}" data-feature=i href="#"]
             i.icon[class="#{feature[:icon]}"]
             span.feature__description
               = feature[:description]
