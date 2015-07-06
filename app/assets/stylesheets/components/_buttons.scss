@@ -32,6 +32,15 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
     }
   }
 
+  &.rounded {
+    @include radius(50%);
+    font-size: 1.75rem;
+    height: 2rem;
+    line-height: 1.75rem;
+    padding: 0;
+    width: 2rem;
+  }
+
   &.outline {
     // TODO: use foundation button() for creating new buttons.
     border: 1px solid $dunno-green-color;
