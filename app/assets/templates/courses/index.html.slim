@@ -5,10 +5,13 @@ ui-view
         h1
           | Disciplinas
       /
-        .small-2.columns
+        .small-2.columns ng-if="currentUser().profile == 'teacher'"
           a.button.round.rounded.right[href="#courses/new"]
             | +
-  .courses__page
+      .small-2.columns ng-if="currentUser().profile == 'student'"
+        a.button.round.rounded.right ui-sref="courses.search"
+          | +
+  .courses__page ng-class="{student__courses: currentUser().profile == 'student'}"
     .row
       ul.courses__list.small-block-grid-1.medium-block-grid-2.large-block-grid-3
         li.course__card ng-repeat="course in courses"
@@ -18,7 +21,8 @@ ui-view
             analytics-on="click"
             analytics-event="Course Accessed"
             analytics-name="{{course.name}}"
-            analytics-uuid="{{course.uuid}}"]
+            analytics-uuid="{{course.uuid}}"
+            analytics-teacher-name="{{course.teacher.name}}"]
             .overlay.published
               .button.btn-style-transparent-1.radius.vertical-center
                 | ver disciplina
