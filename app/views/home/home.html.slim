@@ -127,7 +127,9 @@ section.invitation__section
       | Em breve também para mais estudantes e professores!
     p
       | Hoje o Dunno está em fase Beta, disponível apenas para um grupo de professores. Se você está interessado, deixe seu e-mail para, em breve, avisarmos que o Dunno está disponível para você também.
-    form action='http://dunno2.createsend.com/t/t/s/kthduy/' method='post'
+    p.success-message
+      | Obrigado pelo seu interesse! Entraremos em contato em breve.
+    form#invitation__form action='http://dunno2.createsend.com/t/t/s/kthduy/' method='post'
       input.radius#invitation__email[placeholder='Deixe seu email' name='cm-kthduy-kthduy' type='email']
       button.button.radius[type='submit']
         | QUERO SER AVISADO
