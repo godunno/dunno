@@ -33,7 +33,10 @@ ui-view
                 | {{course.name}}
             .card__content.row
               .small-2.columns
-                .course__avatar[style="background-image: url('/assets/placeholder-avatar.jpg');"]
+                .card__content.row
+                  .small-2.columns
+                    img.course__avatar[
+                      user-avatar="{{course.teacher.name}}"]
               span.small-8.columns.course__institution
                 | {{course.institution}}
               .small-2.columns
