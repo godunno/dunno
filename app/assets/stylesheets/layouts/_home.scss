@@ -83,7 +83,7 @@
     padding-top: 12rem;
 
     @media #{$small-only} {
-      font-size: 2.25rem;
+      font-size: 2rem;
       padding-top: 6rem;
     }
   }
@@ -101,18 +101,9 @@
   }
 }
 
-.slide__section {
-  max-height: 100vh;
-  min-height: 100vh;
-  overflow: hidden;
-
-  @media #{$small-only} {
-    min-height: 0;
-  }
-}
-
 .testimonials__section {
   background-color: $white;
+  border-bottom: 1px solid $light-grey-color;
   padding: 8em 0;
   text-align: center;
 
@@ -121,7 +112,12 @@
   }
 
   .testimonials__trusted__by {
-    margin: 0 3rem 6.25rem;
+    margin: 0 3rem;
+
+    @media #{$small-only} {
+      margin: 0 1.5rem 1.5rem;
+      width: 4rem;
+    }
   }
 
   .primary__testimonial__wrapper {
@@ -240,6 +236,10 @@
     font-size: 2.625em;
     font-weight: $font-weight-light;
     margin-bottom: .5em;
+
+    @media #{$small-only} {
+      font-size: 1.75rem;
+    }
   }
 
   p {
