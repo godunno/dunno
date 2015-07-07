@@ -247,7 +247,13 @@
     max-width: 45em;
   }
 
-  form {
+  .success__message {
+    @include radius();
+    @include panel($primary-color);
+    display: none;
+  }
+
+  .invitation__form {
     text-align: center;
   }
 
