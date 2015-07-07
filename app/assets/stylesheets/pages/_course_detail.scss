@@ -7,7 +7,7 @@
   padding: 20px;
 }
 
-.course-detail-page {
+.course__detail__page {
   .code {
     @extend %side-box;
     text-align: center;
@@ -46,7 +46,7 @@
       line-height: 2em;
     }
 
-    .send-message {
+    .send__message {
       margin-bottom: 0;
     }
 
