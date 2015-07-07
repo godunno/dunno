@@ -23,7 +23,7 @@ setupScene = (slide) ->
 
   new ScrollMagic.Scene
     triggerElement: slide
-    duration: 700
+    duration: 600
   .setTween(animationEffects)
 
 setupSlides()
