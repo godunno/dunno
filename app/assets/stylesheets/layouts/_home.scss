@@ -247,7 +247,13 @@
     max-width: 45em;
   }
 
-  form {
+  .success__message {
+    @include radius();
+    @include panel($primary-color);
+    display: none;
+  }
+
+  .invitation__form {
     text-align: center;
   }
 
@@ -274,10 +280,6 @@
     border: 1px solid $dunno-green-color;
     padding: 1.157rem;
     vertical-align: top;
-  }
-
-  .success-message {
-    display: none;
   }
 }
 

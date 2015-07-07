@@ -47,13 +47,11 @@ section.texture__background__section.features__section
 - @slides.each_with_index do |slide, i|
   - i = i + 1
   section.slide__section[
-    id="slide__section__#{i}"
     class="#{cycle('white__background__section', 'green__background__section')}"
-  ]
+    id="slide__section__#{i}"]
     .slide[
-      id="slide__#{i}"
       class="slide__#{i}"
-    ]
+      id="slide__#{i}"]
       .slide__content
         h4
           = slide[:title]
@@ -127,10 +125,16 @@ section.invitation__section
       | Em breve também para mais estudantes e professores!
     p
       | Hoje o Dunno está em fase Beta, disponível apenas para um grupo de professores. Se você está interessado, deixe seu e-mail para, em breve, avisarmos que o Dunno está disponível para você também.
-    p.success-message
-      | Obrigado pelo seu interesse! Entraremos em contato em breve.
-    form#invitation__form action='http://dunno2.createsend.com/t/t/s/kthduy/' method='post'
-      input.radius#invitation__email[placeholder='Deixe seu email' name='cm-kthduy-kthduy' type='email']
+    p.success__message
+      | Obrigado pelo seu interesse! Em breve entraremos em contato.
+    form#invitation__form.invitation__form[
+      action='http://dunno2.createsend.com/t/t/s/kthduy/'
+      method='post']
+      input.radius#invitation__email[
+        name='cm-kthduy-kthduy'
+        placeholder='Deixe seu email'
+        required='true'
+        type='email']
       button.button.radius[type='submit']
         | QUERO SER AVISADO
 

@@ -17,6 +17,6 @@ $('#invitation__form').submit (e) ->
     data: $el.serialize()
   .always ->
     $el.hide()
-    $('.success-message').show()
+    $('.success__message').fadeIn()
 
   e.preventDefault()
