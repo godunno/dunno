@@ -81,7 +81,7 @@
   .container {
 
     .loading {
-      background: $primary-color;
+      background: $dunno-dark-color;
       color: $white;
 
       p {
@@ -95,7 +95,7 @@
 
       .progress {
         background-color: transparent;
-        border-color: $secondary-color;
+        border-color: $dunno-green-color;
         height: 30px;
 
         &,

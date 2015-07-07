@@ -34,7 +34,7 @@
       top: 10px;
 
       &:hover {
-        color: $primary-color;
+        color: $dunno-dark-color;
       }
     }
   }
@@ -77,7 +77,7 @@
 }
 
 .access-code-fullscreen-modal {
-  background: $secondary-color;
+  background: $dunno-green-color;
   padding-top: 25vh;
   text-align: center;
 
@@ -138,7 +138,7 @@
     white-space: nowrap;
 
     &:hover {
-      color: $primary-color;
+      color: $dunno-dark-color;
     }
 
     .icon {
@@ -149,7 +149,7 @@
 
 .dates__date {
   background-color: $white;
-  color: $primary-color;
+  color: $dunno-dark-color;
   display: block;
   line-height: 2.5em;
 
@@ -161,7 +161,7 @@
     .date__day,
     .date__weekday,
     .date__order {
-      color: $primary-color;
+      color: $dunno-dark-color;
     }
   }
 
@@ -192,7 +192,7 @@
   }
 
   &.today .date__day {
-    background: $secondary-color;
+    background: $dunno-green-color;
     border-radius: 50%;
     color: $white;
     height: 2em;
@@ -203,7 +203,7 @@
 
   &.future .date__day,
   &.future .date__weekday {
-    color: $primary-color;
+    color: $dunno-dark-color;
   }
 
   .date__day,
@@ -262,7 +262,7 @@
   }
 
   .date__go {
-    color: $secondary-color;
+    color: $dunno-green-color;
     display: none;
     .icon {
       display: inline-block;

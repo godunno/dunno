@@ -1,6 +1,6 @@
 .tutorial.wrapper {
   @include reveal-modal-style(
-    $bg: $primary-color
+    $bg: $dunno-dark-color
   );
 
   @include radius(10px);

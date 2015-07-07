@@ -25,13 +25,12 @@ header.page-header.title
             h2.card__title
               | {{course.name}}
             .card__subtitle.row
-              .small-6.columns
-                strong
-                  | {{course.class_name}}
-              .small-6.columns.course__institution
-                span
+              strong.small-4.columns
+                | {{course.class_name}}
+              .small-8.columns
+                span.course__institution
                   | {{course.institution}}
-                span
+                span.course__teacher__name
                   | {{course.teacher.name}}
           .card__content.row
             .small-6.columns.course__period

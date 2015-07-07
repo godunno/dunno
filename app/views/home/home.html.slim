@@ -1,0 +1,153 @@
+section.hero__section
+  .sticky
+    nav.top-bar.at-the-top[data-topbar role='navigation']
+      ul.title-area
+        li.name
+          h1
+            a href='#'
+              = image_tag 'site/logo.png', class: 'logo'
+      section.top-bar-section
+        ul.right
+          li.has-form
+            span
+              = link_to new_user_session_path, class: 'button transparent outline radius tiny' do
+                strong
+                  | ACESSAR MEU DUNNO
+  .row
+    .hero
+      h2.hero__title
+        | DENTRO E FORA DA SALA DE AULA
+      p
+        | Um aplicativo que auxilia a organização das aulas e estimula a comunicação e o engajamento entre professores e alunos.
+      .call__to__action__buttons
+        a.button.large.radius.invitation__link>[href='#quero-usar-o-Dunno']
+          | Quero usar o Dunno
+        /
+          a.button.large.radius.transparent[data-reveal-id='watch__dunno__video' href='#']
+            i.icon.icon-play-circle>
+            | Assista ao vídeo
+
+section.texture__background__section.features__section
+  .row
+    #features__screenshot.features__screenshot.showing__feature__1
+      = image_tag 'site/section-features-desktop.png', class: 'feature__desktop'
+      - 1.upto(4) do |i|
+        = image_tag "site/feature-#{i}.png", class: "feature__screenshot feature__screenshot__#{i}"
+        = image_tag "site/feature-#{i}-loupe.png", class: "feature__screenshot__detail feature__screenshot__detail__#{i}"
+    ul.features.small-block-grid-4
+      - @features.each_with_index do |feature, i|
+        - i = i + 1
+        li.feature__item
+          a.feature[class="#{i == 1 ? 'active' : ''} feature__#{i}" data-feature=i href="#"]
+            i.icon[class="#{feature[:icon]}"]
+            span.feature__description
+              = feature[:description]
+            span.pointing__arrow[class="pointing__arrow__#{i}"]
+
+- @slides.each_with_index do |slide, i|
+  - i = i + 1
+  section.slide__section[
+    class="#{cycle('white__background__section', 'green__background__section')}"
+    id="slide__section__#{i}"]
+    .slide[
+      class="slide__#{i}"
+      id="slide__#{i}"]
+      .slide__content
+        h4
+          = slide[:title]
+        - slide[:content].each do |content|
+          p
+            == content
+      .slide__image[id="slide__image__#{i}"]
+        = image_tag "site/section-slide-#{i}.png"
+
+section.testimonials__section
+  .row
+    h3.section__title
+      | COM A CONFIANÇA DE
+    p
+      = image_tag 'site/logo-pucrio.png', class: 'testimonials__trusted__by'
+      = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
+  /
+    .row.primary__testimonial__wrapper
+      .panel.radius
+        blockquote.primary__testimonial
+          cite
+            = image_tag 'site/testimonials-picture-1.jpg'
+            span
+              | Helena "Ximena" Fernández
+            | Professora de Ensino Fundamental na Escola Mundial
+          q
+            | Consegui com o Dunno tudo o que eu queria: os alunos muito mais atentos em sala de aula e participando em todos os momentos!
+    .row
+      - @testimonials.each do |testimonial|
+        .small-12.medium-4.columns
+          blockquote.secondary__testimonial
+            q
+              = testimonial[:quote]
+            cite
+              = image_tag testimonial[:photo]
+              span
+                = testimonial[:name]
+              = testimonial[:from]
+
+/
+  section.video__section
+    .row
+      h2
+        | AUTONOMIA E SEGURANÇA
+      p
+        | O principal objetivo do Dunno é auxiliar os professores a melhorar a produtividade em aula e a interação com seus alunos.
+      button.button.transparent[data-reveal-id='watch__dunno__video']
+        i.icon.icon-play-circle
+        span
+          | Assista ao vídeo
+      #watch__dunno__video.reveal-modal.xlarge[
+        aria-hidden="true" role="dialog"
+        aria-labelledby="videoModalTitle"
+        data-reveal]
+        .flex-video.widescreen.vimeo
+          iframe[
+            allowfullscreen
+            frameborder="0"
+            height="281"
+            mozallowfullscreen
+            src="https://player.vimeo.com/video/107469289"
+            webkitallowfullscreen
+            width="500"]
+        a.close-reveal-modal[aria-label="Close"]
+          | ×
+
+section.invitation__section
+  a#quero-usar-o-Dunno
+  .row
+    h2
+      | Em breve também para mais estudantes e professores!
+    p
+      | Hoje o Dunno está em fase Beta, disponível apenas para um grupo de professores. Se você está interessado, deixe seu e-mail para, em breve, avisarmos que o Dunno está disponível para você também.
+    p.success__message
+      | Obrigado pelo seu interesse! Em breve entraremos em contato.
+    form#invitation__form.invitation__form[
+      action='http://dunno2.createsend.com/t/t/s/kthduy/'
+      method='post']
+      input.radius#invitation__email[
+        name='cm-kthduy-kthduy'
+        placeholder='Deixe seu email'
+        required='true'
+        type='email']
+      button.button.radius[type='submit']
+        | QUERO SER AVISADO
+
+footer
+  .row
+    span.copyright>
+      | Dunno #{Time.new.year}
+    | <a target='_blank' href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
+    /
+      - ['Sobre o Dunno', 'Política de Privacidade'].each do |link|
+        a> href='#'
+          = link
+      .social__links.right
+      - [ { slug: 'facebook' }, { slug: 'twitter' } ].each do |social_link|
+        a> href='#'
+          i.icon class="icon-#{social_link[:slug]}"

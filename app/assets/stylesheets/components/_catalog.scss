@@ -8,6 +8,10 @@
   border-bottom: 1px solid $light-grey-color;
   padding: .75em 1em;
 
+  a {
+    color: $dunno-dark-color;
+  }
+
   .media__thumbnail,
   .media__data,
   .media__select__label {
@@ -44,7 +48,7 @@
   }
 
   .media__title {
-    color: $primary-color;
+    color: $dunno-dark-color;
     display: block;
     font-weight: $font-weight-normal;
     line-height: 2.5em;
@@ -85,7 +89,7 @@
     }
 
     span {
-      color: $secondary-color;
+      color: $dunno-green-color;
     }
   }
 
@@ -185,7 +189,7 @@
           visibility: hidden;
 
           &.select {
-            @include button($padding: rem-calc(6), $bg: $secondary-color, $radius: true);
+            @include button($padding: rem-calc(6), $bg: $dunno-green-color, $radius: true);
             float: right;
           }
 
@@ -206,7 +210,7 @@
         word-wrap: break-word;
 
         .url {
-          color: $secondary-color;
+          color: $dunno-green-color;
           margin-left: .5rem;
         }
       }

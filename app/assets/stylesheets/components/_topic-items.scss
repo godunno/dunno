@@ -46,6 +46,7 @@
     }
 
     *:not(.topic__url) {
+      color: $dunno-dark-color;
       cursor: text;
     }
   }
@@ -80,6 +81,9 @@
     margin-left: 2.5em;
     word-wrap: break-word;
 
+  }
+
+  .topic__description {
     &:hover {
       .icon {
         opacity: 1;
@@ -98,10 +102,18 @@
 
   input[type=checkbox] + label {
     color: $light-grey-color;
+
+    &:hover {
+      color: $dunno-dark-color;
+    }
   }
 
   input[type=checkbox]:checked + label {
-    color: $secondary-color;
+    color: $dunno-green-color;
+
+    &:hover {
+      opacity: .5;
+    }
   }
 
   .topic__item__handle {
@@ -110,11 +122,15 @@
     float: left;
     font-size: 1.5em;
     padding: .75em .5em;
+
+    &:hover {
+      color: $dunno-dark-color;
+    }
   }
 
   &.ui-sortable-helper {
     @include box-shadow();
-    border-color: $secondary-color;
+    border-color: $dunno-green-color;
 
     .topic__item__handle {
       cursor: grabbing;
@@ -122,8 +138,8 @@
   }
 
   &.ui-sortable-placeholder {
-    border-bottom: 2px dashed $secondary-color;
-    border-top: 2px dashed $secondary-color;
+    border-bottom: 2px dashed $dunno-green-color;
+    border-top: 2px dashed $dunno-green-color;
     visibility: visible !important; //scss-lint:disable ImportantRule
   }
 
@@ -168,12 +184,17 @@
     padding: 1.25rem .5rem 0;
 
     .topic__item__actions__button {
+      color: $light-grey-color;
       cursor: pointer;
+
+      &:hover {
+        color: $dunno-dark-color;
+      }
     }
   }
 
   .topic__url {
-    color: $secondary-color;
+    color: $dunno-green-color;
     display: block;
     font-size: .875em;
     line-height: 1em;
