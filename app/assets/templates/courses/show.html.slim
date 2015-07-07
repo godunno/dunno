@@ -11,7 +11,7 @@ header.page__header.title ng-class="'scheme-' + (course.order % 12)"
         li ng-if="!!course.grade"
           | {{course.grade}}
     .small-2.columns ng-if="course.user_role == 'teacher'"
-      a.button.transparent.radius.small.right ui-sref="courses.edit({ id: course.uuid })"
+      a.button.transparent.secondary.radius.small.right ui-sref="courses.edit({ id: course.uuid })"
         | Editar
 
 .course__detail__page
