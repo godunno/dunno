@@ -16,7 +16,7 @@ nav.tab-bar.show-for-small
       section.top-bar-section
         ul.right
           li
-            a href="#profile/edit"
+            a ui-sref="profile"
               | {{currentUser().name}}
           li
             a ng-click="sign_out()"
@@ -30,7 +30,7 @@ aside.right-off-canvas-menu
       label.first
         | {{currentUser().name}}
     li
-      a href="#profile/edit"
+      a ui-sref="profile_edit"
         | Meu perfil
     li
       a ng-click="sign_out()"

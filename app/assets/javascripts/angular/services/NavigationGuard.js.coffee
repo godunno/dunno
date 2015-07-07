@@ -35,9 +35,7 @@ NavigationGuard = ($window, $rootScope) ->
   else
     $window.onbeforeunload = onBeforeUnloadHandler
 
-  # https://github.com/angular/angular.js/issues/2109
-  $rootScope.$on('$locationChangeStart', exitHandler)
-  $rootScope.$on('dunno.exit', exitHandler)
+  $rootScope.$on('$stateChangeStart', exitHandler)
 
   {
     guard: guard

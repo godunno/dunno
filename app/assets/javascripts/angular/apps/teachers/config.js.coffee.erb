@@ -5,68 +5,80 @@
 #= depend_on_asset "events/show.html"
 #= depend_on_asset "medias/index.html"
 
-DunnoApp = angular.module 'DunnoApp', ['ngRoute', 'ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet']
+DunnoApp = angular.module 'DunnoApp', ['ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet', 'ui.router']
 
-Router = ($routeProvider, CoursesResolver, CourseResolver, CourseRegistrationResolver, EventsResolver, EventResolver, MediasResolver)->
-  $routeProvider
-    .when('/courses',
+Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, CourseRegistrationResolver, EventsResolver, EventResolver, MediasResolver) ->
+  $urlRouterProvider.otherwise('/courses')
+  $stateProvider
+    .state('courses',
+      url: '/courses'
       controller: 'CoursesIndexCtrl'
       templateUrl: '<%= asset_path('courses/index.html') %>'
       resolve: { courses: CoursesResolver }
-
-    ).when('/courses/new',
+    )
+    .state('courses.new',
+      url: '/new'
       controller: 'CourseCtrl'
       templateUrl: '<%= asset_path('courses/form.html') %>'
-
-    ).when('/courses/search'
+    )
+    .state('courses.search',
+      url: '/search'
       controller: 'CourseSearchCtrl'
       templateUrl: '<%= asset_path('courses/search.html') %>'
-
-    ).when('/courses/:id/confirm_registration'
+    )
+    .state('courses.confirm_registration',
+      url: '/:id/confirm_registration'
       controller: 'CourseConfirmRegistrationCtrl'
       templateUrl: '<%= asset_path('courses/confirm_registration.html') %>'
       resolve: { course: CourseRegistrationResolver }
-
-    ).when('/courses/:id/edit',
+    )
+    .state('courses.edit',
+      url: '/:id/edit'
       controller: 'CourseCtrl'
       templateUrl: '<%= asset_path('courses/form.html') %>'
       resolve: { course: CourseResolver }
-
-    ).when('/courses/:id',
+    )
+    .state('courses.show',
+      url: '/:id?month'
       controller: 'CourseCtrl'
       templateUrl: '<%= asset_path('courses/show.html') %>'
       resolve: { course: CourseResolver }
       reloadOnSearch: false
-
-    ).when('/events'
+    )
+    .state('events',
+      url: '/events'
       controller: 'EventsIndexCtrl'
       templateUrl: '<%= asset_path('events/index.html') %>'
       resolve: { events: EventsResolver }
-
-    ).when('/events/new'
+    )
+    .state('events.new',
+      url: '/new'
       controller: 'EventCtrl'
       templateUrl: '<%= asset_path('events/show.html') %>'
-
-    ).when('/events/:id'
+    )
+    .state('events.show',
+      url: '/:id'
       controller: 'EventCtrl'
       templateUrl: '<%= asset_path('events/show.html') %>'
       resolve: { event: EventResolver }
-
-    ).when('/catalog'
+    )
+    .state('medias',
+      url: '/catalog'
       controller: 'MediasIndexCtrl'
       templateUrl: '<%= asset_path('medias/index.html') %>'
       resolve: { searchResult: MediasResolver }
-
-    ).when('/profile/edit'
+    )
+    .state('profile',
+      url: '/profile/edit'
       controller: 'ProfileCtrl'
       templateUrl: '<%= asset_path('profile/form.html') %>'
-
-    ).when('/profile/password/edit'
+    )
+    .state('profile.change_password',
+      url: '/profile/password/edit'
       controller: 'ProfileCtrl'
       templateUrl: '<%= asset_path('password/form.html') %>'
-
-    ).otherwise(redirectTo: '/courses')
-Router.$inject = ['$routeProvider', 'CoursesResolver', 'CourseResolver', 'CourseRegistrationResolver', 'EventsResolver', 'EventResolver', 'MediasResolver']
+    )
+Router.$inject = ['$stateProvider', '$urlRouterProvider', 'CoursesResolver', 'CourseResolver', 'CourseRegistrationResolver', 'EventsResolver', 'EventResolver', 'MediasResolver']
 DunnoApp.config Router
 
 DunnoApp.config(["railsSerializerProvider", "tagsInputConfigProvider", (railsSerializerProvider, tagsInputConfigProvider)->

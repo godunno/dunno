@@ -2,7 +2,6 @@ DunnoApp = angular.module('DunnoApp')
 
 EventCtrl = (
   $scope,
-  $routeParams,
   $window,
   $q,
   event,
@@ -34,10 +33,9 @@ EventCtrl = (
     "#courses/#{event.course.uuid}?month=#{event.start_at}"
 
   $scope.finish = (event)->
-    unless $scope.$emit('dunno.exit').defaultPrevented
-      $scope.save(event).then ->
-        $scope.eventForm.$setPristine()
-        $window.location.href = $scope.courseLocation(event)
+    $scope.save(event).then ->
+      $scope.eventForm.$setPristine()
+      $window.location.href = $scope.courseLocation(event)
 
   $scope.publish = (event)->
     event.status = 'published'
@@ -53,5 +51,5 @@ EventCtrl = (
     event.status = status
     $scope.$emit('wholePageLoading', $scope.save(event))
 
-EventCtrl.$inject = ['$scope', '$routeParams', '$window', '$q', 'event', 'Event', 'Utils', 'DateUtils']
+EventCtrl.$inject = ['$scope', '$window', '$q', 'event', 'Event', 'Utils', 'DateUtils']
 DunnoApp.controller 'EventCtrl', EventCtrl
