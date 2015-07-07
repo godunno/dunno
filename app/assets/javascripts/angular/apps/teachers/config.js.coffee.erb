@@ -68,12 +68,12 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       templateUrl: '<%= asset_path('medias/index.html') %>'
       resolve: { searchResult: MediasResolver }
     )
-    .state('profile_edit',
+    .state('profile',
       url: '/profile/edit'
       controller: 'ProfileCtrl'
       templateUrl: '<%= asset_path('profile/form.html') %>'
     )
-    .state('password_edit',
+    .state('profile.change_password',
       url: '/profile/password/edit'
       controller: 'ProfileCtrl'
       templateUrl: '<%= asset_path('password/form.html') %>'
