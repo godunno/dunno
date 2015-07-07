@@ -142,7 +142,12 @@ footer
   .row
     span.copyright>
       | Dunno #{Time.new.year}
-    | <a target='_blank' href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
+    a.mixpanel__link[
+      href='https://mixpanel.com/f/partner'
+      target='_blank']
+      img[
+        alt='Mobile Analytics'
+        src='//cdn.mxpnl.com/site_media/images/partner/badge_light.png']
     /
       - ['Sobre o Dunno', 'Política de Privacidade'].each do |link|
         a> href='#'

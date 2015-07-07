@@ -3,9 +3,19 @@ footer {
   color: $light-grey-color;
   padding: 2em 0;
   position: relative;
+  text-align: center;
 
   a {
     margin: 0 1rem;
+  }
+
+  .mixpanel__link {
+    opacity: .5;
+    transition: opacity .25s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .social__links {
