@@ -14,12 +14,16 @@ header.page__header.title ng-class="'scheme-' + (course.order % 12)"
       a.button.transparent.secondary.radius.small.right ui-sref="courses.edit({ id: course.uuid })"
         | Editar
 
+  .row.sections
+    .small-2.columns
+      a.calendar ui-sref=".calendar"
+        | Calendário
 .course__detail__page
   .row
-    .small-12.medium-8.columns ng-include="'#{asset_path('courses/events_list.html')}'"
-    .small-12.medium-4.columns[
-      ng-class="{medium-centered: course.user_role == 'student'}"
-      ng-if="course.user_role == 'teacher'"]
+    .small-12.medium-8.columns[
+      ui-view=true
+      ng-class="{'medium-centered': course.user_role == 'student'}"]
+    .small-12.medium-4.columns ng-if="course.user_role == 'teacher'"
       .code
         a.icon.icon-expand data-reveal-id="access-code-fullscreen"
         span.title

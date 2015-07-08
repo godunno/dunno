@@ -17,7 +17,6 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
   $scope.fetch = (month) ->
     $scope.$emit('wholePageLoading', Course.get({ uuid: $stateParams.id }, { month: month || $stateParams.month }).then (course)->
       $scope.course = formatToView(course)
-      $location.search('month', month)
     )
 
   $scope.course = course
@@ -40,7 +39,7 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
 
   $scope.goToEvent = (event) ->
     return unless $scope.canAccessEvent(event)
-    $state.go('.event', { eventId: event.uuid })
+    $state.go('^.event', { eventId: event.uuid })
 
   $scope.canAccessEvent = (event) ->
     event.status == 'published' || $scope.course.user_role == 'teacher'
