@@ -40,7 +40,7 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
 
   $scope.goToEvent = (event) ->
     return unless $scope.canAccessEvent(event)
-    $state.go('events.show', { eventId: event.uuid })
+    $state.go('.event', { eventId: event.uuid })
 
   $scope.canAccessEvent = (event) ->
     event.status == 'published' || $scope.course.user_role == 'teacher'
