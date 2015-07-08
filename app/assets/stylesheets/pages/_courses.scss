@@ -2,8 +2,27 @@
   @extend %cards-container;
 }
 
-.course__card {
-  a {
-    @extend %card;
+.course__card__link {
+  @extend %card;
+
+  .course__avatar {
+    background-attachment: scroll;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    max-height: 2rem;
+    max-width: 2rem;
+    min-height: 2rem;
+    min-width: 2rem;
+  }
+
+  .course__avatar,
+  .course__icon {
+    display: block;
+  }
+
+  .course__icon {
+    text-align: right;
   }
 }
