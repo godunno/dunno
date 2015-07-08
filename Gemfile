@@ -66,6 +66,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-scrollmagic', '2.0.5'
   gem 'rails-assets-greensock', '1.17.0'
   gem 'rails-assets-ui-router', '0.2.15'
+  gem 'rails-assets-angular-filter', '0.5.4'
 end
 
 group :production, :staging do
