@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Api::V1::CoursesController do
 
-  let(:teacher) { create(:profile) }
-  let(:student) { create(:profile) }
+  let(:teacher) { create(:profile, user: create(:user, name: "Teacher")) }
+  let(:student) { create(:profile, user: create(:user, name: "Student")) }
   let(:course) { create(:course, teacher: teacher, students: [student]) }
   let(:event) { create(:event, course: course) }
 
@@ -42,7 +42,11 @@ describe Api::V1::CoursesController do
           "abbreviation" => course.abbreviation,
           "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
           "weekly_schedules" => [],
-          "students_count" => 1,
+          "members_count" => 2,
+          "members" => [
+            { "name" => "Student", "role" => "student" },
+            { "name" => "Teacher", "role" => "teacher" }
+          ],
           "user_role" => "teacher",
           "teacher" => { "name" => teacher.name }
         }])
@@ -84,7 +88,11 @@ describe Api::V1::CoursesController do
               "abbreviation" => course.abbreviation,
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
               "weekly_schedules" => [],
-              "students_count" => 1,
+              "members_count" => 2,
+              "members" => [
+                { "name" => "Student", "role" => "student" },
+                { "name" => "Teacher", "role" => "teacher" }
+              ],
               "teacher" => { "name" => teacher.name },
               "user_role" => role,
               "events" => [{
