@@ -1,9 +1,9 @@
-header.page-header.title ng-class="newRecord(course) ? '' : 'scheme-' + course.order"
+header.page__header.title ng-class="newRecord(course) ? '' : 'scheme-' + course.order"
   .row
-    .small-12.columns
-      h1 ng-if="newRecord(course)"
+    .medium-8.medium-centered.columns
+      h1.page__header__title ng-if="newRecord(course)"
         | Criando disciplina
-      h1 ng-if="!newRecord(course)"
+      h1.page__header__title ng-if="!newRecord(course)"
         | Editando disciplina
 .create-course-page
   form ng-submit="save(course)"

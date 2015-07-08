@@ -1,8 +1,25 @@
-div ng-include="'#{asset_path('_course_page_header.html')}'"
-.course-detail-page
+header.page__header.title ng-class="'scheme-' + (course.order % 12)"
+  .row
+    .small-8.small-offset-2.columns
+      h2.page__header__title
+        | {{course.name}}
+      ul.page__header__subtitle
+        li ng-if="!!course.institution"
+          | {{course.institution}}
+        li ng-if="!!course.class_name"
+          | {{course.class_name}}
+        li ng-if="!!course.grade"
+          | {{course.grade}}
+    .small-2.columns ng-if="course.user_role == 'teacher'"
+      a.button.transparent.secondary.radius.small.right ui-sref="courses.edit({ id: course.uuid })"
+        | Editar
+
+.course__detail__page
   .row
     .small-12.medium-8.columns ng-include="'#{asset_path('courses/events_list.html')}'"
-    .small-12.medium-4.columns
+    .small-12.medium-4.columns[
+      ng-class="{medium-centered: course.user_role == 'student'}"
+      ng-if="course.user_role == 'teacher'"]
       .code
         a.icon.icon-expand data-reveal-id="access-code-fullscreen"
         span.title
@@ -16,14 +33,19 @@ div ng-include="'#{asset_path('_course_page_header.html')}'"
             | Código da Disciplina:
           h3.title
             | {{course.access_code}}
+          / REVIEW: Any reason to bring this as a link? Would you have a need to act on it?
           = link_to root_url, root_url, class: 'link-to-sign-in'
           a.close-reveal-modal
             | &#215;
       .students
         .students__title.row.collapse
-          strong.students__number.small-6.columns count="course.students_count" when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}" ng-pluralize=true
+          strong.students__number.small-6.columns[
+            count="course.students_count"
+            ng-pluralize=true
+            when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}"]
           .small-6.columns
-            a.send-message.expand.button.radius.tiny< data-reveal-id="send-notification"
+            a.send__message.expand.button.radius.tiny<[
+              data-reveal-id="send-notification"]
               i.icon.icon-buzz>
               span
                 | Enviar notificação
@@ -31,7 +53,9 @@ div ng-include="'#{asset_path('_course_page_header.html')}'"
           li ng-repeat="student in course.students | orderBy:'name'"
             h3
               | {{student.name}}
-  tutorial.tutorial-2 ng-if="tutorialEnabled(2)" on-close="tutorialClosed(2)"
+  tutorial.tutorial-2[
+    ng-if="tutorialEnabled(2)"
+    on-close="tutorialClosed(2)"]
     tutorial-step
       p
         | Envie este código para seus estudantes. Desta forma você conseguirá interagir com eles através do Dunno.
@@ -41,7 +65,11 @@ div ng-include="'#{asset_path('_course_page_header.html')}'"
     tutorial-step
       p
         | Clique aqui para enviar uma notificação através de SMS e email para seus alunos.
-#send-notification.reveal-modal.send-notification ng-controller="NotificationCtrl" modal="" data-reveal=""
+#send-notification.reveal-modal.send-notification[
+  data-reveal=""
+  modal=""
+  ng-controller="NotificationCtrl"
+  ng-if="course.user_role == 'teacher'"]
   a.close-reveal-modal ng-click="reset()"
     | &#215;
   .modal-header
@@ -71,25 +99,23 @@ div ng-include="'#{asset_path('_course_page_header.html')}'"
           b
             | Abreviação da Disciplina
         input#abbreviation.abbreviation[
-          type="text"
-          ng-model="course.abbreviation"
           maxlength="10"
+          ng-model="course.abbreviation"
           required=true
-        ]
+          type="text"]
         label for="message"
           b
             | Mensagem
         textarea#message[
-          name="message"
-          ng-model="notification.message"
-          rows="5"
-          ng-minlength="1"
           maxlength="{{limit}}"
-          placeholder="Ex: A aula foi transferida para o laboratório."
-          required=true
+          name="message"
           ng-disabled="isSending()"
           ng-focus="setReady()"
-        ]
+          ng-minlength="1"
+          ng-model="notification.message"
+          placeholder="Ex: A aula foi transferida para o laboratório."
+          required=true
+          rows="5"]
         .row.collapse
           .small-12.medium-6.columns
             span.counter

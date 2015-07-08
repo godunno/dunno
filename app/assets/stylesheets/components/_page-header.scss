@@ -1,4 +1,4 @@
-.page-header {
+.page__header {
   @include box-shadow();
   background: $white;
   margin-bottom: 2em;
@@ -8,21 +8,7 @@
     margin-bottom: 1em;
   }
 
-  &.subtitle {
-    margin-top: -2em;
-
-    .columns,
-    .column {
-      min-height: 1px;
-    }
-  }
-
-  .row {
-    height: inherit;
-  }
-
-  h1,
-  h2 {
+  .page__header__title {
     margin: 0;
     padding: 0;
     text-align: center;
@@ -35,62 +21,31 @@
     }
   }
 
+  .page__header__subtitle {
+    list-style: none;
+    margin: 0;
+    opacity: .5;
+    padding: 0;
+    text-align: center;
+
+    li {
+      display: inline;
+
+      &:after {
+        content: ' · ';
+        margin: 0 .25rem;
+      }
+
+      &:last-child {
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+
   .button {
     margin: 0;
     white-space: nowrap;
-
-    &.transparent {
-      color: $dunno-dark-color;
-    }
-  }
-
-  .event-classroom {
-    display: block;
-    margin-top: .5em;
-    opacity: .7;
-  }
-
-  .event-start-time {
-    display: block;
-    font-size: .875em;
-    margin-top: .5em;
-  }
-}
-
-@media #{$small-only} {
-  .event-start-date,
-  .event-start-time {
-    display: block;
-    text-align: center;
-  }
-}
-
-.subtitle-head {
-  margin: 0 auto;
-  opacity: .6;
-  text-align: center;
-}
-
-
-.page__header__subtitle {
-  list-style: none;
-  margin: 0;
-  opacity: .5;
-  padding: 0;
-  text-align: center;
-
-  li {
-    display: inline;
-
-    &:after {
-      content: ' · ';
-      margin: 0 .25rem;
-    }
-
-    &:last-child {
-      &:after {
-        display: none;
-      }
-    }
   }
 }
