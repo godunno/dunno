@@ -6,13 +6,4 @@
   a {
     @extend %card;
   }
-
-  .course__period {
-    text-transform: capitalize;
-  }
-
-  .course__institution,
-  .course__students__count {
-    text-align: right;
-  }
 }

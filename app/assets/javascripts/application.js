@@ -39,6 +39,7 @@
 //= require angular-busy
 //= require angulartics
 //= require ui-router
+//= require initial.js
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });

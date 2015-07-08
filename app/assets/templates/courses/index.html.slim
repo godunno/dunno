@@ -1,0 +1,46 @@
+ui-view
+  header.page-header.title
+    .row
+      .small-8.small-offset-2.columns
+        h1
+          | Disciplinas
+      /
+        .small-2.columns ng-if="currentUser().profile == 'teacher'"
+          a.button.round.rounded.right[href="#courses/new"]
+            | +
+      .small-2.columns ng-if="currentUser().profile == 'student'"
+        a.button.round.rounded.right ui-sref="courses.search"
+          | +
+  .courses__page
+    .row
+      ul.courses__list.small-block-grid-1.medium-block-grid-2.large-block-grid-3
+        li.course__card ng-repeat="course in courses"
+          a.has-overlay[
+            ng-attr-id="{{ 'course-' + course.uuid }}"
+            ui-sref="courses.show({ id: course.uuid })"
+            analytics-on="click"
+            analytics-event="Course Accessed"
+            analytics-name="{{course.name}}"
+            analytics-uuid="{{course.uuid}}"
+            analytics-teacher-name="{{course.teacher.name}}"
+            analytics-user-role="{{course.user_role}}"]
+            .overlay.published
+              .button.btn-style-transparent-1.radius.vertical-center
+                | ver disciplina
+            .card__header[
+              ng-class="'scheme-' + course.order"]
+              h2.card__title
+                | {{course.name}}
+            .card__content.row
+              .small-2.columns
+                img.course__avatar[
+                  user-avatar="{{course.teacher.name}}"]
+              span.small-8.columns.course__institution
+                | {{course.institution}}
+              .small-2.columns
+                i.icon.icon-users
+    tutorial.tutorial-1[
+      ng-if="tutorialEnabled(1)"
+      on-close="tutorialClosed(1)"]
+      p
+        | Comece entrando em uma de suas disciplinas.

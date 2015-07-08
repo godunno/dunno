@@ -23,14 +23,13 @@
 
   h1,
   h2 {
+    margin: 0;
+    padding: 0;
     text-align: center;
     text-transform: uppercase;
   }
 
   h2 {
-    margin: 0;
-    padding: 0;
-
     @media #{$small-only} {
       font-size: 1.25em;
     }
