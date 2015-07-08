@@ -37,6 +37,7 @@
 //= require angular-input-masks
 //= require angular-foundation
 //= require angular-busy
+//= require angular-filter
 //= require angulartics
 //= require ui-router
 //= require initial.js

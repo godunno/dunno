@@ -5,7 +5,7 @@
 #= depend_on_asset "events/show.html"
 #= depend_on_asset "medias/index.html"
 
-DunnoApp = angular.module 'DunnoApp', ['ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet', 'ui.router']
+DunnoApp = angular.module 'DunnoApp', ['ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'ui.utils.masks', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet', 'ui.router', 'angular.filter']
 
 Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, CourseRegistrationResolver, EventsResolver, EventResolver, MediasResolver) ->
   $urlRouterProvider.otherwise('/courses')
@@ -48,7 +48,13 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
     .state('courses.show.calendar',
       url: '/calendar?month'
       controller: 'CourseCtrl'
-      templateUrl: '<%= asset_path('courses/calendar.html') %>'
+      templateUrl: '<%= asset_path('courses/tabs/calendar.html') %>'
+      resolve: { course: CourseResolver }
+    )
+    .state('courses.show.members',
+      url: '/members'
+      controller: 'CourseMembersCtrl'
+      templateUrl: '<%= asset_path('courses/tabs/members.html') %>'
       resolve: { course: CourseResolver }
     )
     .state('courses.show.event',

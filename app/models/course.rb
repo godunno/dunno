@@ -7,6 +7,7 @@ class Course < ActiveRecord::Base
     class_name: 'Membership'
   has_many :student_memberships, -> { where(role: 'student') },
     class_name: 'Membership'
+  has_many :memberships
   has_one :teacher, through: :teacher_membership,
     class_name: 'Profile', source: :profile
   has_many :students, through: :student_memberships,
