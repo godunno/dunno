@@ -45,7 +45,7 @@ ui-view
                   ui-sref="events.show({ id: event.uuid })"]
                   | planejar
               .status
-                .status__icon ng-class="'status__icon__' + event.formatted_status"
+                .image.status__icon ng-class="'status__icon__' + event.formatted_status"
                 span.course
                   | {{event.course.name}}
               .notes ng-if="event.topics.length > 0"
