@@ -9,7 +9,6 @@ DunnoApp = angular.module 'DunnoApp', ['ngResource', 'rails', 'ui.keypress', 'ui
 
 Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, CourseRegistrationResolver, EventsResolver, EventResolver, MediasResolver) ->
   $urlRouterProvider.otherwise('/courses')
-  $urlRouterProvider.when('/courses/:id', '/courses/:id/calendar')
   $stateProvider
     .state('courses',
       url: '/courses'
@@ -41,6 +40,7 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
     )
     .state('courses.show',
       url: '/:courseId'
+      abstract: true
       controller: 'CourseCtrl'
       templateUrl: '<%= asset_path('courses/show.html') %>'
       resolve: { course: CourseResolver }
