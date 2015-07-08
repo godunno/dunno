@@ -22,7 +22,7 @@ header.page__header.title ng-class="'scheme-' + (course.order % 12)"
   .row
     .small-12.medium-8.columns[
       ui-view=true
-      ng-class="{medium-centered: course.user_role == 'student'}"]
+      ng-class="{'medium-centered': course.user_role == 'student'}"]
     .small-12.medium-4.columns ng-if="course.user_role == 'teacher'"
       .code
         a.icon.icon-expand data-reveal-id="access-code-fullscreen"
