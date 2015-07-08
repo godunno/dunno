@@ -39,11 +39,19 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       resolve: { course: CourseResolver }
     )
     .state('courses.show',
-      url: '/:id?month'
+      url: '/:courseId?month'
       controller: 'CourseCtrl'
       templateUrl: '<%= asset_path('courses/show.html') %>'
       resolve: { course: CourseResolver }
       reloadOnSearch: false
+    )
+    .state('courses.show.event',
+      url: '/events/:eventId'
+      views:
+          '@':
+            templateUrl: '<%= asset_path('events/show.html') %>'
+            controller: 'EventCtrl'
+      resolve: { event: EventResolver }
     )
     .state('events',
       url: '/events'
@@ -57,7 +65,7 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       templateUrl: '<%= asset_path('events/show.html') %>'
     )
     .state('events.show',
-      url: '/:id'
+      url: '/:eventId'
       controller: 'EventCtrl'
       templateUrl: '<%= asset_path('events/show.html') %>'
       resolve: { event: EventResolver }

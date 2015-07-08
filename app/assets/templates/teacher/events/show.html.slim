@@ -1,7 +1,7 @@
 header.page-header.title ng-class="'scheme-' + event.course.order"
   .row
     .small-3.columns
-      a.back__button.button.small.transparent ng-href="{{courseLocation(event)}}"
+      a.back__button.button.small.transparent ui-sref="^"
         i.icon.icon-arrow-back>
         span.hide-for-small
           | Voltar
@@ -69,7 +69,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"
-        ui-sref="events.show({ id: event.previous.uuid })"
+        ui-sref="{eventId: event.previous.uuid}"
         analytics-on="click"
         analytics-event="Event Navigation"
         analytics-name="previous"
@@ -333,7 +333,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .hide-for-small.medium-3.columns
       a.next__event[
         ng-if="!!event.next.uuid"
-        ui-sref="events.show({ id: event.next.uuid })"
+        ui-sref="{ eventId: event.next.uuid }"
         analytics-on="click"
         analytics-event="Event Navigation"
         analytics-name="next"
