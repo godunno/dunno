@@ -1,7 +1,6 @@
 @import
   'utils/variables',
-  'utils/mixins',
-  'utils/icons_aliases';
+  'utils/mixins';
 
 @import
   'settings', // foundation setup
@@ -26,9 +25,10 @@
   'components/page-header',
   'components/preview',
   'components/progress',
+  'components/status_icons',
   'components/summary-tasks',
-  'components/topic-items',
-  'components/topic-form';
+  'components/topic-form',
+  'components/topic-items';
 
 @import
   'layouts/forms',
