@@ -2,7 +2,7 @@
   .dates__header
     .row.collapse
       .small-3.columns
-        a.dates__header__previous-month ng-click="fetch(course.previous_month)"
+        a.dates__header__previous-month ui-sref="{ month: course.previous_month }"
           i.icon.icon-chevron-left
           span<
             | {{course.previous_month | date:'MMM/yy'}}
@@ -10,7 +10,7 @@
         span.dates__header__current-month
           | {{course.current_month | date:'MMMM/yy'}}
       .small-3.columns
-        a.dates__header__next-month.right ng-click="fetch(course.next_month)"
+        a.dates__header__next-month.right ui-sref="{ month: course.next_month }"
           span>
             | {{course.next_month | date:'MMM/yy'}}
           i.icon.icon-chevron-right

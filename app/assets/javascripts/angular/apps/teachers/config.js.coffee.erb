@@ -50,7 +50,6 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       controller: 'CourseCtrl'
       templateUrl: '<%= asset_path('courses/calendar.html') %>'
       resolve: { course: CourseResolver }
-      reloadOnSearch: false
     )
     .state('courses.show.event',
       url: '/events/:eventId'
