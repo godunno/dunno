@@ -35,7 +35,7 @@ ui-view
               .status
                 span.course
                   | {{event.course.name}}
-                i.image.icon ng-class="'icon-' + event.formatted_status"
+                .status__icon ng-class="'status__icon__' + event.formatted_status"
               .notes ng-if="event.topics.length > 0"
                 ul.note
                   li.task ng-repeat="topic in event.topics | limitTo:3"
