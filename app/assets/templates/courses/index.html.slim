@@ -15,7 +15,7 @@ ui-view
     .row
       ul.courses__list.small-block-grid-1.medium-block-grid-2.large-block-grid-3
         li.course__card ng-repeat="course in courses"
-          a.has-overlay[
+          a.course__card__link[
             ng-attr-id="{{ 'course-' + course.uuid }}"
             ui-sref="courses.show.calendar({ courseId: course.uuid })"
             analytics-on="click"
@@ -24,21 +24,20 @@ ui-view
             analytics-uuid="{{course.uuid}}"
             analytics-teacher-name="{{course.teacher.name}}"
             analytics-user-role="{{course.user_role}}"]
-            .overlay.published
-              .button.btn-style-transparent-1.radius.vertical-center
-                | ver disciplina
-            .card__header[
-              ng-class="'scheme-' + course.order"]
+            .card__header ng-class="'scheme-' + course.order"
               h2.card__title
                 | {{course.name}}
-            .card__content.row
+            .card__content.row.collapse
               .small-2.columns
                 img.course__avatar[
                   user-avatar="{{course.teacher.name}}"]
-              span.small-8.columns.course__institution
-                | {{course.institution}}
+              .small-8.columns.card__subtitle
+                span.course__institution
+                  | {{course.institution}}
+                span.course__classname
+                  | {{course.class_name}}
               .small-2.columns
-                i.icon.icon-users
+                i.icon.icon-users.course__icon
     tutorial.tutorial-1[
       ng-if="tutorialEnabled(1)"
       on-close="tutorialClosed(1)"]

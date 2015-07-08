@@ -8,6 +8,11 @@
   display: block;
   margin-bottom: 1em;
   overflow: hidden;
+  transition: box-shadow .1s ease-in-out;
+
+  &:hover {
+    @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
+  }
 
   .card__header,
   .card__content {
@@ -34,52 +39,28 @@
     background-color: $white;
     color: $medium-grey-color;
 
-    .course__avatar {
-      background-attachment: scroll;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      border-radius: 50%;
-      max-height: 2rem;
-      max-width: 2rem;
-      min-height: 2rem;
-      min-width: 2rem;
-    }
-
-    .course__institution {
+    .card__subtitle {
       display: block;
       font-size: .75em;
       line-height: 1.75rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &:after {
+          content: ' · ';
+        }
+
+        &:last-child:after {
+          content: '';
+        }
+      }
     }
 
     .icon {
       font-size: 1.5rem;
-    }
-  }
-
-  .overlay {
-    &.published {
-      background-color: $dunno-dark-color;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .button {
-      transform: translateY(-30%);
-      transition: all .15s ease-in-out;
-    }
-
-    &:hover {
-      .button {
-        transform: translateY(-50%);
-
-        &:hover {
-          opacity: .8;
-        }
-      }
     }
   }
 }

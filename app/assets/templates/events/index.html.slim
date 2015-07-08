@@ -23,19 +23,31 @@ ui-view
                 | {{asDate(event.start_at) | date:'MMMM'}}
             .exam ng-if="event.has_exam"
               | PROVA
-            .content.has-overlay
-              .overlay.published ng-if="event.planned()"
-                a.button.btn-style-transparent-1.radius.vertical-center ui-sref="events.show({ id: event.uuid })" analytics-on="click" analytics-event="Event Accessed" analytics-uuid="{{event.uuid}}" analytics-order="{{event.order}}" analytics-course-uuid="{{event.course.uuid}}" analytics-course-name="{{event.course.name}}" analytics-start-at="{{event.start_at}}"
-                  | ver aula
+            .content
               .weekday-hour
                 span.weekday>
                   | {{asDate(event.start_at) | date:'EEE'}}
                 span.time
                   | - {{asDate(event.start_at) | date:'HH:mm'}}h
+              .event__action ng-if="event.planned()"
+                a.button.small.radius[
+                  analytics-course-name="{{event.course.name}}"
+                  analytics-course-uuid="{{event.course.uuid}}"
+                  analytics-event="Event Accessed"
+                  analytics-on="click"
+                  analytics-order="{{event.order}}"
+                  analytics-start-at="{{event.start_at}}"
+                  analytics-uuid="{{event.uuid}}"
+                  ui-sref="events.show({ id: event.uuid })"]
+                  | ver aula
+              .event__action ng-if="!event.planned()"
+                a.button.small.radius[
+                  ui-sref="events.show({ id: event.uuid })"]
+                  | planejar
               .status
+                .status__icon ng-class="'status__icon__' + event.formatted_status"
                 span.course
                   | {{event.course.name}}
-                .status__icon ng-class="'status__icon__' + event.formatted_status"
               .notes ng-if="event.topics.length > 0"
                 ul.note
                   li.task ng-repeat="topic in event.topics | limitTo:3"
@@ -45,6 +57,3 @@ ui-view
                       | {{topic.description}}
                 .remaining ng-if="event.topics.length > 3"
                   | Mais {{event.topics.length - 3}} conteúdos
-              .planning ng-if="!event.planned()"
-                a.button.radius.vertical-center.btn-style-1 ui-sref="events.show({ id: event.uuid })"
-                  | PLANEJAR
