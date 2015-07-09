@@ -1,6 +1,8 @@
 {
   "name":"dunnovc-staging",
-  "scripts":{},
+  "scripts":{
+    "postdeploy": "bundle exec rake db:schema:load db:seed"
+  },
   "env":{
     "RACK_ENV":{
       "required":true
@@ -32,12 +34,6 @@
     "ELASTICSEARCH_URL":{
       "required":true
     },
-    "MANDRILL_APIKEY":{
-      "required":true
-    },
-    "MANDRILL_USERNAME":{
-      "required":true
-    },
     "ERRBIT_API_KEY":{
       "required":true
     },
@@ -46,14 +42,10 @@
     }
   },
   "addons":[
-    "memcachier:dev",
-    "newrelic:stark",
-    "pgbackups:plus",
-    "pusher:sandbox",
-    "deployhooks:http",
-    "redistogo:nano",
-    "bonsai:starter",
-    "mandrill:starter",
-    "heroku-postgresql:hobby-dev"
+    "memcachier",
+    "redistogo",
+    "bonsai",
+    "mandrill",
+    "heroku-postgresql"
   ]
 }
