@@ -30,6 +30,17 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
       background: transparent;
       opacity: .85;
     }
+
+    &.primary {
+      color: $dunno-green-color;
+    }
+
+    &.secondary {
+      &:hover,
+      &:active {
+        color: $medium-grey-color;
+      }
+    }
   }
 
   &.rounded {
@@ -64,8 +75,6 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
       opacity: 1;
     }
   }
-
-
 }
 
 .btn-style-1 {
