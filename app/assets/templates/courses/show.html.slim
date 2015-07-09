@@ -24,14 +24,8 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
               a.calendar__tab ui-sref=".calendar"
                 | CALENDÁRIO
             li ui-sref-active='active'
-              a.discussion__tab
-                | DISCUSSÃO
-            li ui-sref-active='active'
               a.members__tab ui-sref=".members"
                 | INTEGRANTES
-            li ui-sref-active='active'
-              a.catalog__tab
-                | CATÁLOGO
 
         .small-6.columns.page__header__actions ng-if="course.user_role == 'teacher'"
           a.button.dark.radius.tiny> data-reveal-id="send-notification"
@@ -41,8 +35,6 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
             | Código:
             strong<
               | {{course.access_code}}
-          a.button.transparent.secondary.radius.tiny ui-sref="courses.edit({ id: course.uuid })"
-            | Editar
 
 .course__detail__page
   .row
