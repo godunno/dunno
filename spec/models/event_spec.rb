@@ -167,4 +167,34 @@ describe Event do
       end
     end
   end
+
+  describe ".search_by_course", :elasticsearch do
+    let!(:course) { create(:course) }
+    let!(:past_event) { create(:event, course: course, start_at: 1.week.ago) }
+    let!(:today_event) { create(:event, course: course, start_at: Time.current) }
+    let!(:future_event) { create(:event, course: course, start_at: 1.day.from_now) }
+    let!(:event_from_another_course) { create(:event) }
+
+    before { refresh_index! }
+
+    it "can set a number of items per page" do
+      expect(Event.search_by_course(course, per_page: 1).records.to_a).to eq([future_event])
+    end
+
+    it "paginates" do
+      expect(Event.search_by_course(course, per_page: 1, page: 2).records.to_a).to eq([today_event])
+    end
+
+    it "orders all from newest to oldest" do
+      expect(Event.search_by_course(course, {}).records.to_a).to eq([future_event, today_event, past_event])
+    end
+
+    it "returns everything until datetime" do
+      expect(Event.search_by_course(course, until: today_event.start_at).records.to_a).to eq([future_event, today_event])
+    end
+
+    it "sets an offset with pagination" do
+      expect(Event.search_by_course(course, offset: 1, per_page: 1, page: 2).records.to_a).to eq([past_event])
+    end
+  end
 end

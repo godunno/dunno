@@ -1,5 +1,14 @@
 class Event < ActiveRecord::Base
   include HasUuid
+  include Elasticsearch::Model
+  index_name [Rails.env, model_name.collection].join('_')
+
+  settings index: { number_of_shards: 1 } do
+    mapping do
+      indexes :course_id, type: :integer
+      indexes :start_at, type: :date
+    end
+  end
 
   enum status: %w(draft published canceled)
 
@@ -14,6 +23,55 @@ class Event < ActiveRecord::Base
   default_scope { order(:start_at).includes(:topics) }
 
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
+
+  def self.__elasticsearch_query__(course, options)
+    per_page = options[:per_page] || 10
+
+    query = {
+      sort: [start_at: :desc],
+      size: per_page,
+      from: options[:offset].to_i + ([options[:page].to_i - 1, 0].max * per_page),
+      query: {
+        bool: {
+          must: [
+            filtered: {
+              filter: {
+                term: {
+                  course_id: course.id
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+
+    if options[:until].present?
+      query[:query][:bool][:must] << {
+        range: {
+          start_at: {
+            gte: options[:until]
+          }
+        }
+      }
+    end
+
+    query
+  end
+
+  def self.search_by_course(course, options)
+    __elasticsearch__.search(__elasticsearch_query__(course, options))
+  end
+
+  private_class_method :search
+
+  # ElasticSearch representation
+  def as_indexed_json(*)
+    {
+      course_id: course_id,
+      start_at: start_at
+    }
+  end
 
   def next_not_canceled
     neighbors.not_canceled.where('start_at > ?', start_at).first
