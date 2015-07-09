@@ -54,6 +54,16 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
             strong<
               | {{course.access_code}}
 
+  .row.sections
+    .small-2.columns
+      a.calendar ui-sref=".calendar"
+        | Calendário
+    .small-2.columns
+      a.calendar ui-sref=".events"
+        | Aulas
+    .small-2.columns
+      a.calendar ui-sref=".members"
+        | Integrantes
 .course__detail__page
   .row.small-collapse
     .small-12.medium-8.columns[

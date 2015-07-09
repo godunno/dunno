@@ -51,6 +51,12 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       templateUrl: '<%= asset_path('courses/tabs/calendar.html') %>'
       resolve: { course: CourseResolver }
     )
+    .state('courses.show.events',
+      url: '/events'
+      controller: 'EventsIndexCtrl'
+      templateUrl: '<%= asset_path('courses/tabs/events.html') %>'
+      resolve: { events: EventsResolver }
+    )
     .state('courses.show.members',
       url: '/members'
       controller: 'CourseMembersCtrl'

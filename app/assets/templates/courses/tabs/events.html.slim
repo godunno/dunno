@@ -1,0 +1,30 @@
+.events
+  .event ng-repeat="event in events"
+    span.date {{event.start_at | date:'dd/MM/yy HH:mm'}}
+    ul.topics
+      li.topic ng-repeat="topic in event.topics"
+        a.topic__item__image[
+          ng-if="!!topic.media"
+          target="_blank"
+          ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"
+          ng-href="{{topic.media.url}}"
+          analytics-on="click"
+          analytics-event="Media Clicked"
+          analytics-uuid="{{media.uuid}}"
+          analytics-event-uuid="{{event.uuid}}"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"]
+        a.topic__item__description[
+          ng-class="{preview: !!topic.media}"
+          ng-if="!!topic.media"
+          ng-href="{{topic.media.url}}"
+          target="_blank"
+          analytics-on="click"
+          analytics-event="Media Clicked"
+          analytics-uuid="{{media.uuid}}"
+          analytics-event-uuid="{{event.uuid}}"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"]
+          | {{topic.description}}
+        span.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!topic.media"
+          | {{topic.description}}
