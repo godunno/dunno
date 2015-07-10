@@ -23,9 +23,9 @@ class SearchEventsByCourse
 
   def build_query
     builder = QueryBuilder.new
-      .order_by(:start_at,  :desc)
-      .filter_by_attribute(:course_id, course.id)
-      .filter_by_range(:start_at, :lte, upper_bound_date)
+              .order_by(:start_at,  :desc)
+              .filter_by_attribute(:course_id, course.id)
+              .filter_by_range(:start_at, :lte, upper_bound_date)
 
     builder = if lower_bound_date?
                 lower_bound_date(builder)
