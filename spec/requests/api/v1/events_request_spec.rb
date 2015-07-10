@@ -84,7 +84,7 @@ describe Api::V1::EventsController do
 
     context "filtering by course", :elasticsearch do
       let!(:another_course) { create(:course, teacher: profile) }
-      let!(:another_event) { create(:event, course: another_course, classroom: "WTF") }
+      let!(:another_event) { create(:event, course: another_course) }
       before do
         refresh_index!
         do_action(course_id: another_course.uuid)
