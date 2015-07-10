@@ -40,11 +40,11 @@ ui-view
                   analytics-order="{{event.order}}"
                   analytics-start-at="{{event.start_at}}"
                   analytics-uuid="{{event.uuid}}"
-                  ui-sref="events.show({ id: event.uuid })"]
+                  ui-sref="events.show({ eventId: event.uuid })"]
                   | ver aula
               .event__action ng-if="!event.planned()"
                 a.button.small.radius[
-                  ui-sref="events.show({ id: event.uuid })"]
+                  ui-sref="events.show({ eventId: event.uuid })"]
                   | planejar
               .status
                 .image.status__icon ng-class="'status__icon__' + event.formatted_status"
