@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 describe Api::V1::CoursesController do
-
-  let(:teacher) { create(:profile, user: create(:user, name: "Teacher")) }
-  let(:student) { create(:profile, user: create(:user, name: "Student")) }
-  let(:course) { create(:course, teacher: teacher, students: [student]) }
+  let!(:teacher) { create(:profile, user: create(:user, name: "Teacher")) }
+  let!(:student) { create(:profile, user: create(:user, name: "Student")) }
+  let!(:course) { create(:course, teacher: teacher, students: [student]) }
   let(:event) { create(:event, course: course) }
 
   def last_course
@@ -41,13 +40,13 @@ describe Api::V1::CoursesController do
           "institution" => course.institution,
           "abbreviation" => course.abbreviation,
           "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
+          "user_role" => "teacher",
           "weekly_schedules" => [],
           "members_count" => 2,
           "members" => [
-            { "name" => "Student", "role" => "student" },
-            { "name" => "Teacher", "role" => "teacher" }
+            { "name" => "Teacher", "role" => "teacher" },
+            { "name" => "Student", "role" => "student" }
           ],
-          "user_role" => "teacher",
           "teacher" => { "name" => teacher.name }
         }])
       end
@@ -87,13 +86,13 @@ describe Api::V1::CoursesController do
               "institution" => course.institution,
               "abbreviation" => course.abbreviation,
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
+              "teacher" => { "name" => teacher.name },
               "weekly_schedules" => [],
               "members_count" => 2,
               "members" => [
-                { "name" => "Student", "role" => "student" },
-                { "name" => "Teacher", "role" => "teacher" }
+                { "name" => "Teacher", "role" => "teacher" },
+                { "name" => "Student", "role" => "student" }
               ],
-              "teacher" => { "name" => teacher.name },
               "user_role" => role,
               "events" => [{
                 "id" => event.id,
