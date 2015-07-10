@@ -36,7 +36,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
   .row
     footer.small-12.columns
       .row
-        .small-12.medium-6.columns
+        .small-12.medium-7.columns
           ul.small-block-grid-4.page__header__tabs
             li ui-sref-active='active'
               a.calendar__tab ui-sref=".calendar"
@@ -45,7 +45,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
               a.members__tab ui-sref=".members"
                 | INTEGRANTES
 
-        .medium-6.columns.page__header__actions.hide-for-small ng-if="course.user_role == 'teacher'"
+        .medium-5.columns.page__header__actions.hide-for-small ng-if="course.user_role == 'teacher'"
           a.button.dark.radius.tiny> data-reveal-id="send-notification"
             i.icon.icon-buzz>
             | Notificação
