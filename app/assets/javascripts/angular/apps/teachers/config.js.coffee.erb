@@ -53,7 +53,7 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
     )
     .state('courses.show.events',
       url: '/events?until'
-      controller: 'EventsIndexCtrl'
+      controller: 'CourseEventsCtrl'
       templateUrl: '<%= asset_path('courses/tabs/events.html') %>'
       resolve: { events: EventsResolver }
     )
