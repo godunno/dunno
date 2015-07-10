@@ -1,5 +1,7 @@
 .events
-  .event ng-repeat="event in events"
+  .event[
+    ng-repeat="event in events"
+    scroll-to-when="scrollUntil == event.start_at"]
     span.date {{event.start_at | date:'dd/MM/yy HH:mm'}}
     ul.topics
       li.topic ng-repeat="topic in event.topics"
