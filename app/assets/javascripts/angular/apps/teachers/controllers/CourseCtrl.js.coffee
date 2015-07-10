@@ -53,7 +53,7 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
 
   $scope.toggleMobileInfoVisibility = (event) ->
     $('.mobile__info__slide__toggle').slideToggle()
-    $('.slide__mobile__info .icon').toggleClass('down').toggleClass('up')
+    $('.slide__mobile__info .icon').toggleClass('icon-chevron-down').toggleClass('icon-chevron-up')
     return false
 
 CourseCtrl.$inject = [
