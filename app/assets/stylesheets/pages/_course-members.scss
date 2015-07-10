@@ -1,0 +1,53 @@
+.members__content {
+  padding: 2rem 1rem;
+}
+
+.member__group {
+  margin-top: 2.5rem;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.members__content__title {
+  border-bottom: .0625rem solid $light-grey-color;
+  padding: .5rem 0;
+
+  .role__name {
+    text-transform: uppercase;
+  }
+
+  .role__count {
+    @include radius(50%);
+    border: .0625rem solid $medium-grey-color;
+    color: $medium-grey-color;
+    display: inline-block;
+    font-size: .75rem;
+    height: 1.5rem;
+    line-height: 1.35rem;
+    margin-left: .25rem;
+    text-align: center;
+    vertical-align: middle;
+    width: 1.5rem;
+  }
+}
+
+.members {
+  .member__avatar {
+    @include radius(50%);
+    display: inline-block;
+    height: 2.5rem;
+    margin-right: .5rem;
+    width: 2.5rem;
+  }
+
+  .member__role {
+    margin-top: .5rem;
+  }
+
+  .member {
+    border-bottom: .0625rem solid $light-grey-color;
+    padding-bottom: 1rem;
+  }
+}
