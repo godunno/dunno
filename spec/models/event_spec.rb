@@ -170,9 +170,10 @@ describe Event do
 
   describe ".search_by_course", :elasticsearch do
     let!(:course) { create(:course) }
-    let!(:past_event) { create(:event, course: course, start_at: 1.week.ago) }
-    let!(:today_event) { create(:event, course: course, start_at: Time.current) }
-    let!(:future_event) { create(:event, course: course, start_at: 1.day.from_now) }
+    let!(:past_event) { create(:event, course: course, start_at: 1.week.ago, status: 'draft') }
+    let!(:today_event) { create(:event, course: course, start_at: Time.current, status: 'canceled') }
+    let!(:future_event) { create(:event, course: course, start_at: 1.day.from_now, status: 'published') }
+    let!(:unpublished_future_event) { create(:event, course: course, start_at: 1.day.from_now, status: 'draft') }
     let!(:event_from_another_course) { create(:event) }
 
     before { refresh_index! }
@@ -185,7 +186,7 @@ describe Event do
       expect(Event.search_by_course(course, per_page: 1, page: 2).records.to_a).to eq([today_event])
     end
 
-    it "orders all from newest to oldest" do
+    it "shows a page starting at the newer published event, ordered from newest to oldest" do
       expect(Event.search_by_course(course, {}).records.to_a).to eq([future_event, today_event, past_event])
     end
 

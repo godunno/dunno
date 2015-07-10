@@ -4,7 +4,8 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   def index
     today = Time.current
     @events = if params[:course_id]
-                current_profile.courses.find_by_identifier!(params[:course_id]).events
+                search_parameters = params.slice(:page, :per_page, :offset, :until)
+                Event.search_by_course(current_profile.courses.find_by_identifier!(params[:course_id]), search_parameters).records.to_a
               else
                 current_profile.events.where(start_at: (today.beginning_of_week..today.end_of_week))
               end

@@ -27,6 +27,8 @@ class Event < ActiveRecord::Base
   def self.__elasticsearch_query__(course, options)
     per_page = options[:per_page] || 10
 
+    newer_event = course.events.published.order(start_at: :desc).limit(1).first
+
     query = {
       sort: [start_at: :desc],
       size: per_page,
@@ -46,15 +48,19 @@ class Event < ActiveRecord::Base
       }
     }
 
-    if options[:until].present?
-      query[:query][:bool][:must] << {
-        range: {
-          start_at: {
-            gte: options[:until]
-          }
+    start_at_range = {
+      range: {
+        start_at: {
+          lte: newer_event.try(:start_at)
         }
       }
+    }
+
+    if options[:until].present?
+      start_at_range[:range][:start_at][:gte] = options[:until]
     end
+
+    query[:query][:bool][:must] << start_at_range
 
     query
   end
