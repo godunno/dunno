@@ -197,5 +197,20 @@ describe Event do
     it "sets an offset with pagination" do
       expect(Event.search_by_course(course, offset: 1, per_page: 1, page: 2).records.to_a).to eq([past_event])
     end
+
+    it "ignores pagination when there's an :until parameter" do
+      expect(Event.search_by_course(course, offset: 1, per_page: 1, page: 2, until: today_event.start_at).records.to_a).to eq([future_event, today_event])
+    end
+
+    it "ignores :until parameter if it's later than the newest published event" do
+      expect(Event.search_by_course(course, until: unpublished_future_event.start_at).records.to_a).to eq([future_event, today_event, past_event])
+    end
+
+    it "loads loads all the events until the specified, no matter how many" do
+      another_course = create(:course)
+      events = (1..11).map { |i| create(:event, course: another_course, start_at: i.days.ago) }
+      refresh_index!
+      expect(Event.search_by_course(another_course, until: events.last.start_at).records.to_a).to eq(events)
+    end
   end
 end

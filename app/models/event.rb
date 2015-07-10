@@ -25,14 +25,8 @@ class Event < ActiveRecord::Base
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
 
   def self.__elasticsearch_query__(course, options)
-    per_page = options[:per_page] || 10
-
-    newer_event = course.events.published.order(start_at: :desc).limit(1).first
-
     query = {
       sort: [start_at: :desc],
-      size: per_page,
-      from: options[:offset].to_i + ([options[:page].to_i - 1, 0].max * per_page),
       query: {
         bool: {
           must: [
@@ -48,6 +42,7 @@ class Event < ActiveRecord::Base
       }
     }
 
+    newer_event = course.events.unscoped.published.order(start_at: :desc).limit(1).first
     start_at_range = {
       range: {
         start_at: {
@@ -56,8 +51,16 @@ class Event < ActiveRecord::Base
       }
     }
 
-    if options[:until].present?
+    if options[:until].present? && options[:until] <= newer_event.start_at
       start_at_range[:range][:start_at][:gte] = options[:until]
+      query[:size] = course.events.count
+    else
+      per_page = (options[:per_page] || 10).to_i
+      offset = options[:offset].to_i
+      page = [options[:page].to_i - 1, 0].max
+
+      query[:size] = per_page
+      query[:from] = offset + (page * per_page)
     end
 
     query[:query][:bool][:must] << start_at_range

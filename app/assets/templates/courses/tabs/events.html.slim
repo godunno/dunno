@@ -28,3 +28,6 @@
           | {{topic.description}}
         span.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!topic.media"
           | {{topic.description}}
+
+a.button ng-click="paginate(nextPage)" ng-hide="noMoreEvents"
+  | Carregar mais...

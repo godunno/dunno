@@ -51,6 +51,9 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
     else
       'Esta aula ainda está vazia'
 
+  $scope.goToEvents = (start_at) ->
+    $state.go('^.events', until: start_at)
+
 CourseCtrl.$inject = [
   '$scope', '$location', '$stateParams', '$state', 'Course', 'Utils', 'DateUtils', 'course'
 ]
