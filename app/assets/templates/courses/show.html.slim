@@ -1,6 +1,6 @@
 header.page__header ng-class="'scheme-' + (course.order % 12)"
-  .row.collapse
-    .small-8.columns
+  .row
+    .small-10.medium-8.columns
       h2.page__header__title
         | {{course.name}}
       ul.page__header__subtitle
@@ -8,17 +8,35 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
           | {{course.institution}}
         li ng-if="!!course.class_name"
           | {{course.class_name}}
-    .page__header__info.small-4.columns
-      .course__members
+    .page__header__info.small-2.medium-4.columns
+      .course__members.hide-for-small
         .course__member ng-repeat="member in course.members | orderBy:'name'"
           img.course__member__avatar[user-avatar="{{member.name}}"]
         .course__members__count
           | + 10
         i.icon.icon-users<
-  .row.collapse
+      a.slide__mobile__info.show-for-small ng-click="toggleMobileInfoVisibility()"
+        i.icon.icon-chevron-right.down
+    .show-for-small.small-12.columns
+      .row.mobile__info__slide__toggle
+        .small-12.columns.course__members
+          .course__member ng-repeat="member in course.members | orderBy:'name'"
+            img.course__member__avatar[user-avatar="{{member.name}}"]
+          .course__members__count
+            | + 10
+          i.icon.icon-users<
+        .small-12.columns.course__mobile__actions ng-if="course.user_role == 'teacher'"
+          a.expand.button.dark.radius.tiny> data-reveal-id="send-notification"
+            i.icon.icon-buzz>
+            | Notificação
+          a.expand.button.secondary.outline.transparent.radius.tiny data-reveal-id="access-code-fullscreen"
+            | Código:
+            strong<
+              | {{course.access_code}}
+  .row
     footer.small-12.columns
-      .row.collapse
-        .small-6.columns
+      .row
+        .small-12.medium-6.columns
           ul.small-block-grid-4.page__header__tabs
             li ui-sref-active='active'
               a.calendar__tab ui-sref=".calendar"
@@ -27,7 +45,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
               a.members__tab ui-sref=".members"
                 | INTEGRANTES
 
-        .small-6.columns.page__header__actions ng-if="course.user_role == 'teacher'"
+        .medium-6.columns.page__header__actions.hide-for-small ng-if="course.user_role == 'teacher'"
           a.button.dark.radius.tiny> data-reveal-id="send-notification"
             i.icon.icon-buzz>
             | Notificação

@@ -47,6 +47,11 @@
   font-size: .875rem;
   line-height: 2.5em;
 
+  @media #{$small-only} {
+    line-height: 1.5rem;
+    text-align: left;
+  }
+
   &:hover {
     background-color: darken($white, 4%);
 
@@ -108,6 +113,17 @@
   .date__status {
     margin: 0 .25em;
     vertical-align: middle;
+
+    @media #{$small-only} {
+      padding: 0;
+    }
+  }
+
+  .date__order,
+  .date__status {
+    @media #{$small-only} {
+      float: right;
+    }
   }
 
   .date__day {
@@ -132,6 +148,13 @@
     padding: .5rem;
     text-align: right;
     width: 50%;
+
+    @media #{$small-only} {
+      float: none;
+      padding: .25rem;
+      text-align: left;
+      width: 100%;
+    }
   }
 
   .date__order {

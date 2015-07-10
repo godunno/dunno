@@ -4,6 +4,13 @@
     font-size: 1.5rem;
     vertical-align: middle;
   }
+
+  .show-for-small & {
+    border-bottom: .0625rem solid transparentize($dark-grey-color, .9);
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    text-align: right;
+  }
 }
 
 .course__member,
@@ -28,6 +35,34 @@
   font-size: .75rem;
   line-height: 1.75rem;
   text-align: center;
+}
+
+.slide__mobile__info {
+  .icon {
+    color: $dunno-dark-color;
+    display: block;
+    transition: transform .25s ease-in-out;
+
+    &.down {
+      transform: rotate(90deg);
+    }
+
+    &.up {
+      transform: rotate(270deg);
+    }
+  }
+}
+
+.mobile__info__slide__toggle {
+  display: none;
+}
+
+.course__mobile__actions {
+  margin-bottom: 1rem;
+
+  .button {
+    margin: .5rem 0;
+  }
 }
 
 // REFACTOR BELOW THIS LINE

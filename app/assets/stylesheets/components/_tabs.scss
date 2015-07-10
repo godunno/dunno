@@ -11,7 +11,14 @@
 
     a {
       color: $dunno-dark-color;
-      font-size: .875rem;
+
+      @media #{$small-up} {
+        font-size: .65rem;
+      }
+
+      @media #{$medium-up} {
+        font-size: .875rem;
+      }
     }
   }
 }
