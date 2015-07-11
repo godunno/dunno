@@ -67,6 +67,10 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
     background-color: $dunno-dark-color;
     color: $white;
 
+    &.disabled {
+      pointer-events: none;
+    }
+
     &:hover {
       opacity: .7;
     }

@@ -7,7 +7,7 @@
         | {{members.length}}
     .members
       .member ng-repeat="member in members | orderBy: 'name' "
-        .member__role.button.tiny.radius.right
+        .disabled.member__role.button.tiny.radius.right ng-class="{'dark': member.role == 'teacher'}"
           | {{translateRole(member.role)}}
           | {{member.role}}
         .member__name
