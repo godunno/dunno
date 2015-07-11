@@ -27,7 +27,7 @@ header.page__title
   .small-12.columns
     h2 ng-if="medias.length == 0 && !showTutorial()"
       | Nenhum resultado encontrado.
-    .catalog__medias
+    .catalog__medias ng-if="!medias.length == 0"
       .catalog__media ng-repeat="media in medias"
         .catalog__media__header
           .media__remove
