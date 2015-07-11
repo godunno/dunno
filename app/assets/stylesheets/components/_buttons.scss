@@ -79,6 +79,10 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
       opacity: 1;
     }
   }
+
+  &.icon__button {
+    padding: 0;
+  }
 }
 
 .btn-style-1 {
