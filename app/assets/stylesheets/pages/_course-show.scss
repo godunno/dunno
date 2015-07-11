@@ -20,14 +20,10 @@
   vertical-align: top;
 }
 
-.course__member__avatar, // TODO: extract member avatar to new component
+.course__member__avatar,
 .course__members__count {
-  @include radius(50%);
+  @include avatar();
   margin-right: .25rem;
-  max-height: 2rem;
-  max-width: 2rem;
-  min-height: 2rem;
-  min-width: 2rem;
 }
 
 .course__members__count {

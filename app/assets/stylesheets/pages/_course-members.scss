@@ -1,9 +1,9 @@
-.members__content {
-  padding: 2rem 1rem;
-}
-
 %divider {
   border-bottom: .0625rem solid transparentize($dunno-dark-color, .85);
+}
+
+.members__content {
+  padding: 2rem 1rem;
 }
 
 .member__group {
@@ -52,11 +52,9 @@
   }
 
   .member__avatar {
-    @include radius(50%);
+    @include avatar(2.5rem);
     display: inline-block;
-    height: 2.5rem;
     margin-right: .5rem;
-    width: 2.5rem;
   }
 
   .member__role {
