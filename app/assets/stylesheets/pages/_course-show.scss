@@ -17,6 +17,7 @@
 .course__member__avatar,
 .course__members__count {
   display: inline-block;
+  vertical-align: top;
 }
 
 .course__member__avatar, // TODO: extract member avatar to new component

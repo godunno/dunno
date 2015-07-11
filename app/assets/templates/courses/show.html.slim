@@ -13,7 +13,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
         .course__member ng-repeat="member in course.members | orderBy:'name'"
           img.course__member__avatar[user-avatar="{{member.name}}"]
         .course__members__count
-          | + 10
+          | {{course.members.length}}
         i.icon.icon-users<
       a.slide__mobile__info.show-for-small ng-click="toggleMobileInfoVisibility()"
         i.icon.icon-chevron-down
