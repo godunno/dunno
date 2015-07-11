@@ -1,6 +1,6 @@
-header.page__header.title ng-class="'scheme-' + (course.order % 12)"
+header.page__header ng-class="'scheme-' + (course.order % 12)"
   .row
-    .small-8.small-offset-2.columns
+    .small-10.medium-8.columns
       h2.page__header__title
         | {{course.name}}
       ul.page__header__subtitle
@@ -8,57 +8,58 @@ header.page__header.title ng-class="'scheme-' + (course.order % 12)"
           | {{course.institution}}
         li ng-if="!!course.class_name"
           | {{course.class_name}}
-        li ng-if="!!course.grade"
-          | {{course.grade}}
-    .small-2.columns ng-if="course.user_role == 'teacher'"
-      a.button.transparent.secondary.radius.small.right ui-sref="courses.edit({ id: course.uuid })"
-        | Editar
+    .page__header__info.small-2.medium-4.columns
+      .course__members.hide-for-small
+        .course__member ng-repeat="member in course.members | orderBy:'name'"
+          img.course__member__avatar[user-avatar="{{member.name}}"]
+        .course__members__count
+          | {{course.members.length}}
+        i.icon.icon-users<
+      a.slide__mobile__info.show-for-small ng-click="toggleMobileInfoVisibility()"
+        i.icon.icon-chevron-down
+    .show-for-small.small-12.columns
+      .row.mobile__info__slide__toggle
+        .small-12.columns.course__members
+          .course__member ng-repeat="member in course.members | orderBy:'name'"
+            img.course__member__avatar[user-avatar="{{member.name}}"]
+          .course__members__count
+            | + 10
+          i.icon.icon-users<
+        .small-12.columns.course__mobile__actions ng-if="course.user_role == 'teacher'"
+          a.expand.button.dark.radius.tiny> data-reveal-id="send-notification"
+            i.icon.icon-buzz>
+            | Notificação
+          a.expand.button.secondary.outline.transparent.radius.tiny data-reveal-id="access-code-fullscreen"
+            | Código:
+            strong<
+              | {{course.access_code}}
+  .row
+    footer.small-12.columns
+      .row
+        .small-12.medium-7.columns
+          ul.small-block-grid-4.page__header__tabs
+            li ui-sref-active='active'
+              a.calendar__tab ui-sref=".calendar"
+                | CALENDÁRIO
+            li ui-sref-active='active'
+              a.members__tab ui-sref=".members"
+                | INTEGRANTES
 
-  .row.sections
-    .small-2.columns
-      a.calendar ui-sref=".calendar"
-        | Calendário
-      a.calendar ui-sref=".members"
-        | Integrantes
+        .medium-5.columns.page__header__actions.hide-for-small ng-if="course.user_role == 'teacher'"
+          a.button.dark.radius.tiny> data-reveal-id="send-notification"
+            i.icon.icon-buzz>
+            | Notificação
+          a.button.secondary.outline.transparent.radius.tiny data-reveal-id="access-code-fullscreen"
+            | Código:
+            strong<
+              | {{course.access_code}}
+
 .course__detail__page
   .row
     .small-12.medium-8.columns[
       ui-view=true
       ng-class="{'medium-centered': course.user_role == 'student'}"]
-    .small-12.medium-4.columns ng-if="course.user_role == 'teacher'"
-      .code
-        a.icon.icon-expand data-reveal-id="access-code-fullscreen"
-        span.title
-          | Código da Disciplina:
-        h3
-          | {{course.access_code}}
-        span.description
-          | Envie este código para os estudantes entrarem nesta disciplina
-        #access-code-fullscreen.reveal-modal.full.access-code-fullscreen-modal data-reveal=true
-          span.description
-            | Código da Disciplina:
-          h3.title
-            | {{course.access_code}}
-          / REVIEW: Any reason to bring this as a link? Would you have a need to act on it?
-          = link_to root_url, root_url, class: 'link-to-sign-in'
-          a.close-reveal-modal
-            | &#215;
-      .students
-        .students__title.row.collapse
-          strong.students__number.small-6.columns[
-            count="course.students_count"
-            ng-pluralize=true
-            when="{'0': '0 estudantes', 'one': '1 estudante', 'other': '{} estudantes'}"]
-          .small-6.columns
-            a.send__message.expand.button.radius.tiny<[
-              data-reveal-id="send-notification"]
-              i.icon.icon-buzz>
-              span
-                | Enviar notificação
-        ul.list
-          li ng-repeat="student in course.students | orderBy:'name'"
-            h3
-              | {{student.name}}
+
   tutorial.tutorial-2[
     ng-if="tutorialEnabled(2)"
     on-close="tutorialClosed(2)"]
@@ -71,6 +72,17 @@ header.page__header.title ng-class="'scheme-' + (course.order % 12)"
     tutorial-step
       p
         | Clique aqui para enviar uma notificação através de SMS e email para seus alunos.
+
+#access-code-fullscreen.reveal-modal.full.access-code-fullscreen-modal data-reveal=true
+  span.description
+    | Código da Disciplina:
+  h3.title
+    | {{course.access_code}}
+  span.link-to-sign-in
+    = root_url
+  a.close-reveal-modal
+    | &#215;
+
 #send-notification.reveal-modal.send-notification[
   data-reveal=""
   modal=""

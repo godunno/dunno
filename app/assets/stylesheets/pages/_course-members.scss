@@ -2,6 +2,10 @@
   padding: 2rem 1rem;
 }
 
+%divider {
+  border-bottom: .0625rem solid transparentize($dunno-dark-color, .85);
+}
+
 .member__group {
   margin-top: 2.5rem;
 
@@ -11,7 +15,8 @@
 }
 
 .members__content__title {
-  border-bottom: .0625rem solid $light-grey-color;
+  @extend %divider;
+  margin-bottom: 1rem;
   padding: .5rem 0;
 
   .role__name {
@@ -34,6 +39,18 @@
 }
 
 .members {
+  .member {
+    @extend %divider;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+
+    &:after {
+      clear: both;
+      content: ' ';
+      display: block;
+    }
+  }
+
   .member__avatar {
     @include radius(50%);
     display: inline-block;
@@ -43,11 +60,7 @@
   }
 
   .member__role {
+    margin-bottom: 0;
     margin-top: .5rem;
-  }
-
-  .member {
-    border-bottom: .0625rem solid $light-grey-color;
-    padding-bottom: 1rem;
   }
 }

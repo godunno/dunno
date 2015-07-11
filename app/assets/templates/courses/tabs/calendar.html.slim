@@ -1,19 +1,23 @@
 .dates
   .dates__header
     .row.collapse
-      .small-3.columns
-        a.dates__header__previous-month ui-sref="{ month: course.previous_month }"
+      /
+        .small-4.columns.dates__programme
+          a.button.transparent.primary.small
+            strong
+              | CRONOGRAMA
+      .small-12.columns.dates__header__navigation
+        a.button.transparent.secondary.tiny.dates__header__previous-month ui-sref="{ month: course.previous_month }"
           i.icon.icon-chevron-left
           span<
-            | {{course.previous_month | date:'MMM/yy'}}
-      .small-6.columns
+            | {{course.previous_month | date:'MMM'}}
         span.dates__header__current-month
-          | {{course.current_month | date:'MMMM/yy'}}
-      .small-3.columns
-        a.dates__header__next-month.right ui-sref="{ month: course.next_month }"
+          | {{course.current_month | date:'MMMM'}}
+        a.button.transparent.secondary.tiny.dates__header__next-month ui-sref="{ month: course.next_month }"
           span>
-            | {{course.next_month | date:'MMM/yy'}}
+            | {{course.next_month | date:'MMM'}}
           i.icon.icon-chevron-right
+  / TODO: blankslate component
   h2.dates__blankslate ng-if="!course.events || course.events.length == 0"
     | Não há aulas neste mês
   a.dates__date[
@@ -29,15 +33,14 @@
     analytics-order="{{event.order}}"
     analytics-course-uuid="{{course.uuid}}"
     analytics-course-name="{{course.name}}"
-    analytics-start-at="{{event.start_at}}"
-  ]
+    analytics-start-at="{{event.start_at}}"]
     span.date__more__info
-      span.date__order
-        | Aula {{event.order | leadingZeros:2}}
       span.date__classroom
         | {{event.formatted_classroom}}
-    span.date__status
-      span.status__icon[ng-class="'status__icon__' + event.formatted_status"]
+      span.date__status
+        span.status__icon[ng-class="'status__icon__' + event.formatted_status"]
+      span.date__order
+        | Aula {{event.order | leadingZeros:2}}
     span.date__timestamp
       span.date__day
         | {{asDate(event.start_at) | date:'dd'}}

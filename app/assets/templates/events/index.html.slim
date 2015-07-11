@@ -1,17 +1,20 @@
 ui-view
-  header.page__header
+  header.page__title
     .row
       .small-12.columns
-        h1.page__header__title
+        h1.main__page__title
           | Aulas
   .events-page
     .row
+      / TODO: replace h1
+      / TODO: use blankslate components
       h1.blankslate ng-if="!events || events.length == 0"
         | Não há aulas esta semana
       ul.events.small-block-grid-1.medium-block-grid-2.large-block-grid-3
         li.event-card ng-repeat="event in events"
           .card-inner
             div ng-class="'title scheme-' + (event.course.order % 12)"
+              / TODO: replace h1
               h1
                 | {{event.formatted_classroom}}
               span.subtitle
@@ -52,7 +55,6 @@ ui-view
                 ul.note
                   li.task ng-repeat="topic in event.topics | limitTo:3"
                     .image
-                      /img src="/images/task-icon-1.png"
                     span
                       | {{topic.description}}
                 .remaining ng-if="event.topics.length > 3"

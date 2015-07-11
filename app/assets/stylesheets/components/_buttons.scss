@@ -30,6 +30,17 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
       background: transparent;
       opacity: .85;
     }
+
+    &.primary {
+      color: $dunno-green-color;
+    }
+
+    &.secondary {
+      &:hover,
+      &:active {
+        color: $medium-grey-color;
+      }
+    }
   }
 
   &.rounded {
@@ -45,6 +56,28 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
     // TODO: use foundation button() for creating new buttons.
     border: 1px solid $dunno-green-color;
     color: $dunno-green-color;
+
+    &.secondary {
+      border-color: transparentize($dunno-dark-color, .5);
+      color: transparentize($dunno-dark-color, .5);
+    }
+  }
+
+  &.dark {
+    background-color: $dunno-dark-color;
+    color: $white;
+
+    &.disabled {
+      pointer-events: none;
+    }
+
+    &:hover {
+      opacity: .7;
+    }
+
+    &:active {
+      opacity: 1;
+    }
   }
 }
 

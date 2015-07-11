@@ -23,10 +23,13 @@
   'components/content-box',
   'components/dropdown',
   'components/page-header',
+  'components/page-title',
+  'components/prebootstrap_loading',
   'components/preview',
   'components/progress',
   'components/status_icons',
   'components/summary-tasks',
+  'components/tabs',
   'components/topic-form',
   'components/topic-items';
 
@@ -39,8 +42,9 @@
 @import
   'pages/accept_invitation',
   'pages/catalog',
+  'pages/course-calendar',
   'pages/course-members',
-  'pages/course_detail',
+  'pages/course-show',
   'pages/courses',
   'pages/create_course',
   'pages/diary',
@@ -48,7 +52,6 @@
   'pages/events',
   'pages/first_access',
   'pages/login',
-  'pages/prebootstrap_loading',
   'pages/student';
 
 @import

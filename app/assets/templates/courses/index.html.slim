@@ -1,14 +1,14 @@
 ui-view
-  header.page__header
+  header.page__title
     .row
       .small-8.small-offset-2.columns
-        h1.page__header__title
+        h1.main__page__title
           | Disciplinas
       /
         .small-2.columns ng-if="currentUser().profile == 'teacher'"
           a.button.round.rounded.right[href="#courses/new"]
             | +
-      .small-2.columns ng-if="currentUser().profile == 'student'"
+      .page__title__actions.small-2.columns ng-if="currentUser().profile == 'student'"
         a.button.round.rounded.right ui-sref="courses.search"
           | +
   .courses__page

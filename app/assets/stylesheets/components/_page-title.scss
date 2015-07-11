@@ -1,0 +1,16 @@
+.page__title {
+  @include box-shadow(0, .0625rem, .0625rem, $light-grey-color);
+  background: $white;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  text-align: center;
+
+  .main__page__title {
+    font-weight: $font-weight-light;
+    text-transform: uppercase;
+  }
+
+  .button {
+    margin: 0;
+  }
+}
