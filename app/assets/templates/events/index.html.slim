@@ -6,15 +6,14 @@ ui-view
           | Aulas
   .events-page
     .row
-      / TODO: replace h1
-      / TODO: use blankslate components
-      h1.blankslate ng-if="!events || events.length == 0"
-        | Não há aulas esta semana
+      .empty__results ng-if="!events || events.length == 0"
+        | Não há aulas esta semana.
       ul.events.small-block-grid-1.medium-block-grid-2.large-block-grid-3
         li.event-card ng-repeat="event in events"
           .card-inner
             div ng-class="'title scheme-' + (event.course.order % 12)"
               / TODO: replace h1
+              / TODO: make card consistent with rest of app
               h1
                 | {{event.formatted_classroom}}
               span.subtitle

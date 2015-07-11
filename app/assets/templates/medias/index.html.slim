@@ -3,8 +3,8 @@ header.page__title
     h1.main__page__title
       | Catálogo
 .catalog__page.row
-  .catalog__blankslate.small-12.medium-6.medium-centered.columns[ng-if="showTutorial()"]
-    p.catalog__how-to
+  .blankslate.small-12.medium-6.medium-centered.columns[ng-if="showTutorial()"]
+    p.blankslate__how-to
       = image_tag("medias-blankslate.png")
       | Use estes ícones para adicionar links ou arquivos na sua aula.
       br
@@ -25,7 +25,7 @@ header.page__title
           button.button.expand
             .icon.icon-search
   .small-12.columns
-    h2 ng-if="medias.length == 0 && !showTutorial()"
+    .empty__results ng-if="medias.length == 0 && !showTutorial()"
       | Nenhum resultado encontrado.
     .catalog__medias ng-if="!medias.length == 0"
       .catalog__media ng-repeat="media in medias"
