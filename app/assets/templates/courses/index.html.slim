@@ -32,9 +32,9 @@ ui-view
                 img.course__avatar[
                   user-avatar="{{course.teacher.name}}"]
               .small-8.columns.card__subtitle
-                span.course__institution
+                span.course__institution ng-if="!!course.institution"
                   | {{course.institution}}
-                span.course__classname
+                span.course__classname ng-if="!!course.class_name"
                   | {{course.class_name}}
               .small-2.columns
                 i.icon.icon-users.course__icon
