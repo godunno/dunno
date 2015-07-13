@@ -2,9 +2,11 @@ class Dashboard::UsersController < Devise::RegistrationsController
   respond_to :json, :html
 
   def create
-    super do |user|
-      user.update!(profile: Profile.new)
-      TrackerWrapper.new(user).track('User Signed Up')
+    User.transaction do
+      super do |user|
+        user.update!(profile: Profile.new)
+        TrackerWrapper.new(user).track('User Signed Up')
+      end
     end
   end
 
