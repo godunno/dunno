@@ -10,20 +10,20 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
           | {{course.class_name}}
     .page__header__info.small-2.medium-4.columns
       .course__members.hide-for-small
-        .course__member ng-repeat="member in course.members | orderBy:'name'"
-          img.course__member__avatar[user-avatar="{{member.name}}"]
+        .course__member
+          img.course__member__avatar[user-avatar="{{course.teacher.name}}"]
         .course__members__count
-          | {{course.members.length}}
+          | + {{ course.members.length - 1 }}
         i.icon.icon-users<
       a.slide__mobile__info.show-for-small ng-click="toggleMobileInfoVisibility()"
         i.icon.icon-chevron-down
     .show-for-small.small-12.columns
       .row.mobile__info__slide__toggle
         .small-12.columns.course__members
-          .course__member ng-repeat="member in course.members | orderBy:'name'"
-            img.course__member__avatar[user-avatar="{{member.name}}"]
+          .course__member
+            img.course__member__avatar[user-avatar="{{course.teacher.name}}"]
           .course__members__count
-            | + 10
+            | + {{ course.members.length - 1 }}
           i.icon.icon-users<
         .small-12.columns.course__mobile__actions ng-if="course.user_role == 'teacher'"
           a.expand.button.dark.radius.tiny> data-reveal-id="send-notification"
