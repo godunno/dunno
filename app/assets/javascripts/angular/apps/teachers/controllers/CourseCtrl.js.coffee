@@ -51,11 +51,6 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
     else
       'Esta aula ainda está vazia'
 
-  $scope.toggleMobileInfoVisibility = (event) ->
-    $('.mobile__info__slide__toggle').slideToggle()
-    $('.slide__mobile__info .icon').toggleClass('icon-chevron-down').toggleClass('icon-chevron-up')
-    return false
-
 CourseCtrl.$inject = [
   '$scope', '$location', '$stateParams', '$state', 'Course', 'Utils', 'DateUtils', 'course'
 ]
