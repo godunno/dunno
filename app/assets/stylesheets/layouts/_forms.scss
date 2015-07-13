@@ -1,9 +1,9 @@
 .required {
   color: $red-color;
-  font-size: 1.25em;
+  font-size: 1.75em;
   font-weight: $font-weight-bold;
   line-height: 0;
-  vertical-align: middle;
+  vertical-align: -.5rem;
 }
 
 .ng-invalid.ng-dirty,
@@ -11,51 +11,36 @@
   border-color: $red-color;
 }
 
-.done {
-  label {
-    color: $light-grey-color;
-  }
-}
-
 input[type=checkbox] {
   margin: 0 .5em 0 0;
 }
 
-@mixin dotted-input($border-color) {
-  border-bottom: 1px dashed $border-color;
-  border: 0;
-  box-shadow: none;
-  outline: none;
-}
+.form__box {
+  // style defined inside components/_content-box.scss
+  padding: 2rem 1.75rem;
 
-.standalone-form {
-  margin: auto;
-
-  .box {
-    @include box-shadow();
-    @include radius();
-    background: $white;
-    padding: 1.5em;
-    a {
-      color: $dunno-green-color;
+  label {
+    small {
+      color: inherit;
     }
   }
 
-  label {
-    text-transform: uppercase;
+  .validation {
+    float: right;
+    position: relative;
+
+    .icon {
+      position: absolute;
+      right: .5rem;
+      top: 2rem;
+    }
   }
 
-  [disabled]:not(input[type="submit"]) {
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    color: $dark-grey-color;
-    padding: 0;
+  .icon-plain-check {
+    color: $dunno-green-color;
   }
 
-  [type="submit"] {
-    @extend .btn-style-1;
-    @extend .button;
-    @include radius;
+  .icon-error {
+    color: $red-color;
   }
 }

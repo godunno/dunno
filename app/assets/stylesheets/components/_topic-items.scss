@@ -28,6 +28,10 @@
     input {
       opacity: .5;
     }
+
+    label {
+      color: $light-grey-color;
+    }
   }
 
   &.personal {

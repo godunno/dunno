@@ -33,7 +33,6 @@
 
   .next {
     @extend .button;
-    @extend .btn-style-1;
     @include radius;
     margin: 0;
   }

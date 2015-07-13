@@ -6,6 +6,12 @@
   margin-bottom: 2rem;
 }
 
-.content__box {
+.content__box,
+.form__box {
   @extend %content-box;
+
+  .reveal-modal & {
+    @include box-shadow(0, .125rem, 0, $dark-grey-color);
+    border: 1px solid $dark-grey-color;
+  }
 }

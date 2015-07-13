@@ -57,10 +57,10 @@ $body-font-family: 'Lato', sans-serif;
 // $default-float: left;
 
 // We use these as default colors throughout
-$primary-color: $dunno-green-color; // #008CBA;
-$secondary-color: $light-grey-color; // #e7e7e7;
+$primary-color: $dunno-green-color;
+$secondary-color: $light-grey-color;
 $alert-color: $red-color;
-$success-color: $secondary-color;
+$success-color: $dunno-green-color;
 $warning-color: $orange-color;
 $info-color: $blue-color;
 
@@ -333,10 +333,10 @@ $blockquote-cite-font-color: $medium-grey-color;
 // $include-html-button-classes: $include-html-classes;
 
 // We use these to build padding for buttons.
-// $button-tny: rem-calc(10);
-// $button-sml: rem-calc(14);
-// $button-med: rem-calc(16);
-// $button-lrg: rem-calc(18);
+$button-tny: rem-calc(10);
+$button-sml: rem-calc(12);
+$button-med: rem-calc(14);
+$button-lrg: rem-calc(16);
 
 // We use this to control the display property.
 // $button-display: inline-block;
@@ -346,9 +346,9 @@ $blockquote-cite-font-color: $medium-grey-color;
 // $button-font-family: $body-font-family;
 // $button-font-color: #fff;
 // $button-font-color-alt: #333;
-// $button-font-tny: rem-calc(11);
-// $button-font-sml: rem-calc(13);
-// $button-font-med: rem-calc(16);
+$button-font-tny: rem-calc(12);
+$button-font-sml: rem-calc(14);
+$button-font-med: rem-calc(16);
 $button-font-lrg: rem-calc(18);
 // $button-font-weight: $font-weight-normal;
 // $button-font-align: center;
@@ -511,24 +511,24 @@ $dropdown-button-pip-color: $dark-grey-color;
 // We use these to style the labels in different ways
 // $form-label-pointer: pointer;
 $form-label-font-size: rem-calc(16);
-// $form-label-font-weight: $font-weight-normal;
+$form-label-font-weight: $font-weight-bold;
 // $form-label-line-height: 1.5;
-// $form-label-font-color: scale-color(#000, $lightness: 30%);
-// $form-label-small-transform: capitalize;
+$form-label-font-color: $dunno-dark-color;
+$form-label-small-transform: uppercase;
 // $form-label-bottom-margin: 0;
 // $input-font-family: inherit;
-// $input-font-color: rgba(0,0,0,0.75);
+$input-font-color: $dunno-dark-color;
 $input-font-size: rem-calc(16);
 // $input-bg-color: #fff;
-// $input-focus-bg-color: scale-color(#fff, $lightness: -2%);
+$input-focus-bg-color: $white;
 $input-border-color: $medium-grey-color;
-$input-focus-border-color: $blue-color;
+$input-focus-border-color: $dunno-green-color;
 // $input-border-style: solid;
 // $input-border-width: 1px;
-$input-border-radius: 2px;
-// $input-disabled-bg: #ddd;
+$input-border-radius: $global-radius;
+$input-disabled-bg: lighten($light-grey-color, 14%);
 $input-box-shadow: none;
-// $input-include-glowing-effect: true;
+$input-include-glowing-effect: false;
 
 // We use these to style the fieldset border and spacing.
 // $fieldset-border-style: solid;
@@ -553,8 +553,8 @@ $input-box-shadow: none;
 
 // We use these to style the error states for inputs and labels
 // $input-error-message-padding: rem-calc(6 9 9);
-// $input-error-message-top: -1px;
-// $input-error-message-font-size: rem-calc(12);
+$input-error-message-top: calc(-1rem + -1px);
+$input-error-message-font-size: rem-calc(14);
 // $input-error-message-font-weight: $font-weight-normal;
 // $input-error-message-font-style: italic;
 // $input-error-message-font-color: #fff;
@@ -653,7 +653,7 @@ $input-box-shadow: none;
 // $label-radius: $global-radius;
 
 // We use these to style the label text
-// $label-font-sizing: rem-calc(11);
+$label-font-sizing: rem-calc(14);
 // $label-font-weight: $font-weight-normal;
 // $label-font-color: #333;
 // $label-font-color-alt: #fff;
@@ -912,15 +912,15 @@ $progress-meter-color: $blue-color;
 // $include-html-reveal-classes: $include-html-classes;
 
 // We use these to control the style of the reveal overlay.
-// $reveal-overlay-bg: rgba(#000, .45);
-// $reveal-overlay-bg-old: #000;
+$reveal-overlay-bg: rgba($dunno-dark-color, .7);
+$reveal-overlay-bg-old: $dunno-dark-color;
 
 // We use these to control the style of the modal itself.
-// $reveal-modal-bg: #fff;
+$reveal-modal-bg: transparent;
 // $reveal-position-top: rem-calc(100);
 // $reveal-default-width: 80%;
-// $reveal-modal-padding: rem-calc(20);
-// $reveal-box-shadow: 0 0 10px rgba(#000,.4);
+$reveal-modal-padding: rem-calc(20) 0;
+$reveal-box-shadow: 0;
 $reveal-max-width: rem-calc(800);
 
 // We use these to style the reveal close button
