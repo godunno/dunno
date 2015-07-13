@@ -15,10 +15,10 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
         .course__members__count
           | {{course.members.length}}
         i.icon.icon-users<
-      a.slide__mobile__info.show-for-small ng-click="toggleMobileInfoVisibility()"
-        i.icon.icon-chevron-down
+      a.slide__mobile__info.show-for-small ng-click="showMobileInfo = !showMobileInfo"
+        i.icon ng-class="{'icon-chevron-down': !showMobileInfo, 'icon-chevron-up': showMobileInfo}"
     .show-for-small.small-12.columns
-      .row.mobile__info__slide__toggle
+      .row.mobile__info__slide__toggle slide-on="showMobileInfo"
         .small-12.columns.course__members
           .course__member ng-repeat="member in course.members | orderBy:'name'"
             img.course__member__avatar[user-avatar="{{member.name}}"]
