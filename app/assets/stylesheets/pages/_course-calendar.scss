@@ -40,6 +40,11 @@
   }
 }
 
+.no__events {
+  padding: 1rem;
+  text-align: center;
+}
+
 .dates__date {
   background-color: $white;
   color: transparentize($dunno-dark-color, .6);

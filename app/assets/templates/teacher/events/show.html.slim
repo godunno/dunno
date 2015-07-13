@@ -1,7 +1,7 @@
 header.page__header ng-class="'scheme-' + event.course.order"
   .row
     .small-3.columns
-      a.back__button.button.small.transparent.secondary ui-sref="courses.show.calendar({course: event.course, month: event.start_at})"
+      a.back__button.button.transparent.secondary.icon__button ui-sref="courses.show.calendar({course: event.course, month: event.start_at})"
         i.icon.icon-arrow-back>
         span.hide-for-small
           | Voltar
@@ -16,13 +16,13 @@ header.page__header ng-class="'scheme-' + event.course.order"
         li ng-if="!!event.course.grade"
           | {{event.course.grade}}
     .small-3.columns.right-aligned
-      a.button.small.transparent.secondary.hide__personal__topics[
+      a.button.transparent.secondary.icon__button.hide__personal__topics[
         ng-click="setPrivateTopicsVisibility(false)"
         ng-show="showPrivateTopics"]
         i.icon.icon-private>
         span.hide-for-small
           | Ocultar conteúdo privado
-      a.button.small.transparent.secondary.show__personal__topics[
+      a.button.transparent.secondary.icon__button.show__personal__topics[
         ng-click="setPrivateTopicsVisibility(true)"
         ng-show="!showPrivateTopics"]
         i.icon.icon-eye>

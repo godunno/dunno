@@ -17,9 +17,8 @@
           span>
             | {{course.next_month | date:'MMM'}}
           i.icon.icon-chevron-right
-  / TODO: blankslate component
-  h2.dates__blankslate ng-if="!course.events || course.events.length == 0"
-    | Não há aulas neste mês
+  .empty__results.no__events ng-if="!course.events || course.events.length == 0"
+    | Não há aulas neste mês.
   a.dates__date[
     ng-attr-id="{{ 'event-' + event.uuid }}"
     ng-click="goToEvent(event)"
