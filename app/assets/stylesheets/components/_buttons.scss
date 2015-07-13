@@ -29,6 +29,15 @@
         color: $medium-grey-color;
       }
     }
+
+    &.alert {
+      color: $red-color;
+
+      &:hover,
+      &:active {
+        color: $red-color;
+      }
+    }
   }
 
   &.rounded {
@@ -78,5 +87,10 @@
 
   &.disabled {
     pointer-events: none;
+  }
+
+  &.no__side__padding {
+    padding-left: 0;
+    padding-right: 0;
   }
 }

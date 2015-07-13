@@ -61,7 +61,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
       ng-class="{'medium-centered': course.user_role == 'student'}"]
 
   tutorial.tutorial-2[
-    ng-if="tutorialEnabled(2)"
+    ng-if="tutorialEnabled(2) && course.user_role == 'teacher'"
     on-close="tutorialClosed(2)"]
     tutorial-step
       p
