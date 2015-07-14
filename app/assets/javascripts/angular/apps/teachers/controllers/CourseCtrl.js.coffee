@@ -39,7 +39,10 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
 
   $scope.goToEvent = (event) ->
     return unless $scope.canAccessEvent(event)
-    $state.go('^.event', { eventId: event.uuid })
+    if $scope.course.user_role == 'teacher'
+      $state.go('^.event', { eventId: event.uuid })
+    else
+      $state.go('^.events', until: event.start_at)
 
   $scope.canAccessEvent = (event) ->
     event.status == 'published' || $scope.course.user_role == 'teacher'
@@ -50,9 +53,6 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
       'Esta aula foi cancelada'
     else
       'Esta aula ainda está vazia'
-
-  $scope.goToEvents = (start_at) ->
-    $state.go('^.events', until: start_at)
 
 CourseCtrl.$inject = [
   '$scope', '$location', '$stateParams', '$state', 'Course', 'Utils', 'DateUtils', 'course'

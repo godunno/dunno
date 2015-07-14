@@ -20,8 +20,6 @@
   .empty__results.no__events ng-if="!course.events || course.events.length == 0"
     | Não há aulas neste mês.
   .event ng-repeat="event in course.events | orderBy:'start_at'"
-    a ng-click="goToEvents(event.start_at)"
-      | Ir para aula
     a.dates__date[
       ng-attr-id="{{ 'event-' + event.uuid }}"
       ng-click="goToEvent(event)"
