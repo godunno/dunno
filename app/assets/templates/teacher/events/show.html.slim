@@ -289,14 +289,13 @@ header.page__header ng-class="'scheme-' + event.course.order"
                           | Transferir
                 .topic__item__contents
                   input.topic__item__status[
-                    type="checkbox"
-                    ng-model="topic.done"
-                    ng-change="save(topic)"
                     id="topic_{{topic.uuid}}_done"
-                  ]
+                    ng-change="save(topic)"
+                    ng-model="topic.done"
+                    type="checkbox"]
                   label.topic__item__status__checkbox[
                     for="topic_{{topic.uuid}}_done"]
-                    i.icon.icon-plain-check
+                    i.icon.icon-check
                   span.topic__item__description ng-class="{preview: !!topic.media}"
                     a.topic__item__image[
                       ng-href="{{topic.media.url}}"

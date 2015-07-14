@@ -92,16 +92,6 @@
       color: $dunno-green-color;
     }
   }
-
-  input[type=radio] + label {
-    background: image-url('temp-radio-unchecked.png');
-    height: 16px;
-    width: 16px;
-  }
-
-  input[type=radio]:checked + label {
-    background: image-url('temp-radio-checked.png');
-  }
 }
 
 .tags-label {

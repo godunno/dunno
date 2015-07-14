@@ -11,10 +11,6 @@
   border-color: $red-color;
 }
 
-input[type=checkbox] {
-  margin: 0 .5em 0 0;
-}
-
 .form__box {
   // style defined inside components/_content-box.scss
   padding: 2rem 1.75rem;
@@ -43,4 +39,42 @@ input[type=checkbox] {
   .icon-error {
     color: $red-color;
   }
+}
+
+input[type=checkbox],
+input[type=radio] {
+  display: none;
+}
+
+input[type=checkbox] + label ,
+input[type=radio] + label {
+  margin: 0;
+}
+
+input[type=checkbox] + label:before,
+input[type=checkbox]:checked + label:before,
+input[type=radio] + label:before,
+input[type=radio]:checked + label:before {
+  display: inline-block;
+  font-family: 'dunno-icon-font';
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  margin: 0 .5rem 0 0;
+  vertical-align: bottom;
+}
+
+input[type=checkbox] + label:before {
+  content: '\e021';
+}
+
+input[type=checkbox]:checked + label:before {
+  content: '\e015';
+}
+
+input[type=radio] + label:before {
+  content: '\e003';
+}
+
+input[type=radio]:checked + label:before {
+  content: '\e002';
 }

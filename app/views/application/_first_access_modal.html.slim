@@ -15,7 +15,7 @@
             | Email
             span.required<
               | *
-        input#email[
+        input#email.radius[
           disabled=true
           ng-model="user.email"
           type="email"]
@@ -26,7 +26,7 @@
             | Senha
             span.required<
               | *
-        input#password[
+        input#password.radius[
           type="password"
           name="password"
           ng-model="user.password"
