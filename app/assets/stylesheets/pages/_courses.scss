@@ -2,17 +2,19 @@
   @extend %cards-container;
 }
 
-.course__card {
-  a {
-    @extend %card;
+.course__card__link {
+  @extend %card;
+
+  .course__avatar {
+    @include avatar();
   }
 
-  .course__period {
-    text-transform: capitalize;
+  .course__avatar,
+  .course__icon {
+    display: block;
   }
 
-  .course__institution,
-  .course__students__count {
+  .course__icon {
     text-align: right;
   }
 }

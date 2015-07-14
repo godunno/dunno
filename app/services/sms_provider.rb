@@ -1,5 +1,7 @@
 class SmsProvider
   def initialize
+    # TODO: This will fail silently if something bad happens to the client.
+    # We should just disable this on test and dev environments.
     @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'] rescue nil
     @from = ENV['TWILIO_PHONE_NUMBER']
   end

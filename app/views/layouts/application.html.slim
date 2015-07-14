@@ -7,7 +7,7 @@ html lang="pt" ng-app="DunnoApp"
     title
       | Dunno
 
-    link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'
+    link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic' rel='stylesheet' type='text/css'
 
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "modernizer"
@@ -20,16 +20,16 @@ html lang="pt" ng-app="DunnoApp"
         = render layout: 'application/menu' do
           / TODO: keep active class to <LI>s inside the scopes
           li ng-class="{active: controller == 'events-index-page'}" ng-if="currentUser().profile == 'teacher'"
-            a href="#events"
+            a ui-sref="events"
               | Aulas
           li ng-class="{active: controller == 'courses-index-page'}"
-            a href="#courses"
+            a ui-sref="courses"
               | Disciplinas
           li ng-class="{active: controller == 'medias-index-page'}" ng-if="currentUser().profile == 'teacher'"
-            a href="#catalog"
+            a ui-sref="medias"
               | Catálogo
 
-        .content ng-view="" cg-busy="wholePageLoading" ng-class="controller"
+        .content ui-view=true cg-busy="wholePageLoading" ng-class="controller"
 
         = render partial: 'application/first_access_modal'
 

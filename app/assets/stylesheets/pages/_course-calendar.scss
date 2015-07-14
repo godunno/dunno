@@ -1,0 +1,175 @@
+.dates {
+  @include box-shadow();
+  @include radius();
+  background-color: $white;
+  border: .0625rem solid $light-grey-color;
+  margin: 0 0 2em;
+}
+
+.dates__header {
+  border-bottom: .0625rem solid $light-grey-color;
+  font-size: .875em;
+  text-transform: uppercase;
+
+  .button {
+    margin-bottom: 0;
+  }
+
+  .dates__programme {
+    border-right: .0625rem solid $light-grey-color;
+    text-align: center;
+  }
+
+  .dates__header__navigation {
+    padding: .25rem 0;
+    text-align: center;
+  }
+
+  .dates__header__current-month {
+    font-weight: $font-weight-bold;
+    margin: 0 1.5rem;
+  }
+
+  .dates__header__next-month,
+  .dates__header__previous-month {
+    white-space: nowrap;
+
+    .icon {
+      vertical-align: middle;
+    }
+  }
+}
+
+.no__events {
+  padding: 1rem;
+  text-align: center;
+}
+
+.dates__date {
+  background-color: $white;
+  color: transparentize($dunno-dark-color, .6);
+  display: block;
+  font-size: .875rem;
+  line-height: 2.5em;
+
+  @media #{$small-only} {
+    line-height: 1.5rem;
+    text-align: left;
+  }
+
+  &:hover {
+    background-color: darken($white, 4%);
+
+    .date__time,
+    .date__classroom,
+    .date__day,
+    .date__weekday,
+    .date__order {
+      color: $dunno-dark-color;
+    }
+
+    &.today {
+      .date__date {
+        color: $white;
+      }
+    }
+  }
+
+  &:nth-last-child(n+2) {
+    border-bottom: 1px solid $light-grey-color;
+  }
+
+  &:after {
+    clear: both;
+    content: ' ';
+    display: block;
+  }
+
+  &:last-child {
+    @include side-radius(bottom, $global-radius);
+  }
+
+  &.future {
+    .date__day {
+      color: $dunno-dark-color;
+    }
+  }
+
+  &.today {
+    color: $dunno-dark-color;
+
+    .date__day {
+      background: $dunno-green-color;
+      color: $white;
+    }
+  }
+
+  .date__day,
+  .date__weekday,
+  .date__time,
+  .date__status,
+  .date__classroom,
+  .date__order,
+  .date__go {
+    display: inline-block;
+    padding: .25em;
+  }
+
+  .date__status {
+    margin: 0 .25em;
+    vertical-align: middle;
+
+    @media #{$small-only} {
+      padding: 0;
+    }
+  }
+
+  .date__order,
+  .date__status {
+    @media #{$small-only} {
+      float: right;
+    }
+  }
+
+  .date__day {
+    font-size: 1.25rem;
+    font-weight: $font-weight-bold;
+    max-width: 3rem;
+    min-width: 3rem;
+    padding: .5rem;
+    text-align: center;
+  }
+
+  .date__weekday {
+    text-align: center;
+    text-transform: uppercase;
+    width: 3em;
+  }
+
+  .date__more__info {
+    display: block;
+    float: right;
+    line-height: 1;
+    padding: .5rem;
+    text-align: right;
+    width: 50%;
+
+    @media #{$small-only} {
+      float: none;
+      padding: .25rem;
+      text-align: left;
+      width: 100%;
+    }
+  }
+
+  .date__order {
+    font-size: .75rem;
+  }
+
+  .date__classroom,
+  .date__status,
+  .date__order,
+  .date__go {
+    text-align: right;
+  }
+}

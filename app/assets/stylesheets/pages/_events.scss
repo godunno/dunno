@@ -1,10 +1,18 @@
 // scss-lint:disable SelectorDepth NestingDepth
 
-.events-page {
-  .touch & .has-overlay .overlay {
-    display: block;
-  }
+.event__action {
+  margin-top: .5rem;
+  text-align: center;
 
+  .button {
+    margin-bottom: 0;
+    text-transform: uppercase;
+  }
+}
+
+// TODO: refactor needed below this line
+// TODO: remove fonts smaller than .875rem (14px)
+.events-page {
   .events {
     @extend %cards-container;
   }
@@ -13,6 +21,10 @@
     .card-inner {
       @extend %card;
       position: relative;
+
+      &:hover {
+        @include box-shadow(0);
+      }
     }
 
     .title {
@@ -44,7 +56,6 @@
       text-align: center;
       top: 5.125em;
       width: 3.75em;
-      z-index: $overlay-z-index + 1;
 
       .day {
         font-size: 23px;
@@ -85,30 +96,24 @@
       .status {
         border-bottom: 1px solid $light-grey-color;
         border-top: 1px solid $light-grey-color;
-        margin-top: 20px;
+        margin-top: 1.25rem;
+        padding: .25rem;
 
         span {
-          display: inline-block;
-          width: 90%;
+          display: block;
+          font-size: .875rem;
+          font-weight: $font-weight-bold;
         }
 
         .image {
-          display: inline-block;
-          text-align: right;
-          width: 10%;
+          display: block;
+          float: right;
         }
-      }
-
-      .course {
-        font-size: 11px;
-        font-weight: $font-weight-bold;
-        padding: 10px 0;
       }
 
       .notes {
         font-size: 12px;
         height: 150px;
-        padding-top: 20px;
         position: relative;
 
         .note {
@@ -120,7 +125,7 @@
             color: $dark-grey-color;
             font-size: 12px;
             overflow: hidden;
-            padding: 8px 0;
+            padding: .5rem 0 0;
 
             .image {
               display: none;

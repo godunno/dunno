@@ -1,97 +1,64 @@
-.page-header {
-  @include box-shadow();
+.page__header {
+  @include box-shadow(0, .0625rem, .0625rem, $light-grey-color);
   background: $white;
-  margin-bottom: 2em;
-  padding: 1em 0;
+  margin-bottom: 2rem;
+  padding: 1rem 0 0;
+  position: relative;
+  z-index: 1002;
 
   @media #{$small-only} {
     margin-bottom: 1em;
   }
 
-  &.subtitle {
-    margin-top: -2em;
-
-    .columns,
-    .column {
-      min-height: 1px;
-    }
-  }
-
-  .row {
-    height: inherit;
-  }
-
-  h1,
-  h2 {
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  h2 {
+  .page__header__title {
+    font-weight: $font-weight-normal;
     margin: 0;
     padding: 0;
 
-    @media #{$small-only} {
-      font-size: 1.25em;
+    @media #{$small-up} {
+      font-size: 1.25rem;
+    }
+
+    @media #{$medium-up} {
+      font-size: 1.875rem;
+    }
+  }
+
+  .page__header__subtitle {
+    font-weight: $font-weight-light;
+    list-style: none;
+    margin: 0;
+    opacity: .6;
+    padding: 0 0 1rem;
+
+    li {
+      display: inline;
+
+      &:after {
+        content: ' · ';
+        margin: 0 .25rem;
+      }
+
+      &:last-child {
+        &:after {
+          display: none;
+        }
+      }
     }
   }
 
   .button {
     margin: 0;
     white-space: nowrap;
-
-    &.transparent {
-      color: $dunno-dark-color;
-    }
   }
 
-  .event-classroom {
-    display: block;
-    margin-top: .5em;
-    opacity: .7;
+  footer {
+    border-top: .0625rem solid transparentize($dark-grey-color, .9);
+    padding-top: 1rem;
   }
 
-  .event-start-time {
-    display: block;
-    font-size: .875em;
-    margin-top: .5em;
-  }
-}
-
-@media #{$small-only} {
-  .event-start-date,
-  .event-start-time {
-    display: block;
-    text-align: center;
-  }
-}
-
-.subtitle-head {
-  margin: 0 auto;
-  opacity: .6;
-  text-align: center;
-}
-
-
-.page__header__subtitle {
-  list-style: none;
-  margin: 0;
-  opacity: .5;
-  padding: 0;
-  text-align: center;
-
-  li {
-    display: inline;
-
-    &:after {
-      content: ' · ';
-      margin: 0 .25rem;
-    }
-
-    &:last-child {
-      &:after {
-        display: none;
-      }
-    }
+  .page__header__info,
+  .page__header__actions {
+    text-align: right;
   }
 }

@@ -1,0 +1,125 @@
+.course__members {
+  .icon {
+    color: $dark-grey-color;
+    font-size: 1.5rem;
+    vertical-align: middle;
+  }
+
+  .show-for-small & {
+    border-bottom: .0625rem solid transparentize($dark-grey-color, .9);
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    text-align: right;
+  }
+}
+
+.course__member,
+.course__member__avatar,
+.course__members__count {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.course__member__avatar,
+.course__members__count {
+  @include avatar();
+  margin-right: .25rem;
+}
+
+.course__members__count {
+  border: .0625rem dashed $dark-grey-color;
+  color: $dark-grey-color;
+  font-size: .75rem;
+  line-height: 1.75rem;
+  text-align: center;
+}
+
+.slide__mobile__info {
+  .icon {
+    color: $dunno-dark-color;
+    display: block;
+  }
+}
+
+.mobile__info__slide__toggle {
+  display: none;
+}
+
+.course__mobile__actions {
+  margin-bottom: 1rem;
+
+  .button {
+    margin: .5rem 0;
+  }
+}
+
+// REFACTOR BELOW THIS LINE
+
+// scss-lint:disable SelectorFormat NestingDepth SelectorDepth PlaceholderInExtend IdSelector
+%side-box {
+  @include box-shadow();
+  background-color: $white;
+  border-radius: 5px;
+  margin-bottom: 21px;
+  padding: 20px;
+}
+
+.access-code-fullscreen-modal {
+  background: $dunno-green-color;
+  padding-top: 25vh;
+  text-align: center;
+
+  span,
+  h3,
+  a,
+  .close-reveal-modal {
+    color: $white;
+  }
+
+  .description {
+    font-size: 6vh;
+    font-weight: $font-weight-light;
+  }
+
+  .title {
+    font-size: 25vh;
+    line-height: 25vh;
+  }
+
+  .link-to-sign-in {
+    font-size: 6vh;
+    font-weight: $font-weight-light;
+    position: relative;
+    top: 10vh;
+  }
+}
+
+.send-notification {
+  .modal-header {
+    border-bottom: 1px solid $light-grey-color;
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    text-align: center;
+
+    h5 {
+      text-transform: uppercase;
+    }
+
+    p {
+      color: $medium-grey-color;
+      margin: 0 auto;
+      width: 70%;
+    }
+  }
+
+  .counter {
+    color: $light-grey-color;
+    display: block;
+    font-size: .875em;
+    margin-bottom: 1.5em;
+  }
+
+  .panel {
+    color: $dunno-dark-color;
+  }
+}

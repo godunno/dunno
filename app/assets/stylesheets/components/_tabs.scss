@@ -1,0 +1,28 @@
+%tabs {
+  > li {
+    border-bottom: .25rem solid transparent;
+    margin: 0;
+    padding: 0 0 1rem;
+    text-align: center;
+
+    &.active {
+      border-bottom-color: $dunno-dark-color;
+    }
+
+    a {
+      color: $dunno-dark-color;
+
+      @media #{$small-up} {
+        font-size: .65rem;
+      }
+
+      @media #{$medium-up} {
+        font-size: .875rem;
+      }
+    }
+  }
+}
+
+.page__header__tabs {
+  @extend %tabs;
+}

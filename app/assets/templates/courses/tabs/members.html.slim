@@ -1,0 +1,17 @@
+/ TODO: empty results
+/ TODO: blankslate
+.content__box.members__content
+  .member__group ng-repeat="members in course.members | groupBy: 'role' | toArray: true | orderBy:order"
+    p.members__content__title
+      strong.role__name>
+        | {{roleName(members)}}
+      span.role__count
+        | {{members.length}}
+    .members
+      .member ng-repeat="member in members | orderBy: 'name' "
+        .disabled.member__role.button.tiny.radius.right ng-class="{'dark': member.role == 'teacher'}"
+          | {{translateRole(member.role)}}
+          | {{member.role}}
+        .member__name
+          img.member__avatar[user-avatar="{{member.name}}"]
+          | {{member.name}}

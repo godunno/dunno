@@ -11,18 +11,13 @@ class CourseBuilder < BaseBuilder
       json.(weekly_schedule, :weekday, :start_time, :end_time, :classroom)
     end
 
-    json.students_count(course.students.count)
+    json.members_count(course.memberships.count)
 
-    if options[:show_students]
-      json.students course.students do |student|
-        # TODO: move to builder
-        json.(student, :name)
-      end
+    json.members course.memberships do |membership|
+      json.(membership.profile, :name)
+      json.(membership, :role)
     end
 
-    # TODO: move to builder
-    if options[:show_teacher]
-      json.teacher(course.teacher, :name)
-    end
+    json.teacher(course.teacher, :name)
   end
 end

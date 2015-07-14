@@ -1,7 +1,7 @@
-header.page-header.title ng-class="'scheme-' + event.course.order"
+header.page__header ng-class="'scheme-' + event.course.order"
   .row
     .small-2.columns
-      a.back__button.button.small.transparent href="#/courses/{{event.course.uuid}}"
+      a.back__button.button.small.transparent ui-sref="courses.show({ id: event.course.uuid })"
         i.icon.icon-back-arrow>
         span.hide-for-small
           | Voltar
@@ -20,7 +20,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"
-        href="#events/{{event.previous.uuid}}"
+        ui-sref="events.show({ id: event.previous.uuid })"
         analytics-on="click"
         analytics-event="Event Navigation"
         analytics-name="previous"
@@ -52,7 +52,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .show-for-small.small-1.columns
           a.previous__event.mobile__day__navigation[
             ng-if="!!event.previous.uuid"
-            href="#events/{{event.previous.uuid}}"
+            ui-sref="events.show({ id: event.previous.uuid })"
             analytics-on="click"
             analytics-event="Event Navigation"
             analytics-name="previous"
@@ -70,7 +70,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .show-for-small.small-1.columns
           a.next__event.mobile__day__navigation[
             ng-if="!!event.next.uuid"
-            href="#events/{{event.next.uuid}}"
+            ui-sref="events.show({ id: event.next.uuid })"
             analytics-on="click"
             analytics-event="Event Navigation"
             analytics-name="next"
@@ -119,7 +119,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .hide-for-small.medium-3.columns
       a.next__event[
         ng-if="!!event.next.uuid"
-        href="#events/{{event.next.uuid}}"
+        ui-sref="events.show({ id: event.next.uuid })"
         analytics-on="click"
         analytics-event="Event Navigation"
         analytics-name="next"

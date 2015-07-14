@@ -1,10 +1,10 @@
-header.page-header.title
+header.page__title
   a ng-click="clearSearch()"
-    h1
+    h1.main__page__title
       | Catálogo
 .catalog__page.row
-  .catalog__blankslate.small-12.medium-6.medium-centered.columns[ng-if="showTutorial()"]
-    p.catalog__how-to
+  .blankslate.small-12.medium-6.medium-centered.columns[ng-if="showTutorial()"]
+    p.blankslate__how-to
       = image_tag("medias-blankslate.png")
       | Use estes ícones para adicionar links ou arquivos na sua aula.
       br
@@ -14,20 +14,21 @@ header.page-header.title
       name="media_search"
       ng-submit="fetch()"]
       .row.collapse
-        .small-11.columns.search-wrapper
+        .small-11.columns.search__wrapper
           input[
             name="q"
             ng-model="search.q"
             placeholder="Procure por assunto, palavra-chave ou tags"
             type="text"]
-          a.button.icon.icon-close ng-click="clearSearch()"
+          a.button.icon__button ng-click="clearSearch()"
+            .icon.icon__close
         .small-1.columns
-          button.button.expand
+          button.button.expand.search__button
             .icon.icon-search
   .small-12.columns
-    h2 ng-if="medias.length == 0 && !showTutorial()"
+    .empty__results ng-if="medias.length == 0 && !showTutorial()"
       | Nenhum resultado encontrado.
-    .catalog__medias
+    .catalog__medias ng-if="!medias.length == 0"
       .catalog__media ng-repeat="media in medias"
         .catalog__media__header
           .media__remove
@@ -52,16 +53,17 @@ header.page-header.title
                 type="text"]
         .catalog__media__body
           .media__events__usage
+            / TODO: this markup can be improved
             small
               span>
                 | Usado em:
               span ng-repeat="course in media.courses"
-                a> ng-href="#courses/{{course.uuid}}"
+                a> ui-sref="courses.show({ id: course.uuid })"
                   strong
                     | {{course.name}}
                 | (
                 a[
-                  ng-href="#events/{{event.uuid}}"
+                  ui-sref="events.show({ id: event.uuid })"
                   ng-repeat="event in course.events"]
                   | {{event.start_at | date:'dd/MM/yyyy'}}
                   span> ng-if="!$last"

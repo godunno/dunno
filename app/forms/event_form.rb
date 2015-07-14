@@ -7,8 +7,10 @@ class EventForm
   end
 
   def update!
-    reorder_topics!
-    event.update!(params.except(:topics))
+    Event.transaction do
+      reorder_topics!
+      event.update!(params.except(:topics))
+    end
   end
 
   private

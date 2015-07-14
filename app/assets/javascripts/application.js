@@ -24,7 +24,6 @@
 //= require foundation/foundation.reveal
 //= require ng-file-upload-shim
 //= require angular
-//= require angular-route
 //= require angular-resource
 //= require angularjs-rails-resource
 //= require angular-i18n/angular-locale_pt-br
@@ -38,7 +37,10 @@
 //= require angular-input-masks
 //= require angular-foundation
 //= require angular-busy
+//= require angular-filter
 //= require angulartics
+//= require ui-router
+//= require initial.js
 //= require_tree ./angular/
 
 $(function(){ $(document).foundation(); });

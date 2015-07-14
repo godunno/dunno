@@ -1,7 +1,7 @@
-header.page-header.title ng-class="'scheme-' + event.course.order"
+header.page__header ng-class="'scheme-' + event.course.order"
   .row
     .small-3.columns
-      a.back__button.button.small.transparent ng-href="{{courseLocation(event)}}"
+      a.back__button.button.transparent.secondary.icon__button ui-sref="courses.show.calendar({course: event.course, month: event.start_at})"
         i.icon.icon-arrow-back>
         span.hide-for-small
           | Voltar
@@ -16,13 +16,13 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         li ng-if="!!event.course.grade"
           | {{event.course.grade}}
     .small-3.columns.right-aligned
-      a.button.small.transparent.hide__personal__topics[
+      a.button.transparent.secondary.icon__button.hide__personal__topics[
         ng-click="setPrivateTopicsVisibility(false)"
         ng-show="showPrivateTopics"]
         i.icon.icon-private>
         span.hide-for-small
           | Ocultar conteúdo privado
-      a.button.small.transparent.show__personal__topics[
+      a.button.transparent.secondary.icon__button.show__personal__topics[
         ng-click="setPrivateTopicsVisibility(true)"
         ng-show="!showPrivateTopics"]
         i.icon.icon-eye>
@@ -69,7 +69,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .hide-for-small.medium-3.columns
       a.previous__event[
         ng-if="!!event.previous.uuid"
-        href="#events/{{event.previous.uuid}}"
+        ui-sref="{eventId: event.previous.uuid}"
         analytics-on="click"
         analytics-event="Event Navigation"
         analytics-name="previous"
@@ -98,7 +98,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .show-for-small.small-1.columns
           a.previous__event.mobile__day__navigation[
             ng-if="!!event.previous.uuid"
-            href="#events/{{event.previous.uuid}}"
+            ui-sref="{ id: event.previous.uuid }"
             analytics-on="click"
             analytics-event="Event Navigation"
             analytics-name="previous"
@@ -116,7 +116,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
         .show-for-small.small-1.columns
           a.next__event.mobile__day__navigation[
             ng-if="!!event.next.uuid"
-            href="#events/{{event.next.uuid}}"
+            ui-sref="{ id: event.next.uuid }"
             analytics-on="click"
             analytics-event="Event Navigation"
             analytics-name="next"
@@ -146,7 +146,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
               a[
                 ng-click="selectTopicType('url'); startUrlMediaEditing()"
                 ng-class="{active: topicType == 'url'}"]
-                i.icon.icon-link
+                i.icon.icon-url
                 small.hide-for-small
                   | Link
             li
@@ -333,7 +333,7 @@ header.page-header.title ng-class="'scheme-' + event.course.order"
     .hide-for-small.medium-3.columns
       a.next__event[
         ng-if="!!event.next.uuid"
-        href="#events/{{event.next.uuid}}"
+        ui-sref="{ eventId: event.next.uuid }"
         analytics-on="click"
         analytics-event="Event Navigation"
         analytics-name="next"

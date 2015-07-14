@@ -1,7 +1,7 @@
-header.page-header.title
+header.page__title
   .row
     .large-12.columns
-      h1
+      h1.main__page__title
         | Meu perfil
 .edit-profile
   form.standalone-form.small-12.medium-6.medium-centered name="form" ng-submit="update_password(user)"
@@ -40,5 +40,5 @@ header.page-header.title
           | Não é igual à senha inserida.
     input.submit type="submit" ng-disabled="form.$invalid" value="Alterar senha"
     .cancel
-      a href="#profile/edit"
+      a ui-sref="^"
         | Cancelar, quero manter a senha atual.

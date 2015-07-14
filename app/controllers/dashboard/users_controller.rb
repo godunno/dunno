@@ -2,10 +2,10 @@ class Dashboard::UsersController < Devise::RegistrationsController
   respond_to :json, :html
 
   def create
-    ActiveRecord::Base.transaction do
+    User.transaction do
       super do |user|
-        user.update(profile: Profile.new)
-        user.valid? && TrackerWrapper.new(user).track('User Signed Up')
+        user.update!(profile: Profile.new)
+        TrackerWrapper.new(user).track('User Signed Up')
       end
     end
   end

@@ -8,73 +8,59 @@
   display: block;
   margin-bottom: 1em;
   overflow: hidden;
+  transition: box-shadow .1s ease-in-out;
+
+  &:hover {
+    @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
+  }
 
   .card__header,
   .card__content {
     padding: 1em;
+    text-align: center;
   }
 
   .card__header {
+    display: table;
+    max-height: 7rem;
+    min-height: 7rem;
+    padding: 1rem 0;
+    width: 100%;
+
     .card__title {
+      display: table-cell;
       font-size: 1.25em;
-      line-height: 3rem;
-      overflow: hidden;
-      padding: 1.5rem;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .card__subtitle {
-      color: $dunno-dark-color;
-      opacity: .5;
-
-      .right {
-        margin-left: 1em;
-      }
-    }
-  }
-
-  .card__subtitle,
-  .card__content {
-    font-size: .875em;
-  }
-
-  .card__subtitle {
-    strong,
-    span {
-      display: block;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      padding: 0 2rem;
+      vertical-align: middle;
     }
   }
 
   .card__content {
     background-color: $white;
     color: $medium-grey-color;
-  }
 
-  .overlay {
-    &.published {
-      background-color: $dunno-dark-color;
-      text-align: center;
-      text-transform: uppercase;
-    }
+    .card__subtitle {
+      display: block;
+      font-size: .75em;
+      line-height: 1.75rem;
 
-    .button {
-      transform: translateY(-30%);
-      transition: all .15s ease-in-out;
-    }
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
-    &:hover {
-      .button {
-        transform: translateY(-50%);
+        &:after {
+          content: ' · ';
+        }
 
-        &:hover {
-          opacity: .8;
+        &:last-child:after {
+          content: '';
         }
       }
+    }
+
+    .icon {
+      font-size: 1.5rem;
     }
   }
 }

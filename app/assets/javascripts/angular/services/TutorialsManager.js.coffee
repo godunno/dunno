@@ -7,6 +7,8 @@ TutorialsManager = ($http, $analytics, $location, SessionManager)->
     "user_#{user.id}_tutorial_#{tutorialId}"
 
   tutorialEnabled = (tutorialId)->
+    # TODO: Reenable when we update the tutorial.
+    return false
     return false if $location.search().first_access
     return false if user.completed_tutorial
     return true unless localStorage.getItem(tutorialKey(tutorialId))

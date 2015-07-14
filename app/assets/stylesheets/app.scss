@@ -1,7 +1,6 @@
 @import
   'utils/variables',
-  'utils/mixins',
-  'utils/icons_aliases';
+  'utils/mixins';
 
 @import
   'settings', // foundation setup
@@ -17,18 +16,26 @@
   'vendors/loading';
 
 @import
+  'components/avatar',
   'components/ball',
+  'components/blankslate',
   'components/buttons',
   'components/cards',
   'components/catalog',
+  'components/content-box',
   'components/dropdown',
-  'components/overlay',
+  'components/empty-results',
   'components/page-header',
+  'components/page-title',
+  'components/prebootstrap_loading',
   'components/preview',
   'components/progress',
+  'components/search-form',
+  'components/status_icons',
   'components/summary-tasks',
-  'components/topic-items',
-  'components/topic-form';
+  'components/tabs',
+  'components/topic-form',
+  'components/topic-items';
 
 @import
   'layouts/forms',
@@ -39,7 +46,9 @@
 @import
   'pages/accept_invitation',
   'pages/catalog',
-  'pages/course_detail',
+  'pages/course-calendar',
+  'pages/course-members',
+  'pages/course-show',
   'pages/courses',
   'pages/create_course',
   'pages/diary',
@@ -47,7 +56,6 @@
   'pages/events',
   'pages/first_access',
   'pages/login',
-  'pages/prebootstrap_loading',
   'pages/student';
 
 @import
