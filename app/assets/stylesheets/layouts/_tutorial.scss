@@ -1,9 +1,7 @@
 .tutorial.wrapper {
-  @include reveal-modal-style(
-    $bg: $dunno-dark-color
-  );
-
+  @include reveal-modal-style($bg: $dunno-dark-color);
   @include radius(10px);
+  outline: 0;
   padding: 2em 3em;
   text-align: center;
   top: 320px;
@@ -20,20 +18,24 @@
     .step {
       display: inline-block;
       list-style: none;
+      margin: 0 .5rem;
+    }
 
-      .icon {
-        color: $dark-grey-color;
+    .small__circle {
+      @include radius(50%);
+      background-color: $dark-grey-color;
+      display: inline-block;
+      height: 1em;
+      width: 1em;
 
-        &.active {
-          color: $white;
-        }
+      &.active {
+        background-color: $white;
       }
     }
   }
 
   .next {
     @extend .button;
-    @extend .btn-style-1;
     @include radius;
     margin: 0;
   }

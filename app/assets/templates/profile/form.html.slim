@@ -5,28 +5,64 @@ ui-view
         h1.main__page__title
           | Meu perfil
 
-  .edit-profile
-    form.standalone-form.small-12.medium-6.medium-centered ng-submit="update(user)" name="form"
-      .box
-        small.success ng-if="success"
-          | Dados salvos com sucesso!
-        label for="name" Nome
-        input#name type="text" ng-model="user.name" required=true name="name"
-        small.error ng-messages="form.name.$error" ng-if="form.name.$invalid && form.name.$dirty"
-          span ng-message="required"
-            | Este campo é obrigatório.
-        label for="email"
-          | Email
-        input#email type="email" ng-model="user.email" disabled=true
-        label for="phone_number"
-          | Telefone
-        input#phone_number type="text" ng-model="user.phone_number" required=true name="phone_number" ui-br-phone-number=true
-        small.error ng-messages="form.phone_number.$error" ng-if="form.phone_number.$invalid && form.phone_number.$dirty"
-          span ng-message="required"
-            | Este campo é obrigatório.
-          span ng-message="br-phone-number"
-            | Formato inválido.
-        hr
-        a ui-sref=".change_password"
-          | Quero alterar minha senha
-      input.submit.button type="submit" ng-disabled="form.$invalid" value="Atualizar perfil"
+  .edit__profile
+    .row
+      .small-12.medium-7.large-6.small-centered.columns
+        form[
+          name="form"
+          ng-submit="update(user)"]
+          .form__box
+            p.text-center ng-if="success"
+              span.label.success.radius
+                | Dados salvos com sucesso!
+
+            label for="name"
+              small
+                | Nome
+                span.required<
+                  | *
+            input#name.radius[
+              name="name"
+              ng-model="user.name"
+              required=true
+              type="text"]
+            small.error[
+              ng-messages="form.name.$error"
+              ng-if="form.name.$invalid && form.name.$dirty"]
+              span ng-message="required"
+                | Este campo é obrigatório.
+
+            label for="email"
+              small
+                | Email
+            input#email.radius[
+              disabled=true
+              ng-model="user.email"
+              type="email"]
+
+            label for="phone_number"
+              small
+                | Telefone
+                span.required<
+                  | *
+            input#phone_number.radius[
+              name="phone_number"
+              ng-model="user.phone_number"
+              required=true
+              ui-br-phone-number=true
+              type="text"]
+            small.error[
+              ng-messages="form.phone_number.$error"
+              ng-if="form.phone_number.$invalid && form.phone_number.$dirty"]
+              span ng-message="required"
+                | Este campo é obrigatório.
+              span ng-message="br-phone-number"
+                | Formato inválido.
+
+            a.button.secondary.transparent.small.expand ui-sref=".change_password"
+              | Quero alterar minha senha
+            .text-center
+              input.submit.button.radius[
+                ng-disabled="form.$invalid"
+                type="submit"
+                value="Atualizar perfil"]

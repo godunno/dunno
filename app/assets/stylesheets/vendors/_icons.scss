@@ -58,7 +58,7 @@
 .icon-calendar:before {
   content: "\e00a";
 }
-.icon-check:before {
+.icon-circle-check:before {
   content: "\e00c";
 }
 .icon-trash:before {
@@ -69,21 +69,6 @@
 }
 .icon-url:before {
   content: "\e010";
-}
-.icon-plain-check:before {
-  content: "\e011";
-}
-.icon-error:before {
-  content: "\e012";
-}
-.icon-pencil:before {
-  content: "\e013";
-}
-.icon-tag:before {
-  content: "\e014";
-}
-.icon-expand:before {
-  content: "\e015";
 }
 .icon-catalog:before {
   content: "\e016";
@@ -126,4 +111,28 @@
 }
 .icon-chevron-down:before {
   content: "\e00d";
+}
+.icon-icon-tag:before {
+  content: "\e011";
+}
+.icon-pencil:before {
+  content: "\e012";
+}
+.icon-error:before {
+  content: "\e013";
+}
+.icon-check:before {
+  content: "\e014";
+}
+.icon-checkbox-checked:before {
+  content: "\e015";
+}
+.icon-checkbox-unchecked:before {
+  content: "\e021";
+}
+.icon-radio-unchecked:before {
+  content: "\e003";
+}
+.icon-radio-checked:before {
+  content: "\e002";
 }

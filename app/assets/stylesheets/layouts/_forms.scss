@@ -1,9 +1,9 @@
 .required {
   color: $red-color;
-  font-size: 1.25em;
+  font-size: 1.75em;
   font-weight: $font-weight-bold;
   line-height: 0;
-  vertical-align: middle;
+  vertical-align: -.5rem;
 }
 
 .ng-invalid.ng-dirty,
@@ -11,51 +11,74 @@
   border-color: $red-color;
 }
 
-.done {
+.form__box {
+  // style defined inside components/_content-box.scss
+  padding: 2rem 1.75rem;
+
   label {
-    color: $light-grey-color;
-  }
-}
-
-input[type=checkbox] {
-  margin: 0 .5em 0 0;
-}
-
-@mixin dotted-input($border-color) {
-  border-bottom: 1px dashed $border-color;
-  border: 0;
-  box-shadow: none;
-  outline: none;
-}
-
-.standalone-form {
-  margin: auto;
-
-  .box {
-    @include box-shadow();
-    @include radius();
-    background: $white;
-    padding: 1.5em;
-    a {
-      color: $dunno-green-color;
+    small {
+      color: inherit;
     }
   }
 
-  label {
-    text-transform: uppercase;
+  .validation {
+    float: right;
+    position: relative;
+
+    .icon {
+      position: absolute;
+      right: .5rem;
+      top: 2rem;
+    }
   }
 
-  [disabled]:not(input[type="submit"]) {
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    color: $dark-grey-color;
-    padding: 0;
+  .icon-plain-check {
+    color: $dunno-green-color;
   }
 
-  [type="submit"] {
-    @extend .btn-style-1;
-    @extend .button;
-    @include radius;
+  .icon-error {
+    color: $red-color;
   }
+}
+
+input[type=checkbox],
+input[type=radio] {
+  display: none;
+}
+
+input[type=checkbox] + label,
+input[type=radio] + label {
+  margin: 0;
+}
+
+input[type=checkbox] + label:before,
+input[type=checkbox]:checked + label:before,
+input[type=radio] + label:before,
+input[type=radio]:checked + label:before {
+  display: inline-block;
+  font-family: 'dunno-icon-font';
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  margin: 0 .5rem 0 0;
+  vertical-align: bottom;
+}
+
+input[type=checkbox] + label:before {
+  color: $medium-grey-color;
+  content: '\e021';
+}
+
+input[type=checkbox]:checked + label:before {
+  color: $dunno-green-color;
+  content: '\e015';
+}
+
+input[type=radio] + label:before {
+  color: $medium-grey-color;
+  content: '\e003';
+}
+
+input[type=radio]:checked + label:before {
+  color: $dunno-green-color;
+  content: '\e002';
 }

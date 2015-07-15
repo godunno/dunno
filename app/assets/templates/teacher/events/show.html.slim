@@ -15,14 +15,14 @@ header.page__header ng-class="'scheme-' + event.course.order"
           | {{event.formatted_classroom}}
         li ng-if="!!event.course.grade"
           | {{event.course.grade}}
-    .small-3.columns.right-aligned
-      a.button.transparent.secondary.icon__button.hide__personal__topics[
+    .small-3.columns.text-right
+      a.button.transparent.secondary.icon__button.small.hide__personal__topics[
         ng-click="setPrivateTopicsVisibility(false)"
         ng-show="showPrivateTopics"]
         i.icon.icon-private>
         span.hide-for-small
           | Ocultar conteúdo privado
-      a.button.transparent.secondary.icon__button.show__personal__topics[
+      a.button.transparent.secondary.icon__button.small.show__personal__topics[
         ng-click="setPrivateTopicsVisibility(true)"
         ng-show="!showPrivateTopics"]
         i.icon.icon-eye>
@@ -42,7 +42,7 @@ header.page__header ng-class="'scheme-' + event.course.order"
             | Desfazer
           span<
             | (Aula ficará Despublicada)
-      a.event__cancel__link[
+      a.event__cancel__link.button.alert.transparent.no__side__padding.tiny[
         ng-if="event.status != 'canceled'"
         ng-click="setStatus(event, 'canceled')"]
         | Cancelar Aula
@@ -56,7 +56,7 @@ header.page__header ng-class="'scheme-' + event.course.order"
             ng-disabled="event.status == 'canceled'"
             ng-class="{event__status__current: event.status == 'draft'}"
             ng-click="setStatus(event, 'draft')"]
-            i.icon.icon-draft>
+            .status__icon.status__icon__draft>
             | Despublicada
         li
           a.button.tiny.event__status__button.event__status__published[
@@ -64,7 +64,7 @@ header.page__header ng-class="'scheme-' + event.course.order"
             ng-class="{event__status__current: event.status == 'published'}"
             ng-click="setStatus(event, 'published')"]
             | Publicada
-            i.icon.icon-published<
+            .status__icon.status__icon__published<
   .row.collapse
     .hide-for-small.medium-3.columns
       a.previous__event[
@@ -289,14 +289,13 @@ header.page__header ng-class="'scheme-' + event.course.order"
                           | Transferir
                 .topic__item__contents
                   input.topic__item__status[
-                    type="checkbox"
-                    ng-model="topic.done"
-                    ng-change="save(topic)"
                     id="topic_{{topic.uuid}}_done"
-                  ]
+                    ng-change="save(topic)"
+                    ng-model="topic.done"
+                    type="checkbox"]
                   label.topic__item__status__checkbox[
                     for="topic_{{topic.uuid}}_done"]
-                    i.icon.icon-plain-check
+                    i.icon.icon-check
                   span.topic__item__description ng-class="{preview: !!topic.media}"
                     a.topic__item__image[
                       ng-href="{{topic.media.url}}"

@@ -1,7 +1,3 @@
-.columns.right-aligned {
-  text-align: right;
-}
-
 .hide__personal__topics,
 .show__personal__topics,
 .back__button {
@@ -134,12 +130,6 @@
   margin: 0 1em;
 }
 
-.event__cancel__link {
-  color: $red-color;
-  font-size: .75em;
-  white-space: nowrap;
-}
-
 .event__status__group {
   text-align: right;
 
@@ -164,13 +154,22 @@
     color: $medium-grey-color;
     font-weight: $font-weight-bold;
 
+    &.event__status__published {
+      .status__icon.status__icon__published {
+        background-color: $light-grey-color;
+        border-color: $light-grey-color;
+      }
+    }
+
     &.event__status__current {
       background: $white;
       color: $dunno-dark-color;
+      pointer-events: none;
 
       &.event__status__published {
-        i.icon {
-          color: $dunno-green-color;
+        .status__icon.status__icon__published {
+          background-color: $dunno-green-color;
+          border-color: $dunno-green-color;
         }
       }
     }

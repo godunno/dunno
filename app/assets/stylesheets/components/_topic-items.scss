@@ -28,6 +28,10 @@
     input {
       opacity: .5;
     }
+
+    label {
+      color: $light-grey-color;
+    }
   }
 
   &.personal {
@@ -98,6 +102,11 @@
 
   .topic__item__status {
     display: none;
+  }
+
+  input[type=checkbox] + label:before,
+  input[type=checkbox]:checked + label:before {
+    content: '';
   }
 
   input[type=checkbox] + label {

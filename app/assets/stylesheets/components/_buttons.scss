@@ -1,15 +1,3 @@
-$btn-style-1-bg-color: $dunno-green-color;
-$btn-style-1-hover-bg-color: lighten($dunno-green-color, 10%);
-$btn-style-1-disabled-bg-color: $disabled-color;
-
-$btn-style-transparent-bg-color: transparent;
-
-$btn-style-transparent-1-font-color: $white;
-$btn-style-transparent-1-border: 1px solid $btn-style-transparent-1-font-color;
-
-$btn-style-transparent-2-font-color: $dunno-dark-color;
-$btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
-
 .button {
   &:focus {
     opacity: .7;
@@ -39,6 +27,15 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
       &:hover,
       &:active {
         color: $medium-grey-color;
+      }
+    }
+
+    &.alert {
+      color: $red-color;
+
+      &:hover,
+      &:active {
+        color: $red-color;
       }
     }
   }
@@ -83,62 +80,17 @@ $btn-style-transparent-2-border: 1px solid $btn-style-transparent-2-font-color;
   &.icon__button {
     padding: 0;
   }
-}
 
-.btn-style-1 {
-  // TODO: use foundation button() for creating new buttons.
-  background-color: $dunno-green-color;
-
-  &:active,
-  &:hover {
-    background-color: $btn-style-1-hover-bg-color;
+  &.submit {
+    margin-bottom: 0;
   }
 
   &.disabled {
-    background-color: $btn-style-1-disabled-bg-color;
-  }
-}
-
-.btn-style-2 {
-  // TODO: use foundation button() for creating new buttons.
-  background-color: $btn-style-transparent-bg-color;
-  color: $dunno-dark-color;
-  opacity: .6;
-
-  &:active,
-  &:hover {
-    background-color: $btn-style-transparent-bg-color;
-    color: $dunno-dark-color;
-    opacity: 1;
+    pointer-events: none;
   }
 
-  &.disabled {
-    background-color: $btn-style-1-disabled-bg-color;
+  &.no__side__padding {
+    padding-left: 0;
+    padding-right: 0;
   }
-}
-
-%btn-style-transparent {
-  background-color: $btn-style-transparent-bg-color;
-
-  &:hover {
-    background-color: $btn-style-transparent-bg-color;
-  }
-}
-
-.btn-style-transparent-1,
-.btn-style-transparent-1:hover {
-  @extend %btn-style-transparent;
-  border: $btn-style-transparent-1-border;
-  color: $btn-style-transparent-1-font-color;
-}
-
-.btn-style-transparent-2,
-.btn-style-transparent-2:hover {
-  @extend %btn-style-transparent;
-  border: $btn-style-transparent-2-border;
-  color: $btn-style-transparent-2-font-color;
-}
-
-a.disabled {
-  pointer-events: none;
 }
