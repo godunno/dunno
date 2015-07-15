@@ -55,7 +55,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
               | {{course.access_code}}
 
 .course__detail__page
-  .row
+  .row.small-collapse
     .small-12.medium-8.columns[
       ui-view=true
       ng-class="{'medium-centered': course.user_role == 'student'}"]

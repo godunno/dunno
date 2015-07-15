@@ -34,12 +34,13 @@
     analytics-course-name="{{course.name}}"
     analytics-start-at="{{event.start_at}}"]
     span.date__more__info
-      span.date__classroom
+      span.date__classroom>
         | {{event.formatted_classroom}}
+      | -
+      span.date__order<
+        | Aula {{event.order | leadingZeros:2}}
       span.date__status
         span.status__icon[ng-class="'status__icon__' + event.formatted_status"]
-      span.date__order
-        | Aula {{event.order | leadingZeros:2}}
     span.date__timestamp
       span.date__day
         | {{asDate(event.start_at) | date:'dd'}}
