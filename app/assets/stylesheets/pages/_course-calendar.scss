@@ -48,26 +48,20 @@
 
 .dates__date {
   background-color: $white;
-  color: transparentize($dunno-dark-color, .6);
+  color: $dunno-dark-color;
   display: block;
   font-size: .875rem;
-  line-height: 2.5em;
+  line-height: 2.125em;
+  padding: .5rem;
 
   @media #{$small-only} {
-    line-height: 1.5rem;
-    text-align: left;
+    font-size: .75rem;
+    line-height: 3.125rem;
+    padding: 0;
   }
 
   &:hover {
     background-color: darken($white, 4%);
-
-    .date__time,
-    .date__classroom,
-    .date__day,
-    .date__weekday,
-    .date__order {
-      color: $dunno-dark-color;
-    }
 
     &.today {
       .date__date {
@@ -90,18 +84,28 @@
     @include side-radius(bottom, $global-radius);
   }
 
-  &.future {
-    .date__day {
-      color: $dunno-dark-color;
-    }
+  &.past {
+    background-color: lighten($light-grey-color, 20%);
+    font-style: italic;
   }
 
   &.today {
     color: $dunno-dark-color;
+    font-weight: $font-weight-bold;
 
     .date__day {
-      background: $dunno-green-color;
+      @include radius(50%);
+      background-color: $dunno-green-color;
       color: $white;
+      height: 2rem;
+      width: 2rem;
+
+      @media #{$small-only} {
+        height: 1.75rem;
+        line-height: 1.75rem;
+        margin: 0 .25rem;
+        width: 1.75rem;
+      }
     }
   }
 
@@ -113,7 +117,7 @@
   .date__order,
   .date__go {
     display: inline-block;
-    padding: .25em;
+    padding: 0 .25em;
   }
 
   .date__status {
@@ -125,19 +129,9 @@
     }
   }
 
-  .date__order,
-  .date__status {
-    @media #{$small-only} {
-      float: right;
-    }
-  }
-
   .date__day {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: $font-weight-bold;
-    max-width: 3rem;
-    min-width: 3rem;
-    padding: .5rem;
     text-align: center;
   }
 
@@ -150,21 +144,8 @@
   .date__more__info {
     display: block;
     float: right;
-    line-height: 1;
-    padding: .5rem;
     text-align: right;
     width: 50%;
-
-    @media #{$small-only} {
-      float: none;
-      padding: .25rem;
-      text-align: left;
-      width: 100%;
-    }
-  }
-
-  .date__order {
-    font-size: .75rem;
   }
 
   .date__classroom,
