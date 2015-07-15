@@ -1,0 +1,41 @@
+.schedule-page
+  .header
+    h2
+      | Cronograma de aulas
+    p
+      | Estas informações são 
+      strong opcionais
+      | , mas com elas conseguiremos montar seu calendário personalizado, contendo somente os seus períodos de aula. (Irá afetar somente aulas de hoje em diante)
+    a.close ui-sref="^"
+      | Fechar
+  .weekly__schedules
+    h3
+      | Dias da semana
+    .weekly__schedule ng-repeat="weekly_schedule in weekly_schedules"
+      .weekday
+        | {{weekly_schedule.weekday | weekday}}
+      input.start__time[
+        ng-model="weekly_schedule.start_time"
+        type="text"
+        placeholder="10:00"]
+      .to
+        | às
+      input.end__time[
+        ng-model="weekly_schedule.end_time"
+        type="text"
+        placeholder="12:00"]
+      input.classroom[
+        ng-model="weekly_schedule.classroom"
+        type="text"
+        placeholder="Sala"]
+  .course__dates
+    h3
+      | Período letivo
+    input.start__date[
+      ng-model="course.start_date"
+      type="text"
+      placeholder="Início das aulas"]
+    input.end__date[
+      ng-model="course.end_date"
+      type="text"
+      placeholder="Fim das aulas"]
