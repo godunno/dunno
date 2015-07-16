@@ -1,0 +1,52 @@
+.events__tab {
+  .date {
+    @include side-radius(top, $global-radius);
+    background-color: $dunno-dark-color;
+    color: $white;
+    display: inline-block;
+    font-size: .75rem;
+    margin-bottom: -.0625rem;
+    margin-left: 2rem;
+    padding: .5rem 1rem;
+    text-transform: uppercase;
+  }
+
+  .event__content {
+    @extend %content-box;
+    padding: 1rem;
+  }
+
+  .event__item {
+    border-bottom: .0625rem solid $light-grey-color;
+    padding: 1rem 0;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  .icon-check {
+    color: $light-grey-color;
+  }
+
+  .topic__item__description {
+    @include radius();
+    font-size: .875rem;
+    margin: 0 .5rem;
+    padding: .25rem;
+  }
+
+  .done {
+    .icon-check {
+      color: $dunno-green-color;
+    }
+
+    .topic__item__description {
+      background: $light-grey-color;
+    }
+  }
+
+  .private {
+    color: $red-color;
+  }
+}

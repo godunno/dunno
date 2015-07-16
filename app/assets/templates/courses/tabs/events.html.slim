@@ -1,35 +1,48 @@
-.events
-  .event[
-    ng-repeat="event in events"
-    scroll-to-when="scrollUntil == event.start_at"]
-    span.date {{event.start_at | date:'dd/MM/yy HH:mm'}}
-    ul.topics
-      li.topic ng-repeat="topic in event.topics"
-        a.topic__item__image[
-          ng-if="!!topic.media"
-          target="_blank"
-          ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"
-          ng-href="{{topic.media.url}}"
-          analytics-on="click"
-          analytics-event="Media Clicked"
-          analytics-uuid="{{media.uuid}}"
-          analytics-event-uuid="{{event.uuid}}"
-          analytics-course-name="{{event.course.name}}"
-          analytics-course-uuid="{{event.course.uuid}}"]
-        a.topic__item__description[
-          ng-class="{preview: !!topic.media}"
-          ng-if="!!topic.media"
-          ng-href="{{topic.media.url}}"
-          target="_blank"
-          analytics-on="click"
-          analytics-event="Media Clicked"
-          analytics-uuid="{{media.uuid}}"
-          analytics-event-uuid="{{event.uuid}}"
-          analytics-course-name="{{event.course.name}}"
-          analytics-course-uuid="{{event.course.uuid}}"]
-          | {{topic.description}}
-        span.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!topic.media"
-          | {{topic.description}}
+.row
+  .small-12.columns
+    .events__tab
+      .event[
+        ng-repeat="event in events"
+        scroll-to-when="scrollUntil == event.start_at"]
+        .date
+          | {{event.start_at | date:'dd MMMM - EEEE'}}
+        .event__content
+          .no__topics.empty__results ng-if="event.topics.length == 0"
+            | Nenhum conteúdo disponível para esse dia.
+          .event__items ng-if="event.topics.length != 0"
+            .event__item[
+              ng-class="{private: topic.personal == true, done: topic.done == true}"
+              ng-repeat="topic in event.topics"]
+              i.icon.icon-check
+              a.topic__item__image[
+                ng-if="!!topic.media"
+                target="_blank"
+                ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"
+                ng-href="{{topic.media.url}}"
+                analytics-on="click"
+                analytics-event="Media Clicked"
+                analytics-uuid="{{media.uuid}}"
+                analytics-event-uuid="{{event.uuid}}"
+                analytics-course-name="{{event.course.name}}"
+                analytics-course-uuid="{{event.course.uuid}}"]
+              a.topic__item__description[
+                ng-class="{preview: !!topic.media}"
+                ng-if="!!topic.media"
+                ng-href="{{topic.media.url}}"
+                target="_blank"
+                analytics-on="click"
+                analytics-event="Media Clicked"
+                analytics-uuid="{{media.uuid}}"
+                analytics-event-uuid="{{event.uuid}}"
+                analytics-course-name="{{event.course.name}}"
+                analytics-course-uuid="{{event.course.uuid}}"]
+                | {{topic.description}}
+              span.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!topic.media"
+                | {{topic.description}}
 
-a.button ng-click="paginate(nextPage)" ng-hide="noMoreEvents"
-  | Carregar mais...
+    .text-center
+      / TODO: review noMoreEvents - possible off by one issue
+      a.button.radius[
+        ng-click="paginate(nextPage)"
+        ng-hide="noMoreEvents"]
+        | Carregar mais…

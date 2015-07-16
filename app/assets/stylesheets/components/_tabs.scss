@@ -11,6 +11,7 @@
 
     a {
       color: $dunno-dark-color;
+      text-transform: uppercase;
 
       @media #{$small-up} {
         font-size: .65rem;

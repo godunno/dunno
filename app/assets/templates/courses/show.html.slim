@@ -37,17 +37,16 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
     footer.small-12.columns
       .row
         .small-12.medium-7.columns
-          / TODO: Use CSS for uppercase text
           ul.small-block-grid-4.page__header__tabs
             li ui-sref-active='active'
               a.calendar__tab ui-sref=".calendar"
-                | CALENDÁRIO
+                | Calendário
             li ui-sref-active='active'
               a.members__tab ui-sref=".events"
-                | AULAS
+                | Aulas
             li ui-sref-active='active'
               a.members__tab ui-sref=".members"
-                | INTEGRANTES
+                | Integrantes
 
         .medium-5.columns.page__header__actions.hide-for-small ng-if="course.user_role == 'teacher'"
           a.button.dark.radius.tiny> data-reveal-id="send-notification"
