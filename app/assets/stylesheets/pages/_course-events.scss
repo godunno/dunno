@@ -6,14 +6,18 @@
     display: inline-block;
     font-size: .75rem;
     margin-bottom: -.0625rem;
-    margin-left: 2rem;
+    margin-left: .5rem;
     padding: .5rem 1rem;
     text-transform: uppercase;
   }
 
+  .no__topics {
+    padding: 1rem 0;
+  }
+
   .event__content {
     @extend %content-box;
-    padding: 1rem;
+    padding: 0 1rem;
   }
 
   .event__item {
@@ -30,23 +34,63 @@
   }
 
   .topic__item__description {
-    @include radius();
     font-size: .875rem;
     margin: 0 .5rem;
     padding: .25rem;
   }
 
   .done {
+    font-style: italic;
+
     .icon-check {
       color: $dunno-green-color;
     }
 
     .topic__item__description {
-      background: $light-grey-color;
+      background: lighten($light-grey-color, 20%);
     }
   }
 
   .private {
     color: $red-color;
+  }
+
+  .comment__event__wrapper {
+    margin: 0 calc(-1rem + -1px) calc(-1rem + -1px);
+    position: relative;
+  }
+
+  .comment__event__avatar {
+    @include avatar();
+    left: .5rem;
+    position: absolute;
+    top: .85rem;
+  }
+
+  .comment__event__actions {
+    position: absolute;
+    right: .5rem;
+    top: .85rem;
+
+    .button {
+      line-height: 2rem;
+      margin: 0;
+      padding: 0 .5rem;
+    }
+  }
+
+  .comment__event {
+    @include side-radius(bottom, $global-radius);
+    background: lighten($light-grey-color, 20%);
+    border: .0625rem solid $light-grey-color;
+    line-height: 3.625rem;
+    margin-bottom: 0;
+    min-height: 3.625rem;
+    padding-left: 3rem;
+    padding-right: 5rem;
+
+    &:focus {
+      background: $white;
+    }
   }
 }
