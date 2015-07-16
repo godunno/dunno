@@ -1,41 +1,68 @@
-.schedule-page
-  .header
-    h2
-      | Cronograma de aulas
-    p
-      | Estas informações são 
-      strong opcionais
-      | , mas com elas conseguiremos montar seu calendário personalizado, contendo somente os seus períodos de aula. (Irá afetar somente aulas de hoje em diante)
-    a.close ui-sref="^"
-      | Fechar
+.schedule__page
+  .schedule__header
+    .row
+      .small-9.columns
+        p
+          strong.uppercase
+            | Cronograma de aulas
+          br
+          | Estas informações são <b>opcionais</b>, mas com elas conseguiremos montar seu calendário personalizado, contendo somente os seus períodos de aula. (Irá afetar somente aulas de hoje em diante)
+      .small-3.columns
+        a.button.tiny.radius.close ui-sref="^"
+          | Fechar
+
   .weekly__schedules
-    h3
-      | Dias da semana
+    .row
+      .small-12.columns
+        p
+          strong.uppercase
+            | Dias da semana
     .weekly__schedule ng-repeat="weekly_schedule in weekly_schedules"
-      .weekday
-        | {{weekly_schedule.weekday | weekday}}
-      input.start__time[
-        ng-model="weekly_schedule.start_time"
-        type="text"
-        placeholder="10:00"]
-      .to
-        | às
-      input.end__time[
-        ng-model="weekly_schedule.end_time"
-        type="text"
-        placeholder="12:00"]
-      input.classroom[
-        ng-model="weekly_schedule.classroom"
-        type="text"
-        placeholder="Sala"]
-  .course__dates
-    h3
-      | Período letivo
-    input.start__date[
-      ng-model="course.start_date"
-      type="text"
-      placeholder="Início das aulas"]
-    input.end__date[
-      ng-model="course.end_date"
-      type="text"
-      placeholder="Fim das aulas"]
+      .row.collapse
+        .small-5.columns
+          input.special__checkbox[id="id__{{weekly_schedule.weekday}}" type='checkbox']
+          label.weekday[for="id__{{weekly_schedule.weekday}}"]
+            | {{weekly_schedule.weekday | weekday_long}}
+        .small-2.columns
+          input.start__time.special__input[
+            ng-model="weekly_schedule.start_time"
+            type="text"
+            placeholder="10:00"]
+        .small-1.columns.text-center
+          span.to.uppercase
+            | às
+        .small-2.columns
+          input.end__time.special__input[
+            ng-model="weekly_schedule.end_time"
+            type="text"
+            placeholder="12:00"]
+        .small-2.columns
+          input.classroom.special__input[
+            ng-model="weekly_schedule.classroom"
+            type="text"
+            placeholder="Sala"]
+
+    .course__dates
+      .row
+        .small-12.columns
+          p
+            strong.uppercase
+              | Período letivo
+          .row.postfix
+            .small-10.columns
+              input.start__date.special__input#course__start__date[
+                ng-model="course.start_date"
+                type="text"
+                placeholder="Início das aulas"]
+            .small-2.columns
+              label.postfix.transparent[for="course__start__date"]
+                i.icon.icon-calendar
+          .row.postfix
+            .small-10.columns
+              input.end__date.special__input#course__end__date[
+                ng-model="course.end_date"
+                type="text"
+                placeholder="Fim das aulas"]
+            .small-2.columns
+              label.postfix.transparent[for="course__end__date"]
+                i.icon.icon-calendar
