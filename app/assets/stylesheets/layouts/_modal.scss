@@ -1,37 +1,51 @@
 .reveal-modal {
-  &.send-notification {
+  .modal__header {
+    border-bottom: 1px solid $light-grey-color;
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    text-align: center;
+
+    h5 {
+      text-transform: uppercase;
+    }
+  }
+
+  &.add__course {
+    .button {
+      text-transform: uppercase;
+    }
+
+    .or {
+      margin-top: 3rem;
+    }
+  }
+
+  &.send__notification {
     padding-bottom: 0;
+
+    p {
+      color: $medium-grey-color;
+      margin: 0 auto;
+      width: 70%;
+    }
+
+    .counter {
+      color: $medium-grey-color;
+      display: block;
+      font-size: .875em;
+      line-height: 3em;
+    }
 
     .abbreviation {
       width: 10em;
     }
 
-    a.button {
+    .button {
       z-index: 99;
     }
 
     .preview {
       word-wrap: break-word;
     }
-  }
-}
-
-.modal {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  visibility: visible;
-
-  .close-button {
-    @include reveal-close;
-  }
-}
-
-.modal-bg {
-  @extend .reveal-modal-bg;
-  position: fixed;
-
-  &.open {
-    display: block;
   }
 }

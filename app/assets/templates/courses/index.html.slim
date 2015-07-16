@@ -4,10 +4,9 @@ ui-view
       .small-8.small-offset-2.columns
         h1.main__page__title
           | Disciplinas
-      /
-        .small-2.columns ng-if="currentUser().profile == 'teacher'"
-          a.button.round.rounded.right[href="#courses/new"]
-            | +
+      .small-2.columns ng-if="currentUser().profile == 'teacher'"
+        a.button.round.rounded.right data-reveal-id="add-course"
+          | +
       .page__title__actions.small-2.columns ng-if="currentUser().profile == 'student'"
         a.button.round.rounded.right ui-sref="courses.search"
           | +
@@ -62,3 +61,62 @@ ui-view
       on-close="tutorialClosed(1)"]
       p
         | Comece entrando em uma de suas disciplinas.
+
+#add-course.reveal-modal.full.add__course data-reveal=true
+  .row.small-collapse
+    .small-12.small-centered.medium-10.large-6.columns
+      .form__box.text-center
+        .modal__header
+          h5
+            | Turmas e Grupos
+        .steps
+          .row.step.step__1
+            .small-5.columns
+              a.button.radius.large data-step='2'
+                | Criar
+              p
+                | Criar novo Grupo de Estudos ou Turma de Alunos.
+            .small-2.columns
+              p.or
+                | OU
+            .small-5.columns
+              a.button.radius.large data-step='3'
+                | Participar
+              p
+                | Entrar em um Grupo ou Turma já existente.
+          .row.step.step__2.hide
+            .small-10.columns.small-centered
+              p
+                | Dê um nome para esta turma ou grupo. Depois você poderá compartilhar o código com seus alunos e colegas.
+              input.radius[type='text' placeholder='Nome']
+              .text-left
+                input#course__type__class[
+                  type='radio'
+                  name='course__type'
+                  checked='checked'
+                  disabled='true']
+                label[for='course__type__class']
+                  i.icon.icon-users>
+                  | Turma de Alunos
+                br
+                input#course__type__study__group[
+                  type='radio'
+                  name='course__type'
+                  disabled='true']
+                label[for='course__type__study__group']
+                  | Grupo de Estudos
+                p.disclaimer
+                  small
+                    i
+                      | Nesse momento só é possível adicionar turmas no Dunno.
+              a.button.large.radius.expand
+                | Criar
+
+          .row.step.step__3.hide
+            .small-10.columns.small-centered
+              p
+                | Digite abaixo o código da Turma ou do Grupo de Estudo que deseja entrar. Este código deve ser fornecido pelo professor ou moderador.
+              input.radius[type='text' placeholder='Digite o código']
+              a.button.large.radius.expand
+                | Entrar
+
