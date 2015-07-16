@@ -22,7 +22,7 @@
         .small-5.columns
           input.special__checkbox[id="id__{{weekly_schedule.weekday}}" type='checkbox']
           label.weekday[for="id__{{weekly_schedule.weekday}}"]
-            | {{weekly_schedule.weekday | weekday_long}}
+            | {{weekly_schedule.weekday | weekdayLong}}
         .small-2.columns
           input.start__time.special__input[
             ng-model="weekly_schedule.start_time"
