@@ -5,9 +5,9 @@
 }
 
 .media__preview {
+  @include radius();
   background-color: $background-light-grey-color;
   border-bottom: 1px solid $light-grey-color;
-  border-radius: .125em;
   overflow: hidden;
   padding: .75em;
   position: relative;
@@ -20,13 +20,9 @@
   }
 
   .media__preview__image {
-    @include radius();
-    background-size: cover;
+    @include thumbnail();
     display: block;
     float: left;
-    height: 2.75em;
-    vertical-align: middle;
-    width: 2.75em;
   }
 
   .media__preview__title,

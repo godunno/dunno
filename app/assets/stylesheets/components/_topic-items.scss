@@ -153,14 +153,8 @@
   }
 
   .topic__item__image {
-    @include radius();
-    background: no-repeat center center;
-    background-size: cover;
-    display: inline-block;
-    height: 2.75em;
+    @include thumbnail();
     margin-right: .5rem;
-    vertical-align: middle;
-    width: 2.75em;
   }
 
   .topic__item__editing {

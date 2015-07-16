@@ -14,8 +14,9 @@
             | Nenhum conteúdo disponível para esse dia.
           .event__items ng-if="event.topics.length != 0"
             .event__item[
-              ng-class="{hide: topic.personal == true, done: topic.done == true}"
-              ng-repeat="topic in event.topics"]
+              ng-class="{done: topic.done == true}"
+              ng-repeat="topic in event.topics"
+              ng-if="topic.personal != true"]
               i.icon.icon-check
               a.topic__item__image[
                 ng-if="!!topic.media"
