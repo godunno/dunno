@@ -7,6 +7,8 @@ describe Api::V1::EventsController do
   let(:event) { create(:event, course: course) }
 
   describe "GET /api/v1/events" do
+    let(:personal_topic) { create(:topic, :personal) }
+    let(:event) { create(:event, course: course, topics: [personal_topic]) }
     let!(:earlier_event) { create(:event, course: course, start_at: event.start_at - 1) }
     let!(:event_from_another_course) { create(:event) }
 

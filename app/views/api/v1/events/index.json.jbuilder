@@ -3,5 +3,5 @@ json.array! @events do |event|
   json.course do
     json.partial! 'api/v1/courses/course', course: event.course
   end
-  json.topics event.topics, partial: 'api/v1/topics/topic', as: :topic
+  json.topics event.topics.without_personal, partial: 'api/v1/topics/topic', as: :topic
 end
