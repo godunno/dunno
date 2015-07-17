@@ -3,7 +3,12 @@ class Api::V1::EventsController < Api::V1::ApplicationController
 
   def index
     today = Time.current
-    @events = current_profile.events.where(start_at: (today.beginning_of_week..today.end_of_week))
+    @events = if params[:course_id]
+                search_parameters = params.slice(:page, :per_page, :offset, :until)
+                SearchEventsByCourse.search(current_profile.courses.find_by_identifier!(params[:course_id]), search_parameters).records.to_a
+              else
+                current_profile.events.where(start_at: (today.beginning_of_week..today.end_of_week))
+              end
     respond_with(@events)
   end
 

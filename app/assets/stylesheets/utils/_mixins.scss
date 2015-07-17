@@ -1,3 +1,14 @@
 @mixin box-shadow($x: 0, $y: 2px, $blur: 2px, $color: $light-grey-color) {
   box-shadow: $x $y $blur $color;
 }
+
+@mixin thumbnail($size: 2.75rem) {
+  @include radius();
+  background: no-repeat center center;
+  background-size: cover;
+  display: inline-block;
+  height: $size;
+  vertical-align: middle;
+  width: $size;
+}
+

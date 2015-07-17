@@ -19,32 +19,32 @@
           i.icon.icon-chevron-right
   .empty__results.no__events ng-if="!course.events || course.events.length == 0"
     | Não há aulas neste mês.
-  a.dates__date[
-    ng-attr-id="{{ 'event-' + event.uuid }}"
-    ng-click="goToEvent(event)"
-    ng-repeat="event in course.events | orderBy:'start_at'"
-    ng-class="eventClass(event)"
-    ng-attr-tooltip="{{tooltipMessage(event)}}"
-    tooltip-animation="false"
-    analytics-on="click"
-    analytics-event="Event Accessed via Course"
-    analytics-uuid="{{event.uuid}}"
-    analytics-order="{{event.order}}"
-    analytics-course-uuid="{{course.uuid}}"
-    analytics-course-name="{{course.name}}"
-    analytics-start-at="{{event.start_at}}"]
-    span.date__more__info
-      span.date__classroom>
-        | {{event.formatted_classroom}}
-      | -
-      span.date__order<
-        | Aula {{event.order | leadingZeros:2}}
-      span.date__status
-        span.status__icon[ng-class="'status__icon__' + event.formatted_status"]
-    span.date__timestamp
-      span.date__day
-        | {{asDate(event.start_at) | date:'dd'}}
-      span.date__weekday
-        | {{asDate(event.start_at) | date:'EEE'}}
-      span.date__time
-        | {{asDate(event.start_at) | date:'HH:mm'}} - {{asDate(event.end_at) | date:'HH:mm'}}
+  .event ng-repeat="event in course.events | orderBy:'start_at'"
+    a.dates__date[
+      ng-attr-id="{{ 'event-' + event.uuid }}"
+      ng-click="goToEvent(event)"
+      ng-class="eventClass(event)"
+      ng-attr-tooltip="{{tooltipMessage(event)}}"
+      tooltip-animation="false"
+      analytics-on="click"
+      analytics-event="Event Accessed via Course"
+      analytics-uuid="{{event.uuid}}"
+      analytics-order="{{event.order}}"
+      analytics-course-uuid="{{course.uuid}}"
+      analytics-course-name="{{course.name}}"
+      analytics-start-at="{{event.start_at}}"]
+      span.date__more__info
+        span.date__classroom>
+          | {{event.formatted_classroom}}
+        | -
+        span.date__order<
+          | Aula {{event.order | leadingZeros:2}}
+        span.date__status
+          span.status__icon[ng-class="'status__icon__' + event.formatted_status"]
+      span.date__timestamp
+        span.date__day
+          | {{asDate(event.start_at) | date:'dd'}}
+        span.date__weekday
+          | {{asDate(event.start_at) | date:'EEE'}}
+        span.date__time
+          | {{asDate(event.start_at) | date:'HH:mm'}} - {{asDate(event.end_at) | date:'HH:mm'}}

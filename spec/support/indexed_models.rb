@@ -1,5 +1,5 @@
 module IndexedModels
-  MODELS = [Media]
+  MODELS = [Media, Event]
 
   def refresh_index!
     MODELS.each do |model|

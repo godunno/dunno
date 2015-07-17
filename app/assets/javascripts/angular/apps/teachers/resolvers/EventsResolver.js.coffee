@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
-resolver = (PageLoading, Event) ->
-  PageLoading.resolve Event.query()
+resolver = ($stateParams, PageLoading, Event) ->
+  PageLoading.resolve Event.query(course_id: $stateParams.courseId, until: $stateParams.until)
 
-resolver.$inject = ['PageLoading', 'Event']
+resolver.$inject = ['$stateParams', 'PageLoading', 'Event']
 DunnoApp.constant 'EventsResolver', resolver

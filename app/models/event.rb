@@ -1,5 +1,14 @@
 class Event < ActiveRecord::Base
   include HasUuid
+  include Elasticsearch::Model
+  index_name [Rails.env, model_name.collection].join('_')
+
+  settings index: { number_of_shards: 1 } do
+    mapping do
+      indexes :course_id, type: :integer
+      indexes :start_at, type: :date
+    end
+  end
 
   enum status: %w(draft published canceled)
 
@@ -14,6 +23,14 @@ class Event < ActiveRecord::Base
   default_scope { order(:start_at).includes(:topics) }
 
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
+
+  # ElasticSearch representation
+  def as_indexed_json(*)
+    {
+      course_id: course_id,
+      start_at: start_at
+    }
+  end
 
   def next_not_canceled
     neighbors.not_canceled.where('start_at > ?', start_at).first

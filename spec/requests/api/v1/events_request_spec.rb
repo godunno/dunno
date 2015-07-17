@@ -7,11 +7,13 @@ describe Api::V1::EventsController do
   let(:event) { create(:event, course: course) }
 
   describe "GET /api/v1/events" do
+    let(:personal_topic) { create(:topic, :personal) }
+    let(:event) { create(:event, course: course, topics: [personal_topic]) }
     let!(:earlier_event) { create(:event, course: course, start_at: event.start_at - 1) }
     let!(:event_from_another_course) { create(:event) }
 
-    def do_action
-      get "/api/v1/events.json", auth_params(profile)
+    def do_action(params = {})
+      get "/api/v1/events.json", params.merge(auth_params(profile))
     end
 
     describe "events within the week" do
@@ -80,6 +82,21 @@ describe Api::V1::EventsController do
           )
         end
       end
+    end
+
+    context "filtering by course", :elasticsearch do
+      let!(:another_course) { create(:course, teacher: profile) }
+      let!(:another_event) { create(:event, course: another_course) }
+      before do
+        refresh_index!
+        do_action(course_id: another_course.uuid)
+      end
+
+      subject do
+        json.map { |event| event["uuid"] }
+      end
+
+      it { is_expected.to eq([another_event.uuid]) }
     end
   end
 

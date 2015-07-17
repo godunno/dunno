@@ -1,8 +1,8 @@
 DunnoApp = angular.module('DunnoApp')
 
-EventsIndexCtrl = ($scope, events, DateUtils)->
+EventsIndexCtrl = ($scope, $stateParams, events, DateUtils)->
   angular.extend($scope, DateUtils)
   $scope.events = events
 
-EventsIndexCtrl.$inject = ['$scope', 'events', 'DateUtils']
+EventsIndexCtrl.$inject = ['$scope', '$stateParams', 'events', 'DateUtils']
 DunnoApp.controller 'EventsIndexCtrl', EventsIndexCtrl

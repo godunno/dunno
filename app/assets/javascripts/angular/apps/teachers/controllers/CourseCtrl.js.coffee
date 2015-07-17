@@ -38,9 +38,12 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
       course
 
   $scope.goToEvent = (event) ->
-    return unless $scope.canAccessEvent(event)
-    $state.go('^.event', { eventId: event.uuid })
+    if $scope.course.user_role == 'teacher'
+      $state.go('^.event', { eventId: event.uuid })
+    else
+      $state.go('^.events', until: event.start_at)
 
+  # TODO: Can we stop using this?
   $scope.canAccessEvent = (event) ->
     event.status == 'published' || $scope.course.user_role == 'teacher'
 
