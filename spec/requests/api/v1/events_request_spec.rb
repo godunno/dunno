@@ -120,7 +120,7 @@ describe Api::V1::EventsController do
     end
   end
 
-  describe "GET /api/v1/events/:uuid" do
+  describe "GET /api/v1/events/:start_at" do
     let(:topic) { create(:topic) }
     let(:topic_with_url) { create(:topic, media: media_with_url) }
     let(:topic_with_file) { create(:topic, media: media_with_file) }
@@ -145,7 +145,7 @@ describe Api::V1::EventsController do
     let!(:next_event_topic) { create :topic, event: next_event, media: next_event_media }
 
     def do_action
-      get "/api/v1/events/#{event.uuid}.json", auth_params(profile)
+      get "/api/v1/events/#{event.start_at.utc.iso8601}.json", auth_params(profile)
     end
 
     before(:each) do
@@ -309,10 +309,10 @@ describe Api::V1::EventsController do
     end
   end
 
-  describe "PATCH /api/v1/events/:uuid.json" do
+  describe "PATCH /api/v1/events/:start_at.json" do
     context "authenticated" do
       def do_action
-        patch "/api/v1/events/#{event.uuid}.json", auth_params(profile).merge(params_hash).to_json
+        patch "/api/v1/events/#{event.start_at.utc.iso8601}.json", auth_params(profile).merge(params_hash).to_json
       end
 
       context "successfully updating" do

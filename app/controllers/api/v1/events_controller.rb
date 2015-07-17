@@ -39,7 +39,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   private
 
   def event
-    @event ||= current_profile.events.find_by!(uuid: params[:id])
+    @event ||= current_profile.events.find_by!(start_at: params[:start_at])
   end
 
   def update_params
