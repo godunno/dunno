@@ -18,6 +18,15 @@
     .or {
       margin-top: 3rem;
     }
+
+    .step {
+      display: none;
+
+      &.active__step {
+        display: block;
+      }
+    }
+
   }
 
   &.send__notification {
