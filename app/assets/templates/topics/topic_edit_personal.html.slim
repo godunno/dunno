@@ -5,7 +5,7 @@ zf-action-sheet close-action-sheet-on-click=true
       | Somente professor
     span ng-if="!editingTopic.personal"
       i.icon.icon-eye>
-      | Alunos
+      | Estudantes
   zf-as-content position="top"
     ul[id="topic-private-{{topic.uuid}}"]
       li.private
@@ -15,4 +15,4 @@ zf-action-sheet close-action-sheet-on-click=true
       li
         a ng-click="editingTopic.personal = false"
           i.icon.icon-eye>
-          | Alunos
+          | Estudantes
