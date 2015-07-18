@@ -162,7 +162,7 @@ describe Api::V1::EventsController do
       it { expect(last_response.status).to eq(200) }
 
       def do_action
-        get "/api/v1/events/#{start_at.to_date}.json", { course_id: course.uuid }.merge(auth_params(profile))
+        get "/api/v1/events/#{start_at.utc.iso8601}.json", { course_id: course.uuid }.merge(auth_params(profile))
       end
 
       before(:each) do
@@ -252,7 +252,7 @@ describe Api::V1::EventsController do
       let(:end_at) { Time.zone.parse('2015-01-01 16:00') }
 
       def do_action
-        get "/api/v1/events/#{start_at.to_date}.json", { course_id: course.uuid }.merge(auth_params(profile))
+        get "/api/v1/events/#{start_at.utc.iso8601}.json", { course_id: course.uuid }.merge(auth_params(profile))
       end
 
       before do
@@ -375,7 +375,7 @@ describe Api::V1::EventsController do
   describe "PATCH /api/v1/events/:start_at.json" do
     context "authenticated" do
       def do_action
-        patch "/api/v1/events/#{event.start_at.to_date}.json", { course_id: course.uuid }.merge(auth_params(profile)).merge(params_hash).to_json
+        patch "/api/v1/events/#{event.start_at.utc.iso8601}.json", { course_id: course.uuid }.merge(auth_params(profile)).merge(params_hash).to_json
       end
 
       context "successfully updating" do
