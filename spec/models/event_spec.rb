@@ -132,6 +132,7 @@ describe Event do
         start_at: event.start_at + 1.day
       )
     end
+    let(:new_event) { build(:event) }
 
     before do
       event.save!
@@ -142,9 +143,11 @@ describe Event do
     it { expect(previous_event.order).to eq(1) }
     it { expect(event.order).to eq(2) }
     it { expect(next_event.order).to eq(3) }
+    it { expect(new_event.order).to be_nil }
 
     describe "#previous" do
       it { expect(event.previous).to eq(previous_event) }
+      it { expect(new_event.previous).to be_nil }
 
       context "it's the first event" do
         before do
@@ -157,6 +160,7 @@ describe Event do
 
     describe "#next" do
       it { expect(event.next).to eq(next_event) }
+      it { expect(new_event.next).to be_nil }
 
       context "it's the last event" do
         before do

@@ -41,15 +41,15 @@ class Event < ActiveRecord::Base
   end
 
   def order
-    @order ||= neighbors.index(self) + 1
+    @order ||= neighbors.index(self).try(:+, 1)
   end
 
   def previous
-    neighbors[order - 1 - 1] if order > 1
+    neighbors[order - 1 - 1] if order.try(:>, 1)
   end
 
   def next
-    neighbors[order - 1 + 1] if order < neighbors.length
+    neighbors[order - 1 + 1] if order.try(:<, neighbors.length)
   end
 
   def formatted_status(profile)

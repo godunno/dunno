@@ -39,7 +39,39 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   private
 
   def event
-    @event ||= current_profile.events.find_by!(start_at: params[:start_at])
+    @event ||= course.events.find_by(start_at: date.beginning_of_day..date.end_of_day) || build_event
+  end
+
+  def date
+    params[:start_at].to_date
+  end
+
+  # TODO: Extract to service
+  def build_event
+    weekday = params[:start_at].to_date.wday
+    weekly_schedule = course.weekly_schedules.detect { |w| w.weekday == weekday }
+
+    # TODO: Reuse the code from CreateSchedule service
+    start_time = TimeOfDay.parse(weekly_schedule.start_time)
+    end_time = TimeOfDay.parse(weekly_schedule.end_time)
+    start_at = date.in_time_zone.change(
+      hour: start_time.hour,
+      min:  start_time.minute
+    )
+    end_at = date.in_time_zone.change(
+      hour: end_time.hour,
+      min:  end_time.minute
+    )
+    Event.new(
+      course: course,
+      classroom: weekly_schedule.classroom,
+      start_at: start_at,
+      end_at: end_at,
+    )
+  end
+
+  def course
+    @course ||= current_profile.courses.find_by_identifier!(params[:course_id])
   end
 
   def update_params
