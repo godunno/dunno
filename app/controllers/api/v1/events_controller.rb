@@ -66,7 +66,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
       course: course,
       classroom: weekly_schedule.classroom,
       start_at: start_at,
-      end_at: end_at,
+      end_at: end_at
     )
   end
 

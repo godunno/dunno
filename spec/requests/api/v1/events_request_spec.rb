@@ -282,7 +282,7 @@ describe Api::V1::EventsController do
             "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
             "user_role" => "teacher",
             "students_count" => 0,
-            "teacher" => { "name" => profile.name},
+            "teacher" => { "name" => profile.name },
             "weekly_schedules" => [
               "weekday" => weekly_schedule.weekday,
               "start_time" => weekly_schedule.start_time,
