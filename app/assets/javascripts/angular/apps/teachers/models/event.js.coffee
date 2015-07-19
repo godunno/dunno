@@ -15,4 +15,11 @@ DunnoApp.factory 'Event', ['RailsResource', 'railsSerializer', (RailsResource, r
     personal_notes: []
 
     planned: -> @topics.length > 0
+
+  Event.interceptBeforeRequest (request, klass, event) ->
+    request.params ?= {}
+    request.params.course_id ?= event.course.uuid
+    request
+
+  Event
 ]

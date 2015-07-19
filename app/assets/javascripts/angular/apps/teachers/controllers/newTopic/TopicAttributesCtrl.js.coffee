@@ -15,11 +15,17 @@ TopicAttributesCtrl = ($scope, Topic) ->
     $scope.topic.description = media.title
 
   saveTopic = (e, topic) ->
-    $scope.topic.event_id = $scope.event.id
-    $scope.topic.personal = $scope.defaultTopicProperties.personal
-    new Topic($scope.topic).create().then (topic) ->
-      $scope.$emit('createdTopic', topic)
-      reset()
+    run = ->
+      $scope.topic.event_id = $scope.event.id
+      $scope.topic.personal = $scope.defaultTopicProperties.personal
+      new Topic($scope.topic).create().then (topic) ->
+        $scope.$emit('createdTopic', topic)
+        reset()
+
+    if $scope.event.uuid?
+      run()
+    else
+      $scope.event.save().then run
 
   $scope.$on 'newMedia', setMedia
   $scope.$on 'saveTopic', saveTopic
