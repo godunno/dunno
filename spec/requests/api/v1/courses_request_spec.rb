@@ -97,10 +97,7 @@ describe Api::V1::CoursesController do
               ],
               "user_role" => role,
               "events" => [{
-                "id" => event.id,
-                "uuid" => event.uuid,
                 "order" => event.order,
-                "status" => event.status,
                 "formatted_status" => event.formatted_status(profile),
                 "start_at" => event.start_at.utc.iso8601,
                 "end_at" => event.end_at.utc.iso8601,
@@ -152,9 +149,9 @@ describe Api::V1::CoursesController do
         it { expect(subject["next_month"]).to eq(Time.current.beginning_of_month.utc.iso8601) }
 
         describe "events" do
-          subject { json["course"]["events"].map { |e| e["uuid"] } }
+          subject { json["course"]["events"].map { |e| e["start_at"] } }
 
-          it { expect(subject).to eq([event_from_past_month.uuid]) }
+          it { expect(subject).to eq([event_from_past_month.start_at.utc.iso8601]) }
         end
       end
 
@@ -171,9 +168,9 @@ describe Api::V1::CoursesController do
         it { expect(subject["next_month"]).to eq(2.months.from_now.beginning_of_month.utc.iso8601) }
 
         describe "events" do
-          subject { json["course"]["events"].map { |e| e["uuid"] } }
+          subject { json["course"]["events"].map { |e| e["start_at"] } }
 
-          it { expect(subject).to eq([event_from_next_month.uuid]) }
+          it { expect(subject).to eq([event_from_next_month.start_at.utc.iso8601]) }
         end
       end
     end

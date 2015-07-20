@@ -1,11 +1,12 @@
 json.course do
   CourseBuilder.new(@course).build!(json, profile: current_profile)
   role = current_profile.role_in(@course)
-  json.cache! ['course-show/events', @events.maximum(:updated_at), role] do
-    json.events @events do |event|
-      json.cache! ['course-show/event', event, role] do
-        json.partial! 'api/v1/events/event', event: event
-      end
+  json.events @events do |event|
+    json.cache! ['course-show/event', event, role] do
+      json.(event, :formatted_status, :formatted_classroom)
+      json.order(event[:order])
+      json.start_at(format_time(event[:start_at]))
+      json.end_at(format_time(event[:end_at]))
     end
   end
   json.previous_month(@pagination.previous_month.utc.iso8601)
