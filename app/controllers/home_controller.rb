@@ -19,7 +19,7 @@ class HomeController < ApplicationController
       {
         title: 'Notifique seus estudantes.',
         content: [
-          'Tem um novo material importante, não terá uma aula ou você só quer relembrar seus alunos do trabalho que é para a semana que vem?',
+          'Tem um novo material importante, não terá uma aula ou você só quer relembrar seus estudantes do trabalho que é para a semana que vem?',
           'Envie uma mensagem para os estudantes através do Dunno, e eles escolhem se receberão por SMS, e-mail ou ambos.'
         ]
       }, {
@@ -45,12 +45,12 @@ class HomeController < ApplicationController
     @testimonials = [
       {
         name: 'Maria Joaquina Villaseñor',
-        from: 'Aluna do Ensino Fundamental na Escola Mundial',
+        from: 'Estudante do Ensino Fundamental na Escola Mundial',
         quote: 'Estudar ficou muito mais fácil com o Dunno. Uso em aula e em casa para acompanhar as novidades que a professora compartilha.',
         photo: 'site/testimonials-picture-2.jpg'
       }, {
         name: 'Godinez',
-        from: 'Aluno da escola pública do Chaves',
+        from: 'Estudante da escola pública do Chaves',
         quote: 'Melhorei minhas notas e agora não preciso mais jogar a moeda para fazer as provas.',
         photo: 'site/testimonials-picture-3.jpg'
       }, {
