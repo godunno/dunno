@@ -16,7 +16,7 @@ class Course < ActiveRecord::Base
   has_many :weekly_schedules
   has_many :notifications
 
-  validates :name, :start_date, :end_date, :class_name, :teacher, presence: true
+  validates :name, :teacher, presence: true
   validates :abbreviation, length: { maximum: 10 }
 
   before_create :set_access_code
