@@ -275,6 +275,7 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    ice_cube (0.13.0)
     ice_nine (0.11.1)
     inflecto (0.0.2)
     intercom-rails (0.2.27)
@@ -623,6 +624,7 @@ DEPENDENCIES
   foreman (= 0.78.0)
   foundation-rails (= 5.5.2.1)
   google_drive (= 1.0.0)
+  ice_cube
   intercom-rails (= 0.2.27)
   jbuilder (= 2.3.1)
   jquery-rails (= 3.1.2)

@@ -42,6 +42,7 @@ gem 'fog',                        '1.32.0'
 gem 'airbrake',                   '4.3.0'
 gem 'pundit',                     '1.0.1'
 gem 'redcarpet',                  '3.3.1'
+gem 'ice_cube'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular',       '1.3.16'
