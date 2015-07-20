@@ -1,9 +1,21 @@
 .course__members {
-  .icon {
+  .icon,
+  .course__members__count {
     color: $dunno-dark-color;
-    font-size: 1.5rem;
     opacity: .6;
     vertical-align: middle;
+  }
+
+  .icon {
+    font-size: 1.25rem;
+  }
+
+  .course__members__count {
+    font-size: .875rem;
+    font-weight: $font-weight-bold;
+    line-height: 1.5rem;
+    margin: 0 .5rem;
+    text-align: center;
   }
 
   .show-for-small & {
@@ -21,18 +33,9 @@
   vertical-align: top;
 }
 
-.course__member__avatar,
-.course__members__count {
+.course__member__avatar {
   @include avatar();
   margin-right: .25rem;
-}
-
-.course__members__count {
-  border: .0625rem dashed $dark-grey-color;
-  color: $dark-grey-color;
-  font-size: .75rem;
-  line-height: 1.75rem;
-  text-align: center;
 }
 
 .slide__mobile__info {
@@ -51,6 +54,16 @@
 
   .button {
     margin: .5rem 0;
+  }
+}
+
+.page__header {
+  .page__header__subtitle {
+    .course__teacher {
+      &:after {
+        content: ' ';
+      }
+    }
   }
 }
 
