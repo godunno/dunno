@@ -39,22 +39,34 @@
         color: $dark-grey-color;
       }
     }
+
+    &:after {
+      clear: both;
+      content: ' ';
+      display: block;
+      height: 0;
+      width: 100%;
+    }
   }
 
   .icon-check {
     color: transparent;
+    float: left;
+    margin-right: .5rem;
   }
 
   .topic__item__image {
     @include thumbnail();
     display: inline-block;
-    margin-left: .5rem;
+    margin-right: .5rem;
   }
 
   .topic__item__description {
+    display: block;
     font-size: .875rem;
-    margin: 0 .5rem;
+    margin-left: 1.5rem;
     padding: .25rem;
+    word-break: break-word;
   }
 
   .comment__event__wrapper {

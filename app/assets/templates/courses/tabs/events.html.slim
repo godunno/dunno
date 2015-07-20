@@ -12,7 +12,7 @@
           i.icon.status__icon[
             class="status__icon__{{event.status}}"
             title="{{event.status}}"]
-        .event__content
+        .event__content[class="event__status__{{event.status}}"]
           .no__topics.empty__results ng-if="event.topics.length == 0"
             | Nenhum conteúdo disponível para esse dia.
           .event__items ng-if="event.topics.length != 0"
@@ -21,17 +21,6 @@
               ng-repeat="topic in event.topics"
               ng-if="topic.personal != true"]
               i.icon.icon-check
-              a.topic__item__image[
-                ng-if="!!topic.media"
-                target="_blank"
-                ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"
-                ng-href="{{topic.media.url}}"
-                analytics-on="click"
-                analytics-event="Media Clicked"
-                analytics-uuid="{{media.uuid}}"
-                analytics-event-uuid="{{event.uuid}}"
-                analytics-course-name="{{event.course.name}}"
-                analytics-course-uuid="{{event.course.uuid}}"]
               a.topic__item__description[
                 ng-class="{preview: !!topic.media}"
                 ng-if="!!topic.media"
@@ -43,6 +32,8 @@
                 analytics-event-uuid="{{event.uuid}}"
                 analytics-course-name="{{event.course.name}}"
                 analytics-course-uuid="{{event.course.uuid}}"]
+                span.topic__item__image[
+                  ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
                 | {{topic.description}}
               span.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!topic.media"
                 | {{topic.description}}
