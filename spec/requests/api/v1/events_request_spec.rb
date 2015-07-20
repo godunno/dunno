@@ -7,8 +7,9 @@ describe Api::V1::EventsController do
   let(:event) { create(:event, course: course) }
 
   describe "GET /api/v1/events" do
+    let(:topic) { create(:topic) }
     let(:personal_topic) { create(:topic, :personal) }
-    let(:event) { create(:event, course: course, topics: [personal_topic]) }
+    let(:event) { create(:event, status: 'published', course: course, topics: [topic, personal_topic]) }
     let!(:earlier_event) { create(:event, course: course, start_at: event.start_at - 1) }
     let!(:event_from_another_course) { create(:event) }
 
@@ -62,7 +63,13 @@ describe Api::V1::EventsController do
             "start_at" => event.start_at.utc.iso8601,
             "end_at" => event.end_at.utc.iso8601,
             "formatted_classroom" => "101",
-            "topics" => [],
+            "topics" => [
+              "uuid" => topic.uuid,
+              "done" => topic.done,
+              "personal" => topic.personal,
+              "media_id" => topic.media_id,
+              "description" => topic.description
+            ],
             "course" =>  {
               "uuid" => course.uuid,
               "name" => course.name,
@@ -97,6 +104,19 @@ describe Api::V1::EventsController do
       end
 
       it { is_expected.to eq([another_event.uuid]) }
+
+      context "with unpublished event" do
+        before do
+          another_event.update!(status: 'draft', topics: [create(:topic)])
+          do_action(course_id: another_course.uuid)
+        end
+
+        subject { json[0] }
+
+        it do
+          expect(subject["topics"]).to eq([])
+        end
+      end
     end
   end
 
