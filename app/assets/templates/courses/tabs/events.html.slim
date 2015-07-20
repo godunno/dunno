@@ -9,6 +9,9 @@
           | editar aula
         .date
           | {{event.start_at | date:'dd MMMM - EEEE'}}
+          i.icon.status__icon[
+            class="status__icon__{{event.status}}"
+            title="{{event.status}}"]
         .event__content
           .no__topics.empty__results ng-if="event.topics.length == 0"
             | Nenhum conteúdo disponível para esse dia.
