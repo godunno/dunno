@@ -4,35 +4,35 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
       h2.page__header__title
         | {{course.name}}
       ul.page__header__subtitle
+        li.course__teacher ng-if="!!course.teacher"
+          img.has-tip.radius.course__member__avatar[
+            user-avatar="{{course.teacher.name}}"
+            tooltip="{{course.teacher.name}}"]
         li ng-if="!!course.institution"
           | {{course.institution}}
         li ng-if="!!course.class_name"
           | {{course.class_name}}
     .page__header__info.small-2.medium-4.columns
       .course__members.hide-for-small
-        .course__member
-          img.course__member__avatar[user-avatar="{{course.teacher.name}}"]
+        i.icon.icon-users
         .course__members__count
-          | + {{ course.members.length - 1 }}
-        i.icon.icon-users<
+          | {{course.members.length}}
+        a.button.dark.add__users.rounded data-reveal-id="access-code-fullscreen"
+          | +
       a.slide__mobile__info.show-for-small ng-click="showMobileInfo = !showMobileInfo"
         i.icon ng-class="{'icon-chevron-down': !showMobileInfo, 'icon-chevron-up': showMobileInfo}"
     .show-for-small.small-12.columns
       .row.mobile__info__slide__toggle slide-on="showMobileInfo"
-        .small-12.columns.course__members
-          .course__member
-            img.course__member__avatar[user-avatar="{{course.teacher.name}}"]
+        .small-12.columns.course__members.text-center
+          i.icon.icon-users>
           .course__members__count
-            | + {{ course.members.length - 1 }}
-          i.icon.icon-users<
+            | {{course.members.length}}
+          a.button.dark.add__users.rounded data-reveal-id="access-code-fullscreen"
+            | +
         .small-12.columns.course__mobile__actions ng-if="course.user_role == 'teacher'"
           a.expand.button.dark.radius.tiny> data-reveal-id="send-notification"
             i.icon.icon-buzz>
             | Notificação
-          a.expand.button.secondary.outline.transparent.radius.tiny data-reveal-id="access-code-fullscreen"
-            | Código:
-            strong<
-              | {{course.access_code}}
   .row
     footer.small-12.columns
       .row
@@ -52,10 +52,6 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
           a.button.dark.radius.tiny> data-reveal-id="send-notification"
             i.icon.icon-buzz>
             | Notificação
-          a.button.secondary.outline.transparent.radius.tiny data-reveal-id="access-code-fullscreen"
-            | Código:
-            strong<
-              | {{course.access_code}}
 
 .course__detail__page
   .row.small-collapse
