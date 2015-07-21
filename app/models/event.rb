@@ -24,7 +24,6 @@ class Event < ActiveRecord::Base
 
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
 
-
   attr_accessor :order
 
   # ElasticSearch representation

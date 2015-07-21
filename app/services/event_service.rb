@@ -25,8 +25,8 @@ class EventService
 
   def find_or_initialize_events
     occurrences_with_index
-      .drop_while { |o, i| o < time_range.begin }
-      .take_while { |o, i| time_range.cover? o }
+      .drop_while { |o, _| o < time_range.begin }
+      .take_while { |o, _| time_range.cover? o }
       .map { |o, i| find_or_initialize_event(o, i) }
       .to_a
   end
@@ -71,9 +71,8 @@ class EventService
     end
 
     # TODO: Find a solution to this bug
-    if weekly_schedules.empty?
-      schedule.add_exception_time(schedule_start)
-    end
+    return unless weekly_schedules.empty?
+    schedule.add_exception_time(schedule_start)
   end
 
   def rule_for_weekly_schedule(weekly_schedule)

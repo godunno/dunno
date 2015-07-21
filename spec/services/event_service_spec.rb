@@ -59,7 +59,6 @@ describe EventService do
         events_out_of_range = EventService.new(course, 3.months.from_now).events
         expect(events_out_of_range).to be_empty
       end
-
     end
 
     context "with more than one weekly schedule" do
