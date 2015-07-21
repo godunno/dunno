@@ -78,28 +78,4 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   def course_params
     params.require(:course).permit(:name, :start_date, :end_date, :class_name, :grade, :institution)
   end
-
-  def scheduling
-    day = (params[:month] || Date.current).to_time.in_time_zone
-    CreateSchedule.new(day.beginning_of_month, day.end_of_month, course.weekly_schedules).schedule
-  end
-
-  def serialize_event(event)
-    if event.is_a? Event
-      {
-        start_at: event.start_at,
-        end_at: event.end_at,
-        order: event.order,
-        formatted_status: event.formatted_status(current_profile),
-        formatted_classroom: [course.class_name, event.classroom].compact.join(' - '),
-      }
-    else
-      {
-        start_at: event.begin,
-        end_at: event.end,
-        formatted_status: 'draft',
-        formatted_classroom: course.class_name,
-      }
-    end
-  end
 end

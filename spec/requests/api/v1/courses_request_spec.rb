@@ -55,6 +55,7 @@ describe Api::V1::CoursesController do
   end
 
   describe "GET /api/v1/courses/:identifier.json" do
+    let!(:course) { create(:course, start_date: 2.months.ago, end_date: 2.months.from_now, teacher: teacher, students: [student]) }
     let!(:event) { create(:event, course: course) }
     let!(:event_from_past_month) { create(:event, course: course, start_at: 1.month.ago) }
     let!(:event_from_next_month) { create(:event, course: course, start_at: 1.month.from_now) }
@@ -97,11 +98,11 @@ describe Api::V1::CoursesController do
               ],
               "user_role" => role,
               "events" => [{
-                "order" => event.order,
+                "order" => 1,
                 "formatted_status" => event.formatted_status(profile),
                 "start_at" => event.start_at.utc.iso8601,
                 "end_at" => event.end_at.utc.iso8601,
-                "formatted_classroom" => "101"
+                "classroom" => nil
               }],
               "previous_month" => 1.month.ago.beginning_of_month.utc.iso8601,
               "current_month" => Time.current.beginning_of_month.utc.iso8601,

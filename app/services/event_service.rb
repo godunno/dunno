@@ -2,7 +2,7 @@ class EventService
   attr_reader :course, :schedule, :time_range, :current_month
 
   def initialize(course, current_month)
-    @current_month = current_month || Time.current
+    @current_month = (current_month || Time.current).beginning_of_month
     @course = course
     @time_range = @current_month.beginning_of_month..@current_month.end_of_month
     set_schedule
@@ -13,12 +13,13 @@ class EventService
   end
 
   def previous_month
-    @current_month - 1.month
+    current_month - 1.month
   end
 
   def next_month
-    @current_month + 1.month
+    current_month + 1.month
   end
+
   private
 
   def find_or_initialize_events
@@ -45,7 +46,7 @@ class EventService
   end
 
   def set_schedule
-    @schedule = IceCube::Schedule.new(course.start_date || course.created_at)
+    @schedule = IceCube::Schedule.new(schedule_start)
     add_weekly_schedules_to_schedule
     add_real_events_to_schedule
   end
@@ -64,6 +65,9 @@ class EventService
     course.weekly_schedules.each do |weekly_schedule|
       schedule.add_recurrence_rule rule_for_weekly_schedule(weekly_schedule)
     end
+    if course.weekly_schedules.empty?
+      schedule.add_exception_time(schedule_start)
+    end
   end
 
   def rule_for_weekly_schedule(weekly_schedule)
@@ -74,5 +78,9 @@ class EventService
       .minute_of_hour(time_of_day.minute)
       .second_of_minute(0)
       .until(course.end_date)
+  end
+
+  def schedule_start
+    course.start_date || course.created_at
   end
 end

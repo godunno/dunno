@@ -29,9 +29,9 @@ describe EventService do
     end
 
     describe "paginating" do
-      it { expect(service.next_month).to eq 1.month.from_now }
-      it { expect(service.previous_month).to eq 1.month.ago }
-      it { expect(service.current_month).to eq Time.current }
+      it { expect(service.next_month).to eq 1.month.from_now.beginning_of_month }
+      it { expect(service.previous_month).to eq 1.month.ago.beginning_of_month }
+      it { expect(service.current_month).to eq Time.current.beginning_of_month }
     end
 
     context "concerning non-persisted events" do
@@ -40,6 +40,7 @@ describe EventService do
       it { is_expected.to be_a Event }
       it { expect(subject.course).to eq course }
       it { expect(subject.classroom).to eq weekly_schedule.classroom }
+      pending "end time"
     end
 
     context "with a start date set on course" do
@@ -82,8 +83,6 @@ describe EventService do
       it "uses real events if they are already created" do
         expect(events.first).to eq event
       end
-
-      it "doesnt create another event on days with an existent event"
     end
 
     context 'for events outside the weekly schedule' do
@@ -96,6 +95,15 @@ describe EventService do
       it "has an order attribute" do
         expect(events.first.order).to be_present
       end
+    end
+
+    context "when there's no weekly schedules" do
+      let!(:event) { create(:event, course: course, start_at: Time.new(2015, 7, 27, 8, 0, 0)) }
+      before do
+        weekly_schedule.destroy!
+      end
+
+      it { expect(events.first).to eq event }
     end
   end
 end
