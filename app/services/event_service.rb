@@ -1,10 +1,11 @@
 class EventService
   attr_reader :course, :schedule, :time_range, :current_month
+  delegate :weekly_schedules, to: :course
 
   def initialize(course, current_month)
     @current_month = (current_month || Time.current).beginning_of_month
     @course = course
-    @time_range = @current_month.beginning_of_month..@current_month.end_of_month
+    @time_range = @current_month..@current_month.end_of_month
     set_schedule
   end
 
@@ -40,13 +41,16 @@ class EventService
   def find_or_initialize_event(occurrence, index)
     course.events.find_or_initialize_by(start_at: occurrence.to_time.change(usec: 0)).tap do |event|
       event.order = index + 1
-      weekly_schedule = course.weekly_schedules.find_by(start_time: event.start_at.strftime("%H:%M"))
-      event.classroom ||= weekly_schedule && weekly_schedule.classroom
+      weekly_schedule = weekly_schedules.find_by(start_time: event.start_at.strftime("%H:%M"))
+      next unless weekly_schedule.present?
+      event.classroom ||= weekly_schedule.classroom
+      end_time = TimeOfDay.parse(weekly_schedule.end_time)
+      event.end_at ||= event.start_at.change(hour: end_time.hour, min: end_time.minute)
     end
   end
 
   def set_schedule
-    @schedule = IceCube::Schedule.new(schedule_start)
+    @schedule = IceCube::Schedule.new(schedule_start, duration: 1000)
     add_weekly_schedules_to_schedule
     add_real_events_to_schedule
   end
@@ -62,10 +66,12 @@ class EventService
   end
 
   def add_weekly_schedules_to_schedule
-    course.weekly_schedules.each do |weekly_schedule|
+    weekly_schedules.each do |weekly_schedule|
       schedule.add_recurrence_rule rule_for_weekly_schedule(weekly_schedule)
     end
-    if course.weekly_schedules.empty?
+
+    # TODO: Find a solution to this bug
+    if weekly_schedules.empty?
       schedule.add_exception_time(schedule_start)
     end
   end

@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe EventService do
-  before { Timecop.freeze Time.new(2015, 7, 20, 18, 00)}
+  before { Timecop.freeze Time.new(2015, 7, 20, 18, 00) }
   after { Timecop.return }
 
   let!(:course) { create(:course, start_date: nil, end_date: nil) }
-  let!(:weekly_schedule) { create(:weekly_schedule, course: course, classroom: '1A') }
+  let!(:weekly_schedule) { create(:weekly_schedule, course: course, classroom: '1A', start_time: '09:00', end_time: '11:00') }
   let(:service) { EventService.new(course, nil) }
   let(:events) { service.events }
   let(:next_month_events) { EventService.new(course, 1.month.from_now).events }
@@ -40,7 +40,8 @@ describe EventService do
       it { is_expected.to be_a Event }
       it { expect(subject.course).to eq course }
       it { expect(subject.classroom).to eq weekly_schedule.classroom }
-      pending "end time"
+      it { expect(subject.start_at).to eq Time.new(2015, 7, 27, 9, 00)  }
+      it { expect(subject.end_at).to eq Time.new(2015, 7, 27, 11, 00)  }
     end
 
     context "with a start date set on course" do
