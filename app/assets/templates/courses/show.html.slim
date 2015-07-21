@@ -5,11 +5,9 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
         | {{course.name}}
       ul.page__header__subtitle
         li.course__teacher ng-if="!!course.teacher"
-          img.has-tip.course__member__avatar.radius[
-            aria-haspopup='true'
-            data-tooltip
+          img.has-tip.radius.course__member__avatar[
             user-avatar="{{course.teacher.name}}"
-            title="{{course.teacher.name}}"]
+            tooltip="{{course.teacher.name}}"]
         li ng-if="!!course.institution"
           | {{course.institution}}
         li ng-if="!!course.class_name"

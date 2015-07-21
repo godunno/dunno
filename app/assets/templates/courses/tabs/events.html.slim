@@ -8,7 +8,7 @@
         a.button.secondary.tiny.transparent.edit__in__journal.right ng-click="goToEvent(event)"
           | editar aula
         .date
-          | {{event.start_at | date:'dd MMMM - EEEE'}}
+          | {{event.start_at | date:'dd MMM - EEE'}}
           i.icon.status__icon[
             class="status__icon__{{event.status}}"
             title="{{event.status}}"]

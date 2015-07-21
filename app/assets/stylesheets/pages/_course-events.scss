@@ -11,7 +11,7 @@
     text-transform: uppercase;
 
     .status__icon {
-      margin-left: 2rem;
+      margin-left: 1rem;
     }
   }
 
@@ -36,13 +36,13 @@
       font-style: italic;
 
       .icon-check {
-        color: $medium-grey-color;
+        color: $dark-grey-color;
       }
     }
   }
 
   .icon-check {
-    color: lighten($light-grey-color, 10%);
+    color: transparent;
   }
 
   .topic__item__image {
