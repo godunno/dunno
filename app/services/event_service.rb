@@ -1,9 +1,10 @@
 class EventService
-  attr_reader :course, :schedule, :time_range
+  attr_reader :course, :schedule, :time_range, :current_month
 
-  def initialize(course, time = Time.current)
+  def initialize(course, current_month)
+    @current_month = current_month || Time.current
     @course = course
-    @time_range = time.beginning_of_month..time.end_of_month
+    @time_range = @current_month.beginning_of_month..@current_month.end_of_month
     set_schedule
   end
 
@@ -11,6 +12,13 @@ class EventService
     find_or_initialize_events
   end
 
+  def previous_month
+    @current_month - 1.month
+  end
+
+  def next_month
+    @current_month + 1.month
+  end
   private
 
   def find_or_initialize_events
@@ -29,8 +37,10 @@ class EventService
   end
 
   def find_or_initialize_event(occurrence, index)
-    course.events.find_or_initialize_by(start_at: occurrence.to_time.change(usec: 0)) do |event|
+    course.events.find_or_initialize_by(start_at: occurrence.to_time.change(usec: 0)).tap do |event|
       event.order = index + 1
+      weekly_schedule = course.weekly_schedules.find_by(start_time: event.start_at.strftime("%H:%M"))
+      event.classroom ||= weekly_schedule && weekly_schedule.classroom
     end
   end
 

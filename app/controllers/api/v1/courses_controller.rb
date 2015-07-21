@@ -7,9 +7,8 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def show
     authorize course
-    @pagination = PaginateEventsByMonth.new(course.events, params[:month])
-    # TODO: Extract to service
-    @events = (@pagination.events + scheduling).map { |e| serialize_event(e) }.uniq { |e| e[:start_at] }
+    @pagination = EventService.new(course, (params[:month].present? ? Time.zone.parse(params[:month]) : Time.current))
+    @events = @pagination.events
   end
 
   def create

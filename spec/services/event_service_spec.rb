@@ -1,9 +1,12 @@
 require 'spec_helper'
 
 describe EventService do
+  before { Timecop.freeze Time.new(2015, 7, 20, 18, 00)}
+  after { Timecop.return }
+
   let!(:course) { create(:course, start_date: nil, end_date: nil) }
-  let!(:weekly_schedule) { create(:weekly_schedule, course: course) }
-  let(:service) { EventService.new(course) }
+  let!(:weekly_schedule) { create(:weekly_schedule, course: course, classroom: '1A') }
+  let(:service) { EventService.new(course, nil) }
   let(:events) { service.events }
   let(:next_month_events) { EventService.new(course, 1.month.from_now).events }
   let(:next_year_events) { EventService.new(course, 1.year.from_now).events }
@@ -25,11 +28,18 @@ describe EventService do
       expect(TimeOfDay(events.first.start_at)).to eq TimeOfDay.parse(weekly_schedule.start_time)
     end
 
+    describe "paginating" do
+      it { expect(service.next_month).to eq 1.month.from_now }
+      it { expect(service.previous_month).to eq 1.month.ago }
+      it { expect(service.current_month).to eq Time.current }
+    end
+
     context "concerning non-persisted events" do
       subject { events.first }
 
       it { is_expected.to be_a Event }
       it { expect(subject.course).to eq course }
+      it { expect(subject.classroom).to eq weekly_schedule.classroom }
     end
 
     context "with a start date set on course" do
@@ -72,6 +82,8 @@ describe EventService do
       it "uses real events if they are already created" do
         expect(events.first).to eq event
       end
+
+      it "doesnt create another event on days with an existent event"
     end
 
     context 'for events outside the weekly schedule' do
@@ -79,6 +91,10 @@ describe EventService do
 
       it "uses real events if they are already created" do
         expect(events.first).to eq event
+      end
+
+      it "has an order attribute" do
+        expect(events.first.order).to be_present
       end
     end
   end
