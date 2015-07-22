@@ -39,14 +39,7 @@ class EventService
   end
 
   def find_or_initialize_event(occurrence, index)
-    course.events.find_or_initialize_by(start_at: occurrence.to_time.change(usec: 0)).tap do |event|
-      event.order = index + 1
-      weekly_schedule = weekly_schedules.find_by(start_time: event.start_at.strftime("%H:%M"))
-      next unless weekly_schedule.present?
-      event.classroom ||= weekly_schedule.classroom
-      end_time = TimeOfDay.parse(weekly_schedule.end_time)
-      event.end_at ||= event.start_at.change(hour: end_time.hour, min: end_time.minute)
-    end
+    FindOrInitializeEvent.new(course).by({ start_at: occurrence.to_time.change(usec: 0) }, index + 1)
   end
 
   def set_schedule

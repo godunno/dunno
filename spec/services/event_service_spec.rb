@@ -5,7 +5,7 @@ describe EventService do
   after { Timecop.return }
 
   let!(:course) { create(:course, start_date: nil, end_date: nil) }
-  let!(:weekly_schedule) { create(:weekly_schedule, course: course, classroom: '1A', start_time: '09:00', end_time: '11:00') }
+  let!(:weekly_schedule) { create(:weekly_schedule, weekday: 1, course: course, classroom: '1A', start_time: '09:00', end_time: '11:00') }
   let(:service) { EventService.new(course, nil) }
   let(:events) { service.events }
   let(:next_month_events) { EventService.new(course, 1.month.from_now).events }

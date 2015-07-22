@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe Api::V1::TopicsController do
+  let!(:weekly_schedule) { create(:weekly_schedule, weekday: 1, start_time: '09:00', end_time: '11:00') }
   let!(:teacher) { create(:profile) }
-  let!(:course) { create(:course, teacher: teacher) }
-  let!(:event) { create(:event, course: course, start_at: Time.now) }
+  let!(:course) { create(:course, teacher: teacher, weekly_schedules: [weekly_schedule]) }
+  let!(:event) { create(:event, course: course, start_at: Time.zone.local(2015, 7, 20, 9)) }
 
   describe "POST /api/v1/topics" do
     def do_action
@@ -16,7 +17,12 @@ describe Api::V1::TopicsController do
           topic: {
             description: "One",
             personal: true,
-            event_id: event.id
+            event: {
+              course: {
+                uuid: course.uuid
+              },
+              start_at: event.start_at.utc.iso8601
+            }
           }
         }
       end
@@ -50,7 +56,12 @@ describe Api::V1::TopicsController do
             topic: {
               description: "One",
               media_id: media.id,
-              event_id: event.id
+              event: {
+                course: {
+									uuid: course.uuid
+								},
+                start_at: event.start_at.utc.iso8601
+              }
             }
           }
         end
@@ -79,6 +90,7 @@ describe Api::V1::TopicsController do
           )
         end
       end
+
       context "generating order" do
         let!(:first_topic) { create(:topic, event: event, order: 2) }
 
@@ -88,6 +100,34 @@ describe Api::V1::TopicsController do
           expect(created_topic.order).to eq(3)
         end
       end
+
+      context "when the event isn't still persisted" do
+        let(:new_course) { create(:course, teacher: teacher, weekly_schedules: [weekly_schedule]) }
+        let!(:weekly_schedule) { create(:weekly_schedule, weekday: 1, start_time: '09:00', end_time: '11:00') }
+        let(:start_at) { Time.zone.local(2015, 07, 20, 9) }
+        let(:topic_params) do
+          {
+            topic: {
+              description: "One",
+              event: {
+                course: {
+									uuid: new_course.uuid
+								},
+                start_at: start_at.utc.iso8601
+              }
+            }
+          }
+        end
+
+        before { do_action }
+
+        subject { Topic.last }
+
+        it { expect(subject.description).to eq "One" }
+        it { expect(subject.event.start_at.change(usec: 0)).to eq start_at.change(usec: 0) }
+        it { expect(subject.event.end_at.change(usec: 0)).to eq (start_at.change(usec: 0) + 2.hours) }
+        it { expect(subject.event.course).to eq new_course }
+      end
     end
 
     context "failing to create" do
@@ -95,8 +135,13 @@ describe Api::V1::TopicsController do
         let(:topic_params) do
           {
             topic: {
-              description: "",
-              event_id: event.id
+              description: '',
+              event: {
+                course: {
+									uuid: course.uuid
+								},
+                start_at: event.start_at.utc.iso8601
+              }
             }
           }
         end
@@ -126,13 +171,14 @@ describe Api::V1::TopicsController do
         let(:topic_params) do
           {
             topic: {
-              description: "One"
+              description: "One",
+              event: {}
             }
           }
         end
 
         it do
-          expect { do_action }.to raise_error(ActiveRecord::RecordNotFound)
+          expect { do_action }.to raise_error(ActionController::ParameterMissing)
         end
       end
 
@@ -142,7 +188,12 @@ describe Api::V1::TopicsController do
           {
             topic: {
               description: "One",
-              event_id: event_from_another_user
+              event: {
+                course: {
+									uuid: event_from_another_user.course.uuid
+								},
+                start_at: event_from_another_user.start_at.utc.iso8601
+              }
             }
           }
         end
