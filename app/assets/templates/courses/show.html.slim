@@ -70,7 +70,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
         | Clique aqui para planejar e editar o conteúdo de sua aula.
     tutorial-step
       p
-        | Clique aqui para enviar uma notificação através de SMS e email para seus estudantes.
+        | Clique aqui para enviar uma notificação por email para seus estudantes.
 
 #access-code-fullscreen.reveal-modal.full.access-code-fullscreen-modal data-reveal=true
   span.description
@@ -98,7 +98,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
               | Enviar Notificação
             p
               small
-                | A notificação será entregue aos estudantes por <b>SMS</b> ou <b>e-mail</b>, de acordo com as configurações de privacidade dos mesmos.
+                | A notificação será entregue aos estudantes por <b>e-mail</b>, de acordo com as configurações de privacidade.
           span.error ng-if="notification_form.abbreviation.$invalid" ng-messages="notification_form.abbreviation.$error"
             span ng-message="blank"
               | A abreviação é obrigatória
