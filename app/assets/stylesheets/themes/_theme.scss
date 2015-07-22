@@ -29,3 +29,12 @@
 .right-off-canvas-menu {
   min-height: 100vh;
 }
+
+.joyride-tip-guide {
+  @include radius();
+}
+
+.joyride-expose-wrapper {
+  background-color: transparent;
+  box-shadow: 0 0 0 transparent;
+}
