@@ -1,27 +1,27 @@
-.small-12.columns
-  .dates
-    .dates__header
-      .row.collapse
-        /
-          .small-4.columns.dates__programme
-            a.button.transparent.expand.primary.small
-              strong
-                | CRONOGRAMA
-        .small-12.columns.dates__header__navigation
-          a.button.transparent.secondary.small.dates__header__previous-month.left ui-sref="{ month: course.previous_month }"
-            i.icon.icon-chevron-left
-            span<
-              | {{course.previous_month | date:'MMM'}}
-          span.dates__header__current-month
-            | {{course.current_month | date:'MMMM'}}
-          a.button.transparent.secondary.small.dates__header__next-month.right ui-sref="{ month: course.next_month }"
-            span>
-              | {{course.next_month | date:'MMM'}}
-            i.icon.icon-chevron-right
-    .empty__results.no__events ng-if="!course.events || course.events.length == 0"
-      | Não há aulas neste mês.
-    .event ng-repeat="event in course.events | orderBy:'start_at'"
-      a.dates__date[
+.calendar.content__box
+  .calendar__header
+    .row.collapse
+      /
+        .small-4.columns.dates__programme
+          a.button.transparent.expand.primary.small
+            strong
+              | CRONOGRAMA
+      .small-12.columns.dates__header__navigation
+        a.button.transparent.secondary.small.dates__header__previous-month.left ui-sref="{ month: course.previous_month }"
+          i.icon.icon-chevron-left
+          span<
+            | {{course.previous_month | date:'MMM'}}
+        span.dates__header__current-month
+          | {{course.current_month | date:'MMMM'}}
+        a.button.transparent.secondary.small.dates__header__next-month.right ui-sref="{ month: course.next_month }"
+          span>
+            | {{course.next_month | date:'MMM'}}
+          i.icon.icon-chevron-right
+  .empty__results.no__events ng-if="!course.events || course.events.length == 0"
+    | Não há aulas neste mês.
+  .calendar__dates
+    .calendar__date ng-repeat="event in course.events | orderBy:'start_at'"
+      a.calendar__date__link[
         ng-attr-id="{{ 'event-' + event.uuid }}"
         ng-click="goToEvent(event)"
         ng-class="eventClass(event)"

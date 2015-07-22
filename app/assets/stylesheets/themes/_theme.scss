@@ -3,15 +3,8 @@
     color: $white;
     font-size: 1.5em;
     margin-left: .5em;
-    opacity: .5;
     vertical-align: -4px;
   }
-}
-
-.vertical-center {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .label.secondary {

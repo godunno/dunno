@@ -2,8 +2,13 @@
   @include box-shadow(0, .125rem, 0, $light-grey-color);
   @include radius();
   background-color: $white;
-  border: 1px solid $light-grey-color;
+  border: .0625rem solid $light-grey-color;
   margin-bottom: 2rem;
+
+  @media #{$small-only} {
+    @include radius(0);
+    border: 0;
+  }
 }
 
 .content__box,
@@ -12,6 +17,6 @@
 
   .reveal-modal & {
     @include box-shadow(0, .125rem, 0, $dark-grey-color);
-    border: 1px solid $dark-grey-color;
+    border: .0625rem solid $dark-grey-color;
   }
 }

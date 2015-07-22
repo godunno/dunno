@@ -1,12 +1,4 @@
-.dates {
-  @include box-shadow();
-  @include radius();
-  background-color: $white;
-  border: .0625rem solid $light-grey-color;
-  margin: 0 0 2em;
-}
-
-.dates__header {
+.calendar__header {
   border-bottom: .0625rem solid $light-grey-color;
   font-size: .875em;
   text-transform: uppercase;
@@ -46,8 +38,18 @@
   text-align: center;
 }
 
-.dates__date {
+.calendar__date {
+  &:last-child {
+    .calendar__date__link {
+      @include side-radius(bottom, $global-radius);
+      border-bottom: 0;
+    }
+  }
+}
+
+.calendar__date__link {
   background-color: $white;
+  border-bottom: 1px solid $light-grey-color;
   color: $dunno-dark-color;
   display: block;
   font-size: .875rem;
@@ -70,18 +72,10 @@
     }
   }
 
-  &:nth-last-child(n+2) {
-    border-bottom: 1px solid $light-grey-color;
-  }
-
   &:after {
     clear: both;
     content: ' ';
     display: block;
-  }
-
-  &:last-child {
-    @include side-radius(bottom, $global-radius);
   }
 
   &.past {
