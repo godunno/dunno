@@ -25,7 +25,8 @@
   'components/site/top-bar';
 
 @import
-  'pages/home';
+  'pages/home',
+  'pages/legal';
 
 @import
   'themes/schemes', // import this last to avoid an !important rule.

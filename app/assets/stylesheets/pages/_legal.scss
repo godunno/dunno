@@ -1,0 +1,24 @@
+.legal__copy {
+  p {
+    text-align: justify;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: $font-weight-bold;
+  }
+
+  blockquote {
+    border-left: .25rem solid lighten($light-grey-color, 15%);
+    margin: 1rem 0;
+    padding-left: 2rem;
+
+    p {
+      text-transform: uppercase;
+    }
+  }
+}
