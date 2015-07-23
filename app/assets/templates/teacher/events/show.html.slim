@@ -68,8 +68,8 @@ header.page__header ng-class="'scheme-' + event.course.order"
   .row.collapse
     .hide-for-small.medium-3.columns
       a.previous__event[
-        ng-if="!!event.previous.uuid"
-        ui-sref="{eventId: event.previous.uuid}"
+        ng-if="!!event.previous.start_at"
+        ui-sref="{startAt: event.previous.start_at, courseId: event.course.uuid}"
         analytics-on="click"
         analytics-event="Event Navigation"
         analytics-name="previous"
@@ -101,8 +101,8 @@ header.page__header ng-class="'scheme-' + event.course.order"
         ng-class="{event__cancelled: event.status == 'canceled', event__published: event.status == 'published'}"]
         .show-for-small.small-1.columns
           a.previous__event.mobile__day__navigation[
-            ng-if="!!event.previous.uuid"
-            ui-sref="{eventId: event.previous.uuid}"
+            ng-if="!!event.previous.start_at"
+            ui-sref="{ startAt: event.previous.start_at, courseId: event.course.uuid }"
             analytics-on="click"
             analytics-event="Event Navigation"
             analytics-name="previous"
@@ -119,8 +119,8 @@ header.page__header ng-class="'scheme-' + event.course.order"
             | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
         .show-for-small.small-1.columns
           a.next__event.mobile__day__navigation[
-            ng-if="!!event.next.uuid"
-            ui-sref="{eventId: event.next.uuid}"
+            ng-if="!!event.next.start_at"
+            ui-sref="{ startAt: event.next.start_at, courseId: event.course.uuid }"
             analytics-on="click"
             analytics-event="Event Navigation"
             analytics-name="next"
@@ -351,8 +351,8 @@ header.page__header ng-class="'scheme-' + event.course.order"
                     | Salvar
     .hide-for-small.medium-3.columns
       a.next__event[
-        ng-if="!!event.next.uuid"
-        ui-sref="{ eventId: event.next.uuid }"
+        ng-if="!!event.next.start_at"
+        ui-sref="{ startAt: event.next.start_at, courseId: event.course.uuid }"
         analytics-on="click"
         analytics-event="Event Navigation"
         analytics-name="next"
