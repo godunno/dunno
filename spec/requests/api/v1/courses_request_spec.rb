@@ -55,17 +55,25 @@ describe Api::V1::CoursesController do
   end
 
   describe "GET /api/v1/courses/:identifier.json" do
-    let!(:course) { create(:course, start_date: 2.months.ago, end_date: 2.months.from_now, teacher: teacher, students: [student]) }
+    let(:course) { create(:course, start_date: 2.months.ago, end_date: 2.months.from_now, teacher: teacher, students: [student]) }
     let!(:event_from_another_teacher) { create(:event, course: create(:course, teacher: create(:profile))) }
     let!(:event_from_another_course) { create(:event, course: create(:course, teacher: teacher)) }
 
     shared_examples_for "get course" do |role|
+      let(:first_date)  { Time.zone.parse('2015-08-03 09:00') }
+      let(:second_date) { Time.zone.parse('2015-08-10 09:00') }
+      let(:third_date)  { Time.zone.parse('2015-08-17 09:00') }
+      let(:fourth_date) { Time.zone.parse('2015-08-24 09:00') }
+      let(:fifth_date)  { Time.zone.parse('2015-08-31 09:00') }
+
       before do
-        Timecop.freeze Time.zone.parse('2015-07-20 08:00')
+        Timecop.freeze first_date
+        course.save!
       end
 
+      after { Timecop.return }
+
       let!(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, start_time: '09:00', end_time: '11:00') }
-      let(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-07-20 09:00')) }
 
       def do_action(parameters = {})
         get "/api/v1/courses/#{identifier}.json", auth_params(profile).merge(parameters)
@@ -106,13 +114,43 @@ describe Api::V1::CoursesController do
                 { "name" => "Student", "role" => "student" }
               ],
               "user_role" => role,
-              "events" => [{
-                "order" => 1,
-                "formatted_status" => event.formatted_status(profile),
-                "start_at" => event.start_at.utc.iso8601,
-                "end_at" => event.end_at.utc.iso8601,
-                "classroom" => nil
-              }],
+              "events" => [
+                {
+                  "order" => 11,
+                  "formatted_status" => 'empty',
+                  "start_at" => first_date.utc.iso8601,
+                  "end_at" => (first_date + 2.hours).utc.iso8601,
+                  "classroom" => nil
+                },
+                {
+                  "order" => 12,
+                  "formatted_status" => 'empty',
+                  "start_at" => second_date.utc.iso8601,
+                  "end_at" => (second_date + 2.hours).utc.iso8601,
+                  "classroom" => nil
+                },
+                {
+                  "order" => 13,
+                  "formatted_status" => 'empty',
+                  "start_at" => third_date.utc.iso8601,
+                  "end_at" => (third_date + 2.hours).utc.iso8601,
+                  "classroom" => nil
+                },
+                {
+                  "order" => 14,
+                  "formatted_status" => 'empty',
+                  "start_at" => fourth_date.utc.iso8601,
+                  "end_at" => (fourth_date + 2.hours).utc.iso8601,
+                  "classroom" => nil
+                },
+                {
+                  "order" => 15,
+                  "formatted_status" => 'empty',
+                  "start_at" => fifth_date.utc.iso8601,
+                  "end_at" => (fifth_date + 2.hours).utc.iso8601,
+                  "classroom" => nil
+                },
+              ],
               "previous_month" => 1.month.ago.beginning_of_month.utc.iso8601,
               "current_month" => Time.current.beginning_of_month.utc.iso8601,
               "next_month" => 1.month.from_now.beginning_of_month.utc.iso8601
@@ -163,11 +201,10 @@ describe Api::V1::CoursesController do
 
           it do
             expect(subject).to eq([
-              "2015-06-01T12:00:00Z",
-              "2015-06-08T12:00:00Z",
-              "2015-06-15T12:00:00Z",
-              "2015-06-22T12:00:00Z",
-              "2015-06-29T12:00:00Z"
+              "2015-07-06T12:00:00Z",
+              "2015-07-13T12:00:00Z",
+              "2015-07-20T12:00:00Z",
+              "2015-07-27T12:00:00Z"
             ])
           end
         end
@@ -190,11 +227,9 @@ describe Api::V1::CoursesController do
 
           it do
             expect(subject).to eq([
-              "2015-08-03T12:00:00Z",
-              "2015-08-10T12:00:00Z",
-              "2015-08-17T12:00:00Z",
-              "2015-08-24T12:00:00Z",
-              "2015-08-31T12:00:00Z"
+              "2015-09-07T12:00:00Z",
+              "2015-09-14T12:00:00Z",
+              "2015-09-21T12:00:00Z"
             ])
           end
         end

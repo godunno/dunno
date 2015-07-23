@@ -30,12 +30,6 @@ describe CourseScheduler do
       expect(TimeOfDay(events.first.start_at)).to eq TimeOfDay.parse(weekly_schedule.start_time)
     end
 
-    #describe "paginating" do
-    #  it { expect(service.next_month).to eq 1.month.from_now.beginning_of_month }
-    #  it { expect(service.previous_month).to eq 1.month.ago.beginning_of_month }
-    #  it { expect(service.current_month).to eq Time.current.beginning_of_month }
-    #end
-
     context "concerning non-persisted events" do
       subject { events.first }
 

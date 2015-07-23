@@ -33,7 +33,6 @@ describe CoursesImport do
     it { expect(subject.class_name).to eq(class_name) }
     it { expect(subject.start_date).to eq(start_date) }
     it { expect(subject.end_date).to eq(end_date) }
-    it { expect(scheduler).to have_received(:schedule!) }
 
     describe "weekly schedule" do
       def match_weekly_schedule(weekly_schedule, target)

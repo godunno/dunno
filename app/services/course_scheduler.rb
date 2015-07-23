@@ -20,15 +20,6 @@ class CourseScheduler
     find_or_initialize_events
   end
 
-  # TODO: Extract
-  def previous_month
-    current_month - 1.month
-  end
-
-  def next_month
-    current_month + 1.month
-  end
-
   private
 
   def find_or_initialize_events

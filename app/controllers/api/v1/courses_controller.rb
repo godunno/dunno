@@ -7,9 +7,8 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def show
     authorize course
-    day_in_month = params[:month].present? ? Time.zone.parse(params[:month]) : Time.current
-    @pagination = CourseScheduler.new(course, day_in_month.beginning_of_month..day_in_month.end_of_month)
-    @events = @pagination.events
+    @pagination = MonthsNavigation.new(params[:month])
+    @events = CourseScheduler.new(course, WholeMonth.new(@pagination.current_month).range).events
   end
 
   def create
