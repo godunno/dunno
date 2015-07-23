@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Api::V1::CoursesController do
   let!(:teacher) { create(:profile, user: create(:user, name: "Teacher")) }
   let!(:student) { create(:profile, user: create(:user, name: "Student")) }
-  let!(:course) { create(:course, teacher: teacher, students: [student]) }
+  let!(:course) { create(:course, start_date: 1.month.ago, end_date: 1.month.from_now, teacher: teacher, students: [student]) }
   let(:event) { create(:event, course: course) }
 
   def last_course
@@ -56,13 +56,17 @@ describe Api::V1::CoursesController do
 
   describe "GET /api/v1/courses/:identifier.json" do
     let!(:course) { create(:course, start_date: 2.months.ago, end_date: 2.months.from_now, teacher: teacher, students: [student]) }
-    let!(:event) { create(:event, course: course) }
-    let!(:event_from_past_month) { create(:event, course: course, start_at: 1.month.ago) }
-    let!(:event_from_next_month) { create(:event, course: course, start_at: 1.month.from_now) }
     let!(:event_from_another_teacher) { create(:event, course: create(:course, teacher: create(:profile))) }
     let!(:event_from_another_course) { create(:event, course: create(:course, teacher: teacher)) }
 
     shared_examples_for "get course" do |role|
+      before do
+        Timecop.freeze Time.zone.parse('2015-07-20 08:00')
+      end
+
+      let!(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, start_time: '09:00', end_time: '11:00') }
+      let(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-07-20 09:00')) }
+
       def do_action(parameters = {})
         get "/api/v1/courses/#{identifier}.json", auth_params(profile).merge(parameters)
       end
@@ -90,7 +94,12 @@ describe Api::V1::CoursesController do
               "abbreviation" => course.abbreviation,
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
               "teacher" => { "name" => teacher.name },
-              "weekly_schedules" => [],
+              "weekly_schedules" => [
+                "weekday" => weekly_schedule.weekday,
+                "start_time" => weekly_schedule.start_time,
+                "end_time" => weekly_schedule.end_time,
+                "classroom" => weekly_schedule.classroom
+              ],
               "members_count" => 2,
               "members" => [
                 { "name" => "Teacher", "role" => "teacher" },
@@ -152,7 +161,15 @@ describe Api::V1::CoursesController do
         describe "events" do
           subject { json["course"]["events"].map { |e| e["start_at"] } }
 
-          it { expect(subject).to eq([event_from_past_month.start_at.utc.iso8601]) }
+          it do
+            expect(subject).to eq([
+              "2015-06-01T12:00:00Z",
+              "2015-06-08T12:00:00Z",
+              "2015-06-15T12:00:00Z",
+              "2015-06-22T12:00:00Z",
+              "2015-06-29T12:00:00Z"
+            ])
+          end
         end
       end
 
@@ -171,7 +188,15 @@ describe Api::V1::CoursesController do
         describe "events" do
           subject { json["course"]["events"].map { |e| e["start_at"] } }
 
-          it { expect(subject).to eq([event_from_next_month.start_at.utc.iso8601]) }
+          it do
+            expect(subject).to eq([
+              "2015-08-03T12:00:00Z",
+              "2015-08-10T12:00:00Z",
+              "2015-08-17T12:00:00Z",
+              "2015-08-24T12:00:00Z",
+              "2015-08-31T12:00:00Z"
+            ])
+          end
         end
       end
     end
@@ -305,15 +330,6 @@ describe Api::V1::CoursesController do
         grade: course.grade,
         institution: course.institution
       }
-    end
-
-    it "should schedule its events" do
-      course_scheduler = double("course_scheduler")
-      expect(CourseScheduler)
-        .to receive(:new)
-        .and_return(course_scheduler)
-      expect(course_scheduler).to receive(:schedule!)
-      do_action
     end
 
     context "creating the course" do

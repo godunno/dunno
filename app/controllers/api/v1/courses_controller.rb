@@ -7,23 +7,18 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def show
     authorize course
-    @pagination = EventService.new(course, (params[:month].present? ? Time.zone.parse(params[:month]) : Time.current))
+    day_in_month = params[:month].present? ? Time.zone.parse(params[:month]) : Time.current
+    @pagination = CourseScheduler.new(course, day_in_month.beginning_of_month..day_in_month.end_of_month)
     @events = @pagination.events
   end
 
   def create
     course_form = Form::CourseForm.new(course_params.merge(teacher: current_profile))
     authorize course_form
-
-    begin
-      ActiveRecord::Base.transaction do
-        course_form.save!
-        CourseScheduler.new(course_form.model).schedule!
-      end
-    rescue ActiveRecord::RecordInvalid
-      render json: { errors: course_form.errors }, status: 400
-    else
+    if course_form.save
       render json: { uuid: course_form.model.uuid }
+    else
+      render json: { errors: course_form.errors }, status: 400
     end
   end
 

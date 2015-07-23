@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe CoursesImport do
-  let(:scheduler) { spy('CourseScheduler') }
   let(:teacher) { create(:profile) }
   let(:name) { "Programação II" }
   let(:class_name) { "TR302" }
@@ -16,7 +15,6 @@ describe CoursesImport do
   end
   let(:url) { "http://www.example.com/disciplinas.xlsx" }
   before do
-    allow(CourseScheduler).to receive(:new).and_return(scheduler)
     allow(SpreadsheetParser).to receive(:parse).with(url, header_rows: 2).and_return([
       [name, class_name, start_date, end_date, '09:00', '11:00', '', 'x', '', 'x', '', '', '', "202"],
       [name, class_name, start_date, end_date, '16:00', '18:00', '', '', '', '', '', 'x', '', "203"]

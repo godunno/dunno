@@ -22,9 +22,8 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
   # TODO: Transfer as the first topic
   def transfer
     authorize topic.event, :update?
-    next_event = topic.event.next_not_canceled
-    if next_event
-      topic.update!(event: next_event)
+    service = TransferTopic.new(topic)
+    if service.transfer
       status = 200
     else
       status = 422

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Api::V1::EventsController do
 
   let(:profile) { create(:profile) }
-  let(:course) { create(:course, teacher: profile) }
+  let(:course) { create(:course, start_date: 1.month.ago, end_date: 1.month.from_now, teacher: profile) }
   let(:event) { create(:event, course: course) }
 
   describe "GET /api/v1/events" do
@@ -121,6 +121,16 @@ describe Api::V1::EventsController do
   end
 
   describe "GET /api/v1/events/:start_at" do
+
+    before do
+      Timecop.freeze Time.zone.local(2015, 1, 2, 9)
+      (0..6).each do |weekday|
+        create(:weekly_schedule, weekday: weekday, course: course)
+      end
+    end
+
+    after { Timecop.return }
+
     context "existing event" do
       let(:topic) { create(:topic) }
       let(:topic_with_url) { create(:topic, media: media_with_url) }
@@ -129,7 +139,7 @@ describe Api::V1::EventsController do
       let(:media_with_url) { build(:media_with_url) }
       let(:media_with_file) { build(:media_with_file) }
       let(:classroom) { "201-A" }
-      let(:start_at) { 2.hours.ago }
+      let(:start_at) { Time.current }
       let!(:event_from_another_course) do
         create(:event,
                created_at: 1.hour.ago,
@@ -173,7 +183,7 @@ describe Api::V1::EventsController do
         let(:target) { event }
 
         subject { event_json }
-        it_behaves_like "request return check", %w(uuid order status start_at end_at)
+        it_behaves_like "request return check", %w(uuid status start_at end_at)
 
         it { expect(last_response.status).to eq(200) }
         it { expect(subject["formatted_status"]).to eq(event.formatted_status(profile)) }
@@ -188,7 +198,7 @@ describe Api::V1::EventsController do
         describe "previous" do
           let(:target) { previous_event }
           subject { event_json["previous"] }
-          it_behaves_like "request return check", %w(uuid order status start_at end_at)
+          it_behaves_like "request return check", %w(uuid status start_at end_at)
           it { expect(subject["formatted_status"]).to eq(previous_event.formatted_status(profile)) }
 
           describe "topics" do
@@ -209,7 +219,7 @@ describe Api::V1::EventsController do
         describe "next" do
           let(:target) { next_event }
           subject { event_json["next"] }
-          it_behaves_like "request return check", %w(uuid order status start_at end_at)
+          it_behaves_like "request return check", %w(uuid status start_at end_at)
           it { expect(subject["formatted_status"]).to eq(next_event.formatted_status(profile)) }
 
           describe "topics" do
@@ -247,12 +257,12 @@ describe Api::V1::EventsController do
 
     context "new event" do
       let(:weekly_schedule) { create(:weekly_schedule, weekday: 4, start_time: '14:00', end_time: '16:00', classroom: '203') }
-      let(:course) { create(:course, teacher: profile, weekly_schedules: [weekly_schedule]) }
+      let(:new_course) { create(:course, start_date: 1.day.ago, end_date: Date.current, teacher: profile, weekly_schedules: [weekly_schedule]) }
       let(:start_at) { Time.zone.parse('2015-01-01 14:00') }
       let(:end_at) { Time.zone.parse('2015-01-01 16:00') }
 
       def do_action
-        get "/api/v1/events/#{start_at.utc.iso8601}.json", { course_id: course.uuid }.merge(auth_params(profile))
+        get "/api/v1/events/#{start_at.utc.iso8601}.json", { course_id: new_course.uuid }.merge(auth_params(profile))
       end
 
       before do
@@ -270,16 +280,16 @@ describe Api::V1::EventsController do
           "end_at" => end_at.utc.iso8601,
           "formatted_classroom" => "#{course.class_name} - #{weekly_schedule.classroom}",
           "course" => {
-            "uuid" => course.uuid,
-            "name" => course.name,
-            "start_date" => course.start_date.to_s,
-            "end_date" => course.end_date.to_s,
-            "grade" => course.grade,
-            "class_name" => course.class_name,
-            "order" => course.order,
-            "access_code" => course.access_code,
-            "institution" => course.institution,
-            "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
+            "uuid" => new_course.uuid,
+            "name" => new_course.name,
+            "start_date" => new_course.start_date.to_s,
+            "end_date" => new_course.end_date.to_s,
+            "grade" => new_course.grade,
+            "class_name" => new_course.class_name,
+            "order" => new_course.order,
+            "access_code" => new_course.access_code,
+            "institution" => new_course.institution,
+            "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][new_course.order],
             "user_role" => "teacher",
             "students_count" => 0,
             "teacher" => { "name" => profile.name },

@@ -41,8 +41,6 @@ class InvestorDemo
         weekday: week_days[n],
         classroom: "#{['Sala', 'Laboratório'].sample} #{n+1}"
       })
-
-      CourseScheduler.new(new_course).schedule!
     end
   end
 

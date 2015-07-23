@@ -41,7 +41,6 @@ class CoursesImport
         end
         courses << course
       end
-      courses.each { |course| CourseScheduler.new(course.reload).schedule! }
     end
   end
 

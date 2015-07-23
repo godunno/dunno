@@ -127,6 +127,7 @@ describe Api::V1::TopicsController do
         it { expect(subject.event.start_at.change(usec: 0)).to eq start_at.change(usec: 0) }
         it { expect(subject.event.end_at.change(usec: 0)).to eq (start_at.change(usec: 0) + 2.hours) }
         it { expect(subject.event.course).to eq new_course }
+        pending "must save the event with classroom and end_at"
       end
     end
 
@@ -301,7 +302,12 @@ describe Api::V1::TopicsController do
       end
 
       context "there is a next event" do
-        let!(:next_event) { create(:event, course: course, start_at: 1.day.from_now) }
+        let(:next_event) { create(:event, course: course, start_at: 1.day.from_now) }
+
+        before do
+          navigation = double('EventNavigation', next: next_event)
+          allow(EventNavigation).to receive(:new).with(event).and_return(navigation)
+        end
 
         it "should transfer topic to the next event" do
           expect { do_action }.to change { topic.reload.event }
@@ -310,21 +316,14 @@ describe Api::V1::TopicsController do
       end
 
       context "there isn't a next event" do
+        before do
+          navigation = double('EventNavigation', next: nil)
+          allow(EventNavigation).to receive(:new).with(event).and_return(navigation)
+        end
 
         it "should return an error" do
           do_action
           expect(last_response.status).to eq(422)
-        end
-      end
-
-      # TODO: move to model spec
-      context "next event is canceled" do
-        let!(:canceled_event) { create(:event, course: course, start_at: 1.day.from_now, status: :canceled) }
-        let!(:next_event) { create(:event, course: course, start_at: 2.day.from_now) }
-
-        it "should transfer topic to the next event" do
-          expect { do_action }.to change { topic.reload.event }
-          .from(event).to(next_event)
         end
       end
     end

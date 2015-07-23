@@ -34,26 +34,6 @@ class Event < ActiveRecord::Base
     }
   end
 
-  def next_not_canceled
-    neighbors.not_canceled.where('start_at > ?', start_at).first
-  end
-
-  def neighbors
-    course.events
-  end
-
-  def order
-    @order ||= neighbors.index(self).try(:+, 1)
-  end
-
-  def previous
-    neighbors[order - 1 - 1] if order.try(:>, 1)
-  end
-
-  def next
-    neighbors[order - 1 + 1] if order.try(:<, neighbors.length)
-  end
-
   def formatted_status(profile)
     return "empty" if empty? || draft? && profile.role_in(course) == 'student'
     return "happened" if happened?

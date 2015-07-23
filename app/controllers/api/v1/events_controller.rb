@@ -14,6 +14,9 @@ class Api::V1::EventsController < Api::V1::ApplicationController
 
   def show
     authorize event
+    event_navigation = EventNavigation.new(event)
+    @previous = event_navigation.previous
+    @next = event_navigation.next
     respond_with(event)
   end
 
@@ -39,35 +42,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   private
 
   def event
-    @event ||= course.events.find_by(start_at: date.beginning_of_day..date.end_of_day) || build_event
-  end
-
-  def date
-    Time.zone.parse(params[:start_at])
-  end
-
-  # TODO: Extract to service
-  def build_event
-    weekday = date.wday
-    weekly_schedule = course.weekly_schedules.detect { |w| w.weekday == weekday }
-
-    # TODO: Reuse the code from CreateSchedule service
-    start_time = TimeOfDay.parse(weekly_schedule.start_time)
-    end_time = TimeOfDay.parse(weekly_schedule.end_time)
-    start_at = date.in_time_zone.change(
-      hour: start_time.hour,
-      min:  start_time.minute
-    )
-    end_at = date.in_time_zone.change(
-      hour: end_time.hour,
-      min:  end_time.minute
-    )
-    Event.new(
-      course: course,
-      classroom: weekly_schedule.classroom,
-      start_at: start_at,
-      end_at: end_at
-    )
+    @event ||= FindOrInitializeEvent.new(course).by({ start_at: params[:start_at] }, nil)
   end
 
   def course
