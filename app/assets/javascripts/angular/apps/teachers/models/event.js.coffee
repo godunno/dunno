@@ -17,6 +17,7 @@ DunnoApp.factory 'Event', ['RailsResource', 'railsSerializer', (RailsResource, r
     planned: -> @topics.length > 0
 
   Event.interceptBeforeRequest (request, klass, event) ->
+    return request unless event?
     request.params ?= {}
     request.params.course_id ?= event.course.uuid
     request
