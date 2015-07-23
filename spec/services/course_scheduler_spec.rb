@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CourseScheduler do
-  before { Timecop.freeze Time.zone.local(2015, 7, 20, 18, 00) }
+  before { Timecop.freeze Time.zone.parse('2015-07-21 18:00') }
   after { Timecop.return }
 
   let!(:course) { create(:course, start_date: nil, end_date: nil) }
@@ -36,8 +36,8 @@ describe CourseScheduler do
       it { is_expected.to be_a Event }
       it { expect(subject.course).to eq course }
       it { expect(subject.classroom).to eq weekly_schedule.classroom }
-      it { expect(subject.start_at).to eq Time.zone.local(2015, 7, 27, 9, 00)  }
-      it { expect(subject.end_at).to eq Time.zone.local(2015, 7, 27, 11, 00)  }
+      it { expect(subject.start_at).to eq Time.zone.parse('2015-07-27 09:00')  }
+      it { expect(subject.end_at).to eq Time.zone.parse('2015-07-27 11:00')  }
     end
 
     context "with a start date set on course" do
@@ -75,7 +75,7 @@ describe CourseScheduler do
 
   context 'with events already created' do
     context 'for events in the weekly schedule' do
-      let!(:event) { create(:event, course: course, start_at: Time.zone.local(2015, 7, 27, 9, 0, 0)) }
+      let!(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-07-27 09:00')) }
 
       it "uses real events if they are already created" do
         expect(events.first).to eq event
@@ -83,7 +83,7 @@ describe CourseScheduler do
     end
 
     context 'for events outside the weekly schedule' do
-      let!(:event) { create(:event, course: course, start_at: Time.zone.local(2015, 7, 27, 8, 0, 0)) }
+      let!(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-07-27 08:00')) }
 
       it "uses real events if they are already created" do
         expect(events.first).to eq event
@@ -95,7 +95,7 @@ describe CourseScheduler do
     end
 
     context "when there's no weekly schedules" do
-      let!(:event) { create(:event, course: course, start_at: Time.zone.local(2015, 7, 27, 8, 0, 0)) }
+      let!(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-07-27 08:00')) }
       before do
         weekly_schedule.destroy!
       end

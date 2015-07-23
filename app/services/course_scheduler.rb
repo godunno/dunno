@@ -78,6 +78,6 @@ class CourseScheduler
   end
 
   def schedule_start
-    course.start_date || course.created_at
+    (course.start_date || course.created_at).beginning_of_day
   end
 end

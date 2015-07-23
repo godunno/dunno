@@ -58,8 +58,8 @@ describe Api::V1::TopicsController do
               media_id: media.id,
               event: {
                 course: {
-									uuid: course.uuid
-								},
+                  uuid: course.uuid
+                },
                 start_at: event.start_at.utc.iso8601
               }
             }
@@ -111,8 +111,8 @@ describe Api::V1::TopicsController do
               description: "One",
               event: {
                 course: {
-									uuid: new_course.uuid
-								},
+                  uuid: new_course.uuid
+                },
                 start_at: start_at.utc.iso8601
               }
             }
@@ -139,8 +139,8 @@ describe Api::V1::TopicsController do
               description: '',
               event: {
                 course: {
-									uuid: course.uuid
-								},
+                  uuid: course.uuid
+                },
                 start_at: event.start_at.utc.iso8601
               }
             }
@@ -191,8 +191,8 @@ describe Api::V1::TopicsController do
               description: "One",
               event: {
                 course: {
-									uuid: event_from_another_user.course.uuid
-								},
+                  uuid: event_from_another_user.course.uuid
+                },
                 start_at: event_from_another_user.start_at.utc.iso8601
               }
             }
