@@ -32,4 +32,17 @@
       }
     }
   }
+
+  @media #{$small-only} {
+    footer {
+      .inline-list {
+        li {
+          display: block;
+          margin: 0;
+          padding: 1rem 0;
+          width: 100%;
+        }
+      }
+    }
+  }
 }

@@ -1,6 +1,8 @@
+ruby:
+  @title = 'Política de Privacidade · Dunno'
 .row
-  .small-8.small-centered.columns.legal__copy
+  .small-12.medium-10.large-8.small-centered.columns.legal__copy
     h1
-      = link_to root_path do
-        | Dunno
+      = link_to root_path, class: 'logo' do
+        = image_tag 'dunno-logo-vertical.png'
     = render 'policy'

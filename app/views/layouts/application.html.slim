@@ -33,9 +33,19 @@ html lang="pt" ng-app="DunnoApp"
 
         = render partial: 'application/first_access_modal'
 
-    /
-      footer
-        = "Copyright &copy; #{Time.zone.now.year} Dunno".html_safe
+        footer.hide-for-small
+          .row
+            .small-12.columns
+              ul.inline-list
+                li
+                  small.legal
+                    | Copyright © #{Time.zone.now.year} Dunno
+                li
+                  small
+                    = link_to 'Termos de Uso', terms_path
+                li
+                  small
+                    = link_to 'Política de Privacidade', policy_path
 
     = javascript_include_tag "application"
 

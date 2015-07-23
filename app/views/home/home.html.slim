@@ -137,22 +137,3 @@ section.invitation__section
         type='email']
       button.button.radius[type='submit']
         | QUERO SER AVISADO
-
-footer
-  .row
-    span.copyright>
-      | Dunno #{Time.new.year}
-    a.mixpanel__link[
-      href='https://mixpanel.com/f/partner'
-      target='_blank']
-      img[
-        alt='Mobile Analytics'
-        src='//cdn.mxpnl.com/site_media/images/partner/badge_light.png']
-    /
-      - ['Sobre o Dunno', 'Política de Privacidade'].each do |link|
-        a> href='#'
-          = link
-      .social__links.right
-      - [ { slug: 'facebook' }, { slug: 'twitter' } ].each do |social_link|
-        a> href='#'
-          i.icon class="icon-#{social_link[:slug]}"

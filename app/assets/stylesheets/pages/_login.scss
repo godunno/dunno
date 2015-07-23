@@ -19,11 +19,7 @@
   }
 
   .logo {
-    height: 112px;
-
-    @media #{$small-only} {
-      height: 66px;
-    }
+    height: 4.125rem;
   }
 
   a {
@@ -69,23 +65,9 @@
   padding: 1em;
   text-align: center;
 
-  a {
-    color: $white;
-    opacity: .42;
-  }
-
   li {
     display: inline-block;
-    font-weight: $font-weight-light;
-
-    &::after {
-      content: ' | ';
-      opacity: .42;
-    }
-
-    &:last-child::after {
-      content: '';
-    }
+    margin: 0 1rem;
   }
 }
 
