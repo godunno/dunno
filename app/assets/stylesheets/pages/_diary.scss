@@ -82,6 +82,19 @@
   }
 }
 
+.event__status {
+  margin-bottom: 1rem;
+
+  @media #{$small-only} {
+    margin: 1rem 0;
+  }
+
+  .button {
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+}
+
 .diary__header {
   @include radius(.25rem .25rem 0 0);
   background: $dunno-dark-color;

@@ -13,6 +13,16 @@
     .status__icon {
       margin-left: 1rem;
     }
+
+    @media #{$small-only} {
+      margin-top: 1rem;
+    }
+  }
+
+  .edit__in__journal {
+    @media #{$small-only} {
+      margin-top: 1rem;
+    }
   }
 
   .no__topics {
@@ -20,7 +30,15 @@
   }
 
   .event__content {
-    @extend %content-box;
+    @include box-shadow(0, .125rem, 0, $light-grey-color);
+    @include radius();
+    background-color: $white;
+    border: .0625rem solid $light-grey-color;
+    margin-bottom: 2rem;
+
+    @media #{$small-only} {
+      margin-bottom: 0;
+    }
   }
 
   .event__item {
