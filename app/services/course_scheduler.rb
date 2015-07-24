@@ -9,8 +9,7 @@ class CourseScheduler
       @time_range = if course.start_date.present? && course.end_date.present?
                       course.start_date.beginning_of_day..course.end_date.end_of_day
                     else
-                      now = Time.current
-                      now.beginning_of_month..now.end_of_month
+                      WholePeriod.new(Time.current).month
                     end
     end
     set_schedule

@@ -8,7 +8,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   def show
     authorize course
     @pagination = MonthsNavigation.new(params[:month])
-    @events = CourseScheduler.new(course, WholeMonth.new(@pagination.current_month).range).events
+    @events = CourseScheduler.new(course, WholePeriod.new(@pagination.current_month).month).events
   end
 
   def create

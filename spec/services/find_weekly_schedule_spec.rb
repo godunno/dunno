@@ -8,6 +8,6 @@ describe FindWeeklySchedule do
   let(:service) { FindWeeklySchedule.new(start_at, course.weekly_schedules.order(:created_at)) }
 
   it { expect(service.weekly_schedule?).to eq true }
-  it { expect(service.end_at).to eq (start_at + 2.hours) }
+  it { expect(service.end_at).to eq(start_at + 2.hours) }
   it { expect(service.classroom).to eq weekly_schedule.classroom }
 end
