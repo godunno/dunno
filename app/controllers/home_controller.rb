@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def home
     @features = [
       {
-        description: 'Envie lembretes por SMS e e-mail.',
+        description: 'Envie lembretes por e-mail.',
         icon: 'icon-buzz'
       }, {
         description: 'Tenha uma visão geral das suas aulas.',
@@ -20,7 +20,7 @@ class HomeController < ApplicationController
         title: 'Notifique seus estudantes.',
         content: [
           'Tem um novo material importante, não terá uma aula ou você só quer relembrar seus estudantes do trabalho que é para a semana que vem?',
-          'Envie uma mensagem para os estudantes através do Dunno, e eles escolhem se receberão por SMS, e-mail ou ambos.'
+          'Envie uma mensagem para os estudantes através do Dunno, e eles receberão por e-mail.'
         ]
       }, {
         title: 'Seu diário, suas escolhas.',
