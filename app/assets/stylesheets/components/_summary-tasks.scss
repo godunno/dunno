@@ -28,6 +28,14 @@
     color: $red-color;
   }
 
+  &.empty__results {
+    color: $medium-grey-color;
+  }
+
+  &.event__canceled {
+    color: $red-color;
+  }
+
   span {
     display: block;
     font-size: .875em;

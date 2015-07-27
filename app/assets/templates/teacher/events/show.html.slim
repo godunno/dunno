@@ -81,6 +81,10 @@ header.page__header ng-class="'scheme-' + event.course.order"
         span
           | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
       .summary__tasks.previous__event__tasks
+        .summary__task.event__canceled ng-if="event.previous.status == 'canceled'"
+          | Aula cancelada.
+        .summary__task.empty__results ng-if="event.previous.topics.length == 0"
+          | Nenhum conteúdo cadastrado.
         .summary__task[
           ng-repeat="topic in event.previous.topics"
           ng-hide="topic.personal && !showPrivateTopics"
@@ -126,7 +130,9 @@ header.page__header ng-class="'scheme-' + event.course.order"
             analytics-course-uuid="{{event.course.uuid}}"]
             i.icon.icon-chevron-right
       #topics-container.row event-list="topics"
-        .new__topic__form.small-12.columns ng-controller="NewTopicCtrl" ng-if="event.status != 'canceled'"
+        .new__topic__form.small-12.columns[
+          ng-controller="NewTopicCtrl"
+          ng-if="event.status != 'canceled'"]
           ul.small-block-grid-4.tabs.select__item__type
             li
               a[
@@ -261,6 +267,10 @@ header.page__header ng-class="'scheme-' + event.course.order"
         #topics-list.topic__items[
           ui-sortable="sortableOptions('topics')"
           ng-model="event.topics"]
+          .topic__item.empty__results ng-if="event.topics.length == 0 && event.status != 'canceled'"
+            | Adicione conteúdos para essa aula.
+          .topic__item.empty__results ng-if="event.status == 'canceled'"
+            | Para adicionar conteúdos altere o estado da aula para despublicada.
           .topic__item.clickable[
             ng-controller="TopicEditCtrl"
             ng-class="{done: topic.done, personal: topic.personal}"
@@ -275,6 +285,12 @@ header.page__header ng-class="'scheme-' + event.course.order"
                     | …
                   zf-as-content position="top"
                     ul.topic__item__actions__list
+                      li
+                        a[
+                          ng-click="startEditing(topic)"
+                          title="Editar tópico"]
+                          i.icon.icon-pencil>
+                          | Editar
                       li
                         a[
                           ng-click="removeTopic(topic)"
@@ -303,12 +319,12 @@ header.page__header ng-class="'scheme-' + event.course.order"
                       ng-if="!!topic.media"
                       ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
                     span.topic__item__description__contents[ng-class="{topic__contains__media: !!topic.media}"]
-                      a.topic__description ng-click="startEditing(topic)"
+                      a.topic__description
                         | {{topic.description}}
-                        i.icon.icon-pencil<
                       a.topic__url[
                         ng-href="{{topic.media.url}}"
                         target="_blank"
+                        title="{{topic.media.url}}"
                         ng-show="topic.media.type == 'url'"]
                         | {{topic.media.url}}
             .topic__item__editing ng-show="isEditing(topic)"
@@ -344,6 +360,10 @@ header.page__header ng-class="'scheme-' + event.course.order"
           | {{event.next.start_at | date:'EEE, dd/MMMM'}}
         i.icon.icon-chevron-right
       .summary__tasks.next__event__tasks
+        .summary__task.event__canceled ng-if="event.next.status == 'canceled'"
+          | Aula cancelada.
+        .summary__task.empty__results ng-if="event.next.topics.length == 0"
+          | Nenhum conteúdo cadastrado.
         .summary__task[
           ng-repeat="topic in event.next.topics"
           ng-hide="topic.personal && !showPrivateTopics"
