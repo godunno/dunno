@@ -27,4 +27,4 @@ class Form::WeeklyScheduleForm < Form::Base
 
     model.save!
   end
-  end
+end

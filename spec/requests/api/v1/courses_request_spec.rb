@@ -4,6 +4,7 @@ describe Api::V1::CoursesController do
   let!(:teacher) { create(:profile, user: create(:user, name: "Teacher")) }
   let!(:student) { create(:profile, user: create(:user, name: "Student")) }
   let!(:course) { create(:course, start_date: 1.month.ago, end_date: 1.month.from_now, teacher: teacher, students: [student]) }
+  let!(:weekly_schedule) { create(:weekly_schedule, course: course) }
   let(:event) { create(:event, course: course) }
 
   def last_course
@@ -34,6 +35,7 @@ describe Api::V1::CoursesController do
           "active" => true,
           "start_date" => course.start_date.to_s,
           "end_date" => course.end_date.to_s,
+          "abbreviation" => course.abbreviation,
           "grade" => course.grade,
           "class_name" => course.class_name,
           "order" => course.order,
@@ -42,7 +44,15 @@ describe Api::V1::CoursesController do
           "abbreviation" => course.abbreviation,
           "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
           "user_role" => "teacher",
-          "weekly_schedules" => [],
+          "students_count" => course.students.count,
+          "teacher" => { "name" => teacher.name },
+          "weekly_schedules"=> [
+            "uuid" => weekly_schedule.uuid,
+            "weekday" => weekly_schedule.weekday,
+            "start_time" => weekly_schedule.start_time,
+            "end_time" => weekly_schedule.end_time,
+            "classroom" => weekly_schedule.classroom
+          ],
           "members_count" => 2,
           "members" => [
             { "name" => "Teacher", "role" => "teacher" },
@@ -73,7 +83,7 @@ describe Api::V1::CoursesController do
 
       after { Timecop.return }
 
-      let!(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, start_time: '09:00', end_time: '11:00') }
+      let(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, start_time: '09:00', end_time: '11:00') }
 
       def do_action(parameters = {})
         get "/api/v1/courses/#{identifier}.json", auth_params(profile).merge(parameters)
@@ -100,9 +110,11 @@ describe Api::V1::CoursesController do
               "access_code" => course.access_code,
               "institution" => course.institution,
               "abbreviation" => course.abbreviation,
+              "students_count" => course.students.count,
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
               "teacher" => { "name" => teacher.name },
               "weekly_schedules" => [
+                "uuid" => weekly_schedule.uuid,
                 "weekday" => weekly_schedule.weekday,
                 "start_time" => weekly_schedule.start_time,
                 "end_time" => weekly_schedule.end_time,
@@ -116,35 +128,35 @@ describe Api::V1::CoursesController do
               "user_role" => role,
               "events" => [
                 {
-                  "order" => 11,
+                  "order" => 10,
                   "formatted_status" => 'empty',
                   "start_at" => first_date.utc.iso8601,
                   "end_at" => (first_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 12,
+                  "order" => 11,
                   "formatted_status" => 'empty',
                   "start_at" => second_date.utc.iso8601,
                   "end_at" => (second_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 13,
+                  "order" => 12,
                   "formatted_status" => 'empty',
                   "start_at" => third_date.utc.iso8601,
                   "end_at" => (third_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 14,
+                  "order" => 13,
                   "formatted_status" => 'empty',
                   "start_at" => fourth_date.utc.iso8601,
                   "end_at" => (fourth_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 15,
+                  "order" => 14,
                   "formatted_status" => 'empty',
                   "start_at" => fifth_date.utc.iso8601,
                   "end_at" => (fifth_date + 2.hours).utc.iso8601,
@@ -367,6 +379,8 @@ describe Api::V1::CoursesController do
       }
     end
 
+    before { Course.destroy_all }
+
     context "creating the course" do
       before do
         do_action
@@ -405,13 +419,24 @@ describe Api::V1::CoursesController do
   end
 
   describe "PATCH /api/v1/courses/:uuid.json" do
+    let!(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, start_time: '09:00', end_time: '11:00', classroom: 'A-1') }
+
     def do_action
       patch "/api/v1/courses/#{course.uuid}.json", course_params.merge(auth_params(teacher)).to_json
     end
 
     let(:course_params) do
       {
-        name: "Some name"
+        course: course.attributes.merge(
+          name: "Some name",
+          weekly_schedules: [
+            uuid: weekly_schedule.uuid,
+            weekday: 2,
+            start_time: '14:00',
+            end_time: '16:00',
+            classroom: 'B-2'
+          ]
+        )
       }
     end
 
@@ -425,6 +450,15 @@ describe Api::V1::CoursesController do
     it { expect(last_response.status).to eq(200) }
     it { expect(course.reload.name).to eq "Some name" }
     it { expect(json).to eq("uuid" => course.uuid) }
+
+    describe "weekly schedule" do
+      subject { weekly_schedule.reload }
+
+      it { expect(subject.weekday).to eq 2 }
+      it { expect(subject.start_time).to eq '14:00' }
+      it { expect(subject.end_time).to eq '16:00' }
+      it { expect(subject.classroom).to eq 'B-2' }
+    end
   end
 
   describe "DELETE /api/v1/courses/:uuid.json" do

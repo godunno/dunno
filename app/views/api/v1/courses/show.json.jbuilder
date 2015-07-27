@@ -1,5 +1,5 @@
 json.course do
-  CourseBuilder.new(@course).build!(json, profile: current_profile)
+  json.partial! 'api/v1/courses/course', course: @course
   role = current_profile.role_in(@course)
   json.events @events do |event|
     json.cache! ['course-show/event', event, role] do

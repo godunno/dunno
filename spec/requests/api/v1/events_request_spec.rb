@@ -75,6 +75,7 @@ describe Api::V1::EventsController do
               "name" => course.name,
               "start_date" => course.start_date.to_s,
               "end_date" => course.end_date.to_s,
+              "abbreviation" => course.abbreviation,
               "grade" => course.grade,
               "class_name" => course.class_name,
               "order" => course.order,
@@ -84,7 +85,9 @@ describe Api::V1::EventsController do
               "teacher" => { "name" => course.teacher.name },
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
               "weekly_schedules" => [],
-              "students_count" => 0
+              "students_count" => 0,
+              "members_count" => 1,
+              "members" => ["name" => profile.name, "role" => "teacher"]
             }
           )
         end
@@ -284,6 +287,7 @@ describe Api::V1::EventsController do
             "name" => new_course.name,
             "start_date" => new_course.start_date.to_s,
             "end_date" => new_course.end_date.to_s,
+            "abbreviation" => new_course.abbreviation,
             "grade" => new_course.grade,
             "class_name" => new_course.class_name,
             "order" => new_course.order,
@@ -294,11 +298,14 @@ describe Api::V1::EventsController do
             "students_count" => 0,
             "teacher" => { "name" => profile.name },
             "weekly_schedules" => [
+              "uuid" => weekly_schedule.uuid,
               "weekday" => weekly_schedule.weekday,
               "start_time" => weekly_schedule.start_time,
               "end_time" => weekly_schedule.end_time,
               "classroom" => weekly_schedule.classroom
-            ]
+            ],
+            "members_count" => 1,
+            "members" => ["name" => profile.name, "role" => "teacher"]
           },
           "topics" => []
         )
