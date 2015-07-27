@@ -81,9 +81,9 @@ header.page__header ng-class="'scheme-' + event.course.order"
         span
           | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
       .summary__tasks.previous__event__tasks
-        .summary__task.event__canceled ng-if="event.previous.status == 'canceled'"
+        .summary__task.event__canceled ng-if="event.previous.status === 'canceled'"
           | Aula cancelada.
-        .summary__task.empty__results ng-if="event.previous.topics.length == 0"
+        .summary__task.empty__results ng-if="event.previous.topics.length === 0"
           | Nenhum conteúdo cadastrado.
         .summary__task[
           ng-repeat="topic in event.previous.topics"
@@ -267,9 +267,9 @@ header.page__header ng-class="'scheme-' + event.course.order"
         #topics-list.topic__items[
           ui-sortable="sortableOptions('topics')"
           ng-model="event.topics"]
-          .topic__item.empty__results ng-if="event.topics.length == 0 && event.status != 'canceled'"
+          .topic__item.empty__results ng-if="event.topics.length === 0 && event.status != 'canceled'"
             | Adicione conteúdos para essa aula.
-          .topic__item.empty__results ng-if="event.status == 'canceled'"
+          .topic__item.empty__results ng-if="event.status === 'canceled'"
             | Para adicionar conteúdos altere o estado da aula para despublicada.
           .topic__item.clickable[
             ng-controller="TopicEditCtrl"
@@ -360,9 +360,9 @@ header.page__header ng-class="'scheme-' + event.course.order"
           | {{event.next.start_at | date:'EEE, dd/MMMM'}}
         i.icon.icon-chevron-right
       .summary__tasks.next__event__tasks
-        .summary__task.event__canceled ng-if="event.next.status == 'canceled'"
+        .summary__task.event__canceled ng-if="event.next.status === 'canceled'"
           | Aula cancelada.
-        .summary__task.empty__results ng-if="event.next.topics.length == 0"
+        .summary__task.empty__results ng-if="event.next.topics.length === 0"
           | Nenhum conteúdo cadastrado.
         .summary__task[
           ng-repeat="topic in event.next.topics"
