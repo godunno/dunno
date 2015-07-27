@@ -270,7 +270,7 @@ header.page__header ng-class="'scheme-' + event.course.order"
           .topic__item.empty__results ng-if="event.topics.length === 0 && event.status != 'canceled'"
             | Adicione conteúdos para essa aula.
           .topic__item.empty__results ng-if="event.status === 'canceled'"
-            | Para adicionar conteúdos altere o estado da aula para despublicada.
+            | Para adicionar conteúdos pressione "Desfazer" para tornar a aula despublicada.
           .topic__item.clickable[
             ng-controller="TopicEditCtrl"
             ng-class="{done: topic.done, personal: topic.personal}"
