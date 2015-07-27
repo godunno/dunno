@@ -211,6 +211,10 @@
 }
 
 .diary__page {
+  .catalog__medias {
+    border: 0;
+  }
+
   .catalog__media {
     .media__select__label {
       margin-top: .875rem;
