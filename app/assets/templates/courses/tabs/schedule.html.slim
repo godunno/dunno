@@ -17,7 +17,7 @@
         p
           strong.uppercase
             | Dias da semana
-    .weekly__schedule ng-repeat="weekly_schedule in weekly_schedules"
+    .weekly__schedule ng-repeat="weekly_schedule in course.weekly_schedules"
       .row.collapse
         .small-5.columns
           input.special__checkbox[id="id__{{weekly_schedule.weekday}}" type='checkbox']

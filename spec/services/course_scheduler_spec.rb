@@ -6,6 +6,7 @@ describe CourseScheduler do
 
   let!(:course) { create(:course, start_date: nil, end_date: nil) }
   let!(:weekly_schedule) { create(:weekly_schedule, weekday: 1, course: course, classroom: '1A', start_time: '09:00', end_time: '11:00') }
+  let!(:incomplete_weekly_schedule) { create(:weekly_schedule, weekday: 1, course: course, classroom: '1B', start_time: nil, end_time: nil) }
   let(:service) { CourseScheduler.new(course) }
   let(:events) { service.events }
   let(:next_month) { 1.month.from_now.beginning_of_month..1.month.from_now.end_of_month }

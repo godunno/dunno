@@ -17,8 +17,11 @@ module Form
         :name, :start_date, :end_date, :class_name, :grade, :institution
       )))
       self.teacher = params[:teacher]
+      weekly_schedules_params = (0..6).map do |weekday|
+        params[:weekly_schedules].to_a.detect { |w| w[:weekday] == weekday } || { weekday: weekday }
+      end
       @weekly_schedules = populate_children(
-        Form::WeeklyScheduleForm, params[:weekly_schedules]
+        Form::WeeklyScheduleForm, weekly_schedules_params
       )
     end
 

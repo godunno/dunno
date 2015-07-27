@@ -8,7 +8,7 @@ class Form::WeeklyScheduleForm < Form::Base
   attribute :weekday, Integer
   attribute :classroom, String
 
-  validates :start_time, :end_time, :weekday, presence: true
+  validates :weekday, presence: true
 
   def initialize(params = {})
     super(params.slice(*attributes_list(

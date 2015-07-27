@@ -9,7 +9,7 @@ class FindOrInitializeEvent
     course.events.find_or_initialize_by(attributes).tap do |event|
       event.order = order
       return event if event.persisted?
-      service = FindWeeklySchedule.new(event.start_at, course.weekly_schedules)
+      service = FindWeeklySchedule.new(event.start_at, course.weekly_schedules.complete)
       event.classroom ||= service.classroom
       event.end_at ||= service.end_at
     end
