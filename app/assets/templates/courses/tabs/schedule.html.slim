@@ -6,11 +6,11 @@
           strong.uppercase
             | Cronograma de aulas
           br
-          | Estas informações são <b>opcionais</b>, mas com elas conseguiremos montar seu calendário personalizado, contendo somente os seus períodos de aula. (Irá afetar somente aulas de hoje em diante)
-      .small-3.columns
+          small
+            | Estas informações são <b>opcionais</b>, mas com elas conseguiremos montar seu calendário personalizado, contendo somente os seus períodos de aula. (Irá afetar somente aulas de hoje em diante)
+      .small-3.columns.text-right
         a.button.tiny.radius.close ng-click="update()"
           | Fechar
-
   .weekly__schedules
     .row
       .small-12.columns
@@ -19,30 +19,50 @@
             | Dias da semana
     .weekly__schedule ng-repeat="weekly_schedule in course.weekly_schedules"
       .row.collapse
-        .small-5.columns
-          input.special__checkbox[id="id__{{weekly_schedule.weekday}}" type='checkbox']
+        .small-4.columns
+          input.special__checkbox[
+            id="id__{{weekly_schedule.weekday}}"
+            ng-checked="weekly_schedule.start_time != null"
+            type='checkbox']
           label.weekday[for="id__{{weekly_schedule.weekday}}"]
             | {{weekly_schedule.weekday | weekdayLong}}
-        .small-2.columns
-          input.start__time.special__input[
-            ng-model="weekly_schedule.start_time"
-            type="text"
-            mask="99:99"
-            placeholder="10:00"]
-        .small-1.columns.text-center
-          span.to.uppercase
-            | às
-        .small-2.columns
-          input.end__time.special__input[
-            ng-model="weekly_schedule.end_time"
-            type="text"
-            mask="99:99"
-            placeholder="12:00"]
-        .small-2.columns
-          input.classroom.special__input[
-            ng-model="weekly_schedule.classroom"
-            type="text"
-            placeholder="Sala"]
+            br
+            zf-action-sheet ng-if="weekly_schedule.start_time != null" close-action-sheet-on-click=true
+              zf-as-button.button.dropdown.radius.secondary.tiny.transparent.no__side__padding
+                span
+                  i.icon.icon-transfer>
+                  | Transferir para
+              zf-as-content position="top"
+                ul#possible__dates
+                  - ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'].each do |weekday|
+                    li
+                      a
+                        = weekday
+        .small-8.columns
+          .row.collapse
+            .small-3.columns
+              input.start__time.special__input[
+                ng-model="weekly_schedule.start_time"
+                type="text"
+                mask="99:99"
+                placeholder="10:00"]
+            .small-2.columns.text-center
+              small.to.uppercase
+                | às
+            .small-3.columns
+              input.end__time.special__input[
+                ng-model="weekly_schedule.end_time"
+                type="text"
+                mask="99:99"
+                placeholder="12:00"]
+            .small-3.columns
+              input.classroom.special__input[
+                ng-model="weekly_schedule.classroom"
+                type="text"
+                placeholder="Sala"]
+            .small-1.column
+              a.reset__weekday.button.secondary.transparent.icon__button< ng-if="weekly_schedule.start_time != null"
+                i.icon.icon-close
 
     .course__dates
       .row

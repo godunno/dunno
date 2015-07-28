@@ -15,41 +15,40 @@
     padding: 1rem 0 0;
 
     .weekly__schedule {
-      line-height: 5.75rem;
+      border-left: .375rem solid transparent;
+      margin-bottom: .125rem;
+      padding: 1rem 0;
 
       .special__input {
-        margin-top: 1.65rem;
         width: 80%;
       }
     }
   }
 
-
   .special__checkbox {
     + label {
+      border-left: .375rem solid transparent;
       color: $light-grey-color;
       display: block;
-      font-size: 1.375rem;
       font-weight: $font-weight-normal;
-      line-height: 5.75rem;
+      margin: -1rem 0 -1rem -.375rem;
+      min-height: 5.5rem;
+      padding: 1rem;
       white-space: nowrap;
 
       @media #{$small-only} {
         font-size: .875rem;
       }
 
-      &:before {
-        border-left: .375rem solid transparent;
+      .button {
+        margin-bottom: 0;
       }
     }
 
     &:checked {
       + label {
+        border-left: .375rem solid $dunno-green-color;
         color: $dunno-dark-color;
-
-        &:before {
-          border-left: .375rem solid $dunno-green-color;
-        }
       }
     }
   }
@@ -57,7 +56,7 @@
   .special__checkbox + label:before,
   .special__checkbox:checked + label:before {
     content: '';
-    height: 5.75rem;
+    display: none;
   }
 
   .special__input {
@@ -81,5 +80,14 @@
       border: 0;
       margin-bottom: 1rem;
     }
+  }
+
+  .to {
+    display: inline-block;
+    margin-top: .5rem;
+  }
+
+  .reset__weekday {
+    margin-top: .5rem;
   }
 }
