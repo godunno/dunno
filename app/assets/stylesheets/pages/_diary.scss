@@ -245,4 +245,13 @@
       line-height: inherit;
     }
   }
+
+  .type__file {
+    p {
+      color: $medium-grey-color;
+      margin: 0;
+      padding: 1rem 0;
+      text-align: center;
+    }
+  }
 }

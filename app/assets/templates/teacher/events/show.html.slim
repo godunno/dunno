@@ -176,9 +176,14 @@ header.page__header ng-class="'scheme-' + event.course.order"
 
             .type.type__file ng-show="topicType == 'file'" ng-controller="NewFileMediaCtrl"
               form name="fileMediaForm" ng-show="status == 'newMedia'"
+                p
+                  | Enviar foto, vídeo ou documento
+                  br
+                  small
+                    | (Máximo 4Mb)
                 label.item__button.media__file__button.small.radius.button[
                   for="topic-file"]
-                  | Fazer upload
+                  | Buscar arquivo
                 input#topic-file.file__input[
                   ng-file-model=true
                   type="file"
