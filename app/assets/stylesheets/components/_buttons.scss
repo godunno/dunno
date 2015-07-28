@@ -93,4 +93,14 @@
     padding-left: 0;
     padding-right: 0;
   }
+
+  &.light {
+    background-color: lighten($light-grey-color, 10%);
+    color: $dunno-dark-color;
+
+    &:hover {
+      background-color: lighten($light-grey-color, 15%);
+      color: $dunno-dark-color;
+    }
+  }
 }
