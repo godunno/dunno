@@ -74,7 +74,11 @@
             .small-10.columns
               input.start__date.special__input#course__start__date[
                 ng-model="course.start_date"
-                type="text"
+                type="datetime"
+                date-time=true
+                min-view="date"
+                auto-close="true"
+                format="short"
                 placeholder="Início das aulas"]
             .small-2.columns
               label.postfix.transparent[for="course__start__date"]
@@ -83,7 +87,11 @@
             .small-10.columns
               input.end__date.special__input#course__end__date[
                 ng-model="course.end_date"
-                type="text"
+                type="datetime"
+                date-time=true
+                min-view="date"
+                auto-close="true"
+                format="short"
                 placeholder="Fim das aulas"]
             .small-2.columns
               label.postfix.transparent[for="course__end__date"]

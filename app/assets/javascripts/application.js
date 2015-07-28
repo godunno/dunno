@@ -36,6 +36,7 @@
 //= require angular-foundation
 //= require angular-busy
 //= require angular-filter
+//= require angular-datepicker
 //= require angulartics
 //= require ui-router
 //= require initial.js

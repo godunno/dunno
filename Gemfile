@@ -68,6 +68,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-greensock', '1.17.0'
   gem 'rails-assets-ui-router', '0.2.15'
   gem 'rails-assets-angular-filter', '0.5.4'
+  gem 'rails-assets-angular-datepicker', '1.0.12'
 end
 
 group :production, :staging do
