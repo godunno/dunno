@@ -159,6 +159,23 @@
     display: inline-block;
     margin-left: .5em;
     white-space: nowrap;
+
+    @media #{$small-only} {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    li {
+      @media #{$small-only} {
+        width: 50%;
+      }
+
+      .button {
+        @media #{$small-only} {
+          width: 100%;
+        }
+      }
+    }
   }
 
   .event__status__button {

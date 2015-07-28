@@ -31,7 +31,7 @@ header.page__header ng-class="'scheme-' + event.course.order"
 
 .diary__page
   .row.event__status.medium-collapse
-    .small-3.medium-2.medium-offset-3.columns
+    .small-12.medium-2.medium-offset-3.columns
       .event__uncancel[
         ng-if="event.status == 'canceled'"]
         span.event__cancelled
@@ -47,7 +47,7 @@ header.page__header ng-class="'scheme-' + event.course.order"
         ng-click="setStatus(event, 'canceled')"]
         | Cancelar Aula
       br
-    .small-9.medium-4.columns.end.event__status__group
+    .small-12.medium-4.columns.end.event__status__group
       span.hidden-for-small[ng-if="event.status != 'canceled'"]
         | Status da aula:
       ul.button-group.round
