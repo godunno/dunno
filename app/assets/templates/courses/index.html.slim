@@ -1,15 +1,16 @@
 ui-view
   header.page__title
     .row
-      .small-8.small-offset-2.columns
+      .small-6.columns
         h1.main__page__title
-          | Disciplinas
-      .small-2.columns ng-if="currentUser().profile == 'teacher'"
-        a.button.round.rounded.right data-reveal-id="add-course" ng-click="showStep = !showStep"
-          | +
-      .page__title__actions.small-2.columns ng-if="currentUser().profile == 'student'"
-        a.button.round.rounded.right ui-sref="courses.search"
-          | +
+          | Turmas
+      .small-6.columns.text-right
+        a data-reveal-id="join-existing-course"
+          | Participar de uma turma existente
+        span<>
+          | ou
+        a.button.radius.small data-reveal-id="add-course"
+          | Criar turma
   .courses__page
     .row
       / TODO: empty results
@@ -62,82 +63,65 @@ ui-view
       p
         | Comece entrando em uma de suas disciplinas.
 
+#join-existing-course.reveal-modal.full.join__existing__course data-reveal=true
+  .row.small-collapse
+    .small-12.small-centered.medium-10.large-6.columns
+      .form__box.text-center
+        a.close-reveal-modal
+          | ×
+        .modal__header.row
+          .small-12.columns
+            h3
+              | Participar de uma turma
+        .modal__content.row
+          .small-12.medium-10.large-8.small-centered.columns
+            p
+              | Digite abaixo o código da Turma que deseja entrar.
+              br
+              | Este código será fornecido pelo professor ou monitor.
+            label[for='access__class__code']
+              small
+                | Digite o código
+            input#access__class__code.radius[
+              required=true
+              type='text']
+            .text-center
+              a.button.large.radius
+                | Acessar Turma
+
 #add-course.reveal-modal.full.add__course data-reveal=true
   .row.small-collapse
     .small-12.small-centered.medium-10.large-6.columns
       .form__box.text-center
         a.close-reveal-modal
           | ×
-        .modal__header
-          h5
-            | Turmas
-        .steps
-          .row.step.step__1 ng-class="{active__step: !showStep}"
-            .small-5.columns
-              a.button.radius.expand.large ng-click="showStep = 2"
-                | Criar
-              p
-                | Criar nova Turma de Alunos.
-            .small-2.columns
-              p.or
-                | OU
-            .small-5.columns
-              a.button.radius.expand.large ng-click="showStep = 3"
-                | Participar
-              p
-                | Entrar em Turma já existente.
-          .row.step.step__2 ng-class="{active__step: showStep == 2}"
-            .small-10.columns.small-centered
-              p
-                | Dê um nome para esta turma ou grupo. Depois você poderá compartilhar o código com seus alunos e colegas.
-              .text-left
-                label[for='added__course__name']
+        .modal__header.row
+          .small-12.columns
+            h3
+              | Criar turma
+        .modal__content.row
+          .small-12.medium-10.large-8.columns.small-centered
+            p
+              | Dê um nome para esta turma ou grupo. Depois você poderá compartilhar o código com seus alunos e colegas.
+            .text-left
+              label[for='added__course__name']
+                small
                   | Nome
-                  span.required<
-                    | *
-                input#added__course__name.radius[
-                  required=true
-                  type='text']
-                label[for='added__course__institution']
-                  | Instituição
-                input#added__course__institution.radius[
-                  type='text']
-                label[for='added__course__class__name']
-                  | Turma
-                input#added__course__class__name.radius[
-                  type='text']
-              /
-                .text-left
-                  input#course__type__class[
-                    type='radio'
-                    name='course__type'
-                    checked='checked'
-                    disabled='true']
-                  label[for='course__type__class']
-                    i.icon.icon-users>
-                    | Turma de Alunos
-                  br
-                  input#course__type__study__group[
-                    type='radio'
-                    name='course__type'
-                    disabled='true']
-                  label[for='course__type__study__group']
-                    | Grupo de Estudos
-                  p.disclaimer
-                    small
-                      i
-                        | Nesse momento só é possível adicionar turmas no Dunno.
-              a.button.large.radius.expand
-                | Criar
-
-          .row.step.step__3 ng-class="{active__step: showStep == 3}"
-            .small-10.columns.small-centered
-              p
-                | Digite abaixo o código da Turma que deseja entrar. Este código será fornecido pelo professor ou moderador.
-              label[for='access__class__code']
-                | Digite o código
-              input#access__class__code.radius[
+                span.required<
+                  | *
+              input#added__course__name.radius[
                 required=true
                 type='text']
-              a.button.large.radius.expand.close-reveal-modal
-                | Entrar
+              label[for='added__course__institution']
+                small
+                  | Instituição
+              input#added__course__institution.radius[
+                type='text']
+              label[for='added__course__class__name']
+                small
+                  | Turma
+              input#added__course__class__name.radius[
+                type='text']
+            .text-center
+              a.button.large.radius
+                | Criar turma
