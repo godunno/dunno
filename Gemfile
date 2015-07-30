@@ -103,6 +103,7 @@ group :development, :test do
   gem 'rspec-rails',              '3.3.2'
   gem 'factory_girl_rails',       '4.5.0'
   gem 'pry-rails',                '0.3.4'
+  gem 'pry-doc',                  '0.8.0'
   gem 'dotenv-rails',             '1.0.2'
   gem 'vcr',                      '2.9.3'
   gem 'webmock',                  '1.20.4'

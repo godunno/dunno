@@ -54,4 +54,19 @@ describe WeeklySchedule do
 
     it { expect(WeeklySchedule.all).to eq([monday, tuesday, wednesday]) }
   end
+
+  describe "#to_recurrence_rule" do
+    let(:weekly_schedule) { create(:weekly_schedule, start_time: '09:00', end_time: '11:00') }
+    subject { weekly_schedule.reload.to_recurrence_rule.to_s }
+
+    context "with course's end date" do
+      let!(:course) { create(:course, end_date: Date.parse('2015-07-31'), weekly_schedules: [weekly_schedule]) }
+
+      it { is_expected.to eq "Weekly on Mondays on the 9th hour of the day on the 0th minute of the hour on the 0th second of the minute until July 31, 2015" }
+    end
+
+    context "without course's end date" do
+      it { is_expected.to eq "Weekly on Mondays on the 9th hour of the day on the 0th minute of the hour on the 0th second of the minute" }
+    end
+  end
 end

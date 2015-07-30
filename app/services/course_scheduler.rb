@@ -57,22 +57,12 @@ class CourseScheduler
 
   def add_weekly_schedules_to_schedule
     weekly_schedules.each do |weekly_schedule|
-      schedule.add_recurrence_rule rule_for_weekly_schedule(weekly_schedule)
+      schedule.add_recurrence_rule weekly_schedule.to_recurrence_rule
     end
 
     # TODO: Find a solution to this bug
     # https://github.com/seejohnrun/ice_cube/issues/298
     schedule.add_exception_time(schedule_start) if weekly_schedules.empty?
-  end
-
-  def rule_for_weekly_schedule(weekly_schedule)
-    time_of_day = TimeOfDay.parse weekly_schedule.start_time
-    IceCube::Rule.weekly
-      .day(weekly_schedule.weekday)
-      .hour_of_day(time_of_day.hour)
-      .minute_of_hour(time_of_day.minute)
-      .second_of_minute(0)
-      .until(course.end_date)
   end
 
   def schedule_start
