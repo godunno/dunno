@@ -1,3 +1,5 @@
+ruby:
+  @title = 'Faça seu cadastro · Dunno'
 / TODO: use the same markup for both sign_up and sign_in
 .login-page ng-controller="RegistrationsCtrl"
   = link_to root_path, class: 'root-proxy' do
@@ -53,8 +55,6 @@
               ng-disabled="user_form.$invalid"
               type="submit"
               value="Cadastrar"]
-
           .signin
             = link_to "Já tenho cadastro.", new_user_session_path
-  / TODO: Write terms and policy pages
-    = render "application/login_links"
+  = render "application/login_links"

@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
   root 'home#home'
 
+  get 'terms' => 'home#terms'
+  get 'policy' => 'home#policy'
+
   devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/users' }
   mount_roboto
 
