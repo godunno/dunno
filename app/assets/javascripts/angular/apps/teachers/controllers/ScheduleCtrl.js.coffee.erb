@@ -1,0 +1,17 @@
+DunnoApp = angular.module('DunnoApp')
+
+ScheduleCtrl = ($scope, $state, $modal) ->
+  $scope.update = ->
+    $scope.$emit('wholePageLoading', $scope.course.update().then ->
+      $state.go('^', null, reload: true)
+    )
+
+  $scope.openTransferModal = (weeklySchedule) ->
+    modalInstance = $modal.open
+      templateUrl: '<%= asset_path('courses/tabs/transfer_weekly_schedule.html') %>',
+      controller: 'TransferWeeklyScheduleCtrl'
+      resolve:
+        weeklySchedule: -> weeklySchedule
+
+ScheduleCtrl.$inject = ['$scope', '$state', '$modal']
+DunnoApp.controller 'ScheduleCtrl', ScheduleCtrl

@@ -1,17 +1,17 @@
 class TransferWeeklySchedule
-  attr_reader :old_weekly_schedule, :new_weekly_schedule
-  delegate :course, to: :old_weekly_schedule
+  attr_reader :weekly_schedule, :attributes
+  delegate :course, to: :weekly_schedule
   delegate :events, to: :course
 
   def initialize(options)
-    @old_weekly_schedule = options.fetch(:from)
-    @new_weekly_schedule = options.fetch(:to)
+    @weekly_schedule = options.fetch(:from)
+    @attributes = options.fetch(:to)
   end
 
   def transfer!
     ActiveRecord::Base.transaction do
       update_events!
-      reset_weekly_schedule!(old_weekly_schedule)
+      update_weekly_schedule!
     end
   end
 
@@ -24,7 +24,7 @@ class TransferWeeklySchedule
   end
 
   def old_schedule
-    @old_schedule ||= generate_schedule_for(old_weekly_schedule)
+    @old_schedule ||= generate_schedule_for(weekly_schedule)
   end
 
   def new_schedule
@@ -55,13 +55,17 @@ class TransferWeeklySchedule
     event.save!
   end
 
+  def update_weekly_schedule!
+    weekly_schedule.update!(attributes)
+  end
+
   def update_events!
     old_schedule.all_occurrences_enumerator.each do |occurrence|
       update_event!(find_event(occurrence))
     end
   end
 
-  def reset_weekly_schedule!(weekly_schedule)
-    weekly_schedule.update!(start_time: nil, end_time: nil, classroom: nil)
+  def new_weekly_schedule
+    @new_weekly_schedule ||= WeeklySchedule.new(@attributes.merge(course: course))
   end
 end

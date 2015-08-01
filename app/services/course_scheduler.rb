@@ -1,5 +1,6 @@
 class CourseScheduler
   attr_reader :course, :schedule, :time_range, :current_month
+  delegate :weekly_schedules, to: :course
 
   def initialize(course, time_range = nil)
     @course = course
@@ -67,9 +68,5 @@ class CourseScheduler
 
   def schedule_start
     (course.start_date || course.created_at).beginning_of_day
-  end
-
-  def weekly_schedules
-    course.weekly_schedules.complete
   end
 end

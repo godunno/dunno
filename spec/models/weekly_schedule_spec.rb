@@ -12,7 +12,9 @@ describe WeeklySchedule do
 
     it { expect(weekly_schedule).to be_valid }
 
-    it { is_expected.to validate_presence_of(:weekday) }
+    %w(weekday start_time end_time).each do |attribute|
+      it { is_expected.to validate_presence_of(attribute) }
+    end
 
     it "should validate time format" do
       %w(start_time end_time).each do |time|
@@ -32,13 +34,6 @@ describe WeeklySchedule do
         expect(weekly_schedule).to be_valid
       end
     end
-  end
-
-  describe "#complete" do
-    let!(:complete_weekly_schedule) { create :weekly_schedule }
-    let!(:semicomplete_weekly_schedule) { create :weekly_schedule, start_time: nil }
-    let!(:incomplete_weekly_schedule) { create :weekly_schedule, start_time: nil, end_time: nil }
-    it { expect(WeeklySchedule.complete).to eq([complete_weekly_schedule]) }
   end
 
   describe "default order" do

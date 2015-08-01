@@ -415,17 +415,6 @@ describe Api::V1::CoursesController do
       it { expect(subject.teacher).to eq(teacher) }
       it { expect(subject.start_date).to eq(course.start_date) }
       it { expect(subject.end_date).to eq(course.end_date) }
-
-      describe "and its weekly schedules" do
-        subject { last_course.weekly_schedules.order(:weekday) }
-        it { expect(subject[0].weekday).to eq 0 }
-        it { expect(subject[1].weekday).to eq 1 }
-        it { expect(subject[2].weekday).to eq 2 }
-        it { expect(subject[3].weekday).to eq 3 }
-        it { expect(subject[4].weekday).to eq 4 }
-        it { expect(subject[5].weekday).to eq 5 }
-        it { expect(subject[6].weekday).to eq 6 }
-      end
     end
   end
 

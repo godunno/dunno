@@ -27,17 +27,10 @@
           label.weekday[for="id__{{weekly_schedule.weekday}}"]
             | {{weekly_schedule.weekday | weekdayLong}}
             br
-            zf-action-sheet ng-if="weekly_schedule.start_time != null" close-action-sheet-on-click=true
-              zf-as-button.button.dropdown.radius.secondary.tiny.transparent.no__side__padding
-                span
-                  i.icon.icon-transfer>
-                  | Transferir para
-              zf-as-content position="top"
-                ul#possible__dates
-                  - ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'].each do |weekday|
-                    li
-                      a
-                        = weekday
+            .button[
+              ng-click="openTransferModal(weekly_schedule)"
+              ng-if="weekly_schedule.start_time != null" ]
+              | Transferir
         .small-8.columns
           .row.collapse
             .small-3.columns

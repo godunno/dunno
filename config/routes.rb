@@ -56,6 +56,11 @@ Rails.application.routes.draw do
           get :students
         end
       end
+      resources :weekly_schedules, only: [] do
+        member do
+          patch :transfer
+        end
+      end
       namespace :utils do
         get 's3/credentials' => 's3#credentials'
       end

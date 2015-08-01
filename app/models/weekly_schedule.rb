@@ -3,13 +3,11 @@ class WeeklySchedule < ActiveRecord::Base
 
   belongs_to :course
 
-  validates :weekday, presence: true
-  validates :start_time, time_format: true, if: -> { start_time.present? }
-  validates :end_time, time_format: true, if: -> { end_time.present? }
+  validates :weekday, :start_time, :end_time, presence: true
+  validates :start_time, time_format: true
+  validates :end_time, time_format: true
 
   default_scope { order(:weekday) }
-
-  scope :complete, -> { where.not(start_time: [nil, ''], end_time: [nil, '']) }
 
   def to_recurrence_rule
     time_of_day = TimeOfDay.parse start_time
