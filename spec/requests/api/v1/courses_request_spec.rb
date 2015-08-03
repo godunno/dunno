@@ -128,35 +128,35 @@ describe Api::V1::CoursesController do
               "user_role" => role,
               "events" => [
                 {
-                  "order" => 10,
+                  "order" => 9,
                   "formatted_status" => 'empty',
                   "start_at" => first_date.utc.iso8601,
                   "end_at" => (first_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 11,
+                  "order" => 10,
                   "formatted_status" => 'empty',
                   "start_at" => second_date.utc.iso8601,
                   "end_at" => (second_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 12,
+                  "order" => 11,
                   "formatted_status" => 'empty',
                   "start_at" => third_date.utc.iso8601,
                   "end_at" => (third_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 13,
+                  "order" => 12,
                   "formatted_status" => 'empty',
                   "start_at" => fourth_date.utc.iso8601,
                   "end_at" => (fourth_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 14,
+                  "order" => 13,
                   "formatted_status" => 'empty',
                   "start_at" => fifth_date.utc.iso8601,
                   "end_at" => (fifth_date + 2.hours).utc.iso8601,
@@ -241,7 +241,8 @@ describe Api::V1::CoursesController do
             expect(subject).to eq([
               "2015-09-07T12:00:00Z",
               "2015-09-14T12:00:00Z",
-              "2015-09-21T12:00:00Z"
+              "2015-09-21T12:00:00Z",
+              "2015-09-28T12:00:00Z"
             ])
           end
         end
