@@ -1,39 +1,39 @@
-h2
-  | Dia atual
+.form__box
+  h2
+    | Dia atual
 
-.panel
-  | <strong>{{weeklySchedule.weekday | weekdayLong}}</strong>, das {{weeklySchedule.start_time}} às {{weeklySchedule.end_time}}, sala {{weeklySchedule.classroom}}
+  .panel
+    | <strong>{{originalWeeklySchedule.weekday | weekdayLong}}</strong>, das {{originalWeeklySchedule.start_time}} às {{originalWeeklySchedule.end_time}}, sala {{originalWeeklySchedule.classroom}}
 
-h2
-  | Transferir para
+  h2
+    | Transferir para
 
-form ng-submit="transfer(editingWeeklySchedule)"
-  label for="weekday"
-    | Dia
-  select ng-model="editingWeeklySchedule.weekday"
-    option#weekday[
-      ng-repeat="weekday in [0,1,2,3,4,5,6]"
-      ng-value="{{weekday}}"
-      ng-selected="editingWeeklySchedule.weekday == weekday"]
-      | {{weekday | weekday}}
+  form ng-submit="transfer(weeklySchedule)"
+    label for="weekday"
+      | Dia
+    select ng-model="weeklySchedule.weekday"
+      option#weekday[
+        ng-repeat="weekday in [0,1,2,3,4,5,6]"
+        ng-value="{{weekday}}"
+        ng-selected="weeklySchedule.weekday == weekday"]
+        | {{weekday | weekdayLong}}
 
-  label for="start_time"
-    | Início
-  input#start_time[
-    ng-model="editingWeeklySchedule.start_time"
-    type="text"]
+    label for="start_time"
+      | Início
+    input#start_time[
+      ng-model="weeklySchedule.start_time"
+      type="text"]
 
-  label for="end_time"
-    | Término
-  input#end_time[
-    ng-model="editingWeeklySchedule.end_time"
-    type="text"]
+    label for="end_time"
+      | Término
+    input#end_time[
+      ng-model="weeklySchedule.end_time"
+      type="text"]
 
-  label for="classroom"
-    | Sala
-  input#classroom[
-    ng-model="editingWeeklySchedule.classroom"
-    type="text"]
+    label for="classroom"
+      | Sala
+    input#classroom[
+      ng-model="weeklySchedule.classroom"
+      type="text"]
 
-  input type="submit"
-    | Salvar
+    input type="submit" value="Salvar"

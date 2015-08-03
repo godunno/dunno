@@ -11,14 +11,14 @@ ScheduleCtrl = ($scope, $state, $modal, WeeklySchedule, Utils) ->
       templateUrl: '<%= asset_path('courses/tabs/transfer_weekly_schedule.html') %>',
       controller: 'TransferWeeklyScheduleCtrl'
       resolve:
-        weeklySchedule: -> weeklySchedule
+        weeklySchedule: -> angular.copy(weeklySchedule)
 
   openWeeklyScheduleForm = (weeklySchedule) ->
     $modal.open
       templateUrl: '<%= asset_path('courses/tabs/weekly_schedule_form.html') %>',
       controller: 'WeeklyScheduleCtrl'
       resolve:
-        weeklySchedule: -> weeklySchedule
+        weeklySchedule: -> angular.copy(weeklySchedule)
 
   $scope.newWeeklySchedule = ->
     openWeeklyScheduleForm(new WeeklySchedule(course_id: $scope.course.uuid))
