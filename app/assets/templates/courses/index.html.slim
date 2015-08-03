@@ -44,8 +44,42 @@ ui-view
                   span.course__end__date
                     | — {{course.end_date | date: 'shortDate'}})
 
-    tutorial.tutorial-1[
-      ng-if="tutorialEnabled(1)"
-      on-close="tutorialClosed(1)"]
-      p
-        | Comece entrando em uma de suas disciplinas.
+#add-course.reveal-modal.full.add__course data-reveal=true
+  .row.small-collapse
+    .small-12.small-centered.medium-10.large-6.columns
+      .form__box.text-center
+        a.close-reveal-modal
+          | ×
+        .modal__header.row
+          .small-12.columns
+            h3
+              | Criar disciplina
+        .modal__content.row
+          .small-12.medium-10.large-8.columns.small-centered
+            p
+              | Dê um nome para esta disciplina ou grupo. Depois você poderá compartilhar o código com seus alunos e colegas.
+            .text-left
+              label[for='added__course__name']
+                small
+                  | Nome
+                span.required<
+                  | *
+              input#added__course__name.radius[
+                required=true
+                type='text']
+              label[for='added__course__institution']
+                small
+                  | Instituição
+              input#added__course__institution.radius[
+                type='text']
+              label[for='added__course__class__name']
+                small
+                  | Turma
+              input#added__course__class__name.radius[
+                type='text']
+            .text-center
+              a.button.large.radius
+                | Criar disciplina
+  .row
+    .small-12.columns
+      div ng-joy-ride="vm.startJoyride" config="vm.joyrideConfig" on-finish="onFinish()"  on-skip="onFinish()"

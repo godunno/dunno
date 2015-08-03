@@ -5,7 +5,30 @@
 #= depend_on_asset "events/show.html"
 #= depend_on_asset "medias/index.html"
 
-DunnoApp = angular.module 'DunnoApp', ['ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet', 'ui.router', 'angular.filter', 'datePicker', 'ui.timepicker', 'angularMoment']
+DunnoApp = angular.module 'DunnoApp', [
+  'ngResource',
+  'rails',
+  'ui.keypress',
+  'ui.sortable',
+  'angularFileUpload',
+  'ngTagsInput',
+  'puElasticInput',
+  'validation.match',
+  'ngMessages',
+  'mm.foundation',
+  'cgBusy',
+  'ngAnimate',
+  'ngJoyRide',
+  'angulartics',
+  'angulartics.google.analytics',
+  'angulartics.intercom',
+  'angulartics.mixpanel',
+  'foundation.actionsheet',
+  'ui.router',
+  'angular.filter',
+  'datePicker',
+  'ui.timepicker',
+  'angularMoment']
 
 Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, CourseRegistrationResolver, EventsResolver, EventResolver, MediasResolver) ->
   $urlRouterProvider.otherwise('/courses')
@@ -109,7 +132,16 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       controller: 'ProfileCtrl'
       templateUrl: '<%= asset_path('password/form.html') %>'
     )
-Router.$inject = ['$stateProvider', '$urlRouterProvider', 'CoursesResolver', 'CourseResolver', 'CourseRegistrationResolver', 'EventsResolver', 'EventResolver', 'MediasResolver']
+Router.$inject = [
+  '$stateProvider',
+  '$urlRouterProvider',
+  'CoursesResolver',
+  'CourseResolver',
+  'CourseRegistrationResolver',
+  'EventsResolver',
+  'EventResolver',
+  'MediasResolver']
+
 DunnoApp.config Router
 
 DunnoApp.config(["railsSerializerProvider", "tagsInputConfigProvider", (railsSerializerProvider, tagsInputConfigProvider)->

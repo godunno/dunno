@@ -1,4 +1,4 @@
-CoursesIndexCtrl = ($location, $filter, $modal, SessionManager, AssetsPreloader, Utils, courses) ->
+CoursesIndexCtrl = ($location, $filter, $modal, Utils, courses) ->
   @courses = courses
 
   @activeCourses = $filter('filter')(@courses, active: true)
@@ -14,18 +14,9 @@ CoursesIndexCtrl = ($location, $filter, $modal, SessionManager, AssetsPreloader,
       templateUrl: '<%= asset_path('courses/new_course_form.html') %>'
       controller: 'NewCourseCtrl'
 
-  if !SessionManager.currentUser().completed_tutorial
-    <% tutorials = {1 => [1], 2 => [1,2], 3 => [1,2,3]} %>
-    <% tutorials.each do |tutorial, steps| %>
-      <% steps.each do |step| %>
-        <% image = "tutorial/tutorial-arrow-#{tutorial}-#{step}.png" %>
-        <%= "AssetsPreloader.loadImage(\"#{asset_path(image)}\")" %>
-      <% end %>
-    <% end %>
-    AssetsPreloader.loadFont('Chalkduster')
-
   @
-CoursesIndexCtrl.$inject = ['$location', '$filter', '$modal', 'SessionManager', 'AssetsPreloader', 'Utils', 'courses']
+
+CoursesIndexCtrl.$inject = ['$location', '$filter', '$modal', 'Utils', 'courses']
 
 angular
   .module('DunnoApp')
