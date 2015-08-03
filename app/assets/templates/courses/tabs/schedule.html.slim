@@ -1,61 +1,52 @@
 .schedule__page
+  a.button.tiny.radius.close ng-click="update()"
+    | Calendário
   .schedule__header
     .row
-      .small-9.columns
+      .small-12.columns
         p
           strong.uppercase
             | Cronograma de aulas
           br
           small
-            | Estas informações são <b>opcionais</b>, mas com elas conseguiremos montar seu calendário personalizado, contendo somente os seus períodos de aula. (Irá afetar somente aulas de hoje em diante)
-      .small-3.columns.text-right
-        a.button.tiny.radius.close ng-click="update()"
-          | Fechar
+            | Estas informações são <b>opcionais</b>, mas com elas conseguimos otimizar o planejamento de aulas.
   .weekly__schedules
     .row
-      .small-12.columns
+      .small-9.columns
         p
           strong.uppercase
             | Dias da semana
+      .small-3.columns
+        a.button.tiny.radius.close ng-click="newWeeklySchedule()"
+          | Adicionar horário
     .weekly__schedule ng-repeat="weekly_schedule in course.weekly_schedules"
       .row.collapse
-        .small-4.columns
-          input.special__checkbox[
-            id="id__{{weekly_schedule.weekday}}"
-            ng-checked="weekly_schedule.start_time != null"
-            type='checkbox']
-          label.weekday[for="id__{{weekly_schedule.weekday}}"]
+        .small-3.columns
+          .weekday[for="id__{{weekly_schedule.weekday}}"]
             | {{weekly_schedule.weekday | weekdayLong}}
-            br
-            .button[
-              ng-click="openTransferModal(weekly_schedule)"
-              ng-if="weekly_schedule.start_time != null" ]
-              | Transferir
-        .small-8.columns
+        .small-9.columns
           .row.collapse
-            .small-3.columns
-              input.start__time.special__input[
-                ng-model="weekly_schedule.start_time"
-                type="text"
-                mask="99:99"
-                placeholder="10:00"]
-            .small-2.columns.text-center
+            .small-1.columns
+              .start__time
+                | {{ weekly_schedule.start_time }}
+            .small-1.columns.text-center
               small.to.uppercase
                 | às
-            .small-3.columns
-              input.end__time.special__input[
-                ng-model="weekly_schedule.end_time"
-                type="text"
-                mask="99:99"
-                placeholder="12:00"]
-            .small-3.columns
-              input.classroom.special__input[
-                ng-model="weekly_schedule.classroom"
-                type="text"
-                placeholder="Sala"]
-            .small-1.column
-              a.reset__weekday.button.secondary.transparent.icon__button< ng-if="weekly_schedule.start_time != null"
-                i.icon.icon-close
+            .small-1.columns
+              .end__time.special__input
+                | {{ weekly_schedule.end_time }}
+            .small-2.columns
+              .classroom.special__input
+                | {{ weekly_schedule.classroom }}
+            .small-2.column
+              a ng-click="transferWeeklySchedule(weekly_schedule)"
+                | Transferir
+            .small-2.column
+              a ng-click="editWeeklySchedule(weekly_schedule)"
+                | Editar
+            .small-2.column
+              a ng-click="removeWeeklySchedule(weekly_schedule)"
+                | Excluir
 
     .course__dates
       .row

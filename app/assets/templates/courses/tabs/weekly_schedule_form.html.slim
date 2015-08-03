@@ -1,0 +1,39 @@
+h2 ng-if="!weeklySchedule.uuid"
+  | Adicionar horário
+
+h2 ng-if="weeklySchedule.uuid"
+  | Editar horário
+
+form ng-submit="save(weeklySchedule)"
+  label for="weekday"
+    | Dia
+  select ng-model="weeklySchedule.weekday"
+    option#weekday[
+      ng-repeat="weekday in [0,1,2,3,4,5,6]"
+      ng-value="{{weekday}}"
+      ng-selected="weeklySchedule.weekday == weekday"]
+      | {{weekday | weekday}}
+
+  label for="start_time"
+    | Início
+  input#start_time[
+    ng-model="weeklySchedule.start_time"
+    type="text"]
+
+  p
+    | às
+
+  label for="end_time"
+    | Término
+  input#end_time[
+    ng-model="weeklySchedule.end_time"
+    type="text"]
+
+  label for="classroom"
+    | Sala
+  input#classroom[
+    ng-model="weeklySchedule.classroom"
+    type="text"]
+
+  input type="submit"
+    | Salvar

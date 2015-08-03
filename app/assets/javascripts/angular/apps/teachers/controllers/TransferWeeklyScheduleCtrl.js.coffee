@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
 TransferWeeklyScheduleCtrl = ($scope, $state, $modalInstance, weeklySchedule) ->
-  $scope.weeklySchedule = weeklySchedule
+  $scope.originalWeeklySchedule = weeklySchedule
   $scope.editingWeeklySchedule = angular.copy weeklySchedule
 
   $scope.transfer = (weeklySchedule) ->

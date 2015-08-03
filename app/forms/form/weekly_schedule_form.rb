@@ -14,6 +14,7 @@ class Form::WeeklyScheduleForm < Form::Base
     super(params.slice(*attributes_list(
       :start_time, :end_time, :weekday, :classroom
     )))
+    self.course = Course.find_by(uuid: params[:course_id])
   end
 
   private

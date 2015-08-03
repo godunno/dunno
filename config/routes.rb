@@ -56,7 +56,7 @@ Rails.application.routes.draw do
           get :students
         end
       end
-      resources :weekly_schedules, only: [] do
+      resources :weekly_schedules, only: [:create, :update, :destroy] do
         member do
           patch :transfer
         end
