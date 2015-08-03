@@ -22,12 +22,14 @@
       | Início
     input#start_time[
       ng-model="weeklySchedule.start_time"
+      mask="99:99"
       type="text"]
 
     label for="end_time"
       | Término
     input#end_time[
       ng-model="weeklySchedule.end_time"
+      mask="99:99"
       type="text"]
 
     label for="classroom"
