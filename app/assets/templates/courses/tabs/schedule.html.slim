@@ -54,29 +54,13 @@
           p
             strong.uppercase
               | Período letivo
-          .row.postfix
-            .small-10.columns
-              input.start__date.special__input#course__start__date[
-                ng-model="course.start_date"
-                type="datetime"
-                date-time=true
-                min-view="date"
-                auto-close="true"
-                format="short"
-                placeholder="Início das aulas"]
-            .small-2.columns
-              label.postfix.transparent[for="course__start__date"]
-                i.icon.icon-calendar
-          .row.postfix
-            .small-10.columns
-              input.end__date.special__input#course__end__date[
-                ng-model="course.end_date"
-                type="datetime"
-                date-time=true
-                min-view="date"
-                auto-close="true"
-                format="short"
-                placeholder="Fim das aulas"]
-            .small-2.columns
-              label.postfix.transparent[for="course__end__date"]
-                i.icon.icon-calendar
+          .row
+            .small-4.columns
+              .start__date
+                | {{course.start_date}}
+            .small-4.columns
+              .end__date
+                | {{course.end_date}}
+            .small-4.columns
+              .button ng-click="editCourseDates()"
+                | Editar datas

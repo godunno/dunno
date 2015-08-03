@@ -31,5 +31,12 @@ ScheduleCtrl = ($scope, $state, $modal, WeeklySchedule, Utils) ->
       weeklySchedule.remove().then ->
         Utils.remove($scope.course.weekly_schedules, weeklySchedule)
 
+  $scope.editCourseDates = ->
+    $modal.open
+      templateUrl: '<%= asset_path('courses/tabs/course_dates_form.html') %>',
+      controller: 'CourseDatesCtrl'
+      resolve:
+        course: -> angular.copy($scope.course)
+
 ScheduleCtrl.$inject = ['$scope', '$state', '$modal', 'WeeklySchedule', 'Utils']
 DunnoApp.controller 'ScheduleCtrl', ScheduleCtrl
