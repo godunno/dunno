@@ -4,17 +4,16 @@ ui-view
       .small-8.small-offset-2.columns
         h1.main__page__title
           | Disciplinas
-      /
-        .small-2.columns ng-if="currentUser().profile == 'teacher'"
-          a.button.round.rounded.right[href="#courses/new"]
-            | +
+      .small-2.columns ng-if="currentUser().profile == 'teacher'"
+        a.button.round.rounded.right#tour__3[href="#courses/new"]
+          | +
       .page__title__actions.small-2.columns ng-if="currentUser().profile == 'student'"
         a.button.round.rounded.right ui-sref="courses.search"
           | +
   .courses__page
     .row
       / TODO: empty results
-      ul.courses__list.small-block-grid-1.medium-block-grid-2.large-block-grid-3
+      ul#tour__1.courses__list.small-block-grid-1.medium-block-grid-2.large-block-grid-3
         li.course__card ng-repeat="course in courses"
           a.course__card__link[
             ng-attr-id="{{ 'course-' + course.uuid }}"
@@ -39,8 +38,54 @@ ui-view
                   | {{course.class_name}}
               .small-2.columns
                 i.icon.icon-users.course__icon
-    tutorial.tutorial-1[
-      ng-if="tutorialEnabled(1)"
-      on-close="tutorialClosed(1)"]
-      p
-        | Comece entrando em uma de suas disciplinas.
+    .row
+      .small-6.small-centered.columns
+        button.expand.button.radius#start__tour
+          | Iniciar Tour Guiado
+ol.joyride-list data-joyride=""
+  li[
+    data-id='start__tour'
+    data-class='radius'
+    data-text='Me ensine'
+    data-options='tip_location:top; prev_button:false;']
+    h2
+      | Dicas do Dunno!
+    p
+      | Olá e bem vinda(o) às dicas de uso do Dunno.
+    p
+      small
+        | Se já estiver confortável com o Dunno e não precisar mais de ajuda você pode #{link_to 'desabilitar as dicas', '#'}. Elas poderão ser reabilitadas a qualquer momento acessando sua #{link_to 'página de perfil', '#'}.
+  li[
+    data-id='tour__1'
+    data-button='Avançar'
+    data-prev-text='Voltar'
+    data-options="tip_location:top;"]
+    h4
+      | Lista de Disciplinas
+    p
+      | Cada cartão representa uma disciplina cadastrada por você no Dunno.
+  li[
+    data-id='course-b0cce870-5620-49d5-842f-4be5ed67f4c1'
+    data-button='Avançar'
+    data-prev-text='Voltar'
+    data-options="tip_location:right;"]
+    h4
+      | Cartão da Discliplina
+    p
+      | Para visualizar o conteúdo de uma disciplina, pressione o cartão desejado.
+  li[
+    data-id='tour__3'
+    data-button='Usar o Dunno!'
+    data-prev-text='Voltar'
+    data-options="tip_location:left;"]
+    h4
+      | Adicionando Discliplinas
+    p
+      | Para visualizar o conteúdo de uma disciplina, pressione o cartão desejado.
+/
+  javascript:
+    $(document).foundation('joyride', 'start', {
+      expose: true,
+      modal: true,
+      exposed: ['#start__tour', '#tour__1', '#tour__3']
+    });

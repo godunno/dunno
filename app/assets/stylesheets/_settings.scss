@@ -596,17 +596,17 @@ $input-placeholder-font-color: $medium-grey-color;
 // $include-html-joyride-classes: $include-html-classes;
 
 // Controlling default Joyride styles
-// $joyride-tip-bg: #333;
+$joyride-tip-bg: $white;
 // $joyride-tip-default-width: 300px;
 // $joyride-tip-padding: rem-calc(18 20 24);
-// $joyride-tip-border: solid 1px #555;
-// $joyride-tip-radius: 4px;
+$joyride-tip-border: 0;
+$joyride-tip-radius: $global-radius;
 // $joyride-tip-position-offset: 22px;
 
 // Here, we're setting the tip dont styles
-// $joyride-tip-font-color: #fff;
-// $joyride-tip-font-size: rem-calc(14);
-// $joyride-tip-header-weight: $font-weight-bold;
+$joyride-tip-font-color: $dunno-dark-color;
+$joyride-tip-font-size: rem-calc(16);
+$joyride-tip-header-weight: $font-weight-bold;
 
 // This changes the nub size
 // $joyride-tip-nub-size: 10px;
@@ -617,12 +617,12 @@ $input-placeholder-font-color: $medium-grey-color;
 // $joyride-tip-timer-color: #666;
 
 // This changes up the styles for the close button
-// $joyride-tip-close-color: #777;
-// $joyride-tip-close-size: 24px;
+$joyride-tip-close-color: $medium-grey-color;
+$joyride-tip-close-size: rem-calc(24);
 // $joyride-tip-close-weight: $font-weight-normal;
 
 // When Joyride is filling the screen, we use this style for the bg
-// $joyride-screenfill: rgba(0,0,0,0.5);
+$joyride-screenfill: transparentize($dunno-dark-color, .15);
 
 // Keystrokes
 
