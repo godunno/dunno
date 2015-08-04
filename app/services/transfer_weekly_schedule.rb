@@ -18,7 +18,7 @@ class TransferWeeklySchedule
   private
 
   def generate_schedule_for(weekly_schedule)
-    IceCube::Schedule.new(Date.current) do |s|
+    IceCube::Schedule.new(Date.current.beginning_of_day) do |s|
       s.add_recurrence_rule weekly_schedule.to_recurrence_rule
     end
   end
