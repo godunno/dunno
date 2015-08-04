@@ -24,5 +24,18 @@
     align-self: center;
     background: $white;
     padding: 3rem;
+    width: 50vw;
+  }
+
+  .col-md-4 {
+    float: left;
+  }
+
+  .col-md-8 {
+    float: right;
+  }
+
+  button {
+    margin-bottom: 0;
   }
 }
