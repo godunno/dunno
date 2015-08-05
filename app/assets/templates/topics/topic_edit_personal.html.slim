@@ -7,7 +7,10 @@ zf-action-sheet close-action-sheet-on-click=true
       i.icon.icon-eye>
       | Estudantes
   zf-as-content position="top"
-    ul[id="topic-private-{{topic.uuid}}"]
+    p
+      small
+        | Quem pode ver isso?
+    ul id="topic-private-{{topic.uuid}}"
       li.private
         a ng-click="editingTopic.personal = true"
           i.icon.icon-private>
