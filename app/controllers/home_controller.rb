@@ -6,13 +6,13 @@ class HomeController < ApplicationController
         icon: 'icon-buzz'
       }, {
         description: 'Tenha uma visão geral das suas aulas.',
-        icon: 'icon-task-list'
+        icon: 'icon-calendar'
       }, {
         description: 'Seus conteúdos organizados.',
-        icon: 'icon-catalog'
+        icon: 'icon-task-list'
       }, {
         description: 'Compartilhe facilmente seus arquivos.',
-        icon: 'icon-calendar'
+        icon: 'icon-catalog'
       }
     ]
     @slides = [

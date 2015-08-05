@@ -1,5 +1,5 @@
 zf-action-sheet close-action-sheet-on-click=true
-  zf-as-button.radius.dropdown.secondary.button.tiny.new__topic__visibility
+  zf-as-button.radius.dropdown.secondary.button.light.tiny.new__topic__visibility
     span.private ng-if="editingTopic.personal"
       i.icon.icon-private>
       | Somente professor
@@ -7,7 +7,10 @@ zf-action-sheet close-action-sheet-on-click=true
       i.icon.icon-eye>
       | Estudantes
   zf-as-content position="top"
-    ul[id="topic-private-{{topic.uuid}}"]
+    p
+      small
+        | Quem pode ver isso?
+    ul id="topic-private-{{topic.uuid}}"
       li.private
         a ng-click="editingTopic.personal = true"
           i.icon.icon-private>
