@@ -27,13 +27,13 @@
     text-transform: uppercase;
 
     .today &:before {
+      border-top: .25rem solid $dunno-dark-color;
       content: '';
+      display: block;
+      left: 0;
       position: absolute;
       top: 0;
-      left: 0;
       width: 100%;
-      display: block;
-      border-top: .25rem solid $dunno-dark-color;
     }
   }
 
@@ -43,11 +43,11 @@
     &__event {
       @include side-radius(right, $global-radius);
       background: $white;
-      border: .0625rem solid $light-grey-color;
       border-left: 0;
+      border: .0625rem solid $light-grey-color;
       color: $dunno-dark-color;
-      font-size: .875rem;
       display: block;
+      font-size: .875rem;
       margin-bottom: 1rem;
 
       &:hover {
