@@ -3,57 +3,112 @@ ui-view
     .row
       .small-12.columns
         h1.main__page__title
-          | Aulas
-  .events-page
+          | Agenda
+  .agenda
     .row
-      .empty__results ng-if="!events || events.length == 0"
-        | Não há aulas esta semana.
-      ul.events.small-block-grid-1.medium-block-grid-2.large-block-grid-3
-        li.event-card ng-repeat="event in events"
-          .card-inner
-            .title ng-style="{'background-color': event.course.color}"
-              / TODO: replace h1
-              / TODO: make card consistent with rest of app
-              h1
-                | {{event.formatted_classroom}}
-              span.subtitle
-                | {{event.course.institution}}
-            .day-month
-              .day
-                | {{asDate(event.start_at) | date:'dd'}}
-              .month
-                | {{asDate(event.start_at) | date:'MMMM'}}
-            .exam ng-if="event.has_exam"
-              | PROVA
-            .content
-              .weekday-hour
-                span.weekday>
-                  | {{asDate(event.start_at) | date:'EEE'}}
-                span.time
-                  | - {{asDate(event.start_at) | date:'HH:mm'}}h
-              .event__action ng-if="event.planned()"
-                a.button.small.radius[
-                  analytics-course-name="{{event.course.name}}"
-                  analytics-course-uuid="{{event.course.uuid}}"
-                  analytics-event="Event Accessed"
-                  analytics-on="click"
-                  analytics-start-at="{{event.start_at}}"
-                  analytics-uuid="{{event.uuid}}"
-                  ui-sref="events.show({ eventId: event.uuid })"]
-                  | ver aula
-              .event__action ng-if="!event.planned()"
-                a.button.small.radius[
-                  ui-sref="events.show({ eventId: event.uuid })"]
-                  | planejar
-              .status
-                .image.status__icon ng-class="'status__icon__' + event.formatted_status"
-                span.course
-                  | {{event.course.name}}
-              .notes ng-if="event.topics.length > 0"
-                ul.note
-                  li.task ng-repeat="topic in event.topics | limitTo:3"
-                    .image
-                    span
-                      | {{topic.description}}
-                .remaining ng-if="event.topics.length > 3"
-                  | Mais {{event.topics.length - 3}} conteúdos
+      .small-6.columns.agenda__navigation
+        p
+          a.button.secondary.tiny.radius.agenda__previous__week>
+            i.icon.icon-chevron-left
+          span.agenda__current__week
+            | 12 a 18 de Dezembro
+          a.button.secondary.tiny.radius.agenda__next__week<
+            i.icon.icon-chevron-right
+      .small-6.columns
+        ul.button-group.radius.right
+          li
+            a.button.small.secondary
+              | Dia
+          li
+            a.button.small
+              | Semana
+      .small-12.columns
+        .agenda__wrapper.content__box
+          ruby:
+            @agenda = [
+              {
+                date: 'Seg 12/12',
+                schedule: [
+                  {
+                    course: 'Programming I',
+                    scheme_colour: 'scheme-1',
+                    classroom: 'Sala 203',
+                    start_at: '8h',
+                    status: 'published'
+                  },{
+                    course: 'Programming III',
+                    scheme_colour: 'scheme-3',
+                    classroom: 'Sala 222',
+                    start_at: '10h15',
+                    status: 'published'
+                  }
+                ]
+              },{
+                date: 'Ter, 13/12',
+                schedule: []
+              },{
+                date: 'Qua, 14/12',
+                schedule: [
+                  {
+                    course: 'Operating Systems',
+                    scheme_colour: 'scheme-2',
+                    classroom: 'Sala de Informática',
+                    start_at: '10h',
+                    status: 'draft'
+                  },{
+                    course: 'Operating Systems',
+                    scheme_colour: 'scheme-2',
+                    classroom: 'Sala de Informática',
+                    start_at: '13h30',
+                    status: 'draft'
+                  },{
+                    course: 'Programming II',
+                    scheme_colour: 'scheme-4',
+                    classroom: 'Sala 13',
+                    start_at: '22h',
+                    status: 'canceled'
+                  }
+                ]
+              },{
+                date: 'Qui, 15/12',
+                schedule: [
+                  {
+                    course: 'Advanced Pairing for Dummies that never thought of pairing before',
+                    scheme_colour: 'scheme-6',
+                    classroom: 'Sala 69',
+                    start_at: '15h',
+                    status: 'empty'
+                  }
+                ]
+              },{
+                date: 'Sex, 16/12',
+                schedule: []
+              },{
+                date: 'Sáb, 17/12',
+                schedule: [{
+                  course: 'Computer Fair',
+                  scheme_colour: 'no-colour',
+                  classroom: '123rd St.',
+                  start_at: '10am',
+                  status: 'empty'
+                }]
+              },{
+                date: 'Dom, 18/12',
+                schedule: []
+              }
+            ]
+          -  @agenda.each_with_index do |day, i|
+            .agenda__weekday class="#{i <= 1 ? 'past' : ''} #{i == 2 ? 'today' : ''}"
+              .agenda__date
+                = day[:date]
+              .agenda__schedule
+                - day[:schedule].each do |event|
+                  a.agenda__schedule__event[href="#"]
+                    .schedule__event__course class="#{event[:scheme_colour]}"
+                      = event[:course]
+                    .schedule__event__details
+                      .right.schedule__event__status.status__icon class="status__icon__#{event[:status]}"
+                      span.schedule__event__classroom
+                        = event[:classroom]
+                      strong.schedule__event__start__at
+                        = event[:start_at]

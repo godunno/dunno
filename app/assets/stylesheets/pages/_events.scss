@@ -1,162 +1,75 @@
-// scss-lint:disable SelectorDepth NestingDepth
+.agenda {
+  &__wrapper {
+    @include radius();
+    background: $white;
+    display: flex;
+  }
 
-.event__action {
-  margin-top: .5rem;
-  text-align: center;
+  &__weekday {
+    border-right: .0625rem solid $light-grey-color;
+    flex-basis: 100%;
 
-  .button {
-    margin-bottom: 0;
+    &:last-child {
+      border-right: 0;
+    }
+
+    &.past {
+      opacity: .5;
+    }
+  }
+
+  &__date {
+    border-bottom: .0625rem solid $light-grey-color;
+    font-size: .875rem;
+    padding: 1rem;
+    position: relative;
+    text-align: center;
     text-transform: uppercase;
-  }
-}
 
-// TODO: refactor needed below this line
-// TODO: remove fonts smaller than .875rem (14px)
-.events-page {
-  .events {
-    @extend %cards-container;
+    .today &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: block;
+      border-top: .25rem solid $dunno-dark-color;
+    }
   }
 
-  .event-card {
-    .card-inner {
-      @extend %card;
-      position: relative;
+  &__schedule {
+    padding: .5rem .15rem .5rem 0;
+
+    &__event {
+      @include side-radius(right, $global-radius);
+      background: $white;
+      border: .0625rem solid $light-grey-color;
+      border-left: 0;
+      color: $dunno-dark-color;
+      font-size: .875rem;
+      display: block;
+      margin-bottom: 1rem;
 
       &:hover {
-        @include box-shadow(0);
-      }
-    }
-
-    .title {
-      height: 113px;
-      text-align: center;
-
-      h1 {
-        font-size: 24px;
-        line-height: 1;
-        margin: 0;
-        padding: 25px 0 0;
-      }
-
-      .subtitle {
-        color: transparentize($dunno-dark-color, .2);
-        font-size: 11px;
-      }
-    }
-
-    .day-month {
-      background-color: $dunno-dark-color;
-      border-radius: 50%;
-      color: $white;
-      display: block;
-      height: 3.75em;
-      left: 50%;
-      margin-left: -1.875em;
-      position: absolute;
-      text-align: center;
-      top: 5.125em;
-      width: 3.75em;
-
-      .day {
-        font-size: 23px;
-        line-height: 1;
-        margin-top: 10px;
-      }
-
-      .month {
-        font-size: 10px;
-        text-transform: capitalize;
-      }
-    }
-
-    .exam {
-      background-color: $black;
-      color: $white;
-      font-size: 11px;
-      left: -40px;
-      padding: 4px 50px;
-      position: absolute;
-      top: 15px;
-      transform: rotate(-45deg);
-    }
-
-    .content {
-      @include radius(0 0 .3125em .3125em);
-      background-color: $white;
-      height: 287px;
-      padding: 10px 20px;
-
-      .weekday-hour {
-        color: transparentize($dunno-dark-color, .6);
-        font-size: 11px;
-        margin-top: 27px;
-        text-align: center;
-      }
-
-      .status {
-        border-bottom: 1px solid $light-grey-color;
-        border-top: 1px solid $light-grey-color;
-        margin-top: 1.25rem;
-        padding: .25rem;
-
-        span {
-          display: block;
-          font-size: .875rem;
-          font-weight: $font-weight-bold;
-        }
-
-        .image {
-          display: block;
-          float: right;
-        }
-      }
-
-      .notes {
-        font-size: 12px;
-        height: 150px;
-        position: relative;
-
-        .note {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-
-          .task {
-            color: $dark-grey-color;
-            font-size: 12px;
-            overflow: hidden;
-            padding: .5rem 0 0;
-
-            .image {
-              display: none;
-            }
-
-            span {
-              display: block;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          }
-        }
-
-        .remaining {
-          bottom: 0;
-          position: absolute;
-          text-align: center;
-          width: 100%;
-        }
-      }
-
-      .planning {
-        height: 158px;
-        text-align: center;
+        border-color: $dunno-dark-color;
+        color: $dunno-dark-color;
       }
     }
   }
 }
 
-$event-card-width: 300px;
-$event-card-title-height: 80px;
-$event-card-notes-height: 320px;
-$event-card-border: solid 1px $light-grey-color;
+.schedule__event {
+  &__course,
+  &__details {
+    padding: .5rem;
+  }
+
+  &__course {
+    border-bottom: .0625rem solid $light-grey-color;
+  }
+
+  &__classroom {
+    display: block;
+    opacity: .5;
+  }
+}

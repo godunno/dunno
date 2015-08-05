@@ -25,6 +25,9 @@ html lang="pt" ng-app="DunnoApp"
           li ng-class="{active: controller == 'courses-index-page'}"
             a ui-sref="courses"
               | Disciplinas
+          li ng-class="{active: controller == 'events-index-page'}" ng-if="currentUser().profile == 'teacher'"
+            a ui-sref="events"
+              | Agenda
           li ng-class="{active: controller == 'medias-index-page'}" ng-if="currentUser().profile == 'teacher'"
             a ui-sref="medias"
               | Catálogo
