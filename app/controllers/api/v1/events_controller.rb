@@ -4,7 +4,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   def index
     @events = if params[:course_id]
                 search_parameters = params.slice(:page, :per_page, :offset, :until)
-                SearchEventsByCourse.search(current_profile.courses.find_by_identifier!(params[:course_id]), search_parameters).records.to_a
+                SearchEventsByCourse.search(current_profile.courses.find_by_identifier!(params[:course_id]), search_parameters)
               else
                 current_profile.events.where(start_at: WholePeriod.new(Time.current).week)
               end

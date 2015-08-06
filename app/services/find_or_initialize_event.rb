@@ -17,6 +17,7 @@ class FindOrInitializeEvent
       event.order = order
       return event if event.persisted?
       service = FindWeeklySchedule.new(event.start_at, course.weekly_schedules)
+      return event unless service.weekly_schedule?
       event.classroom ||= service.classroom
       event.end_at ||= service.end_at
     end
