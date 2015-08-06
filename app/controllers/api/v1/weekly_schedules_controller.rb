@@ -1,5 +1,7 @@
 # TODO: Add authorization
 class Api::V1::WeeklySchedulesController < ApplicationController
+  after_action :index, if: -> { weekly_schedule.try(:valid?) }
+
   def transfer
     TransferWeeklySchedule.new(from: weekly_schedule, to: create_params).transfer!
     render nothing: true
@@ -37,5 +39,10 @@ class Api::V1::WeeklySchedulesController < ApplicationController
 
   def update_params
     params.require(:weekly_schedule).permit(:weekday, :start_time, :end_time, :classroom)
+  end
+
+  # TODO: Run as a background job
+  def index
+    CourseEventsIndexer.index!(weekly_schedule.course)
   end
 end
