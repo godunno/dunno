@@ -73,3 +73,111 @@
     opacity: .5;
   }
 }
+
+.poc-agenda {
+  color: $dark-grey-color;
+  font-size: .875rem;
+  text-align: center;
+
+  &-wrapper {
+    @include radius();
+    background: $white;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-day {
+    border-bottom: .0625rem solid $light-grey-color;
+    border-right: .0625rem solid $light-grey-color;
+    flex-basis: 13%;
+    position: relative;
+    letter-spacing: 1px;
+    padding: .5rem 0;
+    text-transform: uppercase;
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    &.poc-agenda-period-label {
+      flex-basis: 9%;
+    }
+
+    &.poc-agenda-today:before {
+      border-top: .25rem solid $dunno-dark-color;
+      content: '';
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    &.poc-agenda-past-day {
+      color: $light-grey-color;
+    }
+  }
+
+  &-content {
+    display: flex;
+    flex-basis: 100%;
+  }
+
+  .day-period {
+    border-bottom: .0625rem solid $light-grey-color;
+    display: flex;
+    flex-basis: 100%;
+
+    &.day-period-evening {
+      border-bottom: 0;
+    }
+  }
+
+  &-period {
+    border-right: .0625rem solid $light-grey-color;
+    flex-basis: 13%;
+    padding: 1rem .25rem 1rem 0;
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    &.poc-agenda-period-label {
+      flex-basis: 9%;
+    }
+
+    &.happened {
+      background-color: lighten($light-grey-color, 20%);
+
+      .course {
+        opacity: .66;
+      }
+    }
+  }
+
+  .course {
+    @include side-radius(right, $global-radius);
+    background: $white;
+    border: .0625rem solid $light-grey-color;
+    border-left: 0;
+    color: $dunno-dark-color;
+    margin-bottom: 1rem;
+    text-align: left;
+
+    .title,
+    .classroom {
+      padding: .25rem;
+    }
+
+    .classroom {
+      opacity: .75;
+    }
+
+    .title {
+      border-bottom: .0625rem solid $light-grey-color;
+    }
+  }
+
+  .status__icon {
+    margin-top: .15rem;
+  }
+}
