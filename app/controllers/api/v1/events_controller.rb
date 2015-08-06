@@ -41,7 +41,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   private
 
   def event
-    @event ||= FindOrInitializeEvent.new(course).by({ start_at: params[:start_at] }, nil)
+    @event ||= FindOrInitializeEvent.by(course, start_at: params[:start_at] )
   end
 
   def course

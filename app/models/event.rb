@@ -7,6 +7,7 @@ class Event < ActiveRecord::Base
     mapping do
       indexes :course_id, type: :integer
       indexes :start_at, type: :date
+      indexes :order, type: :integer
     end
   end
 
@@ -30,7 +31,8 @@ class Event < ActiveRecord::Base
   def as_indexed_json(*)
     {
       course_id: course_id,
-      start_at: start_at
+      start_at: start_at,
+      order: order
     }
   end
 
@@ -38,6 +40,10 @@ class Event < ActiveRecord::Base
     return "empty" if empty? || draft? && profile.role_in(course) == 'student'
     return "happened" if happened?
     status
+  end
+
+  def index_id
+    "#{course.id}/#{start_at}"
   end
 
   private

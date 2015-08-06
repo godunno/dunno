@@ -1,54 +1,79 @@
 require 'spec_helper'
 
 describe SearchEventsByCourse, :elasticsearch do
+  let(:first_date) { Time.zone.parse('2015-08-03 09:00') }
+  let(:second_date) { Time.zone.parse('2015-08-10 09:00') }
+  let(:third_date) { Time.zone.parse('2015-08-17 09:00') }
+  let(:fourth_date) { Time.zone.parse('2015-08-24 09:00') }
+  let(:fifth_date) { Time.zone.parse('2015-08-31 09:00') }
+
   describe ".search" do
-    let!(:course) { create(:course) }
-    let!(:past_event) { create(:event, course: course, start_at: 1.week.ago, status: 'draft') }
-    let!(:today_event) { create(:event, course: course, start_at: Time.current, status: 'canceled') }
-    let!(:future_event) { create(:event, course: course, start_at: 1.day.from_now, status: 'published') }
-    let!(:unpublished_future_event) { create(:event, course: course, start_at: 1.day.from_now, status: 'draft') }
+    let!(:weekly_schedule) { create(:weekly_schedule, weekday: 1, start_time: '09:00') }
+    let!(:course) { create(:course, weekly_schedules: [weekly_schedule], start_date: Date.parse('2015-08-01'), end_date: Date.parse('2015-08-31')) }
+    let!(:past_event) { create(:event, course: course, start_at: first_date, status: 'draft') }
+    let!(:today_event) { create(:event, course: course, start_at: second_date, status: 'canceled') }
+    let!(:future_event) { create(:event, course: course, start_at: fourth_date, status: 'published') }
+    let!(:unpublished_future_event) { create(:event, course: course, start_at: fifth_date, status: 'draft') }
     let!(:event_from_another_course) { create(:event) }
 
-    before { refresh_index! }
-
-    it "can set a number of items per page" do
-      expect(SearchEventsByCourse.search(course, per_page: 1).records.to_a).to eq([future_event])
+    before do
+      Timecop.freeze second_date
+      CourseEventsIndexer.index!(course)
+      Event.__elasticsearch__.refresh_index!
     end
 
-    it "paginates" do
-      expect(SearchEventsByCourse.search(course, per_page: 1, page: 2).records.to_a).to eq([today_event])
+    after { Timecop.return }
+
+    subject do
+      SearchEventsByCourse.search(course, options)
+      .map(&:start_at)
     end
 
-    it "shows a page starting at the newer published event, ordered from newest to oldest" do
-      expect(SearchEventsByCourse.search(course, {}).records.to_a).to eq([future_event, today_event, past_event])
+    describe "sets a number of items per page" do
+      let(:options) { { per_page: 1 } }
+      it { expect(subject).to eq([fourth_date]) }
     end
 
-    it "returns everything until datetime" do
-      expect(SearchEventsByCourse.search(course, until: today_event.start_at).records.to_a).to eq([future_event, today_event])
+    describe "pagination" do
+      let(:options) { { per_page: 1, page: 2 } }
+      it { expect(subject).to eq([third_date]) }
     end
 
-    it "sets an offset with pagination" do
-      expect(SearchEventsByCourse.search(course, offset: 1, per_page: 1, page: 2).records.to_a).to eq([past_event])
+    describe "shows a page starting at the newer published event, ordered from newest to oldest" do
+      let(:options) { {} }
+      it { expect(subject).to eq([fourth_date, third_date, second_date, first_date]) }
     end
 
-    it "ignores pagination when there's an :until parameter" do
-      expect(SearchEventsByCourse.search(course, offset: 1, per_page: 1, page: 2, until: today_event.start_at).records.to_a).to eq([future_event, today_event])
+    describe "returns everything until datetime" do
+      let(:options) { { until: today_event.start_at } }
+      it { expect(subject).to eq([fourth_date, third_date, second_date]) }
     end
 
-    it "ignores :until parameter if it's later than the newest published event" do
-      expect(SearchEventsByCourse.search(course, until: unpublished_future_event.start_at).records.to_a).to eq([future_event, today_event, past_event])
+    describe "sets an offset with pagination" do
+      let(:options) { { offset: 1, per_page: 1, page: 2 } }
+      it { expect(subject).to eq([second_date]) }
     end
 
-    it "loads loads all the events until the specified, no matter how many" do
+    describe "ignores pagination when there's an :until parameter" do
+      let(:options) { { offset: 1, per_page: 1, page: 2, until: today_event.start_at } }
+      it { expect(subject).to eq([fourth_date, third_date, second_date]) }
+    end
+
+    describe "ignores :until parameter if it's later than the newest published event" do
+      let(:options) { { until: unpublished_future_event.start_at } }
+      it { expect(subject).to eq([fourth_date, third_date, second_date, first_date]) }
+    end
+
+    it "loads all the events until the specified, no matter how many" do
       another_course = create(:course)
       events = (1..11).map { |i| create(:event, course: another_course, start_at: i.days.ago) }
       refresh_index!
-      expect(SearchEventsByCourse.search(another_course, until: events.last.start_at).records.to_a).to eq(events)
+      expect(SearchEventsByCourse.search(another_course, until: events.last.start_at)).to eq(events)
     end
 
     it "starts from today if there's no published event" do
       [past_event, today_event, future_event].each { |event| event.update!(status: 'draft') }
-      expect(SearchEventsByCourse.search(course, {}).records.to_a).to eq([today_event, past_event])
+      expect(SearchEventsByCourse.search(course, {})).to eq([today_event, past_event])
     end
   end
 end

@@ -37,7 +37,7 @@ class CourseScheduler
   end
 
   def find_or_initialize_event(occurrence, index)
-    FindOrInitializeEvent.new(course).by({ start_at: occurrence.to_time.change(usec: 0) }, index + 1)
+    FindOrInitializeEvent.by(course, start_at: occurrence.to_time.change(usec: 0), order: index + 1)
   end
 
   def set_schedule

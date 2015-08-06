@@ -95,10 +95,14 @@ describe Api::V1::EventsController do
     end
 
     context "filtering by course", :elasticsearch do
+      let!(:weekly_schedule) { create(:weekly_schedule, course: course) }
       let!(:another_course) { create(:course, teacher: profile) }
       let!(:another_event) { create(:event, course: another_course) }
       before do
+        skip "Index virtual events"
         refresh_index!
+        Timecop.travel Time.zone.parse('2015-08-01 00:00')
+        CourseScheduler.new(course).index!
         do_action(course_id: another_course.uuid)
       end
 

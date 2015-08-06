@@ -115,4 +115,9 @@ describe Event do
       it { expect(event.formatted_status(teacher)).to eq("canceled") }
     end
   end
+
+  describe "#index_id" do
+    let(:event) { create(:event) }
+    it { expect(event.index_id).to eq "#{event.course.id}/#{event.start_at}" }
+  end
 end

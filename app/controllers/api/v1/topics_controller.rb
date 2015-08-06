@@ -54,10 +54,10 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
   end
 
   def event_params
-    params.require(:topic).require(:event).permit(:start_at)
+    params.require(:topic).require(:event).permit(:start_at, :order)
   end
 
   def event
-    @event ||= FindOrInitializeEvent.new(course).by(event_params, params[:topic][:event][:order])
+    @event ||= FindOrInitializeEvent.by(course, event_params)
   end
 end
