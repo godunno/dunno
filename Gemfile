@@ -71,6 +71,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-datepicker', '1.0.12'
   gem 'rails-assets-jquery-timepicker-jt', '1.8.1'
   gem 'rails-assets-angular-jquery-timepicker', '0.6.0'
+  gem 'rails-assets-angular-moment', '0.10.2'
+  gem 'rails-assets-moment-timezone', '0.4.0'
 end
 
 group :production, :staging do

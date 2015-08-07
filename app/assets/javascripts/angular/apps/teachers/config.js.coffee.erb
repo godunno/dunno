@@ -5,7 +5,7 @@
 #= depend_on_asset "events/show.html"
 #= depend_on_asset "medias/index.html"
 
-DunnoApp = angular.module 'DunnoApp', ['ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet', 'ui.router', 'angular.filter', 'datePicker', 'ui.timepicker']
+DunnoApp = angular.module 'DunnoApp', ['ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet', 'ui.router', 'angular.filter', 'datePicker', 'ui.timepicker', 'angularMoment']
 
 Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, CourseRegistrationResolver, EventsResolver, EventResolver, MediasResolver) ->
   $urlRouterProvider.otherwise('/courses')
@@ -127,3 +127,10 @@ DunnoApp.value('cgBusyDefaults',
 DunnoApp.config ['$animateProvider', ($animateProvider) ->
   $animateProvider.classNameFilter(/ng-animate/)
 ]
+
+DunnoApp.run ['amMoment', (amMoment) ->
+  amMoment.changeLocale('pt-br')
+]
+
+DunnoApp.constant 'angularMomentConfig',
+  timezone: 'America/Sao_Paulo'

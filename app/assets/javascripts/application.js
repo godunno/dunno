@@ -39,6 +39,10 @@
 //= require angular-filter
 //= require angular-datepicker
 //= require angular-jquery-timepicker
+//= require moment
+//= require moment/locale/pt-br
+//= require moment-timezone
+//= require angular-moment
 //= require angulartics
 //= require ui-router
 //= require initial.js
