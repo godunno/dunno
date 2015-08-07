@@ -12,5 +12,7 @@ WeeklyScheduleCtrl = ($scope, $state, $modalInstance, $filter, TimeGetterSetter,
       $state.go('.', null, reload: true)
     )
 
+  $scope.close = -> $modalInstance.close()
+
 WeeklyScheduleCtrl.$inject = ['$scope', '$state', '$modalInstance','$filter', 'TimeGetterSetter', 'weeklySchedule']
 DunnoApp.controller 'WeeklyScheduleCtrl', WeeklyScheduleCtrl

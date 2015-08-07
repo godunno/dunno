@@ -13,5 +13,7 @@ TransferWeeklyScheduleCtrl = ($scope, $state, $modalInstance, TimeGetterSetter, 
       $state.go('.', null, reload: true)
     )
 
+  $scope.close = -> $modalInstance.close()
+
 TransferWeeklyScheduleCtrl.$inject = ['$scope', '$state', '$modalInstance', 'TimeGetterSetter', 'weeklySchedule']
 DunnoApp.controller 'TransferWeeklyScheduleCtrl', TransferWeeklyScheduleCtrl
