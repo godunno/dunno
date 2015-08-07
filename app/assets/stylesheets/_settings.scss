@@ -928,8 +928,8 @@ $reveal-max-width: rem-calc(800);
 // $reveal-close-font-size: rem-calc(40);
 // $reveal-close-top: rem-calc(8);
 // $reveal-close-side: rem-calc(11);
-// $reveal-close-color: #aaa;
-// $reveal-close-weight: $font-weight-bold;
+$reveal-close-color: $light-grey-color;
+$reveal-close-weight: $font-weight-normal;
 
 // We use this to set the default radius used throughout the core.
 // $reveal-radius: $global-radius;
@@ -937,7 +937,7 @@ $reveal-max-width: rem-calc(800);
 
 // We use these to control the modal border
 // $reveal-border-style: solid;
-// $reveal-border-width: 1px;
+$reveal-border-width: 0;
 // $reveal-border-color: #666;
 
 // $reveal-modal-class: "reveal-modal";
