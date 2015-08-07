@@ -17,6 +17,7 @@
 //= require jquery-ui/ui/widget
 //= require jquery-ui/ui/mouse
 //= require jquery-ui/ui/sortable
+//= require jquery-timepicker-jt
 //= require jquery-ui-touch-punch/jquery.ui.touch-punch
 //= require foundation/foundation
 //= require foundation/foundation.dropdown
@@ -37,6 +38,7 @@
 //= require angular-busy
 //= require angular-filter
 //= require angular-datepicker
+//= require angular-jquery-timepicker
 //= require angulartics
 //= require ui-router
 //= require initial.js

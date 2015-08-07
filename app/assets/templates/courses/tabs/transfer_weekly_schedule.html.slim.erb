@@ -1,0 +1,11 @@
+.form__box
+  h2
+    | Dia atual
+
+  .panel
+    | <strong>{{originalWeeklySchedule.weekday | weekdayLong}}</strong>, das {{originalWeeklySchedule.start_time}} às {{originalWeeklySchedule.end_time}}, sala {{originalWeeklySchedule.classroom}}
+
+  h2
+    | Transferir para
+
+  ng-include src="'#{asset_path('courses/tabs/_weekly_schedule_form.html')}'"

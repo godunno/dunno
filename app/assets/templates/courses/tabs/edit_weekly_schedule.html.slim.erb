@@ -1,0 +1,8 @@
+.form__box
+  h2 ng-if="!weeklySchedule.uuid"
+    | Adicionar horário
+
+  h2 ng-if="weeklySchedule.uuid"
+    | Editar horário
+
+  ng-include src="'#{asset_path('courses/tabs/_weekly_schedule_form.html')}'"

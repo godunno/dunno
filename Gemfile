@@ -69,6 +69,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-ui-router', '0.2.15'
   gem 'rails-assets-angular-filter', '0.5.4'
   gem 'rails-assets-angular-datepicker', '1.0.12'
+  gem 'rails-assets-jquery-timepicker-jt', '1.8.1'
+  gem 'rails-assets-angular-jquery-timepicker', '0.6.0'
 end
 
 group :production, :staging do
