@@ -4,8 +4,8 @@
 
     .close__schedule {
       display: block;
-      text-align: center;
       padding-top: 1rem;
+      text-align: center;
     }
   }
 
@@ -134,6 +134,10 @@
     left: 1.25rem;
     position: relative;
   }
+}
+
+.weekday__select {
+  text-transform: capitalize;
 }
 
 .course__dates {

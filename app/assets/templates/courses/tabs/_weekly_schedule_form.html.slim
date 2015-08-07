@@ -1,15 +1,14 @@
 form ng-submit="submit(weeklySchedule)"
-  .row
+  .row.collapse
     .small-12.columns
       label for="weekday"
         | Dia
-      select#weekday.radius ng-model="weeklySchedule.weekday"
+      select.weekday__select#weekday.radius ng-model="weeklySchedule.weekday"
         option[
           ng-repeat="weekday in [0,1,2,3,4,5,6]"
           ng-value="{{weekday}}"
           ng-selected="weeklySchedule.weekday == weekday"]
           | {{weekday | weekdayLong}}
-  .row
     .small-5.columns
       label for="start_time"
         | Início
@@ -30,14 +29,12 @@ form ng-submit="submit(weeklySchedule)"
         ng-model-options="{ getterSetter: true }"
         ui-timepicker="{ showDuration: true, durationTime: startTime }"
       type="text"]
-  .row
     .small-12.columns
       label for="classroom"
         | Sala
       input#classroom.radius[
         ng-model="weeklySchedule.classroom"
         type="text"]
-  .row
     .small-12.columns
       button.button.radius.expand type="submit"
         | Salvar
