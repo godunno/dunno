@@ -34,9 +34,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-buzz:before {
-  content: "\e000";
-}
 .icon-play-circle:before {
   content: "\e001";
 }
@@ -135,4 +132,10 @@
 }
 .icon-transfer:before {
   content: "\e019";
+}
+.icon-buzz:before {
+  content: "\e000";
+}
+.icon-arrow-down:before {
+  content: "\e022";
 }
