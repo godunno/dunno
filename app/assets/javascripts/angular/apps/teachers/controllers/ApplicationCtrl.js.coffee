@@ -4,10 +4,10 @@ ApplicationCtrl = ($scope, $window, $rootScope, SessionManager, TutorialsManager
   $rootScope.$on '$locationChangeStart', (event)->
     event.preventDefault() if NonLoggedRoutes.isNonLoggedRoute()
 
-  $scope.$on '$viewContentLoaded', ()->
     $(document).foundation()
+  $scope.$on '$viewContentLoaded', ->
 
-  $scope.sign_out = ->
+  $scope.signOut = ->
     SessionManager.signOut().then ->
       $window.location.href = '/'
 
@@ -17,7 +17,7 @@ ApplicationCtrl = ($scope, $window, $rootScope, SessionManager, TutorialsManager
   $scope.tutorialEnabled = TutorialsManager.tutorialEnabled
   $scope.tutorialClosed = TutorialsManager.tutorialClosed
 
-  $scope.$on 'wholePageLoading', (ev, promise)->
+  $scope.$on 'wholePageLoading', (_, promise)->
     $scope.wholePageLoading = promise
 
   NavigationGuard.guard()
