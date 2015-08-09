@@ -1,12 +1,10 @@
-DunnoApp = angular.module('DunnoApp')
+CoursesIndexCtrl = ($location, SessionManager, AssetsPreloader, Utils, courses) ->
+  @courses = courses
 
-CoursesIndexCtrl = ($scope, $location, SessionManager, AssetsPreloader, Utils, courses)->
-  $scope.courses = courses
-
-  $scope.unregister = (course)->
+  @unregister = (course)->
     if confirm("Deseja mesmo sair da disciplina #{course.name}?")
       course.unregister().then ->
-        Utils.remove($scope.courses, course)
+        Utils.remove(@courses, course)
 
   if !SessionManager.currentUser().completed_tutorial
     <% tutorials = {1 => [1], 2 => [1,2], 3 => [1,2,3]} %>
@@ -17,5 +15,10 @@ CoursesIndexCtrl = ($scope, $location, SessionManager, AssetsPreloader, Utils, c
       <% end %>
     <% end %>
     AssetsPreloader.loadFont('Chalkduster')
-CoursesIndexCtrl.$inject = ['$scope', '$location', 'SessionManager', 'AssetsPreloader', 'Utils', 'courses']
-DunnoApp.controller 'CoursesIndexCtrl', CoursesIndexCtrl
+
+  @
+CoursesIndexCtrl.$inject = ['$location', 'SessionManager', 'AssetsPreloader', 'Utils', 'courses']
+
+angular
+  .module('DunnoApp')
+  .controller('CoursesIndexCtrl', CoursesIndexCtrl)
