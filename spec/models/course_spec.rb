@@ -21,7 +21,6 @@ describe Course do
   end
 
   describe "callbacks" do
-
     describe "after create" do
       context "new course" do
         it "saves a new uuid" do
@@ -116,6 +115,14 @@ describe Course do
       course = create :course, name: "Cálculo I", abbreviation: abbreviation
       expect(course.abbreviation).to eq(abbreviation)
     end
+  end
+
+  context "#active" do
+    let!(:finished_course) { create(:course, end_date: Date.yesterday) }
+    let!(:active_course) { create(:course, end_date: Date.today) }
+
+    it { expect(finished_course).to_not be_active }
+    it { expect(active_course).to be_active }
   end
 
   describe "memberships" do

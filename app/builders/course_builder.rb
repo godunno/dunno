@@ -3,6 +3,7 @@ class CourseBuilder < BaseBuilder
     json.(course, :uuid, :name, :uuid, :start_date, :end_date,
           :grade, :class_name, :order, :access_code, :institution,
           :abbreviation)
+    json.active course.active?
     json.color(SHARED_CONFIG["v1"]["courses"]["schemes"][course.order])
     json.user_role(options[:profile].role_in(course))
 
