@@ -1,5 +1,8 @@
-CoursesIndexCtrl = ($location, SessionManager, AssetsPreloader, Utils, courses) ->
+CoursesIndexCtrl = ($location, $filter, SessionManager, AssetsPreloader, Utils, courses) ->
   @courses = courses
+
+  @activeCourses = $filter('filter')(@courses, active: true)
+  @inactiveCourses = $filter('filter')(@courses, active: false)
 
   @unregister = (course)->
     if confirm("Deseja mesmo sair da disciplina #{course.name}?")
@@ -17,7 +20,7 @@ CoursesIndexCtrl = ($location, SessionManager, AssetsPreloader, Utils, courses) 
     AssetsPreloader.loadFont('Chalkduster')
 
   @
-CoursesIndexCtrl.$inject = ['$location', 'SessionManager', 'AssetsPreloader', 'Utils', 'courses']
+CoursesIndexCtrl.$inject = ['$location', '$filter', 'SessionManager', 'AssetsPreloader', 'Utils', 'courses']
 
 angular
   .module('DunnoApp')
