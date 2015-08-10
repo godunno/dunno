@@ -48,3 +48,8 @@
               | {{asDate(event.start_at) | amDateFormat:'ddd'}}
             span.date__time
               | {{asDate(event.start_at) | amDateFormat:'HH:mm'}} - {{asDate(event.end_at) | amDateFormat:'HH:mm'}}
+  div[
+    ng-joy-ride="vm.startJoyride"
+    config="vm.joyrideScheduleConfig"
+    on-finish="onFinish()"
+    on-skip="onFinish()"]

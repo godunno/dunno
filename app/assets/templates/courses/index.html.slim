@@ -43,6 +43,11 @@ ui-view
                     | ({{course.start_date | date: 'shortDate'}}
                   span.course__end__date
                     | — {{course.end_date | date: 'shortDate'}})
+  div[
+    ng-joy-ride="vm.startJoyride"
+    config="vm.joyrideCoursesConfig"
+    on-finish="onFinish()"
+    on-skip="onFinish()"]
 
 #add-course.reveal-modal.full.add__course data-reveal=true
   .row.small-collapse
@@ -80,6 +85,3 @@ ui-view
             .text-center
               a.button.large.radius
                 | Criar disciplina
-  .row
-    .small-12.columns
-      div ng-joy-ride="vm.startJoyride" config="vm.joyrideConfig" on-finish="onFinish()"  on-skip="onFinish()"
