@@ -17,7 +17,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
         i.icon.icon-users
         .course__members__count
           | {{course.members.length}}
-        a.button.dark.add__users.rounded data-reveal-id="invite__members"
+        a.button.dark.add__users.rounded data-reveal-id="invite__members" ng-if="course.user_role == 'teacher'"
           | +
       a.slide__mobile__info.show-for-small ng-click="showMobileInfo = !showMobileInfo"
         i.icon ng-class="{'icon-chevron-down': !showMobileInfo, 'icon-chevron-up': showMobileInfo}"
@@ -27,7 +27,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
           i.icon.icon-users>
           .course__members__count
             | {{course.members.length}}
-          a.button.dark.add__users.rounded data-reveal-id="access-code-fullscreen"
+          a.button.dark.add__users.rounded data-reveal-id="invite__members" ng-if="course.user_role == 'teacher'"
             | +
         .small-12.columns.course__mobile__actions ng-if="course.user_role == 'teacher'"
           a.expand.button.dark.radius.tiny> data-reveal-id="send-notification"
