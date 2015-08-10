@@ -18,3 +18,18 @@
     text-align: right;
   }
 }
+
+.inactive__courses {
+  border-top: .0625rem solid $light-grey-color;
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.inactive__courses__list {
+  list-style: none;
+  margin-left: 0;
+
+  li {
+    margin-bottom: .5rem;
+  }
+}
