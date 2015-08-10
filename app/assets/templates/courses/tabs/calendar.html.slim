@@ -1,19 +1,18 @@
-.calendar.content__box
+.calendar.content__box ui-view=true
   .calendar__header
     .row.collapse
-      /
-        .small-4.columns.dates__programme
-          a.button.transparent.expand.primary.small
-            strong
-              | CRONOGRAMA
-      .small-12.columns.dates__header__navigation
-        a.button.transparent.secondary.small.dates__header__previous-month.left ui-sref="{ month: course.previous_month }"
+      .small-4.columns.dates__programme
+        a.button.transparent.expand.primary.tiny ui-sref=".schedule"
+          strong
+            | Cronograma
+      .small-8.columns.dates__header__navigation
+        a.button.transparent.secondary.tiny.dates__header__previous-month.left ui-sref="{ month: course.previous_month }"
           i.icon.icon-chevron-left
           span<
             | {{course.previous_month | date:'MMM'}}
         span.dates__header__current-month
           | {{course.current_month | date:'MMMM'}}
-        a.button.transparent.secondary.small.dates__header__next-month.right ui-sref="{ month: course.next_month }"
+        a.button.transparent.secondary.tiny.dates__header__next-month.right ui-sref="{ month: course.next_month }"
           span>
             | {{course.next_month | date:'MMM'}}
           i.icon.icon-chevron-right

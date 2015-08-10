@@ -1,0 +1,85 @@
+.schedule__page {
+  @extend %content-box;
+
+  .uppercase {
+    text-transform: uppercase;
+  }
+
+  .schedule__header {
+    background-color: lighten($light-grey-color, 20%);
+    border-bottom: .0625rem solid $light-grey-color;
+    padding: 1rem 0 0;
+  }
+
+  .weekly__schedules {
+    padding: 1rem 0 0;
+
+    .weekly__schedule {
+      line-height: 5.75rem;
+
+      .special__input {
+        margin-top: 1.65rem;
+        width: 80%;
+      }
+    }
+  }
+
+
+  .special__checkbox {
+    + label {
+      color: $light-grey-color;
+      display: block;
+      font-size: 1.375rem;
+      font-weight: $font-weight-normal;
+      line-height: 5.75rem;
+      white-space: nowrap;
+
+      @media #{$small-only} {
+        font-size: .875rem;
+      }
+
+      &:before {
+        border-left: .375rem solid transparent;
+      }
+    }
+
+    &:checked {
+      + label {
+        color: $dunno-dark-color;
+
+        &:before {
+          border-left: .375rem solid $dunno-green-color;
+        }
+      }
+    }
+  }
+
+  .special__checkbox + label:before,
+  .special__checkbox:checked + label:before {
+    content: '';
+    height: 5.75rem;
+  }
+
+  .special__input {
+    border: 0;
+    border-bottom: .0625rem solid $light-grey-color;
+    margin: 0 .5rem;
+    text-align: center;
+
+    &:focus {
+      border-bottom-color: $dunno-green-color;
+    }
+  }
+
+  .course__dates {
+    border-top: .0625rem solid $light-grey-color;
+    margin-top: 1rem;
+    padding: 1rem 0 0;
+
+    .postfix {
+      background: none;
+      border: 0;
+      margin-bottom: 1rem;
+    }
+  }
+}
