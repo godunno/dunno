@@ -33,7 +33,6 @@
 //= require ngTagsInput/build/ng-tags-input.js
 //= require angular-elastic-input
 //= require angular-validation-match
-//= require angular-input-masks
 //= require angular-foundation
 //= require angular-busy
 //= require angular-filter
