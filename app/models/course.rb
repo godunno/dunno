@@ -27,6 +27,10 @@ class Course < ActiveRecord::Base
     where('access_code = ? OR uuid = ?', identifier, identifier).first!
   end
 
+  def active?
+    end_date >= Date.today
+  end
+
   def add_student(student)
     students << student
     touch

@@ -31,6 +31,7 @@ describe Api::V1::CoursesController do
         expect(subject).to eq([{
           "uuid" => course.uuid,
           "name" => course.name,
+          "active" => true,
           "start_date" => course.start_date.to_s,
           "end_date" => course.end_date.to_s,
           "grade" => course.grade,
@@ -76,6 +77,7 @@ describe Api::V1::CoursesController do
           it do
             expect(subject).to eq(
               "uuid" => course.uuid,
+              "active" => true,
               "name" => course.name,
               "start_date" => course.start_date.to_s,
               "end_date" => course.end_date.to_s,

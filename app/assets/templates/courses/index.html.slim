@@ -15,7 +15,7 @@ ui-view
     .row
       / TODO: empty results
       ul.courses__list.small-block-grid-1.medium-block-grid-2.large-block-grid-3
-        li.course__card ng-repeat="course in courses"
+        li.course__card ng-repeat="course in vm.activeCourses"
           a.course__card__link[
             ng-attr-id="{{ 'course-' + course.uuid }}"
             ui-sref="courses.show.calendar({ courseId: course.uuid })"
@@ -39,6 +39,24 @@ ui-view
                   | {{course.class_name}}
               .small-2.columns
                 i.icon.icon-users.course__icon
+
+        .inactive__courses ng-if="vm.inactiveCourses.length"
+          hr
+          h2
+            | Disciplinas antigas
+          ul.inactive__courses__list
+            li ng-repeat="course in vm.inactiveCourses"
+              a[
+                ui-sref="courses.show.calendar({ courseId: course.uuid })"]
+                strong.course__name
+                  | {{ course.name }} 
+                span.course__classname ng-if="!!course.class_name"
+                  | · {{course.class_name}} 
+                span.course__start__date
+                  | · de {{course.start_date | date:'shortDate'}} 
+                span.course__end__date
+                  | até {{course.end_date | date:'shortDate'}} 
+
     tutorial.tutorial-1[
       ng-if="tutorialEnabled(1)"
       on-close="tutorialClosed(1)"]
