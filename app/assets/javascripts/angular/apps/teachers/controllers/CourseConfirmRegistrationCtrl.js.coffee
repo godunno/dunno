@@ -1,14 +1,14 @@
 DunnoApp = angular.module('DunnoApp')
 
-CourseConfirmRegistrationCtrl = ($scope, $location, Course, SessionManager, course)->
+CourseConfirmRegistrationCtrl = ($scope, $state, Course, SessionManager, course)->
   $scope.course = course
 
   $scope.register = (course)->
     $scope.$emit('wholePageLoading', course.register().then ->
       SessionManager.fetchUser().then ->
-        $location.path "/courses"
+        $state.go 'courses', {}, reload: true
     )
 
-CourseConfirmRegistrationCtrl.$inject = ['$scope', '$location', 'Course', 'SessionManager', 'course']
+CourseConfirmRegistrationCtrl.$inject = ['$scope', '$state', 'Course', 'SessionManager', 'course']
 DunnoApp.controller 'CourseConfirmRegistrationCtrl', CourseConfirmRegistrationCtrl
 
