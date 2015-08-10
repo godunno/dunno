@@ -82,7 +82,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
   a.close-reveal-modal
     | &#215;
 
-#send-notification.reveal-modal.send-notification.full[
+#send-notification.reveal-modal.send__notification.full[
   data-reveal=""
   modal=""
   ng-controller="NotificationCtrl"
@@ -93,7 +93,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
         form name="notification_form" ng-submit="save(notification)"
           a.close-reveal-modal ng-click="reset()"
             | &#215;
-          .modal-header
+          .modal__header
             h5
               | Enviar Notificação
             p

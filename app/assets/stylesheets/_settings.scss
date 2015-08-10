@@ -813,7 +813,7 @@ $tabbar-menu-icon-hover: $dark-grey-color;
 // $include-html-panel-classes: $include-html-classes;
 
 // We use these to control the background and border styles
-$panel-bg: transparentize($dunno-dark-color, .95);
+$panel-bg: lighten($light-grey-color, 20%);
 // $panel-border-style: solid;
 $panel-border-size: 0;
 
@@ -826,8 +826,8 @@ $panel-border-size: 0;
 // $panel-padding: rem-calc(20);
 
 // We use these to set default font colors
-// $panel-font-color: #333;
-// $panel-font-color-alt: #fff;
+$panel-font-color: $dunno-dark-color;
+$panel-font-color-alt: $white;
 
 // $panel-header-adjust: true;
 // $callout-panel-link-color: $primary-color;
