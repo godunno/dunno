@@ -54,6 +54,31 @@ describe Profile, type: :model do
     it { expect(another_profile).to_not have_course(course) }
   end
 
+  describe "#students_count" do
+    let!(:course) { create(:course, teacher: teacher, students: [student]) }
+    let!(:other_course) { create(:course, teacher: teacher, students: [student, another_student]) }
+    let!(:teacher) { create(:profile) }
+    let!(:student) { create(:profile) }
+    let!(:another_student) { create(:profile) }
+
+    it { expect(teacher.students_count).to eq 2 }
+    it { expect(student.students_count).to eq 0 }
+  end
+
+  describe "#notifications_count" do
+    let!(:course) { create(:course, teacher: teacher, students: [student, another_student]) }
+    let!(:teacher) { create(:profile) }
+    let!(:student) { create(:profile) }
+    let!(:another_student) { create(:profile) }
+
+    before do
+      SendNotification.new(course: course, message: "test").call
+    end
+
+    pending { expect(teacher.notifications_count).to eq 2 }
+    it { expect(student.notifications_count).to eq 0 }
+  end
+
   describe "#create_course!" do
     let!(:profile) { create(:profile) }
     let(:created_course) { Course.last }
