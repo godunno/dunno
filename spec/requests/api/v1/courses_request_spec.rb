@@ -190,7 +190,7 @@ describe Api::V1::CoursesController do
   end
 
   describe "POST /api/v1/courses/:uuid/register" do
-    let(:new_course) { create :course }
+    let(:new_course) { create :course, teacher: teacher }
 
     it { expect(student.courses).not_to include(new_course) }
     it { expect(new_course.students).to eq([]) }
@@ -233,10 +233,17 @@ describe Api::V1::CoursesController do
 
         before { do_action }
 
-        it do
-          expect { do_action }.to raise_error(Pundit::NotAuthorizedError)
-          expect(new_course.students.reload).to eq([student])
+        def do_action
+          post "/api/v1/courses/#{identifier}/register.json", auth_params(teacher).to_json
         end
+
+        it do
+          expect(json).to eq(
+            "errors" => { "unprocessable" => "Você já faz parte desta disciplina." }
+          )
+        end
+
+        it { expect(last_response.status).to eq 422 }
       end
     end
   end
@@ -405,6 +412,20 @@ describe Api::V1::CoursesController do
             "teacher" => { "name" =>  teacher.name }
           }
         )
+      end
+
+      context "with user already part of course" do
+        def do_action
+          get "/api/v1/courses/#{identifier}/search.json", auth_params(teacher)
+        end
+
+        it do
+          expect(json).to eq(
+            "errors" => { "unprocessable" => "Você já faz parte desta disciplina." }
+          )
+        end
+
+        it { expect(last_response.status).to eq 422 }
       end
     end
   end
