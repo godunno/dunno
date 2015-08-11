@@ -1,0 +1,67 @@
+.schedule
+  a.close__schedule ui-sref="^" ui-sref-opts="{reload:true}"
+    i.icon.icon-arrow-back>
+    | Calendário
+  .content__box
+    .schedule__header
+      .row
+        .small-12.columns.text-center
+          h5.uppercase
+            | Cronograma de Aulas
+          p
+            | Adicione os dias da semana em que sua aula ocorre para estabelecer seu cronograma de aulas.
+    .weekly__schedules
+      .row
+        .small-12.columns
+          a.button.small.radius.close.right ng-click="newWeeklySchedule()"
+            | Adicionar dia de aula
+          h6.uppercase
+            | Dias da semana
+      .weekly__schedules__header.hide-for-small
+        .row.uppercase
+          .medium-3.columns
+            | Dia da Semana
+          .medium-2.columns
+            | Início
+          .medium-2.columns
+            | Término
+          .medium-5.columns.end
+            | Sala
+      .weekly__schedule ng-repeat="weekly_schedule in course.weekly_schedules"
+        .row
+          .small-12.medium-3.columns.weekday
+            | {{weekly_schedule.weekday | weekdayLong}}
+          .small-6.medium-2.columns.start__time
+            | {{ weekly_schedule.start_time }}
+            em.to<>
+              | às
+          .small-6.medium-2.columns.end__time
+            | {{ weekly_schedule.end_time }}
+          .small-12.medium-5.columns.classroom
+            | {{ weekly_schedule.classroom }}
+          .small-12.medium-5.columns.weekly__schedule__actions
+            a ng-click="transferWeeklySchedule(weekly_schedule)"
+              | Transferir
+            a ng-click="editWeeklySchedule(weekly_schedule)"
+              | Editar
+            a ng-click="removeWeeklySchedule(weekly_schedule)"
+              | Excluir
+      .course__dates
+        .course__dates__header
+          .row
+            .small-12.columns
+              a.button.radius.small.right ng-click="editCourseDates()"
+                | Editar datas
+              h6.uppercase
+                | Período Letivo
+        .row
+          .small-12.columns
+            p
+              em
+                | de
+              strong.start__date<>
+                | {{course.start_date | date: 'longDate'}}
+              em
+                | até
+              strong.end__date<
+                | {{course.end_date | date: 'longDate'}}

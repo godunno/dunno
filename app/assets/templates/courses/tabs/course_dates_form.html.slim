@@ -1,0 +1,39 @@
+.row.small-collapse
+  .small-12.small-centered.medium-8.large-6.columns
+    .form__box
+      a.close-reveal-modal.close.close-modal ng-click="close()"
+        | ×
+      .modal-header
+        h5
+          | Período Letivo
+      form.course__dates ng-submit="save(course)"
+        .row.collapse
+          .small-6.columns
+            label for='course__start__date'
+              | De
+          .small-6.columns
+            label for='course__end__date'
+              | Até
+          .small-6.columns
+            input.start__date.radius#course__start__date[
+              ng-model="course.start_date"
+              type="datetime"
+              date-time=true
+              min-view="date"
+              auto-close="true"
+              format="short"
+              placeholder="Início das aulas"]
+            i.icon.icon-calendar<
+          .small-6.columns
+            input.end__date.radius#course__end__date[
+              ng-model="course.end_date"
+              type="datetime"
+              date-time=true
+              min-view="date"
+              auto-close="true"
+              format="short"
+              placeholder="Fim das aulas"]
+            i.icon.icon-calendar<
+          .small-12
+            button.button.radius type="submit"
+              | Salvar datas

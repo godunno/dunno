@@ -12,8 +12,8 @@ describe WeeklySchedule do
 
     it { expect(weekly_schedule).to be_valid }
 
-    %w(weekday start_time end_time).each do |attr|
-      it { is_expected.to validate_presence_of(attr) }
+    %w(weekday start_time end_time).each do |attribute|
+      it { is_expected.to validate_presence_of(attribute) }
     end
 
     it "should validate time format" do
@@ -33,6 +33,35 @@ describe WeeklySchedule do
         weekly_schedule[time] = "09:00"
         expect(weekly_schedule).to be_valid
       end
+    end
+  end
+
+  describe "default order" do
+    let(:monday) { create(:weekly_schedule, weekday: 0) }
+    let(:tuesday) { create(:weekly_schedule, weekday: 1) }
+    let(:wednesday) { create(:weekly_schedule, weekday: 2) }
+
+    before do
+      tuesday.save!
+      wednesday.save!
+      monday.save!
+    end
+
+    it { expect(WeeklySchedule.all).to eq([monday, tuesday, wednesday]) }
+  end
+
+  describe "#to_recurrence_rule" do
+    let(:weekly_schedule) { create(:weekly_schedule, start_time: '09:00', end_time: '11:00') }
+    subject { weekly_schedule.reload.to_recurrence_rule.to_s }
+
+    context "with course's end date" do
+      let!(:course) { create(:course, end_date: Date.parse('2015-07-31'), weekly_schedules: [weekly_schedule]) }
+
+      it { is_expected.to eq "Weekly on Mondays on the 9th hour of the day on the 0th minute of the hour on the 0th second of the minute until July 31, 2015" }
+    end
+
+    context "without course's end date" do
+      it { is_expected.to eq "Weekly on Mondays on the 9th hour of the day on the 0th minute of the hour on the 0th second of the minute" }
     end
   end
 end

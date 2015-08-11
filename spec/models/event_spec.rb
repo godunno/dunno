@@ -116,55 +116,8 @@ describe Event do
     end
   end
 
-  describe "#order" do
-    let(:previous_event) do
-      build(
-        :event,
-        course: event.course,
-        start_at: event.start_at - 1.day
-      )
-    end
-
-    let(:next_event) do
-      build(
-        :event,
-        course: event.course,
-        start_at: event.start_at + 1.day
-      )
-    end
-
-    before do
-      event.save!
-      previous_event.save!
-      next_event.save!
-    end
-
-    it { expect(previous_event.order).to eq(1) }
-    it { expect(event.order).to eq(2) }
-    it { expect(next_event.order).to eq(3) }
-
-    describe "#previous" do
-      it { expect(event.previous).to eq(previous_event) }
-
-      context "it's the first event" do
-        before do
-          previous_event.destroy
-        end
-
-        it { expect(event.previous).to be_nil }
-      end
-    end
-
-    describe "#next" do
-      it { expect(event.next).to eq(next_event) }
-
-      context "it's the last event" do
-        before do
-          next_event.destroy
-        end
-
-        it { expect(event.next).to be_nil }
-      end
-    end
+  describe "#index_id" do
+    let(:event) { create(:event) }
+    it { expect(event.index_id).to eq "#{event.course.id}/#{event.start_at.iso8601}" }
   end
 end

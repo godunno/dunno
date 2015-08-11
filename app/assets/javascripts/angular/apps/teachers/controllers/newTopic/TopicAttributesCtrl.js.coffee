@@ -15,7 +15,7 @@ TopicAttributesCtrl = ($scope, Topic) ->
     $scope.topic.description = media.title
 
   saveTopic = (e, topic) ->
-    $scope.topic.event_id = $scope.event.id
+    $scope.topic.event = $scope.event
     $scope.topic.personal = $scope.defaultTopicProperties.personal
     new Topic($scope.topic).create().then (topic) ->
       $scope.$emit('createdTopic', topic)

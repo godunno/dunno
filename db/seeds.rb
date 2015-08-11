@@ -34,8 +34,6 @@ course.update_attribute(:access_code, "5fd1")
 
 course.add_student(student)
 
-CourseScheduler.new(course).schedule!
-
 course.events.reload
 
 e1, e2, e3, e4 = course.events[0..3]

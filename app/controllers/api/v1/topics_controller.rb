@@ -2,9 +2,8 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
   respond_to :json
 
   def create
-    event = current_profile.events.find(create_params.delete(:event_id))
     authorize event, :update?
-    @topic = Topic.new
+    @topic = Topic.new(event: event)
     TopicForm.new(@topic, create_params).create!(event)
     render status: :created
   end
@@ -23,9 +22,8 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
   # TODO: Transfer as the first topic
   def transfer
     authorize topic.event, :update?
-    next_event = topic.event.next_not_canceled
-    if next_event
-      topic.update!(event: next_event)
+    service = TransferTopic.new(topic)
+    if service.transfer
       status = 200
     else
       status = 422
@@ -35,15 +33,31 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
 
   private
 
-    def create_params
-      params.require(:topic).permit(:description, :personal, :media_id, :event_id)
-    end
+  def create_params
+    params.require(:topic).permit(:description, :personal, :media_id)
+  end
 
-    def update_params
-      params.require(:topic).permit(:description, :done, :personal)
-    end
+  def update_params
+    params.require(:topic).permit(:description, :done, :personal)
+  end
 
-    def topic
-      @topic ||= Topic.find_by!(uuid: params[:id])
-    end
+  def topic
+    @topic ||= Topic.find_by!(uuid: params[:id])
+  end
+
+  def course_params
+    params.require(:topic).require(:event).require(:course).permit(:uuid)
+  end
+
+  def course
+    @course ||= current_profile.courses.find_by!(course_params)
+  end
+
+  def event_params
+    params.require(:topic).require(:event).permit(:start_at, :order)
+  end
+
+  def event
+    @event ||= FindOrInitializeEvent.by(course, event_params)
+  end
 end

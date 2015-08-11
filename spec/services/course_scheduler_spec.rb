@@ -1,45 +1,109 @@
 require 'spec_helper'
 
 describe CourseScheduler do
+  before { Timecop.freeze Time.zone.parse('2015-07-21 18:00') }
+  after { Timecop.return }
 
-  let(:start_date) { Date.new(2014, 01, 05) }
-  let(:end_date) { Date.new(2014, 01, 13) }
-  let(:weekly_schedule_1) do
-    build(:weekly_schedule, weekday: 1, start_time: '14:00', end_time: '16:00', classroom: '201-A')
+  let!(:course) { create(:course, start_date: nil, end_date: nil) }
+  let!(:weekly_schedule) { create(:weekly_schedule, weekday: 1, course: course, classroom: '1A', start_time: '09:00', end_time: '11:00') }
+  let(:service) { CourseScheduler.new(course) }
+  let(:events) { service.events }
+  let(:next_month) { 1.month.from_now.beginning_of_month..1.month.from_now.end_of_month }
+  let(:month_in_next_year) { 1.year.from_now.beginning_of_month..1.year.from_now.end_of_month }
+  let(:next_month_events) { CourseScheduler.new(course, next_month).events }
+  let(:next_year_events) { CourseScheduler.new(course, month_in_next_year).events }
+
+  context 'with no events already created' do
+    it "starts counting by when the course was created by default" do
+      expect(next_month_events.size).to be 5
+    end
+
+    it "starts on the date the course was created by default" do
+      expect(events.first.order).to be 1
+    end
+
+    it "has all events on next year" do
+      expect(next_year_events.size).to be 4
+    end
+
+    it "starts in the right time for the weekly schedule" do
+      expect(TimeOfDay(events.first.start_at)).to eq TimeOfDay.parse(weekly_schedule.start_time)
+    end
+
+    context "concerning non-persisted events" do
+      subject { events.first }
+
+      it { is_expected.to be_a Event }
+      it { expect(subject.course).to eq course }
+      it { expect(subject.classroom).to eq weekly_schedule.classroom }
+      it { expect(subject.start_at).to eq Time.zone.parse('2015-07-27 09:00')  }
+      it { expect(subject.end_at).to eq Time.zone.parse('2015-07-27 11:00')  }
+    end
+
+    context "with a start date set on course" do
+      let!(:course) { create(:course, start_date: 1.month.ago, end_date: nil) }
+
+      it 'starts counting from the course start date' do
+        expect(events.first.order).to eq 3
+      end
+    end
+
+    context "with an end date set on course" do
+      let!(:course) { create(:course, start_date: nil, end_date: 2.month.from_now) }
+      let(:three_months_from_now) { 3.months.from_now.beginning_of_month..3.months.from_now.end_of_month }
+
+      it 'stops creating occurrences using the course end date' do
+        events_out_of_range = CourseScheduler.new(course, three_months_from_now).events
+        expect(events_out_of_range).to be_empty
+      end
+    end
+
+    context "with more than one weekly schedule" do
+      let!(:other_weekly_schedule) { create(:weekly_schedule, weekday: 5, course: course) }
+
+      it "has occurrences for both weekly schedules" do
+        expect(events.size).to eq 3
+      end
+    end
+
+    context "counting" do
+      it "starts counting by when the course was created by default" do
+        expect(next_month_events.first.order).to be 2
+      end
+    end
   end
-  let(:weekly_schedule_2) do
-    build(:weekly_schedule, weekday: 3, start_time: '09:00', end_time: '11:00', classroom: '201-B')
+
+  context 'with events already created' do
+    context 'for events in the weekly schedule' do
+      let!(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-07-27 09:00')) }
+
+      it "uses real events if they are already created" do
+        expect(events.first).to eq event
+      end
+    end
+
+    context 'for events outside the weekly schedule' do
+      let!(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-07-27 08:00')) }
+
+      it "uses real events if they are already created" do
+        expect(events.first).to eq event
+      end
+
+      it "has an order attribute" do
+        expect(events.first.order).to be_present
+      end
+    end
+
+    context "when there's no weekly schedules" do
+      let!(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-07-27 08:00')) }
+      before do
+        weekly_schedule.destroy!
+      end
+
+      it { expect(events.first).to eq event }
+    end
   end
-  let(:weekly_schedule_3) do
-    build(:weekly_schedule, weekday: 3, start_time: '14:00', end_time: '16:00', classroom: '201-C')
-  end
-  let(:course) do
-    create :course,
-      start_date: start_date,
-      end_date: end_date,
-      weekly_schedules: [weekly_schedule_1, weekly_schedule_2, weekly_schedule_3]
-  end
-  let(:course_scheduler) { CourseScheduler.new(course) }
 
-  it "creates the course's events" do
-    course_scheduler.schedule!
-    course.reload
-    events = course.events.order('start_at asc')
-
-    expect(events[0].start_at).to eq(Time.zone.parse("2014-01-06 14:00"))
-    expect(events[0].end_at).to eq(Time.zone.parse("2014-01-06 16:00"))
-    expect(events[0].classroom).to eq('201-A')
-
-    expect(events[1].start_at).to eq(Time.zone.parse("2014-01-08 09:00"))
-    expect(events[1].end_at).to eq(Time.zone.parse("2014-01-08 11:00"))
-    expect(events[1].classroom).to eq('201-B')
-
-    expect(events[2].start_at).to eq(Time.zone.parse("2014-01-08 14:00"))
-    expect(events[2].end_at).to eq(Time.zone.parse("2014-01-08 16:00"))
-    expect(events[2].classroom).to eq('201-C')
-
-    expect(events[3].start_at).to eq(Time.zone.parse("2014-01-13 14:00"))
-    expect(events[3].end_at).to eq(Time.zone.parse("2014-01-13 16:00"))
-    expect(events[3].classroom).to eq('201-A')
-  end
+  pending "test the case which time range is generated from course's start and end date"
+  pending "test the case which time range is generated by current date"
 end

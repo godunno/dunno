@@ -39,7 +39,7 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
 
   $scope.goToEvent = (event) ->
     if $scope.course.user_role == 'teacher'
-      $state.go('^.event', { eventId: event.uuid })
+      $state.go('^.event', { startAt: event.start_at })
     else
       $state.go('^.events', until: event.start_at)
 

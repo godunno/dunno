@@ -10,6 +10,8 @@
  *
  *= require_self
  *= require ngTagsInput/build/ng-tags-input.scss
+ *= require jquery-timepicker-jt
  *= require angular-busy
+ *= require angular-datepicker
  *= require app
  */

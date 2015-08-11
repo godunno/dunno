@@ -17,6 +17,7 @@ class SearchEventsByCourse
 
   def search
     Event.search(build_query)
+    .map { |event| FindOrInitializeEvent.by(course, event._source) }
   end
 
   private

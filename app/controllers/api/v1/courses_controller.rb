@@ -7,30 +7,28 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def show
     authorize course
-    @pagination = PaginateEventsByMonth.new(course.events, params[:month])
-    @events = @pagination.events
+    @pagination = MonthsNavigation.new(params[:month])
+    @events = CourseScheduler.new(course, WholePeriod.new(@pagination.current_month).month).events
   end
 
   def create
     course_form = Form::CourseForm.new(course_params.merge(teacher: current_profile))
     authorize course_form
-
-    begin
-      ActiveRecord::Base.transaction do
-        course_form.save!
-        CourseScheduler.new(course_form.model).schedule!
-      end
-    rescue ActiveRecord::RecordInvalid
-      render json: { errors: course_form.errors }, status: 400
-    else
+    if course_form.save
       render json: { uuid: course_form.model.uuid }
+    else
+      render json: { errors: course_form.errors }, status: 400
     end
   end
 
   def update
     authorize course
-    course.update(course_params)
-    render json: { uuid: course.uuid }
+    course_form = Form::CourseForm.new(course_params.merge(teacher: current_profile))
+    if course_form.save
+      render json: { uuid: course_form.model.uuid }
+    else
+      render json: { errors: course_form.errors }, status: 400
+    end
   end
 
   def destroy
@@ -76,6 +74,6 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:name, :start_date, :end_date, :class_name, :grade, :institution)
+    params.require(:course).permit(:uuid, :name, :start_date, :end_date, :class_name, :grade, :institution, weekly_schedules: [:uuid, :weekday, :start_time, :end_time, :classroom])
   end
 end

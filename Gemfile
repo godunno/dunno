@@ -42,6 +42,7 @@ gem 'fog',                        '1.32.0'
 gem 'airbrake',                   '4.3.0'
 gem 'pundit',                     '1.0.1'
 gem 'redcarpet',                  '3.3.1'
+gem 'ice_cube'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular',       '1.3.16'
@@ -67,6 +68,11 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-greensock', '1.17.0'
   gem 'rails-assets-ui-router', '0.2.15'
   gem 'rails-assets-angular-filter', '0.5.4'
+  gem 'rails-assets-angular-datepicker', '1.0.12'
+  gem 'rails-assets-jquery-timepicker-jt', '1.8.1'
+  gem 'rails-assets-angular-jquery-timepicker', '0.6.0'
+  gem 'rails-assets-angular-moment', '0.10.2'
+  gem 'rails-assets-moment-timezone', '0.4.0'
 end
 
 group :production, :staging do
@@ -101,6 +107,7 @@ group :development, :test do
   gem 'rspec-rails',              '3.3.2'
   gem 'factory_girl_rails',       '4.5.0'
   gem 'pry-rails',                '0.3.4'
+  gem 'pry-doc',                  '0.8.0'
   gem 'dotenv-rails',             '1.0.2'
   gem 'vcr',                      '2.9.3'
   gem 'webmock',                  '1.20.4'

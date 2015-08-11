@@ -43,9 +43,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
                 | Integrantes
 .course__detail__page
   .row.small-collapse
-    .small-12.medium-8.columns[
-      ui-view=true
-      ng-class="{'medium-centered': course.user_role == 'student'}"]
+    .small-12.medium-10.medium-centered.large-8.columns ui-view=true
 
   tutorial.tutorial-2[
     ng-if="tutorialEnabled(2) && course.user_role == 'teacher'"

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Api::V1::EventsController do
 
   let(:profile) { create(:profile) }
-  let(:course) { create(:course, teacher: profile) }
+  let(:course) { create(:course, start_date: 1.month.ago, end_date: 1.month.from_now, teacher: profile) }
   let(:event) { create(:event, course: course) }
 
   describe "GET /api/v1/events" do
@@ -73,8 +73,10 @@ describe Api::V1::EventsController do
             "course" =>  {
               "uuid" => course.uuid,
               "name" => course.name,
+              "active" => true,
               "start_date" => course.start_date.to_s,
               "end_date" => course.end_date.to_s,
+              "abbreviation" => course.abbreviation,
               "grade" => course.grade,
               "class_name" => course.class_name,
               "order" => course.order,
@@ -84,7 +86,9 @@ describe Api::V1::EventsController do
               "teacher" => { "name" => course.teacher.name },
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
               "weekly_schedules" => [],
-              "students_count" => 0
+              "students_count" => 0,
+              "members_count" => 1,
+              "members" => ["name" => profile.name, "role" => "teacher"]
             }
           )
         end
@@ -92,10 +96,14 @@ describe Api::V1::EventsController do
     end
 
     context "filtering by course", :elasticsearch do
+      let!(:weekly_schedule) { create(:weekly_schedule, course: course) }
       let!(:another_course) { create(:course, teacher: profile) }
       let!(:another_event) { create(:event, course: another_course) }
       before do
+        skip "Index virtual events"
         refresh_index!
+        Timecop.travel Time.zone.parse('2015-08-01 00:00')
+        CourseScheduler.new(course).index!
         do_action(course_id: another_course.uuid)
       end
 
@@ -120,115 +128,193 @@ describe Api::V1::EventsController do
     end
   end
 
-  describe "GET /api/v1/events/:uuid" do
-    let(:topic) { create(:topic) }
-    let(:topic_with_url) { create(:topic, media: media_with_url) }
-    let(:topic_with_file) { create(:topic, media: media_with_file) }
-    let(:personal_topic) { create(:topic, :personal) }
-    let(:media_with_url) { build(:media_with_url) }
-    let(:media_with_file) { build(:media_with_file) }
-    let(:classroom) { "201-A" }
-    let!(:event) do
-      create(:event,
-             status: "published",
-             end_at: 1.hour.ago,
-             topics: [topic, personal_topic, topic_with_url, topic_with_file],
-             course: course,
-             classroom: classroom
-            )
-    end
-    let!(:previous_event) { create :event, start_at: event.start_at - 1.day, course: event.course }
-    let!(:previous_event_media) { create :media }
-    let!(:previous_event_topic) { create :topic, event: previous_event, media: previous_event_media }
-    let!(:next_event)     { create :event, start_at: event.start_at + 1.day, course: event.course }
-    let!(:next_event_media) { create :media }
-    let!(:next_event_topic) { create :topic, event: next_event, media: next_event_media }
+  describe "GET /api/v1/events/:start_at" do
 
-    def do_action
-      get "/api/v1/events/#{event.uuid}.json", auth_params(profile)
+    before do
+      Timecop.freeze Time.zone.local(2015, 1, 2, 9)
+      (0..6).each do |weekday|
+        create(:weekly_schedule, weekday: weekday, course: course)
+      end
     end
 
-    before(:each) do
-      do_action
-    end
+    after { Timecop.return }
 
-    subject { json }
-    let(:event_json) { json }
+    context "existing event" do
+      let(:topic) { create(:topic) }
+      let(:topic_with_url) { create(:topic, media: media_with_url) }
+      let(:topic_with_file) { create(:topic, media: media_with_file) }
+      let(:personal_topic) { create(:topic, :personal) }
+      let(:media_with_url) { build(:media_with_url) }
+      let(:media_with_file) { build(:media_with_file) }
+      let(:classroom) { "201-A" }
+      let(:start_at) { Time.current }
+      let!(:event_from_another_course) do
+        create(:event,
+               created_at: 1.hour.ago,
+               status: "published",
+               start_at: start_at,
+               course: create(:course, teacher: profile)
+              )
+      end
+      let!(:event) do
+        create(:event,
+               created_at: 1.hour.from_now,
+               status: "published",
+               start_at: start_at,
+               end_at: 1.hour.ago,
+               topics: [topic, personal_topic, topic_with_url, topic_with_file],
+               course: course,
+               classroom: classroom
+              )
+      end
+      let!(:previous_event) { create :event, start_at: event.start_at - 1.day, course: event.course }
+      let!(:previous_event_media) { create :media }
+      let!(:previous_event_topic) { create :topic, event: previous_event, media: previous_event_media }
+      let!(:next_event)     { create :event, start_at: event.start_at + 1.day, course: event.course }
+      let!(:next_event_media) { create :media }
+      let!(:next_event_topic) { create :topic, event: next_event, media: next_event_media }
 
-    it { expect(last_response.status).to eq(200) }
-
-    describe "event" do
-      let(:target) { event }
-
-      subject { event_json }
-      it_behaves_like "request return check", %w(uuid order status start_at end_at)
+      subject { json }
+      let(:event_json) { json }
 
       it { expect(last_response.status).to eq(200) }
-      it { expect(subject["formatted_status"]).to eq(event.formatted_status(profile)) }
-      it { expect(subject["formatted_classroom"]).to eq("#{course.class_name} - #{classroom}") }
 
-      describe "course" do
-        let(:target) { event.course }
-        subject { event_json["course"] }
-        it_behaves_like "request return check", %w(name class_name order institution)
+      def do_action
+        get "/api/v1/events/#{start_at.utc.iso8601}.json", { course_id: course.uuid }.merge(auth_params(profile))
       end
 
-      describe "previous" do
-        let(:target) { previous_event }
-        subject { event_json["previous"] }
-        it_behaves_like "request return check", %w(uuid order status start_at end_at)
-        it { expect(subject["formatted_status"]).to eq(previous_event.formatted_status(profile)) }
+      before(:each) do
+        do_action
+      end
 
-        describe "topics" do
+      describe "event" do
+        let(:target) { event }
+
+        subject { event_json }
+        it_behaves_like "request return check", %w(uuid status start_at end_at)
+
+        it { expect(last_response.status).to eq(200) }
+        it { expect(subject["formatted_status"]).to eq(event.formatted_status(profile)) }
+        it { expect(subject["formatted_classroom"]).to eq("#{course.class_name} - #{classroom}") }
+
+        describe "course" do
+          let(:target) { event.course }
+          subject { event_json["course"] }
+          it_behaves_like "request return check", %w(name class_name order institution)
+        end
+
+        describe "previous" do
+          let(:target) { previous_event }
+          subject { event_json["previous"] }
+          it_behaves_like "request return check", %w(uuid status start_at end_at)
+          it { expect(subject["formatted_status"]).to eq(previous_event.formatted_status(profile)) }
+
+          describe "topics" do
+            before { skip }
+            let(:target) { previous_event_topic }
+            let(:previous_event_topic_json) { find(event_json["previous"]["topics"], previous_event_topic.uuid) }
+            subject { previous_event_topic_json }
+            it_behaves_like "request return check", %w(description uuid order done)
+
+            describe "media" do
+              let(:target) { previous_event_media }
+              subject { previous_event_topic_json["media"] }
+              it_behaves_like "request return check", %w(title description category url uuid type thumbnail)
+            end
+          end
+        end
+
+        describe "next" do
+          let(:target) { next_event }
+          subject { event_json["next"] }
+          it_behaves_like "request return check", %w(uuid status start_at end_at)
+          it { expect(subject["formatted_status"]).to eq(next_event.formatted_status(profile)) }
+
+          describe "topics" do
+            before { skip }
+            let(:target) { next_event_topic }
+            let(:next_event_topic_json) { find(event_json["next"]["topics"], next_event_topic.uuid) }
+            subject { next_event_topic_json }
+            it_behaves_like "request return check", %w(description uuid order done)
+
+            describe "media" do
+              let(:target) { next_event_media }
+              subject { next_event_topic_json["media"] }
+              it_behaves_like "request return check", %w(title description category url uuid type thumbnail)
+            end
+          end
+        end
+
+        describe "topic" do
           before { skip }
-          let(:target) { previous_event_topic }
-          let(:previous_event_topic_json) { find(event_json["previous"]["topics"], previous_event_topic.uuid) }
-          subject { previous_event_topic_json }
-          it_behaves_like "request return check", %w(description uuid order done)
+          let(:target) { topic }
+          let(:topic_json) { find(event_json["topics"], topic.uuid) }
+          subject { topic_json }
+          it_behaves_like "request return check", %w(description uuid order done personal)
 
-          describe "media" do
-            let(:target) { previous_event_media }
-            subject { previous_event_topic_json["media"] }
+          it { expect(find(event_json["topics"], personal_topic.uuid)).not_to be_nil }
+
+          describe "media with URL" do
+            let(:target) { media_with_url }
+            subject { topic_json["media"] }
             it_behaves_like "request return check", %w(title description category url uuid type thumbnail)
           end
         end
       end
+    end
 
-      describe "next" do
-        let(:target) { next_event }
-        subject { event_json["next"] }
-        it_behaves_like "request return check", %w(uuid order status start_at end_at)
-        it { expect(subject["formatted_status"]).to eq(next_event.formatted_status(profile)) }
+    context "new event" do
+      let(:weekly_schedule) { create(:weekly_schedule, weekday: 4, start_time: '14:00', end_time: '16:00', classroom: '203') }
+      let(:new_course) { create(:course, start_date: 1.day.ago, end_date: Date.current, teacher: profile, weekly_schedules: [weekly_schedule]) }
+      let(:start_at) { Time.zone.parse('2015-01-01 14:00') }
+      let(:end_at) { Time.zone.parse('2015-01-01 16:00') }
 
-        describe "topics" do
-          before { skip }
-          let(:target) { next_event_topic }
-          let(:next_event_topic_json) { find(event_json["next"]["topics"], next_event_topic.uuid) }
-          subject { next_event_topic_json }
-          it_behaves_like "request return check", %w(description uuid order done)
-
-          describe "media" do
-            let(:target) { next_event_media }
-            subject { next_event_topic_json["media"] }
-            it_behaves_like "request return check", %w(title description category url uuid type thumbnail)
-          end
-        end
+      def do_action
+        get "/api/v1/events/#{start_at.utc.iso8601}.json", { course_id: new_course.uuid }.merge(auth_params(profile))
       end
 
-      describe "topic" do
-        before { skip }
-        let(:target) { topic }
-        let(:topic_json) { find(event_json["topics"], topic.uuid) }
-        subject { topic_json }
-        it_behaves_like "request return check", %w(description uuid order done personal)
+      before do
+        do_action
+      end
 
-        it { expect(find(event_json["topics"], personal_topic.uuid)).not_to be_nil }
-
-        describe "media with URL" do
-          let(:target) { media_with_url }
-          subject { topic_json["media"] }
-          it_behaves_like "request return check", %w(title description category url uuid type thumbnail)
-        end
+      it do
+        expect(json).to eq(
+          "id" => nil,
+          "uuid" => nil,
+          "order" => nil,
+          "status" => "draft",
+          "formatted_status" => "empty",
+          "start_at" => start_at.utc.iso8601,
+          "end_at" => end_at.utc.iso8601,
+          "formatted_classroom" => "#{course.class_name} - #{weekly_schedule.classroom}",
+          "course" => {
+            "uuid" => new_course.uuid,
+            "name" => new_course.name,
+            "start_date" => new_course.start_date.to_s,
+            "end_date" => new_course.end_date.to_s,
+            "abbreviation" => new_course.abbreviation,
+            "grade" => new_course.grade,
+            "class_name" => new_course.class_name,
+            "order" => new_course.order,
+            "access_code" => new_course.access_code,
+            "institution" => new_course.institution,
+            "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][new_course.order],
+            "user_role" => "teacher",
+            "students_count" => 0,
+            "active"=> true,
+            "teacher" => { "name" => profile.name },
+            "weekly_schedules" => [
+              "uuid" => weekly_schedule.uuid,
+              "weekday" => weekly_schedule.weekday,
+              "start_time" => weekly_schedule.start_time,
+              "end_time" => weekly_schedule.end_time,
+              "classroom" => weekly_schedule.classroom
+            ],
+            "members_count" => 1,
+            "members" => ["name" => profile.name, "role" => "teacher"]
+          },
+          "topics" => []
+        )
       end
     end
   end
@@ -309,10 +395,10 @@ describe Api::V1::EventsController do
     end
   end
 
-  describe "PATCH /api/v1/events/:uuid.json" do
+  describe "PATCH /api/v1/events/:start_at.json" do
     context "authenticated" do
       def do_action
-        patch "/api/v1/events/#{event.uuid}.json", auth_params(profile).merge(params_hash).to_json
+        patch "/api/v1/events/#{event.start_at.utc.iso8601}.json", { course_id: course.uuid }.merge(auth_params(profile)).merge(params_hash).to_json
       end
 
       context "successfully updating" do
@@ -361,12 +447,6 @@ describe Api::V1::EventsController do
             }
           end
 
-          it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
-        end
-
-        context "someone else's event's attributes" do
-          let(:event) { create(:event) }
-          let(:params_hash) { { status: "published" } }
           it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
         end
       end

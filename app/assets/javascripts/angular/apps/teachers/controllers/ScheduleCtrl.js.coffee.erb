@@ -1,0 +1,42 @@
+DunnoApp = angular.module('DunnoApp')
+
+ScheduleCtrl = ($scope, $state, $modal, WeeklySchedule, Utils) ->
+  $scope.update = ->
+    $scope.$emit('wholePageLoading', $scope.course.update().then ->
+      $state.go('^', null, reload: true)
+    )
+
+  $scope.transferWeeklySchedule = (weeklySchedule) ->
+    $modal.open
+      templateUrl: '<%= asset_path('courses/tabs/transfer_weekly_schedule.html') %>',
+      controller: 'TransferWeeklyScheduleCtrl'
+      resolve:
+        weeklySchedule: -> angular.copy(weeklySchedule)
+
+  openWeeklyScheduleForm = (weeklySchedule) ->
+    $modal.open
+      templateUrl: '<%= asset_path('courses/tabs/edit_weekly_schedule.html') %>',
+      controller: 'WeeklyScheduleCtrl'
+      resolve:
+        weeklySchedule: -> angular.copy(weeklySchedule)
+
+  $scope.newWeeklySchedule = ->
+    openWeeklyScheduleForm(new WeeklySchedule(course_id: $scope.course.uuid))
+
+  $scope.editWeeklySchedule = (weeklySchedule) ->
+    openWeeklyScheduleForm(weeklySchedule)
+
+  $scope.removeWeeklySchedule = (weeklySchedule) ->
+    if confirm('Deseja remover esse horário?')
+      weeklySchedule.remove().then ->
+        Utils.remove($scope.course.weekly_schedules, weeklySchedule)
+
+  $scope.editCourseDates = ->
+    $modal.open
+      templateUrl: '<%= asset_path('courses/tabs/course_dates_form.html') %>',
+      controller: 'CourseDatesCtrl'
+      resolve:
+        course: -> angular.copy($scope.course)
+
+ScheduleCtrl.$inject = ['$scope', '$state', '$modal', 'WeeklySchedule', 'Utils']
+DunnoApp.controller 'ScheduleCtrl', ScheduleCtrl

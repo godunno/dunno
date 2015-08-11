@@ -46,7 +46,7 @@ Rails.application.routes.draw do
           patch :transfer
         end
       end
-      resources :events, only: [:index, :show, :create, :update]
+      resources :events, param: :start_at, only: [:index, :show, :create, :update]
       resources :courses, only: [:index, :show, :create, :update, :destroy] do
         member do
           post :register
@@ -54,6 +54,11 @@ Rails.application.routes.draw do
           get :search
           # TODO: Check if this route is used
           get :students
+        end
+      end
+      resources :weekly_schedules, only: [:create, :update, :destroy] do
+        member do
+          patch :transfer
         end
       end
       namespace :utils do

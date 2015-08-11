@@ -4,14 +4,6 @@ describe InvestorDemo do
   let(:create_investor) { InvestorDemo.new('Name', 'email@example.com') }
   let(:created_profile) { Profile.last }
 
-  before do
-    course_scheduler = double("CourseScheduler")
-    expect(CourseScheduler).to receive(:new)
-      .exactly(4).times.and_return(course_scheduler)
-    expect(course_scheduler).to receive(:schedule!)
-      .exactly(4).times
-  end
-
   it "creates a user" do
     expect { create_investor }.to change { User.count }.by(1)
   end

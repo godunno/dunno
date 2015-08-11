@@ -1,0 +1,40 @@
+form ng-submit="submit(weeklySchedule)"
+  .row.collapse
+    .small-12.columns
+      label for="weekday"
+        | Dia
+      select.weekday__select#weekday.radius ng-model="weeklySchedule.weekday"
+        option[
+          ng-repeat="weekday in [0,1,2,3,4,5,6]"
+          ng-value="{{weekday}}"
+          ng-selected="weeklySchedule.weekday == weekday"]
+          | {{weekday | weekdayLong}}
+    .small-5.columns
+      label for="start_time"
+        | Início
+      input#start_time.radius[
+        ng-model="startTime"
+        ng-model-options="{ getterSetter: true }"
+        ui-timepicker=true
+        type="text"]
+    .small-2.columns
+      p.text-center
+        br
+        | às
+    .small-5.columns
+      label for="end_time"
+        | Término
+      input#end_time.radius[
+        ng-model="endTime"
+        ng-model-options="{ getterSetter: true }"
+        ui-timepicker="{ showDuration: true, durationTime: startTime }"
+      type="text"]
+    .small-12.columns
+      label for="classroom"
+        | Sala
+      input#classroom.radius[
+        ng-model="weeklySchedule.classroom"
+        type="text"]
+    .small-12.columns
+      button.button.radius.expand type="submit"
+        | Salvar

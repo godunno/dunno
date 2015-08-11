@@ -5,7 +5,7 @@
 #= depend_on_asset "events/show.html"
 #= depend_on_asset "medias/index.html"
 
-DunnoApp = angular.module 'DunnoApp', ['ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet', 'ui.router', 'angular.filter']
+DunnoApp = angular.module 'DunnoApp', ['ngResource', 'rails', 'ui.keypress', 'ui.sortable', 'angularFileUpload', 'ngTagsInput', 'puElasticInput', 'validation.match', 'ngMessages', 'mm.foundation', 'cgBusy', 'ngAnimate', 'angulartics', 'angulartics.google.analytics', 'angulartics.intercom', 'angulartics.mixpanel', 'foundation.actionsheet', 'ui.router', 'angular.filter', 'datePicker', 'ui.timepicker', 'angularMoment']
 
 Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, CourseRegistrationResolver, EventsResolver, EventResolver, MediasResolver) ->
   $urlRouterProvider.otherwise('/courses')
@@ -57,6 +57,11 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       templateUrl: '<%= asset_path('courses/tabs/events.html') %>'
       resolve: { events: EventsResolver }
     )
+    .state('courses.show.calendar.schedule',
+      url: '/schedule'
+      controller: 'ScheduleCtrl'
+      templateUrl: '<%= asset_path('courses/tabs/schedule.html') %>'
+    )
     .state('courses.show.members',
       url: '/members'
       controller: 'CourseMembersCtrl as vm'
@@ -64,7 +69,7 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       resolve: { course: CourseResolver }
     )
     .state('courses.show.event',
-      url: '/events/:eventId'
+      url: '/events/:startAt'
       views:
           '@':
             templateUrl: '<%= asset_path('events/show.html') %>'
@@ -83,7 +88,7 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       templateUrl: '<%= asset_path('events/show.html') %>'
     )
     .state('events.show',
-      url: '/:eventId'
+      url: '/:startAt?courseId'
       controller: 'EventCtrl'
       templateUrl: '<%= asset_path('events/show.html') %>'
       resolve: { event: EventResolver }
@@ -122,3 +127,10 @@ DunnoApp.value('cgBusyDefaults',
 DunnoApp.config ['$animateProvider', ($animateProvider) ->
   $animateProvider.classNameFilter(/ng-animate/)
 ]
+
+DunnoApp.run ['amMoment', (amMoment) ->
+  amMoment.changeLocale('pt-br')
+]
+
+DunnoApp.constant 'angularMomentConfig',
+  timezone: 'America/Sao_Paulo'

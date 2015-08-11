@@ -7,6 +7,7 @@ class Event < ActiveRecord::Base
     mapping do
       indexes :course_id, type: :integer
       indexes :start_at, type: :date
+      indexes :order, type: :integer
     end
   end
 
@@ -24,38 +25,25 @@ class Event < ActiveRecord::Base
 
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
 
+  attr_accessor :order
+
   # ElasticSearch representation
   def as_indexed_json(*)
     {
       course_id: course_id,
-      start_at: start_at
+      start_at: start_at,
+      order: order
     }
-  end
-
-  def next_not_canceled
-    neighbors.not_canceled.where('start_at > ?', start_at).first
-  end
-
-  def neighbors
-    course.events
-  end
-
-  def order
-    @order ||= neighbors.index(self) + 1
-  end
-
-  def previous
-    neighbors[order - 1 - 1] if order > 1
-  end
-
-  def next
-    neighbors[order - 1 + 1] if order < neighbors.length
   end
 
   def formatted_status(profile)
     return "empty" if empty? || draft? && profile.role_in(course) == 'student'
     return "happened" if happened?
     status
+  end
+
+  def index_id
+    "#{course.id}/#{start_at.iso8601}"
   end
 
   private
