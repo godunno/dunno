@@ -13,13 +13,21 @@
     padding: 3rem 0;
     text-align: center;
 
+    a {
+      display: inline-block;
+    }
+
     @media #{$small-only} {
       padding: 1rem 0;
     }
   }
 
   .logo {
-    height: 4.125rem;
+    width: 10rem;
+
+    @media #{$small-only} {
+      width: 7rem;
+    }
   }
 
   a {
@@ -30,9 +38,14 @@
     @include radius();
     background-color: $white;
 
+    @media #{$small-only} {
+      @include radius(0);
+    }
+
     h4 {
       padding: 2rem 0;
       text-align: center;
+      text-transform: uppercase;
 
       @media #{$small-only} {
         padding: 1rem 0;
@@ -41,7 +54,6 @@
   }
 
   .login-form {
-    border-top: 1px solid $light-grey-color;
     overflow: hidden;
   }
 
@@ -72,7 +84,11 @@
 }
 
 .login-form {
-  padding: 1rem 1.5rem;
+  padding: 0 3rem 1rem;
+
+  @media #{$small-only} {
+    padding: 0 1.5rem 1rem;
+  }
 
   label {
     text-transform: uppercase;
@@ -116,6 +132,10 @@
   }
 
   .error {
-    margin-top: -1rem;
+    margin-top: -1.1875rem;
+  }
+
+  > .error {
+    margin-top: 0;
   }
 }

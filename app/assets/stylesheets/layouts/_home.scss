@@ -46,22 +46,11 @@
     }
 
     .button {
-      border: 1px solid $dunno-green-color;
       font-weight: 700;
       margin: 0 1.5rem 1rem;
 
       @media #{$small-only} {
         display: block;
-      }
-
-      &.transparent {
-        color: $dunno-green-color;
-      }
-
-      .icon {
-        color: $white;
-        position: relative;
-        top: 2px;
       }
     }
   }
