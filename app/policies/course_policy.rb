@@ -25,7 +25,5 @@ class CoursePolicy < ApplicationPolicy
 
   alias_method :send_notification?, :create?
 
-  alias_method :students?, :show?
-
   alias_method :search?, :register?
 end

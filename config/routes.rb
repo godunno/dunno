@@ -52,8 +52,6 @@ Rails.application.routes.draw do
           post :register
           delete :unregister
           get :search
-          # TODO: Check if this route is used
-          get :students
         end
       end
       namespace :utils do

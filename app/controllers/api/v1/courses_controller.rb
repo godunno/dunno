@@ -59,11 +59,6 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     render nothing: true, status: status
   end
 
-  def students
-    authorize course
-    @students = course.students
-  end
-
   def search
     @course = course(Course.all)
     authorize @course

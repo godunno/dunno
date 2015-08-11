@@ -273,23 +273,6 @@ describe Api::V1::CoursesController do
     end
   end
 
-  describe "GET /api/v1/courses/:uuid/students.json" do
-    before do
-      course.save!
-      do_action
-    end
-
-    def do_action
-      get "/api/v1/courses/#{course.uuid}/students.json", auth_params(teacher)
-    end
-
-    describe "students" do
-      let(:target) { student }
-      subject { json[0] }
-      it_behaves_like "request return check", %w(uuid name email)
-    end
-  end
-
   describe "POST /api/v1/courses.json" do
     skip "authorization"
 

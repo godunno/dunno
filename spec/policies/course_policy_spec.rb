@@ -44,12 +44,6 @@ describe CoursePolicy do
     it { is_expected.not_to permit(anyone, course) }
   end
 
-  permissions :students? do
-    it { is_expected.to permit(teacher, course) }
-    it { is_expected.to permit(student, course) }
-    it { is_expected.not_to permit(anyone, course) }
-  end
-
   permissions :search? do
     it { is_expected.not_to permit(teacher, course) }
     it { is_expected.not_to permit(student, course) }
