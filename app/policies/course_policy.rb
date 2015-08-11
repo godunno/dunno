@@ -1,8 +1,6 @@
 class CoursePolicy < ApplicationPolicy
   def show?
-    profile.role_in(record).present?
-  rescue ActiveRecord::RecordNotFound
-    false
+    profile.has_course?(record)
   end
 
   def create?
@@ -10,7 +8,7 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def register?
-    !show?
+    !profile.has_course?(record)
   end
 
   def unregister?
