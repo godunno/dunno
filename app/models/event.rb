@@ -43,7 +43,7 @@ class Event < ActiveRecord::Base
   end
 
   def index_id
-    "#{course.id}/#{start_at}"
+    "#{course.id}/#{start_at.iso8601}"
   end
 
   private

@@ -41,7 +41,6 @@ describe Api::V1::CoursesController do
           "order" => course.order,
           "access_code" => course.access_code,
           "institution" => course.institution,
-          "abbreviation" => course.abbreviation,
           "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
           "user_role" => "teacher",
           "students_count" => course.students.count,
@@ -57,8 +56,7 @@ describe Api::V1::CoursesController do
           "members" => [
             { "name" => "Teacher", "role" => "teacher" },
             { "name" => "Student", "role" => "student" }
-          ],
-          "teacher" => { "name" => teacher.name }
+          ]
         }])
       end
     end

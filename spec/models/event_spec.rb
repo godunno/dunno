@@ -118,6 +118,6 @@ describe Event do
 
   describe "#index_id" do
     let(:event) { create(:event) }
-    it { expect(event.index_id).to eq "#{event.course.id}/#{event.start_at}" }
+    it { expect(event.index_id).to eq "#{event.course.id}/#{event.start_at.iso8601}" }
   end
 end
