@@ -17,7 +17,7 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
       .course__members
         a.button.transparent.secondary.outline.radius.tiny[
           data-reveal-id="send-notification"
-          ng-if="course.user_role == 'teacher' && course.members.length > 0"]
+          ng-if="course.user_role == 'teacher' && course.members.length > 1"]
           i.icon.icon-buzz>
           | Notificar
         .course__members__count
