@@ -17,13 +17,6 @@
     margin: 0 .5rem;
     text-align: center;
   }
-
-  .show-for-small & {
-    border-bottom: .0625rem solid transparentize($dark-grey-color, .9);
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    text-align: right;
-  }
 }
 
 .course__member,
@@ -36,17 +29,6 @@
 .course__member__avatar {
   @include avatar();
   margin-right: .25rem;
-}
-
-.slide__mobile__info {
-  .icon {
-    color: $dunno-dark-color;
-    display: block;
-  }
-}
-
-.mobile__info__slide__toggle {
-  display: none;
 }
 
 .course__mobile__actions {
@@ -65,15 +47,4 @@
       }
     }
   }
-}
-
-// REFACTOR BELOW THIS LINE
-
-// scss-lint:disable SelectorFormat NestingDepth SelectorDepth PlaceholderInExtend IdSelector
-%side-box {
-  @include box-shadow();
-  background-color: $white;
-  border-radius: 5px;
-  margin-bottom: 21px;
-  padding: 20px;
 }
