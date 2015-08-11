@@ -7,7 +7,8 @@
         p Este código se refere à disciplina que o professor leciona e você está matriculado.
 
       form.search ng-submit="search(access_code)"
-        small.error ng-if="error" Código inválido!
+        small.error ng-if="error"
+          | {{error}}
         input.code.radius ng-model="access_code" type="text" placeholder="Código da disciplina" required=true
         button.submit.icon.icon-arrow
 
