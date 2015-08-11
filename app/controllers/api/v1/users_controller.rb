@@ -3,14 +3,14 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   def update
     current_user.update!(user_params)
     @resource = current_user
-    render "api/v1/sessions/#{current_user.profile_name}_sign_in"
+    render "api/v1/sessions/user_sign_in"
   end
 
   def update_password
     if current_user.update_with_password(password_params)
       sign_in current_user, bypass: true
       @resource = current_user
-      render "api/v1/sessions/#{current_user.profile_name}_sign_in"
+      render "api/v1/sessions/user_sign_in"
     else
       render json: { errors: current_user.errors.details }, status: 422
     end
