@@ -1,60 +1,102 @@
 ruby:
-  @title = 'Faça seu cadastro · Dunno'
+  @title = 'Cria sua conta no Dunno'
 / TODO: use the same markup for both sign_up and sign_in
 .login-page ng-controller="RegistrationsCtrl"
   = link_to root_path, class: 'root-proxy' do
     = image_tag "dunno-logo.png", class: :logo
-  form#sign_up name="user_form" ng-submit="sign_up(user)" novalidate=""
+  form#sign_up[
+    name="user_form"
+    ng-submit="sign_up(user)"
+    novalidate=""]
     .row.collapse
-      .login-container.small-12.medium-6.medium-centered.columns.end
+      .login-container.small-12.medium-6.medium-centered.columns
         h4.login-info
-          | Estudante, cadastre-se aqui.
+          | Criar minha conta
         .login-form
           span.error ng-show="hasError" ng-cloak=""
             | Erro ao realizar cadastro
           .name
             label for="name"
               | Nome
-            input#name.radius name="name" ng-model="user.name" type="text" required="" autofocus=""
-            small.error ng-show="user_form.name.$dirty && user_form.name.$invalid" ng-cloak="" ng-messages="user_form.name.$error"
+              span.required<
+                | *
+            input#name.radius[
+              name="name"
+              ng-model="user.name"
+              type="text"
+              required=""
+              autofocus=""]
+            small.error[
+              ng-show="user_form.name.$dirty && user_form.name.$invalid"
+              ng-cloak=""
+              ng-messages="user_form.name.$error"]
               span ng-message="required"
-                | Campo obrigatório
+                | O preenchimento do campo é obrigatório.
           .email
             label for="email"
               | Email
+              span.required<
+                | *
             / TODO: normalizar name dos inputs após POST via AJAX
-            input#email.radius name="email" ng-model="user.email" type="email" required=""
+            input#email.radius[
+              name="email"
+              ng-model="user.email"
+              type="email"
+              required=""]
             / TODO: DRY as mensagens de erro
-            small.error ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak="" ng-messages="user_form.email.$error"
+            small.error[
+              ng-show="user_form.email.$dirty && user_form.email.$invalid"
+              ng-cloak=""
+              ng-messages="user_form.email.$error"]
               span ng-message="required"
-                | Campo obrigatório
+                | O preenchimento do campo é obrigatório.
               span ng-message="email"
-                | Email inválido
+                | O email informado é inválido.
               span ng-message="taken"
-                | Email já registrado
+                | Já existe uma conta com o email informado.
           .password
             label for="password"
               | Senha
-            input#password.radius name="password" ng-model="user.password" type="password" required="" ng-minlength="8"
-            small.error ng-show="user_form.password.$dirty && user_form.password.$invalid" ng-cloak="" ng-messages="user_form.password.$error"
+              span.required<
+                | *
+            input#password.radius[
+              name="password"
+              ng-model="user.password"
+              type="password"
+              required=""
+              ng-minlength="8"]
+            small.error[
+              ng-show="user_form.password.$dirty && user_form.password.$invalid"
+              ng-cloak=""
+              ng-messages="user_form.password.$error"]
               span ng-message="required"
-                | Campo obrigatório
+                | O preenchimento do campo é obrigatório.
               span ng-message="minlength"
-                | A senha deve conter ao menos 8 caracteres
+                | Sua senha deve conter no mínimo 8 caracteres.
           .phone-number
             label for="phone_number"
               | Telefone
-            input.radius id="phone_number" name="phone_number" ng-model="user.phone_number" type="text" required="" ui-br-phone-number=true
-            small.error ng-show="user_form.phone_number.$dirty && user_form.phone_number.$invalid" ng-cloak="" ng-messages="user_form.phone_number.$error"
+              span.required<
+                | *
+            input.radius#phone_number[
+              ui-br-phone-number=true
+              name="phone_number"
+              ng-model="user.phone_number"
+              required=""
+              type="text"]
+            small.error[
+              ng-show="user_form.phone_number.$dirty && user_form.phone_number.$invalid"
+              ng-cloak=""
+              ng-messages="user_form.phone_number.$error"]
               span ng-message="required"
-                | Campo obrigatório
+                | O preenchimento do campo é obrigatório.
               span ng-message="br-phone-number"
-                | Formato inválido.
+                | O formato informado é inválido.
           .submit
             input.button.radius.large[
               ng-disabled="user_form.$invalid"
               type="submit"
-              value="Cadastrar"]
+              value="Criar minha conta"]
           .signin
-            = link_to "Já tenho cadastro.", new_user_session_path
+            | Já está no Dunno? #{link_to "Acesse sua conta.", new_user_session_path}
   = render "application/login_links"
