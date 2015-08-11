@@ -1,20 +1,21 @@
 ruby:
-  @title = 'Cria sua conta no Dunno'
+  @title = 'Criar minha conta no Dunno'
 / TODO: use the same markup for both sign_up and sign_in
 .login-page ng-controller="RegistrationsCtrl"
-  = link_to root_path, class: 'root-proxy' do
-    = image_tag "dunno-logo.png", class: :logo
+  .root-proxy
+    = link_to root_path, tabindex: 6 do
+      = image_tag "site/logo.png", class: :logo
   form#sign_up[
     name="user_form"
     ng-submit="sign_up(user)"
     novalidate=""]
-    .row.collapse
-      .login-container.small-12.medium-6.medium-centered.columns
+    .row.small-collapse
+      .login-container.small-12.medium-6.large-5.medium-centered.columns
         h4.login-info
           | Criar minha conta
         .login-form
           span.error ng-show="hasError" ng-cloak=""
-            | Erro ao realizar cadastro
+            | Ocorreu um erro ao criar sua conta.
           .name
             label for="name"
               | Nome
@@ -25,13 +26,14 @@ ruby:
               ng-model="user.name"
               type="text"
               required=""
+              tabindex=1
               autofocus=""]
             small.error[
               ng-show="user_form.name.$dirty && user_form.name.$invalid"
               ng-cloak=""
               ng-messages="user_form.name.$error"]
               span ng-message="required"
-                | O preenchimento do campo é obrigatório.
+                | É necessário informar seu nome.
           .email
             label for="email"
               | Email
@@ -42,6 +44,7 @@ ruby:
               name="email"
               ng-model="user.email"
               type="email"
+              tabindex=2
               required=""]
             / TODO: DRY as mensagens de erro
             small.error[
@@ -49,7 +52,7 @@ ruby:
               ng-cloak=""
               ng-messages="user_form.email.$error"]
               span ng-message="required"
-                | O preenchimento do campo é obrigatório.
+                | Você precisa informar seu email.
               span ng-message="email"
                 | O email informado é inválido.
               span ng-message="taken"
@@ -63,6 +66,7 @@ ruby:
               name="password"
               ng-model="user.password"
               type="password"
+              tabindex=3
               required=""
               ng-minlength="8"]
             small.error[
@@ -70,7 +74,7 @@ ruby:
               ng-cloak=""
               ng-messages="user_form.password.$error"]
               span ng-message="required"
-                | O preenchimento do campo é obrigatório.
+                | Você precisa escolher uma senha.
               span ng-message="minlength"
                 | Sua senha deve conter no mínimo 8 caracteres.
           .phone-number
@@ -82,6 +86,7 @@ ruby:
               ui-br-phone-number=true
               name="phone_number"
               ng-model="user.phone_number"
+              tabindex=4
               required=""
               type="text"]
             small.error[
@@ -89,14 +94,15 @@ ruby:
               ng-cloak=""
               ng-messages="user_form.phone_number.$error"]
               span ng-message="required"
-                | O preenchimento do campo é obrigatório.
+                | Você precisa preencher seu telefone.
               span ng-message="br-phone-number"
                 | O formato informado é inválido.
           .submit
             input.button.radius.large[
               ng-disabled="user_form.$invalid"
               type="submit"
-              value="Criar minha conta"]
+              tabindex=5
+              value="Criar"]
           .signin
             | Já está no Dunno? #{link_to "Acesse sua conta.", new_user_session_path}
   = render "application/login_links"
