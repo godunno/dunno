@@ -40,6 +40,17 @@
 }
 
 .page__header {
+  .page__header__header,
+  .page__header__info {
+    @media #{$small-only} {
+      text-align: center;
+    }
+  }
+
+  .page__header__info {
+    padding: 0 0 1rem;
+  }
+
   .page__header__subtitle {
     .course__teacher {
       &:after {

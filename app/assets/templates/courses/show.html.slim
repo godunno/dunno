@@ -1,6 +1,6 @@
 header.page__header ng-class="'scheme-' + (course.order % 12)"
   .row
-    .small-12.medium-8.columns
+    .small-12.medium-8.columns.page__header__header
       h2.page__header__title
         | {{course.name}}
       ul.page__header__subtitle
@@ -8,20 +8,18 @@ header.page__header ng-class="'scheme-' + (course.order % 12)"
           img.has-tip.radius.course__member__avatar[
             user-avatar="{{course.teacher.name}}"
             tooltip="{{course.teacher.name}}"]
-        li ng-if="!!course.institution"
-          | {{course.institution}}
+          strong
+            | {{course.teacher.name}}
         li ng-if="!!course.class_name"
           | {{course.class_name}}
-        li
-          | {{course.start_date | date: 'shortDate'}}—{{course.end_date | date: 'shortDate'}}
 
     .page__header__info.small-12.medium-4.columns
       .course__members
-        a.button.dark.radius.tiny[
+        a.button.transparent.secondary.outline.radius.tiny[
           data-reveal-id="send-notification"
           ng-if="course.user_role == 'teacher' && course.members.length > 0"]
           i.icon.icon-buzz>
-          | Notificação
+          | Notificar
         .course__members__count
           i.icon.icon-users>
           | {{course.members.length}}
