@@ -12,18 +12,7 @@ describe SendNotification do
   let(:delayed_mailer) { double("Delayed Mailer", notify: nil) }
 
   before do
-    allow(SmsNotificationWorker).to receive(:perform_async)
     allow(NotificationMailer).to receive(:delay).and_return(delayed_mailer)
-  end
-
-  it "should notify all users with SMS" do
-    users.each do |user|
-      expect(SmsNotificationWorker).to receive(:perform_async).with(
-        complete_message,
-        user.phone_number
-      )
-    end
-    SendNotification.new(message: message, course: course).call
   end
 
   it "should notify all users with e-mail" do

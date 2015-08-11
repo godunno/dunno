@@ -8,7 +8,6 @@ class SendNotification
   def call
     notification.save!
     @users.each do |user|
-      send_sms(user.phone_number)
       send_email(user.email)
     end
   end
@@ -25,10 +24,6 @@ class SendNotification
 
   def email_subject
     "[Dunno] Notificação de #{@course.abbreviation}"
-  end
-
-  def send_sms(phone_number)
-    SmsNotificationWorker.perform_async(message, phone_number)
   end
 
   def send_email(email)
