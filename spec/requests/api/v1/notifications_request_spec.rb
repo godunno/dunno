@@ -61,11 +61,9 @@ describe Api::V1::NotificationsController do
       end
 
       context "notificating a course" do
-        let(:sms_provider) { double("sms_provider", notify: nil) }
         let(:mail) { double("mail", deliver: nil) }
 
         before do
-          allow(SmsProvider).to receive(:new).and_return(sms_provider)
           allow(NotificationMailer).to receive(:notify).and_return(mail)
           do_action
         end
