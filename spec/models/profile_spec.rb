@@ -18,7 +18,6 @@ describe Profile, type: :model do
   end
 
   describe "validations" do
-
     describe "#courses" do
       let(:profile) { create(:profile) }
       let(:course) { create(:course) }
@@ -42,6 +41,17 @@ describe Profile, type: :model do
 
     it { expect(teacher.role_in(course)).to eq('teacher') }
     it { expect(student.role_in(course)).to eq('student') }
+  end
+
+  describe "has_course?" do
+    let(:course) { create(:course, teacher: teacher, students: [student]) }
+    let(:teacher) { create(:profile) }
+    let(:student) { create(:profile) }
+    let(:another_profile) { create(:profile) }
+
+    it { expect(teacher).to have_course(course) }
+    it { expect(student).to have_course(course) }
+    it { expect(another_profile).to_not have_course(course) }
   end
 
   describe "#create_course!" do
