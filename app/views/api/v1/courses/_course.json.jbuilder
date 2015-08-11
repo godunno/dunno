@@ -4,6 +4,7 @@ json.color(SHARED_CONFIG["v1"]["courses"]["schemes"][course.order])
 json.user_role(current_profile.role_in(course))
 json.students_count(course.students.count)
 json.teacher(course.teacher, :name)
+json.active course.active?
 
 json.weekly_schedules course.weekly_schedules do |weekly_schedule|
   json.(weekly_schedule, :uuid, :weekday, :start_time, :end_time, :classroom)

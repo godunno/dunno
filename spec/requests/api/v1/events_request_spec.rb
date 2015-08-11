@@ -73,6 +73,7 @@ describe Api::V1::EventsController do
             "course" =>  {
               "uuid" => course.uuid,
               "name" => course.name,
+              "active" => true,
               "start_date" => course.start_date.to_s,
               "end_date" => course.end_date.to_s,
               "abbreviation" => course.abbreviation,
@@ -300,6 +301,7 @@ describe Api::V1::EventsController do
             "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][new_course.order],
             "user_role" => "teacher",
             "students_count" => 0,
+            "active"=> true,
             "teacher" => { "name" => profile.name },
             "weekly_schedules" => [
               "uuid" => weekly_schedule.uuid,
