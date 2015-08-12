@@ -27,7 +27,7 @@ describe CourseScheduler do
     end
 
     it "starts in the right time for the weekly schedule" do
-      expect(TimeOfDay(events.first.start_at)).to eq TimeOfDay.parse(weekly_schedule.start_time)
+      expect(Tod::TimeOfDay(events.first.start_at)).to eq Tod::TimeOfDay.parse(weekly_schedule.start_time)
     end
 
     context "concerning non-persisted events" do

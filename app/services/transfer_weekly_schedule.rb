@@ -36,7 +36,7 @@ class TransferWeeklySchedule
   end
 
   def time_to_i(time)
-    TimeOfDay.parse(time).to_i
+    Tod::TimeOfDay.parse(time).to_i
   end
 
   def duration

@@ -16,7 +16,7 @@ gem 'devise',                     '3.5.1'
 gem 'rabl',                       '0.11.6'
 gem 'oj',                         '2.12.9'
 # TODO: Replace both with https://github.com/seejohnrun/ice_cube
-gem 'tod',                        '1.5.0'
+gem 'tod',                        '2.0.2'
 gem 'recurrence',                 '1.3.0'
 gem 'virtus',                     '1.0.5'
 gem 'foundation-rails',           '5.5.2.1'

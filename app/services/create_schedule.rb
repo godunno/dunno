@@ -23,8 +23,8 @@ class CreateSchedule
       until:  @end_date
     )
 
-    start_time = TimeOfDay.parse(weekly_schedule.start_time)
-    end_time = TimeOfDay.parse(weekly_schedule.end_time)
+    start_time = Tod::TimeOfDay.parse(weekly_schedule.start_time)
+    end_time = Tod::TimeOfDay.parse(weekly_schedule.end_time)
 
     schedule.map do |date|
       range_start = date.in_time_zone.change(

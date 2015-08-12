@@ -588,7 +588,7 @@ GEM
     timecop (0.7.1)
     timers (4.0.1)
       hitimes
-    tod (1.5.0)
+    tod (2.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -714,7 +714,7 @@ DEPENDENCIES
   slim-rails (= 3.0.1)
   teaspoon-jasmine (= 2.2.0)
   timecop (= 0.7.1)
-  tod (= 1.5.0)
+  tod (= 2.0.2)
   uglifier (= 2.7.1)
   unicorn (= 4.8.3)
   vcr (= 2.9.3)

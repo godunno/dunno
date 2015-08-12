@@ -21,7 +21,7 @@ class FindWeeklySchedule
   private
 
   def end_time
-    @end_time ||= TimeOfDay.parse(weekly_schedule.end_time)
+    @end_time ||= Tod::TimeOfDay.parse(weekly_schedule.end_time)
   end
 
   def weekly_schedule
