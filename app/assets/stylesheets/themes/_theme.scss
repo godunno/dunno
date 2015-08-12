@@ -29,6 +29,11 @@
 .right-off-canvas-menu {
   color: $white;
   min-height: 100vh;
+
+  .legal {
+    opacity: .75;
+    padding-top: 1rem;
+  }
 }
 
 footer {
