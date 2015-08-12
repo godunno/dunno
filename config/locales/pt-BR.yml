@@ -211,3 +211,8 @@ pt-BR:
           attributes:
             email:
               not_found: não encontrado.
+
+  pundit:
+    course_policy:
+      search?: &course_policy_search 'Você já faz parte desta disciplina.'
+      register?: *course_policy_search

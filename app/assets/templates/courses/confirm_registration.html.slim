@@ -6,21 +6,26 @@
   .course
 
     .box
+      small.error ng-if="error"
+        | {{error}}
       .form-group
         .form-item
           label Disciplina
-          span.text.strong {{course.name}}
+          span.text.strong
+            | {{course.name}}
 
       hr
 
       .form-group
         .form-item.left ng-if="!!course.class_name"
           label Turma
-          span.text {{course.class_name}}
+          span.text
+            | {{course.class_name}}
 
         .form-item.left ng-if="!!course.institution"
           label Instituição
-          span.text {{course.institution}}
+          span.text
+            | {{course.institution}}
 
       hr
 
@@ -28,8 +33,8 @@
         .form-item
           label Professor
           .user-info
-            /img src="http://lorempixel.com/36/36"
-            span.text {{course.teacher.name}}
+            span.text
+              | {{course.teacher.name}}
 
     button.button.radius.success ng-click="register(course)" Confirmo, é esta minha disciplina!
     hr

@@ -1,15 +1,23 @@
-DunnoApp = angular.module('DunnoApp')
+CourseSearchCtrl = ($scope, $state, Course, PageLoading) ->
+  $scope.search = (accessCode) ->
+    PageLoading.resolve Course.search(accessCode)
+    .then(goToConfirmation(accessCode))
+    .catch(handleErrors)
 
-CourseSearchCtrl = ($scope, $location, Course, SessionManager, PageLoading)->
-  $scope.search = (accessCode)->
-    if (SessionManager.currentUser().courses.indexOf accessCode) != -1
-      $location.path "/courses/#{accessCode}"
-    else
-      $scope.error = false
-      PageLoading.resolve Course.search(accessCode).then((course)->
-        $location.path "/courses/#{accessCode}/confirm_registration"
-      ).catch ->
-        $scope.error = true
+  goToConfirmation = (accessCode) ->
+    $state.go '^.confirm_registration', { id: accessCode }
 
-CourseSearchCtrl.$inject = ['$scope', '$location', 'Course', 'SessionManager', 'PageLoading']
-DunnoApp.controller 'CourseSearchCtrl', CourseSearchCtrl
+  handleErrors = (err) ->
+    switch err.status
+      when 404
+        $scope.error = "Código de disciplina não existe. Verifique e tente novamente."
+      when 422
+        $scope.error = err.data.errors.unprocessable
+      else
+        $scope.error = "Ocorreu um erro. Tente novamente mais tarde ou entre em contato. "
+
+CourseSearchCtrl.$inject = ['$scope', '$state', 'Course', 'PageLoading']
+
+angular
+  .module('DunnoApp')
+  .controller 'CourseSearchCtrl', CourseSearchCtrl

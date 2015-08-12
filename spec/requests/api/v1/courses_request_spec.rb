@@ -259,7 +259,7 @@ describe Api::V1::CoursesController do
   end
 
   describe "POST /api/v1/courses/:uuid/register" do
-    let(:new_course) { create :course }
+    let(:new_course) { create :course, teacher: teacher }
 
     it { expect(student.courses).not_to include(new_course) }
     it { expect(new_course.students).to eq([]) }
@@ -302,10 +302,17 @@ describe Api::V1::CoursesController do
 
         before { do_action }
 
-        it do
-          expect { do_action }.to raise_error(Pundit::NotAuthorizedError)
-          expect(new_course.students.reload).to eq([student])
+        def do_action
+          post "/api/v1/courses/#{identifier}/register.json", auth_params(teacher).to_json
         end
+
+        it do
+          expect(json).to eq(
+            "errors" => { "unprocessable" => "Você já faz parte desta disciplina." }
+          )
+        end
+
+        it { expect(last_response.status).to eq 422 }
       end
     end
   end
@@ -339,23 +346,6 @@ describe Api::V1::CoursesController do
       let(:identifier) { 'not-found' }
 
       it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
-    end
-  end
-
-  describe "GET /api/v1/courses/:uuid/students.json" do
-    before do
-      course.save!
-      do_action
-    end
-
-    def do_action
-      get "/api/v1/courses/#{course.uuid}/students.json", auth_params(teacher)
-    end
-
-    describe "students" do
-      let(:target) { student }
-      subject { json[0] }
-      it_behaves_like "request return check", %w(uuid name email)
     end
   end
 
@@ -504,6 +494,20 @@ describe Api::V1::CoursesController do
             "teacher" => { "name" =>  teacher.name }
           }
         )
+      end
+
+      context "with user already part of course" do
+        def do_action
+          get "/api/v1/courses/#{identifier}/search.json", auth_params(teacher)
+        end
+
+        it do
+          expect(json).to eq(
+            "errors" => { "unprocessable" => "Você já faz parte desta disciplina." }
+          )
+        end
+
+        it { expect(last_response.status).to eq 422 }
       end
     end
   end

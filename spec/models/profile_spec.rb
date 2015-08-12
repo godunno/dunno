@@ -18,7 +18,6 @@ describe Profile, type: :model do
   end
 
   describe "validations" do
-
     describe "#courses" do
       let(:profile) { create(:profile) }
       let(:course) { create(:course) }
@@ -42,6 +41,42 @@ describe Profile, type: :model do
 
     it { expect(teacher.role_in(course)).to eq('teacher') }
     it { expect(student.role_in(course)).to eq('student') }
+  end
+
+  describe "has_course?" do
+    let(:course) { create(:course, teacher: teacher, students: [student]) }
+    let(:teacher) { create(:profile) }
+    let(:student) { create(:profile) }
+    let(:another_profile) { create(:profile) }
+
+    it { expect(teacher).to have_course(course) }
+    it { expect(student).to have_course(course) }
+    it { expect(another_profile).to_not have_course(course) }
+  end
+
+  describe "#students_count" do
+    let!(:course) { create(:course, teacher: teacher, students: [student]) }
+    let!(:other_course) { create(:course, teacher: teacher, students: [student, another_student]) }
+    let!(:teacher) { create(:profile) }
+    let!(:student) { create(:profile) }
+    let!(:another_student) { create(:profile) }
+
+    it { expect(teacher.students_count).to eq 2 }
+    it { expect(student.students_count).to eq 0 }
+  end
+
+  describe "#notifications_count" do
+    let!(:course) { create(:course, teacher: teacher, students: [student, another_student]) }
+    let!(:teacher) { create(:profile) }
+    let!(:student) { create(:profile) }
+    let!(:another_student) { create(:profile) }
+
+    before do
+      SendNotification.new(course: course, message: "test").call
+    end
+
+    pending { expect(teacher.notifications_count).to eq 2 }
+    it { expect(student.notifications_count).to eq 0 }
   end
 
   describe "#create_course!" do

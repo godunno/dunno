@@ -48,6 +48,8 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
                                                   courseUuid: course.uuid
                                                  )
     render nothing: true
+  rescue Pundit::NotAuthorizedError => exception
+    rescue_unauthorized(exception)
   end
 
   def unregister
@@ -57,17 +59,23 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     render nothing: true, status: status
   end
 
-  def students
-    authorize course
-    @students = course.students
-  end
-
   def search
     @course = course(Course.all)
     authorize @course
+  rescue Pundit::NotAuthorizedError => exception
+    rescue_unauthorized(exception)
   end
 
   private
+
+  def rescue_unauthorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+    render json: {
+      errors: {
+        unprocessable: t("#{policy_name}.#{exception.query}", scope: "pundit")
+      }
+    }, status: 422
+  end
 
   def course(scope = current_profile.courses)
     @course ||= scope.find_by_identifier!(params[:id])

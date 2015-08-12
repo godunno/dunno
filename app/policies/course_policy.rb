@@ -1,8 +1,6 @@
 class CoursePolicy < ApplicationPolicy
   def show?
-    profile.role_in(record).present?
-  rescue ActiveRecord::RecordNotFound
-    false
+    profile.has_course?(record)
   end
 
   def create?
@@ -10,7 +8,7 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def register?
-    !show?
+    !profile.has_course?(record)
   end
 
   def unregister?
@@ -24,8 +22,6 @@ class CoursePolicy < ApplicationPolicy
   alias_method :destroy?, :create?
 
   alias_method :send_notification?, :create?
-
-  alias_method :students?, :show?
 
   alias_method :search?, :register?
 end
