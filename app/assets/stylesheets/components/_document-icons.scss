@@ -72,4 +72,22 @@
       font-size: 6px;
     }
   }
+
+  &.icon__document__url,
+  &.icon__document__file {
+    background: $medium-grey-color;
+    color: $light-grey-color;
+  }
+
+  &.icon__document__url {
+    &:before {
+      content: "\e010";
+    }
+  }
+
+  &.icon__document__file {
+    &:before {
+      content: "\e00f";
+    }
+  }
 }
