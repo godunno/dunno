@@ -4,8 +4,8 @@ class Media < ActiveRecord::Base
   include Elasticsearch::Model
   index_name [Rails.env, model_name.collection].join('_')
 
-  after_commit on: [:create, :update] { Indexer.perform_async(:index, id) }
-  after_commit on: [:destroy] { Indexer.perform_async(:delete, id) }
+  after_commit on: [:create, :update] { IndexerWorker.perform_async(:index, id) }
+  after_commit on: [:destroy] { IndexerWorker.perform_async(:delete, id) }
 
   CATEGORIES = %w(image video audio)
 
@@ -21,6 +21,7 @@ class Media < ActiveRecord::Base
   mount_uploader :file_carrierwave, FileUploader
 
   delegate :event, to: :mediable
+  alias_method :index_id, :id
 
   settings index: { number_of_shards: 1 }, analysis: {
     tokenizer: {

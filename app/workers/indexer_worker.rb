@@ -1,6 +1,6 @@
 # https://github.com/elasticsearch/elasticsearch-rails/tree/master/elasticsearch-model#asynchronous-callbacks
 
-class Indexer
+class IndexerWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'elasticsearch', retry: false
 
@@ -13,10 +13,9 @@ class Indexer
 
     case operation.to_s
     when "index"
-      record = Media.find(record_id)
-      client.index index: Media.index_name, type: 'media', id: record.id, body: record.as_indexed_json
+      Indexer.new(Media.find(record_id)).index
     when "delete"
-      client.delete index: Media.index_name, type: 'media', id: record_id
+      Indexer.new(Media.new(id: record_id)).delete
     else fail ArgumentError, "Unknown operation '#{operation}'"
     end
   end
