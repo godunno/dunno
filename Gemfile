@@ -91,6 +91,7 @@ group :development do
   gem 'rubocop',                  '0.32.1'
   gem 'foreman',                  '0.78.0'
   gem 'letter_opener',            '1.4.1'
+  gem 'pre-commit',               '0.24.0'
 end
 
 group :test do
