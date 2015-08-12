@@ -1,17 +1,22 @@
 require 'spec_helper'
 
 describe CourseScheduler do
-  before { Timecop.freeze Time.zone.parse('2015-07-21 18:00') }
-  after { Timecop.return }
-
-  let!(:course) { create(:course, start_date: nil, end_date: nil) }
-  let!(:weekly_schedule) { create(:weekly_schedule, weekday: 1, course: course, classroom: '1A', start_time: '09:00', end_time: '11:00') }
+  let(:course) { create(:course, start_date: nil, end_date: nil) }
+  let(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, classroom: '1A', start_time: '09:00', end_time: '11:00') }
   let(:service) { CourseScheduler.new(course) }
   let(:events) { service.events }
   let(:next_month) { 1.month.from_now.beginning_of_month..1.month.from_now.end_of_month }
   let(:month_in_next_year) { 1.year.from_now.beginning_of_month..1.year.from_now.end_of_month }
   let(:next_month_events) { CourseScheduler.new(course, next_month).events }
   let(:next_year_events) { CourseScheduler.new(course, month_in_next_year).events }
+
+  before do
+    Timecop.freeze Time.zone.parse('2015-07-21 18:00')
+    weekly_schedule.save!
+    course.reload
+  end
+
+  after { Timecop.return }
 
   context 'with no events already created' do
     it "starts counting by when the course was created by default" do
@@ -60,6 +65,8 @@ describe CourseScheduler do
 
     context "with more than one weekly schedule" do
       let!(:other_weekly_schedule) { create(:weekly_schedule, weekday: 5, course: course) }
+      
+      before { course.reload }
 
       it "has occurrences for both weekly schedules" do
         expect(events.size).to eq 3

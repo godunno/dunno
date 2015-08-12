@@ -31,8 +31,9 @@ class WeeklySchedule < ActiveRecord::Base
   def check_overlapping
     return unless course.present?
     course.weekly_schedules.each do |weekly_schedule|
+      next if weekly_schedule == self
       next if weekly_schedule.weekday != weekday
-      errors.add(:start_time) if weekly_schedule.overlaps?(range)
+      errors.add(:start_time, :overlapping) if weekly_schedule.overlaps?(range)
     end
   end
 end

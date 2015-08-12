@@ -85,6 +85,20 @@ describe WeeklySchedule do
 
         it { is_expected.to be_valid }
       end
+
+      context "updating existing weekly schedule" do
+        let(:start_time) { '08:00' }
+        let(:end_time) { '09:30' }
+
+        before do
+          weekly_schedule.start_time = start_time
+          weekly_schedule.end_time = end_time
+        end
+
+        subject { weekly_schedule }
+
+        it { is_expected.to be_valid }
+      end
     end
   end
 
