@@ -11,6 +11,11 @@
     border-right: .0625rem solid $light-grey-color;
     padding: .25rem 0;
     text-align: center;
+
+    @media #{$small-only} {
+      border-bottom: .0625rem solid $light-grey-color;
+      border-right: 0;
+    }
   }
 
   .dates__header__navigation {
