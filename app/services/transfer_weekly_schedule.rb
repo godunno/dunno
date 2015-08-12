@@ -1,7 +1,6 @@
 class TransferWeeklySchedule
   attr_reader :weekly_schedule, :attributes
   delegate :course, to: :weekly_schedule
-  delegate :events, to: :course
 
   def initialize(options)
     @weekly_schedule = options.fetch(:from)
@@ -13,6 +12,13 @@ class TransferWeeklySchedule
       update_events!
       update_weekly_schedule!
     end
+  end
+
+  def affected_events
+    @affected_events ||= old_schedule
+    .all_occurrences
+    .map { |occurrence| find_event(occurrence) }
+    .select(&:present?)
   end
 
   private
@@ -48,7 +54,6 @@ class TransferWeeklySchedule
   end
 
   def update_event!(event)
-    return unless event.present?
     event.start_at = event.start_at + time_span
     event.end_at = event.start_at + duration
     event.classroom = new_weekly_schedule.classroom
@@ -60,9 +65,7 @@ class TransferWeeklySchedule
   end
 
   def update_events!
-    old_schedule.all_occurrences_enumerator.each do |occurrence|
-      update_event!(find_event(occurrence))
-    end
+    affected_events.each { |event| update_event!(event) }
   end
 
   def new_weekly_schedule

@@ -7,7 +7,8 @@ describe TransferWeeklySchedule do
   let(:attributes) { { weekday: weekday, start_time: '14:00', end_time: '17:00', classroom: 'B1' } }
   let(:new_end_at) { new_start_at + 3.hours }
   let(:old_end_at) { old_start_at + 2.hours }
-  let!(:event) { create(:event, course: course, start_at: old_start_at, end_at: old_end_at, classroom: weekly_schedule.classroom) }
+  let!(:affected_event) { create(:event, course: course, start_at: old_start_at, end_at: old_end_at, classroom: weekly_schedule.classroom) }
+  let!(:non_affected_event) { create(:event, course: course, start_at: old_start_at + 1.day, end_at: old_end_at + 1.day) }
   let(:service) { TransferWeeklySchedule.new(from: weekly_schedule, to: attributes) }
 
   def new_weekly_schedule
@@ -17,13 +18,18 @@ describe TransferWeeklySchedule do
   before do
     Timecop.freeze frozen_in_time
     service.transfer!
-    [event, weekly_schedule].each(&:reload)
+    [affected_event, non_affected_event, weekly_schedule].each(&:reload)
   end
 
   shared_examples_for "event rescheduling" do
-    it { expect(event.start_at).to eq new_start_at }
-    it { expect(event.end_at).to eq new_end_at }
-    it { expect(event.classroom).to eq attributes[:classroom] }
+    it { expect(affected_event.start_at).to eq new_start_at }
+    it { expect(affected_event.end_at).to eq new_end_at }
+    it { expect(affected_event.classroom).to eq attributes[:classroom] }
+
+    it { expect(non_affected_event.start_at).to eq old_start_at + 1.day }
+    it { expect(non_affected_event.end_at).to eq old_end_at + 1.day }
+
+    it { expect(service.affected_events).to eq [affected_event] }
 
     describe "weekly schedule" do
       subject { weekly_schedule.reload }
