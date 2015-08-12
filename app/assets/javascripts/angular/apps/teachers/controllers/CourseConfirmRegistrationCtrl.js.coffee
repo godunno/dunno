@@ -7,7 +7,7 @@ CourseConfirmRegistrationCtrl = ($scope, $state, PageLoading, course) ->
     .catch(handleErrors)
 
   goToCourses = ->
-    $state.go 'courses', {}, reload: true
+    $state.go '^', {}, reload: true
 
   handleErrors = (err) ->
     switch err.status

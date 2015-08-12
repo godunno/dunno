@@ -5,7 +5,7 @@ CourseSearchCtrl = ($scope, $state, Course, PageLoading) ->
     .catch(handleErrors)
 
   goToConfirmation = (accessCode) ->
-    $state.go 'courses.confirm_registration', { id: accessCode }
+    $state.go '^.confirm_registration', { id: accessCode }
 
   handleErrors = (err) ->
     switch err.status
