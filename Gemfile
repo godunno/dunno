@@ -114,4 +114,5 @@ group :development, :test do
   gem 'timecop',                  '0.7.1'
   gem 'rspec_api_documentation',  '4.3.0'
   gem 'teaspoon-jasmine',         '2.2.0'
+  gem 'rspec_junit_formatter', '0.2.2'
 end
