@@ -1,17 +1,17 @@
-$formats: (
+ $formats: (
   doc: #4790ce,
   docx: #4790ce,
-  xls: #42c488,
-  xlsx: #42c488,
+  html: #f2f2f2,
+  key: #1ee2e5,
+  numbers: #3bd990,
+  pages: #f2c84b,
+  pdf: #e84b40,
   ppt: #ea8230,
   pptx: #ea8230,
-  pdf: #e84b40,
-  html: #f2f2f2,
   rtf: #f2f2f2,
   txt: #f2f2f2,
-  key: #1ee2e5,
-  pages: #f2c84b,
-  numbers: #3bd990
+  xls: #42c488,
+  xlsx: #42c488
 );
 
 .icon {
@@ -21,8 +21,8 @@ $formats: (
     font-size: 2rem;
     height: 4rem;
     line-height: 4.25rem;
-    margin-right: .5rem;
     margin-bottom: .5rem;
+    margin-right: .5rem;
     position: relative;
     text-align: center;
     width: 4rem;
@@ -32,7 +32,7 @@ $formats: (
       font-style: normal;
       line-height: 0;
       position: absolute;
-      right: 0.25rem;
+      right: .25rem;
       text-align: right;
       text-transform: uppercase;
       top: 2.3rem;
@@ -42,18 +42,16 @@ $formats: (
       &.icon__document__#{$format} {
         background: $color;
 
-        @if $color == #f2f2f2 {
+        @if $color == #f2f2f2 { // scss-lint:disable ColorVariable
           color: $medium-grey-color;
-        }
-        @else {
+        } @else {
           color: $white;
         }
 
         &:after {
-          @if $color == #f2f2f2 {
+          @if $color == #f2f2f2 { // scss-lint:disable ColorVariable
             color: $medium-grey-color;
-          }
-          @else {
+          } @else {
             color: $white;
           }
 
