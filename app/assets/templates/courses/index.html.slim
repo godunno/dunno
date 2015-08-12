@@ -12,6 +12,9 @@ ui-view
         a.button.radius.small ng-click="vm.openNewCourseForm()"
           | Criar disciplina
   .courses__page
+    .small-5.columns.small-centered
+      - %w(doc docx xls xlsx ppt pptx pdf html rtf txt key pages numbers).each do |d|
+        i.icon.icon-document[class="icon__document__#{d}"]
     .row
       .small-12.medium-10.medium-centered.columns.text-center ng-if="vm.activeCourses.length == 0"
         .small-12.columns

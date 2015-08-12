@@ -1,0 +1,65 @@
+$formats: (
+  doc: #4790ce,
+  docx: #4790ce,
+  xls: #42c488,
+  xlsx: #42c488,
+  ppt: #ea8230,
+  pptx: #ea8230,
+  pdf: #e84b40,
+  html: #f2f2f2,
+  rtf: #f2f2f2,
+  txt: #f2f2f2,
+  key: #1ee2e5,
+  pages: #f2c84b,
+  numbers: #3bd990
+);
+
+.icon {
+  &.icon-document {
+    @include radius(5rem);
+    display: inline-block;
+    font-size: 2rem;
+    height: 4rem;
+    line-height: 4.25rem;
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+    position: relative;
+    text-align: center;
+    width: 4rem;
+
+    &:after {
+      font-size: .75rem;
+      font-style: normal;
+      line-height: 0;
+      position: absolute;
+      right: 0.25rem;
+      text-align: right;
+      text-transform: uppercase;
+      top: 2.3rem;
+    }
+
+    @each $format, $color in $formats {
+      &.icon__document__#{$format} {
+        background: $color;
+
+        @if $color == #f2f2f2 {
+          color: $medium-grey-color;
+        }
+        @else {
+          color: $white;
+        }
+
+        &:after {
+          @if $color == #f2f2f2 {
+            color: $medium-grey-color;
+          }
+          @else {
+            color: $white;
+          }
+
+          content: '#{$format}';
+        }
+      }
+    }
+  }
+}
