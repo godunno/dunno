@@ -2,3 +2,13 @@ machine:
   services:
     - elasticsearch
     - redis
+deployment:
+  staging:
+    branch: master
+    commands:
+      - heroku maintenance:on --app dunnovc-staging
+      - heroku scale worker=0 --app dunnovc-staging
+      - git push git@heroku.com:dunnovc-staging.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app dunnovc-staging
+      - heroku scale worker=x --app dunnovc-staging
+      - heroku maintenance:off --app dunnovc-staging
