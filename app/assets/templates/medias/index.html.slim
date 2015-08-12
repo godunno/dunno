@@ -1,7 +1,9 @@
 header.page__title
-  a ng-click="clearSearch()"
-    h1.main__page__title
-      | Catálogo
+  .row
+    .small-12.columns
+      h1.main__page__title
+        span ng-click="clearSearch()"
+          | Catálogo
 .catalog__page.row
   .blankslate.small-12.medium-6.medium-centered.columns[ng-if="showTutorial()"]
     p.blankslate__how-to
