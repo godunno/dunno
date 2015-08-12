@@ -16,48 +16,60 @@
 
 .icon {
   &.icon-document {
-    @include radius(5rem);
+    @include radius();
     display: inline-block;
-    font-size: 2rem;
-    height: 4rem;
-    line-height: 4.25rem;
+    font-size: 1.75rem;
+    height: 2.75rem;
+    line-height: 3rem;
     margin-bottom: .5rem;
     margin-right: .5rem;
     position: relative;
     text-align: center;
-    width: 4rem;
+    width: 2.75rem;
 
     &:after {
-      font-size: .75rem;
+      font-size: .625rem;
       font-style: normal;
       line-height: 0;
       position: absolute;
-      right: .25rem;
+      right: .15rem;
       text-align: right;
       text-transform: uppercase;
-      top: 2.3rem;
+      top: 1.7rem;
     }
+  }
 
-    @each $format, $color in $formats {
-      &.icon__document__#{$format} {
-        background: $color;
+  @each $format, $color in $formats {
+    &.icon__document__#{$format} {
+      background: $color;
 
+      @if $color == #f2f2f2 { // scss-lint:disable ColorVariable
+        color: $medium-grey-color;
+      } @else {
+        color: $white;
+      }
+
+      &:after {
         @if $color == #f2f2f2 { // scss-lint:disable ColorVariable
           color: $medium-grey-color;
         } @else {
           color: $white;
         }
 
-        &:after {
-          @if $color == #f2f2f2 { // scss-lint:disable ColorVariable
-            color: $medium-grey-color;
-          } @else {
-            color: $white;
-          }
-
-          content: '#{$format}';
-        }
+        content: '#{$format}';
       }
+    }
+  }
+
+  &.icon__document__pages {
+    &:after {
+      font-size: 8px;
+    }
+  }
+
+  &.icon__document__numbers {
+    &:after {
+      font-size: 6px;
     }
   }
 }
