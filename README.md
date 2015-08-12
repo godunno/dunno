@@ -48,6 +48,14 @@ Checks you have to do:
 5. Is code coverage 100%?
 6. Do the project have Rollbar or Airbrake configured in production environment?
 
+7. (optional) You can use [pre-commit](https://github.com/jish/pre-commit) hooks to validate your code before commiting by:
+
+```
+$ pre-commit install
+$ git config pre-commit.checks "HERE_GOES_THE_STUFF_YOU_WANNA_CHECK"
+```
+
+
 ## Create remote git repository
 
 1. Create git repo.
