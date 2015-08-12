@@ -27,6 +27,12 @@ class Event < ActiveRecord::Base
 
   attr_accessor :order
 
+  def self.import
+    Course.find_each do |course|
+      CourseEventsIndexer.index!(course)
+    end
+  end
+
   # ElasticSearch representation
   def as_indexed_json(*)
     {

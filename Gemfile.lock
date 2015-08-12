@@ -646,7 +646,7 @@ DEPENDENCIES
   foreman (= 0.78.0)
   foundation-rails (= 5.5.2.1)
   google_drive (= 1.0.0)
-  ice_cube
+  ice_cube (= 0.13.0)
   intercom-rails (= 0.2.27)
   jbuilder (= 2.3.1)
   jquery-rails (= 3.1.2)
@@ -688,7 +688,6 @@ DEPENDENCIES
   rails-assets-arktisklada--jquery-ui-touch-punch (= 0.2.3)!
   rails-assets-greensock (= 1.17.0)!
   rails-assets-jquery-maskedinput (= 1.4.0)!
-  rails-assets-jquery-timepicker-jt (= 1.8.1)!
   rails-assets-lunks--angulartics (= 0.18.0)!
   rails-assets-lunks--ngTagsInput (= 3.0.0)!
   rails-assets-modernizr (= 2.8.3)!
