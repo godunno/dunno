@@ -3,39 +3,11 @@
   .medium-12.medium-centered.columns
     h2 É esta mesmo a disciplina na qual deseja entrar?
 
-  .course
+  small.error ng-if="error"
+    | {{error}}
 
-    .box
-      small.error ng-if="error"
-        | {{error}}
-      .form-group
-        .form-item
-          label Disciplina
-          span.text.strong
-            | {{course.name}}
+  course-card
 
-      hr
-
-      .form-group
-        .form-item.left ng-if="!!course.class_name"
-          label Turma
-          span.text
-            | {{course.class_name}}
-
-        .form-item.left ng-if="!!course.institution"
-          label Instituição
-          span.text
-            | {{course.institution}}
-
-      hr
-
-      .form-group
-        .form-item
-          label Professor
-          .user-info
-            span.text
-              | {{course.teacher.name}}
-
-    button.button.radius.success ng-click="register(course)" Confirmo, é esta minha disciplina!
-    hr
-    a.button.radius.warning ui-sref="courses.search" Não é esta. Quero corrigir o código!
+  button.button.radius.success ng-click="register(course)" Confirmo, é esta minha disciplina!
+  hr
+  a.button.radius.warning ui-sref="courses.search" Não é esta. Quero corrigir o código!
