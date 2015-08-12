@@ -13,16 +13,16 @@ ui-view
           | Criar disciplina
   .courses__page
     .row
-      .small-12.medium-6.medium-centered.columns.empty__results ng-if="vm.activeCourses.length == 0"
-        p
+      .small-12.medium-6.medium-centered.columns ng-if="vm.activeCourses.length == 0"
+        p.empty__results
+          = image_tag "courses-content-preview.png", class: 'right'
           | Para começar a usar o Dunno você precisa de uma disciplina.
-        p
+          br
           | Você pode criar uma discipina nova ou participar de uma existente.
-        ul
-          li
-            | Se você for professor, pressione #{link_to 'Criar disciplina', '#', 'data-reveal-id': 'add-course'}
-          li
-            | Se for estudante acesse <a ui-sref="courses.search">Participar de uma turma existente</a>.
+          br
+          | Se você for professor, pressione #{link_to 'Criar disciplina', '#', 'data-reveal-id': 'add-course'}
+          br
+          | Se for estudante acesse <a ui-sref="courses.search">Participar de uma turma existente</a>.
       ul.courses__list.small-block-grid-1.medium-block-grid-2.large-block-grid-3
         li ng-repeat="course in vm.activeCourses"
           course-link current-page="courses"

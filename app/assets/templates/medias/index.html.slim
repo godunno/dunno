@@ -5,13 +5,14 @@ header.page__title
         span ng-click="clearSearch()"
           | Catálogo
 .catalog__page.row
-  .blankslate.small-12.medium-6.medium-centered.columns[ng-if="showTutorial()"]
-    p.blankslate__how-to
-      = image_tag("medias-blankslate.png")
+  .small-12.medium-6.medium-centered.columns ng-if="showTutorial()"
+    p.empty__results
+      = image_tag "medias-content-preview.png", class: 'right'
+      br
       | Use estes ícones para adicionar links ou arquivos na sua aula.
       br
       | Tudo ficará organizado para você aqui no catálogo.
-  .small-12.columns[ng-show="!showTutorial()"]
+  .small-12.columns ng-show="!showTutorial()"
     form[
       name="media_search"
       ng-submit="fetch()"]

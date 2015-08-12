@@ -11,6 +11,7 @@
 
   h6 {
     font-weight: $font-weight-bold;
+    margin-top: .5rem;
   }
 
   .close__schedule {
@@ -38,8 +39,8 @@
     padding: 1rem 0 0;
 
     .weekly__schedule {
-      border-bottom: .0625rem solid $light-grey-color;
-      border-top: .0625rem solid $light-grey-color;
+      border-bottom: $divider;
+      border-top: $divider;
       margin-top: -.0625rem;
       padding: 1.5rem 0;
 
@@ -53,12 +54,20 @@
     }
   }
 
+  .weekly__schedules__preheader {
+    border-bottom: $divider;
+  }
+
   .weekly__schedules__header {
     background-color: lighten($light-grey-color, 20%);
-    border-top: .0625rem solid $light-grey-color;
     color: $dark-grey-color;
     font-size: .75rem;
     padding: .5rem 0;
+  }
+
+  .weekly__schedules__empty {
+    padding: 2rem 0 0;
+    text-align: center;
   }
 
   .weekly__schedule__actions {
@@ -105,28 +114,13 @@
 
   .special__input {
     border: 0;
-    border-bottom: .0625rem solid $light-grey-color;
+    border-bottom: $divider;
     margin: 0 .5rem;
     text-align: center;
 
     &:focus {
       border-bottom-color: $dunno-green-color;
     }
-  }
-
-  .course__dates {
-    margin-top: 1rem;
-    padding: 1rem 0 0;
-
-  }
-
-  .course__dates__header {
-    border-bottom: .0625rem solid $light-grey-color;
-    margin-bottom: 1rem;
-  }
-
-  em {
-    color: $dark-grey-color;
   }
 
   .to {
@@ -141,11 +135,24 @@
 }
 
 .course__dates {
+  margin-top: 1rem;
+  padding: 1rem 0 0;
+
+  .course__dates__header {
+    border-bottom: $divider;
+    margin-bottom: 1rem;
+  }
+
   input {
     &.start__date,
     &.end__date {
       display: inline-block;
       width: 5.5rem;
     }
+  }
+
+  p {
+    padding: 2rem 0;
+    text-align: center;
   }
 }

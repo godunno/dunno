@@ -1,5 +1,5 @@
 %content-box {
-  @include box-shadow(0, .125rem, 0, $light-grey-color);
+  @include box-shadow(0, .125rem, .0625rem, $light-grey-color);
   @include radius();
   background-color: $white;
   border: .0625rem solid $light-grey-color;
