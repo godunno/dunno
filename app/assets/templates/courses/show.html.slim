@@ -46,18 +46,5 @@ header.page__header ng-style="{'background-color': course.color}"
   .row.small-collapse
     .small-12.medium-10.medium-centered.large-8.columns ui-view=true
 
-  tutorial.tutorial-2[
-    ng-if="tutorialEnabled(2) && course.user_role == 'teacher'"
-    on-close="tutorialClosed(2)"]
-    tutorial-step
-      p
-        | Envie este código para seus estudantes. Desta forma você conseguirá interagir com eles através do Dunno.
-    tutorial-step
-      p
-        | Clique aqui para planejar e editar o conteúdo de sua aula.
-    tutorial-step
-      p
-        | Clique aqui para enviar uma notificação por email para seus estudantes.
-
 ng-include src="'#{asset_path('courses/_invite_members.html')}'"
 ng-include src="'#{asset_path('courses/_notify_members.html')}'"
