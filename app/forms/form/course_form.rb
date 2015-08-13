@@ -41,6 +41,7 @@ module Form
     private
 
       def persist!
+        PersistPastEvents.new(model).persist! if start_date && model.start_date && start_date < model.start_date
         model.teacher = teacher
         model.name = name
         model.start_date = start_date

@@ -382,12 +382,12 @@ describe Api::V1::CoursesController do
 
     context "trying to create an invalid course" do
       before :each do
-        course.start_date = nil
+        course.name = nil
         do_action
       end
 
       it { expect(last_response.status).to eq(400) }
-      it { expect(json['errors']).to have_key('start_date') }
+      it { expect(json['errors']).to have_key('name') }
     end
 
     context "creating an course" do
@@ -414,39 +414,63 @@ describe Api::V1::CoursesController do
       patch "/api/v1/courses/#{course.uuid}.json", course_params.merge(auth_params(teacher)).to_json
     end
 
-    let(:course_params) do
-      {
-        course: course.attributes.merge(
-          name: "Some name",
-          weekly_schedules: [
-            uuid: weekly_schedule.uuid,
-            weekday: 2,
-            start_time: '14:00',
-            end_time: '16:00',
-            classroom: 'B-2'
-          ]
-        )
-      }
+    context "successfully updating course" do
+      let(:course_params) do
+        {
+          course: course.attributes.merge(
+            name: "Some name",
+            weekly_schedules: [
+              uuid: weekly_schedule.uuid,
+              weekday: 2,
+              start_time: '14:00',
+              end_time: '16:00',
+              classroom: 'B-2'
+            ]
+          )
+        }
+      end
+
+      skip "invalid parameters"
+      skip "authorization"
+
+      before do
+        do_action
+      end
+
+      it { expect(last_response.status).to eq(200) }
+      it { expect(course.reload.name).to eq "Some name" }
+      it { expect(json).to eq("uuid" => course.uuid) }
+
+      describe "weekly schedule" do
+        subject { weekly_schedule.reload }
+
+        it { expect(subject.weekday).to eq 2 }
+        it { expect(subject.start_time).to eq '14:00' }
+        it { expect(subject.end_time).to eq '16:00' }
+        it { expect(subject.classroom).to eq 'B-2' }
+      end
     end
 
-    skip "invalid parameters"
-    skip "authorization"
+    context "updating Course#start_date to a previous date" do
+      let(:course_params) do
+        {
+          course: course.attributes.merge(
+            start_date: course.start_date - 1.month
+          )
+        }
+      end
 
-    before do
-      do_action
-    end
+      let(:persist_spy) { double("PersistPastEvents", persist!: nil) }
 
-    it { expect(last_response.status).to eq(200) }
-    it { expect(course.reload.name).to eq "Some name" }
-    it { expect(json).to eq("uuid" => course.uuid) }
+      before do
+        allow(PersistPastEvents).to receive(:new)
+                                    .with(course)
+                                    .and_return(persist_spy)
 
-    describe "weekly schedule" do
-      subject { weekly_schedule.reload }
+        do_action
+      end
 
-      it { expect(subject.weekday).to eq 2 }
-      it { expect(subject.start_time).to eq '14:00' }
-      it { expect(subject.end_time).to eq '16:00' }
-      it { expect(subject.classroom).to eq 'B-2' }
+      it { expect(persist_spy).to have_received(:persist!) }
     end
   end
 
