@@ -1,9 +1,10 @@
 # TODO: Add authorization
 class Api::V1::WeeklySchedulesController < ApplicationController
   def transfer
-    TransferWeeklySchedule.new(from: weekly_schedule, to: create_params).transfer!
+    service = TransferWeeklySchedule.new(from: weekly_schedule, to: create_params)
+    service.transfer!
     index!
-    render nothing: true
+    render json: { affected_events: service.affected_events.count }
   end
 
   def create
