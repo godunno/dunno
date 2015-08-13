@@ -33,9 +33,10 @@
     li {
       color: transparentize($dunno-dark-color, .5);
       display: inline;
+      vertical-align: middle;
 
       &:after {
-        content: ' · ';
+        content: '·';
         margin: 0 .25rem;
       }
 

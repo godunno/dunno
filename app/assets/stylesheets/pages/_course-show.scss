@@ -53,6 +53,8 @@
 
   .page__header__subtitle {
     .course__teacher {
+      margin-right: .5rem;
+
       &:after {
         content: ' ';
       }
