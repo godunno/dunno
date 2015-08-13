@@ -2,7 +2,7 @@
   @extend %cards-container;
 }
 
-.course__card__link {
+.course__card {
   @extend %card;
 
   .course__avatar {

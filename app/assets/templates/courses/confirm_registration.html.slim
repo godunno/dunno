@@ -1,13 +1,24 @@
-.student-confirmation
-
-  .medium-12.medium-centered.columns
-    h2 É esta mesmo a disciplina na qual deseja entrar?
-
-  small.error ng-if="error"
-    | {{error}}
-
-  course-card
-
-  button.button.radius.success ng-click="register(course)" Confirmo, é esta minha disciplina!
-  hr
-  a.button.radius.warning ui-sref="courses.search" Não é esta. Quero corrigir o código!
+header.page__title
+  .row
+    .small-12.columns
+      h1.main__page__title
+        a ui-sref="^"
+          i.icon.icon-chevron-left>
+          | Disciplinas
+.course__confirmation
+  .row
+    .small-12.medium-6.medium-centered.columns
+      .text-center
+        h3
+          | Confirmação de acesso
+        p
+          | É esta a disciplina?
+        small.error ng-if="error"
+          | {{error}}
+      course-card
+      button.button.radius.success.expand ng-click="register(course)"
+        | Confirmo, é essa mesmo!
+      p.text-center
+        | Não é essa.
+        a< ui-sref="courses.search"
+          | Quero corrigir o código.
