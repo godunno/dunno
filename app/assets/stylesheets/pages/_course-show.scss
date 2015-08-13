@@ -82,3 +82,29 @@
     }
   }
 }
+
+.page__title__actions {
+  text-align: right;
+  white-space: nowrap;
+
+  @media #{$small-only} {
+    padding: 1rem;
+    text-align: center;
+
+    a,
+    span {
+      display: block;
+    }
+
+    span {
+      color: $light-grey-color;
+      margin: .25rem 0 1rem;
+
+      &:before,
+      &:after {
+        content: '—';
+        margin: 0 1rem;
+      }
+    }
+  }
+}
