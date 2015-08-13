@@ -241,8 +241,6 @@ header.page__header ng-style="{'background-color': event.course.color}"
                       placeholder="Procure por assunto, palavra-chave ou tags"
                       ui-keydown="{'enter':'fetch($event)'}"
                       focus-on="topicType == 'catalog'"]
-                    / a.button.postfix.icon.icon-close ng-click="clearSearch()"
-                    / a.button.postfix.icon.icon-search ng-click="fetch()"
                 .catalog__medias
                   .catalog__media ng-repeat="media in medias"
                     input.media__select[
@@ -273,9 +271,11 @@ header.page__header ng-style="{'background-color': event.course.color}"
           ui-sortable="sortableOptions('topics')"
           ng-model="event.topics"]
           .topic.empty__results ng-if="event.topics.length === 0 && event.status != 'canceled'"
-            | Adicione conteúdos para essa aula.
+            | Essa aula ainda não possui nenhum conteúdo.
+            br
+            | Você pode adicionar conteúdos acima.
           .topic.empty__results ng-if="event.status === 'canceled'"
-            | Para adicionar conteúdos pressione "Desfazer" para tornar a aula despublicada.
+            | Para adicionar conteúdos pressione <b>Desfazer</b> para tornar a aula despublicada.
           .topic.clickable[
             ng-controller="TopicEditCtrl"
             ng-class="{done: topic.done, personal: topic.personal}"

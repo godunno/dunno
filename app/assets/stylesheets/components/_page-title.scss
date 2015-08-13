@@ -4,9 +4,21 @@
   margin-bottom: 2rem;
   padding: 1rem 0;
 
+  @media #{$small-only} {
+    padding: 0;
+  }
+
   .main__page__title {
     font-weight: $font-weight-light;
     text-transform: uppercase;
+
+    @media #{$small-only} {
+      color: $white;
+      height: 0;
+      position: relative;
+      text-align: center;
+      top: -2.25rem;
+    }
   }
 
   .button {
