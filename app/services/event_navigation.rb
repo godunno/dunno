@@ -6,17 +6,17 @@ class EventNavigation
   end
 
   def previous
-    events.detect { |e| e.order == event.order - 1 }
+    events[event_index - 1] if event_index > 0
   end
 
   def next
-    events.detect { |e| e.order == event.order + 1 }
+    events[event_index + 1]
   end
 
   private
 
-  def event
-    @event ||= events.detect { |e| e.start_at == original_event.start_at }
+  def event_index
+    @event_index ||= events.find_index { |e| e.start_at == original_event.start_at }
   end
 
   def events

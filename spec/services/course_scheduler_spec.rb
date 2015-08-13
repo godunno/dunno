@@ -23,10 +23,6 @@ describe CourseScheduler do
       expect(next_month_events.size).to be 5
     end
 
-    it "starts on the date the course was created by default" do
-      expect(events.first.order).to be 1
-    end
-
     it "has all events on next year" do
       expect(next_year_events.size).to be 4
     end
@@ -43,14 +39,6 @@ describe CourseScheduler do
       it { expect(subject.classroom).to eq weekly_schedule.classroom }
       it { expect(subject.start_at).to eq Time.zone.parse('2015-07-27 09:00')  }
       it { expect(subject.end_at).to eq Time.zone.parse('2015-07-27 11:00')  }
-    end
-
-    context "with a start date set on course" do
-      let!(:course) { create(:course, start_date: 1.month.ago, end_date: nil) }
-
-      it 'starts counting from the course start date' do
-        expect(events.first.order).to eq 3
-      end
     end
 
     context "with an end date set on course" do
@@ -72,12 +60,6 @@ describe CourseScheduler do
         expect(events.size).to eq 3
       end
     end
-
-    context "counting" do
-      it "starts counting by when the course was created by default" do
-        expect(next_month_events.first.order).to be 2
-      end
-    end
   end
 
   context 'with events already created' do
@@ -94,10 +76,6 @@ describe CourseScheduler do
 
       it "uses real events if they are already created" do
         expect(events.first).to eq event
-      end
-
-      it "has an order attribute" do
-        expect(events.first.order).to be_present
       end
     end
 

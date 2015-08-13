@@ -25,13 +25,6 @@ describe CourseEventsIndexerWorker, :elasticsearch do
     expect(event_dates).to eq([first_date, second_date, third_date, fourth_date, event.start_at])
   end
 
-  it do
-    event_orders = subject
-                .map(&:order)
-                .sort
-    expect(event_orders).to eq (1..5).to_a
-  end
-
   context "deleting old documents" do
     before do
       weekly_schedule.update!(weekday: 2)
@@ -44,13 +37,6 @@ describe CourseEventsIndexerWorker, :elasticsearch do
                   .map { |event| event.start_at.to_time }
                   .sort
     expect(event_dates).to eq([first_date + 1.day, second_date + 1.day, third_date + 1.day, fourth_date + 1.day, event.start_at])
-    end
-
-    it do
-      event_orders = subject
-                  .map(&:order)
-                  .sort
-      expect(event_orders).to eq (1..5).to_a
     end
   end
 end

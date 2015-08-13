@@ -7,7 +7,6 @@ class Event < ActiveRecord::Base
     mapping do
       indexes :course_id, type: :integer
       indexes :start_at, type: :date
-      indexes :order, type: :integer
     end
   end
 
@@ -25,8 +24,6 @@ class Event < ActiveRecord::Base
 
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
 
-  attr_accessor :order
-
   def self.import
     Course.find_each do |course|
       CourseEventsIndexerWorker.new.perform(course.id)
@@ -37,8 +34,7 @@ class Event < ActiveRecord::Base
   def as_indexed_json(*)
     {
       course_id: course_id,
-      start_at: start_at,
-      order: order
+      start_at: start_at
     }
   end
 
