@@ -1,7 +1,9 @@
 .schedule
-  a.close__schedule ui-sref="^" ui-sref-opts="{reload:true}"
-    i.icon.icon-arrow-back>
-    | Calendário
+  .row
+    .small-12.columns
+      a.close__schedule ui-sref="^" ui-sref-opts="{reload:true}"
+        i.icon.icon-arrow-back>
+        | Calendário
   .content__box
     .schedule__header
       .row
@@ -14,10 +16,10 @@
       .weekly__schedules__preheader
         .row
           .small-12.columns
-            a.button.small.radius.close.right ng-click="newWeeklySchedule()"
-              | Adicionar Dia de Aula
+            a.button.small.radius.right ng-click="newWeeklySchedule()"
+              | Adicionar Dia
             h6.uppercase
-              | Dias da semana
+              | Dias da Semana
       .weekly__schedules__header.hide-for-small ng-if="course.weekly_schedules.length > 0"
         .row.uppercase
           .medium-3.columns
@@ -34,7 +36,10 @@
             p
               | Você ainda não possui nenhum dia de aula em seu cronograma semanal.
               br
-              | Para adicionar aulas recorrentes aperte em <b>Adicionar dia de aula</b>.
+              | Para adicionar aulas recorrentes aperte em
+              br
+              a.button.small.radius ng-click="newWeeklySchedule()"
+                | Adicionar Dia
       .weekly__schedule ng-repeat="weekly_schedule in course.weekly_schedules"
         .row
           .small-12.medium-3.columns.weekday
