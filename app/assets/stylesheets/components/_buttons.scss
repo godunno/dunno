@@ -56,8 +56,13 @@
     color: $dunno-green-color;
 
     &.secondary {
-      border-color: transparentize($dunno-dark-color, .5);
-      color: transparentize($dunno-dark-color, .5);
+      border-color: $dunno-dark-color;
+      color: $dunno-dark-color;
+
+      &:hover {
+        border-color: $black;
+        color: $black;
+      }
     }
   }
 

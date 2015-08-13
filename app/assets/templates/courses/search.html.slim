@@ -2,27 +2,26 @@ header.page__title
   .row
     .small-12.columns
       h1.main__page__title
-        a ui-sref="^"
-          i.icon.icon-chevron-left>
-          | Disciplinas
+        | Participar de Disciplina existente
 .course__search
   .row
-    .small-12.medium-8.large-6.medium-centered.columns
+    .small-10.medium-6.large-5.small-centered.columns
+      p
+        a ui-sref="^"
+          | Voltar às disciplinas
       h3
-        | Participar de uma disciplina existente
+        | Informe o código da disciplina
       p
         | Digite abaixo o código informado pelo professor.
       p
         | Este código se refere à disciplina que o professor leciona e você está matriculado.
-      .row
-        .small-8.columns.small-centered
-          form ng-submit="search(access_code)"
-            input.radius[
-              ng-model="access_code"
-              placeholder="Código da Disciplina"
-              required=true
-              type="text"]
-            small.error ng-if="error"
-              | {{error}}
-            button.submit.radius.expand
-              | Acessar Disciplina
+      form ng-submit="search(access_code)"
+        input.radius[
+          ng-model="access_code"
+          placeholder="Código da Disciplina"
+          required=true
+          type="text"]
+        small.error ng-if="error"
+          | {{error}}
+        button.submit.radius.expand
+          | Acessar Disciplina
