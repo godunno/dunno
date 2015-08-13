@@ -28,7 +28,7 @@ class Course < ActiveRecord::Base
   end
 
   def active?
-    end_date >= Date.today
+    end_date.present? ? end_date >= Date.today : true
   end
 
   def add_student(student)

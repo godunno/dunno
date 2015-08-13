@@ -120,9 +120,11 @@ describe Course do
   context "#active" do
     let!(:finished_course) { create(:course, end_date: Date.yesterday) }
     let!(:active_course) { create(:course, end_date: Date.today) }
+    let!(:course_without_end_date) { create(:course, end_date: nil) }
 
     it { expect(finished_course).to_not be_active }
     it { expect(active_course).to be_active }
+    it { expect(course_without_end_date).to be_active }
   end
 
   describe "memberships" do
