@@ -10,10 +10,6 @@
   overflow: hidden;
   transition: box-shadow .1s ease-in-out;
 
-  &:hover {
-    @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
-  }
-
   .card__header,
   .card__content {
     padding: 1em;

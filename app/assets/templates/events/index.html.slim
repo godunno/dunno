@@ -11,7 +11,7 @@ ui-view
       ul.events.small-block-grid-1.medium-block-grid-2.large-block-grid-3
         li.event-card ng-repeat="event in events"
           .card-inner
-            div ng-class="'title scheme-' + (event.course.order % 12)"
+            .title style="background-color: {{event.course.color}}"
               / TODO: replace h1
               / TODO: make card consistent with rest of app
               h1

@@ -1,5 +1,9 @@
 .courses__list {
   @extend %cards-container;
+
+  .course__card:hover {
+    @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
+  }
 }
 
 .course__card {
