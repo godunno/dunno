@@ -487,11 +487,26 @@ describe Api::V1::CoursesController do
         expect(json).to eq(
           "course" => {
             "uuid" => unregistered_course.uuid,
-            "access_code" => unregistered_course.access_code,
             "name" => unregistered_course.name,
+            "start_date" => unregistered_course.start_date.to_s,
+            "end_date" => unregistered_course.end_date.to_s,
+            "abbreviation" => unregistered_course.abbreviation,
+            "grade" => nil,
             "class_name" => unregistered_course.class_name,
-            "institution" => unregistered_course.institution,
-            "teacher" => { "name" =>  teacher.name }
+            "order" => 2,
+            "access_code" => unregistered_course.access_code,
+            "institution" => "PUC-Rio",
+            "color" => "#b6a6f3",
+            "user_role" => false,
+            "students_count" => 0,
+            "teacher" => { "name" => "Teacher" },
+            "active" => true,
+            "weekly_schedules" => [],
+            "members_count" => 1,
+            "members" => [{
+              "name" => "Teacher",
+              "role" => "teacher"
+            }]
           }
         )
       end
