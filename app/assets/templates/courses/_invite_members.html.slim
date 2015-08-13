@@ -8,8 +8,8 @@
           h5
             | Convidar Estudantes
           p
-            | Para convidar estudantes a participar da turma, eles precisam fazer o seguinte:
-        .row
+            | Para convidar estudantes para sua disciplina, eles precisam fazer o seguinte:
+        .row.small-collapse
           .small-12.columns
             ol
               li
@@ -24,7 +24,7 @@
                   strong
                     pre
                       | {{course.access_code}}
-                a.fullscreen__invitation data-reveal-id="invite__members__fullscreen"
+                a.button.transparent.tiny.outline.radius.fullscreen__invitation data-reveal-id="invite__members__fullscreen"
                   i.icon.icon-expand>
                   | Ampliar código
 ng-include src="'#{asset_path('courses/_invite_members_fullscreen.html')}'"

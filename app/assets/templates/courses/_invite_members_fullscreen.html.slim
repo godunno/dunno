@@ -4,6 +4,7 @@
   span.description
     | Código da Disciplina:
   h3.title
-    | {{course.access_code}}
+    samp
+      | {{course.access_code}}
   span.link-to-sign-in
     = new_user_session_url
