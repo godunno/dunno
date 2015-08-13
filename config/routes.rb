@@ -54,7 +54,7 @@ Rails.application.routes.draw do
           get :search
         end
       end
-      resources :weekly_schedules, only: [:create, :update, :destroy] do
+      resources :weekly_schedules, only: [:create, :destroy] do
         member do
           patch :transfer
         end

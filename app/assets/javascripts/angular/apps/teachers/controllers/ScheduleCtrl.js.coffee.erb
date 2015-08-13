@@ -13,18 +13,12 @@ ScheduleCtrl = ($scope, $state, $modal, WeeklySchedule, Utils) ->
       resolve:
         weeklySchedule: -> angular.copy(weeklySchedule)
 
-  openWeeklyScheduleForm = (weeklySchedule) ->
+  $scope.newWeeklySchedule = ->
     $modal.open
       templateUrl: '<%= asset_path('courses/tabs/edit_weekly_schedule.html') %>',
       controller: 'WeeklyScheduleCtrl'
       resolve:
-        weeklySchedule: -> angular.copy(weeklySchedule)
-
-  $scope.newWeeklySchedule = ->
-    openWeeklyScheduleForm(new WeeklySchedule(course_id: $scope.course.uuid))
-
-  $scope.editWeeklySchedule = (weeklySchedule) ->
-    openWeeklyScheduleForm(weeklySchedule)
+        weeklySchedule: -> angular.copy(new WeeklySchedule(course_id: $scope.course.uuid))
 
   $scope.removeWeeklySchedule = (weeklySchedule) ->
     if confirm('Deseja remover esse horário?')

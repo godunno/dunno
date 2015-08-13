@@ -7,21 +7,46 @@ describe TransferWeeklySchedule do
   let(:attributes) { { weekday: weekday, start_time: '14:00', end_time: '17:00', classroom: 'B1' } }
   let(:new_end_at) { new_start_at + 3.hours }
   let(:old_end_at) { old_start_at + 2.hours }
-  let!(:affected_event) { create(:event, course: course, start_at: old_start_at, end_at: old_end_at, classroom: weekly_schedule.classroom) }
-  let!(:non_affected_event) { create(:event, course: course, start_at: old_start_at + 1.day, end_at: old_end_at + 1.day) }
+  let(:affected_event) { create(:event, course: course, start_at: old_start_at, end_at: old_end_at, classroom: weekly_schedule.classroom) }
+  let(:non_affected_event) { create(:event, course: course, start_at: old_start_at + 1.day, end_at: old_end_at + 1.day) }
   let(:service) { TransferWeeklySchedule.new(from: weekly_schedule, to: attributes) }
 
   def new_weekly_schedule
     WeeklySchedule.order(:created_at).first
   end
 
-  before do
-    Timecop.freeze frozen_in_time
-    service.transfer!
-    [affected_event, non_affected_event, weekly_schedule].each(&:reload)
+  describe "#valid?" do
+    context "with valid attributes in the :to param" do
+      let(:weekday) { 1 }
+
+      it { expect(service).to be_valid }
+    end
+
+    context "with invalid attributes in the :to param" do
+      let(:attributes) { {} }
+
+      it do
+        expect(service).not_to be_valid
+        expect(service.errors.keys).to eq([:weekday, :start_time, :end_time])
+        expect { service.transfer! }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
   end
 
   shared_examples_for "event rescheduling" do
+
+    before do
+      Timecop.freeze frozen_in_time
+
+      affected_event.save!
+      non_affected_event.save!
+
+      service.transfer!
+      [affected_event, non_affected_event, weekly_schedule].each(&:reload)
+    end
+
+    after { Timecop.return }
+
     it { expect(affected_event.start_at).to eq new_start_at }
     it { expect(affected_event.end_at).to eq new_end_at }
     it { expect(affected_event.classroom).to eq attributes[:classroom] }

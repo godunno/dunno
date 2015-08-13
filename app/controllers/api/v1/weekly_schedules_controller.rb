@@ -2,9 +2,13 @@
 class Api::V1::WeeklySchedulesController < ApplicationController
   def transfer
     service = TransferWeeklySchedule.new(from: weekly_schedule, to: create_params)
-    service.transfer!
-    index!
-    render json: { affected_events: service.affected_events.count }
+    if service.valid?
+      service.transfer!
+      index!
+      render json: { affected_events: service.affected_events.count }
+    else
+      render json: { errors: service.errors }, status: 422
+    end
   end
 
   def create
@@ -14,15 +18,6 @@ class Api::V1::WeeklySchedulesController < ApplicationController
       index!
     else
       render json: { errors: weekly_schedule_form.errors }, status: 422
-    end
-  end
-
-  def update
-    if weekly_schedule.update(update_params)
-      render :create
-      index!
-    else
-      render json: { errors: weekly_schedule.errors }, status: 422
     end
   end
 
@@ -40,10 +35,6 @@ class Api::V1::WeeklySchedulesController < ApplicationController
 
   def create_params
     params.require(:weekly_schedule).permit(:weekday, :start_time, :end_time, :classroom, :course_id)
-  end
-
-  def update_params
-    params.require(:weekly_schedule).permit(:weekday, :start_time, :end_time, :classroom)
   end
 
   # TODO: Run as a background job

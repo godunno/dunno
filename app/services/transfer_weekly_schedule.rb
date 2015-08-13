@@ -1,6 +1,7 @@
 class TransferWeeklySchedule
   attr_reader :weekly_schedule, :attributes
   delegate :course, to: :weekly_schedule
+  delegate :valid?, :errors, to: :new_weekly_schedule
 
   def initialize(options)
     @weekly_schedule = options.fetch(:from)
@@ -8,6 +9,7 @@ class TransferWeeklySchedule
   end
 
   def transfer!
+    raise ActiveRecord::RecordInvalid.new(new_weekly_schedule) unless valid?
     ActiveRecord::Base.transaction do
       update_events!
       update_weekly_schedule!
