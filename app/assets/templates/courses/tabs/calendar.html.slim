@@ -18,17 +18,10 @@
               | {{course.next_month | date:'MMM'}}
             i.icon.icon-chevron-right
     .empty__results.no__events ng-if="!course.events || course.events.length == 0"
-      | Não há aulas neste mês.
-    / if first use.
-    .empty__results.no__events.text-center.first__use
       p
-        | Parabéns! Essa é a sua nova disciplina.
+        | Seu calendário de aulas para esse mês está vazio.
       p
-        | Seu calendário de aulas ainda está vazio.
-      p
-        | Você precisa adicionar os dias de aulas em seu cronograma.
-      p
-        | Quando quiser fazer isso, acesse o <a ui-sref=".schedule">CRONOGRAMA</a>.
+        | Para definir dias de aula, acesse o <a ui-sref=".schedule">CRONOGRAMA</a>.
     .calendar__dates
       .calendar__date ng-repeat="event in course.events | orderBy:'start_at'"
         a.calendar__date__link[
