@@ -1,4 +1,4 @@
-header.page__header style="background-color: {{event.course.color}};"
+header.page__header ng-style="'background-color': event.course.color"
   .row
     .small-3.columns
       a.back__button.button.transparent.secondary.icon__button ui-sref="courses.show.calendar({course: event.course, month: event.start_at})"

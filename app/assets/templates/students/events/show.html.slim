@@ -1,4 +1,4 @@
-header.page__header style="background-color: {{event.course.color}};"
+header.page__header ng-style="'background-color': event.course.color"
   .row
     .small-2.columns
       a.back__button.button.small.secondary.transparent ui-sref="courses.show({ id: event.course.uuid })"
