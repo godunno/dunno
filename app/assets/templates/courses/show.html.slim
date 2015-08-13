@@ -1,25 +1,20 @@
-header.page__header style="background-color: {{course.color}};"
+header.page__header ng-style="'background-color': course.color"
   .row
     .small-12.medium-8.columns.page__header__header
       h2.page__header__title
+        span> ng-if="!!course.class_name"
+          | {{course.class_name}} ·
         | {{course.name}}
       ul.page__header__subtitle
         li.course__teacher ng-if="!!course.teacher"
           img.has-tip.radius.course__member__avatar[
             user-avatar="{{course.teacher.name}}"
             tooltip="{{course.teacher.name}}"]
-          strong
+          span
             | {{course.teacher.name}}
-        li ng-if="!!course.class_name"
-          | {{course.class_name}}
 
     .page__header__info.small-12.medium-4.columns
       .course__members
-        a.button.transparent.secondary.outline.radius.tiny[
-          data-reveal-id="send-notification"
-          ng-if="course.user_role == 'teacher' && course.members.length > 1"]
-          i.icon.icon-buzz>
-          | Notificar
         .course__members__count
           i.icon.icon-users>
           | {{course.members.length}}
@@ -27,6 +22,12 @@ header.page__header style="background-color: {{course.color}};"
           ng-if="course.user_role == 'teacher'"
           data-reveal-id="invite__members"]
           | +
+      .notify__members
+        a.button.transparent.secondary.outline.radius.tiny[
+          data-reveal-id="send-notification"
+          ng-if="course.user_role == 'teacher' && course.members.length > 1"]
+          i.icon.icon-buzz>
+          | Notificar
   .row
     footer.small-12.columns
       .row
