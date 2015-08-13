@@ -37,8 +37,7 @@ class Api::V1::WeeklySchedulesController < ApplicationController
     params.require(:weekly_schedule).permit(:weekday, :start_time, :end_time, :classroom, :course_id)
   end
 
-  # TODO: Run as a background job
   def index!
-    CourseEventsIndexer.index!(weekly_schedule.course)
+    CourseEventsIndexerWorker.perform_async(weekly_schedule.course_id)
   end
 end

@@ -18,7 +18,7 @@ describe SearchEventsByCourse, :elasticsearch do
 
     before do
       Timecop.freeze second_date
-      CourseEventsIndexer.index!(course)
+      CourseEventsIndexerWorker.new.perform(course)
       Event.__elasticsearch__.refresh_index!
     end
 

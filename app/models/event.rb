@@ -29,7 +29,7 @@ class Event < ActiveRecord::Base
 
   def self.import
     Course.find_each do |course|
-      CourseEventsIndexer.index!(course)
+      CourseEventsIndexerWorker.new.perform(course.id)
     end
   end
 

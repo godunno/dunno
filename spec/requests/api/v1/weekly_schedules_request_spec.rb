@@ -4,7 +4,6 @@ describe Api::V1::WeeklySchedulesController do
   let(:course) { create(:course) }
   let(:weekly_schedule) { create(:weekly_schedule, course: course) }
   let(:profile) { create(:profile) }
-  let(:indexer_spy) { double("CourseEventsIndexer", index!: nil) }
 
   describe "PATCH /api/v1/weekly_schedules/:uuid/transfer.json" do
     def do_action
@@ -32,17 +31,14 @@ describe Api::V1::WeeklySchedulesController do
         .with(hash_including(from: weekly_schedule, to: weekly_schedule_params[:weekly_schedule]))
         .and_return(transfer_spy)
 
-        allow(CourseEventsIndexer)
-        .to receive(:new)
-        .with(course)
-        .and_return(indexer_spy)
+        allow(CourseEventsIndexerWorker).to receive(:perform_async)
 
         do_action
       end
 
       it { expect(transfer_spy).to have_received(:transfer!) }
       it { expect(transfer_spy).to have_received(:valid?) }
-      it { expect(indexer_spy).to have_received(:index!) }
+      it { expect(CourseEventsIndexerWorker).to have_received(:perform_async).with(course.id) }
       it { expect(affected_events_spy).to have_received(:count) }
       it { expect(json).to eq("affected_events" => affected_events_spy.count) }
     end
@@ -92,11 +88,7 @@ describe Api::V1::WeeklySchedulesController do
     end
 
     before do
-      allow(CourseEventsIndexer)
-      .to receive(:new)
-      .with(course)
-      .and_return(indexer_spy)
-
+      allow(CourseEventsIndexerWorker).to receive(:perform_async)
       do_action
     end
 
@@ -112,7 +104,7 @@ describe Api::V1::WeeklySchedulesController do
       it { expect(subject.end_time).to eq end_time }
       it { expect(subject.classroom).to eq classroom }
       it { expect(subject.course).to eq course }
-      it { expect(indexer_spy).to have_received(:index!) }
+      it { expect(CourseEventsIndexerWorker).to have_received(:perform_async).with(course.id) }
     end
 
     context "invalid weekly schedule" do
@@ -127,7 +119,7 @@ describe Api::V1::WeeklySchedulesController do
           }
         )
       end
-      it { expect(indexer_spy).not_to have_received(:index!) }
+      it { expect(CourseEventsIndexerWorker).not_to have_received(:perform_async).with(course.id) }
     end
   end
 
@@ -139,11 +131,7 @@ describe Api::V1::WeeklySchedulesController do
     end
 
     before do
-      allow(CourseEventsIndexer)
-      .to receive(:new)
-      .with(course)
-      .and_return(indexer_spy)
-
+      allow(CourseEventsIndexerWorker).to receive(:perform_async)
       do_action
     end
 
@@ -151,7 +139,7 @@ describe Api::V1::WeeklySchedulesController do
       subject { course.reload }
 
       it { expect(subject.weekly_schedules).to be_empty }
-      it { expect(indexer_spy).to have_received(:index!) }
+      it { expect(CourseEventsIndexerWorker).to have_received(:perform_async).with(course.id) }
     end
   end
 end
