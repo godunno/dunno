@@ -13,8 +13,6 @@ class CoursePolicy < ApplicationPolicy
 
   def unregister?
     profile.role_in(record) == 'student'
-  rescue ActiveRecord::RecordNotFound
-    false
   end
 
   alias_method :update?, :create?

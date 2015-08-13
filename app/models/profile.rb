@@ -9,7 +9,7 @@ class Profile < ActiveRecord::Base
     :completed_tutorial, to: :user
 
   def role_in(course)
-    memberships.find_by!(course: course).role
+    has_course?(course) && memberships.find_by(course: course).role
   end
 
   def has_course?(course)

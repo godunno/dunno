@@ -38,9 +38,11 @@ describe Profile, type: :model do
     let(:course) { create(:course, teacher: teacher, students: [student]) }
     let(:teacher) { create(:profile) }
     let(:student) { create(:profile) }
+    let(:other_profile) { create(:profile) }
 
     it { expect(teacher.role_in(course)).to eq('teacher') }
     it { expect(student.role_in(course)).to eq('student') }
+    it { expect(other_profile.role_in(course)).to be false }
   end
 
   describe "has_course?" do

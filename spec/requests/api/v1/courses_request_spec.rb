@@ -499,7 +499,7 @@ describe Api::V1::CoursesController do
             "color" => "#b6a6f3",
             "user_role" => false,
             "students_count" => 0,
-            "teacher" => {"name" => "Teacher"},
+            "teacher" => { "name" => "Teacher" },
             "active" => true,
             "weekly_schedules" => [],
             "members_count" => 1,
