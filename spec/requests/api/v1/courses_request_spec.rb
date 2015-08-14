@@ -363,16 +363,30 @@ describe Api::V1::CoursesController do
       }
     end
 
-    before { Course.destroy_all }
+    before do
+      Course.destroy_all
+      allow(CourseEventsIndexerWorker).to receive(:perform_async)
+    end
 
     context "creating the course" do
       before do
+        course.start_date = Date.new(2014, 01, 05)
+        course.end_date = Date.new(2014, 01, 11)
         do_action
       end
+
+      subject { last_course }
 
       it { expect(Course.count).to eq(1) }
       it { expect(last_response.status).to eq(200) }
       it { expect(json["uuid"]).to eq(Course.last.uuid) }
+
+      it { expect(CourseEventsIndexerWorker).not_to have_received(:perform_async) }
+
+      it { expect(subject.name).to eq(course.name) }
+      it { expect(subject.teacher).to eq(teacher) }
+      it { expect(subject.start_date).to eq(course.start_date) }
+      it { expect(subject.end_date).to eq(course.end_date) }
     end
 
     context "trying to create an invalid course" do
@@ -384,22 +398,6 @@ describe Api::V1::CoursesController do
       it { expect(last_response.status).to eq(400) }
       it { expect(json['errors']).to have_key('name') }
     end
-
-    context "creating an course" do
-      before do
-        course.start_date = Date.new(2014, 01, 05)
-        course.end_date = Date.new(2014, 01, 11)
-        do_action
-      end
-
-      subject { last_course }
-
-      it { expect(last_response.status).to eq(200) }
-      it { expect(subject.name).to eq(course.name) }
-      it { expect(subject.teacher).to eq(teacher) }
-      it { expect(subject.start_date).to eq(course.start_date) }
-      it { expect(subject.end_date).to eq(course.end_date) }
-    end
   end
 
   describe "PATCH /api/v1/courses/:uuid.json" do
@@ -407,6 +405,10 @@ describe Api::V1::CoursesController do
 
     def do_action
       patch "/api/v1/courses/#{course.uuid}.json", course_params.merge(auth_params(teacher)).to_json
+    end
+
+    before do
+      allow(CourseEventsIndexerWorker).to receive(:perform_async)
     end
 
     context "successfully updating course" do
@@ -466,6 +468,49 @@ describe Api::V1::CoursesController do
       end
 
       it { expect(persist_spy).to have_received(:persist!) }
+    end
+
+    describe "reindexing events when changing the course's period" do
+
+      before do
+        do_action
+      end
+
+      context "changing the start_date" do
+        let(:course_params) do
+          {
+            course: course.attributes.merge(
+              start_date: course.start_date + 1.day
+            )
+          }
+        end
+
+        it { expect(CourseEventsIndexerWorker).to have_received(:perform_async).with(course.id) }
+      end
+
+      context "changing the end_date" do
+        let(:course_params) do
+          {
+            course: course.attributes.merge(
+              end_date: course.start_date + 1.day
+            )
+          }
+        end
+
+        it { expect(CourseEventsIndexerWorker).to have_received(:perform_async).with(course.id) }
+      end
+
+      context "not changing the start_date nor the end_date" do
+        let(:course_params) do
+          {
+            course: course.attributes.merge(
+              name: 'Some other name'
+            )
+          }
+        end
+
+        it { expect(CourseEventsIndexerWorker).not_to have_received(:perform_async) }
+      end
     end
   end
 

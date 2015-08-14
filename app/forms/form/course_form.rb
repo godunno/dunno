@@ -41,6 +41,7 @@ module Form
     private
 
       def persist!
+        CourseEventsIndexerWorker.perform_async(model.id) if model.persisted? && (start_date != model.start_date || end_date != model.end_date)
         PersistPastEvents.new(model).persist! if start_date && model.start_date && start_date < model.start_date
         model.teacher = teacher
         model.name = name
