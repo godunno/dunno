@@ -13,15 +13,27 @@ ui-view
           | Criar disciplina
   .courses__page
     .row
-      .small-12.medium-6.medium-centered.columns ng-if="vm.activeCourses.length == 0"
-        p
-          | Para começar a usar o Dunno você precisa de uma disciplina.
-          br
-          | Você pode criar uma discipina nova ou participar de uma existente.
-          br
-          | Se você for professor, pressione #{link_to 'Criar disciplina', '#', 'ng-click': 'vm.openNewCourseForm()'}
-          br
-          | Se for estudante acesse <a ui-sref="courses.search">Participar de uma turma existente</a>.
+      .small-12.medium-10.medium-centered.columns.text-center ng-if="vm.activeCourses.length == 0"
+        .small-12.columns
+          h3
+            | Você precisa de uma disciplina
+          p
+            | O dunno não funciona sem uma disciplina.
+        .small-5.columns
+          h5
+            | Estudantes
+          p
+            | <a ui-sref="courses.search">Participar de uma disciplina existente</a>.
+        .small-2.columns
+          p
+            br
+            | ou
+        .small-5.columns
+          h5
+            | Professor
+          p
+            a.button.radius.small< data-reveal-id="add-course"
+              | Criar disciplina
       ul.courses__list.small-block-grid-1.medium-block-grid-2.large-block-grid-3
         li ng-repeat="course in vm.activeCourses"
           course-link current-page="courses"
@@ -62,7 +74,7 @@ ui-view
         .modal__content.row
           .small-12.medium-10.large-8.columns.small-centered
             p
-              | Dê um nome para esta disciplina ou grupo. Depois você poderá compartilhar o código com seus alunos e colegas.
+              | Essa disciplina poderá ser compartilhada com seus estudantes.
             .text-left
               label[for='added__course__name']
                 small
@@ -72,15 +84,15 @@ ui-view
               input#added__course__name.radius[
                 required=true
                 type='text']
-              label[for='added__course__institution']
-                small
-                  | Instituição
-              input#added__course__institution.radius[
-                type='text']
               label[for='added__course__class__name']
                 small
                   | Turma
               input#added__course__class__name.radius[
+                type='text']
+              label[for='added__course__institution']
+                small
+                  | Instituição
+              input#added__course__institution.radius[
                 type='text']
             .text-center
               a.button.large.radius

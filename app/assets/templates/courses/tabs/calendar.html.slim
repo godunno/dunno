@@ -19,8 +19,10 @@
             i.icon.icon-chevron-right
     .empty__results.no__events ng-if="!course.events || course.events.length == 0"
       p
+        / if month empty.
         | Seu calendário de aulas para esse mês está vazio.
       p ng-if="course.user_role == 'teacher'"
+        / if weekly schedule not set yet.
         | Para definir dias de aula, acesse o <a ui-sref=".schedule">CRONOGRAMA</a>.
     .calendar__dates
       .calendar__date ng-repeat="event in course.events | orderBy:'start_at'"
@@ -48,3 +50,8 @@
               | {{asDate(event.start_at) | amDateFormat:'ddd'}}
             span.date__time
               | {{asDate(event.start_at) | amDateFormat:'HH:mm'}} - {{asDate(event.end_at) | amDateFormat:'HH:mm'}}
+  div[
+    ng-joy-ride="vm.startJoyride"
+    config="vm.joyrideScheduleConfig"
+    on-finish="onFinish()"
+    on-skip="onFinish()"]
