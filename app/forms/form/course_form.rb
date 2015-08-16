@@ -41,8 +41,8 @@ module Form
     private
 
       def persist!
-        CourseEventsIndexerWorker.perform_async(model.id) if model.persisted? && (start_date != model.start_date || end_date != model.end_date)
-        PersistPastEvents.new(model).persist! if start_date && model.start_date && start_date < model.start_date
+        CourseEventsIndexerWorker.perform_async(model.id) if should_index_events?
+        PersistPastEvents.new(model).persist! if should_persist_past_events?
         model.teacher = teacher
         model.name = name
         model.start_date = start_date
@@ -57,6 +57,16 @@ module Form
             weekly_schedule.save
           end
         end
+      end
+
+      def should_index_events?
+        model.persisted? &&
+          (start_date != model.start_date || end_date != model.end_date)
+      end
+
+      def should_persist_past_events?
+        start_date &&
+          model.start_date && start_date < model.start_date
       end
   end
 end
