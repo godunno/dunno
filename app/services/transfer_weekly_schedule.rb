@@ -9,7 +9,7 @@ class TransferWeeklySchedule
   end
 
   def transfer!
-    raise ActiveRecord::RecordInvalid.new(new_weekly_schedule) unless valid?
+    fail ActiveRecord::RecordInvalid, new_weekly_schedule unless valid?
     ActiveRecord::Base.transaction do
       update_events!
       update_weekly_schedule!
@@ -18,9 +18,9 @@ class TransferWeeklySchedule
 
   def affected_events
     @affected_events ||= old_schedule
-    .all_occurrences
-    .map { |occurrence| find_event(occurrence) }
-    .select(&:present?)
+                        .all_occurrences
+                        .map { |occurrence| find_event(occurrence) }
+                        .select(&:present?)
   end
 
   private

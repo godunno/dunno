@@ -7,9 +7,7 @@ class PersistPastEvents
   end
 
   def persist!
-    events.each do |event|
-      event.save!
-    end
+    events.each(&:save!)
   end
 
   private

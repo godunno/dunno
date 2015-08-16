@@ -34,7 +34,6 @@ describe TransferWeeklySchedule do
   end
 
   shared_examples_for "event rescheduling" do
-
     before do
       Timecop.freeze frozen_in_time
 

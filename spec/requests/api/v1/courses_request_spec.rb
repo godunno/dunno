@@ -471,7 +471,6 @@ describe Api::V1::CoursesController do
     end
 
     describe "reindexing events when changing the course's period" do
-
       before do
         do_action
       end
