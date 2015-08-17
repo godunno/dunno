@@ -1,8 +1,8 @@
 class EventNavigation
-  attr_reader :original_event
+  attr_reader :event
 
   def initialize(event)
-    @original_event = event
+    @event = event
   end
 
   def previous
@@ -16,10 +16,10 @@ class EventNavigation
   private
 
   def event_index
-    @event_index ||= events.find_index { |e| e.start_at == original_event.start_at }
+    @event_index ||= events.find_index { |e| e.start_at == event.start_at }
   end
 
   def events
-    @events ||= CourseScheduler.new(original_event.course).events
+    @events ||= CourseScheduler.new(event.course, WholePeriod.new(event.start_at).month).events
   end
 end
