@@ -10,7 +10,7 @@ module Form
     attribute :institution, String
     attribute :teacher
 
-    validates :name, :start_date, :end_date, :class_name, presence: true
+    validates :name, presence: true
 
     def initialize(params = {})
       super(params.slice(*attributes_list(
