@@ -1,3 +1,11 @@
+html,
+body,
+.structure {
+  background: #eaebeb;
+  min-height: 100%;
+  min-width: 100%;
+}
+
 // TODO: use dunno's colour variables.
 table {
   font-family: Arial, Helvetica, sans-serif;
@@ -19,12 +27,22 @@ h1 {
 }
 
 p {
-  font-size: .9em;
-  line-height: 1.7em;
+  font-size: 1rem;
+  line-height: 1.5em;
+  margin-bottom: 2.5rem;
 }
 
 strong {
   font-weight: bold;
+}
+
+.logo {
+  border: 0;
+
+  img {
+    width: 140px;
+    border: 0;
+  }
 }
 
 .paragraph {
@@ -35,13 +53,10 @@ strong {
   line-height: .8em;
 }
 
-.structure {
-  background: #eaebeb;
-}
-
 .content {
   background: #fff;
   border: 1px solid #d2d2d2;
+  border-radius: 3px;
   padding: 2em;
 }
 
@@ -53,7 +68,8 @@ strong {
   font-size: 1.2em;
   height: 60px;
   line-height: 60px;
-  text-transform: uppercase;
+  margin: 1rem auto;
+  text-align: center;
   width: 60%;
 }
 
@@ -68,3 +84,17 @@ strong {
 .underlined {
   text-decoration: underline;
 }
+
+.footer-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 2rem 0 0 0;
+  text-align: center;
+}
+
+.footer-link {
+  display: inline-block;
+  font-size: .75rem;
+  margin: 0 .5rem;
+}
+
