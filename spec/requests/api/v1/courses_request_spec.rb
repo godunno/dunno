@@ -460,9 +460,10 @@ describe Api::V1::CoursesController do
       let(:persist_spy) { double("PersistPastEvents", persist!: nil) }
 
       before do
-        allow(PersistPastEvents).to receive(:new)
-                                    .with(course)
-                                    .and_return(persist_spy)
+        allow(PersistPastEvents)
+          .to receive(:new)
+          .with(course)
+          .and_return(persist_spy)
 
         do_action
       end
