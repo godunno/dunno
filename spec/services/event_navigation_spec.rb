@@ -38,12 +38,13 @@ describe EventNavigation do
 
   context "when it starts in the next month and its course has no start_date and end_date" do
     let(:course) { create(:course, start_date: nil, end_date: nil, weekly_schedules: [weekly_schedule]) }
-    let(:start_at) { second_date }
+    let(:start_at) { fifth_date }
+    let(:sixth_date)  { Time.zone.parse('2015-09-07 09:00') }
 
     before { Timecop.travel(first_date - 1.month) }
     after { Timecop.return }
 
-    it { expect(service.previous.start_at).to eq first_date }
-    it { expect(service.next.start_at).to eq third_date }
+    it { expect(service.previous.start_at).to eq fourth_date }
+    it { expect(service.next.start_at).to eq sixth_date }
   end
 end

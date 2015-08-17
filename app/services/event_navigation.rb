@@ -20,6 +20,10 @@ class EventNavigation
   end
 
   def events
-    @events ||= CourseScheduler.new(event.course, WholePeriod.new(event.start_at).month).events
+    @events ||= CourseScheduler.new(event.course, time_range).events
+  end
+
+  def time_range
+    (event.start_at - 1.week)..(event.start_at + 1.week)
   end
 end
