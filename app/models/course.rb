@@ -48,6 +48,10 @@ class Course < ActiveRecord::Base
     super || (Abbreviate.abbreviate(name) if name.present?)
   end
 
+  def start_date
+    super || created_at
+  end
+
   private
 
   def set_access_code

@@ -1,25 +1,29 @@
 class EventNavigation
-  attr_reader :original_event
+  attr_reader :event
 
   def initialize(event)
-    @original_event = event
+    @event = event
   end
 
   def previous
-    events.detect { |e| e.order == event.order - 1 }
+    events[event_index - 1] if event_index > 0
   end
 
   def next
-    events.detect { |e| e.order == event.order + 1 }
+    events[event_index + 1]
   end
 
   private
 
-  def event
-    @event ||= events.detect { |e| e.start_at == original_event.start_at }
+  def event_index
+    @event_index ||= events.find_index { |e| e.start_at == event.start_at }
   end
 
   def events
-    @events ||= CourseScheduler.new(original_event.course).events
+    @events ||= CourseScheduler.new(event.course, time_range).events
+  end
+
+  def time_range
+    (event.start_at - 1.week)..(event.start_at + 1.week)
   end
 end

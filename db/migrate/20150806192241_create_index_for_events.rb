@@ -6,11 +6,7 @@ class CreateIndexForEvents < ActiveRecord::Migration
       puts 'Index not found.'
     ensure
       Event.__elasticsearch__.create_index!
-      Course.transaction do
-        Course.find_each do |course|
-          CourseEventsIndexer.index!(course)
-        end
-      end
+      Event.import
     end
   end
 end

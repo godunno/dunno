@@ -18,7 +18,7 @@ describe SearchEventsByCourse, :elasticsearch do
 
     before do
       Timecop.freeze second_date
-      CourseEventsIndexer.index!(course)
+      CourseEventsIndexerWorker.new.perform(course)
       Event.__elasticsearch__.refresh_index!
     end
 
@@ -65,7 +65,7 @@ describe SearchEventsByCourse, :elasticsearch do
     end
 
     it "loads all the events until the specified, no matter how many" do
-      another_course = create(:course)
+      another_course = create(:course, start_date: 11.days.ago)
       events = (1..11).map { |i| create(:event, course: another_course, start_at: i.days.ago) }
       refresh_index!
       expect(SearchEventsByCourse.search(another_course, until: events.last.start_at)).to eq(events)

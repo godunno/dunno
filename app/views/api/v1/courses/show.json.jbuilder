@@ -3,7 +3,7 @@ json.course do
   role = current_profile.role_in(@course)
   json.events @events do |event|
     json.cache! ['course-show/event', event, role] do
-      json.(event, :order, :classroom)
+      json.(event, :classroom)
       json.formatted_status(event.formatted_status(current_profile))
       json.start_at(format_time event.start_at)
       json.end_at(format_time event.end_at)

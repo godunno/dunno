@@ -588,7 +588,7 @@ GEM
     timecop (0.7.1)
     timers (4.0.1)
       hitimes
-    tod (1.5.0)
+    tod (2.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -646,7 +646,7 @@ DEPENDENCIES
   foreman (= 0.78.0)
   foundation-rails (= 5.5.2.1)
   google_drive (= 1.0.0)
-  ice_cube
+  ice_cube (= 0.13.0)
   intercom-rails (= 0.2.27)
   jbuilder (= 2.3.1)
   jquery-rails (= 3.1.2)
@@ -688,7 +688,6 @@ DEPENDENCIES
   rails-assets-arktisklada--jquery-ui-touch-punch (= 0.2.3)!
   rails-assets-greensock (= 1.17.0)!
   rails-assets-jquery-maskedinput (= 1.4.0)!
-  rails-assets-jquery-timepicker-jt (= 1.8.1)!
   rails-assets-lunks--angulartics (= 0.18.0)!
   rails-assets-lunks--ngTagsInput (= 3.0.0)!
   rails-assets-modernizr (= 2.8.3)!
@@ -715,7 +714,7 @@ DEPENDENCIES
   slim-rails (= 3.0.1)
   teaspoon-jasmine (= 2.2.0)
   timecop (= 0.7.1)
-  tod (= 1.5.0)
+  tod (= 2.0.2)
   uglifier (= 2.7.1)
   unicorn (= 4.8.3)
   vcr (= 2.9.3)

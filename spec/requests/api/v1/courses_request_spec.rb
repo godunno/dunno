@@ -126,35 +126,30 @@ describe Api::V1::CoursesController do
               "user_role" => role,
               "events" => [
                 {
-                  "order" => 8,
                   "formatted_status" => 'empty',
                   "start_at" => first_date.utc.iso8601,
                   "end_at" => (first_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 9,
                   "formatted_status" => 'empty',
                   "start_at" => second_date.utc.iso8601,
                   "end_at" => (second_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 10,
                   "formatted_status" => 'empty',
                   "start_at" => third_date.utc.iso8601,
                   "end_at" => (third_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 11,
                   "formatted_status" => 'empty',
                   "start_at" => fourth_date.utc.iso8601,
                   "end_at" => (fourth_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "order" => 12,
                   "formatted_status" => 'empty',
                   "start_at" => fifth_date.utc.iso8601,
                   "end_at" => (fifth_date + 2.hours).utc.iso8601,
@@ -368,29 +363,12 @@ describe Api::V1::CoursesController do
       }
     end
 
-    before { Course.destroy_all }
+    before do
+      Course.destroy_all
+      allow(CourseEventsIndexerWorker).to receive(:perform_async)
+    end
 
     context "creating the course" do
-      before do
-        do_action
-      end
-
-      it { expect(Course.count).to eq(1) }
-      it { expect(last_response.status).to eq(200) }
-      it { expect(json["uuid"]).to eq(Course.last.uuid) }
-    end
-
-    context "trying to create an invalid course" do
-      before :each do
-        course.start_date = nil
-        do_action
-      end
-
-      it { expect(last_response.status).to eq(400) }
-      it { expect(json['errors']).to have_key('start_date') }
-    end
-
-    context "creating an course" do
       before do
         course.start_date = Date.new(2014, 01, 05)
         course.end_date = Date.new(2014, 01, 11)
@@ -399,11 +377,26 @@ describe Api::V1::CoursesController do
 
       subject { last_course }
 
+      it { expect(Course.count).to eq(1) }
       it { expect(last_response.status).to eq(200) }
+      it { expect(json["uuid"]).to eq(Course.last.uuid) }
+
+      it { expect(CourseEventsIndexerWorker).not_to have_received(:perform_async) }
+
       it { expect(subject.name).to eq(course.name) }
       it { expect(subject.teacher).to eq(teacher) }
       it { expect(subject.start_date).to eq(course.start_date) }
       it { expect(subject.end_date).to eq(course.end_date) }
+    end
+
+    context "trying to create an invalid course" do
+      before :each do
+        course.name = nil
+        do_action
+      end
+
+      it { expect(last_response.status).to eq(400) }
+      it { expect(json['errors']).to have_key('name') }
     end
   end
 
@@ -414,39 +407,110 @@ describe Api::V1::CoursesController do
       patch "/api/v1/courses/#{course.uuid}.json", course_params.merge(auth_params(teacher)).to_json
     end
 
-    let(:course_params) do
-      {
-        course: course.attributes.merge(
-          name: "Some name",
-          weekly_schedules: [
-            uuid: weekly_schedule.uuid,
-            weekday: 2,
-            start_time: '14:00',
-            end_time: '16:00',
-            classroom: 'B-2'
-          ]
-        )
-      }
-    end
-
-    skip "invalid parameters"
-    skip "authorization"
-
     before do
-      do_action
+      allow(CourseEventsIndexerWorker).to receive(:perform_async)
     end
 
-    it { expect(last_response.status).to eq(200) }
-    it { expect(course.reload.name).to eq "Some name" }
-    it { expect(json).to eq("uuid" => course.uuid) }
+    context "successfully updating course" do
+      let(:course_params) do
+        {
+          course: course.attributes.merge(
+            name: "Some name",
+            weekly_schedules: [
+              uuid: weekly_schedule.uuid,
+              weekday: 2,
+              start_time: '14:00',
+              end_time: '16:00',
+              classroom: 'B-2'
+            ]
+          )
+        }
+      end
 
-    describe "weekly schedule" do
-      subject { weekly_schedule.reload }
+      skip "invalid parameters"
+      skip "authorization"
 
-      it { expect(subject.weekday).to eq 2 }
-      it { expect(subject.start_time).to eq '14:00' }
-      it { expect(subject.end_time).to eq '16:00' }
-      it { expect(subject.classroom).to eq 'B-2' }
+      before do
+        do_action
+      end
+
+      it { expect(last_response.status).to eq(200) }
+      it { expect(course.reload.name).to eq "Some name" }
+      it { expect(json).to eq("uuid" => course.uuid) }
+
+      describe "weekly schedule" do
+        subject { weekly_schedule.reload }
+
+        it { expect(subject.weekday).to eq 2 }
+        it { expect(subject.start_time).to eq '14:00' }
+        it { expect(subject.end_time).to eq '16:00' }
+        it { expect(subject.classroom).to eq 'B-2' }
+      end
+    end
+
+    context "updating Course#start_date to a previous date" do
+      let(:course_params) do
+        {
+          course: course.attributes.merge(
+            start_date: course.start_date - 1.month
+          )
+        }
+      end
+
+      let(:persist_spy) { double("PersistPastEvents", persist!: nil) }
+
+      before do
+        allow(PersistPastEvents)
+          .to receive(:new)
+          .with(course)
+          .and_return(persist_spy)
+
+        do_action
+      end
+
+      it { expect(persist_spy).to have_received(:persist!) }
+    end
+
+    describe "reindexing events when changing the course's period" do
+      before do
+        do_action
+      end
+
+      context "changing the start_date" do
+        let(:course_params) do
+          {
+            course: course.attributes.merge(
+              start_date: course.start_date + 1.day
+            )
+          }
+        end
+
+        it { expect(CourseEventsIndexerWorker).to have_received(:perform_async).with(course.id) }
+      end
+
+      context "changing the end_date" do
+        let(:course_params) do
+          {
+            course: course.attributes.merge(
+              end_date: course.start_date + 1.day
+            )
+          }
+        end
+
+        it { expect(CourseEventsIndexerWorker).to have_received(:perform_async).with(course.id) }
+      end
+
+      context "not changing the start_date nor the end_date" do
+        let(:course_params) do
+          {
+            course: course.attributes.merge(
+              name: 'Some other name'
+            )
+          }
+        end
+
+        it { expect(CourseEventsIndexerWorker).not_to have_received(:perform_async) }
+      end
     end
   end
 

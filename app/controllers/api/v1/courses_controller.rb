@@ -82,6 +82,9 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:uuid, :name, :start_date, :end_date, :class_name, :grade, :institution, weekly_schedules: [:uuid, :weekday, :start_time, :end_time, :classroom])
+    params.require(:course).permit(
+      :uuid, :name, :start_date, :end_date, :class_name, :grade, :institution,
+      weekly_schedules: [:uuid, :weekday, :start_time, :end_time, :classroom]
+    )
   end
 end

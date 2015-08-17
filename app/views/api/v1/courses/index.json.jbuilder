@@ -1,3 +1,1 @@
-json.array! @courses do |course|
-  json.partial! 'api/v1/courses/course', course: course
-end
+json.array! @courses, partial: 'api/v1/courses/course', as: :course

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CourseEventsIndexer, :elasticsearch do
+describe CourseEventsIndexerWorker, :elasticsearch do
   let(:weekly_schedule) { create(:weekly_schedule, weekday: 1, start_time: '09:00') }
   let(:event) { create(:event, start_at: fifth_date, status: 'published') }
   let(:course) { create(:course, weekly_schedules: [weekly_schedule], events: [event], start_date: Date.parse('2015-08-01'), end_date: '2015-08-31') }
@@ -10,7 +10,7 @@ describe CourseEventsIndexer, :elasticsearch do
   let(:fourth_date) { Time.zone.parse('2015-08-24 09:00') }
   let(:fifth_date) { Time.zone.parse('2015-08-31 09:00') }
   before do
-    CourseEventsIndexer.index!(course)
+    CourseEventsIndexerWorker.new.perform(course.id)
     Event.__elasticsearch__.refresh_index!
   end
 
@@ -25,17 +25,10 @@ describe CourseEventsIndexer, :elasticsearch do
     expect(event_dates).to eq([first_date, second_date, third_date, fourth_date, event.start_at])
   end
 
-  it do
-    event_orders = subject
-                .map(&:order)
-                .sort
-    expect(event_orders).to eq (1..5).to_a
-  end
-
   context "deleting old documents" do
     before do
       weekly_schedule.update!(weekday: 2)
-      CourseEventsIndexer.index!(course)
+      CourseEventsIndexerWorker.new.perform(course.id)
       Event.__elasticsearch__.refresh_index!
     end
 
@@ -44,13 +37,6 @@ describe CourseEventsIndexer, :elasticsearch do
                   .map { |event| event.start_at.to_time }
                   .sort
     expect(event_dates).to eq([first_date + 1.day, second_date + 1.day, third_date + 1.day, fourth_date + 1.day, event.start_at])
-    end
-
-    it do
-      event_orders = subject
-                  .map(&:order)
-                  .sort
-      expect(event_orders).to eq (1..5).to_a
     end
   end
 end

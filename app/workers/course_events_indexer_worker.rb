@@ -1,30 +1,30 @@
-class CourseEventsIndexer
+class CourseEventsIndexerWorker
+  include Sidekiq::Worker
+  sidekiq_options queue: 'elasticsearch', retry: false
+
   attr_reader :course
 
-  def self.index!(course)
-    new(course).index!
+  def perform(course_id)
+    @course = Course.find(course_id)
+    index!
   end
 
-  def initialize(course)
-    @course = course
-  end
+  private
 
   def index!
     remove_from_index!
     insert_to_index!
   end
 
-  private
-
   def remove_from_index!
     SearchEventsByCourse.search(course, until_date: course.end_date).each do |event|
-      client.delete index: Event.index_name, type: 'event', id: event.index_id
+      Indexer.new(event).delete
     end
   end
 
   def insert_to_index!
     CourseScheduler.new(course).events.each do |event|
-      client.index index: Event.index_name, type: 'event', id: event.index_id, body: event.as_indexed_json
+      Indexer.new(event).index
     end
   end
 

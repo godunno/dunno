@@ -57,7 +57,6 @@ describe Api::V1::EventsController do
           expect(subject).to eq(
             "id" => event.id,
             "uuid" => event.uuid,
-            "order" => event.order,
             "status" => event.status,
             "formatted_status" => event.formatted_status(profile),
             "start_at" => event.start_at.utc.iso8601,
@@ -281,7 +280,6 @@ describe Api::V1::EventsController do
         expect(json).to eq(
           "id" => nil,
           "uuid" => nil,
-          "order" => nil,
           "status" => "draft",
           "formatted_status" => "empty",
           "start_at" => start_at.utc.iso8601,

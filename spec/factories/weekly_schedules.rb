@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :weekly_schedule do
+    course
     weekday 1
     start_time "09:00"
     end_time "11:00"

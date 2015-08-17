@@ -6,17 +6,15 @@ describe FindOrInitializeEvent do
 
   context "finding event" do
     let!(:event) { create(:event, course: course, start_at: Time.zone.local(2015, 7, 20, 9)) }
-    subject { FindOrInitializeEvent.by(course, start_at: event.start_at.utc.iso8601, order: 8) }
+    subject { FindOrInitializeEvent.by(course, start_at: event.start_at.utc.iso8601) }
 
     it { expect(subject).to eq event }
-    it { expect(subject.order).to eq 8 }
   end
 
   context "initializing event" do
     let(:start_at) { Time.zone.local(2015, 7, 27, 9) }
-    subject { FindOrInitializeEvent.by(course, start_at: start_at.utc.iso8601, order: 9) }
+    subject { FindOrInitializeEvent.by(course, start_at: start_at.utc.iso8601) }
 
     it { expect(subject.start_at).to eq start_at }
-    it { expect(subject.order).to eq 9 }
   end
 end

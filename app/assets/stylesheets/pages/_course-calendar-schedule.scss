@@ -146,8 +146,19 @@
   input {
     &.start__date,
     &.end__date {
-      display: inline-block;
-      width: 5.5rem;
+      display: block;
+      margin-right: 3rem;
+    }
+  }
+
+  .icon__label {
+    opacity: .5;
+    position: absolute;
+    right: 1.5rem;
+    top: .5rem;
+
+    &:hover {
+      opacity: 1;
     }
   }
 
