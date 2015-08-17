@@ -1,0 +1,41 @@
+.full.add__course
+  .row.small-collapse
+    .small-12.small-centered.medium-10.large-6.columns
+      .form__box.text-center
+        a.close-reveal-modal
+          | ×
+        .modal__header.row
+          .small-12.columns
+            h3
+              | Criar disciplina
+        .modal__content.row
+          .small-12.medium-10.large-8.columns.small-centered
+            form name="course_form" ng-submit="save()"
+              p
+                | Dê um nome para esta disciplina ou grupo. Depois você poderá compartilhar o código com seus alunos e colegas.
+              .text-left
+                label[for='added__course__name']
+                  small
+                    | Nome
+                  span.required<
+                    | *
+                input#added__course__name.radius[
+                  ng-model="course.name"
+                  required=true
+                  type='text']
+                label[for='added__course__institution']
+                  small
+                    | Instituição
+                input#added__course__institution.radius[
+                  ng-model="course.institution"
+                  type='text']
+                label[for='added__course__class__name']
+                  small
+                    | Turma
+                input#added__course__class__name.radius[
+                  ng-model="course.class_name"
+                  type='text']
+              .text-center
+                button.button.large.radius[
+                  ng-disabled="course_form.$invalid"]
+                  | Criar disciplina

@@ -1,4 +1,4 @@
-CoursesIndexCtrl = ($location, $filter, SessionManager, AssetsPreloader, Utils, courses) ->
+CoursesIndexCtrl = ($location, $filter, $modal, SessionManager, AssetsPreloader, Utils, courses) ->
   @courses = courses
 
   @activeCourses = $filter('filter')(@courses, active: true)
@@ -8,6 +8,11 @@ CoursesIndexCtrl = ($location, $filter, SessionManager, AssetsPreloader, Utils, 
     if confirm("Deseja mesmo sair da disciplina #{course.name}?")
       course.unregister().then ->
         Utils.remove(@courses, course)
+
+  @openNewCourseForm = ->
+    $modal.open
+      templateUrl: '<%= asset_path('courses/new_course_form.html') %>'
+      controller: 'NewCourseCtrl'
 
   if !SessionManager.currentUser().completed_tutorial
     <% tutorials = {1 => [1], 2 => [1,2], 3 => [1,2,3]} %>
@@ -20,7 +25,7 @@ CoursesIndexCtrl = ($location, $filter, SessionManager, AssetsPreloader, Utils, 
     AssetsPreloader.loadFont('Chalkduster')
 
   @
-CoursesIndexCtrl.$inject = ['$location', '$filter', 'SessionManager', 'AssetsPreloader', 'Utils', 'courses']
+CoursesIndexCtrl.$inject = ['$location', '$filter', '$modal', 'SessionManager', 'AssetsPreloader', 'Utils', 'courses']
 
 angular
   .module('DunnoApp')
