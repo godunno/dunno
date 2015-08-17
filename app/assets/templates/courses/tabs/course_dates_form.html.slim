@@ -23,7 +23,8 @@
               auto-close="true"
               format="short"
               placeholder="Início das aulas"]
-            i.icon.icon-calendar<
+            label for='course__start__date'
+              i.icon.icon-calendar<
           .small-6.columns
             input.end__date.radius#course__end__date[
               ng-model="course.end_date"
@@ -33,7 +34,8 @@
               auto-close="true"
               format="short"
               placeholder="Fim das aulas"]
-            i.icon.icon-calendar<
+            label for='course__end__date'
+              i.icon.icon-calendar<
           .small-12
             button.button.radius type="submit"
               | Salvar datas
