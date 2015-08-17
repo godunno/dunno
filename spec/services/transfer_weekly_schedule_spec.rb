@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-# TODO: Updates the weekly schedule instead of creating a new one
 describe TransferWeeklySchedule do
   let(:course) { create(:course, end_date: 1.month.from_now) }
   let(:weekly_schedule) { create(:weekly_schedule, weekday: 3, start_time: '09:00', end_time: '11:00', classroom: 'A1', course: course) }
@@ -92,8 +91,8 @@ describe TransferWeeklySchedule do
       it_behaves_like "event rescheduling"
     end
 
-    context "with an occurrence which already happened in the same day" do
-      let(:frozen_in_time) { Time.zone.parse('2015-08-05 12:00') }
+    context "with next occurrence of old schedule on the next week but next occurrence of new schedule on the same week" do
+      let(:frozen_in_time) { Time.zone.parse('2015-08-06 00:00') }
       let(:old_start_at) { Time.zone.parse('2015-08-12 09:00') }
       let(:new_start_at) { Time.zone.parse('2015-08-13 14:00') }
       let(:affected_event) { create(:event, course: course, start_at: old_start_at, end_at: old_end_at, classroom: weekly_schedule.classroom) }
@@ -116,6 +115,32 @@ describe TransferWeeklySchedule do
 
       it { expect(non_affected_event.start_at).to eq frozen_in_time - 2.hours }
       it { expect(non_affected_event.end_at).to eq frozen_in_time - 1.hour }
+    end
+
+    context "with an occurrence which already happened in the same day" do
+      let(:frozen_in_time) { Time.zone.parse('2015-08-05 12:00') }
+      let(:old_start_at) { Time.zone.parse('2015-08-12 09:00') }
+      let(:new_start_at) { Time.zone.parse('2015-08-13 14:00') }
+      let(:affected_event) { create(:event, course: course, start_at: old_start_at, end_at: old_end_at, classroom: weekly_schedule.classroom) }
+      let(:non_affected_event) { create(:event, course: course, start_at: old_start_at - 1.week, end_at: old_start_at - 1.week + 2.hours) }
+
+      before do
+        Timecop.freeze frozen_in_time
+
+        affected_event.save!
+        non_affected_event.save!
+
+        service.transfer!
+        [affected_event, non_affected_event, weekly_schedule].each(&:reload)
+      end
+
+      after { Timecop.return }
+
+      it { expect(affected_event.start_at).to eq new_start_at }
+      it { expect(affected_event.end_at).to eq new_end_at }
+
+      it { expect(non_affected_event.start_at).to eq(old_start_at - 1.week) }
+      it { expect(non_affected_event.end_at).to eq(old_start_at - 1.week + 2.hours) }
     end
   end
 

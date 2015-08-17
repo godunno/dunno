@@ -18,14 +18,14 @@ class TransferWeeklySchedule
 
   def affected_events
     @affected_events ||= old_schedule
-                        .remaining_occurrences
+                        .all_occurrences
                         .map { |occurrence| find_event(occurrence) }
                         .select(&:present?)
   end
 
   private
 
-  def generate_schedule_for(weekly_schedule, start_time = Time.current.beginning_of_day)
+  def generate_schedule_for(weekly_schedule, start_time = Time.current)
     IceCube::Schedule.new(start_time) do |s|
       s.add_recurrence_rule weekly_schedule.to_recurrence_rule
     end
@@ -37,12 +37,10 @@ class TransferWeeklySchedule
 
   def new_schedule
     return @new_schedule if @new_schedule.present?
-    start_at = if old_schedule.all_occurrences.first < old_schedule.next_occurrence
-                 old_schedule.next_occurrence
-               else
-                 Time.current.beginning_of_day
-               end
-    @new_schedule = generate_schedule_for(new_weekly_schedule, start_at)
+    @new_schedule = generate_schedule_for(new_weekly_schedule)
+    week = WholePeriod.new(old_schedule.next_occurrence).week
+    @new_schedule = generate_schedule_for(new_weekly_schedule, week.begin) unless week.cover?(@new_schedule.next_occurrence)
+    @new_schedule
   end
 
   def time_span
