@@ -7,7 +7,7 @@
         h5
           | Período Letivo
       form.course__dates ng-submit="save(course)"
-        .row.collapse
+        .row
           .small-6.columns
             label for='course__start__date'
               | De
@@ -15,6 +15,8 @@
             label for='course__end__date'
               | Até
           .small-6.columns
+            label.icon__label for='course__start__date'
+              i.icon.icon-calendar<
             input.start__date.radius#course__start__date[
               ng-model="course.start_date"
               type="datetime"
@@ -23,9 +25,9 @@
               auto-close="true"
               format="short"
               placeholder="Início das aulas"]
-            label for='course__start__date'
-              i.icon.icon-calendar<
           .small-6.columns
+            label.icon__label for='course__end__date'
+              i.icon.icon-calendar<
             input.end__date.radius#course__end__date[
               ng-model="course.end_date"
               type="datetime"
@@ -34,8 +36,6 @@
               auto-close="true"
               format="short"
               placeholder="Fim das aulas"]
-            label for='course__end__date'
-              i.icon.icon-calendar<
-          .small-12
+          .small-12.columns
             button.button.radius type="submit"
               | Salvar datas
