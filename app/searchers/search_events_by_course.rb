@@ -38,7 +38,7 @@ class SearchEventsByCourse
   end
 
   def newer_event
-    course.events.unscoped.published.order(start_at: :desc).limit(1).first
+    course.events.last_published
   end
 
   def upper_bound_date
