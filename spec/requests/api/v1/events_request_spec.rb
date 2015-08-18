@@ -18,7 +18,7 @@ describe Api::V1::EventsController do
     end
 
     describe "events within the week" do
-      let(:events_json) { json }
+      let(:events_json) { json["events"] }
       before do
         Timecop.freeze(1.year.from_now)
         create(:event, start_at: 2.weeks.ago, course: course)
@@ -44,14 +44,15 @@ describe Api::V1::EventsController do
       end
 
       subject do
-        json.map { |event| event["uuid"] }
+        json["events"].map { |event| event["uuid"] }
       end
 
       it { expect(last_response.status).to eq(200) }
+      it { expect(json["finished"]).to be_nil }
       it { expect(subject).to eq([earlier_event.uuid, event.uuid]) }
 
       describe "attributes" do
-        subject { json[1] }
+        subject { json["events"][1] }
         it { expect(last_response.status).to eq(200) }
         it do
           expect(subject).to eq(
@@ -106,10 +107,11 @@ describe Api::V1::EventsController do
       end
 
       subject do
-        json.map { |event| event["uuid"] }
+        json["events"].map { |event| event["uuid"] }
       end
 
       it { is_expected.to eq([event.uuid, unpublished_event.uuid]) }
+      it { expect(json["finished"]).to be true }
     end
   end
 
