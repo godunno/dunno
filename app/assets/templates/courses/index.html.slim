@@ -32,7 +32,7 @@ ui-view
           h5
             | Professor
           p
-            a.button.radius.small< data-reveal-id="add-course"
+            a.button.radius.small ng-click="vm.openNewCourseForm()"
               | Criar disciplina
       ul.courses__list.small-block-grid-1.medium-block-grid-2.large-block-grid-3
         li ng-repeat="course in vm.activeCourses"
