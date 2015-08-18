@@ -23,6 +23,7 @@ class Event < ActiveRecord::Base
   default_scope { order(:start_at).includes(:topics) }
 
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
+  scope :last_published, -> { published.last }
 
   def self.import
     Course.find_each do |course|

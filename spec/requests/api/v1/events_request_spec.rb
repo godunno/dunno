@@ -10,7 +10,7 @@ describe Api::V1::EventsController do
     let(:topic) { create(:topic) }
     let(:personal_topic) { create(:topic, :personal) }
     let(:event) { create(:event, status: 'published', course: course, topics: [topic, personal_topic]) }
-    let!(:earlier_event) { create(:event, course: course, start_at: event.start_at - 1) }
+    let!(:earlier_event) { create(:event, course: course, start_at: event.start_at - 1.day) }
     let!(:event_from_another_course) { create(:event) }
 
     def do_action(params = {})
@@ -95,14 +95,13 @@ describe Api::V1::EventsController do
     end
 
     context "filtering by course", :elasticsearch do
-      let!(:weekly_schedule) { create(:weekly_schedule, course: course) }
-      let!(:another_course) { create(:course, teacher: profile) }
-      let!(:another_event) { create(:event, course: another_course) }
+      let!(:another_course) { create(:course, teacher: profile, start_date: '2015-08-01', end_date: nil) }
+      let!(:event) { create(:event, course: another_course, status: 'published', start_at: Time.parse('2015-08-06 09:00')) }
+      let!(:unpublished_event) { create(:event, course: another_course, status: 'draft', start_at: event.start_at - 1.day) }
+
       before do
-        skip "Index virtual events"
-        refresh_index!
         Timecop.travel Time.zone.parse('2015-08-01 00:00')
-        CourseScheduler.new(course).index!
+        refresh_index!
         do_action(course_id: another_course.uuid)
       end
 
@@ -110,20 +109,7 @@ describe Api::V1::EventsController do
         json.map { |event| event["uuid"] }
       end
 
-      it { is_expected.to eq([another_event.uuid]) }
-
-      context "with unpublished event" do
-        before do
-          another_event.update!(status: 'draft', topics: [create(:topic)])
-          do_action(course_id: another_course.uuid)
-        end
-
-        subject { json[0] }
-
-        it do
-          expect(subject["topics"]).to eq([])
-        end
-      end
+      it { is_expected.to eq([event.uuid, unpublished_event.uuid]) }
     end
   end
 

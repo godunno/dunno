@@ -3,6 +3,7 @@ class CourseEventsIndexerWorker
   sidekiq_options queue: 'elasticsearch', retry: false
 
   attr_reader :course
+  delegate :start_date, to: :course
 
   def perform(course_id)
     @course = Course.find(course_id)
@@ -23,12 +24,20 @@ class CourseEventsIndexerWorker
   end
 
   def insert_to_index!
-    CourseScheduler.new(course).events.each do |event|
+    CourseScheduler.new(course, time_range).events.each do |event|
       Indexer.new(event).index
     end
   end
 
   def client
     @client ||= Elasticsearch::Client.new
+  end
+
+  def time_range
+    start_date.beginning_of_day..end_date.end_of_day
+  end
+
+  def end_date
+    course.end_date || course.events.last_published.try(:start_at) || Time.current
   end
 end
