@@ -11,7 +11,7 @@
           h5.uppercase
             | Cronograma de Aulas
           p
-            | Adicione os dias da semana em que sua aula ocorre para estabelecer seu cronograma de aulas.
+            | Aqui você diz em quais dias você dá aula e no período letivo você diz até que dia vai a sua aula.
     .weekly__schedules
       .weekly__schedules__preheader
         .row
@@ -34,12 +34,7 @@
         .row
           .small-12.columns
             p
-              | Você ainda não possui nenhum dia de aula em seu cronograma semanal.
-              br
-              | Para adicionar aulas recorrentes aperte em
-              br
-              a.button.small.radius ng-click="newWeeklySchedule()"
-                | Adicionar Dia
+              | Você ainda não adicionou nenhum dia de aula em seu cronograma.
       .weekly__schedule ng-repeat="weekly_schedule in course.weekly_schedules"
         .row
           .small-12.medium-3.columns.weekday
@@ -61,11 +56,11 @@
         .course__dates__header
           .row
             .small-12.columns
-              a.button.radius.small.right ng-click="editCourseDates()"
-                | Editar Período Letivo
+              a.button.radius.tiny.secondary.right ng-click="editCourseDates()"
+                | Definir Período Letivo
               h6.uppercase
-                | Período Letivo
-        .row
+                | Período Letivo (opcional)
+        .row ng-if="course.end_date"
           .small-12.columns
             p
               | de
@@ -74,3 +69,7 @@
               | até
               strong.end__date<
                 | {{course.end_date | date: 'longDate'}}
+        .row ng-if="!course.end_date"
+          .small-12.columns
+            p
+              | Você ainda não definiu o período letivo.

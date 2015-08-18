@@ -15,13 +15,11 @@
 }
 
 .dropdown.button.tiny,
-.tutorial.wrapper .dropdown.tiny.next,
 button.dropdown.tiny {
   padding-right: 1.75rem;
 }
 
 .dropdown.button:after,
-.tutorial.wrapper .dropdown.next:after,
 button.dropdown:after {
   border: 0;
   content: '\E00D';
@@ -29,7 +27,6 @@ button.dropdown:after {
 }
 
 .dropdown.button.tiny:after,
-.tutorial.wrapper .dropdown.tiny.next:after,
 button.dropdown.tiny:after {
   font-size: .75rem;
   right: .5rem;
