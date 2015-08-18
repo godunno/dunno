@@ -5,9 +5,6 @@
         | ×
       .modal-header
         h5
-          span ng-if="!weeklySchedule.uuid"
-            | Adicionar dia de aula
-          span ng-if="weeklySchedule.uuid"
-            | Editar dia de aula
+          | Adicionar horário
       .modal-content
         ng-include src="'#{asset_path('courses/tabs/_weekly_schedule_form.html')}'"

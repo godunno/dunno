@@ -19,11 +19,8 @@
             i.icon.icon-chevron-right
     .empty__results.no__events ng-if="!course.events || course.events.length == 0"
       p
-        / if month empty.
-        | Seu calendário de aulas para esse mês está vazio.
-      p ng-if="course.user_role == 'teacher'"
-        / if weekly schedule not set yet.
-        | Para definir dias de aula, acesse o <a ui-sref=".schedule">CRONOGRAMA</a>.
+        | Até o momento nenhuma aula foi criada neste mês.
+
     .calendar__dates
       .calendar__date ng-repeat="event in course.events | orderBy:'start_at'"
         a.calendar__date__link[
