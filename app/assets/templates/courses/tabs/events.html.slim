@@ -3,7 +3,7 @@
     ng-repeat="event in events"
     scroll-to-when="scrollUntil == event.start_at"]
     / TODO: no results for event in events copy
-    a.button.secondary.tiny.transparent.edit__in__journal.right ng-click="goToEvent(event)"
+    a.button.secondary.tiny.transparent.edit__in__journal.right ng-click="goToEvent(event)" ng-if="course.user_role == 'teacher'"
       | editar aula
     .date
       | {{event.start_at | date:'dd MMM - EEE'}}
