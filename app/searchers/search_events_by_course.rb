@@ -37,12 +37,12 @@ class SearchEventsByCourse
     builder.build
   end
 
-  def newer_event
+  def newest_event
     course.events.last_published
   end
 
   def upper_bound_date
-    @upper_bound_date ||= newer_event.try(:start_at) || Time.current.end_of_day
+    @upper_bound_date ||= newest_event.try(:start_at) || Time.current.end_of_day
   end
 
   def lower_bound_date?
