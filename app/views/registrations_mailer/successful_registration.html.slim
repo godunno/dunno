@@ -1,11 +1,9 @@
 h1
-  | Comece a usar o Dunno!
-p
   strong
     | Olá, #{@user.name}.
   br
+  | Comece a usar o Dunno!
+p
   | A partir de agora você tem acesso ao Dunno e poderá deixar suas aulas muito mais organizadas, compartilhando e acessando conteúdos, recebendo notificações e muito mais!
 p
-  | Veja sua conta em:
-  br
-  = link_to 'dunnoapp.com/acesso', new_user_session_url, class: 'button'
+  = link_to 'Acessar o Dunno', new_user_session_url, class: 'button'

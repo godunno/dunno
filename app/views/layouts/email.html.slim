@@ -80,7 +80,7 @@ html xmlns="http://www.w3.org/1999/xhtml"
       tr
         td align="center" style="padding: 3rem 0;"
           a.logo href="/"
-            = image_tag "dunno-logo-vertical.png"
+            = image_tag "dunno-logo-icon.png"
       tr
         td align="center" valign="top"
           table.content border="0" cellpadding="0" cellspacing="0"
@@ -89,16 +89,36 @@ html xmlns="http://www.w3.org/1999/xhtml"
                 = yield
             tr
               td
+                p.panel-info
+                  strong
+                    | Qual é a sua experiência com o Dunno?
+                  br
+                  em
+                    | Se você quer elogiar, reclamar, sugerir ou tirar dúvidas fale com um humano usando nossa #{link_to 'comunicação integrada', '#'}.
+            tr
+              td
+                table.footer border="0" cellpadding="0" cellspacing="0"
+                  tr
+                    td.footer-t align="left"
+                      = link_to root_path do
+                        = image_tag "dunno-logo-horizontal.png"
+                    td.footer-right align="right"
+                      | #{link_to 'Termos de Uso', terms_path}
+                      | #{link_to 'Política de Privacidade', policy_path}
+                      | #{link_to 'Suporte', '/support_path'}
+      tr
+        td align="center"
+          table.legal-footer border="0" cellpadding="0" cellspacing="0"
+            tr
+              td
                 p
-                  small
-                    em
-                      | Estamos sempre querendo saber o que você está achando da sua experiência com o Dunno. Para dúvidas, sugestões ou reclamações não hesite em entrar em contato através do #{link_to 'suporte', '/suporte'}.
-                ul.footer-list
-                  li.footer-link
-                    | Copyright &copy; #{Time.now.year} #{link_to 'Dunno', root_path}
-                  li.footer-link
-                    | #{link_to 'Termos de Uso', terms_path}
-                  li.footer-link
-                    | #{link_to 'Política de Privacidade', policy_path}
-                  li.footer-link
-                    | #{link_to 'Suporte', '/support_path'}
+                  | Dunno é uma marca registrada pela:
+                  br
+                  | Dunno Soluções Educacionais LTDA - ME
+                  br
+                  | CNPJ: 20.260.474/0001-80
+                p
+                  address
+                    | Rua Marquês de São Vicente, 95/404 Bloco 1
+                    br
+                    | Rio de Janeiro, RJ - CEP 22451-041

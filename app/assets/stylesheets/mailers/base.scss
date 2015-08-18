@@ -1,35 +1,49 @@
+@import '../utils/variables';
+
 html,
 body,
 .structure {
-  background: #eaebeb;
+  background: $background-light-grey-color;
   min-height: 100%;
   min-width: 100%;
 }
 
-// TODO: use dunno's colour variables.
 table {
   font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
-  color: #1cc678;
+  color: $dunno-green-color;
   text-decoration: none;
 }
 
 hr {
-  border: none;
-  border-top: 1px solid #d2d2d2;
+  border: 0;
+  border-top: .0625em solid $light-grey-color;
 }
 
 h1 {
-  font-size: 1.4em;
-  font-weight: normal;
+  color: $dunno-dark-color;
+  font-size: 1.375em;
+  font-weight: bold;
 }
 
 p {
-  font-size: 1rem;
+  color: $dunno-dark-color;
+  font-size: 1em;
   line-height: 1.5em;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.5em;
+
+  em {
+    color: $dark-grey-color;
+    font-size: .875em;
+  }
+
+  &.panel-info {
+    border: 1px solid $light-grey-color;
+    border-radius: 3px;
+    padding: 2rem;
+  }
 }
 
 strong {
@@ -40,8 +54,8 @@ strong {
   border: 0;
 
   img {
-    width: 140px;
     border: 0;
+    width: 54px;
   }
 }
 
@@ -54,16 +68,18 @@ strong {
 }
 
 .content {
-  background: #fff;
-  border: 1px solid #d2d2d2;
+  background: $white;
+  border: 1px solid $light-grey-color;
   border-radius: 3px;
+  box-shadow: 0 2px 2px $light-grey-color;
   padding: 2em;
+  text-align: center;
 }
 
 .button {
-  background: #1cc678;
+  background: $dunno-green-color;
   border-radius: 3px;
-  color: #fff;
+  color: $white;
   display: block;
   font-size: 1.2em;
   height: 60px;
@@ -85,16 +101,29 @@ strong {
   text-decoration: underline;
 }
 
-.footer-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 2rem 0 0 0;
+.footer {
+  border-top: 1px solid $light-grey-color;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  width: 100%;
+}
+
+.footer-right {
+  font-size: .875em;
+  text-align: right;
+
+  a {
+    margin-left: .75rem;
+  }
+}
+
+.legal-footer {
+  padding: 2rem 0;
   text-align: center;
-}
 
-.footer-link {
-  display: inline-block;
-  font-size: .75rem;
-  margin: 0 .5rem;
+  p,
+  address {
+    color: $medium-grey-color;
+    font-size: .75em;
+  }
 }
-
