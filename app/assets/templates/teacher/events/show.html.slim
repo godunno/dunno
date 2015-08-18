@@ -271,9 +271,9 @@ header.page__header ng-style="{'background-color': event.course.color}"
           ui-sortable="sortableOptions('topics')"
           ng-model="event.topics"]
           .topic.empty__results ng-if="event.topics.length === 0 && event.status != 'canceled'"
-            | Essa aula ainda não possui nenhum conteúdo.
+            | Você ainda não adicionou nenhum conteúdo.
             br
-            | Você pode adicionar conteúdos acima.
+            | Adicione conteúdos utilizando os botões acima.
           .topic.empty__results ng-if="event.status === 'canceled'"
             | Para adicionar conteúdos pressione <b>Desfazer</b> para tornar a aula despublicada.
           .topic.clickable[

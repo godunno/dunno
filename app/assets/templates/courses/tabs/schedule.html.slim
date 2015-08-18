@@ -17,9 +17,9 @@
         .row
           .small-12.columns
             a.button.small.radius.right ng-click="newWeeklySchedule()"
-              | Adicionar Dia
+              | Adicionar Horário
             h6.uppercase
-              | Dias da Semana
+              | Horários da Semana
       .weekly__schedules__header.hide-for-small ng-if="course.weekly_schedules.length > 0"
         .row.uppercase
           .medium-3.columns
@@ -34,7 +34,7 @@
         .row
           .small-12.columns
             p
-              | Você ainda não adicionou nenhum dia de aula em seu cronograma.
+              | Você ainda não adicionou nenhum horário nesta disciplina.
       .weekly__schedule ng-repeat="weekly_schedule in course.weekly_schedules"
         .row
           .small-12.medium-3.columns.weekday
@@ -59,17 +59,15 @@
               a.button.radius.tiny.secondary.right ng-click="editCourseDates()"
                 | Definir Período Letivo
               h6.uppercase
-                | Período Letivo (opcional)
-        .row ng-if="course.end_date"
+                | Período Letivo
+        .row
           .small-12.columns
             p
-              | de
-              strong.start__date<>
-                | {{course.start_date | date: 'longDate'}}
-              | até
-              strong.end__date<
-                | {{course.end_date | date: 'longDate'}}
-        .row ng-if="!course.end_date"
-          .small-12.columns
-            p
-              | Você ainda não definiu o período letivo.
+              | Seu período letivo começa
+              strong.start__date<
+                | {{course.start_date | date: 'fullDate'}}
+              span.end__date__message< ng-if="course.end_date"
+                | e termina
+                strong.end__date<
+                  | {{course.end_date | date: 'fullDate'}}
+              | .

@@ -15,8 +15,8 @@ ScheduleCtrl = ($scope, $state, $modal, WeeklySchedule, Utils) ->
 
   $scope.newWeeklySchedule = ->
     $modal.open
-      templateUrl: '<%= asset_path('courses/tabs/edit_weekly_schedule.html') %>',
-      controller: 'WeeklyScheduleCtrl'
+      templateUrl: '<%= asset_path('courses/tabs/new_weekly_schedule.html') %>',
+      controller: 'NewWeeklyScheduleCtrl'
       resolve:
         weeklySchedule: -> angular.copy(new WeeklySchedule(course_id: $scope.course.uuid))
 

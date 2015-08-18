@@ -1,6 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
 TransferWeeklyScheduleCtrl = ($scope, $state, $modalInstance, TimeGetterSetter, PageLoading, weeklySchedule) ->
+  $scope.formButton = "Transferir"
   $scope.originalWeeklySchedule = weeklySchedule
   $scope.weeklySchedule = angular.copy(weeklySchedule)
 
