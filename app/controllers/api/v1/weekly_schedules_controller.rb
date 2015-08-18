@@ -1,6 +1,6 @@
-# TODO: Add authorization
-class Api::V1::WeeklySchedulesController < ApplicationController
+class Api::V1::WeeklySchedulesController < Api::V1::ApplicationController
   def transfer
+    authorize weekly_schedule
     service = TransferWeeklySchedule.new(from: weekly_schedule, to: create_params)
     if service.valid?
       service.transfer!
@@ -13,6 +13,7 @@ class Api::V1::WeeklySchedulesController < ApplicationController
 
   def create
     weekly_schedule_form = Form::WeeklyScheduleForm.new(create_params)
+    authorize weekly_schedule_form
     if weekly_schedule_form.save
       @weekly_schedule = weekly_schedule_form.model
       index!
@@ -22,6 +23,7 @@ class Api::V1::WeeklySchedulesController < ApplicationController
   end
 
   def destroy
+    authorize weekly_schedule
     weekly_schedule.destroy
     index!
     render nothing: true

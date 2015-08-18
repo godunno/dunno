@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Api::V1::WeeklySchedulesController do
-  let(:course) { create(:course) }
+  let(:course) { create(:course, teacher: profile) }
   let(:weekly_schedule) { create(:weekly_schedule, course: course) }
   let(:profile) { create(:profile) }
 
