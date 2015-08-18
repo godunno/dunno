@@ -6,10 +6,51 @@ describe SearchEventsByCourse, :elasticsearch do
   let(:third_date) { Time.zone.parse('2015-08-17 09:00') }
   let(:fourth_date) { Time.zone.parse('2015-08-24 09:00') }
   let(:fifth_date) { Time.zone.parse('2015-08-31 09:00') }
+  let!(:weekly_schedule) { create(:weekly_schedule, weekday: 1, start_time: '09:00') }
+  let!(:course) { create(:course, weekly_schedules: [weekly_schedule], start_date: Date.parse('2015-08-01'), end_date: Date.parse('2015-08-31')) }
 
-  describe ".search" do
-    let!(:weekly_schedule) { create(:weekly_schedule, weekday: 1, start_time: '09:00') }
-    let!(:course) { create(:course, weekly_schedules: [weekly_schedule], start_date: Date.parse('2015-08-01'), end_date: Date.parse('2015-08-31')) }
+  describe "#finished?" do
+    subject { SearchEventsByCourse.new(course, options) }
+
+    before do
+      Timecop.travel fifth_date
+      refresh_index!
+    end
+
+    after { Timecop.return }
+
+    context "first page" do
+      let(:options) { { per_page: 1, page: 1 } }
+
+      it { is_expected.not_to be_finished }
+    end
+
+    context "second page after offset" do
+      let(:options) { { offset: 1, per_page: 1, page: 2 } }
+
+      it { is_expected.not_to be_finished }
+    end
+
+    context "last page" do
+      let(:options) { { per_page: 1, page: 5 } }
+
+      it { is_expected.to be_finished }
+    end
+
+    context "last page" do
+      let(:options) { { per_page: 1, page: 5 } }
+
+      it { is_expected.to be_finished }
+    end
+
+    context "last page after offset" do
+      let(:options) { { offset: 1, per_page: 1, page: 4 } }
+
+      it { is_expected.to be_finished }
+    end
+  end
+
+  describe "#search" do
     let!(:past_event) { create(:event, course: course, start_at: first_date, status: 'draft') }
     let!(:today_event) { create(:event, course: course, start_at: second_date, status: 'canceled') }
     let!(:future_event) { create(:event, course: course, start_at: fourth_date, status: 'published') }
@@ -18,14 +59,13 @@ describe SearchEventsByCourse, :elasticsearch do
 
     before do
       Timecop.freeze second_date
-      CourseEventsIndexerWorker.new.perform(course)
-      Event.__elasticsearch__.refresh_index!
+      refresh_index!
     end
 
     after { Timecop.return }
 
     subject do
-      SearchEventsByCourse.search(course, options)
+      SearchEventsByCourse.new(course, options).search
       .map(&:start_at)
     end
 

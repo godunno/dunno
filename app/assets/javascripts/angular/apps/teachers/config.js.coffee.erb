@@ -29,7 +29,15 @@ DunnoApp = angular.module 'DunnoApp', [
   'ui.timepicker',
   'angularMoment']
 
-Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, CourseRegistrationResolver, EventsResolver, EventResolver, MediasResolver) ->
+Router = ($stateProvider,
+          $urlRouterProvider,
+          CoursesResolver,
+          CourseResolver,
+          CourseRegistrationResolver,
+          EventsResolver,
+          EventsPaginationResolver,
+          EventResolver,
+          MediasResolver) ->
   $urlRouterProvider.otherwise('/courses')
   $stateProvider
     .state('courses',
@@ -77,7 +85,7 @@ Router = ($stateProvider, $urlRouterProvider, CoursesResolver, CourseResolver, C
       url: '/events?until'
       controller: 'CourseEventsCtrl'
       templateUrl: '<%= asset_path('courses/tabs/events.html') %>'
-      resolve: { events: EventsResolver }
+      resolve: { pagination: EventsPaginationResolver }
     )
     .state('courses.show.calendar.schedule',
       url: '/schedule'
@@ -138,6 +146,7 @@ Router.$inject = [
   'CourseResolver',
   'CourseRegistrationResolver',
   'EventsResolver',
+  'EventsPaginationResolver',
   'EventResolver',
   'MediasResolver']
 

@@ -1,5 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
-DunnoApp.factory 'Event', ['RailsResource', 'railsSerializer', (RailsResource, railsSerializer)->
+Event = (RailsResource, $q, railsSerializer) ->
   # TODO: Find a way to include the course's uuid on the default parameters
   class Event extends RailsResource
     @configure(
@@ -16,6 +15,24 @@ DunnoApp.factory 'Event', ['RailsResource', 'railsSerializer', (RailsResource, r
 
     planned: -> @topics.length > 0
 
+    @paginate: (options) ->
+      deferred = $q.defer()
+      Event.configure(fullResponse: true)
+
+      success = (response) ->
+        deferred.resolve
+          events: response.data
+          finished: response.originalData.finished
+
+      failure = ->
+        deferred.reject(arguments...)
+
+      @query(options).then(success, failure)
+      .finally ->
+        Event.configure(fullResponse: false)
+
+      deferred.promise
+
   Event.interceptBeforeRequest (request, klass, event) ->
     return request unless event?
     request.params ?= {}
@@ -23,4 +40,8 @@ DunnoApp.factory 'Event', ['RailsResource', 'railsSerializer', (RailsResource, r
     request
 
   Event
-]
+
+Event.$inject = ['RailsResource', '$q', 'railsSerializer']
+angular
+  .module('DunnoApp')
+  .factory('Event', Event)

@@ -1,4 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
 Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
   class Media extends RailsResource
     @configure(
@@ -50,19 +49,22 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
 
     updateTagList: -> @tag_list = @tags.map((tag)-> tag.text)
 
-    @search: (options)->
+    @search: (options) ->
       deferred = $q.defer()
       Media.configure(fullResponse: true)
-      @query(options).then((response)->
-        deferred.resolve(
+
+      success = (response) ->
+        deferred.resolve
           medias: response.data
           previous_page: response.originalData.previous_page
           current_page: response.originalData.current_page
           next_page: response.originalData.next_page
-        )
-      , ->
+
+      failure = ->
         deferred.reject(arguments...)
-      ).finally ->
+
+      @query(options).then(success, failure)
+      .finally ->
         Media.configure(fullResponse: false)
 
       deferred.promise
@@ -76,4 +78,6 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
   Media
 
 Media.$inject = ['RailsResource', '$upload', '$q', 'AWSCredentials', 'SessionManager']
-DunnoApp.factory 'Media', Media
+angular
+  .module('DunnoApp')
+  .factory('Media', Media)
