@@ -2,15 +2,23 @@
 / TODO: blankslate
 .content__box.members__content
   .member__group ng-repeat="members in course.members | groupBy: 'role' | toArray: true | orderBy:vm.order"
+    .add__members.right ng-if="members[0].role == 'student'"
+      a.button.tiny.radius.add__users[
+        ng-if="course.user_role == 'teacher'"
+        data-reveal-id="invite__members"]
+        i.icon-add>
+        | Adicionar estudantes
     p.members__content__title
       strong.role__name>
         | {{vm.roleName(members)}}
-      span.role__count
-        | {{members.length}}
+      /
+        span.role__count
+          | {{members.length}}
     .members
       .member ng-repeat="member in members | orderBy: 'name' "
-        .disabled.member__role.button.tiny.radius.right ng-class="{'dark': member.role == 'teacher'}"
-          | {{vm.translateRole(member.role)}}
+        /
+          .disabled.member__role.button.tiny.radius.right ng-class="{'dark': member.role == 'teacher'}"
+            | {{vm.translateRole(member.role)}}
         .member__name
           img.member__avatar[user-avatar="{{member.name}}"]
           | {{member.name}}

@@ -8,7 +8,6 @@
       else
         1
 
-
     @roleName = (members) ->
       @translateRole(role(members))
 

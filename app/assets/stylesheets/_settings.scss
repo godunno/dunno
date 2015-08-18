@@ -62,7 +62,7 @@ $secondary-color: $light-grey-color;
 $alert-color: $red-color;
 $success-color: $dunno-green-color;
 $warning-color: $orange-color;
-$info-color: $blue-color;
+$info-color: $white;
 
 // We use these to make sure border radius matches unless we want it different.
 $global-radius: 3px;
@@ -656,8 +656,8 @@ $input-placeholder-font-color: $medium-grey-color;
 // We use these to style the label text
 $label-font-sizing: rem-calc(14);
 // $label-font-weight: $font-weight-normal;
-// $label-font-color: #333;
-// $label-font-color-alt: #fff;
+$label-font-color: $dunno-dark-color;
+$label-font-color-alt: $white;
 // $label-font-family: $body-font-family;
 
 // Magellan
