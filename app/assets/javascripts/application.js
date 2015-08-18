@@ -19,7 +19,6 @@
 //= require angular-messages
 //= require angular-ui-sortable
 //= require ng-file-upload
-//= require ng-joyride
 //= require ngTagsInput/build/ng-tags-input.js
 //= require angular-elastic-input
 //= require angular-validation-match
