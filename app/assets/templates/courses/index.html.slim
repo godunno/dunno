@@ -16,12 +16,12 @@ ui-view
       .small-12.medium-10.medium-centered.columns.text-center ng-if="vm.activeCourses.length == 0"
         .small-12.columns
           h3
-            | Você precisa de uma disciplina
+            | Que papel você vai desempenhar na sua próxima disciplina?
           p
-            | O dunno não funciona sem uma disciplina.
+            | Você precisa de ao menos uma disciplina ativa para usar o Dunno.
         .small-5.columns
           h5
-            | Estudantes
+            | Serei estudante
           p
             | <a ui-sref="courses.search">Participar de uma disciplina existente</a>.
         .small-2.columns
@@ -30,7 +30,7 @@ ui-view
             | ou
         .small-5.columns
           h5
-            | Professor
+            | Serei professor
           p
             a.button.radius.small ng-click="vm.openNewCourseForm()"
               | Criar disciplina
