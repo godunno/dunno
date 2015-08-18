@@ -25,6 +25,42 @@ describe Media do
     end
   end
 
+  describe "indexing" do
+    before do
+      allow(IndexerWorker).to receive(:perform_async)
+    end
+
+    it { expect(Media.index_name).to eq 'test_medias' }
+
+    context "creating" do
+      it do
+        media = create(:media)
+        media.run_callbacks(:commit)
+        expect(IndexerWorker).to have_received(:perform_async).with("Media", :index, media.id)
+      end
+    end
+
+    context "updating" do
+      let(:media) { create(:media, title: "Some title") }
+
+      it do
+        media.update!(title: "Another title")
+        media.run_callbacks(:commit)
+        expect(IndexerWorker).to have_received(:perform_async).with("Media", :index, media.id)
+      end
+    end
+
+    context "destroying" do
+      let(:media) { create(:media) }
+
+      it do
+        media.destroy!
+        media.run_callbacks(:commit)
+        expect(IndexerWorker).to have_received(:perform_async).with("Media", :delete, media.id)
+      end
+    end
+  end
+
   describe "#type" do
     context "file" do
       let(:media) { build :media_with_file }

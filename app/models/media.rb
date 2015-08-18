@@ -2,12 +2,7 @@ class Media < ActiveRecord::Base
   include HasUuid
   include HasFile
   include Elasticsearch::Model
-  index_name [Rails.env, model_name.collection].join('_')
-
-  after_commit on: [:create, :update] { IndexerWorker.perform_async(:index, id) }
-  after_commit on: [:destroy] { IndexerWorker.perform_async(:delete, id) }
-
-  CATEGORIES = %w(image video audio)
+  include IndexedModel
 
   acts_as_ordered_taggable
 

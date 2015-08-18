@@ -77,7 +77,6 @@ describe Api::V1::TopicsController do
             "uuid" => media.uuid,
             "title" => "One",
             "description" => nil,
-            "category" => nil,
             "preview" => nil,
             "type" => nil,
             "thumbnail" => nil,
