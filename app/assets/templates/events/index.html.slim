@@ -4,7 +4,7 @@ ui-view
       .small-12.columns
         h1.main__page__title
           | Agenda
-  .agenda
+  .agenda__header
     .row.collapse
       .small-6.columns.agenda__navigation
         p
@@ -14,244 +14,154 @@ ui-view
             | 12 a 18 de Dezembro
           a.button.secondary.tiny.radius.agenda__next__week<
             i.icon.icon-chevron-right
-      /
-        .small-6.columns
-          ul.button-group.radius.right
-            li
-              a.button.small.secondary
-                | Dia
-            li
-              a.button.small
-                | Semana
-      .small-12.columns.hide
-        .agenda__wrapper.content__box
-          ruby:
-            @agenda = [
-              {
-                date: 'Seg 12/12',
-                schedule: [
-                  {
-                    course: 'Programming I',
-                    scheme_colour: 'scheme-1',
-                    classroom: 'Sala 203',
-                    start_at: '8h',
-                    status: 'published'
-                  },{
-                    course: 'Programming III',
-                    scheme_colour: 'scheme-3',
-                    classroom: 'Sala 222',
-                    start_at: '10h15',
-                    status: 'published'
-                  }
-                ]
-              },{
-                date: 'Ter, 13/12',
-                schedule: []
-              },{
-                date: 'Qua, 14/12',
-                schedule: [
-                  {
-                    course: 'Operating Systems',
-                    scheme_colour: 'scheme-2',
-                    classroom: 'Sala de Informática',
-                    start_at: '10h',
-                    status: 'draft'
-                  },{
-                    course: 'Operating Systems',
-                    scheme_colour: 'scheme-2',
-                    classroom: 'Sala de Informática',
-                    start_at: '13h30',
-                    status: 'draft'
-                  },{
-                    course: 'Programming II',
-                    scheme_colour: 'scheme-4',
-                    classroom: 'Sala 13',
-                    start_at: '22h',
-                    status: 'canceled'
-                  }
-                ]
-              },{
-                date: 'Qui, 15/12',
-                schedule: [
-                  {
-                    course: 'Advanced Pairing for Dummies that never thought of pairing before',
-                    scheme_colour: 'scheme-6',
-                    classroom: 'Sala 69',
-                    start_at: '15h',
-                    status: 'empty'
-                  }
-                ]
-              },{
-                date: 'Sex, 16/12',
-                schedule: []
-              },{
-                date: 'Sáb, 17/12',
-                schedule: [{
-                  course: 'Computer Fair',
-                  scheme_colour: 'no-colour',
-                  classroom: '123rd St.',
-                  start_at: '10am',
-                  status: 'empty'
-                }]
-              },{
-                date: 'Dom, 18/12',
-                schedule: []
-              }
-            ]
-          -  @agenda.each_with_index do |day, i|
-            .agenda__weekday class="#{i <= 1 ? 'past' : ''} #{i == 2 ? 'today' : ''}"
-              .agenda__date
-                = day[:date]
-              .agenda__schedule
-                - day[:schedule].each do |event|
-                  a.agenda__schedule__event[href="#"]
-                    .schedule__event__course class="#{event[:scheme_colour]}"
-                      = event[:course]
-                    .schedule__event__details
-                      .right.schedule__event__status.status__icon class="status__icon__#{event[:status]}"
-                      span.schedule__event__classroom
-                        = event[:classroom]
-                      strong.schedule__event__start__at
-                        = event[:start_at]
-  .row.collapse
-    .small-12.columns
-      .poc-agenda.content__box
-        .poc-agenda-wrapper
-          - ['turno','seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'].each_with_index do |day, i|
-            - unless day == 'turno'
-              .poc-agenda-day class="#{i <= 3 ? 'poc-agenda-past-day' : '' } #{day == 'qui' ? 'poc-agenda-today' : ''}"
-                | #{day} · #{i+12}/Dez
-            - else
-              .poc-agenda-day.poc-agenda-period-label
-                | #{day}
-        .puc-agenda-content
-          - 3.times do |p|
-            ruby:
-              case p
-              when 0
-                day_period = 'morning'
-                day_pt = 'manhã'
-              when 1
-                day_period = 'afternoon'
-                day_pt = 'tarde'
-              when 2
-                day_period = 'evening'
-                day_pt = 'noite'
-              end
-            .day-period class="day-period-#{day_period}"
-              .poc-agenda-period.poc-agenda-period-label
-                | #{day_pt}
-              - 7.times do |d|
-                .poc-agenda-period class="#{d <= 2 ? 'happened' : ''} #{d == 3 && p == 0 ? 'happened' : ''}"
-                  - if p == 0 && d == 0
-                    .course
-                      .title.scheme-1
-                        strong>
-                          | 7h20
-                        | Português Total
-                      .classroom
-                        .status__icon.status__icon__published.right
-                        | NM610
-                    .course
-                      .title.scheme-9
-                        strong>
-                          | 9h40
-                        | Português
-                      .classroom
-                        .status__icon.status__icon__published.right
-                        | MM610
-                  - if p == 1 && d == 0
-                    .course
-                      .title.scheme-10
-                        strong>
-                          | 13h20
-                        | Português / Literatura / Redação
-                      .classroom
-                        .status__icon.status__icon__published.right
-                        | MM220
-                  - if p == 0 && d == 1
-                    .course
-                      .title.scheme-1
-                        strong>
-                          | 7h20
-                        | Português Total
-                      .classroom
-                        .status__icon.status__icon__published.right
-                        | NM610
-                  - if p == 1 && d == 1
-                    .course
-                      .title.scheme-2
-                        strong>
-                          | 13h20
-                        | Português
-                      .classroom
-                        .status__icon.status__icon__empty.right
-                        | JT910
-                    .course
-                      .title.scheme-3
-                        strong>
-                          | 15h30
-                        | Redação
-                      .classroom
-                        .status__icon.status__icon__empty.right
-                        | JT810
-                  - if p == 0 && d == 2
-                    .course
-                      .title.scheme-4
-                        strong>
-                          | 7h20
-                        | Português
-                      .classroom
-                        .status__icon.status__icon__canceled.right
-                        | JM810
-                    .course
-                      .title.scheme-5
-                        strong>
-                          | 8h20
-                        | Português
-                      .classroom
-                        .status__icon.status__icon__canceled.right
-                        | JM221
-                  - if p == 0 && d == 3
-                    .course
-                      .title.scheme-1
-                        strong>
-                          | 7h20
-                        | Português Total
-                      .classroom
-                        .status__icon.status__icon__published.right
-                        | NM610
-                    .course
-                      .title.scheme-6
-                        strong>
-                          | 11h20
-                        | Redação
-                      .classroom
-                        .status__icon.status__icon__published.right
-                        | MM710
-                  - if p == 1 && d == 3
-                    .course
-                      .title.scheme-8
-                        strong>
-                          | 15h30
-                        | Redação
-                      .classroom
-                        .status__icon.status__icon__published.right
-                        | JT610
-                    .course
-                      .title.scheme-7
-                        strong>
-                          | 16h20
-                        | Redação
-                      .classroom
-                        .status__icon.status__icon__published.right
-                        | JT710
-                  - if p == 0 && d == 4
-                    .course
-                      .title.scheme-1
-                        strong>
-                          | 9h40
-                        | Português Total
-                      .classroom
-                        .status__icon.status__icon__published.right
-                        | NM610
+      .small-6.columns
+        ul.button-group.radius.right
+          li
+            a.button.small.secondary
+              | Dia
+          li
+            a.button.small
+              | Semana
+  .agenda
+    .row.collapse
+      .small-12.columns
+        .agenda.content__box
+          .agenda__wrapper
+            - ['turno', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'].each_with_index do |day, i|
+              - unless day == 'turno'
+                .agenda__day class="#{i <= 3 ? 'agenda__past__day' : '' } #{day == 'qui' ? 'agenda__today' : ''}"
+                  | #{day} <br> #{i+12}/Dez
+              - else
+                .agenda__day.agenda__period__label
+                  | #{day}
+          .agenda__content
+            - 3.times do |p|
+              ruby:
+                case p
+                when 0
+                  day_period = 'morning'
+                  day_pt = 'manhã'
+                when 1
+                  day_period = 'afternoon'
+                  day_pt = 'tarde'
+                when 2
+                  day_period = 'evening'
+                  day_pt = 'noite'
+                end
+              .day__period class="day__period__#{day_period}"
+                .agenda__period.agenda__period__label
+                  | #{day_pt}
+                - 7.times do |d|
+                  .agenda__period class="#{d <= 2 ? 'happened' : ''} #{d == 3 && p == 0 ? 'happened' : ''}"
+                    - if p == 0 && d == 0
+                      .course
+                        .title
+                          strong>
+                            | 7h20
+                          | Português Total
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | NM610
+                      .course
+                        .title
+                          strong>
+                            | 9h40
+                          | Português
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | MM610
+                    - if p == 1 && d == 0
+                      .course
+                        .title
+                          strong>
+                            | 13h20
+                          | Português / Literatura / Redação
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | MM220
+                    - if p == 0 && d == 1
+                      .course
+                        .title
+                          strong>
+                            | 7h20
+                          | Português Total
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | NM610
+                    - if p == 1 && d == 1
+                      .course
+                        .title
+                          strong>
+                            | 13h20
+                          | Português
+                        .classroom
+                          .status__icon.status__icon__empty.right
+                          | JT910
+                      .course
+                        .title
+                          strong>
+                            | 15h30
+                          | Redação
+                        .classroom
+                          .status__icon.status__icon__empty.right
+                          | JT810
+                    - if p == 0 && d == 2
+                      .course
+                        .title
+                          strong>
+                            | 7h20
+                          | Português
+                        .classroom
+                          .status__icon.status__icon__canceled.right
+                          | JM810
+                      .course
+                        .title
+                          strong>
+                            | 8h20
+                          | Português
+                        .classroom
+                          .status__icon.status__icon__canceled.right
+                          | JM221
+                    - if p == 0 && d == 3
+                      .course
+                        .title
+                          strong>
+                            | 7h20
+                          | Português Total
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | NM610
+                      .course
+                        .title
+                          strong>
+                            | 11h20
+                          | Redação
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | MM710
+                    - if p == 1 && d == 3
+                      .course
+                        .title
+                          strong>
+                            | 15h30
+                          | Redação
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | JT610
+                      .course
+                        .title
+                          strong>
+                            | 16h20
+                          | Redação
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | JT710
+                    - if p == 0 && d == 4
+                      .course
+                        .title
+                          strong>
+                            | 9h40
+                          | Português Total
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | NM610

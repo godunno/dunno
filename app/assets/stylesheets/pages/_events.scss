@@ -1,148 +1,65 @@
 .agenda {
-  &__wrapper {
-    @include radius();
-    background: $white;
-    display: flex;
-  }
-
-  &__weekday {
-    border-right: .0625rem solid $light-grey-color;
-    flex-basis: 100%;
-
-    &:last-child {
-      border-right: 0;
-    }
-
-    &.past {
-      opacity: .5;
-    }
-  }
-
-  &__date {
-    border-bottom: .0625rem solid $light-grey-color;
-    font-size: .875rem;
-    padding: 1rem;
-    position: relative;
-    text-align: center;
-    text-transform: uppercase;
-
-    .today &:before {
-      border-top: .25rem solid $dunno-dark-color;
-      content: '';
-      display: block;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
-  }
-
-  &__schedule {
-    padding: .5rem .15rem .5rem 0;
-
-    &__event {
-      @include side-radius(right, $global-radius);
-      background: $white;
-      border: .0625rem solid $light-grey-color;
-      border-left: 0;
-      color: $dunno-dark-color;
-      display: block;
-      font-size: .875rem;
-      margin-bottom: 1rem;
-
-      &:hover {
-        border-color: $dunno-dark-color;
-        color: $dunno-dark-color;
-      }
-    }
-  }
-}
-
-.schedule__event {
-  &__course,
-  &__details {
-    padding: .5rem;
-  }
-
-  &__course {
-    border-bottom: .0625rem solid $light-grey-color;
-  }
-
-  &__classroom {
-    display: block;
-    opacity: .5;
-  }
-}
-
-.poc-agenda {
   color: $dark-grey-color;
   font-size: .875rem;
   text-align: center;
 
-  &-wrapper {
+  &__wrapper {
     @include radius();
     background: $white;
     display: flex;
     flex-wrap: wrap;
   }
 
-  &-day {
+  &__day {
     border-bottom: .0625rem solid $light-grey-color;
     border-right: .0625rem solid $light-grey-color;
     flex-basis: 13%;
-    position: relative;
     letter-spacing: 1px;
     padding: .5rem 0;
+    position: relative;
     text-transform: uppercase;
 
     &:last-child {
       border-right: 0;
     }
-
-    &.poc-agenda-period-label {
-      flex-basis: 9%;
-    }
-
-    &.poc-agenda-today:before {
-      border-top: .25rem solid $dunno-dark-color;
-      content: '';
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
-
-    &.poc-agenda-past-day {
-      color: $light-grey-color;
-    }
   }
 
-  &-content {
+  &__today:before {
+    border-top: .25rem solid $dunno-dark-color;
+    content: '';
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  &__past__day {
+    color: $light-grey-color;
+  }
+
+  &__content {
     display: flex;
     flex-basis: 100%;
+    flex-direction: column;
   }
 
-  .day-period {
+  .day__period {
     border-bottom: .0625rem solid $light-grey-color;
     display: flex;
     flex-basis: 100%;
 
-    &.day-period-evening {
+    &__evening {
       border-bottom: 0;
     }
   }
 
-  &-period {
+  &__period {
     border-right: .0625rem solid $light-grey-color;
     flex-basis: 13%;
     padding: 1rem .25rem 1rem 0;
 
     &:last-child {
       border-right: 0;
-    }
-
-    &.poc-agenda-period-label {
-      flex-basis: 9%;
     }
 
     &.happened {
@@ -152,6 +69,10 @@
         opacity: .66;
       }
     }
+  }
+
+  &__period__label {
+    flex-basis: 9%;
   }
 
   .course {
