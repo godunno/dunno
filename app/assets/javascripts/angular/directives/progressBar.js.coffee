@@ -30,11 +30,11 @@ DunnoApp.directive 'progressBar', ->
   scope: true
   link: (scope, element, attrs)->
     scope.progress = element
-    scope.meter = element.find(".meter")
+    scope.meter = element.find(".progress__meter")
     scope.stop()
   template: '
-    <div class="progress">
-      <span class="meter"></span>
+    <div class="progress success round">
+      <span class="progress__meter meter"></span>
     </div>
   '
 
