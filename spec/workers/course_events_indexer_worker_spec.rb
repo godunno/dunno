@@ -21,8 +21,8 @@ describe CourseEventsIndexerWorker, :elasticsearch do
 
   it do
     event_dates = subject
-                .map { |event| event.start_at.to_time }
-                .sort
+                  .map { |event| event.start_at.to_time }
+                  .sort
     expect(event_dates).to eq([first_date, second_date, third_date, fourth_date, event.start_at])
   end
 
@@ -33,8 +33,8 @@ describe CourseEventsIndexerWorker, :elasticsearch do
       let!(:event) { create(:event, course: course, start_at: second_date, status: 'published') }
       it do
         event_dates = subject
-                    .map { |event| event.start_at.to_time }
-                    .sort
+                      .map { |event| event.start_at.to_time }
+                      .sort
         expect(event_dates).to eq([first_date, event.start_at])
       end
     end
@@ -51,12 +51,11 @@ describe CourseEventsIndexerWorker, :elasticsearch do
 
       it "indexes events until today" do
         event_dates = subject
-                    .map { |event| event.start_at.to_time }
-                    .sort
+                      .map { |event| event.start_at.to_time }
+                      .sort
         expect(event_dates).to eq([first_date, second_date, third_date, fourth_date, fifth_date, sixth_date])
       end
     end
-
   end
 
   context "deleting old documents" do
@@ -68,8 +67,8 @@ describe CourseEventsIndexerWorker, :elasticsearch do
 
     it do
       event_dates = subject
-                      .map { |event| event.start_at.to_time }
-                      .sort
+                    .map { |event| event.start_at.to_time }
+                    .sort
       expect(event_dates).to eq([first_date + 1.day, second_date + 1.day, third_date + 1.day, fourth_date + 1.day, event.start_at])
     end
   end
