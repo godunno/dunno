@@ -2,11 +2,11 @@
   .content__box
     .calendar__header
       .row.collapse
-        .small-12.medium-4.columns.dates__programme
+        .small-12.medium-4.columns.dates__programme ng-if="course.user_role == 'teacher'"
           a.button.transparent.expand.primary.small ui-sref=".schedule"
             strong
               | Cronograma
-        .small-12.medium-8.columns.dates__header__navigation
+        .small-12.columns.dates__header__navigation ng-class="{'medium-8': course.user_role == 'teacher'}"
           a.button.transparent.secondary.small.dates__header__previous-month.left ui-sref="{month: course.previous_month}"
             i.icon.icon-chevron-left
             span<
@@ -20,7 +20,7 @@
     .empty__results.no__events ng-if="!course.events || course.events.length == 0"
       p
         | Seu calendário de aulas para esse mês está vazio.
-      p
+      p ng-if="course.user_role == 'teacher'"
         | Para definir dias de aula, acesse o <a ui-sref=".schedule">CRONOGRAMA</a>.
     .calendar__dates
       .calendar__date ng-repeat="event in course.events | orderBy:'start_at'"
@@ -38,7 +38,7 @@
           analytics-start-at="{{event.start_at}}"]
           span.date__more__info
             span.date__classroom> ng-if="event.classroom"
-              | {{event.classroom}} -
+              | {{event.classroom}}
             span.date__status
               span.status__icon[ng-class="'status__icon__' + event.formatted_status"]
           span.date__timestamp
