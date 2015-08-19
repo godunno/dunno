@@ -16,25 +16,40 @@ class SearchEventsByCourse
   end
 
   def search
-    Event.search(build_query)
-    .map { |event| FindOrInitializeEvent.by(course, event._source) }
+    result.map { |event| FindOrInitializeEvent.by(course, event._source) }
+  end
+
+  def finished?
+    remaining_events <= 0
   end
 
   private
 
-  def build_query
-    builder = QueryBuilder.new
+  def remaining_events
+    result.total_entries - (from + result.count)
+  end
+
+  def result
+    @result ||= Event.search(query)
+  end
+
+  def query
+    @query ||= builder.build
+  end
+
+  def builder
+    return @builder if @builder.present?
+
+    @builder = QueryBuilder.new
               .order_by(:start_at,  :desc)
               .filter_by_attribute(:course_id, course.id)
               .filter_by_range(:start_at, :lte, upper_bound_date)
 
-    builder = if lower_bound_date?
-                lower_bound_date(builder)
+    @builder = if lower_bound_date?
+                lower_bound_date(@builder)
               else
-                paginate(builder)
+                paginate(@builder)
               end
-
-    builder.build
   end
 
   def newest_event
@@ -57,8 +72,12 @@ class SearchEventsByCourse
 
   def paginate(builder)
     builder
-      .from(offset + (page * per_page))
+      .from(from)
       .size(per_page)
+  end
+
+  def from
+    offset + page * per_page
   end
 
   class QueryBuilder
