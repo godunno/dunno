@@ -3,57 +3,165 @@ ui-view
     .row
       .small-12.columns
         h1.main__page__title
-          | Aulas
-  .events-page
-    .row
-      .empty__results ng-if="!events || events.length == 0"
-        | Não há aulas esta semana.
-      ul.events.small-block-grid-1.medium-block-grid-2.large-block-grid-3
-        li.event-card ng-repeat="event in events"
-          .card-inner
-            .title ng-style="{'background-color': event.course.color}"
-              / TODO: replace h1
-              / TODO: make card consistent with rest of app
-              h1
-                | {{event.formatted_classroom}}
-              span.subtitle
-                | {{event.course.institution}}
-            .day-month
-              .day
-                | {{asDate(event.start_at) | date:'dd'}}
-              .month
-                | {{asDate(event.start_at) | date:'MMMM'}}
-            .exam ng-if="event.has_exam"
-              | PROVA
-            .content
-              .weekday-hour
-                span.weekday>
-                  | {{asDate(event.start_at) | date:'EEE'}}
-                span.time
-                  | - {{asDate(event.start_at) | date:'HH:mm'}}h
-              .event__action ng-if="event.planned()"
-                a.button.small.radius[
-                  analytics-course-name="{{event.course.name}}"
-                  analytics-course-uuid="{{event.course.uuid}}"
-                  analytics-event="Event Accessed"
-                  analytics-on="click"
-                  analytics-start-at="{{event.start_at}}"
-                  analytics-uuid="{{event.uuid}}"
-                  ui-sref="events.show({ eventId: event.uuid })"]
-                  | ver aula
-              .event__action ng-if="!event.planned()"
-                a.button.small.radius[
-                  ui-sref="events.show({ eventId: event.uuid })"]
-                  | planejar
-              .status
-                .image.status__icon ng-class="'status__icon__' + event.formatted_status"
-                span.course
-                  | {{event.course.name}}
-              .notes ng-if="event.topics.length > 0"
-                ul.note
-                  li.task ng-repeat="topic in event.topics | limitTo:3"
-                    .image
-                    span
-                      | {{topic.description}}
-                .remaining ng-if="event.topics.length > 3"
-                  | Mais {{event.topics.length - 3}} conteúdos
+          | Agenda
+  .agenda__header
+    .row.collapse
+      .small-6.columns.agenda__navigation
+        p
+          a.button.secondary.tiny.radius.agenda__previous__week>
+            i.icon.icon-chevron-left
+          span.agenda__current__week
+            | 12 a 18 de Dezembro
+          a.button.secondary.tiny.radius.agenda__next__week<
+            i.icon.icon-chevron-right
+      .small-6.columns
+        ul.button-group.radius.right
+          li
+            a.button.small.secondary
+              | Dia
+          li
+            a.button.small
+              | Semana
+  .agenda
+    .row.collapse
+      .small-12.columns
+        .agenda.content__box
+          .agenda__wrapper
+            - ['turno', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'].each_with_index do |day, i|
+              - unless day == 'turno'
+                .agenda__day class="#{i <= 3 ? 'agenda__past__day' : '' } #{day == 'qui' ? 'agenda__today' : ''}"
+                  | #{day} <br> #{i+12}/Dez
+              - else
+                .agenda__day.agenda__period__label
+                  | #{day}
+          .agenda__content
+            - 3.times do |p|
+              ruby:
+                case p
+                when 0
+                  day_period = 'morning'
+                  day_pt = 'manhã'
+                when 1
+                  day_period = 'afternoon'
+                  day_pt = 'tarde'
+                when 2
+                  day_period = 'evening'
+                  day_pt = 'noite'
+                end
+              .day__period class="day__period__#{day_period}"
+                .agenda__period.agenda__period__label
+                  | #{day_pt}
+                - 7.times do |d|
+                  .agenda__period class="#{d <= 2 ? 'happened' : ''} #{d == 3 && p == 0 ? 'happened' : ''}"
+                    - if p == 0 && d == 0
+                      .course
+                        .title
+                          strong>
+                            | 7h20
+                          | Português Total
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | NM610
+                      .course
+                        .title
+                          strong>
+                            | 9h40
+                          | Português
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | MM610
+                    - if p == 1 && d == 0
+                      .course
+                        .title
+                          strong>
+                            | 13h20
+                          | Português / Literatura / Redação
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | MM220
+                    - if p == 0 && d == 1
+                      .course
+                        .title
+                          strong>
+                            | 7h20
+                          | Português Total
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | NM610
+                    - if p == 1 && d == 1
+                      .course
+                        .title
+                          strong>
+                            | 13h20
+                          | Português
+                        .classroom
+                          .status__icon.status__icon__empty.right
+                          | JT910
+                      .course
+                        .title
+                          strong>
+                            | 15h30
+                          | Redação
+                        .classroom
+                          .status__icon.status__icon__empty.right
+                          | JT810
+                    - if p == 0 && d == 2
+                      .course
+                        .title
+                          strong>
+                            | 7h20
+                          | Português
+                        .classroom
+                          .status__icon.status__icon__canceled.right
+                          | JM810
+                      .course
+                        .title
+                          strong>
+                            | 8h20
+                          | Português
+                        .classroom
+                          .status__icon.status__icon__canceled.right
+                          | JM221
+                    - if p == 0 && d == 3
+                      .course
+                        .title
+                          strong>
+                            | 7h20
+                          | Português Total
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | NM610
+                      .course
+                        .title
+                          strong>
+                            | 11h20
+                          | Redação
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | MM710
+                    - if p == 1 && d == 3
+                      .course
+                        .title
+                          strong>
+                            | 15h30
+                          | Redação
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | JT610
+                      .course
+                        .title
+                          strong>
+                            | 16h20
+                          | Redação
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | JT710
+                    - if p == 0 && d == 4
+                      .course
+                        .title
+                          strong>
+                            | 9h40
+                          | Português Total
+                        .classroom
+                          .status__icon.status__icon__published.right
+                          | NM610

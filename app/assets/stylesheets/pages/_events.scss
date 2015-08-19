@@ -1,162 +1,104 @@
-// scss-lint:disable SelectorDepth NestingDepth
-
-.event__action {
-  margin-top: .5rem;
+.agenda {
+  color: $dark-grey-color;
+  font-size: .875rem;
   text-align: center;
 
-  .button {
-    margin-bottom: 0;
+  &__wrapper {
+    @include radius();
+    background: $white;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__day {
+    border-bottom: .0625rem solid $light-grey-color;
+    border-right: .0625rem solid $light-grey-color;
+    flex-basis: 13%;
+    letter-spacing: 1px;
+    padding: .5rem 0;
+    position: relative;
     text-transform: uppercase;
-  }
-}
 
-// TODO: refactor needed below this line
-// TODO: remove fonts smaller than .875rem (14px)
-.events-page {
-  .events {
-    @extend %cards-container;
+    &:last-child {
+      border-right: 0;
+    }
   }
 
-  .event-card {
-    .card-inner {
-      @extend %card;
-      position: relative;
+  &__today:before {
+    border-top: .25rem solid $dunno-dark-color;
+    content: '';
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 
-      &:hover {
-        @include box-shadow(0);
+  &__past__day {
+    color: $light-grey-color;
+  }
+
+  &__content {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+  }
+
+  .day__period {
+    border-bottom: .0625rem solid $light-grey-color;
+    display: flex;
+    flex-basis: 100%;
+
+    &__evening {
+      border-bottom: 0;
+    }
+  }
+
+  &__period {
+    border-right: .0625rem solid $light-grey-color;
+    flex-basis: 13%;
+    padding: 1rem .25rem 1rem 0;
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    &.happened {
+      background-color: lighten($light-grey-color, 20%);
+
+      .course {
+        opacity: .66;
       }
+    }
+  }
+
+  &__period__label {
+    flex-basis: 9%;
+  }
+
+  .course {
+    @include side-radius(right, $global-radius);
+    background: $white;
+    border: .0625rem solid $light-grey-color;
+    border-left: 0;
+    color: $dunno-dark-color;
+    margin-bottom: 1rem;
+    text-align: left;
+
+    .title,
+    .classroom {
+      padding: .25rem;
+    }
+
+    .classroom {
+      opacity: .75;
     }
 
     .title {
-      height: 113px;
-      text-align: center;
-
-      h1 {
-        font-size: 24px;
-        line-height: 1;
-        margin: 0;
-        padding: 25px 0 0;
-      }
-
-      .subtitle {
-        color: transparentize($dunno-dark-color, .2);
-        font-size: 11px;
-      }
-    }
-
-    .day-month {
-      background-color: $dunno-dark-color;
-      border-radius: 50%;
-      color: $white;
-      display: block;
-      height: 3.75em;
-      left: 50%;
-      margin-left: -1.875em;
-      position: absolute;
-      text-align: center;
-      top: 5.125em;
-      width: 3.75em;
-
-      .day {
-        font-size: 23px;
-        line-height: 1;
-        margin-top: 10px;
-      }
-
-      .month {
-        font-size: 10px;
-        text-transform: capitalize;
-      }
-    }
-
-    .exam {
-      background-color: $black;
-      color: $white;
-      font-size: 11px;
-      left: -40px;
-      padding: 4px 50px;
-      position: absolute;
-      top: 15px;
-      transform: rotate(-45deg);
-    }
-
-    .content {
-      @include radius(0 0 .3125em .3125em);
-      background-color: $white;
-      height: 287px;
-      padding: 10px 20px;
-
-      .weekday-hour {
-        color: transparentize($dunno-dark-color, .6);
-        font-size: 11px;
-        margin-top: 27px;
-        text-align: center;
-      }
-
-      .status {
-        border-bottom: 1px solid $light-grey-color;
-        border-top: 1px solid $light-grey-color;
-        margin-top: 1.25rem;
-        padding: .25rem;
-
-        span {
-          display: block;
-          font-size: .875rem;
-          font-weight: $font-weight-bold;
-        }
-
-        .image {
-          display: block;
-          float: right;
-        }
-      }
-
-      .notes {
-        font-size: 12px;
-        height: 150px;
-        position: relative;
-
-        .note {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-
-          .task {
-            color: $dark-grey-color;
-            font-size: 12px;
-            overflow: hidden;
-            padding: .5rem 0 0;
-
-            .image {
-              display: none;
-            }
-
-            span {
-              display: block;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          }
-        }
-
-        .remaining {
-          bottom: 0;
-          position: absolute;
-          text-align: center;
-          width: 100%;
-        }
-      }
-
-      .planning {
-        height: 158px;
-        text-align: center;
-      }
+      border-bottom: .0625rem solid $light-grey-color;
     }
   }
-}
 
-$event-card-width: 300px;
-$event-card-title-height: 80px;
-$event-card-notes-height: 320px;
-$event-card-border: solid 1px $light-grey-color;
+  .status__icon {
+    margin-top: .15rem;
+  }
+}
