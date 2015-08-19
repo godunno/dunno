@@ -9,6 +9,12 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
 
   $scope.course.weekly_schedules = [{}]
 
+  $scope.isToday = (event) ->
+    if DateUtils.locationInTime(event.start_at) == 'today'
+      return true
+    else
+      return false
+
   $scope.eventClass = (event) ->
     klass = DateUtils.locationInTime(event.start_at)
     klass += " has-tooltip" unless $scope.canAccessEvent(event)

@@ -47,3 +47,5 @@
               | {{asDate(event.start_at) | amDateFormat:'ddd'}}
             span.date__time
               | {{asDate(event.start_at) | amDateFormat:'HH:mm'}} - {{asDate(event.end_at) | amDateFormat:'HH:mm'}}
+            span.date__today ng-if="isToday(event)"
+              | HOJE

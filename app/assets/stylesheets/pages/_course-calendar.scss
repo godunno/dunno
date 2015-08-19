@@ -94,16 +94,10 @@
     color: $dunno-dark-color;
     font-weight: $font-weight-bold;
 
-    .date__day {
-      height: 2rem;
-      width: 2rem;
-
-      @media #{$small-only} {
-        height: 1.75rem;
-        line-height: 1.75rem;
-        margin: 0 .25rem;
-        width: 1.75rem;
-      }
+    .date__today {
+      color: $medium-grey-color;
+      font-size: .75rem;
+      margin-left: .25rem;
     }
   }
 
@@ -143,7 +137,7 @@
     display: block;
     float: right;
     text-align: right;
-    width: 50%;
+    width: 30%;
   }
 
   .date__classroom,
