@@ -15,6 +15,7 @@ Event = (RailsResource, $q, railsSerializer) ->
 
     planned: -> @topics.length > 0
 
+    # TODO: Extract this configuration
     @paginate: (options) ->
       deferred = $q.defer()
       Event.configure(fullResponse: true)

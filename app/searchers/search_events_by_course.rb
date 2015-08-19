@@ -46,9 +46,9 @@ class SearchEventsByCourse
               .filter_by_range(:start_at, :lte, upper_bound_date)
 
     @builder = if lower_bound_date?
-                lower_bound_date(builder)
+                lower_bound_date(@builder)
               else
-                paginate(builder)
+                paginate(@builder)
               end
   end
 
