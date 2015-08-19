@@ -19,7 +19,7 @@
   }
 
   .dates__header__navigation {
-    padding-top: .5rem;
+    padding-top: .25rem;
     text-align: center;
     white-space: nowrap;
   }
@@ -95,9 +95,6 @@
     font-weight: $font-weight-bold;
 
     .date__day {
-      @include radius(50%);
-      background-color: $dunno-green-color;
-      color: $white;
       height: 2rem;
       width: 2rem;
 
