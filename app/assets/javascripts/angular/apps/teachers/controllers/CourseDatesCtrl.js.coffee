@@ -10,5 +10,8 @@ CourseDatesCtrl = ($scope, $state, $modalInstance, course) ->
 
   $scope.close = -> $modalInstance.close()
 
+  $scope.removeEndDate = ->
+    $scope.course.end_date = null
+
 CourseDatesCtrl.$inject = ['$scope', '$state', '$modalInstance', 'course']
 DunnoApp.controller 'CourseDatesCtrl', CourseDatesCtrl
