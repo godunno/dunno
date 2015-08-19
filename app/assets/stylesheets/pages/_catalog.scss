@@ -18,3 +18,23 @@
   }
 }
 
+.catalog__search {
+  position: relative;
+
+  .icon {
+    left: .5rem;
+    opacity: .5;
+    position: absolute;
+    top: .5rem;
+  }
+
+  input {
+    margin-bottom: 0;
+    padding-left: 1.5rem;
+  }
+
+  input:focus + .icon {
+    color: $dunno-green-color;
+    opacity: 1;
+  }
+}

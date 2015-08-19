@@ -1,9 +1,18 @@
 header.page__title
   .row
-    .small-12.columns
+    .small-12.medium-6.columns
       h1.main__page__title
-        span ng-click="clearSearch()"
-          | Catálogo
+        | Catálogo
+    .small-12.medium-6.columns ng-show="!showTutorial()"
+      form.catalog__search[
+        name="media_search"
+        ng-submit="fetch()"]
+        input.radius[
+          name="q"
+          ng-model="search.q"
+          placeholder="Procure por assunto, palavra-chave ou tags"
+          type="search"]
+        i.icon.icon-search ng-click="fetch()"
 .catalog__page.row
   .small-12.medium-6.medium-centered.columns ng-if="showTutorial()"
     p
@@ -12,22 +21,6 @@ header.page__title
       | Para adicionar novos arquivos, basta editar uma aula e adicionar conteúdos.
       br
       = image_tag 'medias-blankslate.png'
-  .small-12.columns ng-show="!showTutorial()"
-    form[
-      name="media_search"
-      ng-submit="fetch()"]
-      .row.collapse
-        .small-11.columns.search__wrapper
-          input[
-            name="q"
-            ng-model="search.q"
-            placeholder="Procure por assunto, palavra-chave ou tags"
-            type="text"]
-          a.button.icon__button ng-click="clearSearch()"
-            .icon.icon__close
-        .small-1.columns
-          button.button.expand.search__button
-            .icon.icon-search
   .small-12.columns
     .empty__results ng-if="medias.length == 0 && !showTutorial()"
       | Nenhum resultado encontrado.
