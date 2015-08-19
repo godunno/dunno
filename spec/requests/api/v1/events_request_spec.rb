@@ -206,7 +206,7 @@ describe Api::V1::EventsController do
             describe "media" do
               let(:target) { previous_event_media }
               subject { previous_event_topic_json["media"] }
-              it_behaves_like "request return check", %w(title description category url uuid type thumbnail)
+              it_behaves_like "request return check", %w(title description url uuid type thumbnail)
             end
           end
         end
@@ -227,7 +227,7 @@ describe Api::V1::EventsController do
             describe "media" do
               let(:target) { next_event_media }
               subject { next_event_topic_json["media"] }
-              it_behaves_like "request return check", %w(title description category url uuid type thumbnail)
+              it_behaves_like "request return check", %w(title description url uuid type thumbnail)
             end
           end
         end
@@ -244,7 +244,7 @@ describe Api::V1::EventsController do
           describe "media with URL" do
             let(:target) { media_with_url }
             subject { topic_json["media"] }
-            it_behaves_like "request return check", %w(title description category url uuid type thumbnail)
+            it_behaves_like "request return check", %w(title description url uuid type thumbnail)
           end
         end
       end
@@ -372,7 +372,6 @@ describe Api::V1::EventsController do
             subject { event.topics.first.media }
             it { expect(subject.title).to eq topic.description }
             it { expect(subject.description).to eq media_with_url.description }
-            it { expect(subject.category).to eq media_with_url.category }
             it { expect(subject.url).to eq media_with_url.url }
             it { expect(subject.thumbnail).to eq media_with_url.thumbnail }
           end

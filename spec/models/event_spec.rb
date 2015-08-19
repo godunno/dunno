@@ -41,6 +41,42 @@ describe Event do
     end
   end
 
+  describe "indexing" do
+    before do
+      allow(IndexerWorker).to receive(:perform_async)
+    end
+
+    it { expect(Event.index_name).to eq 'test_events' }
+
+    context "creating" do
+      it do
+        event = create(:event)
+        event.run_callbacks(:commit)
+        expect(IndexerWorker).to have_received(:perform_async).with("Event", :index, event.id)
+      end
+    end
+
+    context "updating" do
+      let(:event) { create(:event, status: :draft) }
+
+      it do
+        event.update!(status: :published)
+        event.run_callbacks(:commit)
+        expect(IndexerWorker).to have_received(:perform_async).with("Event", :index, event.id)
+      end
+    end
+
+    context "destroying" do
+      let(:event) { create(:event) }
+
+      it do
+        event.destroy!
+        event.run_callbacks(:commit)
+        expect(IndexerWorker).to have_received(:perform_async).with("Event", :delete, event.id)
+      end
+    end
+  end
+
   describe "#status" do
     %w(draft published canceled).each do |status|
 

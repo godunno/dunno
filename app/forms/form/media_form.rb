@@ -9,7 +9,6 @@ module Form
     attribute :title, String
     attribute :description, String
     attribute :thumbnail, String
-    attribute :category, String
     attribute :url, String
     attribute :file_url, String
     attribute :original_filename, String
@@ -19,7 +18,7 @@ module Form
     validate :mutually_exclusive_url_or_file
 
     def initialize(params)
-      super(params.slice(*attributes_list(:title, :description, :category, :url, :file_url, :original_filename, :tag_list)))
+      super(params.slice(*attributes_list(:title, :description, :url, :file_url, :original_filename, :tag_list)))
       set_preview!
       url.try :strip!
       self.title = preview.title
@@ -33,7 +32,6 @@ module Form
       model.title             = title
       model.description       = description
       model.thumbnail         = thumbnail
-      model.category          = category
       model.url               = url
       model.file_url          = file_url
       model.original_filename = original_filename

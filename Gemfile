@@ -100,7 +100,7 @@ group :test do
   gem 'capybara',                 '2.4.4',     require: false
   gem 'selenium-webdriver',       '2.45.0',    require: false
   gem 'capybara-angular',         '0.1.1',     require: false
-  gem 'connection_pool'
+  gem 'connection_pool',          '2.2.0'
 end
 
 group :development, :test do
@@ -114,5 +114,5 @@ group :development, :test do
   gem 'timecop',                  '0.7.1'
   gem 'rspec_api_documentation',  '4.3.0'
   gem 'teaspoon-jasmine',         '2.2.0'
-  gem 'rspec_junit_formatter', '0.2.2'
+  gem 'rspec_junit_formatter',    '0.2.2'
 end

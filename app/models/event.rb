@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   include HasUuid
   include Elasticsearch::Model
-  index_name [Rails.env, model_name.collection].join('_')
+  include IndexedModel
 
   settings index: { number_of_shards: 1 } do
     mapping do
