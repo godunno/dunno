@@ -1,11 +1,20 @@
 DunnoApp = angular.module('DunnoApp')
 
-NewWeeklyScheduleCtrl = ($scope, $state, $modalInstance, $filter, TimeGetterSetter, weeklySchedule) ->
+NewWeeklyScheduleCtrl = (
+  $scope,
+  $state,
+  $modalInstance,
+  $filter,
+  TimeGetterSetter,
+  weeklySchedule
+) ->
+
   $scope.formButton = "Adicionar"
   $scope.weeklySchedule = weeklySchedule
 
   $scope.startTime = TimeGetterSetter.generate(weeklySchedule, 'start_time')
   $scope.endTime = TimeGetterSetter.generate(weeklySchedule, 'end_time')
+  $scope.weeklySchedule.weekday = $scope.startTime().getDay()
 
   $scope.submit = (weeklySchedule) ->
     $scope.$emit('wholePageLoading', weeklySchedule.save().then ->
@@ -15,5 +24,11 @@ NewWeeklyScheduleCtrl = ($scope, $state, $modalInstance, $filter, TimeGetterSett
 
   $scope.close = -> $modalInstance.close()
 
-NewWeeklyScheduleCtrl.$inject = ['$scope', '$state', '$modalInstance','$filter', 'TimeGetterSetter', 'weeklySchedule']
+NewWeeklyScheduleCtrl.$inject = [
+  '$scope',
+  '$state',
+  '$modalInstance','$filter',
+  'TimeGetterSetter',
+  'weeklySchedule'
+]
 DunnoApp.controller 'NewWeeklyScheduleCtrl', NewWeeklyScheduleCtrl
