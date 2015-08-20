@@ -12,22 +12,15 @@ header.page__header ng-style="{'background-color': course.color}"
             tooltip="{{course.teacher.name}}"]
           span
             | {{course.teacher.name}}
-
     .page__header__info.small-12.medium-4.columns
-      .course__members
-        .course__members__count
-          i.icon.icon-users>
-          | {{course.members.length}}
-        a.button.dark.add__users.rounded[
-          ng-if="course.user_role == 'teacher'"
-          data-reveal-id="invite__members"]
-          | +
+      span.course__date__info ng-if="course.end_date"
+        | {{course.start_date | amDateFormat: 'DD/MM/YY'}} — {{course.end_date | amDateFormat: 'DD/MM/YY'}}
       .notify__members
         a.button.transparent.secondary.outline.radius.tiny[
           data-reveal-id="send-notification"
           ng-if="course.user_role == 'teacher' && course.members.length > 1"]
           i.icon.icon-buzz>
-          | Notificar
+          | Notificar estudantes
   .row
     footer.small-12.columns
       .row
@@ -42,6 +35,8 @@ header.page__header ng-style="{'background-color': course.color}"
             li ui-sref-active='active'
               a.members__tab ui-sref=".members"
                 | Integrantes
+                span.label.round.info<
+                  | {{course.members.length}}
 .course__detail__page
   .row.small-collapse
     .small-12.medium-10.medium-centered.large-8.columns ui-view=true

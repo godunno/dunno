@@ -1,110 +1,49 @@
-.course__members {
-  margin-bottom: .5rem;
-
-  .course__members__count {
-    color: $dunno-dark-color;
-    font-size: .875rem;
-    font-weight: $font-weight-bold;
-    line-height: 1.5rem;
-    margin: 0 .5rem;
-    opacity: .6;
-    text-align: center;
-    vertical-align: middle;
-
-    .icon {
-      font-size: 1.25rem;
-      vertical-align: middle;
-    }
-  }
-}
-
 .notify__members {
+  height: 0;
+
+  @media #{$small-only} {
+    height: auto;
+    padding: .5rem 0;
+  }
+
   .button {
     position: relative;
-    top: 4rem;
+    top: 4.5rem;
     z-index: 4;
 
     @media #{$small-only} {
-      top: 0;
+      position: static;
     }
   }
 }
 
-.course__member__avatar,
-.course__members__count {
-  display: inline-block;
-  vertical-align: top;
+.course__schedule__info {
+  display: block;
+  font-size: .875rem;
+  opacity: .75;
+
+  .course__schedule {
+    text-transform: uppercase;
+
+    &:after {
+      content: ' · ';
+    }
+
+    &:last-child:after {
+      content: '';
+    }
+  }
 }
 
 .course__member__avatar {
   @include avatar();
+  display: inline-block;
   margin-right: .25rem;
+  vertical-align: top;
 }
 
-.course__mobile__actions {
-  margin-bottom: 1rem;
-
-  .button {
-    margin: .5rem 0;
-  }
-}
-
-.page__header {
-  .page__header__title {
-    @media #{$small-only} {
-      color: $white;
-      font-size: 1rem;
-      height: 2rem;
-      margin: 0 auto -2rem;
-      overflow: hidden;
-      position: relative;
-      text-overflow: ellipsis;
-      top: -3.25rem;
-      white-space: nowrap;
-      width: 65vw;
-    }
-  }
-
-  .page__header__header,
-  .page__header__info {
-    @media #{$small-only} {
-      text-align: center;
-    }
-  }
-
-  .page__header__subtitle {
-    .course__teacher {
-      margin-right: .5rem;
-
-      &:after {
-        content: ' ';
-      }
-    }
-  }
-}
-
-.page__title__actions {
-  text-align: right;
-  white-space: nowrap;
-
-  @media #{$small-only} {
-    padding: 1rem;
-    text-align: center;
-
-    a,
-    span {
-      display: block;
-    }
-
-    span {
-      color: $light-grey-color;
-      margin: .25rem 0 1rem;
-
-      &:before,
-      &:after {
-        content: '—';
-        margin: 0 1rem;
-      }
-    }
+.members__tab {
+  .label {
+    margin-left: .5rem;
   }
 }

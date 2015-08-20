@@ -1,16 +1,26 @@
 / TODO: empty results
 / TODO: blankslate
 .content__box.members__content
+  p.add__members
+    a.button.radius.add__users[
+      ng-if="course.user_role == 'teacher'"
+      data-reveal-id="invite__members"]
+      i.icon-add>
+      | Adicionar integrantes
+    br
+    small
+      | Código da Disciplina: <samp>{{course.access_code}}</samp>
   .member__group ng-repeat="members in course.members | groupBy: 'role' | toArray: true | orderBy:vm.order"
     p.members__content__title
       strong.role__name>
         | {{vm.roleName(members)}}
-      span.role__count
+      span.role__count.label.round.info
         | {{members.length}}
     .members
       .member ng-repeat="member in members | orderBy: 'name' "
-        .disabled.member__role.button.tiny.radius.right ng-class="{'dark': member.role == 'teacher'}"
-          | {{vm.translateRole(member.role)}}
+        /
+          .disabled.member__role.button.tiny.radius.right ng-class="{'dark': member.role == 'teacher'}"
+            | {{vm.translateRole(member.role)}}
         .member__name
           img.member__avatar[user-avatar="{{member.name}}"]
           | {{member.name}}

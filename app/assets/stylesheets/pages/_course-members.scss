@@ -2,6 +2,14 @@
   border-bottom: .0625rem solid transparentize($dunno-dark-color, .85);
 }
 
+.add__members {
+  text-align: center;
+
+  .button {
+    margin-bottom: 0;
+  }
+}
+
 .members__content {
   padding: 2rem 1rem;
 }
@@ -24,23 +32,13 @@
   }
 
   .role__count {
-    @include radius(50%);
-    border: .0625rem solid $medium-grey-color;
-    color: $medium-grey-color;
-    display: inline-block;
-    font-size: .75rem;
-    height: 1.5rem;
-    line-height: 1.35rem;
-    margin-left: .25rem;
-    text-align: center;
-    vertical-align: middle;
-    width: 1.5rem;
+    border: .0625rem solid $light-grey-color;
+    margin-left: .5rem;
   }
 }
 
 .members {
   .member {
-    @extend %divider;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
 

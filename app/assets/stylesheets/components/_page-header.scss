@@ -15,6 +15,19 @@
     font-weight: $font-weight-normal;
     margin: 0 0 .5rem;
     padding: 0;
+
+    @media #{$small-only} {
+      color: $white;
+      font-size: 1rem;
+      height: 2rem;
+      margin: 0 auto -2rem;
+      overflow: hidden;
+      position: relative;
+      text-overflow: ellipsis;
+      top: -3.25rem;
+      white-space: nowrap;
+      width: 65vw;
+    }
   }
 
   .page__header__subtitle {
@@ -39,6 +52,14 @@
         }
       }
     }
+
+    .course__teacher {
+      margin-right: .5rem;
+
+      &:after {
+        content: ' ';
+      }
+    }
   }
 
   .button {
@@ -58,5 +79,12 @@
   .page__header__info,
   .page__header__actions {
     text-align: right;
+  }
+
+  .page__header__header,
+  .page__header__info {
+    @media #{$small-only} {
+      text-align: center;
+    }
   }
 }
