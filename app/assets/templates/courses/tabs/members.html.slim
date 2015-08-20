@@ -14,9 +14,8 @@
     p.members__content__title
       strong.role__name>
         | {{vm.roleName(members)}}
-      /
-        span.role__count
-          | {{members.length}}
+      span.role__count.label.round.info
+        | {{members.length}}
     .members
       .member ng-repeat="member in members | orderBy: 'name' "
         /
