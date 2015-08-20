@@ -45,7 +45,7 @@ describe Api::V1::CoursesController do
           "user_role" => "teacher",
           "students_count" => course.students.count,
           "teacher" => { "name" => teacher.name },
-          "weekly_schedules"=> [
+          "weekly_schedules" => [
             "uuid" => weekly_schedule.uuid,
             "weekday" => weekly_schedule.weekday,
             "start_time" => weekly_schedule.start_time,
@@ -154,7 +154,7 @@ describe Api::V1::CoursesController do
                   "start_at" => fifth_date.utc.iso8601,
                   "end_at" => (fifth_date + 2.hours).utc.iso8601,
                   "classroom" => nil
-                },
+                }
               ],
               "previous_month" => 1.month.ago.beginning_of_month.utc.iso8601,
               "current_month" => Time.current.beginning_of_month.utc.iso8601,
@@ -260,7 +260,6 @@ describe Api::V1::CoursesController do
     it { expect(new_course.students).to eq([]) }
 
     context "valid content type" do
-
       def do_action
         allow(TrackerWrapper).to receive_message_chain(:new, :track)
         post "/api/v1/courses/#{identifier}/register.json", auth_params(student).to_json
@@ -415,20 +414,12 @@ describe Api::V1::CoursesController do
       let(:course_params) do
         {
           course: course.attributes.merge(
-            name: "Some name",
-            weekly_schedules: [
-              uuid: weekly_schedule.uuid,
-              weekday: 2,
-              start_time: '14:00',
-              end_time: '16:00',
-              classroom: 'B-2'
-            ]
+            name: "Some name"
           )
         }
       end
 
       skip "invalid parameters"
-      skip "authorization"
 
       before do
         do_action
@@ -437,15 +428,6 @@ describe Api::V1::CoursesController do
       it { expect(last_response.status).to eq(200) }
       it { expect(course.reload.name).to eq "Some name" }
       it { expect(json).to eq("uuid" => course.uuid) }
-
-      describe "weekly schedule" do
-        subject { weekly_schedule.reload }
-
-        it { expect(subject.weekday).to eq 2 }
-        it { expect(subject.start_time).to eq '14:00' }
-        it { expect(subject.end_time).to eq '16:00' }
-        it { expect(subject.classroom).to eq 'B-2' }
-      end
     end
 
     context "updating Course#start_date to a previous date" do
