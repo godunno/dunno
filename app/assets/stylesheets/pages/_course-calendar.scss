@@ -62,12 +62,12 @@
   font-size: .875rem;
   line-height: 2.125em;
   padding: .5rem;
+  text-transform: uppercase;
   white-space: nowrap;
 
   @media #{$small-only} {
-    font-size: .75rem;
-    line-height: 3.125rem;
-    padding: 0;
+    flex-wrap: wrap;
+    line-height: 1.5rem;
   }
 
   &.past {
@@ -82,28 +82,70 @@
 
   &:hover {
     background-color: darken($white, 4%);
-
-    &.today {
-      .date__date {
-        color: $white;
-      }
-    }
   }
 
   .date__day {
-    flex-basis: 4em;
-  }
-
-  .date__weekday {
-    flex-basis: 2.5em;
+    @media #{$small-only} {
+      order: 1;
+      text-align: left;
+    }
   }
 
   .date__time {
-    flex-basis: 6em;
+    flex-basis: 9rem;
+    text-align: center;
+
+    @media #{$small-only} {
+      flex-basis: 50%;
+      order: 4;
+      text-align: left;
+    }
   }
 
   .date__today {
-    flex-basis: 3em;
+    @media #{$small-only} {
+      flex-grow: 1;
+      order: 2;
+    }
+  }
+
+  .date__classroom {
+    flex-grow: 1;
+    margin-left: auto;
+    text-align: right;
+    text-transform: none;
+
+    @media #{$small-only} {
+      flex-basis: 51%;
+      margin-left: 0;
+      order: 3;
+      text-align: right;
+    }
+  }
+
+  .date__status {
+    color: $dunno-green-color;
+    font-size: .875rem;
+    font-style: normal;
+    margin-left: auto;
+    text-align: center;
+
+    @media #{$small-only} {
+      flex-basis: 50%;
+      font-size: .625rem;
+      margin-left: 0;
+      order: 5;
+      text-align: right;
+    }
+
+    &.draft,
+    &.empty {
+      color: $dunno-dark-color;
+    }
+
+    &.cancelled {
+      color: $red-color;
+    }
   }
 
   .date__day,
@@ -114,46 +156,10 @@
   .date__status {
     padding-left: .5rem;
     padding-right: .5rem;
-  }
-
-  .date__weekday,
-  .date__time,
-  .date__today {
-    text-align: center;
-  }
-
-  .date__weekday,
-  .date__day {
-    text-transform: uppercase;
-  }
-
-  .date__classroom {
-    flex-grow: 1;
-    margin-left: auto;
-    text-align: right;
-  }
-
-  .date__status {
-    color: $dunno-green-color;
-    flex-basis: 8em;
-    flex-grow: 0;
-    font-size: .75rem;
-    font-style: normal;
-    margin-left: auto;
-    text-align: center;
-    text-transform: uppercase;
 
     @media #{$small-only} {
-      font-size: .625rem;
-    }
-
-    &.draft,
-    &.empty {
-      color: $dunno-dark-color;
-    }
-
-    &.cancelled {
-      color: $red-color;
+      padding-left: .25rem;
+      padding-right: .25rem;
     }
   }
 }
