@@ -58,15 +58,26 @@
   background-color: $white;
   border-bottom: 1px solid $light-grey-color;
   color: $dunno-dark-color;
-  display: block;
+  display: flex;
   font-size: .875rem;
   line-height: 2.125em;
   padding: .5rem;
+  white-space: nowrap;
 
   @media #{$small-only} {
     font-size: .75rem;
     line-height: 3.125rem;
     padding: 0;
+  }
+
+  &.past {
+    background-color: lighten($light-grey-color, 20%);
+    font-style: italic;
+  }
+
+  &.today {
+    background-color: $yellow-color;
+    font-weight: $font-weight-bold;
   }
 
   &:hover {
@@ -79,71 +90,68 @@
     }
   }
 
-  &:after {
-    clear: both;
-    content: ' ';
-    display: block;
+  .date__day {
+    flex-basis: 4rem;
   }
 
-  &.past {
-    background-color: lighten($light-grey-color, 20%);
-    font-style: italic;
+  .date__weekday {
+    flex-basis: 2.5rem;
   }
 
-  &.today {
-    color: $dunno-dark-color;
-    font-weight: $font-weight-bold;
+  .date__time {
+    flex-basis: 6rem;
+  }
 
-    .date__today {
-      color: $medium-grey-color;
-      font-size: .75rem;
-      margin-left: .25rem;
-    }
+  .date__today {
+    flex-basis: 3rem;
   }
 
   .date__day,
   .date__weekday,
   .date__time,
-  .date__status,
+  .date__today {
+    padding-right: .5rem;
+  }
+
+  .date__weekday,
+  .date__time,
+  .date__today {
+    text-align: center;
+  }
+
   .date__classroom,
-  .date__order,
-  .date__go {
-    display: inline-block;
-    padding: 0 .25em;
+  .date__status {
+    padding-left: .5rem;
+  }
+
+  .date__weekday,
+  .date__day {
+    text-transform: uppercase;
+  }
+
+  .date__classroom {
+    flex-grow: 1;
+    margin-left: auto;
+    text-align: right;
   }
 
   .date__status {
-    margin: 0 .25em;
-    vertical-align: middle;
-
-    @media #{$small-only} {
-      padding: 0;
-    }
-  }
-
-  .date__day {
-    font-size: 1.125rem;
-    font-weight: $font-weight-bold;
-    text-align: center;
-  }
-
-  .date__weekday {
+    color: $dunno-green-color;
+    flex-basis: 6rem;
+    flex-grow: 0;
+    font-size: .75rem;
+    font-style: normal;
+    margin-left: auto;
     text-align: center;
     text-transform: uppercase;
-    width: 3em;
-  }
 
-  .date__more__info {
-    display: block;
-    float: right;
-    text-align: right;
-    width: 30%;
-  }
+    &.draft,
+    &.empty {
+      color: $dunno-dark-color;
+    }
 
-  .date__classroom,
-  .date__status,
-  .date__order,
-  .date__go {
-    text-align: right;
+    &.cancelled {
+      color: $red-color;
+    }
   }
 }

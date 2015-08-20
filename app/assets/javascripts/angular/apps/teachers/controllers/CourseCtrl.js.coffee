@@ -60,6 +60,14 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
     else
       'Esta aula ainda está vazia'
 
+  $scope.translatedStatus = (event) ->
+    if event.formatted_status == 'canceled'
+      'Cancelada'
+    else if event.formatted_status == 'published'
+      'Publicada'
+    else if event.formatted_status == 'empty' || event.formatted_status == 'draft'
+      'Rascunho'
+
 CourseCtrl.$inject = [
   '$scope', '$location', '$stateParams', '$state', 'Course', 'Utils', 'DateUtils', 'course'
 ]

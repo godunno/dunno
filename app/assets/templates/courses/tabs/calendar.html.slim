@@ -35,17 +35,15 @@
           analytics-course-uuid="{{course.uuid}}"
           analytics-course-name="{{course.name}}"
           analytics-start-at="{{event.start_at}}"]
-          span.date__more__info
-            span.date__classroom> ng-if="event.classroom"
-              | {{event.classroom}}
-            span.date__status
-              span.status__icon[ng-class="'status__icon__' + event.formatted_status"]
-          span.date__timestamp
-            span.date__day
-              | {{asDate(event.start_at) | amDateFormat:'DD'}}
-            span.date__weekday
-              | {{asDate(event.start_at) | amDateFormat:'ddd'}}
-            span.date__time
-              | {{asDate(event.start_at) | amDateFormat:'HH:mm'}} - {{asDate(event.end_at) | amDateFormat:'HH:mm'}}
-            span.date__today ng-if="isToday(event)"
-              | HOJE
+          span.date__day
+            | {{asDate(event.start_at) | amDateFormat:'DD/MMM'}}
+          span.date__weekday
+            | {{asDate(event.start_at) | amDateFormat:'ddd'}}
+          span.date__time
+            | {{asDate(event.start_at) | amDateFormat:'HH:mm'}} - {{asDate(event.end_at) | amDateFormat:'HH:mm'}}
+          span.date__today ng-if="isToday(event)"
+            | HOJE
+          span.date__classroom ng-if="event.classroom"
+            | {{event.classroom}}
+          span.date__status ng-class="{cancelled: event.formatted_status == 'canceled', draft: event.formatted_status == 'empty'}"
+            | {{translatedStatus(event)}}
