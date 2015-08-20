@@ -16,7 +16,7 @@
   @extend %content-box;
 
   .reveal-modal & {
-    @include box-shadow(0, .125rem, 0, $dark-grey-color);
-    border: .0625rem solid $dark-grey-color;
+    @include box-shadow(none, null, null, null);
+    border: 0;
   }
 }
