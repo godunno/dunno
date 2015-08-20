@@ -13,12 +13,14 @@ header.page__header ng-style="{'background-color': course.color}"
           span
             | {{course.teacher.name}}
     .page__header__info.small-12.medium-4.columns
+      span.course__date__info ng-if="course.end_date"
+        | {{course.start_date | amDateFormat: 'DD/MM/YY'}} — {{course.end_date | amDateFormat: 'DD/MM/YY'}}
       .notify__members
         a.button.transparent.secondary.outline.radius.tiny[
           data-reveal-id="send-notification"
           ng-if="course.user_role == 'teacher' && course.members.length > 1"]
           i.icon.icon-buzz>
-          | Notificar
+          | Notificar estudantes
   .row
     footer.small-12.columns
       .row
