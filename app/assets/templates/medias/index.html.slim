@@ -5,14 +5,14 @@ header.page__title
         | Catálogo
     .small-12.medium-6.columns ng-show="!showTutorial()"
       form.catalog__search[
-        name="media_search"
-        ng-submit="fetch()"]
-        input.radius[
-          name="q"
-          ng-model="search.q"
-          placeholder="Procure por assunto, palavra-chave ou tags"
-          type="search"]
-        i.icon.icon-search ng-click="fetch()"
+        name="media_search"]
+        label
+          search-input.radius[
+            perform-search="search(query)"
+            clear-search="clearSearch()"
+            name="q"
+            placeholder="Procure por assunto, palavra-chave ou tags"]
+          i.icon.icon-search
 .catalog__page.row
   .small-12.medium-6.medium-centered.columns ng-if="showTutorial()"
     p
@@ -76,7 +76,7 @@ header.page__title
             tags-input.tags__input[
               ng-model="media.tags"
               on-tag-added="updateMedia(media)"
-              on-tag-clicked="searchBy($tag)"
+              on-tag-clicked="search($tag.text)"
               on-tag-removed="updateMedia(media)"
               placeholder="Nova tag"
               replace-spaces-with-dashes="false"]

@@ -6,7 +6,7 @@ MediasIndexCtrl = ($scope, searchResult, MediaSearcher, Utils) ->
   $scope.medias = searchResult.medias
   $scope.next_page = searchResult.next_page
 
-  $scope.showTutorial = -> !$scope.medias || (noMedias() && $scope.media_search.q.$untouched)
+  $scope.showTutorial = -> !$scope.medias || (noMedias() && $scope.search.q.$untouched)
 
   # TODO: get the count from the server
   $scope.countType = (list, type)->
