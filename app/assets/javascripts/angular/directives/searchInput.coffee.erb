@@ -1,0 +1,30 @@
+searchInput = ->
+  link = (scope, element, attributes) ->
+    moveAttributesToChildInput(element, 'name', 'placeholder', 'class')
+    searchOnEvent(scope, element)
+
+  moveAttributesToChildInput = (element, attributes...) ->
+    input = element.find('input')
+    attributes.forEach (attribute) ->
+      value = element.attr attribute
+      input.attr attribute, value
+      element.removeAttr attribute
+
+  searchOnEvent = (scope, element) ->
+    element.on 'search', (e) ->
+      value = e.target.value
+      if value == ""
+        scope.clearSearch()
+      else
+        scope.performSearch(query: e.target.value)
+
+  link: link
+  restrict: 'E'
+  templateUrl: '<%= asset_path("shared/search/searchInput.html") %>'
+  scope:
+    performSearch: '&'
+    clearSearch: '&'
+
+angular
+  .module('DunnoApp')
+  .directive('searchInput', searchInput)
