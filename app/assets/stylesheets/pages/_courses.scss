@@ -9,11 +9,7 @@
 .course__card {
   @extend %card;
 
-  .course__avatar {
-    @include avatar();
-  }
-
-  .course__avatar,
+  .user__avatar,
   .course__icon {
     display: block;
   }

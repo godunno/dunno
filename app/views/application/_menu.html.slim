@@ -17,6 +17,7 @@ nav.tab-bar.show-for-small
         ul.right
           li
             a ui-sref="profile"
+              img.user__avatar>[user-avatar="{{currentUser().name}}"]
               | {{currentUser().name}}
           li
             a ng-click="signOut()"

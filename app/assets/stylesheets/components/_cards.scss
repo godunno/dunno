@@ -17,14 +17,15 @@
   }
 
   .card__header {
-    display: table;
+    align-items: center;
+    display: flex;
+    justify-content: center;
     max-height: 7rem;
     min-height: 7rem;
     padding: 1rem 0;
     width: 100%;
 
     .card__title {
-      display: table-cell;
       font-size: 1.25em;
       padding: 0 2rem;
       vertical-align: middle;
