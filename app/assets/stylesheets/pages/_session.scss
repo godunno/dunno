@@ -56,7 +56,10 @@
 
   .session__error {
     color: $red-color;
-    padding-bottom: 2rem;
+  }
+
+  .session__error,
+  .session__amnesia {
     text-align: center;
   }
 }

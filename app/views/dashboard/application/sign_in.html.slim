@@ -12,12 +12,15 @@ ruby:
         novalidate=""]
         h4
           | Acessar minha conta
-        p.session__error[
+        div[
           ng-show="authentication_failed"
           ng-cloak=""]
-          | A combinação de email e senha é inválida.
-          br
-          | Confira seus dados e tente novamente.
+          p.session__error
+            | A combinação de email e senha é inválida.
+            br
+            | Confira seus dados e tente novamente.
+          p.session__amnesia
+            = link_to "Esqueceu sua senha?", new_dashboard_password_path
         .session__email
           label for="email"
             small
