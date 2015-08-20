@@ -1,63 +1,68 @@
 ruby:
   @title = 'Acessar minha conta no Dunno'
-.login-page ng-controller="SignInCtrl"
-  .root-proxy
-    = link_to root_path, tabindex: 4 do
-      = image_tag "site/logo.png", class: :logo
-  form#sign_in[
-    name="user_form"
-    ng-submit="sign_in(user)"
-    novalidate=""]
-    .row.small-collapse
-      .login-container.small-12.medium-6.large-5.medium-centered.columns
+.session__page ng-controller="SignInCtrl"
+  .row.small-collapse
+    .small-12.medium-6.large-5.medium-centered.columns
+      .root__proxy
+        = link_to root_path, tabindex: 4 do
+          = image_tag "site/logo.png", class: :logo
+      form#sign_in.form__box[
+        name="user_form"
+        ng-submit="sign_in(user)"
+        novalidate=""]
         h4
           | Acessar minha conta
-        .login-form
-          span.error[
-            ng-show="authentication_failed"
-            ng-cloak=""]
-            | Email ou senha incorretos.
-          .email
-            label for="email"
+        div[
+          ng-show="authentication_failed"
+          ng-cloak=""]
+          p.session__error
+            | A combinação de email e senha não confere.
+            br
+            | Confira seus dados e tente novamente.
+          p.session__amnesia
+            = link_to "Esqueceu sua senha?", new_dashboard_password_path
+        .session__email
+          label for="email"
+            small
               | Email
-            / TODO: normalizar name dos inputs após POST via AJAX
-            input.radius#email[
-              name="email"
-              ng-model="user.email"
-              type="email"
-              autofocus=""
-              tabindex=1
-              required=""]
-            / TODO: DRY as mensagens de erro
-            div ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak=""
-              span.error ng-show="user_form.email.$error.required"
-                | Você precisa informar seu email.
-              span.error ng-show="user_form.email.$error.email"
-                | O email informado é inválido.
-          .password
-            label for="password"
+            span.required<
+              | *
+          input.radius#email[
+            name="email"
+            ng-model="user.email"
+            type="email"
+            autofocus=""
+            tabindex=1
+            required=""]
+          div ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak=""
+            span.error ng-show="user_form.email.$error.required"
+              | Você precisa informar seu email.
+            span.error ng-show="user_form.email.$error.email"
+              | O email informado é inválido.
+        .session__password
+          = link_to "Esqueci minha senha", new_dashboard_password_path, class: 'password__recovery', tabindex: 6
+          label for="password"
+            small
               | Senha
-              span.required<
-                | *
-            = link_to "Esqueci minha senha", new_dashboard_password_path, class: 'password-recovery', tabindex: 6
-            input.radius#password[
-              name="password"
-              ng-model="user.password"
-              type="password"
-              tabindex=2
-              required=""]
-            div[
-              ng-show="user_form.password.$dirty && user_form.password.$invalid"
-              ng-cloak=""]
-              span.error ng-show="user_form.password.$error.required"
-                | Você precisa informar sua senha.
-          .submit
-            input.button.radius.large[
-              ng-disabled="user_form.$invalid"
-              type="submit"
-              tabindex=3
-              value="Acessar"]
-            / f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
-          .signup
-            | Não está no Dunno ainda? #{link_to "Crie sua conta", new_registration_path, tabindex: 6}.
-  = render "application/login_links"
+            span.required<
+              | *
+          input.radius#password[
+            name="password"
+            ng-model="user.password"
+            type="password"
+            tabindex=2
+            required=""]
+          div[
+            ng-show="user_form.password.$dirty && user_form.password.$invalid"
+            ng-cloak=""]
+            span.error ng-show="user_form.password.$error.required"
+              | Você precisa informar sua senha.
+        .session__submit
+          input.button.radius.expand.large[
+            ng-disabled="user_form.$invalid"
+            type="submit"
+            tabindex=3
+            value="Acessar"]
+        .signup.text-center
+          | Ainda não está no Dunno? #{link_to "Crie sua conta", new_registration_path, tabindex: 6}.
+      = render "application/login_links"

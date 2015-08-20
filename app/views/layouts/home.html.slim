@@ -6,8 +6,6 @@ html.no-js lang='pt'
     title
       | #{@title || 'Dunno · Dentro e fora da sala de aula'}
     meta name='description' content='Um aplicativo que auxilia a organização das aulas e estimula a comunicação e o engajamento entre professores e estudantes.'
-    / TODO: improve SEO: page metatags
-    / TODO: opengraph stuff
     meta name='viewport' content='width=device-width, initial-scale=1'
     link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'
     link rel='apple-touch-icon-precomposed' sizes='144x144' href='apple-touch-icon-144x144.png'
@@ -43,11 +41,6 @@ html.no-js lang='pt'
               img[
                 alt='Mobile Analytics'
                 src='//cdn.mxpnl.com/site_media/images/partner/badge_light.png']
-          /
-            - [ { slug: 'facebook' }, { slug: 'twitter' } ].each do |social_link|
-              li.social__links.right
-                a> href='#'
-                  i.icon class="icon-#{social_link[:slug]}"
     = javascript_include_tag 'home'
     = yield :extra_scripts
     - if Rails.env.production? || Rails.env.staging?
