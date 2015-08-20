@@ -21,12 +21,18 @@ describe TransferWeeklySchedule do
       it { expect(service).to be_valid }
     end
 
+    context "overlapping with itself" do
+      let(:attributes) { { end_time: '12:00' } }
+
+      it { expect(service).to be_valid }
+    end
+
     context "with invalid attributes in the :to param" do
-      let(:attributes) { {} }
+      let(:attributes) { { start_time: '' } }
 
       it do
         expect(service).not_to be_valid
-        expect(service.errors.keys).to eq([:weekday, :start_time, :end_time])
+        expect(service.errors.keys).to eq([:start_time])
         expect { service.transfer! }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
