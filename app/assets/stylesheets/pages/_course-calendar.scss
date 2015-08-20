@@ -91,25 +91,28 @@
   }
 
   .date__day {
-    flex-basis: 4rem;
+    flex-basis: 4em;
   }
 
   .date__weekday {
-    flex-basis: 2.5rem;
+    flex-basis: 2.5em;
   }
 
   .date__time {
-    flex-basis: 6rem;
+    flex-basis: 6em;
   }
 
   .date__today {
-    flex-basis: 3rem;
+    flex-basis: 3em;
   }
 
   .date__day,
   .date__weekday,
   .date__time,
-  .date__today {
+  .date__today,
+  .date__classroom,
+  .date__status {
+    padding-left: .5rem;
     padding-right: .5rem;
   }
 
@@ -117,11 +120,6 @@
   .date__time,
   .date__today {
     text-align: center;
-  }
-
-  .date__classroom,
-  .date__status {
-    padding-left: .5rem;
   }
 
   .date__weekday,
@@ -137,13 +135,17 @@
 
   .date__status {
     color: $dunno-green-color;
-    flex-basis: 6rem;
+    flex-basis: 8em;
     flex-grow: 0;
     font-size: .75rem;
     font-style: normal;
     margin-left: auto;
     text-align: center;
     text-transform: uppercase;
+
+    @media #{$small-only} {
+      font-size: .625rem;
+    }
 
     &.draft,
     &.empty {
