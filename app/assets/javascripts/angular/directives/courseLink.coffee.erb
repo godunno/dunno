@@ -1,6 +1,6 @@
 courseLink = ->
-  link = ($scope, $elem, $attrs) ->
-    $scope.currentPage = $attrs.currentPage || "Unknown"
+  link = (scope, element, attributes) ->
+    scope.currentPage = attributes.currentPage || "Unknown"
 
   link: link
   templateUrl: '<%= asset_path("courses/courseLink.html") %>'
