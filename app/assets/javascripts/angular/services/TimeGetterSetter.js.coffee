@@ -16,6 +16,8 @@ TimeGetterSetter = ($filter) ->
       return if time.constructor == String
       object[attribute] = $filter('date')(time, 'HH:mm')
 
+    setTime(getTime())
+
     getterSetter = (time) ->
       if time? then setTime(time) else getTime()
 
