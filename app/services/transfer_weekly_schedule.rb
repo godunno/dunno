@@ -18,9 +18,9 @@ class TransferWeeklySchedule
 
   def affected_events
     @affected_events ||= old_schedule
-                        .all_occurrences
-                        .map { |occurrence| find_event(occurrence) }
-                        .select(&:present?)
+                         .all_occurrences
+                         .map { |occurrence| find_event(occurrence) }
+                         .select(&:present?)
   end
 
   private
@@ -52,7 +52,7 @@ class TransferWeeklySchedule
   end
 
   def duration
-    @duration ||=  time_to_i(new_weekly_schedule.end_time) - time_to_i(new_weekly_schedule.start_time)
+    @duration ||= time_to_i(new_weekly_schedule.end_time) - time_to_i(new_weekly_schedule.start_time)
   end
 
   def find_event(occurrence)
@@ -75,6 +75,6 @@ class TransferWeeklySchedule
   end
 
   def new_weekly_schedule
-    @new_weekly_schedule ||= WeeklySchedule.new(@attributes.merge(course: course))
+    @new_weekly_schedule ||= WeeklySchedule.new(weekly_schedule.attributes.merge(@attributes))
   end
 end
