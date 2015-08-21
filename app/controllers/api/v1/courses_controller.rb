@@ -12,7 +12,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def create
-    course_form = Form::CourseForm.new(course_params.merge(teacher: current_profile))
+    course_form = Form::CourseForm.new(course_params)
     authorize course_form
     if course_form.save
       render json: { uuid: course_form.model.uuid }
@@ -23,12 +23,9 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def update
     authorize course
-    course_form = Form::CourseForm.new(course_params.merge(teacher: current_profile))
-    if course_form.save
-      render json: { uuid: course_form.model.uuid }
-    else
-      render json: { errors: course_form.errors }, status: 400
-    end
+    course_form = CourseForm.new(course, course_params)
+    course_form.update!
+    render json: { uuid: course.uuid }
   end
 
   def destroy
@@ -41,12 +38,13 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     @course = course(Course.all)
     authorize @course
     course.add_student current_profile
-    TrackerWrapper.new(course.teacher.user).track('Student Joined',
-                                                  id: current_user.id,
-                                                  name: current_user.name,
-                                                  courseName: course.name,
-                                                  courseUuid: course.uuid
-                                                 )
+    TrackerWrapper.new(course.teacher.user).track(
+      'Student Joined',
+      id: current_user.id,
+      name: current_user.name,
+      courseName: course.name,
+      courseUuid: course.uuid
+    )
     render nothing: true
   rescue Pundit::NotAuthorizedError => exception
     rescue_unauthorized(exception)
@@ -82,9 +80,9 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(
-      :uuid, :name, :start_date, :end_date, :class_name, :grade, :institution,
-      weekly_schedules: [:uuid, :weekday, :start_time, :end_time, :classroom]
-    )
+    params
+      .require(:course)
+      .permit(:name, :start_date, :end_date, :class_name, :institution)
+      .merge(teacher: current_profile)
   end
 end
