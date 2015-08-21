@@ -11,18 +11,17 @@ MediaSearcher = (Media) ->
         $scope.next_page = response.next_page
       )
 
-    $scope.searchBy = (tag) ->
-      $scope.search.q = tag.text
+    $scope.search = (query) ->
+      $scope.search.q = query
       $scope.fetch()
+
+    $scope.clearSearch = ->
+      $scope.search("")
 
     $scope.paginate = (page) ->
       $scope.loadingNextPage = $scope.searchMedia(page).then (response) =>
         $scope.medias = ($scope.medias || []).concat response.medias
         $scope.next_page = response.next_page
-
-    $scope.clearSearch = ->
-      $scope.search.q = ""
-      $scope.fetch()
 
     $scope.formatMediaUrl = (media) ->
       return media.filename if media.type == "file"
