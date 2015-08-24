@@ -15,7 +15,7 @@ form ng-submit="submit(weeklySchedule)"
       input#start_time.radius[
         ng-model="startTime"
         ng-model-options="{ getterSetter: true }"
-        ui-timepicker=true
+        ui-timepicker="{ timeFormat: 'H:i' }"
         type="text"]
     .small-2.columns
       p.text-center
@@ -27,7 +27,7 @@ form ng-submit="submit(weeklySchedule)"
       input#end_time.radius[
         ng-model="endTime"
         ng-model-options="{ getterSetter: true }"
-        ui-timepicker="{ showDuration: true, durationTime: startTime }"
+        ui-timepicker="{ showDuration: true, durationTime: startTime, timeFormat: 'H:i' }"
       type="text"]
     .small-12.columns
       label for="classroom"
