@@ -1,9 +1,10 @@
 class PersistPastEvents
-  attr_reader :course
+  attr_reader :course, :start_at
   delegate :events, to: :scheduler
 
-  def initialize(course)
+  def initialize(course, since: Time.current)
     @course = course
+    @start_at = since.beginning_of_day
   end
 
   def persist!
@@ -14,10 +15,6 @@ class PersistPastEvents
 
   def scheduler
     CourseScheduler.new(course, start_at..end_at)
-  end
-
-  def start_at
-    course.start_date.beginning_of_day
   end
 
   def end_at
