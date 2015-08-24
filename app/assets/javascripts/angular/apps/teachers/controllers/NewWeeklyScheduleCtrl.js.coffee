@@ -17,10 +17,14 @@ NewWeeklyScheduleCtrl = (
   $scope.weeklySchedule.weekday = $scope.startTime().getDay()
 
   # TODO: Extract to a service
-  setInterval = (newStartTime) ->
-    newEndTime = moment(newStartTime).add(1, 'hour').toDate()
-    $scope.endTime(newEndTime)
-  $scope.$watch('startTime()', setInterval, true)
+  addHour = (time) ->
+    moment(time).add(1, 'hour').toDate()
+
+  setEndTimeDuration = (newStartTime) ->
+    $scope.endTime(addHour(newStartTime))
+
+  $scope.$watch('startTime()', setEndTimeDuration, true)
+
 
   $scope.submit = (weeklySchedule) ->
     $scope.$emit('wholePageLoading', weeklySchedule.save().then ->

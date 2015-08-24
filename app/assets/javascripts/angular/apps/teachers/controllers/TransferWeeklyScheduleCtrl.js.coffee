@@ -13,20 +13,23 @@ TransferWeeklyScheduleCtrl = (
   $scope.weeklySchedule = angular.copy(weeklySchedule)
 
   $scope.startTime = TimeGetterSetter.generate(
-                       $scope.weeklySchedule,
-                       'start_time'
-                     )
+    $scope.weeklySchedule,
+    'start_time'
+  )
 
   $scope.endTime = TimeGetterSetter.generate(
-                     $scope.weeklySchedule,
-                     'end_time'
-                   )
+    $scope.weeklySchedule,
+    'end_time'
+  )
 
   # TODO: Extract to a service
-  setInterval = (newStartTime) ->
-    newEndTime = moment(newStartTime).add(1, 'hour').toDate()
-    $scope.endTime(newEndTime)
-  $scope.$watch('startTime()', setInterval, true)
+  addHour = (time) ->
+    moment(time).add(1, 'hour').toDate()
+
+  setEndTimeDuration = (newStartTime, oldStartTime) ->
+    $scope.endTime(addHour(newStartTime)) if newStartTime != oldStartTime
+
+  $scope.$watch('startTime()', setEndTimeDuration, true)
 
   success = (affected_events) ->
     $modalInstance.close()
