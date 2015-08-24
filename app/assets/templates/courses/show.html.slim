@@ -12,6 +12,8 @@ header.page__header ng-style="{'background-color': course.color}"
             tooltip="{{course.teacher.name}}"]
           span
             | {{course.teacher.name}}
+          a ng-click="openEditCourseForm()"
+            | Editar
     .page__header__info.small-12.medium-4.columns
       span.course__date__info ng-if="course.end_date"
         | {{course.start_date | amDateFormat: 'DD/MM/YY'}} — {{course.end_date | amDateFormat: 'DD/MM/YY'}}

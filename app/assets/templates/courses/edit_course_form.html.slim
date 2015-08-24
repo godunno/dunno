@@ -1,0 +1,28 @@
+.full.edit__course
+  .row.small-collapse
+    .small-12.small-centered.medium-10.large-6.columns
+      .form__box.text-center
+        a.close-reveal-modal ng-click="$close()"
+          | ×
+        .modal__header.row
+          .small-12.columns
+            p
+            h3
+              | Editar disciplina
+        .modal__content.row
+          .small-12.medium-10.large-8.columns.small-centered
+            form name="course_form" ng-submit="save()"
+              .text-left
+                label[for='edited__course__name']
+                  small
+                    | Nome
+                  span.required<
+                    | *
+                input#edited__course__name.radius[
+                  ng-model="course.name"
+                  required=true
+                  type='text']
+              .text-center
+                button.button.large.radius[
+                  ng-disabled="course_form.$invalid"]
+                  | Editar disciplina
