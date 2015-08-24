@@ -32,7 +32,7 @@ gem 'roadie-rails',               '1.0.6'
 gem 'autoprefixer-rails',         '5.2.1'
 gem 'devise-async',               '0.9.0'
 gem 'intercom-rails',             '0.2.27'
-gem 'active_model-errors_details','1.1.0'
+gem 'active_model-errors_details', '1.1.0'
 gem 'phonie',                     '3.1.12'
 gem 'dalli',                      '2.7.4'
 gem 'google_drive',               '1.0.0', require: false
@@ -69,7 +69,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-ui-router', '0.2.15'
   gem 'rails-assets-angular-filter', '0.5.4'
   gem 'rails-assets-angular-datepicker', '1.0.12'
-  gem 'rails-assets-angular-jquery-timepicker', '0.6.0'
+  gem 'rails-assets-mrodrigues--angular-jquery-timepicker', '0.6.1'
   gem 'rails-assets-angular-moment', '0.10.2'
   gem 'rails-assets-moment-timezone', '0.4.0'
 end
@@ -77,7 +77,7 @@ end
 group :production, :staging do
   gem 'rails_12factor',            '0.0.3'
   gem 'memcachier',                '0.0.2'
-  gem 'bonsai-elasticsearch-rails','0.0.4'
+  gem 'bonsai-elasticsearch-rails', '0.0.4'
 end
 
 gem 'database_cleaner',           '1.4.1',     require: false

@@ -16,6 +16,12 @@ NewWeeklyScheduleCtrl = (
   $scope.endTime = TimeGetterSetter.generate(weeklySchedule, 'end_time')
   $scope.weeklySchedule.weekday = $scope.startTime().getDay()
 
+  # TODO: Extract to a service
+  setInterval = (newStartTime) ->
+    newEndTime = moment(newStartTime).add(1, 'hour').toDate()
+    $scope.endTime(newEndTime)
+  $scope.$watch('startTime()', setInterval, true)
+
   $scope.submit = (weeklySchedule) ->
     $scope.$emit('wholePageLoading', weeklySchedule.save().then ->
       $modalInstance.close()
