@@ -123,31 +123,6 @@
     }
   }
 
-  .date__status {
-    color: $dunno-green-color;
-    font-size: .875rem;
-    font-style: normal;
-    margin-left: auto;
-    text-align: center;
-
-    @media #{$small-only} {
-      flex-basis: 50%;
-      font-size: .625rem;
-      margin-left: 0;
-      order: 5;
-      text-align: right;
-    }
-
-    &.draft,
-    &.empty {
-      color: $dunno-dark-color;
-    }
-
-    &.cancelled {
-      color: $red-color;
-    }
-  }
-
   .date__day,
   .date__weekday,
   .date__time,
@@ -161,5 +136,30 @@
       padding-left: .25rem;
       padding-right: .25rem;
     }
+  }
+}
+
+.date__status {
+  color: $dunno-green-color;
+  font-size: .875rem;
+  font-style: normal;
+  margin-left: auto;
+  text-align: center;
+
+  @media #{$small-only} {
+    flex-basis: 50%;
+    font-size: .625rem;
+    margin-left: 0;
+    order: 5;
+    text-align: right;
+  }
+
+  &.draft,
+  &.empty {
+    color: $dunno-dark-color;
+  }
+
+  &.cancelled {
+    color: $red-color;
   }
 }
