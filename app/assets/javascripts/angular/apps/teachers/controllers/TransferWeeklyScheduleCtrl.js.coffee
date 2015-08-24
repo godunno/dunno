@@ -1,12 +1,35 @@
 DunnoApp = angular.module('DunnoApp')
 
-TransferWeeklyScheduleCtrl = ($scope, $state, $modalInstance, TimeGetterSetter, PageLoading, weeklySchedule) ->
+TransferWeeklyScheduleCtrl = (
+  $scope,
+  $state,
+  $modalInstance,
+  TimeGetterSetter,
+  PageLoading,
+  weeklySchedule
+) ->
   $scope.formButton = "Transferir"
   $scope.originalWeeklySchedule = weeklySchedule
   $scope.weeklySchedule = angular.copy(weeklySchedule)
 
-  $scope.startTime = TimeGetterSetter.generate($scope.weeklySchedule, 'start_time')
-  $scope.endTime = TimeGetterSetter.generate($scope.weeklySchedule, 'end_time')
+  $scope.startTime = TimeGetterSetter.generate(
+    $scope.weeklySchedule,
+    'start_time'
+  )
+
+  $scope.endTime = TimeGetterSetter.generate(
+    $scope.weeklySchedule,
+    'end_time'
+  )
+
+  # TODO: Extract to a service
+  addHour = (time) ->
+    moment(time).add(1, 'hour').toDate()
+
+  setEndTimeDuration = (newStartTime, oldStartTime) ->
+    $scope.endTime(addHour(newStartTime)) if newStartTime != oldStartTime
+
+  $scope.$watch('startTime()', setEndTimeDuration, true)
 
   success = (affected_events) ->
     $modalInstance.close()
@@ -18,5 +41,12 @@ TransferWeeklyScheduleCtrl = ($scope, $state, $modalInstance, TimeGetterSetter, 
 
   $scope.close = -> $modalInstance.close()
 
-TransferWeeklyScheduleCtrl.$inject = ['$scope', '$state', '$modalInstance', 'TimeGetterSetter', 'PageLoading', 'weeklySchedule']
+TransferWeeklyScheduleCtrl.$inject = [
+  '$scope',
+  '$state',
+  '$modalInstance',
+  'TimeGetterSetter',
+  'PageLoading',
+  'weeklySchedule'
+]
 DunnoApp.controller 'TransferWeeklyScheduleCtrl', TransferWeeklyScheduleCtrl
