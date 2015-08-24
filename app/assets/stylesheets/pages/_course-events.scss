@@ -4,14 +4,25 @@
     background-color: $dunno-dark-color;
     color: $white;
     display: inline-block;
-    font-size: .75rem;
+    font-size: .875rem;
     margin-bottom: -.0625rem;
     margin-left: .5rem;
     padding: .5rem 1rem;
     text-transform: uppercase;
 
-    .status__icon {
+    .date__time {
+      font-size: .75rem;
+      opacity: .5;
+    }
+
+    .date__status {
+      float: right;
       margin-left: 1rem;
+
+      &.draft,
+      &.empty {
+        color: $white;
+      }
     }
 
     @media #{$small-only} {
@@ -85,44 +96,5 @@
     margin-left: 1.5rem;
     padding: .25rem;
     word-break: break-word;
-  }
-
-  .comment__event__wrapper {
-    margin: 0 calc(-1rem + -1px) calc(-1rem + -1px);
-    position: relative;
-  }
-
-  .comment__event__avatar {
-    @include avatar();
-    left: .5rem;
-    position: absolute;
-    top: .85rem;
-  }
-
-  .comment__event__actions {
-    position: absolute;
-    right: .5rem;
-    top: .85rem;
-
-    .button {
-      line-height: 2rem;
-      margin: 0;
-      padding: 0 .5rem;
-    }
-  }
-
-  .comment__event {
-    @include side-radius(bottom, $global-radius);
-    background: lighten($light-grey-color, 20%);
-    border: .0625rem solid $light-grey-color;
-    line-height: 3.625rem;
-    margin-bottom: 0;
-    min-height: 3.625rem;
-    padding-left: 3rem;
-    padding-right: 5rem;
-
-    &:focus {
-      background: $white;
-    }
   }
 }

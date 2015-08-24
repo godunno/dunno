@@ -6,10 +6,12 @@
     a.button.secondary.tiny.transparent.edit__in__journal.right ng-click="goToEvent(event)" ng-if="course.user_role == 'teacher'"
       | editar aula
     .date
-      | {{event.start_at | date:'dd MMM - EEE'}}
-      i.icon.status__icon[
-        class="status__icon__{{event.status}}"
-        title="{{event.status}}"]
+      span.date__status ng-class="{cancelled: event.formatted_status == 'canceled', draft: event.formatted_status == 'empty'}"
+        | {{translatedStatus(event)}}
+      | {{event.start_at | date:'EEE, dd/MMM/yy'}}
+      br
+      span.date__time
+        | {{event.start_at | date: 'HH:mm'}} – {{event.end_at | date: 'HH:mm'}}
     .event__content[class="event__status__{{event.status}}"]
       .no__topics.empty__results ng-if="event.topics.length == 0"
         | Nenhum conteúdo disponível para esse dia.
@@ -35,20 +37,8 @@
             | {{topic.description}}
           span.topic__item__description ng-class="{preview: !!topic.media}" ng-if="!topic.media"
             | {{topic.description}}
-      /
-        .comment__event__wrapper ng-if="event.topics.length != 0"
-          img.comment__event__avatar[user-avatar="{{currentUser().name}}"]
-          input.comment__event[
-            type='text'
-            placeholder='Comentar']
-          .comment__event__actions
-            a.button.icon__button.transparent.primary.large
-              i.icon.icon-file
-            a.button.icon__button.transparent.primary.large
-              i.icon.icon-url
 
 .text-center
-  / TODO: review noMoreEvents - possible off by one issue
   a.button.radius[
     ng-click="paginate(nextPage)"
     ng-hide="noMoreEvents"]
