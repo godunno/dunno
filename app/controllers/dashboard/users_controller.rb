@@ -22,7 +22,6 @@ class Dashboard::UsersController < Devise::RegistrationsController
 
   def update
     if current_user.update(update_params)
-      RegistrationsMailer.delay.successful_registration(current_user.id)
       sign_in current_user, bypass: true
       render nothing: true, status: 200
     else
@@ -34,10 +33,5 @@ class Dashboard::UsersController < Devise::RegistrationsController
 
   def update_params
     params.require(:user).permit(:password)
-  end
-
-  def sign_up(*)
-    super
-    RegistrationsMailer.delay.successful_registration(current_user.id)
   end
 end

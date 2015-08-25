@@ -28,9 +28,6 @@ Style/IndentHash:
 Style/LambdaCall:
   Enabled: false
 
-Style/RegexpLiteral:
-  MaxSlashes: 0
-
 AllCops:
   Exclude:
     - "bin/**/*"
