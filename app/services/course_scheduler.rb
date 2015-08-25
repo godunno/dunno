@@ -9,6 +9,7 @@ class CourseScheduler
   end
 
   def events
+    return [] if time_range.begin.nil? || time_range.end.nil?
     find_or_initialize_events
   end
 
