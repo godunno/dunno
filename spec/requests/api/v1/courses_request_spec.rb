@@ -74,14 +74,16 @@ describe Api::V1::CoursesController do
       let(:fourth_date) { Time.zone.parse('2015-08-24 09:00') }
       let(:fifth_date)  { Time.zone.parse('2015-08-31 09:00') }
 
+      let!(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, start_time: '09:00', end_time: '11:00') }
+
       before do
         Timecop.freeze first_date
         course.save!
+        course.reload
+        PersistPastEvents.new(course, since: course.start_date).persist!
       end
 
       after { Timecop.return }
-
-      let(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, start_time: '09:00', end_time: '11:00') }
 
       def do_action(parameters = {})
         get "/api/v1/courses/#{identifier}.json", auth_params(profile).merge(parameters)
