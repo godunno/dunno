@@ -3,7 +3,7 @@
     outline: none;
   }
 
-  &.send-notification {
+  &.send__notification {
     padding-bottom: 0;
 
     p {
@@ -32,7 +32,7 @@
     }
   }
 
-  .modal-header {
+  .modal__header {
     border-bottom: 1px solid $light-grey-color;
     margin-bottom: 2em;
     padding-bottom: 1em;

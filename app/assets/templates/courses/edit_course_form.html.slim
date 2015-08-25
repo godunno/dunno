@@ -1,19 +1,17 @@
-.full.edit__course
+.full.edit__course data-reveal=true
   .row.small-collapse
-    .small-12.small-centered.medium-10.large-6.columns
-      .form__box.text-center
+    .small-12.small-centered.medium-10.large-8.columns
+      .form__box
         a.close-reveal-modal ng-click="$close()"
           | ×
-        .modal__header.row
-          .small-12.columns
-            p
-            h3
-              | Editar disciplina
+        .modal__header
+          h5
+            | Editar disciplina
         .modal__content.row
-          .small-12.medium-10.large-8.columns.small-centered
-            form name="course_form" ng-submit="save()"
+          form name="course_form" ng-submit="save()"
+            .small-12.columns.small-centered
               .text-left
-                label[for='edited__course__name']
+                label[for="edited__course__name"]
                   small
                     | Nome
                   span.required<
@@ -22,7 +20,57 @@
                   ng-model="course.name"
                   required=true
                   type='text']
-              .text-center
-                button.button.large.radius[
-                  ng-disabled="course_form.$invalid"]
-                  | Editar disciplina
+                label[for="added__course__class__name"]
+                  small
+                    | Turma
+                input#added__course__class__name.radius[
+                  ng-model="course.class_name"
+                  type="text"]
+                label[for="added__course__institution"]
+                  small
+                    | Instituição
+                input#added__course__institution.radius[
+                  ng-model="course.institution"
+                  type='text']
+            .small-12.columns
+              p
+                strong
+                  | Período Letivo
+            .small-12.medium-6.columns
+              label for="course__start__date"
+                small
+                  | De
+                span.required<
+                  | *
+              label.icon__label for="course__start__date"
+                i.icon.icon-calendar<
+              input.start__date.radius#course__start__date[
+                ng-model="course.start_date"
+                type="datetime"
+                date-time=true
+                min-view="date"
+                auto-close="true"
+                format="dd/MM/yyyy"
+                required=true
+                placeholder="Início das aulas"]
+            .small-12.medium-6.columns
+              label for="course__end__date"
+                small
+                  | Até
+              label.icon__label for="course__end__date"
+                i.icon.icon-calendar<
+              input.end__date.radius#course__end__date[
+                ng-model="course.end_date"
+                type="datetime"
+                date-time=true
+                min-view="date"
+                auto-close="true"
+                format="dd/MM/yyyy"
+                placeholder="Fim das aulas"]
+              /
+                a ng-click="removeEndDate()"
+                  | deletar data de fim
+            .text-center
+              button.button.large.radius[
+                ng-disabled="course_form.$invalid"]
+                | Atualizar
