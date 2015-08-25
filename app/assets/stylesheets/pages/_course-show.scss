@@ -8,11 +8,24 @@
 
   .button {
     position: relative;
-    top: 4.5rem;
+    top: 4.25rem;
     z-index: 4;
 
     @media #{$small-only} {
       position: static;
+    }
+  }
+}
+
+.edit__course {
+  .icon-cog {
+    color: $dunno-dark-color;
+    font-size: 1.25rem;
+    margin-left: .5rem;
+    vertical-align: middle;
+
+    &:hover {
+      color: lighten($dunno-dark-color, 10%);
     }
   }
 }
