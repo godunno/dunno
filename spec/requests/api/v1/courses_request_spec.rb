@@ -433,10 +433,12 @@ describe Api::V1::CoursesController do
     end
 
     context "updating Course#start_date to a previous date" do
+      let(:start_date) { course.start_date - 1.month }
+
       let(:course_params) do
         {
           course: course.attributes.merge(
-            start_date: course.start_date - 1.month
+            start_date: start_date
           )
         }
       end
@@ -446,7 +448,7 @@ describe Api::V1::CoursesController do
       before do
         allow(PersistPastEvents)
           .to receive(:new)
-          .with(course)
+          .with(course, since: start_date)
           .and_return(persist_spy)
 
         do_action
