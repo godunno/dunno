@@ -1,15 +1,14 @@
 require 'spec_helper'
 
 describe WeeklySchedule do
-
   let(:weekly_schedule) { build :weekly_schedule }
 
   describe "associations" do
     it { is_expected.to belong_to(:course) }
+    it { is_expected.to have_many(:events).dependent(:nullify) }
   end
 
   describe "validations" do
-
     it { expect(weekly_schedule).to be_valid }
 
     %w(course weekday start_time end_time).each do |attribute|

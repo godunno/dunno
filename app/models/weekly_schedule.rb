@@ -2,6 +2,7 @@ class WeeklySchedule < ActiveRecord::Base
   include HasUuid
 
   belongs_to :course
+  has_many :events, dependent: :nullify
 
   validates :course, :weekday, :start_time, :end_time, presence: true
   validates :start_time, time_format: true

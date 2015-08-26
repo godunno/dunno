@@ -1,23 +1,21 @@
 require 'spec_helper'
 
 describe Event do
-
   let(:event) { build(:event) }
 
   describe "associations" do
     it { is_expected.to belong_to(:course).touch(true) }
+    it { is_expected.to belong_to(:weekly_schedule) }
     it { is_expected.to have_many(:topics) }
   end
 
   describe "validations" do
-
     %w(start_at end_at course).each do |attr|
       it { is_expected.to validate_presence_of(attr) }
     end
   end
 
   describe "callbacks" do
-
     describe "after create" do
       context "new event" do
         it "saves a new uuid" do
