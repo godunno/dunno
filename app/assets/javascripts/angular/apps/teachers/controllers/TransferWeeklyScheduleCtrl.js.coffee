@@ -33,7 +33,7 @@ TransferWeeklyScheduleCtrl = (
 
   success = (affected_events) ->
     $modalInstance.close()
-    alert "Aulas afetadas: #{affected_events}"
+    #alert "Aulas afetadas: #{affected_events}"
     $state.go('.', null, reload: true)
 
   $scope.submit = (weeklySchedule) ->
