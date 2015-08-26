@@ -1,29 +1,28 @@
 ui-view
   header.page__title
-    .row
-      .small-12.medium-4.columns
-        h1.main__page__title
-          | Disciplinas
-      .page__title__actions.small-12.medium-8.columns
+    .page__title__wrapper
+      h1.page__title__title
+        | Disciplinas
+      .page__title__actions
         a ui-sref="courses.search"
           | Participar de uma disciplina existente
         span<>
           | ou
         a.button.radius.small ng-click="vm.openNewCourseForm()"
           | Criar disciplina
-  .courses__page
-    .row
-      .small-12.medium-10.medium-centered.columns.text-center ng-if="vm.activeCourses.length == 0"
-        .small-12.columns
-          h3
-            | Que papel você vai desempenhar na sua próxima disciplina?
-          p
-            | Você precisa de ao menos uma disciplina ativa para usar o Dunno.
+  .courses__index
+    .courses__blankslate ng-if="vm.activeCourses.length == 0"
+      .courses__blankslate__header
+        h3
+          | Que papel você vai desempenhar na sua próxima disciplina?
+        p
+          | Você precisa de ao menos uma disciplina ativa para usar o Dunno.
+      .row
         .small-5.columns
           h5
             | Serei estudante
           p
-            | <a ui-sref="courses.search">Participar de uma disciplina existente</a>.
+            | <a ui-sref="courses.search">Participar de uma disciplina existente</a>
         .small-2.columns
           p
             br
@@ -34,27 +33,28 @@ ui-view
           p
             a.button.radius.small ng-click="vm.openNewCourseForm()"
               | Criar disciplina
-      ul.courses__list.small-block-grid-1.medium-block-grid-2.large-block-grid-3
-        li ng-repeat="course in vm.activeCourses"
+    ul.courses
+      li ng-repeat="course in vm.activeCourses"
+        course-link current-page="courses"
+          course-card
+    .courses__inactive ng-if="vm.inactiveCourses.length"
+      h5
+        | Disciplinas Antigas
+      .course__inactive ng-repeat="course in vm.inactiveCourses"
+        .course__inactive__dates
           course-link current-page="courses"
-            course-card
-
-      .small-12.columns
-        .inactive__courses ng-if="vm.inactiveCourses.length"
-          h5
-            | Disciplinas Antigas
-          ul.inactive__courses__list
-            li ng-repeat="course in vm.inactiveCourses"
-              course-link current-page="courses"
-                strong.course__name>
-                  | {{course.name}}
-                span.course__classname> ng-if="!!course.class_name"
-                  | · {{course.class_name}}
-                small<
-                  span.course__start__date>
-                    | ({{course.start_date | date: 'shortDate'}}
-                  span.course__end__date
-                    | — {{course.end_date | date: 'shortDate'}})
+            span.course__start__date>
+              | {{course.start_date | date: 'shortDate'}}
+            span.course__end__date
+              | – {{course.end_date | date: 'shortDate'}}
+        .course__inactive__info
+          strong.couse__inactive__name
+            | {{course.name}}
+          br
+          span.course__inactive__classname> ng-if="!!course.class_name"
+            | {{course.class_name}}
+          span.course__inactive__institution ng-if="!!course.institution"
+            | · {{course.institution}}
 
 #add-course.reveal-modal.full.add__course data-reveal=true
   .row.small-collapse

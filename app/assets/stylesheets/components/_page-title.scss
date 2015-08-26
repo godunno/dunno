@@ -8,7 +8,11 @@
     padding: 0;
   }
 
-  .main__page__title {
+  &__wrapper {
+    @include grid-row();
+  }
+
+  &__title {
     font-weight: $font-weight-light;
     text-transform: uppercase;
 
@@ -19,39 +23,56 @@
       text-align: center;
       top: -2.25rem;
     }
-  }
 
-  .button {
-    margin: 0;
-  }
-
-  .icon {
-    font-size: 1rem;
-  }
-}
-
-.page__title__actions {
-  text-align: right;
-  white-space: nowrap;
-
-  @media #{$small-only} {
-    padding: 1rem;
-    text-align: center;
-
-    a,
-    span {
-      display: block;
+    @media #{$small-up} {
+      @include grid-column(12);
     }
 
-    span {
-      color: $light-grey-color;
-      margin: .25rem 0 1rem;
+    @media #{$medium-up} {
+      @include grid-column(4);
+    }
+  }
 
-      &:before,
-      &:after {
-        content: '—';
-        margin: 0 1rem;
+  &__actions {
+    color: $medium-grey-color;
+    text-align: right;
+    white-space: nowrap;
+
+    @media #{$small-only} {
+      padding: 1rem;
+      text-align: center;
+
+      a,
+      span {
+        display: block;
       }
+
+      span {
+        color: $light-grey-color;
+        margin: .25rem 0 1rem;
+
+        &:before,
+        &:after {
+          content: '—';
+          margin: 0 1rem;
+        }
+      }
+    }
+
+    @media #{$small-up} {
+      @include grid-column(12);
+    }
+
+    @media #{$medium-up} {
+      @include grid-column(8);
+    }
+
+    .button {
+      margin: 0;
+    }
+
+    .icon {
+      font-size: 1rem;
     }
   }
 }
