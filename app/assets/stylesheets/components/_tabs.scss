@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0 0 1rem;
     text-align: center;
+    white-space: nowrap;
 
     &.active {
       border-bottom-color: $dunno-dark-color;

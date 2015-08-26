@@ -147,19 +147,19 @@
     }
   }
 
-  .icon__label {
-    bottom: 1.5rem;
-    opacity: .5;
-    position: absolute;
-    right: 1.5rem;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
   p {
     padding: 2rem 0;
     text-align: center;
+  }
+}
+
+.icon__label {
+  bottom: 1.5rem;
+  opacity: .5;
+  position: absolute;
+  right: 1.5rem;
+
+  &:hover {
+    opacity: 1;
   }
 }

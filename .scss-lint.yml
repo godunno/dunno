@@ -17,7 +17,7 @@ linters:
     enabled: true
     style: one_space
   EmptyLineBetweenBlocks:
-    enabled: false
+    enabled: true
   SelectorFormat:
     enabled: false
   QualifyingElement:

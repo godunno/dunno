@@ -1,7 +1,7 @@
 DunnoApp = angular.module('DunnoApp')
 
 # TODO: Separar controller de show e edit
-CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils, course)->
+CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, DateUtils, CourseResolver, course)->
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
@@ -68,8 +68,15 @@ CourseCtrl = ($scope, $location, $stateParams, $state, Course, Utils, DateUtils,
     else if event.formatted_status == 'empty' || event.formatted_status == 'draft'
       'Rascunho'
 
+
+  $scope.openEditCourseForm = ->
+    $modal.open
+      templateUrl: '<%= asset_path('courses/edit_course_form.html') %>'
+      controller: 'EditCourseCtrl'
+      resolve: { course: -> angular.copy($scope.course) }
+
 CourseCtrl.$inject = [
-  '$scope', '$location', '$stateParams', '$state', 'Course', 'Utils', 'DateUtils', 'course'
+  '$scope', '$location', '$stateParams', '$state', '$modal', 'Course', 'Utils', 'DateUtils', 'CourseResolver', 'course'
 ]
 DunnoApp.controller 'CourseCtrl', CourseCtrl
 

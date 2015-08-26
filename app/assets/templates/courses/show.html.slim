@@ -15,6 +15,8 @@ header.page__header ng-style="{'background-color': course.color}"
     .page__header__info.small-12.medium-4.columns
       span.course__date__info ng-if="course.end_date"
         | {{course.start_date | amDateFormat: 'DD/MM/YY'}} — {{course.end_date | amDateFormat: 'DD/MM/YY'}}
+      a.edit__course ng-click="openEditCourseForm()"
+        i.icon.icon-cog
       .notify__members
         a.button.transparent.secondary.outline.radius.tiny[
           data-reveal-id="send-notification"
