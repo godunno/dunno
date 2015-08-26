@@ -3,12 +3,7 @@ class Event < ActiveRecord::Base
   include Elasticsearch::Model
   include IndexedModel
 
-  settings index: { number_of_shards: 1 } do
-    mapping do
-      indexes :course_id, type: :integer
-      indexes :start_at, type: :date
-    end
-  end
+  attr_writer :index_id
 
   enum status: %w(draft published canceled)
 
@@ -24,6 +19,13 @@ class Event < ActiveRecord::Base
 
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
   scope :last_published, -> { published.last }
+
+  settings index: { number_of_shards: 1 } do
+    mapping do
+      indexes :course_id, type: :integer
+      indexes :start_at, type: :date
+    end
+  end
 
   def self.import
     Course.find_each do |course|
@@ -46,16 +48,16 @@ class Event < ActiveRecord::Base
   end
 
   def index_id
-    "#{course.id}/#{start_at.iso8601}"
+    @index_id ||= "#{course.id}/#{start_at.iso8601}"
   end
 
   private
 
-    def empty?
-      draft? && topics.empty?
-    end
+  def empty?
+    draft? && topics.empty?
+  end
 
-    def happened?
-      published? && end_at < Time.now
-    end
+  def happened?
+    published? && end_at < Time.now
+  end
 end

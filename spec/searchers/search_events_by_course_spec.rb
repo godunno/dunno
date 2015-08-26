@@ -64,44 +64,46 @@ describe SearchEventsByCourse, :elasticsearch do
 
     after { Timecop.return }
 
-    subject do
+    let(:events_start_at) do
       SearchEventsByCourse.new(course, options).search
-      .map(&:start_at)
+        .map(&:start_at)
     end
+
+    skip "verify that the persisted event is correctly returned"
 
     describe "sets a number of items per page" do
       let(:options) { { per_page: 1 } }
-      it { expect(subject).to eq([fourth_date]) }
+      it { expect(events_start_at).to eq([fourth_date]) }
     end
 
     describe "pagination" do
       let(:options) { { per_page: 1, page: 2 } }
-      it { expect(subject).to eq([third_date]) }
+      it { expect(events_start_at).to eq([third_date]) }
     end
 
     describe "shows a page starting at the newer published event, ordered from newest to oldest" do
       let(:options) { {} }
-      it { expect(subject).to eq([fourth_date, third_date, second_date, first_date]) }
+      it { expect(events_start_at).to eq([fourth_date, third_date, second_date, first_date]) }
     end
 
     describe "returns everything until datetime" do
       let(:options) { { until: today_event.start_at } }
-      it { expect(subject).to eq([fourth_date, third_date, second_date]) }
+      it { expect(events_start_at).to eq([fourth_date, third_date, second_date]) }
     end
 
     describe "sets an offset with pagination" do
       let(:options) { { offset: 1, per_page: 1, page: 2 } }
-      it { expect(subject).to eq([second_date]) }
+      it { expect(events_start_at).to eq([second_date]) }
     end
 
     describe "ignores pagination when there's an :until parameter" do
       let(:options) { { offset: 1, per_page: 1, page: 2, until: today_event.start_at } }
-      it { expect(subject).to eq([fourth_date, third_date, second_date]) }
+      it { expect(events_start_at).to eq([fourth_date, third_date, second_date]) }
     end
 
     describe "ignores :until parameter if it's later than the newest published event" do
       let(:options) { { until: unpublished_future_event.start_at } }
-      it { expect(subject).to eq([fourth_date, third_date, second_date, first_date]) }
+      it { expect(events_start_at).to eq([fourth_date, third_date, second_date, first_date]) }
     end
 
     it "loads all the events until the specified, no matter how many" do
@@ -114,6 +116,24 @@ describe SearchEventsByCourse, :elasticsearch do
     it "starts from today if there's no published event" do
       [past_event, today_event, future_event].each { |event| event.update!(status: 'draft') }
       expect(SearchEventsByCourse.search(course, {})).to eq([today_event, past_event])
+    end
+
+    context "concerning indexed events with old ids" do
+      let(:event) { create(:event) }
+      let(:old_index_id) { "old id" }
+      let(:document) { double('document', _id: old_index_id, _source: event.as_indexed_json) }
+      let(:events) { SearchEventsByCourse.new(event.course, {}).search }
+
+      before do
+        Indexer.new(event).index
+        Event.__elasticsearch__.refresh_index!
+
+        allow(Event).to receive(:search).and_return([document])
+      end
+
+      it "sets the index_id retrieved from ElasticSearch" do
+        expect(events.first.index_id).to eq document._id
+      end
     end
   end
 end
