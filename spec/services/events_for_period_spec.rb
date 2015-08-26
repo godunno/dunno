@@ -1,56 +1,44 @@
 require 'spec_helper'
 
 describe EventsForPeriod do
-  let(:first_date) { Time.zone.parse('2015-08-03 09:00') }
-  let(:second_date) { Time.zone.parse('2015-08-10 09:00') }
-  let(:third_date) { Time.zone.parse('2015-08-17 09:00') }
-  let(:fourth_date) { Time.zone.parse('2015-08-24 09:00') }
-  let(:fifth_date) { Time.zone.parse('2015-08-31 09:00') }
+  let(:weekly_schedule) { create(:weekly_schedule, weekday: 2, start_time: '21:00', end_time: '23:00') }
+  let(:course) { create(:course, weekly_schedules: [weekly_schedule], start_date: 7.days.ago, end_date: 7.days.from_now) }
+  let(:service) { EventsForPeriod.new(course, WholePeriod.new(Date.current).month) }
 
-  let(:weekly_schedule) { create(:weekly_schedule, weekday: 1, start_time: '09:00', end_time: '11:00') }
-  let(:course) { create(:course, weekly_schedules: [weekly_schedule], start_date: first_date - 2.months, end_date: first_date + 2.months) }
-  let(:service) { EventsForPeriod.new(course, WholePeriod.new(today).month) }
+  let(:events_start_at) { service.events.map(&:start_at) }
 
-  before do
-    Timecop.travel today
-    PersistPastEvents.new(course, since: course.start_date).persist!
-    weekly_schedule.update!(start_time: '16:00', end_time: '18:00')
-    course.reload
-  end
-
+  before { Timecop.travel Time.zone.parse("2015-08-25 10:00")  }
   after { Timecop.return }
 
-  subject { service.events }
-
-  context "two days before event" do
-    let(:today) { second_date - 2.day }
-
-    it { expect(subject.count).to eq 5 }
-    it { expect(subject.first(1).all?(&:persisted?)).to be true }
-    it { expect(subject.last(4).any?(&:persisted?)).to be false }
+  it "finds persisted events in the past" do
+    event = create(:event, course: course, start_at: Date.yesterday.change(usec: 0))
+    expect(events_start_at).to include event.start_at
   end
 
-  context "day before event" do
-    let(:today) { second_date - 1.day }
-
-    it { expect(subject.count).to eq 5 }
-    it { expect(subject.first(2).all?(&:persisted?)).to be true }
-    it { expect(subject.last(3).any?(&:persisted?)).to be false }
+  it "doesnt find non-persisted events in the past" do
+    event = CourseScheduler.new(course, 7.days.ago..Date.current).events.first
+    expect(events_start_at).to_not include event.start_at
   end
 
-  context "whole range after today" do
-    let(:today) { second_date }
-    let(:service) { EventsForPeriod.new(course, WholePeriod.new(today + 1.month).month) }
-
-    it { expect(subject.count).to eq 4 }
-    it { expect(subject.any?(&:persisted?)).to be false }
+  it "finds non-persisted in the future" do
+    event = CourseScheduler.new(course, Date.current..7.days.from_now).events.first
+    expect(events_start_at).to include event.start_at
   end
 
-  context "whole range before today" do
-    let(:today) { second_date }
-    let(:service) { EventsForPeriod.new(course, WholePeriod.new(today - 1.month).month) }
+  it "finds persisted in the future" do
+    event = create(:event, course: course, start_at: 1.day.from_now.change(usec: 0))
+    expect(events_start_at).to include event.start_at
+  end
 
-    it { expect(subject.count).to eq 4 }
-    it { expect(subject.all?(&:persisted?)).to be true }
+  it "merges both past and future events" do
+    event_at_tomorrow = create(:event, course: course, start_at: 1.day.from_now)
+    event_at_today = CourseScheduler.new(course, Date.current..7.days.from_now).events.first
+    event_at_yesterday = create(:event, course: course, start_at: Date.yesterday)
+
+    expect(events_start_at).to eq [
+      event_at_yesterday.start_at,
+      event_at_today.start_at,
+      event_at_tomorrow.start_at.change(usec: 0)
+    ]
   end
 end
