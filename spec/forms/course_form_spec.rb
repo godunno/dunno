@@ -14,7 +14,6 @@ describe CourseForm do
           allow(CourseEventsIndexerWorker).to receive(:perform_async)
           allow(PersistPastEvents)
             .to receive(:new)
-            .with(course)
             .and_return(persist_spy)
         end
 
@@ -54,7 +53,14 @@ describe CourseForm do
           end
 
           context "updating to a previous date" do
-            let(:course_params) { { start_date: (start_date - 1.month).iso8601 } }
+            let(:new_start_date) { start_date - 1.month }
+            let(:course_params) { { start_date: new_start_date.iso8601 } }
+            before do
+              allow(PersistPastEvents)
+                .to receive(:new)
+                .with(course, since: new_start_date)
+                .and_return(persist_spy)
+            end
 
             it do
               service.update!

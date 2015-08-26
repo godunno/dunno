@@ -20,7 +20,6 @@ class Api::V1::EventsController < Api::V1::ApplicationController
     respond_with(event)
   end
 
-  # TODO: Add authorization
   def create
     @event_form = Form::EventForm.new(params[:event])
     authorize @event_form
@@ -31,7 +30,6 @@ class Api::V1::EventsController < Api::V1::ApplicationController
     end
   end
 
-  # TODO: Add authorization
   def update
     authorize event.course
     EventForm.new(event, update_params).update!
@@ -42,7 +40,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   private
 
   def event
-    @event ||= FindOrInitializeEvent.by(course, start_at: params[:start_at] )
+    @event ||= FindOrInitializeEvent.by(course, start_at: params[:start_at])
   end
 
   def course

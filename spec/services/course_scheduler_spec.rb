@@ -54,7 +54,7 @@ describe CourseScheduler do
 
     context "with more than one weekly schedule" do
       let!(:other_weekly_schedule) { create(:weekly_schedule, weekday: 5, course: course) }
-      
+
       before { course.reload }
 
       it "has occurrences for both weekly schedules" do
@@ -88,5 +88,11 @@ describe CourseScheduler do
 
       it { expect(events.first).to eq event }
     end
+  end
+
+  context "with an invalid range" do
+    let(:service) { CourseScheduler.new(course, nil..nil) }
+
+    it { expect(events).to eq [] }
   end
 end

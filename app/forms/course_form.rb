@@ -9,7 +9,7 @@ class CourseForm
   def update!
     course.attributes = params
     CourseEventsIndexerWorker.perform_async(course.id) if should_index_events?
-    PersistPastEvents.new(course).persist! if should_persist_past_events?
+    PersistPastEvents.new(course, since: course.start_date).persist! if should_persist_past_events?
     course.save!
   end
 

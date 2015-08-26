@@ -9,28 +9,22 @@ class CourseScheduler
   end
 
   def events
+    return [] if time_range.begin.nil? || time_range.end.nil?
     find_or_initialize_events
   end
 
   private
 
   def find_or_initialize_events
-    occurrences_with_index
-      .drop_while { |o, _| o < time_range.begin }
-      .take_while { |o, _| time_range.cover? o }
-      .map { |o, i| find_or_initialize_event(o, i) }
-      .to_a
+    occurrences.map { |occurrence| find_or_initialize_event(occurrence) }
   end
 
-  def occurrences_with_index
-    schedule
-      .all_occurrences_enumerator
-      .lazy
-      .each_with_index
+  def occurrences
+    schedule.occurrences_between(time_range.begin, time_range.end)
   end
 
-  def find_or_initialize_event(occurrence, index)
-    FindOrInitializeEvent.by(course, start_at: occurrence.to_time.change(usec: 0), order: index + 1)
+  def find_or_initialize_event(occurrence)
+    FindOrInitializeEvent.by(course, start_at: occurrence.to_time.change(usec: 0))
   end
 
   def set_schedule
