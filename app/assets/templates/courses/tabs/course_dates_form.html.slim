@@ -10,17 +10,12 @@
         name="course_form"
         ng-submit="save(course)"]
         .row
-          .small-6.columns
+          .small-12.medium-6.columns
             label for='course__start__date'
               small
                 | De
               span.required<
                 | *
-          .small-6.columns
-            label for='course__end__date'
-              small
-                | Até
-          .small-6.columns
             label.icon__label for='course__start__date'
               i.icon.icon-calendar<
             input.start__date.radius#course__start__date[
@@ -32,7 +27,10 @@
               format="dd/MM/yyyy"
               required=true
               placeholder="Início das aulas"]
-          .small-6.columns
+          .small-12.medium-6.columns
+            label for='course__end__date'
+              small
+                | Até
             label.icon__label for='course__end__date'
               i.icon.icon-calendar<
             input.end__date.radius#course__end__date[
