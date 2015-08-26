@@ -10,12 +10,12 @@
           a.button.transparent.secondary.small.dates__header__previous-month.left ui-sref="{month: course.previous_month}"
             i.icon.icon-chevron-left
             span<
-              | {{course.previous_month | date:'MMM'}}
+              | {{course.previous_month | amDateFormat:'MMM'}}
           span.dates__header__current-month
-            | {{course.current_month | date:'MMMM'}}
+            | {{course.current_month | amDateFormat:'MMMM'}}
           a.button.transparent.secondary.small.dates__header__next-month.right ui-sref="{month: course.next_month}"
             span>
-              | {{course.next_month | date:'MMM'}}
+              | {{course.next_month | amDateFormat:'MMM'}}
             i.icon.icon-chevron-right
     .empty__results.no__events ng-if="!course.events || course.events.length == 0"
       p
