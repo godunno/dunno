@@ -16,7 +16,11 @@ class SearchEventsByCourse
   end
 
   def search
-    result.map { |event| FindOrInitializeEvent.by(course, event._source) }
+    result.map do |document|
+      FindOrInitializeEvent.by(course, document._source).tap do |event|
+        event.index_id = document._id
+      end
+    end
   end
 
   def finished?

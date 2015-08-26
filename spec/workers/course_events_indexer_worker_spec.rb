@@ -15,12 +15,12 @@ describe CourseEventsIndexerWorker, :elasticsearch do
     Event.__elasticsearch__.refresh_index!
   end
 
-  subject do
+  let(:searcher) do
     SearchEventsByCourse.search(course, {})
   end
 
   it do
-    event_dates = subject
+    event_dates = searcher
                   .map { |event| event.start_at.to_time }
                   .sort
     expect(event_dates).to eq([first_date, second_date, third_date, fourth_date, event.start_at])
@@ -32,7 +32,7 @@ describe CourseEventsIndexerWorker, :elasticsearch do
     context "and it has a published event" do
       let!(:event) { create(:event, course: course, start_at: second_date, status: 'published') }
       it do
-        event_dates = subject
+        event_dates = searcher
                       .map { |event| event.start_at.to_time }
                       .sort
         expect(event_dates).to eq([first_date, event.start_at])
@@ -50,7 +50,7 @@ describe CourseEventsIndexerWorker, :elasticsearch do
       end
 
       it "indexes events until today" do
-        event_dates = subject
+        event_dates = searcher
                       .map { |event| event.start_at.to_time }
                       .sort
         expect(event_dates).to eq([first_date, second_date, third_date, fourth_date, fifth_date, sixth_date])
@@ -66,10 +66,23 @@ describe CourseEventsIndexerWorker, :elasticsearch do
     end
 
     it do
-      event_dates = subject
+      event_dates = searcher
                     .map { |event| event.start_at.to_time }
                     .sort
       expect(event_dates).to eq([first_date + 1.day, second_date + 1.day, third_date + 1.day, fourth_date + 1.day, event.start_at])
+    end
+  end
+
+  describe "deleting old documents with unsynchronized id" do
+    let(:old_id) { "crazy old id" }
+    let(:course) { create(:course) }
+    let(:event) { create(:event, course: course, index_id: old_id) }
+
+    it do
+      Indexer.new(event).index
+      Event.__elasticsearch__.refresh_index!
+      expect { CourseEventsIndexerWorker.new.perform(course.id) }
+        .not_to raise_error
     end
   end
 end
