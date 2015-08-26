@@ -1,4 +1,12 @@
 .small-12.columns.events__tab
+  .events__empty ng-if="!events.length"
+    | Nenhuma aula criada. :(
+    .events__schedule__link ng-if="course.user_role == 'teacher'"
+      | Você pode acessar o
+      a<> ui-sref="^.calendar.schedule"
+        | cronograma
+      | para criar novas aulas.
+
   .event[
     ng-repeat="event in events"
     scroll-to-when="scrollUntil == event.start_at"]
