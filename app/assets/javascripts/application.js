@@ -1,6 +1,5 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery-maskedinput/dist/jquery.maskedinput
 //= require jquery-ui/ui/core
 //= require jquery-ui/ui/widget
 //= require jquery-ui/ui/mouse
@@ -18,6 +17,7 @@
 //= require angular-animate
 //= require angular-messages
 //= require angular-ui-sortable
+//= require angular-input-masks
 //= require ng-file-upload
 //= require ngTagsInput/build/ng-tags-input.js
 //= require angular-elastic-input
