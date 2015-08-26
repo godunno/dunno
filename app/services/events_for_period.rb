@@ -24,7 +24,7 @@ class EventsForPeriod
     date_range = time_range_to_date_range(time_range)
 
     past_dates, future_dates = date_range.partition do |date|
-      date <= Date.tomorrow
+      date < Date.current
     end
 
     [array_to_time_range(past_dates), array_to_time_range(future_dates)]
