@@ -45,5 +45,5 @@
           span.date__classroom
             span ng-if="event.classroom"
               | {{event.classroom}}
-          span.date__status ng-class="{cancelled: event.formatted_status == 'canceled', draft: event.formatted_status == 'empty'}"
+          span.date__status ng-class="{cancelled: event.formatted_status == 'canceled', draft: (event.formatted_status == 'empty') || (event.formatted_status == 'draft')}"
             | {{translatedStatus(event)}}
