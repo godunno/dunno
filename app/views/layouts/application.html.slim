@@ -39,8 +39,10 @@ html lang="pt" ng-app="DunnoApp"
             footer.application__footer.hide-for-small
               ul.inline-list
                 li
+                  = image_tag 'dunno-logo-horizontal.png', class: 'logo'
+                li
                   small.legal
-                    | Copyright © #{Time.zone.now.year} Dunno
+                    | Copyright © #{Time.zone.now.year}
                 li
                   small
                     = link_to 'Termos de Uso', terms_path
