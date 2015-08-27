@@ -22,7 +22,10 @@ MediasIndexCtrl = ($scope, searchResult, MediaSearcher, Utils) ->
     media.update()
 
   $scope.removeMedia = (media)->
-    if confirm("Deseja remover este conteúdo? \nEle também será removido das duas aulas. \n\nATENÇÃO: Esta operação não poderá ser desfeita!")
+    if confirm("Deseja remover este conteúdo?
+      \nAo remover um conteúdo do catálogo ele também será removido das suas aulas.
+      \n\nATENÇÃO!
+      \nEsta operação não poderá ser desfeita.")
       media.remove().then ->
         Utils.remove $scope.medias, media
         $scope.fetch() if noMedias()
