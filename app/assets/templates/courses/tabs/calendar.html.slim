@@ -6,7 +6,7 @@
           a.button.transparent.expand.primary.small ui-sref=".schedule"
             strong
               | Cronograma
-        .small-12.columns.dates__header__navigation ng-class="{'medium-8': course.user_role == 'teacher'}"
+        .small-12.columns.dates__header__navigation ng-class="{'medium-8': isTeacher(course)}"
           a.button.transparent.secondary.small.dates__header__previous-month.left ui-sref="{month: course.previous_month}"
             i.icon.icon-chevron-left
             span<
@@ -20,15 +20,12 @@
     .empty__results.no__events ng-if="!course.events || course.events.length == 0"
       p
         | Até o momento nenhuma aula foi criada neste mês.
-
     .calendar__dates
       .calendar__date ng-repeat="event in course.events | orderBy:'start_at'"
         a.calendar__date__link[
           ng-attr-id="{{'event-' + event.uuid}}"
           ng-click="goToEvent(event)"
           ng-class="eventClass(event)"
-          ng-attr-tooltip="{{tooltipMessage(event)}}"
-          tooltip-animation="false"
           analytics-on="click"
           analytics-event="Event Accessed via Course"
           analytics-uuid="{{event.uuid}}"
@@ -45,5 +42,6 @@
           span.date__classroom
             span ng-if="event.classroom"
               | {{event.classroom}}
-          span.date__status ng-class="{cancelled: event.formatted_status == 'canceled', draft: (event.formatted_status == 'empty') || (event.formatted_status == 'draft')}"
+          span.date__status[
+            ng-class="{canceled: isCanceled(event), published: isPublished(event), draft: isDraft(event), hide: (isDraft(event) && isStudent(course))}"]
             | {{translatedStatus(event)}}
