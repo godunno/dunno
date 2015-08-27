@@ -14,7 +14,7 @@
     a.button.secondary.tiny.transparent.edit__in__journal.right ng-click="goToEvent(event)" ng-if="course.user_role == 'teacher'"
       | editar aula
     .date
-      span.date__status ng-class="{cancelled: event.formatted_status == 'canceled', draft: event.formatted_status == 'empty'}"
+      span.date__status ng-class="{cancelled: event.formatted_status == 'canceled', draft: (event.formatted_status == 'empty') || (event.formatted_status == 'draft')}"
         | {{translatedStatus(event)}}
       | {{event.start_at | date:'EEE, dd/MMM/yy'}}
       br
