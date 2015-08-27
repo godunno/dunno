@@ -34,12 +34,22 @@
     opacity: .75;
     padding-top: 1rem;
   }
+
+  .logo {
+    display: block;
+    height: 4.125rem;
+    margin: 3rem auto;
+  }
 }
 
 .application__footer {
   border-top: .0625rem solid $light-grey-color;
   margin-top: 2rem;
   padding-top: 2rem;
+
+  .logo {
+    height: 1.25rem;
+  }
 
   .inline-list {
     > :first-child {
