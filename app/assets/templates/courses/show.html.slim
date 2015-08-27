@@ -8,14 +8,15 @@ header.page__header ng-style="{'background-color': course.color}"
       ul.page__header__subtitle
         li.course__teacher ng-if="!!course.teacher"
           img.has-tip.radius.course__member__avatar[
-            user-avatar="{{course.teacher.name}}"
-            tooltip="{{course.teacher.name}}"]
+            user-avatar="{{course.teacher.name}}"]
           span
             | {{course.teacher.name}}
     .page__header__info.small-12.medium-4.columns
       span.course__date__info ng-if="course.end_date"
         | {{course.start_date | amDateFormat: 'DD/MM/YY'}} — {{course.end_date | amDateFormat: 'DD/MM/YY'}}
-      a.edit__course ng-click="openEditCourseForm()"
+      a.edit__course[
+        ng-if="course.user_role == 'teacher'"
+        ng-click="openEditCourseForm()"]
         i.icon.icon-cog
       .notify__members
         a.button.transparent.secondary.outline.radius.tiny[
