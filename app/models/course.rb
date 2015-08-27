@@ -4,14 +4,14 @@ class Course < ActiveRecord::Base
   WEEKDAYS = (0..6).to_a
 
   has_one :teacher_membership, -> { where(role: 'teacher') },
-    class_name: 'Membership'
+          class_name: 'Membership'
   has_many :student_memberships, -> { where(role: 'student') },
-    class_name: 'Membership'
+           class_name: 'Membership'
   has_many :memberships
   has_one :teacher, through: :teacher_membership,
-    class_name: 'Profile', source: :profile
+                    class_name: 'Profile', source: :profile
   has_many :students, through: :student_memberships,
-    class_name: 'Profile', source: :profile
+                      class_name: 'Profile', source: :profile
   has_many :events
   has_many :weekly_schedules
   has_many :notifications
@@ -20,6 +20,7 @@ class Course < ActiveRecord::Base
   validates :abbreviation, length: { maximum: 10 }
 
   before_create :set_access_code
+  before_create :set_start_date
 
   default_scope -> { order(:created_at) }
 
@@ -48,10 +49,6 @@ class Course < ActiveRecord::Base
     super || (Abbreviate.abbreviate(name) if name.present?)
   end
 
-  def start_date
-    super || created_at
-  end
-
   private
 
   def set_access_code
@@ -59,5 +56,9 @@ class Course < ActiveRecord::Base
       self.access_code = SecureRandom.hex(2)
       break unless Course.exists?(access_code: access_code)
     end
+  end
+
+  def set_start_date
+    self.start_date ||= created_at
   end
 end

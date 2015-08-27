@@ -8,8 +8,8 @@ class CourseForm
 
   def update!
     course.attributes = params
-    CourseEventsIndexerWorker.perform_async(course.id) if should_index_events?
-    PersistPastEvents.new(course, since: course.start_date).persist! if should_persist_past_events?
+    index_events
+    persist_past_events
     course.save!
   end
 
@@ -22,11 +22,19 @@ class CourseForm
   end
 
   def date_for(attribute)
-    if @params.key?(attribute)
+    if @params[attribute].present?
       { attribute => Time.zone.parse(@params[attribute]).to_date }
     else
       {}
     end
+  end
+
+  def index_events
+    CourseEventsIndexerWorker.perform_async(course.id) if should_index_events?
+  end
+
+  def persist_past_events
+    PersistPastEvents.new(course, since: course.start_date).persist! if should_persist_past_events?
   end
 
   def should_index_events?
