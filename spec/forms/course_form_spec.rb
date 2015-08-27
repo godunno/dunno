@@ -33,7 +33,7 @@ describe CourseForm do
         end
 
         context "#start_date" do
-          let(:course_params) { { start_date: "2015-10-01T00:00:00.000Z" } }
+          let(:course_params) { { start_date: "2015-10-01T00:00:00.000Z", end_date: "" } }
           let(:new_start_date) { Date.parse('2015/09/30') }
 
           it do
@@ -65,6 +65,15 @@ describe CourseForm do
             it do
               service.update!
               expect(persist_spy).to have_received(:persist!)
+            end
+
+            context "course with a default start date" do
+              let(:course) { create(:course, start_date: nil) }
+
+              it do
+                service.update!
+                expect(persist_spy).to have_received(:persist!)
+              end
             end
           end
 

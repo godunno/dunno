@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe Course do
-
-  subject(:course) { build(:course) }
+  subject(:course) { build(:course, start_date: nil) }
 
   describe "associations" do
     it { is_expected.to have_one(:teacher) }
@@ -23,6 +22,11 @@ describe Course do
   describe "callbacks" do
     describe "after create" do
       context "new course" do
+        it "saves a start_date" do
+          course.save!
+          expect(course.start_date).to eq course.created_at.to_date
+        end
+
         it "saves a new uuid" do
           expect(course.uuid).to be_nil
           course.save!
@@ -84,7 +88,7 @@ describe Course do
 
     it "raises error on not found" do
       expect { subject.find_by_identifier!('bla') }
-      .to raise_error(ActiveRecord::RecordNotFound)
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -98,7 +102,7 @@ describe Course do
       it "updates the course object" do
         Timecop.travel(Time.now + 10.seconds) do
           expect { course.add_student(student) }
-          .to change { course.updated_at.change(usec: 0) }.by_at_least(10)
+            .to change { course.updated_at.change(usec: 0) }.by_at_least(10)
         end
       end
     end
