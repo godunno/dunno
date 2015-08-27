@@ -17,7 +17,6 @@ CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, Da
 
   $scope.eventClass = (event) ->
     klass = DateUtils.locationInTime(event.start_at)
-    klass += " has-tooltip" unless $scope.canAccessEvent(event)
     klass
 
   $scope.fetch = (month) ->
@@ -53,20 +52,30 @@ CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, Da
   $scope.canAccessEvent = (event) ->
     event.status == 'published' || $scope.course.user_role == 'teacher'
 
-  $scope.tooltipMessage = (event) ->
-    return undefined if $scope.canAccessEvent(event)
-    if event.formatted_status == 'canceled'
-      'Esta aula foi cancelada'
-    else
-      'Esta aula ainda está vazia'
-
   $scope.translatedStatus = (event) ->
-    if event.formatted_status == 'canceled'
+    if $scope.isCanceled(event)
       'Cancelada'
-    else if event.formatted_status == 'published' || event.formatted_status == 'happened'
+    else if $scope.isPublished(event)
       'Publicada'
-    else if event.formatted_status == 'empty' || event.formatted_status == 'draft'
+    else if $scope.isDraft(event)
       'Rascunho'
+
+  $scope.isCanceled = (event) ->
+    event.formatted_status == 'canceled'
+
+  $scope.isPublished = (event) ->
+    event.formatted_status == 'published' ||
+    event.formatted_status == 'happened'
+
+  $scope.isDraft = (event) ->
+    event.formatted_status == 'draft' ||
+    event.formatted_status == 'empty'
+
+  $scope.isTeacher = (course) ->
+    course.user_role == 'teacher'
+
+  $scope.isStudent = (course) ->
+    course.user_role != 'teacher'
 
   $scope.openEditCourseForm = ->
     $modal.open

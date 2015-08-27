@@ -140,7 +140,6 @@
 }
 
 .date__status {
-  color: $dunno-green-color;
   font-size: .875rem;
   font-style: normal;
   margin-left: auto;
@@ -154,12 +153,11 @@
     text-align: right;
   }
 
-  &.draft,
-  &.empty {
-    color: $dunno-dark-color;
+  &.published {
+    color: $dunno-green-color;
   }
 
-  &.cancelled {
+  &.canceled {
     color: $red-color;
   }
 }
