@@ -63,11 +63,10 @@ CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, Da
   $scope.translatedStatus = (event) ->
     if event.formatted_status == 'canceled'
       'Cancelada'
-    else if event.formatted_status == 'published'
+    else if event.formatted_status == 'published' || event.formatted_status == 'happened'
       'Publicada'
     else if event.formatted_status == 'empty' || event.formatted_status == 'draft'
       'Rascunho'
-
 
   $scope.openEditCourseForm = ->
     $modal.open
