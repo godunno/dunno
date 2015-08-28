@@ -19,7 +19,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :phone_number, :completed_tutorial)
+    params.require(:user).permit(:name, :phone_number)
   end
 
   def password_params

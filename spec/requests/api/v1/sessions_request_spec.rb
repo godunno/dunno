@@ -4,7 +4,7 @@ describe Api::V1::SessionsController do
   let(:password) { '12345678' }
   let(:course) { create(:course) }
 
-  let!(:profile) { create(:profile, user: create(:user, password: password, completed_tutorial: true)) }
+  let!(:profile) { create(:profile, user: create(:user, password: password)) }
 
   describe "POST /api/v1/users/sign_in" do
 
@@ -30,7 +30,6 @@ describe Api::V1::SessionsController do
           "phone_number" => profile.phone_number,
           "email" => profile.email,
           "authentication_token" => profile.authentication_token,
-          "completed_tutorial" => profile.completed_tutorial,
           "profile" => "teacher",
           "courses_count" => 2,
           "students_count" => 10,

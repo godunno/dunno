@@ -6,7 +6,7 @@ class Profile < ActiveRecord::Base
   has_many :medias, dependent: :destroy
 
   delegate :uuid, :email, :authentication_token, :name, :phone_number,
-    :completed_tutorial, to: :user
+           to: :user
 
   def role_in(course)
     has_course?(course) && memberships.find_by(course: course).role
