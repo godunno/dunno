@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 MediasIndexCtrl = ($scope, searchResult, MediaSearcher, Utils) ->
   MediaSearcher.extend($scope)
 
@@ -9,14 +7,15 @@ MediasIndexCtrl = ($scope, searchResult, MediaSearcher, Utils) ->
   $scope.showTutorial = -> !$scope.medias || (noMedias() && $scope.search.q.$untouched)
 
   # TODO: get the count from the server
-  $scope.countType = (list, type)->
+  $scope.countType = (list, type) ->
     return 0 unless list?
     return list.length if type == 'all'
     list.filter((item)-> item.type == type).length
 
-  $scope.isEditing = (media) -> !!media._editing
   $scope.startEditing = (media) -> media._editing = true
-  $scope.updateMedia = (media)->
+  $scope.isEditing = (media) -> !!media._editing
+
+  $scope.updateMedia = (media) ->
     media._editing = false
     media.updateTagList()
     media.update()
@@ -35,4 +34,7 @@ MediasIndexCtrl = ($scope, searchResult, MediaSearcher, Utils) ->
 
 
 MediasIndexCtrl.$inject = ['$scope', 'searchResult', 'MediaSearcher', 'Utils']
-DunnoApp.controller 'MediasIndexCtrl', MediasIndexCtrl
+
+angular
+  .module('DunnoApp')
+  .controller('MediasIndexCtrl', MediasIndexCtrl)
