@@ -306,7 +306,7 @@ header.page__header ng-style="{'background-color': event.course.color}"
                   title="{{topic.media.url}}"
                   ng-show="topic.media.type == 'url'"]
                   | {{topic.media.url}}
-              zf-action-sheet.topic__actions close-action-sheet-on-click=true
+              zf-action-sheet.topic__actions
                 zf-as-button.topic__actions__button
                   | …
                 zf-as-content position="top"
@@ -314,18 +314,21 @@ header.page__header ng-style="{'background-color': event.course.color}"
                     li
                       a[
                         ng-click="startEditing(topic)"
+                        zf-close=""
                         title="Editar tópico"]
                         i.icon.icon-pencil>
                         | Editar
                     li
                       a[
                         ng-click="removeTopic(topic)"
+                        zf-close=""
                         title="Remover conteúdo"]
                         i.icon.icon-trash>
                         | Apagar
                     li ng-if="canTransferTopic(topic, event)"
                       a[
                         ng-click="transferTopic(topic)"
+                        zf-close=""
                         title="Transferir conteúdo para próxima aula"]
                         i.icon.icon-transfer>
                         | Transferir
