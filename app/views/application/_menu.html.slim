@@ -10,7 +10,7 @@ nav.tab-bar.show-for-small
           = yield
       section.top-bar-section
         ul.right
-          li
+          li ui-sref-active="active"
             a ui-sref="profile"
               img.user__avatar>[user-avatar="{{currentUser().name}}"]
               | {{currentUser().name}}
