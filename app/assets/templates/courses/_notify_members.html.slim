@@ -1,13 +1,9 @@
-#send-notification.reveal-modal.send__notification.full[
-  data-reveal=""
-  modal=""
-  ng-controller="NotificationCtrl"
-  ng-if="course.user_role == 'teacher'"]
+#send-notification.send__notification.full
   .row.small-collapse
     .small-12.small-centered.medium-10.columns
       .form__box
         form name="notification_form" ng-submit="save(notification)"
-          a.close-reveal-modal ng-click="reset()"
+          a.close-reveal-modal ng-click="$close()"
             | &#215;
           .modal__header
             h5

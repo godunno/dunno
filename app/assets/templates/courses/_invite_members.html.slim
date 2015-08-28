@@ -1,8 +1,8 @@
-#invite__members.invite__members.reveal-modal.full data-reveal=true
+#invite__members.invite__members.full
   .row.small-collapse
     .small-12.small-centered.medium-8.large-6.columns
       .form__box
-        a.close-reveal-modal
+        a.close-reveal-modal ng-click="$close()"
           | ×
         .modal__header
           h5
@@ -24,7 +24,6 @@
                   strong
                     pre
                       | {{course.access_code}}
-                a.button.transparent.tiny.outline.radius.fullscreen__invitation data-reveal-id="invite__members__fullscreen"
+                a.button.transparent.tiny.outline.radius.fullscreen__invitation ng-click="vm.openInviteMembersFullscreen()"
                   i.icon.icon-expand>
                   | Ampliar código
-ng-include src="'#{asset_path('courses/_invite_members_fullscreen.html')}'"

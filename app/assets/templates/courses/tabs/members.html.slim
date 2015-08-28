@@ -4,7 +4,7 @@
   p.add__members
     a.button.radius.add__users[
       ng-if="course.user_role == 'teacher'"
-      data-reveal-id="invite__members"]
+      ng-click="vm.openInviteMembers()"]
       i.icon-add>
       | Adicionar integrantes
     br

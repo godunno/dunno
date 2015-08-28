@@ -83,6 +83,11 @@ CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, Da
       controller: 'EditCourseCtrl'
       resolve: { course: -> angular.copy($scope.course) }
 
+  $scope.openNotification = ->
+    $modal.open
+      templateUrl: '<%= asset_path('courses/_notify_members.html') %>'
+      controller: 'NotificationCtrl'
+
 CourseCtrl.$inject = [
   '$scope', '$location', '$stateParams', '$state', '$modal', 'Course', 'Utils', 'DateUtils', 'CourseResolver', 'course'
 ]
