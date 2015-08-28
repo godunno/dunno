@@ -2,7 +2,7 @@
 .new__topic__actions
   a.cancel.button.transparent.tiny.radius ng-click="cancel()"
     | Cancelar
-  zf-action-sheet close-action-sheet-on-click=true
+  zf-action-sheet
     zf-as-button.radius.dropdown.light.transparent.button.tiny.new__topic__visibility
       span.private ng-if="defaultTopicProperties.personal"
         i.icon.icon-private>
@@ -16,11 +16,15 @@
           | Quem pode ver isso?
       ul#topic-private
         li.private
-          a ng-click="defaultTopicProperties.personal = true"
+          a[
+            ng-click="defaultTopicProperties.personal = true"
+            zf-close=""]
             i.icon.icon-private>
             | Somente professor
         li
-          a ng-click="defaultTopicProperties.personal = false"
+          a[
+            ng-click="defaultTopicProperties.personal = false"
+            zf-close=""]
             i.icon.icon-eye>
             | Estudantes
   a.create__new__topic__item.radius.button.tiny<[
