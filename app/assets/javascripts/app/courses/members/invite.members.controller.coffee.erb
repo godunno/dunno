@@ -1,12 +1,12 @@
-InviteMembersController = ($modal, $modalInstance) ->
+InviteMembersController = ($modal) ->
   @openInviteMembersFullscreen = ->
     $modal.open
       templateUrl: '<%= asset_path('courses/_invite_members_fullscreen.html') %>'
-    $modalInstance.close()
+      controller: 'InviteMembersFullscreenController as vm'
 
   @
 
-InviteMembersController.$inject = ['$modal', '$modalInstance']
+InviteMembersController.$inject = ['$modal']
 
 angular
   .module('DunnoApp')
