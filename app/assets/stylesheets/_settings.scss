@@ -142,14 +142,14 @@ $h4-font-size: rem-calc(22);
 
 // These control how subheaders are styled.
 // $subheader-line-height: 1.4;
-// $subheader-font-color: scale-color($header-font-color, $lightness: 35%);
+// $subheader-font-color: transparentize($header-font-color, .5);
 // $subheader-font-weight: $font-weight-normal;
 // $subheader-top-margin: .2rem;
 // $subheader-bottom-margin: .5rem;
 
 // A general <small> styling
 $small-font-size: rem-calc(14);
-// $small-font-color: scale-color($header-font-color, $lightness: 35%);
+$small-font-color: transparentize($header-font-color, .5);
 
 // We use these to style paragraphs
 // $paragraph-font-family: inherit;

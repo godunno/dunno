@@ -38,8 +38,11 @@ ui-view
         course-link current-page="courses"
           course-card
     .courses__inactive ng-if="vm.inactiveCourses.length"
-      h5
-        | Disciplinas Antigas
+      .courses__inactive__header
+        h6
+          | Disciplinas Arquivadas
+        p
+          | Após o fim do período letivo suas disciplinas serão automaticamente arquivadas.
       .course__inactive ng-repeat="course in vm.inactiveCourses"
         .course__inactive__dates
           course-link current-page="courses"
@@ -48,13 +51,13 @@ ui-view
             span.course__end__date
               | – {{course.end_date | date: 'shortDate'}}
         .course__inactive__info
-          strong.couse__inactive__name
+          span.course__inactive__classname> ng-if="!!course.class_name"
+            | {{course.class_name}} ·
+          span.couse__inactive__name
             | {{course.name}}
           br
-          span.course__inactive__classname> ng-if="!!course.class_name"
-            | {{course.class_name}}
           span.course__inactive__institution ng-if="!!course.institution"
-            | · {{course.institution}}
+            | {{course.institution}}
 
 #add-course.reveal-modal.full.add__course data-reveal=true
   .row.small-collapse

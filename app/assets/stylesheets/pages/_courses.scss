@@ -23,9 +23,18 @@
     }
 
     &__inactive {
-      border-top: .0625rem solid $light-grey-color;
+      @include radius();
+      border: .0625rem solid $light-grey-color;
       margin-top: 3rem;
-      padding: 2rem .625rem 1rem;
+      padding: 1rem 0;
+
+      &__header {
+        padding: 0 1rem;
+
+        h6 {
+          text-transform: uppercase;
+        }
+      }
     }
 
     &__blankslate {
@@ -40,27 +49,24 @@
 
   &__card {
     @extend %card;
-
-    .user__avatar,
-    .course__icon {
-      display: block;
-    }
-
-    .course__icon {
-      text-align: right;
-    }
   }
 
   &__inactive {
     display: flex;
+    margin-bottom: 1rem;
+    padding: 1rem;
 
     @media #{$small-only} {
       flex-wrap: wrap;
     }
 
+    &:hover {
+      background: transparentize($white, .25);
+    }
+
     &__dates,
     &__info {
-      padding: .5rem .5rem .5rem 0;
+      padding-right: .5rem;
     }
 
     &__dates {

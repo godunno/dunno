@@ -1,5 +1,4 @@
 .page__header {
-  @include box-shadow(0, .0625rem, .0625rem, $light-grey-color);
   background: $white;
   margin-bottom: 2rem;
   padding: 1rem 0 0;
@@ -68,7 +67,6 @@
   }
 
   footer {
-    border-top: .0625rem solid transparentize($dark-grey-color, .9);
     padding-top: 1rem;
   }
 

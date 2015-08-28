@@ -2,14 +2,14 @@
   .card__header ng-style="{'background-color': course.color}"
     h2.card__title
       | {{course.name}}
-  .card__content.row.collapse
-    .small-2.columns
+      small
+        br
+        span.course__classname> ng-if="!!course.class_name"
+          | {{course.class_name}}
+        span.course__institution ng-if="!!course.institution"
+          | {{course.institution}}
+  .card__content
+    .course__teacher
       img.user__avatar[
         user-avatar="{{course.teacher.name}}"]
-    .small-8.columns.card__subtitle
-      span.course__institution ng-if="!!course.institution"
-        | {{course.institution}}
-      span.course__classname ng-if="!!course.class_name"
-        | {{course.class_name}}
-    .small-2.columns
-      i.icon.icon-users.course__icon
+      | {{course.teacher.name}}

@@ -26,38 +26,27 @@
     width: 100%;
 
     .card__title {
-      font-size: 1.25em;
+      font-size: 1.125em;
       padding: 0 2rem;
       vertical-align: middle;
+    }
+
+
+    span {
+      &:after {
+        content: ' · ';
+      }
+
+      &:last-child:after {
+        content: '';
+      }
     }
   }
 
   .card__content {
     background-color: $white;
-    color: $medium-grey-color;
-
-    .card__subtitle {
-      display: block;
-      font-size: .75em;
-      line-height: 1.75rem;
-
-      span {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        &:after {
-          content: ' · ';
-        }
-
-        &:last-child:after {
-          content: '';
-        }
-      }
-    }
-
-    .icon {
-      font-size: 1.5rem;
-    }
+    color: $dunno-dark-color;
+    font-size: .875rem;
+    text-align: center;
   }
 }

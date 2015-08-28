@@ -1,6 +1,6 @@
 .page__title {
-  @include box-shadow(0, .0625rem, .0625rem, $light-grey-color);
   background: $white;
+  border-bottom: .0625rem solid $light-grey-color;
   margin-bottom: 2rem;
   padding: 1rem 0;
 
