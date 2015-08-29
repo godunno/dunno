@@ -7,7 +7,11 @@
 
     &.active {
       a {
-        background: $background-light-grey-color;
+        background-color: $background-light-grey-color;
+
+        @media #{$small-only} {
+          background-color: $white;
+        }
       }
     }
 
@@ -16,15 +20,20 @@
       color: $dunno-dark-color;
       display: block;
       line-height: 1.5rem;
-      padding: 1rem 0;
       text-transform: uppercase;
+
+      @media #{$small-only} {
+        line-height: 1.75rem;
+      }
 
       @media #{$small-up} {
         font-size: .65rem;
+        padding: .5rem 0;
       }
 
       @media #{$medium-up} {
         font-size: .875rem;
+        padding: 1rem 0;
       }
     }
   }

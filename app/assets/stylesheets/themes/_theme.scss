@@ -44,7 +44,11 @@
 
 body {
   .cg-busy-backdrop {
-    background: $body-bg;
+    background-color: $body-bg;
+
+    @media #{$small-only} {
+      background-color: $white;
+    }
   }
 }
 

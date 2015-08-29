@@ -2,8 +2,17 @@
   @include box-shadow();
   @include radius();
   background-color: $white;
+  border: $divider;
   margin-bottom: 2rem;
   padding: 2rem;
+
+  @media #{$small-only} {
+    @include radius(0);
+    border: 0;
+    box-shadow: none;
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
 
   &__header {
     border-bottom: 0;
@@ -76,7 +85,6 @@
 
   .topic__item__image {
     @include thumbnail();
-    border: .0625rem solid $light-grey-color;
     flex-basis: 2.75rem;
     margin-right: 1rem;
   }

@@ -72,7 +72,7 @@
 
   &.past {
     background-color: lighten($light-grey-color, 20%);
-    font-style: italic;
+    color: $dark-grey-color;
   }
 
   &.today {

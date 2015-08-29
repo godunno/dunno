@@ -8,13 +8,8 @@ header.page__header ng-style="{'background-color': event.course.color}"
     .small-6.columns
       h2.page__header__title
         | {{event.course.name}}
-      ul.page__header__subtitle
-        li ng-if="!!event.course.institution"
-          | {{event.course.institution}}
-        li ng-if="!!event.formatted_classroom"
-          | {{event.formatted_classroom}}
-        li ng-if="!!event.course.grade"
-          | {{event.course.grade}}
+        small< ng-if="!!event.formatted_classroom"
+          | › {{event.formatted_classroom}}
     .small-3.columns.text-right
       a.button.transparent.secondary.icon__button.small.hide__personal__topics[
         ng-click="setPrivateTopicsVisibility(false)"
@@ -307,8 +302,9 @@ header.page__header ng-style="{'background-color': event.course.color}"
                   ng-show="topic.media.type == 'url'"]
                   | {{topic.media.url}}
               zf-action-sheet.topic__actions
-                zf-as-button.topic__actions__button
-                  | …
+                zf-as-button
+                  a.open__actions
+                    | …
                 zf-as-content position="top"
                   ul.topic__actions__list
                     li
