@@ -85,6 +85,14 @@
         display: block;
       }
     }
+
+    &__actions {
+      .button {
+        .icon {
+          font-size: .6rem;
+        }
+      }
+    }
   }
 }
 
