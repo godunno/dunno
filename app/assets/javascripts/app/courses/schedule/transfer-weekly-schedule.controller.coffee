@@ -8,7 +8,7 @@ TransferWeeklyScheduleCtrl = (
   PageLoading,
   weeklySchedule
 ) ->
-  $scope.formButton = "Transferir"
+  $scope.formButton = "Salvar"
   $scope.originalWeeklySchedule = weeklySchedule
   $scope.weeklySchedule = angular.copy(weeklySchedule)
 

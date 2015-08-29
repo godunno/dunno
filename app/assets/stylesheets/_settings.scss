@@ -44,8 +44,8 @@ $row-width: rem-calc(960);
 // We use these to control various global styles
 $body-bg: $background-light-grey-color;
 $body-font-color: $dunno-dark-color;
-$body-font-family: 'Lato', sans-serif;
-// $body-font-weight: $font-weight-normal;
+$body-font-family: $font-family-sans-serif;
+$body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
 
 // We use this to control font-smoothing
@@ -65,9 +65,9 @@ $warning-color: $orange-color;
 $info-color: $white;
 
 // We use these to make sure border radius matches unless we want it different.
-$global-radius: 3px;
+$global-radius: rem-calc(3);
 
-//$global-rounded: 1000px
+// $global-rounded: 1000px
 
 // We use these to control inset shadow shiny edges and depressions.
 // $shiny-edge-size: 0 1px 0;
@@ -518,8 +518,8 @@ $form-label-small-transform: uppercase;
 // $form-label-bottom-margin: 0;
 // $input-font-family: inherit;
 $input-font-color: $dunno-dark-color;
-$input-font-size: rem-calc(16);
-// $input-bg-color: #fff;
+$input-font-size: rem-calc(18);
+$input-bg-color: $white;
 $input-focus-bg-color: $white;
 $input-border-color: $medium-grey-color;
 $input-focus-border-color: $dunno-green-color;

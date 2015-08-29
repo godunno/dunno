@@ -9,12 +9,11 @@
     }
   }
 
-  h6 {
-    font-weight: $font-weight-bold;
-    margin-top: .5rem;
+  .content__box {
+    border: 0;
   }
 
-  .close__schedule {
+  &__close {
     display: inline-block;
     padding-bottom: 1rem;
 
@@ -23,143 +22,72 @@
     }
   }
 
-  .uppercase {
-    text-transform: uppercase;
-  }
+  &__header {
+    padding: 2rem 0 0;
 
-  .schedule__header {
-    padding-top: 2rem;
+    @media #{$small-only} {
+      padding: 1rem 0 0;
+    }
+
+    h4 {
+      text-transform: uppercase;
+    }
   }
 
   .weekly__schedules {
-    padding: 1rem 0 0;
-
-    .weekly__schedule {
-      border-bottom: $divider;
-      border-top: $divider;
-      margin-top: -.0625rem;
-      padding: 1.5rem 0;
-
-      &:hover {
-        background-color: lighten($light-grey-color, 20%);
-      }
-
-      .special__input {
-        width: 80%;
-      }
+    &__empty {
+      margin: 0;
+      opacity: .5;
+      padding: 2rem 0;
+      text-align: center;
     }
-  }
 
-  .weekly__schedules__preheader {
-    border-bottom: $divider;
-  }
+    &__preheader {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
 
-  .weekly__schedules__header {
-    background-color: lighten($light-grey-color, 20%);
-    color: $dark-grey-color;
-    font-size: .75rem;
-    padding: .5rem 0;
-  }
-
-  .weekly__schedules__empty {
-    padding: 2rem 0 0;
-    text-align: center;
-  }
-
-  .weekly__schedule__actions {
-    padding-top: .5rem;
-
-    a {
-      margin: 0 .5rem 0 0;
-    }
-  }
-
-  .special__checkbox {
-    + label {
-      border-left: .375rem solid transparent;
-      color: $light-grey-color;
-      display: block;
-      font-weight: $font-weight-normal;
-      margin: -1rem 0 -1rem -.375rem;
-      min-height: 5.5rem;
-      padding: 1rem;
-      white-space: nowrap;
-
-      @media #{$small-only} {
-        font-size: .875rem;
+      h6 {
+        font-weight: $font-weight-bold;
+        margin-top: .5rem;
       }
 
-      .button {
+      .add__schedule__time {
         margin-bottom: 0;
       }
     }
+  }
 
-    &:checked {
-      + label {
-        border-left: .375rem solid $dunno-green-color;
-        color: $dunno-dark-color;
+  .weekly__schedule {
+    border-top: $divider;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+
+    &__day {
+      flex-basis: 8rem;
+      text-transform: capitalize;
+    }
+
+    &__info {
+      flex-basis: 100%;
+      opacity: .5;
+      order: 3;
+
+      .icon {
+        vertical-align: middle;
       }
     }
-  }
 
-  .special__checkbox + label:before,
-  .special__checkbox:checked + label:before {
-    content: '';
-    display: none;
-  }
-
-  .special__input {
-    border: 0;
-    border-bottom: $divider;
-    margin: 0 .5rem;
-    text-align: center;
-
-    &:focus {
-      border-bottom-color: $dunno-green-color;
+    &__classroom {
+      @media #{$small-only} {
+        display: block;
+      }
     }
-  }
-
-  .to {
-    display: inline-block;
-    left: 1.25rem;
-    position: relative;
   }
 }
 
 .weekday__select {
   text-transform: capitalize;
-}
-
-.course__dates {
-  margin-top: 1rem;
-  padding: 1rem 0 0;
-
-  .course__dates__header {
-    border-bottom: $divider;
-    margin-bottom: 1rem;
-  }
-
-  input {
-    &.start__date,
-    &.end__date {
-      display: block;
-      margin-right: 3rem;
-    }
-  }
-
-  p {
-    padding: 2rem 0;
-    text-align: center;
-  }
-}
-
-.icon__label {
-  opacity: .5;
-  position: absolute;
-  right: 1.5rem;
-  top: 2rem;
-
-  &:hover {
-    opacity: 1;
-  }
 }

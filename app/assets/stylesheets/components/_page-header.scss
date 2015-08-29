@@ -27,6 +27,13 @@
       white-space: nowrap;
       width: 65vw;
     }
+
+    small {
+      @media #{$small-only} {
+        color: $white;
+        opacity: .66;
+      }
+    }
   }
 
   .page__header__subtitle {
@@ -72,6 +79,10 @@
 
   .page__header__info {
     padding-bottom: 1rem;
+
+    @media #{$small-only} {
+      padding-bottom: 0;
+    }
   }
 
   .page__header__info,

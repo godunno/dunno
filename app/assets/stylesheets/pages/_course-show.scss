@@ -1,3 +1,7 @@
+.course__date__info {
+  text-transform: uppercase;
+}
+
 .notify__members {
   height: 0;
 
@@ -25,25 +29,7 @@
     vertical-align: middle;
 
     &:hover {
-      color: lighten($dunno-dark-color, 10%);
-    }
-  }
-}
-
-.course__schedule__info {
-  display: block;
-  font-size: .875rem;
-  opacity: .75;
-
-  .course__schedule {
-    text-transform: uppercase;
-
-    &:after {
-      content: ' · ';
-    }
-
-    &:last-child:after {
-      content: '';
+      opacity: .5;
     }
   }
 }

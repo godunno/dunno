@@ -2,18 +2,18 @@ header.page__header ng-style="{'background-color': course.color}"
   .row
     .small-12.medium-8.columns.page__header__header
       h2.page__header__title
-        span> ng-if="!!course.class_name"
-          | {{course.class_name}} ·
         | {{course.name}}
+        small< ng-if="!!course.class_name"
+          | › {{course.class_name}}
       ul.page__header__subtitle
         li.course__teacher ng-if="!!course.teacher"
-          img.has-tip.radius.course__member__avatar[
+          img.course__member__avatar[
             user-avatar="{{course.teacher.name}}"]
           span
             | {{course.teacher.name}}
     .page__header__info.small-12.medium-4.columns
       span.course__date__info ng-if="course.end_date"
-        | {{course.start_date | amDateFormat: 'DD/MM/YY'}} — {{course.end_date | amDateFormat: 'DD/MM/YY'}}
+        | {{course.start_date | amDateFormat: 'DD/MMM/YY'}}–{{course.end_date | amDateFormat: 'DD/MMM/YY'}}
       a.edit__course[
         ng-if="course.user_role == 'teacher'"
         ng-click="openEditCourseForm()"]

@@ -1,73 +1,53 @@
 .schedule
   .row
     .small-12.columns
-      a.close__schedule ui-sref="^" ui-sref-opts="{reload:true}"
+      a.schedule__close[
+        ui-sref="^"
+        ui-sref-opts="{reload:true}"]
         i.icon.icon-arrow-back>
         | Calendário
   .content__box
-    .schedule__header
-      .row
-        .small-12.columns.text-center
-          h5.uppercase
+    .row
+      .small-12.columns
+        .schedule__header
+          h4
             | Cronograma de Aulas
           p
-            | Aqui você diz em quais dias você dá aula e no período letivo você diz até que dia vai a sua aula.
-    .weekly__schedules
-      .weekly__schedules__preheader
-        .row
-          .small-12.columns
-            a.button.small.radius.right ng-click="newWeeklySchedule()"
-              | Adicionar Horário
-            h6.uppercase
+            | Informe quais os horários da sua aula na semana.
+        .weekly__schedules
+          .weekly__schedules__preheader
+            h6
               | Horários da Semana
-      .weekly__schedules__header.hide-for-small ng-if="course.weekly_schedules.length > 0"
-        .row.uppercase
-          .medium-3.columns
-            | Dia da Semana
-          .medium-2.columns
-            | Início
-          .medium-2.columns
-            | Término
-          .medium-5.columns.end
-            | Sala
-      .weekly__schedules__empty.empty__results ng-if="course.weekly_schedules.length == 0"
-        .row
-          .small-12.columns
-            p
-              | Você ainda não adicionou nenhum horário nesta disciplina.
-      .weekly__schedule ng-repeat="weekly_schedule in course.weekly_schedules"
-        .row
-          .small-12.medium-3.columns.weekday
-            | {{weekly_schedule.weekday | weekdayLong}}
-          .small-6.medium-2.columns.start__time
-            | {{weekly_schedule.start_time}}
-            em.to<>
-              | às
-          .small-6.medium-2.columns.end__time
-            | {{weekly_schedule.end_time}}
-          .small-12.medium-5.columns.classroom
-            | {{weekly_schedule.classroom}}
-          .small-12.medium-5.columns.weekly__schedule__actions
-            a ng-click="transferWeeklySchedule(weekly_schedule)"
-              | Transferir
-            a ng-click="removeWeeklySchedule(weekly_schedule)"
-              | Excluir
-      .course__dates
-        .course__dates__header
-          .row
-            .small-12.columns
-              a.button.radius.tiny.secondary.right ng-click="editCourseDates()"
-                | Definir Período Letivo
-              h6.uppercase
-                | Período Letivo
-        .row
-          .small-12.columns
-            p
-              | Seu período letivo começa
-              strong.start__date<
-                | {{course.start_date | date: 'fullDate'}}
-              span.end__date__message< ng-if="course.end_date"
-                | e termina
-                strong.end__date<
-                  | {{course.end_date | date: 'fullDate'}}
-              | .
+            a.add__schedule__time.button.tiny.radius ng-click="newWeeklySchedule()"
+              | Adicionar Horário
+          p.weekly__schedules__empty ng-if="course.weekly_schedules.length == 0"
+            | Você ainda não adicionou nenhum horário nesta disciplina.
+          .weekly__schedule ng-repeat="weekly_schedule in course.weekly_schedules"
+            strong.weekly__schedule__day
+              | {{weekly_schedule.weekday | weekdayLong}}
+            span.weekly__schedule__info
+              span.weekly__schedule__time>
+                i.icon.icon-clock
+                | {{weekly_schedule.start_time}} às {{weekly_schedule.end_time}}
+              span.weekly__schedule__classroom ng-if="!!weekly_schedule.classroom"
+                | {{weekly_schedule.classroom}}
+            zf-action-sheet.weekly__schedule__actions
+              zf-as-button
+                a.open__actions
+                  | …
+              zf-as-content position="top"
+                ul
+                  li
+                    a[
+                      ng-click="transferWeeklySchedule(weekly_schedule)"
+                      zf-close=""
+                      title="Editar horário"]
+                      i.icon.icon-pencil>
+                      | Editar horário
+                  li
+                    a[
+                      ng-click="removeWeeklySchedule(weekly_schedule)"
+                      zf-close=""
+                      title="Remover horário"]
+                      i.icon.icon-trash>
+                      | Remover horário
