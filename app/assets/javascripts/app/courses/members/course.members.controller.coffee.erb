@@ -22,6 +22,8 @@ CourseMembersCtrl = (course, $modal) ->
       templateUrl: '<%= asset_path('courses/_invite_members.html') %>'
       controller: 'InviteMembersController as vm'
       windowClass: 'full invite__members'
+      resolve:
+        course: -> course
 
   @
 
