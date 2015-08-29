@@ -1,35 +1,76 @@
-.courses__list {
-  @extend %cards-container;
+.course {
+  &s {
+    @extend %cards-container;
 
-  .course__card:hover {
-    @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
+    @media #{$small-up} {
+      @include block-grid(1);
+    }
+
+    @media #{$medium-up} {
+      @include block-grid(2);
+    }
+
+    @media #{$large-up} {
+      @include block-grid(3);
+    }
+
+    .course__card:hover {
+      @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
+    }
+
+    &__index {
+      @include grid-row();
+    }
+
+    &__inactive {
+      margin-top: 2rem;
+      padding: 1rem 0;
+
+      &__header {
+        h6 {
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    &__blankslate {
+      margin: 2rem 0;
+      text-align: center;
+
+      &__header {
+        margin-bottom: 2rem;
+      }
+    }
   }
-}
 
-.course__card {
-  @extend %card;
-
-  .user__avatar,
-  .course__icon {
-    display: block;
+  &__card {
+    @extend %card;
   }
 
-  .course__icon {
-    text-align: right;
-  }
-}
+  &__inactive {
+    display: flex;
+    margin-bottom: 1rem;
+    padding: 1rem 0;
 
-.inactive__courses {
-  border-top: .0625rem solid $light-grey-color;
-  margin-top: 1rem;
-  padding-top: 1rem;
-}
+    @media #{$small-only} {
+      flex-wrap: wrap;
+    }
 
-.inactive__courses__list {
-  list-style: none;
-  margin-left: 0;
+    &__dates,
+    &__info {
+      padding-right: .5rem;
+    }
 
-  li {
-    margin-bottom: .5rem;
+    &__dates {
+      white-space: nowrap;
+    }
+
+    &__info {
+      flex-basis: 100%;
+
+      @media #{$small-only} {
+        margin-bottom: 1rem;
+      }
+    }
   }
 }

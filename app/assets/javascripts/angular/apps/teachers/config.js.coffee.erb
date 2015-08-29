@@ -40,6 +40,11 @@ Router = ($stateProvider,
       templateUrl: '<%= asset_path('courses/index.html') %>'
       resolve: { courses: CoursesResolver }
     )
+    .state('courses.inactive',
+      url: '/inactive'
+      controller: 'CoursesIndexCtrl as vm'
+      templateUrl: '<%= asset_path('courses/inactive.html') %>'
+    )
     .state('courses.new',
       url: '/new'
       controller: 'CourseCtrl'

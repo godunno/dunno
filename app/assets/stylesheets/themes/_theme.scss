@@ -42,8 +42,13 @@
   }
 }
 
+body {
+  .cg-busy-backdrop {
+    background: $body-bg;
+  }
+}
+
 .application__footer {
-  border-top: .0625rem solid $light-grey-color;
   margin-top: 2rem;
   padding-top: 2rem;
 

@@ -1,9 +1,8 @@
 header.page__title
-  .row
-    .small-12.medium-6.columns
-      h1.main__page__title
-        | Catálogo
-    .small-12.medium-6.columns ng-show="!showTutorial()"
+  .page__title__wrapper
+    h1.page__title__title
+      | Catálogo
+    .page__title__actions ng-show="!showTutorial()"
       form.catalog__search[
         name="media_search"]
         label

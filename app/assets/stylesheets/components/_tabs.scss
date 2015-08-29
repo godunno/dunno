@@ -1,17 +1,22 @@
 %tabs {
   > li {
-    border-bottom: .25rem solid transparent;
     margin: 0;
-    padding: 0 0 1rem;
+    padding: 0;
     text-align: center;
     white-space: nowrap;
 
     &.active {
-      border-bottom-color: $dunno-dark-color;
+      a {
+        background: $background-light-grey-color;
+      }
     }
 
     a {
+      @include side-radius(top, $global-radius);
       color: $dunno-dark-color;
+      display: block;
+      line-height: 1.5rem;
+      padding: 1rem 0;
       text-transform: uppercase;
 
       @media #{$small-up} {

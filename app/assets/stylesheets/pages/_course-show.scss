@@ -57,6 +57,6 @@
 
 .members__tab {
   .label {
-    margin-left: .5rem;
+    @extend %badge;
   }
 }

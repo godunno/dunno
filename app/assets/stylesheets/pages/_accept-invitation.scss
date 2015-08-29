@@ -38,7 +38,7 @@
         position: relative;
 
         .number {
-          @include ball($number-radius);
+          @include radius($number-radius);
           border-color: $light-grey-color;
           color: $orange-color;
           font-weight: $font-weight-light;

@@ -1,38 +1,52 @@
-.events__tab {
-  .date {
-    @include side-radius(top, $global-radius);
-    background-color: $dunno-dark-color;
-    color: $white;
-    display: inline-block;
-    font-size: .875rem;
-    margin-bottom: -.0625rem;
-    margin-left: .5rem;
-    padding: .5rem 1rem;
-    text-transform: uppercase;
+.event {
+  @include box-shadow();
+  @include radius();
+  background-color: $white;
+  margin-bottom: 2rem;
+  padding: 2rem;
 
-    .date__time {
-      font-size: .75rem;
-      opacity: .5;
-    }
-
-    .date__status {
-      float: right;
-      margin-left: 1rem;
-
-      &.draft,
-      &.empty {
-        color: $white;
-      }
-    }
+  &__header {
+    border-bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
 
     @media #{$small-only} {
       margin-top: 1rem;
     }
   }
 
-  .edit__in__journal {
-    @media #{$small-only} {
-      margin-top: 1rem;
+  &__date {
+    flex-basis: 70%;
+    order: 1;
+    text-transform: uppercase;
+  }
+
+  &__time {
+    flex-basis: 70%;
+    opacity: .5;
+    order: 3;
+  }
+
+  .date__status {
+    flex-basis: 30%;
+    order: 2;
+    padding-right: .25rem;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  &__edit {
+    flex-basis: 30%;
+    order: 4;
+    text-align: right;
+
+    .button {
+      margin-bottom: 0;
+
+      @media #{$small-only} {
+        margin-top: 1rem;
+      }
     }
   }
 
@@ -40,11 +54,7 @@
     padding: 1rem;
   }
 
-  .event__content {
-    @include box-shadow(0, .125rem, 0, $light-grey-color);
-    @include radius();
-    background-color: $white;
-    border: .0625rem solid $light-grey-color;
+  &__content {
     margin-bottom: 2rem;
 
     @media #{$small-only} {
@@ -52,49 +62,33 @@
     }
   }
 
-  .event__item {
-    border-bottom: .0625rem solid $light-grey-color;
-    padding: 1rem;
+  &__item {
+    align-items: center;
+    display: flex;
+    margin-bottom: 1rem;
+    padding: 1rem 0;
 
     &:last-child {
       border-bottom: 0;
+      margin-bottom: 0;
     }
-
-    &.done {
-      background: lighten($light-grey-color, 20%);
-      font-style: italic;
-
-      .icon-check {
-        color: $dark-grey-color;
-      }
-    }
-
-    &:after {
-      clear: both;
-      content: ' ';
-      display: block;
-      height: 0;
-      width: 100%;
-    }
-  }
-
-  .icon-check {
-    color: transparent;
-    float: left;
-    margin-right: .5rem;
   }
 
   .topic__item__image {
     @include thumbnail();
-    display: inline-block;
-    margin-right: .5rem;
+    border: .0625rem solid $light-grey-color;
+    flex-basis: 2.75rem;
+    margin-right: 1rem;
   }
 
   .topic__item__description {
-    display: block;
-    font-size: .875rem;
-    margin-left: 1.5rem;
-    padding: .25rem;
     word-break: break-word;
   }
+}
+
+.empty__results {
+  margin: 0;
+  opacity: .5;
+  padding: 1rem 0;
+  text-align: center;
 }
