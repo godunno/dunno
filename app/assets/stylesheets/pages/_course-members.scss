@@ -8,6 +8,10 @@
   .button {
     margin-bottom: 0;
   }
+
+  .access__code {
+    font-size: 1.5rem;
+  }
 }
 
 .members__content {
@@ -32,8 +36,7 @@
   }
 
   .role__count {
-    border: .0625rem solid $light-grey-color;
-    margin-left: .5rem;
+    @extend %badge;
   }
 }
 

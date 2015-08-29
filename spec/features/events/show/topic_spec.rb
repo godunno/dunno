@@ -1,7 +1,7 @@
 require "feature_helper"
 
 describe "Adding a new topic to an event" do
-  let!(:user) { create(:user, :teacher_profile, completed_tutorial: true) }
+  let!(:user) { create(:user, :teacher_profile) }
   let(:teacher) { user.profile }
   let(:course) { create(:course, teacher: teacher) }
   let!(:event) { create(:event, course: course) }

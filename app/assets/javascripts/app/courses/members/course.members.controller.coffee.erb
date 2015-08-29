@@ -1,0 +1,34 @@
+CourseMembersCtrl = (course, $modal) ->
+  role = (members) ->
+    members[0].role
+
+  @order = (members) ->
+    if role(members) == "teacher"
+      0
+    else
+      1
+
+  @roleName = (members) ->
+    @translateRole(role(members))
+
+  @translateRole = (role) ->
+    rolesInPortuguese =
+      teacher: 'Professor'
+      student: 'Estudante'
+    rolesInPortuguese[role]
+
+  @openInviteMembers = ->
+    $modal.open
+      templateUrl: '<%= asset_path('courses/_invite_members.html') %>'
+      controller: 'InviteMembersController as vm'
+      windowClass: 'full invite__members'
+      resolve:
+        course: -> course
+
+  @
+
+CourseMembersCtrl.$inject = ['course', '$modal']
+
+angular
+  .module('DunnoApp')
+  .controller('CourseMembersCtrl', CourseMembersCtrl)

@@ -1,30 +1,28 @@
-#invite__members.invite__members.reveal-modal.full data-reveal=true
-  .row.small-collapse
-    .small-12.small-centered.medium-8.large-6.columns
-      .form__box
-        a.close-reveal-modal
-          | ×
-        .modal__header
-          h5
-            | Convidar Estudantes
-          p
-            | Para convidar estudantes para sua disciplina, eles precisam fazer o seguinte:
-        .row.small-collapse
-          .small-12.columns
-            ol
-              li
-                p
-                  | Acessar o endereço:
-                h4
-                  = new_user_session_url
-              li
-                p
-                  | Escolher participar de uma turma existente, usando o código:
-                h3
-                  strong
-                    pre
-                      | {{course.access_code}}
-                a.button.transparent.tiny.outline.radius.fullscreen__invitation data-reveal-id="invite__members__fullscreen"
-                  i.icon.icon-expand>
-                  | Ampliar código
-ng-include src="'#{asset_path('courses/_invite_members_fullscreen.html')}'"
+.row.small-collapse
+  .small-12.small-centered.medium-8.large-6.columns
+    .form__box
+      a.close-reveal-modal ng-click="$close()"
+        | ×
+      .modal__header
+        h5
+          | Convidar Estudantes
+        p
+          | Para convidar estudantes para sua disciplina, eles precisam fazer o seguinte:
+      .row.small-collapse
+        .small-12.columns
+          ol
+            li
+              p
+                | Acessar o endereço:
+              h4
+                = new_user_session_url
+            li
+              p
+                | Escolher participar de uma turma existente, usando o código:
+              h3
+                strong
+                  pre
+                    | {{vm.course.access_code}}
+              a.button.transparent.tiny.outline.radius.fullscreen__invitation ng-click="vm.openInviteMembersFullscreen()"
+                i.icon.icon-expand>
+                | Ampliar código

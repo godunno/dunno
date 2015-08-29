@@ -22,5 +22,8 @@ $font-weight-bold: 700;
 $font-weight-normal: 400;
 $font-weight-light: 300;
 
+$font-family-sans-serif: 'Lato', sans-serif;
+$font-family-serif: serif;
+
 // LAYOUT
-$divider: .0625rem solid $light-grey-color;
+$divider: .0625rem solid lighten($light-grey-color, 10%);

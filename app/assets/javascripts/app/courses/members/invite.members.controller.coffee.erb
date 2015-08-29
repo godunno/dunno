@@ -1,0 +1,17 @@
+InviteMembersController = ($modal, course) ->
+  @course = course
+  @openInviteMembersFullscreen = ->
+    $modal.open
+      templateUrl: '<%= asset_path('courses/_invite_members_fullscreen.html') %>'
+      controller: 'InviteMembersFullscreenController as vm'
+      windowClass: 'full invite__members__fullscreen'
+      resolve:
+        course: -> course
+
+  @
+
+InviteMembersController.$inject = ['$modal', 'course']
+
+angular
+  .module('DunnoApp')
+  .controller('InviteMembersController', InviteMembersController)

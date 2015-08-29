@@ -1,5 +1,4 @@
 .page__header {
-  @include box-shadow(0, .0625rem, .0625rem, $light-grey-color);
   background: $white;
   margin-bottom: 2rem;
   padding: 1rem 0 0;
@@ -27,6 +26,13 @@
       top: -3.25rem;
       white-space: nowrap;
       width: 65vw;
+    }
+
+    small {
+      @media #{$small-only} {
+        color: $white;
+        opacity: .66;
+      }
     }
   }
 
@@ -68,12 +74,15 @@
   }
 
   footer {
-    border-top: .0625rem solid transparentize($dark-grey-color, .9);
     padding-top: 1rem;
   }
 
   .page__header__info {
     padding-bottom: 1rem;
+
+    @media #{$small-only} {
+      padding-bottom: 0;
+    }
   }
 
   .page__header__info,

@@ -2,25 +2,25 @@ header.page__header ng-style="{'background-color': course.color}"
   .row
     .small-12.medium-8.columns.page__header__header
       h2.page__header__title
-        span> ng-if="!!course.class_name"
-          | {{course.class_name}} ·
         | {{course.name}}
+        small< ng-if="!!course.class_name"
+          | › {{course.class_name}}
       ul.page__header__subtitle
         li.course__teacher ng-if="!!course.teacher"
-          img.has-tip.radius.course__member__avatar[
+          img.course__member__avatar[
             user-avatar="{{course.teacher.name}}"]
           span
             | {{course.teacher.name}}
     .page__header__info.small-12.medium-4.columns
       span.course__date__info ng-if="course.end_date"
-        | {{course.start_date | amDateFormat: 'DD/MM/YY'}} — {{course.end_date | amDateFormat: 'DD/MM/YY'}}
+        | {{course.start_date | amDateFormat: 'DD/MMM/YY'}}–{{course.end_date | amDateFormat: 'DD/MMM/YY'}}
       a.edit__course[
         ng-if="course.user_role == 'teacher'"
         ng-click="openEditCourseForm()"]
         i.icon.icon-cog
       .notify__members
         a.button.transparent.secondary.outline.radius.tiny[
-          data-reveal-id="send-notification"
+          ng-click="openNotification()"
           ng-if="course.user_role == 'teacher' && course.members.length > 1"]
           i.icon.icon-buzz>
           | Notificar estudantes
@@ -43,6 +43,3 @@ header.page__header ng-style="{'background-color': course.color}"
 .course__detail__page
   .row.small-collapse
     .small-12.medium-10.medium-centered.large-8.columns ui-view=true
-
-ng-include src="'#{asset_path('courses/_invite_members.html')}'"
-ng-include src="'#{asset_path('courses/_notify_members.html')}'"

@@ -15,17 +15,16 @@
   }
 }
 
-.topic__wrapper {
-  align-items: flex-start;
-  display: flex;
-  justify-content: space-between;
-  min-height: 4rem;
-}
-
 .topic {
   background: $white;
-  padding: .5rem 0;
   transition: background-color .25s ease-in-out;
+
+  &__wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+  }
 
   &.ui-sortable-helper {
     @include box-shadow();
@@ -49,10 +48,9 @@
 
   &.done {
     background: lighten($light-grey-color, 20%);
-    opacity: .75;
 
     input[type=checkbox]:checked + label {
-      color: $dark-grey-color;
+      color: $dunno-dark-color;
     }
   }
 
@@ -62,7 +60,7 @@
     }
   }
 
-  .topic__editing {
+  &__editing {
     @extend %item-box;
     margin: -.5rem -.1875em;
 
@@ -79,7 +77,7 @@
     @extend %topic-save-button;
   }
 
-  .topic__url {
+  &__url {
     display: block;
     font-size: .875em;
     line-height: 1em;
@@ -88,22 +86,13 @@
     white-space: nowrap;
   }
 
-  .topic__actions,
-  .topic__status,
-  .topic__handle {
+  &__status,
+  &__handle {
     flex-basis: 1.5rem;
   }
 
-  .topic__status {
-    text-align: center;
-
-    label {
-      margin-top: .25rem;
-    }
-  }
-
-  .topic__image {
-    flex-basis: 4rem;
+  &__image {
+    flex-basis: 3rem;
     text-align: center;
 
     span {
@@ -111,38 +100,41 @@
     }
   }
 
-  .topic__description {
+  &__description {
     flex-basis: 6rem;
     flex-grow: 1;
     padding: 0 .5rem;
     word-wrap: break-word;
   }
 
-  .topic__actions {
-    color: $light-grey-color;
-    font-size: 1.5em;
+  &__actions {
+    align-self: center;
+    flex-basis: 2.5rem;
     padding-right: .5rem;
-
-    .topic__actions__button {
-      color: $light-grey-color;
-      cursor: pointer;
-
-      &:hover {
-        color: $dunno-dark-color;
-      }
-    }
+    text-align: right;
   }
 
-  .topic__handle {
+  &__handle {
     align-self: stretch;
     color: $light-grey-color;
     cursor: grab;
+    display: flex;
     font-size: 1.5em;
+
+    .icon {
+      align-self: center;
+    }
 
     &:hover {
       color: $dunno-dark-color;
     }
   }
+
+  &__status {
+    align-self: center;
+    text-align: center;
+  }
+
 
   input[type=checkbox] + label:before,
   input[type=checkbox]:checked + label:before {
@@ -151,10 +143,10 @@
   }
 
   input[type=checkbox] + label {
-    color: $light-grey-color;
+    color: $dunno-green-color;
 
     &:hover {
-      color: $medium-grey-color;
+      color: lighten($dunno-green-color, 10%);
     }
   }
 

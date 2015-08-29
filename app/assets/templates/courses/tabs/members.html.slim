@@ -4,12 +4,13 @@
   p.add__members
     a.button.radius.add__users[
       ng-if="course.user_role == 'teacher'"
-      data-reveal-id="invite__members"]
+      ng-click="vm.openInviteMembers()"]
       i.icon-add>
       | Adicionar integrantes
     br
-    small
-      | Código da Disciplina: <samp>{{course.access_code}}</samp>
+    | Código da Disciplina:
+    samp.access__code<
+      | {{course.access_code}}
   .member__group ng-repeat="members in course.members | groupBy: 'role' | toArray: true | orderBy:vm.order"
     p.members__content__title
       strong.role__name>

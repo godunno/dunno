@@ -38,49 +38,4 @@ describe Dashboard::UsersController do
       it { expect(saved_user.phone_number).to eq(user.phone_number) }
     end
   end
-
-  describe "GET /users/accept_invitation" do
-    let(:user) { create(:user) }
-
-    context "without invitation" do
-      def do_action
-        get :accept_invitation
-      end
-
-      before { do_action }
-
-      it { is_expected.to respond_with(401) }
-    end
-
-    context "with invitation" do
-      def do_action
-        get :accept_invitation, invitation_token: user.invitation_token
-      end
-
-      before do
-        Invitation.new(user).invite!
-      end
-
-      it "signs in to the invitation user" do
-        do_action
-        expect(subject.current_user).to eq(user)
-      end
-    end
-
-    context "with expired invitation" do
-      def do_action
-        get :accept_invitation, invitation_token: user.invitation_token
-      end
-
-      before do
-        Invitation.new(user).invite!
-        Timecop.freeze(1.day.from_now + Invitation::EXPIRE_AFTER)
-        do_action
-      end
-
-      after { Timecop.return }
-
-      it { is_expected.to respond_with(401) }
-    end
-  end
 end
