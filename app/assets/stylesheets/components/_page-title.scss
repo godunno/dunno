@@ -48,14 +48,8 @@
       }
 
       span {
-        color: $light-grey-color;
+        color: $medium-grey-color;
         margin: .25rem 0 1rem;
-
-        &:before,
-        &:after {
-          content: '—';
-          margin: 0 1rem;
-        }
       }
     }
 

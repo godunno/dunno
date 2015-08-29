@@ -8,8 +8,9 @@
       i.icon-add>
       | Adicionar integrantes
     br
-    small
-      | Código da Disciplina: <samp>{{course.access_code}}</samp>
+    | Código da Disciplina:
+    samp.access__code<
+      | {{course.access_code}}
   .member__group ng-repeat="members in course.members | groupBy: 'role' | toArray: true | orderBy:vm.order"
     p.members__content__title
       strong.role__name>

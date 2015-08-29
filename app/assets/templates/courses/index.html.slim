@@ -8,56 +8,47 @@ ui-view
           | Participar de uma disciplina existente
         span<>
           | ou
-        a.button.radius.small ng-click="vm.openNewCourseForm()"
+        a.button.radius.tiny ng-click="vm.openNewCourseForm()"
           | Criar disciplina
   .courses__index
-    .courses__blankslate ng-if="vm.activeCourses.length == 0"
-      .courses__blankslate__header
+    .courses__blankslate.row ng-if="vm.activeCourses.length == 0"
+      .courses__blankslate__header.small-12.columns
         h3
           | Que papel você vai desempenhar na sua próxima disciplina?
+        /
+          p
+            | Você precisa de ao menos uma disciplina ativa para usar o Dunno.
+      .small-5.columns
+        h5
+          | Serei estudante
         p
-          | Você precisa de ao menos uma disciplina ativa para usar o Dunno.
-      .row
-        .small-5.columns
-          h5
-            | Serei estudante
-          p
-            | <a ui-sref="courses.search">Participar de uma disciplina existente</a>
-        .small-2.columns
-          p
-            br
-            | ou
-        .small-5.columns
-          h5
-            | Serei professor
-          p
-            a.button.radius.small ng-click="vm.openNewCourseForm()"
-              | Criar disciplina
-    ul.courses
-      li ng-repeat="course in vm.activeCourses"
-        course-link current-page="courses"
-          course-card
-    .courses__inactive ng-if="vm.inactiveCourses.length"
-      .courses__inactive__header
-        h6
-          | Disciplinas Arquivadas
+          | <a ui-sref="courses.search">Participar de uma disciplina existente</a>
+      .small-2.columns
         p
-          | Após o fim do período letivo suas disciplinas serão automaticamente arquivadas.
-      .course__inactive ng-repeat="course in vm.inactiveCourses"
-        .course__inactive__dates
-          course-link current-page="courses"
-            span.course__start__date>
-              | {{course.start_date | date: 'shortDate'}}
-            span.course__end__date
-              | – {{course.end_date | date: 'shortDate'}}
-        .course__inactive__info
-          span.course__inactive__classname> ng-if="!!course.class_name"
-            | {{course.class_name}} ·
-          span.couse__inactive__name
-            | {{course.name}}
           br
-          span.course__inactive__institution ng-if="!!course.institution"
-            | {{course.institution}}
+          | ou
+      .small-5.columns
+        h5
+          | Serei professor
+        p
+          a.button.radius.small ng-click="vm.openNewCourseForm()"
+            | Criar disciplina
+    .small-12.columns
+      ul.courses
+        li ng-repeat="course in vm.activeCourses"
+          course-link current-page="courses"
+            course-card
+    .small-12.columns
+      .courses__inactive ng-if="vm.inactiveCourses.length"
+        .courses__inactive__header
+          p
+            | Você possui {{vm.inactiveCourses.length}}
+            span<[
+              ng-pluralize
+              count="vm.inactiveCourses.length"
+              when="{'1': 'disciplina arquivada.', 'other': 'disciplinas arquivadas.'}"]
+            a< ui-sref="courses.inactive"
+              | Ver disciplinas arquivadas.
 
 #add-course.reveal-modal.full.add__course data-reveal=true
   .row.small-collapse

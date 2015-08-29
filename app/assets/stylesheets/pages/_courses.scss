@@ -23,14 +23,10 @@
     }
 
     &__inactive {
-      @include radius();
-      border: .0625rem solid $light-grey-color;
-      margin-top: 3rem;
+      margin-top: 2rem;
       padding: 1rem 0;
 
       &__header {
-        padding: 0 1rem;
-
         h6 {
           text-transform: uppercase;
         }
@@ -38,11 +34,11 @@
     }
 
     &__blankslate {
-      margin: 3rem 0;
+      margin: 2rem 0;
       text-align: center;
 
-      .row {
-        margin-top: 3rem;
+      &__header {
+        margin-bottom: 2rem;
       }
     }
   }
@@ -54,14 +50,10 @@
   &__inactive {
     display: flex;
     margin-bottom: 1rem;
-    padding: 1rem;
+    padding: 1rem 0;
 
     @media #{$small-only} {
       flex-wrap: wrap;
-    }
-
-    &:hover {
-      background: transparentize($white, .25);
     }
 
     &__dates,

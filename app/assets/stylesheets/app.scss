@@ -17,7 +17,7 @@
 
 @import
   'components/avatar',
-  'components/ball',
+  'components/badge',
   'components/buttons',
   'components/cards',
   'components/catalog',
@@ -42,26 +42,22 @@
 
 // page specific styles
 @import
-  'pages/courses',
-
-
-
-
   'pages/accept-invitation',
   'pages/catalog',
   'pages/course-calendar',
-  'pages/course-events',
   'pages/course-calendar-schedule',
+  'pages/course-confirmation',
+  'pages/course-events',
   'pages/course-members',
   'pages/course-show',
+  'pages/courses',
   'pages/create-course',
   'pages/diary',
   'pages/events',
   'pages/invite-members',
   'pages/invite-members-fullscreen',
   'pages/send-notification',
-  'pages/session',
-  'pages/student';
+  'pages/session';
 
 @import
   'themes/theme';
