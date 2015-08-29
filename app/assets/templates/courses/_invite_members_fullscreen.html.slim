@@ -1,10 +1,9 @@
-#invite__members__fullscreen.invite__members__fullscreen.full
-  a.close-reveal-modal ng-click="vm.close()"
-    | &#215;
-  span.description
-    | Código da Disciplina:
-  h3.title
-    samp
-      | {{course.access_code}}
-  span.link-to-sign-in
-    = new_user_session_url
+a.close-reveal-modal ng-click="vm.close()"
+  | &#215;
+span.description
+  | Código da Disciplina:
+h3.title
+  samp
+    | {{course.access_code}}
+span.link-to-sign-in
+  = new_user_session_url
