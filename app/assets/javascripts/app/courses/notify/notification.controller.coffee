@@ -1,12 +1,18 @@
 DunnoApp = angular.module('DunnoApp')
 
-NotificationCtrl = ($scope, $timeout, $analytics, Notification, ErrorParser)->
+NotificationCtrl = (
+  $scope,
+  $timeout,
+  $analytics,
+  $modalInstance,
+  Notification,
+  ErrorParser
+)->
   $scope.limit = 140
 
-  ($scope.reset = ->
+  reset = ->
     $scope.notification = new Notification()
     $scope.notification_form.$setPristine() if $scope.notification_form
-  )()
 
   $scope.status = 'ready'
 
@@ -26,14 +32,21 @@ NotificationCtrl = ($scope, $timeout, $analytics, Notification, ErrorParser)->
     notification.course_id = course.uuid
     notification.abbreviation = course.abbreviation
     notification.save().then(->
-      $scope.reset()
+      reset()
       $scope.setSent()
-      $analytics.eventTrack('Notification Sent', courseName: course.name, courseUuid: course.uuid, message: notification.message)
+      $analytics.eventTrack 'Notification Sent',
+        courseName: course.name
+        courseUuid: course.uuid
+        message: notification.message
     ).catch((response)->
       $scope.hasError = true
       ErrorParser.setErrors(response.data.errors, $scope.notification_form, $scope)
       $scope.setReady()
-      $analytics.eventTrack('Notification Error', courseName: course.name, courseUuid: course.uuid, message: notification.message, error: response.data.errors)
+      $analytics.eventTrack 'Notification Error',
+        courseName: course.name,
+        courseUuid: course.uuid,
+        message: notification.message,
+        error: response.data.errors
     )
 
   $scope.sendButtonText = ->
@@ -43,6 +56,11 @@ NotificationCtrl = ($scope, $timeout, $analytics, Notification, ErrorParser)->
       when 'sent' then 'Enviado com sucesso!'
 
 NotificationCtrl.$inject = [
-  '$scope', '$timeout', '$analytics', 'Notification', 'ErrorParser'
+  '$scope',
+  '$timeout',
+  '$analytics',
+  '$modalInstance',
+  'Notification',
+  'ErrorParser'
 ]
 DunnoApp.controller 'NotificationCtrl', NotificationCtrl

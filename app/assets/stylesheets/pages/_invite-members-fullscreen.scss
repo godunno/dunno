@@ -3,6 +3,7 @@
   color: $white;
   padding-top: 25vh;
   text-align: center;
+  top: 0 !important; //scss-lint:disable ImportantRule
 
   @media #{$small-only}{
     padding-top: 25vw;

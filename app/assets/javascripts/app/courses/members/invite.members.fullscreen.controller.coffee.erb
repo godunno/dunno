@@ -1,0 +1,12 @@
+InviteMembersFullscreenController = ($modalStack, course) ->
+  @course = course
+  @close = ->
+    $modalStack.dismissAll()
+
+  @
+
+InviteMembersFullscreenController.$inject = ['$modalStack', 'course']
+
+angular
+  .module('DunnoApp')
+  .controller('InviteMembersFullscreenController', InviteMembersFullscreenController)

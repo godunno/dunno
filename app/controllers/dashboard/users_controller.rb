@@ -10,16 +10,6 @@ class Dashboard::UsersController < Devise::RegistrationsController
     end
   end
 
-  def accept_invitation
-    @user = User.find_by(invitation_token: params[:invitation_token])
-    if @user.nil? || Invitation.new(@user).expired?
-      render nothing: true, status: 401
-    else
-      sign_in(@user)
-      render layout: false
-    end
-  end
-
   def update
     if current_user.update(update_params)
       sign_in current_user, bypass: true

@@ -20,7 +20,7 @@ header.page__header ng-style="{'background-color': course.color}"
         i.icon.icon-cog
       .notify__members
         a.button.transparent.secondary.outline.radius.tiny[
-          data-reveal-id="send-notification"
+          ng-click="openNotification()"
           ng-if="course.user_role == 'teacher' && course.members.length > 1"]
           i.icon.icon-buzz>
           | Notificar estudantes
@@ -43,6 +43,3 @@ header.page__header ng-style="{'background-color': course.color}"
 .course__detail__page
   .row.small-collapse
     .small-12.medium-10.medium-centered.large-8.columns ui-view=true
-
-ng-include src="'#{asset_path('courses/_invite_members.html')}'"
-ng-include src="'#{asset_path('courses/_notify_members.html')}'"

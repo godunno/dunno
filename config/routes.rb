@@ -25,9 +25,6 @@ Rails.application.routes.draw do
 
     namespace :dashboard do
       resources :passwords, only: [:new, :create, :edit, :update]
-      resources :users, only: [] do
-        get :accept_invitation, on: :collection
-      end
     end
   end
 
