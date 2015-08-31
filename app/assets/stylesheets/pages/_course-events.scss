@@ -54,7 +54,7 @@
       margin-bottom: 0;
 
       @media #{$small-only} {
-        margin-top: 1rem;
+        white-space: nowrap;
       }
     }
   }
