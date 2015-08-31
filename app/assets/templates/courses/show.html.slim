@@ -19,7 +19,7 @@ header.page__header ng-style="{'background-color': course.color}"
         ng-click="openEditCourseForm()"]
         i.icon.icon-cog
       .notify__members
-        a.button.transparent.secondary.outline.radius.tiny[
+        a.button.transparent.secondary.outline.tiny[
           ng-click="openNotification()"
           ng-if="course.user_role == 'teacher' && course.members.length > 1"]
           i.icon.icon-buzz>

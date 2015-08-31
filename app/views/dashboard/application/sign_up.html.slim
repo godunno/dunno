@@ -24,7 +24,7 @@ ruby:
               | Nome
             span.required<
               | *
-          input#name.radius[
+          input#name[
             name="name"
             ng-model="user.name"
             type="text"
@@ -43,7 +43,7 @@ ruby:
               | Email
             span.required<
               | *
-          input#email.radius[
+          input#email[
             name="email"
             ng-model="user.email"
             type="email"
@@ -65,7 +65,7 @@ ruby:
               | Senha
             span.required<
               | *
-          input#password.radius[
+          input#password[
             name="password"
             ng-model="user.password"
             type="password"
@@ -86,7 +86,7 @@ ruby:
               | Telefone
             span.required<
               | *
-          input.radius#phone_number[
+          input#phone_number[
             ui-br-phone-number=true
             name="phone_number"
             ng-model="user.phone_number"
@@ -102,11 +102,11 @@ ruby:
             span ng-message="brPhoneNumber"
               | O formato informado é inválido.
         .submit
-          input.button.expand.radius.large[
+          button.button.expand.large[
             ng-disabled="user_form.$invalid"
-            type="submit"
             tabindex=5
-            value="Criar"]
+            type="submit"]
+            | Criar
         .signin.text-center
           | Já faz parte do Dunno? #{link_to "Acesse sua conta.", new_user_session_path}
       = render "application/login_links"

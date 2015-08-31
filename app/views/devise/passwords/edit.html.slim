@@ -16,7 +16,7 @@
             .password
               label for="password"
                 | Nova senha
-              input.radius#password[
+              input#password[
                 name="user[password]"
                 type="password"
                 required=true
@@ -36,7 +36,7 @@
             .password-confirmation
               label for="password_confirmation"
                 | Confirmação da senha
-              input.radius#password_confirmation[
+              input#password_confirmation[
                 name="user[password_confirmation]"
                 type="password"
                 required=true
@@ -53,10 +53,10 @@
                 span ng-message="match"
                   | Não é igual à senha inserida.
             .submit
-              input.button.radius.btn-style-1[
+              button.button.btn-style-1[
                 type="submit"
-                value="Salvar"
                 ng-disabled="password_form.$invalid"
               ]
+              | Salvar
   / TODO: Write terms and policy pages.
     = render "application/login_links"

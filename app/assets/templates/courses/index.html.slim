@@ -8,7 +8,7 @@ ui-view
           | Participar de uma disciplina existente
         span<>
           | ou
-        a.button.radius.tiny ng-click="vm.openNewCourseForm()"
+        a.button.tiny ng-click="vm.openNewCourseForm()"
           | Criar disciplina
   .courses__index
     .courses__blankslate.row ng-if="vm.activeCourses.length == 0"
@@ -31,7 +31,7 @@ ui-view
         h5
           | Serei professor
         p
-          a.button.radius.small ng-click="vm.openNewCourseForm()"
+          a.button.small ng-click="vm.openNewCourseForm()"
             | Criar disciplina
     .small-12.columns
       ul.courses

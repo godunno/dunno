@@ -66,3 +66,8 @@ body {
     }
   }
 }
+
+.alert-box,
+.panel {
+  @include radius();
+}

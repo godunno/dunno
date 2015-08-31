@@ -20,7 +20,7 @@
         ng-class="{canceled: isCanceled(event), published: isPublished(event), draft: isDraft(event), hide: (isPublished(event) && isStudent(course))}"]
         | {{translatedStatus(event)}}
       .event__edit
-        a.button.radius.tiny[
+        a.button.tiny[
           ng-click="goToEvent(event)"
           ng-if="course.user_role == 'teacher'"]
           | editar aula
@@ -46,7 +46,7 @@
         span.topic__item__description ng-if="!topic.media"
           | {{topic.description}}
 .text-center
-  a.button.secondary.tiny.radius[
+  a.button.secondary.tiny[
     ng-click="paginate(nextPage)"
     ng-hide="noMoreEvents"]
     | Carregar mais…

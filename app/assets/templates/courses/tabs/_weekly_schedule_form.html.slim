@@ -3,7 +3,7 @@ form ng-submit="submit(weeklySchedule)"
     .small-12.columns
       label for="weekday"
         | Dia
-      select.weekday__select#weekday.radius ng-model="weeklySchedule.weekday"
+      select.weekday__select#weekday ng-model="weeklySchedule.weekday"
         option[
           ng-repeat="weekday in [1,2,3,4,5,6,0]"
           ng-value="{{weekday}}"
@@ -12,7 +12,7 @@ form ng-submit="submit(weeklySchedule)"
     .small-5.columns
       label for="start_time"
         | Início
-      input#start_time.radius[
+      input#start_time[
         ng-model="startTime"
         ng-model-options="{ getterSetter: true }"
         ui-timepicker="{ timeFormat: 'H:i' }"
@@ -24,7 +24,7 @@ form ng-submit="submit(weeklySchedule)"
     .small-5.columns
       label for="end_time"
         | Término
-      input#end_time.radius[
+      input#end_time[
         ng-model="endTime"
         ng-model-options="{ getterSetter: true }"
         ui-timepicker="{ showDuration: true, durationTime: startTime, timeFormat: 'H:i' }"
@@ -32,9 +32,9 @@ form ng-submit="submit(weeklySchedule)"
     .small-12.columns
       label for="classroom"
         | Sala
-      input#classroom.radius[
+      input#classroom[
         ng-model="weeklySchedule.classroom"
         type="text"]
     .small-12.columns
-      button.button.radius.expand type="submit"
+      button.button.expand type="submit"
         | {{formButton}}

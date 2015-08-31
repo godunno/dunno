@@ -41,8 +41,8 @@
     }
 
     .icon {
+      @include radius(3em);
       background-color: $light-grey-color;
-      border-radius: 3em;
       color: $white;
       display: inline-block;
       font-size: 1.25em;
