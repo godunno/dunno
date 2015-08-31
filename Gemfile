@@ -22,6 +22,7 @@ gem 'foundation-rails',           '5.5.2.1'
 gem 'roboto',                     '0.2.0'
 gem 'newrelic_rpm',               '3.12.1.298'
 gem 'link_thumbnailer',           '2.5.2'
+gem 'video_info',                 '2.4.2'
 gem 'acts-as-taggable-on',        '3.5.0'
 gem 'elasticsearch-model',        '0.1.6'
 gem 'elasticsearch-rails',        '0.1.6'
@@ -42,6 +43,7 @@ gem 'airbrake',                   '4.3.0'
 gem 'pundit',                     '1.0.1'
 gem 'redcarpet',                  '3.3.2'
 gem 'ice_cube',                   '0.13.0'
+
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular',       '1.3.16'
