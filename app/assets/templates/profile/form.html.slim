@@ -4,7 +4,6 @@ ui-view
       .large-12.columns
         h1.main__page__title
           | Meu perfil
-
   .edit__profile
     .row
       .small-12.medium-7.large-6.small-centered.columns
@@ -12,16 +11,14 @@ ui-view
           name="form"
           ng-submit="update(user)"]
           .form__box
-            p.text-center ng-if="success"
-              span.label.success.radius
-                | Dados salvos com sucesso!
-
+            .alert-box.success ng-if="success"
+              | Dados salvos com sucesso!
             label for="name"
               small
                 | Nome
                 span.required<
                   | *
-            input#name.radius[
+            input#name[
               name="name"
               ng-model="user.name"
               required=true
@@ -31,21 +28,19 @@ ui-view
               ng-if="form.name.$invalid && form.name.$dirty"]
               span ng-message="required"
                 | Este campo é obrigatório.
-
             label for="email"
               small
                 | Email
-            input#email.radius[
+            input#email[
               disabled=true
               ng-model="user.email"
               type="email"]
-
             label for="phone_number"
               small
                 | Telefone
                 span.required<
                   | *
-            input#phone_number.radius[
+            input#phone_number[
               name="phone_number"
               ng-model="user.phone_number"
               required=true
@@ -58,11 +53,10 @@ ui-view
                 | Este campo é obrigatório.
               span ng-message="brPhoneNumber"
                 | Formato inválido.
-
             a.button.secondary.transparent.small.expand ui-sref=".change_password"
               | Quero alterar minha senha
             .text-center
-              input.submit.button.radius[
+              button.submit.button[
                 ng-disabled="form.$invalid"
-                type="submit"
-                value="Atualizar perfil"]
+                type="submit"]
+                | Atualizar perfil

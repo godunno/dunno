@@ -3,7 +3,6 @@ header.page__title
     .large-12.columns
       h1.main__page__title
         | Meu perfil
-
 .edit__profile
   .row
     .small-12.medium-7.large-6.small-centered.columns
@@ -11,16 +10,14 @@ header.page__title
         name="form"
         ng-submit="update_password(user)"]
         .form__box
-          p.text-center ng-if="success"
-            span.label.success.radius
-              | Senha alterada com sucesso!
-
+          .alert-box.success ng-if="success"
+            | Senha alterada com sucesso!
           label for="current_password"
             small
               | Senha atual
-              span.required<
-                | *
-          input#current_password.password.radius[
+            span.required<
+              | *
+          input#current_password.password[
             name="current_password"
             ng-model="user.current_password"
             required=true
@@ -32,16 +29,15 @@ header.page__title
               | Este campo é obrigatório.
             span ng-message="invalid"
               | Senha incorreta.
-
           .validation
             i.icon.icon-plain-check ng-if="form.password.$valid"
             i.icon.icon-error ng-if="form.password.$invalid"
           label for="password"
             small
               | Senha
-              span.required<
-                | *
-          input#password.password.radius[
+            span.required<
+              | *
+          input#password.password[
             autocomplete="off"
             name="password"
             ng-minlength="8"
@@ -55,16 +51,15 @@ header.page__title
               | Este campo é obrigatório.
             span ng-message="minlength"
               | Mínimo de 8 caracteres.
-
           .validation
             i.icon.icon-plain-check ng-if="form.password_confirmation.$valid"
             i.icon.icon-error ng-if="form.password_confirmation.$invalid"
           label for="password_confirmation"
             small
               | Confirmar senha
-              span.required<
-                | *
-          input#password_confirmation.password.radius[
+            span.required<
+              | *
+          input#password_confirmation.password[
             match="user.password"
             name="password_confirmation"
             ng-model="user.password_confirmation"
@@ -77,12 +72,11 @@ header.page__title
               | Este campo é obrigatório.
             span ng-message="match"
               | Não é igual à senha inserida.
-
           .cancel
             a.button.transparent.secondary.small.expand ui-sref="^"
               | Cancelar, quero manter a senha atual.
           .text-center
-            input.button.submit.radius[
+            button.button.submit[
               type="submit"
-              ng-disabled="form.$invalid"
-              value="Alterar senha"]
+              ng-disabled="form.$invalid"]
+              | Alterar senha

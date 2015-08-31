@@ -2,7 +2,7 @@
 / TODO: blankslate
 .content__box.members__content
   p.add__members
-    a.button.radius.add__users[
+    a.button.add__users[
       ng-if="course.user_role == 'teacher'"
       ng-click="vm.openInviteMembers()"]
       i.icon-add>
@@ -20,7 +20,7 @@
     .members
       .member ng-repeat="member in members | orderBy: 'name' "
         /
-          .disabled.member__role.button.tiny.radius.right ng-class="{'dark': member.role == 'teacher'}"
+          .disabled.member__role.button.tiny.right ng-class="{'dark': member.role == 'teacher'}"
             | {{vm.translateRole(member.role)}}
         .member__name
           img.member__avatar[user-avatar="{{member.name}}"]

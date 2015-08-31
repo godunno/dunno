@@ -96,3 +96,22 @@ input[type=radio]:checked + label:before {
   color: $dunno-green-color;
   content: '\e002';
 }
+
+input[type=text],
+input[type=email],
+input[type=search],
+input[type=password],
+textarea {
+  @include radius();
+}
+
+.icon__label {
+  opacity: .5;
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+
+  &:hover {
+    opacity: 1;
+  }
+}

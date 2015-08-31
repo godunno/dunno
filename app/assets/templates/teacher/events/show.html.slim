@@ -176,7 +176,7 @@ header.page__header ng-style="{'background-color': event.course.color}"
                   br
                   small
                     | (Máximo 50Mb)
-                label.item__button.media__file__button.small.radius.button[
+                label.item__button.media__file__button.small.button[
                   for="topic-file"]
                   | Buscar arquivo
                 input#topic-file.file__input[
@@ -340,10 +340,10 @@ header.page__header ng-style="{'background-color': event.course.color}"
                   required=true
                   type="text"]
                 .edit__topic__actions
-                  a.cancel.button.tiny.transparent.radius ng-click="cancelEditing(topic)"
+                  a.cancel.button.tiny.transparent ng-click="cancelEditing(topic)"
                     | Cancelar
                   ng-include src="'#{asset_path('topics/topic_edit_personal.html')}'"
-                  a.save__edit__topic.radius.button.tiny<[
+                  a.save__edit__topic.button.tiny<[
                     ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
                     ng-click="finishEditing(topic)"
                     ng-disabled="topicEditForm.$invalid"]
