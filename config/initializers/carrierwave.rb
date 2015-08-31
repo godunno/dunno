@@ -2,7 +2,7 @@ require 'carrierwave/orm/activerecord'
 
 CarrierWave.configure do |config|
   # TODO: Test with VCR
-  if Rails.env.test?
+  if true
     config.storage :file
   else
     config.storage :fog
