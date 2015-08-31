@@ -1,5 +1,4 @@
 //= require jquery
-//= require jquery_ujs
 //= require jquery-ui/ui/core
 //= require jquery-ui/ui/widget
 //= require jquery-ui/ui/mouse
