@@ -9,6 +9,8 @@ end
 
 ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
+ActiveRecord::Migration.maintain_test_schema!
+
 require 'rspec/rails'
 require 'email_spec'
 require 'shoulda-matchers'
