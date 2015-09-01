@@ -11,7 +11,7 @@ CoursesIndexCtrl = ($location, $filter, $modal, Utils, courses) ->
 
   @openNewCourseForm = ->
     $modal.open
-      templateUrl: '<%= asset_path('courses/new_course_form.html') %>'
+      templateUrl: '<%= asset_path('app/courses/course-new') %>'
       controller: 'NewCourseCtrl'
   @
 

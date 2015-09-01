@@ -19,7 +19,7 @@ CourseMembersCtrl = (course, $modal) ->
 
   @openInviteMembers = ->
     $modal.open
-      templateUrl: '<%= asset_path('courses/_invite_members.html') %>'
+      templateUrl: '<%= asset_path('app/courses/invite/invite-members') %>'
       controller: 'InviteMembersController as vm'
       windowClass: 'full invite__members'
       resolve:

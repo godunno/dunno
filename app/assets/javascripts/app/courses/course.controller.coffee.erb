@@ -79,14 +79,14 @@ CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, Da
 
   $scope.openEditCourseForm = ->
     $modal.open
-      templateUrl: '<%= asset_path('courses/edit_course_form.html') %>'
+      templateUrl: '<%= asset_path('app/courses/course-edit') %>'
       controller: 'EditCourseCtrl'
       windowClass: 'full edit__course'
       resolve: { course: -> angular.copy($scope.course) }
 
   $scope.openNotification = ->
     $modal.open
-      templateUrl: '<%= asset_path('courses/_notify_members.html') %>'
+      templateUrl: '<%= asset_path('app/courses/notify/notify-members') %>'
       controller: 'NotificationCtrl'
       windowClass: 'send__notification full'
 

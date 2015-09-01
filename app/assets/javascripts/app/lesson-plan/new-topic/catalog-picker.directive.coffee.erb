@@ -10,7 +10,7 @@ DunnoApp.controller 'CatalogPickerCtrl', CatalogPickerCtrl
 
 catalogPicker = ->
   controller: 'CatalogPickerCtrl'
-  templateUrl: '<%= asset_path('catalog/_picker.html') %>'
+  templateUrl: '<%= asset_path('app/lesson-plan/new-topic/catalog-picker') %>'
   link: (scope, element, attrs)->
     scope.select = (media)->
       scope.$emit('catalog-picker.selected', media)

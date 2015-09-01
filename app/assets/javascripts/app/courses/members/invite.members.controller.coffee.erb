@@ -2,7 +2,7 @@ InviteMembersController = ($modal, course) ->
   @course = course
   @openInviteMembersFullscreen = ->
     $modal.open
-      templateUrl: '<%= asset_path('courses/_invite_members_fullscreen.html') %>'
+      templateUrl: '<%= asset_path('app/courses/invite/invite-fullscreen') %>'
       controller: 'InviteMembersFullscreenController as vm'
       windowClass: 'full invite__members__fullscreen'
       resolve:

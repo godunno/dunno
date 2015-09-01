@@ -142,7 +142,7 @@ DunnoApp.config(["railsSerializerProvider", "tagsInputConfigProvider", (railsSer
 DunnoApp.constant('AUTOSAVE_INTERVAL', 5000)
 
 DunnoApp.value('cgBusyDefaults',
-  templateUrl: '<%= asset_path('_loading.html') %>',
+  templateUrl: '<%= asset_path('app/components/loading') %>',
   minDuration: 500,
   wrapperClass: 'cg-busy cg-busy-animation ng-animate'
 )

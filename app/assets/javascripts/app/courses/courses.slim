@@ -39,13 +39,12 @@ ui-view
           course-link current-page="courses"
             course-card
     .small-12.columns
-      .courses__inactive ng-if="vm.inactiveCourses.length"
+      .alert-box.info.courses__inactive.text-center ng-if="vm.inactiveCourses.length"
         .courses__inactive__header
-          p
-            | Você possui {{vm.inactiveCourses.length}}
-            span<[
-              ng-pluralize
-              count="vm.inactiveCourses.length"
-              when="{'1': 'disciplina arquivada.', 'other': 'disciplinas arquivadas.'}"]
-            a< ui-sref="courses.inactive"
-              | Ver disciplinas arquivadas.
+          | Você possui {{vm.inactiveCourses.length}}
+          span<[
+            ng-pluralize
+            count="vm.inactiveCourses.length"
+            when="{'1': 'disciplina arquivada.', 'other': 'disciplinas arquivadas.'}"]
+          a< ui-sref="courses.inactive"
+            | Ver disciplinas arquivadas.
