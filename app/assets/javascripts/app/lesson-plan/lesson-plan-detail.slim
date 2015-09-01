@@ -342,7 +342,7 @@ header.page__header ng-style="{'background-color': event.course.color}"
                 .edit__topic__actions
                   a.cancel.button.tiny.transparent ng-click="cancelEditing(topic)"
                     | Cancelar
-                  ng-include src="'#{asset_path('app/lesson-plan/new-topic/edit-personal-topic.html')}'"
+                  ng-include src="'#{asset_path('app/lesson-plan/new-topic/edit-personal-topic')}'"
                   a.save__edit__topic.button.tiny<[
                     ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
                     ng-click="finishEditing(topic)"
