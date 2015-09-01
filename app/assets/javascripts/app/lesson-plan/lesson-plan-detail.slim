@@ -261,7 +261,7 @@ header.page__header ng-style="{'background-color': event.course.color}"
                     cg-busy="loadingNextPage"]
                     | Carregar mais&hellip;
 
-            ng-include src="'#{asset_path('topics/new_topic_actions.html')}'"
+            ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
         #topics-list.topics[
           ui-sortable="sortableOptions('topics')"
           ng-model="event.topics"]
@@ -342,7 +342,7 @@ header.page__header ng-style="{'background-color': event.course.color}"
                 .edit__topic__actions
                   a.cancel.button.tiny.transparent ng-click="cancelEditing(topic)"
                     | Cancelar
-                  ng-include src="'#{asset_path('topics/topic_edit_personal.html')}'"
+                  ng-include src="'#{asset_path('app/lesson-plan/new-topic/edit-personal-topic')}'"
                   a.save__edit__topic.button.tiny<[
                     ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
                     ng-click="finishEditing(topic)"

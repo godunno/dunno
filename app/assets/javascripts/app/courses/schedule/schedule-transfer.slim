@@ -10,4 +10,4 @@
           | <b>{{originalWeeklySchedule.weekday | weekdayLong}}</b>, das <b>{{originalWeeklySchedule.start_time}}</b> às <b>{{originalWeeklySchedule.end_time}}</b>, sala <b>{{originalWeeklySchedule.classroom}}</b>.
         h5
           | Editar horário
-      ng-include src="'#{asset_path('courses/tabs/_weekly_schedule_form.html')}'"
+      ng-include src="'#{asset_path('app/courses/schedule/schedule-edit')}'"
