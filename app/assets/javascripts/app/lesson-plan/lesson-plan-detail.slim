@@ -74,7 +74,7 @@ header.page__header ng-style="{'background-color': event.course.color}"
         analytics-course-uuid="{{event.course.uuid}}"]
         i.icon.icon-chevron-left
         span
-          | {{event.previous.start_at | date:'EEE, dd/MMMM'}}
+          | {{event.previous.start_at | amDateFormat:'ddd, DD/MMMM'}}
       .summary__tasks.previous__event__tasks
         .summary__task.event__canceled ng-if="event.previous.status === 'canceled'"
           | Aula cancelada.
@@ -107,11 +107,11 @@ header.page__header ng-style="{'background-color': event.course.color}"
             analytics-course-uuid="{{event.course.uuid}}"]
             i.icon.icon-chevron-left
         .small-5.medium-6.columns.diary__date
-          | {{event.start_at | date:'EEE, dd/MMMM'}}
+          | {{event.start_at | amDateFormat:'ddd, DD/MMMM'}}
         .small-5.medium-6.columns.diary__time
           i.icon.icon-clock>
           span
-            | {{event.start_at | date:'HH:mm'}} às {{event.end_at | date:'HH:mm'}}
+            | {{event.start_at | amDateFormat:'HH:mm'}} às {{event.end_at | amDateFormat:'HH:mm'}}
         .show-for-small.small-1.columns
           a.next__event.mobile__day__navigation[
             ng-if="!!event.next.start_at"
@@ -360,7 +360,7 @@ header.page__header ng-style="{'background-color': event.course.color}"
         analytics-course-name="{{event.course.name}}"
         analytics-course-uuid="{{event.course.uuid}}"]
         span
-          | {{event.next.start_at | date:'EEE, dd/MMMM'}}
+          | {{event.next.start_at | amDateFormat:'ddd, DD/MMMM'}}
         i.icon.icon-chevron-right
       .summary__tasks.next__event__tasks
         .summary__task.event__canceled ng-if="event.next.status === 'canceled'"

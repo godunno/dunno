@@ -13,9 +13,9 @@
     / TODO: no results for event in events copy
     .event__header
       span.event__date
-        | {{event.start_at | date:'EEE, dd/MMM/yy'}}
+        | {{event.start_at | amDateFormat:'ddd, DD/MMM/YY'}}
       span.event__time
-        | {{event.start_at | date: 'HH:mm'}} – {{event.end_at | date: 'HH:mm'}}
+        | {{event.start_at | amDateFormat: 'HH:mm'}} – {{event.end_at | amDateFormat: 'HH:mm'}}
       span.date__status[
         ng-class="{canceled: isCanceled(event), published: isPublished(event), draft: isDraft(event), hide: (isPublished(event) && isStudent(course))}"]
         | {{translatedStatus(event)}}

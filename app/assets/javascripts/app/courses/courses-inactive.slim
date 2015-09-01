@@ -16,9 +16,9 @@ ui-view
         .course__inactive__dates
           course-link current-page="courses"
             span.course__start__date>
-              | {{course.start_date | date: 'shortDate'}}
+              | {{course.start_date | amDateFormat: 'DD/MM/YY'}}
             span.course__end__date
-              | – {{course.end_date | date: 'shortDate'}}
+              | – {{course.end_date | amDateFormat: 'DD/MM/YY'}}
         .course__inactive__info
           span.course__inactive__classname> ng-if="!!course.class_name"
             | {{course.class_name}} ·

@@ -12,7 +12,7 @@ describe "weekday filter", ->
       expect(weekday(0)).toEqual('dom')
 
     it "knows saturday", ->
-      expect(weekday(6)).toEqual('sab')
+      expect(weekday(6)).toEqual('sáb')
 
   describe "invalid cases", ->
     it "doesn't know days less than zero", ->
