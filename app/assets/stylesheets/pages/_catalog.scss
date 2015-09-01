@@ -1,12 +1,3 @@
-.medias-index-page {
-  @media #{$small-only} {
-    .page__title {
-      background: transparent;
-      box-shadow: none;
-    }
-  }
-}
-
 .catalog__page {
   .media__data,
   .catalog__media__body {
