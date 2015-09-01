@@ -1,6 +1,8 @@
 ruby:
   @title = 'Criar minha conta no Dunno'
-.session__page ng-controller="RegistrationsCtrl"
+.session__page[
+  ng-controller="RegistrationsCtrl"
+  ng-model-options="{ updateOn: 'blur' }"]
   .row.small-collapse
     .small-12.medium-6.large-5.medium-centered.columns
       .root__proxy
@@ -27,8 +29,10 @@ ruby:
           input#name[
             name="name"
             ng-model="user.name"
+            ng-focus="user_form.name.$setPristine()"
+            ng-blur="user_form.name.$setDirty()"
             type="text"
-            required=""
+            required=true
             tabindex=1
             autofocus=""]
           small.error[
@@ -46,9 +50,11 @@ ruby:
           input#email[
             name="email"
             ng-model="user.email"
+            ng-focus="user_form.email.$setPristine()"
+            ng-blur="user_form.email.$setDirty()"
             type="email"
             tabindex=2
-            required=""]
+            required=true]
           small.error[
             ng-show="user_form.email.$dirty && user_form.email.$invalid"
             ng-cloak=""
@@ -68,9 +74,11 @@ ruby:
           input#password[
             name="password"
             ng-model="user.password"
+            ng-focus="user_form.password.$setPristine()"
+            ng-blur="user_form.password.$setDirty()"
             type="password"
             tabindex=3
-            required=""
+            required=true
             ng-minlength="8"]
           small.error[
             ng-show="user_form.password.$dirty && user_form.password.$invalid"
@@ -90,8 +98,10 @@ ruby:
             ui-br-phone-number=true
             name="phone_number"
             ng-model="user.phone_number"
+            ng-focus="user_form.phone_number.$setPristine()"
+            ng-blur="user_form.phone_number.$setDirty()"
             tabindex=4
-            required=""
+            required=true
             type="text"]
           small.error[
             ng-show="user_form.phone_number.$dirty && user_form.phone_number.$invalid"
@@ -103,7 +113,6 @@ ruby:
               | O formato informado é inválido.
         .submit
           button.button.expand.large[
-            ng-disabled="user_form.$invalid"
             tabindex=5
             type="submit"]
             | Criar

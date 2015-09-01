@@ -9,6 +9,7 @@ ui-view
       .small-12.medium-7.large-6.small-centered.columns
         form[
           name="form"
+          ng-model-options="{ updateOn: 'blur' }"
           ng-submit="update(user)"]
           .form__box
             .alert-box.success ng-if="success"
@@ -21,6 +22,8 @@ ui-view
             input#name[
               name="name"
               ng-model="user.name"
+              ng-focus="form.name.$setPristine()"
+              ng-blur="form.name.$setDirty()"
               required=true
               type="text"]
             small.error[
@@ -43,6 +46,8 @@ ui-view
             input#phone_number[
               name="phone_number"
               ng-model="user.phone_number"
+              ng-focus="form.phone_number.$setPristine()"
+              ng-blur="form.phone_number.$setDirty()"
               required=true
               ui-br-phone-number=true
               type="text"]
