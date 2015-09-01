@@ -1,62 +1,67 @@
-.login-page
-  = link_to root_path, class: 'root-proxy' do
-    = image_tag 'dunno-logo.png', class: :logo
-  = form_tag "/dashboard/passwords/#{params[:id]}", method: :put, name: 'password_form', novalidate: true
-    .row
-      .login-container.small-12.medium-6.medium-offset-3.columns.end
-        .login-form
-          - if resource.errors[:reset_password_token].any?
-            span.error
+ruby:
+  @title = 'Recuperar acesso · Dunno'
+.session__page
+  .row.small-collapse
+    .small-12.medium-6.large-5.medium-centered.columns
+      .root__proxy
+        = link_to root_path, tabindex: 4 do
+          = image_tag "site/logo.png", class: :logo
+      = form_tag "/dashboard/passwords/#{params[:id]}", method: :put, name: 'password_form', novalidate: true, class: 'form__box'
+        - if resource.errors[:reset_password_token].any?
+          .alert-box.alert
+            .error__message
+              strong
+                | Erro ao recuperar senha.
+              br
               | Por favor, solicite um novo e-mail de recuperação de senha e tente novamente.
-            a.back href="/dashboard/passwords/new" Pedir nova recuperação de senha
-          - else
-            p
-              | Olá, mude sua senha aqui.
-            input type="hidden" name="user[reset_password_token]" value="#{resource.reset_password_token}"
-            .password
-              label for="password"
-                | Nova senha
-              input#password[
-                name="user[password]"
-                type="password"
-                required=true
-                autofocus=true
-                ng-minlength="8"
-                ng-model="password"
-              ]
-              small.error.password[
-                ng-cloak=true
-                ng-messages="password_form['user[password]'].$error"
-                ng-if="password_form['user[password]'].$invalid && password_form['user[password]'].$dirty"
-              ]
-                span ng-message="required"
-                  | Este campo é obrigatório.
-                span ng-message="minlength"
-                  | Mínimo de 8 caracteres.
-            .password-confirmation
-              label for="password_confirmation"
-                | Confirmação da senha
-              input#password_confirmation[
-                name="user[password_confirmation]"
-                type="password"
-                required=true
-                match="password"
-                ng-model="password_confirmation"
-              ]
-              small.error.password[
-                ng-cloak=true
-                ng-messages="password_form['user[password_confirmation]'].$error"
-                ng-if="password_form['user[password_confirmation]'].$invalid && password_form['user[password_confirmation]'].$dirty"
-              ]
-                span ng-message="required"
-                  | Este campo é obrigatório.
-                span ng-message="match"
-                  | Não é igual à senha inserida.
-            .submit
-              button.button.btn-style-1[
-                type="submit"
-                ng-disabled="password_form.$invalid"
-              ]
-              | Salvar
-  / TODO: Write terms and policy pages.
-    = render "application/login_links"
+          .text-center
+            = link_to new_dashboard_password_path, class: 'button small' do
+              | Solicitar nova recuperação de senha.
+        - else
+          p
+            | Para recuperar seu acesso ao Dunno escolha uma nova senha abaixo:
+          input[
+            type="hidden"
+            name="user[reset_password_token]"
+            value="#{resource.reset_password_token}"]
+          .password
+            label for="password"
+              | Nova senha
+            input#password[
+              name="user[password]"
+              type="password"
+              required=true
+              autofocus=true
+              ng-minlength="8"
+              ng-model="password"]
+            small.error.password[
+              ng-cloak=true
+              ng-messages="password_form['user[password]'].$error"
+              ng-if="password_form['user[password]'].$invalid && password_form['user[password]'].$dirty"]
+              span ng-message="required"
+                | Este campo é obrigatório.
+              span ng-message="minlength"
+                | Mínimo de 8 caracteres.
+          .password-confirmation
+            label for="password_confirmation"
+              | Confirmação da senha
+            input#password_confirmation[
+              name="user[password_confirmation]"
+              type="password"
+              required=true
+              match="password"
+              ng-model="password_confirmation"]
+            small.error.password[
+              ng-cloak=true
+              ng-messages="password_form['user[password_confirmation]'].$error"
+              ng-if="password_form['user[password_confirmation]'].$invalid && password_form['user[password_confirmation]'].$dirty"]
+              span ng-message="required"
+                | Este campo é obrigatório.
+              span ng-message="match"
+                | Não é igual à senha inserida.
+          .submit.text-center
+            input.button[
+              type="submit"
+              value="Salvar"
+              ng-disabled="password_form.$invalid"]
+      = render "application/login_links"

@@ -1,26 +1,38 @@
-.login-page
-  = link_to root_path, class: 'root-proxy' do
-    = image_tag "dunno-logo.png", class: :logo
-  form#recover_password name="user_form" action="/dashboard/passwords" method="post" novalidate=""
-    .row
-      .login-container.small-12.medium-6.medium-offset-3.columns.end
-        .login-form
-          - if resource.errors.present?
-            .alert-box.alert
-              ul
-                - resource.errors.full_messages.each do |message|
-                  li
-                    = message
-          p
-            | Digite seu email de cadastro para que possamos recuperar sua senha de acesso.
-          .email
-            label for="email"
-              | Email
-            input#email name="user[email]" type="email" required="" autofocus=""
-          .submit
-            button.button.btn-style-1 type="submit"
-              | Enviar
-          a.back[href="/sign_in"]
-            | Já lembrei minha senha.
-  / TODO: Write terms and policy pages.
-    = render "application/login_links"
+ruby:
+  @title = 'Esqueci minha senha · Dunno'
+.session__page
+  .row.small-collapse
+    .small-12.medium-6.large-5.medium-centered.columns
+      .root__proxy
+        = link_to root_path, tabindex: 4 do
+          = image_tag "site/logo.png", class: :logo
+      form.form__box#recover_password[
+        name="user_form"
+        action="/dashboard/passwords"
+        method="post"
+        novalidate=""]
+        - if resource.errors.present?
+          .alert-box.alert
+            - resource.errors.full_messages.each do |message|
+              .error__message
+                = message
+        p.text-center
+          | Digite seu e-mail de cadastro.
+          br
+          | Você receberá instruções para recuperar o seu acesso.
+        .email
+          label for="email"
+            | E-mail
+          input#email[
+            name="user[email]"
+            type="email"
+            required=""
+            autofocus=""]
+        .submit.text-center
+          input.button[
+            type="submit"
+            value="Enviar"]
+          br
+          = link_to new_user_session_path do
+            | Lembrei minha senha.
+      = render "application/login_links"
