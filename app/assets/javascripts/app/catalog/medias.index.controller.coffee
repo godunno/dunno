@@ -4,7 +4,8 @@ MediasIndexCtrl = ($scope, searchResult, MediaSearcher, Utils) ->
   $scope.medias = searchResult.medias
   $scope.next_page = searchResult.next_page
 
-  $scope.showTutorial = -> !$scope.medias || (noMedias() && $scope.search.q.$untouched)
+  $scope.showTutorial = ->
+    noMedias() && $scope.media_search.q?.$untouched
 
   # TODO: get the count from the server
   $scope.countType = (list, type) ->
@@ -21,13 +22,17 @@ MediasIndexCtrl = ($scope, searchResult, MediaSearcher, Utils) ->
     media.update()
 
   $scope.removeMedia = (media)->
-    if confirm("Deseja remover este conteúdo?
-      \nAo remover um conteúdo do catálogo ele também será removido das suas aulas.
-      \n\nATENÇÃO!
-      \nEsta operação não poderá ser desfeita.")
+    if confirm("
+        Deseja remover este conteúdo?\n
+        Ao remover um conteúdo do catálogo ele
+        também será removido das suas aulas.\n\n
+        ATENÇÃO!\n
+        Esta operação não poderá ser desfeita.
+      ")
       media.remove().then ->
         Utils.remove $scope.medias, media
         $scope.fetch() if noMedias()
+        $scope.media_search.$setUntouched()
 
   noMedias = ->
     $scope.medias.length == 0

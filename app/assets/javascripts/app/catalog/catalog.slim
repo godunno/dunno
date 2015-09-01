@@ -7,7 +7,8 @@ header.page__title
         name="media_search"]
         label
           search-input[
-            perform-search="search(query)"
+            ng-model="q"
+            perform-search="search"
             clear-search="clearSearch()"
             name="q"
             placeholder="Procure por assunto, palavra-chave ou tags"]
