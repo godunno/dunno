@@ -1,15 +1,6 @@
-searchInput = ($compile) ->
+searchInput = ->
   link = (scope, element, attributes) ->
-    moveAttributesToChildInput(scope, element, 'name', 'placeholder', 'class', 'ng-model', 'focus-on')
     searchOnEvent(scope, element)
-
-  moveAttributesToChildInput = (scope, element, attributes...) ->
-    input = element.find('input')
-    attributes.forEach (attribute) ->
-      value = element.attr attribute
-      input.attr attribute, value
-      element.removeAttr attribute
-    $compile(input)(scope)
 
   searchOnEvent = (scope, element) ->
     element.on 'search', (e) ->
@@ -22,11 +13,10 @@ searchInput = ($compile) ->
   link: link
   restrict: 'E'
   templateUrl: '<%= asset_path("app/components/search/search-input") %>'
+  replace: true
   scope:
     performSearch: '&'
     clearSearch: '&'
-
-searchInput.$inject = ['$compile']
 
 angular
   .module('DunnoApp')
