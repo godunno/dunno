@@ -6,7 +6,7 @@ header.page__title
       form.catalog__search[
         name="media_search"]
         label
-          search-input.radius[
+          search-input[
             perform-search="search(query)"
             clear-search="clearSearch()"
             name="q"
@@ -84,7 +84,7 @@ header.page__title
               i.icon.icon-tag
     .row ng-if="!!medias && medias.length > 0"
       .small-6.medium-3.small-centered.columns
-        a.media__load__more.radius.button.expand.secondary[
+        a.media__load__more.button.expand.secondary[
           cg-busy="loadingNextPage"
           ng-click="paginate(next_page)"
           ng-if="next_page"]

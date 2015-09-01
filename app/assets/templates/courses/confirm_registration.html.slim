@@ -10,10 +10,10 @@ header.page__title
           | Confirmação de acesso
         p
           | É esta a disciplina?
-        small.error ng-if="error"
+        .alert-box.alert ng-if="error"
           | {{error}}
       course-card
-      button.button.radius.success.expand ng-click="register(course)"
+      button.button.success.expand ng-click="register(course)"
         | Confirmo, é essa mesmo!
       p.text-center
         | Não é essa.

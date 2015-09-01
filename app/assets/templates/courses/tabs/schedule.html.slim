@@ -18,7 +18,7 @@
           .weekly__schedules__preheader
             h6
               | Horários da Semana
-            a.add__schedule__time.button.tiny.radius ng-click="newWeeklySchedule()"
+            a.add__schedule__time.button.tiny ng-click="newWeeklySchedule()"
               | Adicionar Horário
           p.weekly__schedules__empty ng-if="course.weekly_schedules.length == 0"
             | Você ainda não adicionou nenhum horário nesta disciplina.
@@ -33,7 +33,7 @@
                 | {{weekly_schedule.classroom}}
             zf-action-sheet.weekly__schedule__actions
               zf-as-button
-                a.button.tiny.radius.secondary
+                a.button.tiny.secondary
                   | ações
                   i.icon.icon-chevron-down<
               zf-as-content position="bottom"

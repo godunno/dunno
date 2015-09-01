@@ -1,4 +1,6 @@
 .button {
+  @include radius();
+
   &:focus {
     opacity: .7;
     outline: none;

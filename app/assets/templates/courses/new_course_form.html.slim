@@ -18,23 +18,23 @@
                     | Nome
                   span.required<
                     | *
-                input#added__course__name.radius[
+                input#added__course__name[
                   ng-model="course.name"
                   required=true
                   type="text"]
                 label[for="added__course__class__name"]
                   small
                     | Turma
-                input#added__course__class__name.radius[
+                input#added__course__class__name[
                   ng-model="course.class_name"
                   type="text"]
                 label[for="added__course__institution"]
                   small
                     | Instituição
-                input#added__course__institution.radius[
+                input#added__course__institution[
                   ng-model="course.institution"
                   type="text"]
               .text-center
-                button.button.large.radius[
+                button.button.large[
                   ng-disabled="course_form.$invalid"]
                   | Criar

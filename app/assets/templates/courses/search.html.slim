@@ -16,12 +16,12 @@ header.page__title
       p
         | Este código se refere à disciplina que o professor leciona e você está matriculado.
       form ng-submit="search(access_code)"
-        input.radius[
+        input[
           ng-model="access_code"
           placeholder="Código da Disciplina"
           required=true
           type="text"]
         small.error ng-if="error"
           | {{error}}
-        button.submit.radius.expand
+        button.submit.expand
           | Acessar Disciplina

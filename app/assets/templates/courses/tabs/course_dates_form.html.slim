@@ -18,7 +18,7 @@
                 | *
             label.icon__label for='course__start__date'
               i.icon.icon-calendar<
-            input.start__date.radius#course__start__date[
+            input.start__date#course__start__date[
               ng-model="course.start_date"
               type="datetime"
               date-time=true
@@ -33,7 +33,7 @@
                 | Até
             label.icon__label for='course__end__date'
               i.icon.icon-calendar<
-            input.end__date.radius#course__end__date[
+            input.end__date#course__end__date[
               ng-model="course.end_date"
               type="datetime"
               date-time=true
@@ -44,7 +44,7 @@
             a ng-click="removeEndDate()"
               | deletar data de fim
           .small-12.columns
-            button.button.radius[
+            button.button[
               ng-disabled="course_form.$invalid"
               type="submit"]
               | Salvar datas

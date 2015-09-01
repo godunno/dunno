@@ -15,20 +15,20 @@
                   | Nome
                 span.required<
                   | *
-              input#edited__course__name.radius[
+              input#edited__course__name[
                 ng-model="course.name"
                 required=true
                 type='text']
               label[for="added__course__class__name"]
                 small
                   | Turma
-              input#added__course__class__name.radius[
+              input#added__course__class__name[
                 ng-model="course.class_name"
                 type="text"]
               label[for="added__course__institution"]
                 small
                   | Instituição
-              input#added__course__institution.radius[
+              input#added__course__institution[
                 ng-model="course.institution"
                 type='text']
           .small-12.columns
@@ -43,7 +43,7 @@
                 | *
             label.icon__label for="course__start__date"
               i.icon.icon-calendar<
-            input.start__date.radius#course__start__date[
+            input.start__date#course__start__date[
               ng-model="course.start_date"
               type="datetime"
               date-time=true
@@ -58,7 +58,7 @@
                 | Até
             label.icon__label for="course__end__date"
               i.icon.icon-calendar<
-            input.end__date.radius#course__end__date[
+            input.end__date#course__end__date[
               ng-model="course.end_date"
               type="datetime"
               date-time=true
@@ -70,6 +70,6 @@
               a ng-click="removeEndDate()"
                 | deletar data de fim
           .text-center
-            button.button.large.radius[
+            button.button.large[
               ng-disabled="course_form.$invalid"]
               | Atualizar

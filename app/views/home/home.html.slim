@@ -10,20 +10,20 @@ section.hero__section
         ul.right
           li.has-form
             span
-              = link_to new_user_session_path, class: 'button transparent outline radius tiny' do
+              = link_to new_user_session_path, class: 'button transparent outline tiny' do
                 strong
                   | ACESSAR MEU DUNNO
   .row
     .hero.antialiased
       h2.hero__title
-        | DENTRO E FORA DA SALA DE AULA
+        | UMA NOVA FORMA DE ENSINAR E APRENDER
       p
         | Um aplicativo que auxilia a organização das aulas e estimula a comunicação e o engajamento entre professores e estudantes.
       .call__to__action__buttons
-        = link_to new_registration_path, class: 'button large radius' do
+        = link_to new_registration_path, class: 'button large' do
           | Quero usar o Dunno
         /
-          a.button.large.radius.transparent[data-reveal-id='watch__dunno__video' href='#']
+          a.button.large.transparent[data-reveal-id='watch__dunno__video' href='#']
             i.icon.icon-play-circle>
             | Assista ao vídeo
 
@@ -71,7 +71,7 @@ section.testimonials__section
       = image_tag 'site/logo-iva-sttiho.png', class: 'testimonials__trusted__by'
   /
     .row.primary__testimonial__wrapper
-      .panel.radius
+      .panel
         blockquote.primary__testimonial
           cite
             = image_tag 'site/testimonials-picture-1.jpg'

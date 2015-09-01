@@ -59,7 +59,7 @@
 }
 
 .previous__event {
-  border-radius: 3px 0 0 3px;
+  @include side-radius(left, $global-radius);
   padding-right: 1.5em;
 
   .icon {
@@ -68,7 +68,7 @@
 }
 
 .next__event {
-  border-radius: 0 3px 3px 0;
+  @include side-radius(right, $global-radius);
   padding-left: 1.5em;
 
   .icon {

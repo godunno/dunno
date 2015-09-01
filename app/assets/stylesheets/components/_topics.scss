@@ -23,7 +23,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 1rem 0;
+    padding: 0;
   }
 
   &.ui-sortable-helper {
@@ -50,7 +50,7 @@
     background: lighten($light-grey-color, 20%);
 
     input[type=checkbox]:checked + label {
-      color: $dunno-dark-color;
+      color: $dunno-green-color;
     }
   }
 
@@ -103,7 +103,7 @@
   &__description {
     flex-basis: 6rem;
     flex-grow: 1;
-    padding: 0 .5rem;
+    padding: 1rem .5rem;
     word-wrap: break-word;
   }
 
@@ -143,10 +143,10 @@
   }
 
   input[type=checkbox] + label {
-    color: $dunno-green-color;
+    color: $dunno-dark-color;
 
     &:hover {
-      color: lighten($dunno-green-color, 10%);
+      color: lighten($dunno-dark-color, 10%);
     }
   }
 
