@@ -2,24 +2,24 @@ DunnoApp = angular.module('DunnoApp')
 
 MediaSearcher = (Media) ->
   @extend = ($scope) ->
-    $scope.search = { type: "all" }
+    query = { q: "" }
 
     $scope.fetch = (event) ->
       event.preventDefault() if event?
-      $scope.$emit('wholePageLoading', $scope.searchMedia().then (response) =>
+      $scope.$emit('wholePageLoading', $scope.searchMedia().then (response) ->
         $scope.medias = response.medias
         $scope.next_page = response.next_page
       )
 
-    $scope.search = (query) ->
-      $scope.search.q = query
+    $scope.search = (q) ->
+      query.q = q
       $scope.fetch()
 
     $scope.clearSearch = ->
       $scope.search("")
 
     $scope.paginate = (page) ->
-      $scope.loadingNextPage = $scope.searchMedia(page).then (response) =>
+      $scope.loadingNextPage = $scope.searchMedia(page).then (response) ->
         $scope.medias = ($scope.medias || []).concat response.medias
         $scope.next_page = response.next_page
 
@@ -31,7 +31,7 @@ MediaSearcher = (Media) ->
       parser.hostname
 
     $scope.searchMedia = (page) ->
-      Media.search(q: $scope.search.q, page: page, per_page: $scope.perPage)
+      Media.search(q: query.q, page: page, per_page: $scope.perPage)
 
   @
 
