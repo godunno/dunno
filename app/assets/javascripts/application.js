@@ -33,6 +33,6 @@
 //= require angulartics
 //= require ui-router
 //= require initial.js
+//= require_tree ./vendor
 //= require app/app.module
-//= require_tree ./angular/
 //= require_tree ./app
