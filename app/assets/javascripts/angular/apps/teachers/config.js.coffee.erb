@@ -37,106 +37,90 @@ Router = ($stateProvider,
     .state('courses',
       url: '/courses'
       controller: 'CoursesIndexCtrl as vm'
-      templateUrl: '<%= asset_path('courses/index.html') %>'
+      templateUrl: '<%= asset_path('app/courses/courses') %>'
       resolve: { courses: CoursesResolver }
     )
     .state('courses.inactive',
       url: '/inactive'
       controller: 'CoursesIndexCtrl as vm'
-      templateUrl: '<%= asset_path('courses/inactive.html') %>'
-    )
-    .state('courses.new',
-      url: '/new'
-      controller: 'CourseCtrl'
-      templateUrl: '<%= asset_path('courses/form.html') %>'
+      templateUrl: '<%= asset_path('app/courses/courses-inactive') %>'
     )
     .state('courses.search',
       url: '/search'
       controller: 'CourseSearchCtrl'
-      templateUrl: '<%= asset_path('courses/search.html') %>'
+      templateUrl: '<%= asset_path('app/join/course-join') %>'
     )
     .state('courses.confirm_registration',
       url: '/:id/confirm_registration'
       controller: 'CourseConfirmRegistrationCtrl'
-      templateUrl: '<%= asset_path('courses/confirm_registration.html') %>'
+      templateUrl: '<%= asset_path('app/join/course-confirm') %>'
       resolve: { course: CourseRegistrationResolver }
-    )
-    .state('courses.edit',
-      url: '/:id/edit'
-      controller: 'CourseCtrl'
-      templateUrl: '<%= asset_path('courses/form.html') %>'
-      resolve: { course: CourseResolver }
     )
     .state('courses.show',
       url: '/:courseId'
       abstract: true
       controller: 'CourseCtrl'
-      templateUrl: '<%= asset_path('courses/show.html') %>'
+      templateUrl: '<%= asset_path('app/courses/course-detail') %>'
       resolve: { course: CourseResolver }
     )
     .state('courses.show.calendar',
       url: '/calendar?month'
       controller: 'CourseCtrl'
-      templateUrl: '<%= asset_path('courses/tabs/calendar.html') %>'
+      templateUrl: '<%= asset_path('app/courses/calendar/calendar') %>'
       resolve: { course: CourseResolver }
     )
     .state('courses.show.events',
       url: '/events?until'
       controller: 'CourseEventsCtrl'
-      templateUrl: '<%= asset_path('courses/tabs/events.html') %>'
+      templateUrl: '<%= asset_path('app/courses/events/events') %>'
       resolve: { pagination: EventsPaginationResolver }
     )
     .state('courses.show.calendar.schedule',
       url: '/schedule'
       controller: 'ScheduleCtrl'
-      templateUrl: '<%= asset_path('courses/tabs/schedule.html') %>'
+      templateUrl: '<%= asset_path('app/courses/schedule/schedule') %>'
     )
     .state('courses.show.members',
       url: '/members'
       controller: 'CourseMembersCtrl as vm'
-      templateUrl: '<%= asset_path('courses/tabs/members.html') %>'
+      templateUrl: '<%= asset_path('app/courses/members/members') %>'
       resolve: { course: CourseResolver }
     )
     .state('courses.show.event',
       url: '/events/:startAt'
       views:
           '@':
-            templateUrl: '<%= asset_path('events/show.html') %>'
+            templateUrl: '<%= asset_path('app/lesson-plan/lesson-plan-detail') %>'
             controller: 'EventCtrl'
       resolve: { event: EventResolver }
     )
     .state('events',
       url: '/events'
       controller: 'EventsIndexCtrl'
-      templateUrl: '<%= asset_path('events/index.html') %>'
+      templateUrl: '<%= asset_path('app/agenda/agenda') %>'
       resolve: { events: EventsResolver }
-    )
-    .state('events.new',
-      url: '/new'
-      controller: 'EventCtrl'
-      templateUrl: '<%= asset_path('events/show.html') %>'
     )
     .state('events.show',
       url: '/:startAt?courseId'
       controller: 'EventCtrl'
-      templateUrl: '<%= asset_path('events/show.html') %>'
+      templateUrl: '<%= asset_path('app/lesson-plan/lesson-plan') %>'
       resolve: { event: EventResolver }
     )
     .state('medias',
       url: '/catalog'
       controller: 'MediasIndexCtrl'
-      templateUrl: '<%= asset_path('medias/index.html') %>'
+      templateUrl: '<%= asset_path('app/catalog/catalog') %>'
       resolve: { searchResult: MediasResolver }
     )
     .state('profile',
       url: '/profile/edit'
       controller: 'ProfileCtrl'
-      templateUrl: '<%= asset_path('profile/form.html') %>'
+      templateUrl: '<%= asset_path('app/profile/profile') %>'
     )
     .state('profile.change_password',
       url: '/profile/password/edit'
       controller: 'ProfileCtrl'
-      templateUrl: '<%= asset_path('password/form.html') %>'
+      templateUrl: '<%= asset_path('app/profile/password') %>'
     )
 Router.$inject = [
   '$stateProvider',
