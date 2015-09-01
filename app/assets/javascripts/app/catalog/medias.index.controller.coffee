@@ -7,12 +7,6 @@ MediasIndexCtrl = ($scope, searchResult, MediaSearcher, Utils) ->
   $scope.showTutorial = ->
     noMedias() && $scope.media_search.q?.$untouched
 
-  # TODO: get the count from the server
-  $scope.countType = (list, type) ->
-    return 0 unless list?
-    return list.length if type == 'all'
-    list.filter((item)-> item.type == type).length
-
   $scope.startEditing = (media) -> media._editing = true
   $scope.isEditing = (media) -> !!media._editing
 
