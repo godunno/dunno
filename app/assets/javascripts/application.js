@@ -33,7 +33,6 @@
 //= require angulartics
 //= require ui-router
 //= require initial.js
+//= require app/app.module
 //= require_tree ./angular/
 //= require_tree ./app
-
-$(function(){ $(document).foundation(); });
