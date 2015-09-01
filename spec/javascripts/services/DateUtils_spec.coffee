@@ -12,7 +12,7 @@ describe "DateUtils service", ->
     expect(DateUtils.asDate(date)).toEqual(new Date(date))
 
   it "formats the date", ->
-    expect(DateUtils.formattedDate(new Date(date), 'dd/MM/yyyy')).toEqual('13/10/2014')
+    expect(DateUtils.formattedDate(new Date(date), 'DD/MM/YYYY')).toEqual('13/10/2014')
 
   it "knows if it's today", ->
     expect(DateUtils.isToday(new Date())).toBe(true)

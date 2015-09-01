@@ -5,13 +5,13 @@ DateUtils = ($filter)->
     new Date(value)
 
   @isToday = (value)->
-    format = 'yyyy-MM-dd'
-    targetDate = $filter('date')(@asDate(value), format)
-    todayDate  = $filter('date')(new Date(), format)
+    format = 'YYYY-MM-DD'
+    targetDate = $filter('amDateFormat')(@asDate(value), format)
+    todayDate  = $filter('amDateFormat')(new Date(), format)
     targetDate == todayDate
 
   @formattedDate = (date, format)->
-    $filter('date')(date, format)
+    $filter('amDateFormat')(date, format)
 
   @locationInTime = (date)->
     if @isToday(date)

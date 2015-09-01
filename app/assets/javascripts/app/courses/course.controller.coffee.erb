@@ -38,8 +38,8 @@ CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, Da
         $location.path '#/courses'
 
   formatToView = (course) ->
-      course.start_date = $scope.formattedDate(course.start_date, 'dd/MM/yyyy')
-      course.end_date   = $scope.formattedDate(course.end_date,   'dd/MM/yyyy')
+      course.start_date = $scope.formattedDate(course.start_date, 'DD/MM/YYYY')
+      course.end_date   = $scope.formattedDate(course.end_date,   'DD/MM/YYYY')
       course
 
   $scope.goToEvent = (event) ->
