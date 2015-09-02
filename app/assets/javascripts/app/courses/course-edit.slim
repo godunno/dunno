@@ -7,4 +7,4 @@
         h5
           | Editar disciplina
       .modal__content.row
-        ng-include src="'#{asset_path('app/courses/course-form')}'"
+        course-form submit-label="Atualizar" course="course" on-save="$close()"

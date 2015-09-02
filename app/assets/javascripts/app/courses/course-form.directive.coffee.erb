@@ -1,0 +1,29 @@
+courseFormCtrl = (Course, PageLoading, $state) ->
+  @removeEndDate = ->
+    @course.end_date = undefined
+
+  @save = ->
+    PageLoading.resolve(new Course(@course).save()).then =>
+      $state.go('.', null, reload: true)
+      @onSave()
+
+  @
+
+courseFormCtrl.$inject = [
+  'Course',
+  'PageLoading',
+  '$state']
+
+courseForm = ->
+  templateUrl: '<%= asset_path("app/courses/course-form.directive.html") %>'
+  controller: courseFormCtrl
+  controllerAs: 'vm'
+  bindToController: true
+  scope:
+    course: '=?'
+    submitLabel: '@'
+    onSave: '&'
+
+angular
+  .module('DunnoApp')
+  .directive('courseForm', courseForm)

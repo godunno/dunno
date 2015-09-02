@@ -9,4 +9,4 @@
         p
           | Dê um nome para esta disciplina e opcionalmente o nome da turma e da instituição da qual ela faz parte.
       .modal__content.text-left
-        ng-include src="'#{asset_path('app/courses/course-form')}'"
+        course-form submit-label="Criar" on-save="$close()"

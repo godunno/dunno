@@ -80,7 +80,6 @@ CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, Da
   $scope.openEditCourseForm = ->
     $modal.open
       templateUrl: '<%= asset_path('app/courses/course-edit') %>'
-      controller: 'EditCourseCtrl'
       windowClass: 'edit__course full'
       resolve: { course: -> angular.copy($scope.course) }
 

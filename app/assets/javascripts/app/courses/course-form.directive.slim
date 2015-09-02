@@ -1,24 +1,24 @@
-form name="course_form" ng-submit="save()"
+form name="courseForm" ng-submit="vm.save()"
   label for="course__name"
     small
       | Nome
     span.required<
       | *
   input#course__name[
-    ng-model="course.name"
+    ng-model="vm.course.name"
     required=true
     type="text"]
   label for="course__class__name"
     small
       | Turma
   input#course__class__name[
-    ng-model="course.class_name"
+    ng-model="vm.course.class_name"
     type="text"]
   label for="course__institution"
     small
       | Instituição
   input#course__institution[
-    ng-model="course.institution"
+    ng-model="vm.course.institution"
     type="text"]
   .course__date
     .course__date__title
@@ -33,7 +33,7 @@ form name="course_form" ng-submit="save()"
       label.icon__label for="course__start__date"
         i.icon.icon-calendar
       input.start__date#course__start__date[
-        ng-model="course.start_date"
+        ng-model="vm.course.start_date"
         type="datetime"
         date-time=true
         min-view="date"
@@ -47,12 +47,10 @@ form name="course_form" ng-submit="save()"
           | Até
       label.icon__label for="course__end__date"
         i.icon.icon-calendar
-      a.remove__course__end__date ng-click="removeEndDate()" ng-show="course_form.end_date.$dirty"
+      a.remove__course__end__date ng-click="vm.removeEndDate()" ng-if="vm.course.end_date"
         i.icon.icon-trash
       input.end__date#course__end__date[
-        ng-model="course.end_date"
-        ng-focus="course_form.end_date.$setPristine()"
-        ng-blur="course_form.end_date.$setDirty()"
+        ng-model="vm.course.end_date"
         type="datetime"
         date-time=true
         min-view="date"
@@ -60,5 +58,5 @@ form name="course_form" ng-submit="save()"
         format="dd/MM/yyyy"
         placeholder="Fim das aulas"]
   .text-center
-    button.button.large ng-disabled="course_form.$invalid"
-      | {{formButton}}
+    button.button.large ng-disabled="courseForm.$invalid"
+      | {{vm.submitLabel}}
