@@ -102,6 +102,9 @@ input[type=text],
 input[type=email],
 input[type=search],
 input[type=password],
+input[type=datetime],
+select,
+input[type=submit],
 textarea {
   @include radius();
 }
@@ -109,7 +112,7 @@ textarea {
 .icon__label {
   opacity: .5;
   position: absolute;
-  right: 2rem;
+  right: 1rem;
   top: 2rem;
 
   &:hover {

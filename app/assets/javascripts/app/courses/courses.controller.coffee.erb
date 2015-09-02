@@ -13,6 +13,7 @@ CoursesIndexCtrl = ($location, $filter, $modal, Utils, courses) ->
     $modal.open
       templateUrl: '<%= asset_path('app/courses/course-new') %>'
       controller: 'NewCourseCtrl'
+      windowClass: 'add__course full'
   @
 
 CoursesIndexCtrl.$inject = ['$location', '$filter', '$modal', 'Utils', 'courses']
