@@ -81,6 +81,7 @@ CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, Da
     $modal.open
       templateUrl: '<%= asset_path('app/courses/course-edit') %>'
       windowClass: 'edit__course full'
+      controller: 'EditCourseCtrl as vm'
       resolve: { course: -> angular.copy($scope.course) }
 
   $scope.openNotification = ->
