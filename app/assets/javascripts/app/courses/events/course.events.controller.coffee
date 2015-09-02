@@ -1,5 +1,13 @@
-CourseEventsCtrl = ($scope, $stateParams, pagination, Event, DateUtils)->
+CourseEventsCtrl = (
+  $scope,
+  $stateParams,
+  pagination,
+  Event,
+  DateUtils,
+  EventHelper
+) ->
   angular.extend($scope, DateUtils)
+  angular.extend($scope, EventHelper)
 
   setEvents = (pagination) ->
     $scope.events = ($scope.events || []).concat pagination.events
@@ -12,11 +20,23 @@ CourseEventsCtrl = ($scope, $stateParams, pagination, Event, DateUtils)->
   $scope.scrollUntil = $stateParams.until
 
   $scope.paginate = (page) ->
-    Event.paginate(course_id: $scope.course.uuid, offset: $scope.eventsOffset, page: page).then (pagination) ->
+    params =
+      course_id: $scope.course.uuid,
+      offset: $scope.eventsOffset,
+      page: page
+
+    Event.paginate(params).then (pagination) ->
       setEvents(pagination)
       $scope.nextPage = page + 1
 
-CourseEventsCtrl.$inject = ['$scope', '$stateParams', 'pagination', 'Event', 'DateUtils']
+CourseEventsCtrl.$inject = [
+  '$scope',
+  '$stateParams',
+  'pagination',
+  'Event',
+  'DateUtils',
+  'EventHelper'
+]
 
 angular
   .module('app.courses')

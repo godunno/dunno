@@ -25,7 +25,7 @@
         a.calendar__date__link[
           ng-attr-id="{{'event-' + event.uuid}}"
           ng-click="goToEvent(event)"
-          ng-class="eventClass(event)"
+          ng-class="locationInTime(event.start_at)"
           analytics-on="click"
           analytics-event="Event Accessed via Course"
           analytics-uuid="{{event.uuid}}"

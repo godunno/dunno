@@ -39,7 +39,7 @@ Router = ($stateProvider,
     )
     .state('courses.show.calendar',
       url: '/calendar?month'
-      controller: 'CourseCtrl'
+      controller: 'CalendarCtrl'
       templateUrl: '<%= asset_path('app/courses/calendar/calendar') %>'
       resolve: { course: CourseResolver }
     )
