@@ -73,4 +73,36 @@
       }
     }
   }
+
+  &__date {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &__title {
+      flex-basis: 100%;
+    }
+  }
+
+  &__start__date,
+  &__end__date {
+    flex-basis: 47%;
+    position: relative;
+
+    @media #{$small-only} {
+      flex-basis: 100%;
+    }
+  }
+}
+
+.remove__course__end__date {
+  color: $dunno-dark-color;
+  opacity: .5;
+  position: absolute;
+  right: 2.5rem;
+  top: 2rem;
+
+  &:hover {
+    opacity: 1;
+  }
 }
