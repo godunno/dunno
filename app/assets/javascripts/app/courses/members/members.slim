@@ -1,16 +1,19 @@
 / TODO: empty results
 / TODO: blankslate
 .content__box.members__content
+  .no__members ng-show="course.students_count == 0"
+    | Você ainda não possui nenhum estudante.
   p.add__members
     a.button.add__users[
       ng-if="course.user_role == 'teacher'"
       ng-click="vm.openInviteMembers()"]
       i.icon-add>
-      | Adicionar integrantes
+      | Convidar Estudantes
     br
-    | Código da Disciplina:
-    samp.access__code<
-      | {{course.access_code}}
+    small<
+      | Código da Disciplina:
+      samp.access__code<
+        | {{course.access_code}}
   .member__group ng-repeat="members in course.members | groupBy: 'role' | toArray: true | orderBy:vm.order"
     p.members__content__title
       strong.role__name>

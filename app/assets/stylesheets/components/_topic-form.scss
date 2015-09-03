@@ -1,48 +1,41 @@
 .new__topic__form {
+  @include radius();
   background: $white;
-  border: 1px solid $light-grey-color;
-  float: none;
+  border: .0625rem solid $medium-grey-color;
+  margin: 0 -.25rem;
+  padding: .5rem 0 0;
+  position: relative;
+  z-index: 5;
 
   .select__item__type {
-    margin: 0 -.9375em;
+    display: flex;
     text-align: center;
 
-    li {
-      padding: 0;
-    }
-
     a {
-      border-bottom: 4px solid $white;
-      color: $light-grey-color;
-      display: block;
+      border-bottom: .25rem solid transparent;
+      flex-grow: 1;
       padding: .5em 0;
       transition: all .25s ease-in-out;
 
-      &:hover {
-        border-bottom-color: $medium-grey-color;
-        color: $medium-grey-color;
+      &:hover,
+      &.active {
+        border-bottom-color: $dunno-green-color;
 
         .icon {
-          background-color: $medium-grey-color;
           top: -.25em;
         }
       }
 
       &.active {
-        border-bottom-color: $dunno-green-color;
-        color: $dunno-green-color;
-
         .icon {
-          background-color: $dunno-green-color;
           position: relative;
-          top: -.25em;
         }
       }
     }
 
     .icon {
       @include radius(3em);
-      background-color: $light-grey-color;
+      background-color: $dunno-green-color;
       color: $white;
       display: inline-block;
       font-size: 1.25em;
@@ -93,8 +86,8 @@
 
 %item-box {
   background: $white;
-  border: 1px solid $dark-grey-color;
-  box-shadow: transparentize($light-grey-color, .8) 0 4px 0;
+  border: .125rem solid $dunno-green-color;
+  // box-shadow: transparentize($light-grey-color, .8) 0 4px 0;
   position: relative;
   z-index: 1;
 
@@ -130,7 +123,8 @@
 
 .item__type {
   @extend %item-box;
-  margin: 0 -1.125rem;
+  @include radius();
+  margin: 0 -.25rem -.0625rem;
 
   @media #{$small-only} {
     margin: 0 -1rem;

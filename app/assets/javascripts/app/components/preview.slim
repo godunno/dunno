@@ -1,10 +1,19 @@
 .media__preview ng-if="!!item.media"
-  a ng-href="{{item.media.url}}" target="_blank"
-    span.media__preview__image ng-style="{'background-image': 'url(' + item.media.thumbnail + ')'}"
-    span.media__preview__title
-      | {{item.description}}
-    span.media__preview__description
-      | {{item.media.description}}
+  .media__preview__link
+    a.media__preview__image[
+      ng-href="{{item.media.url}}"
+      ng-style="{'background-image': 'url(' + item.media.thumbnail + ')'}"
+      target="_blank"]
+    span.media__preview__info
+      span.media__preview__title
+        | {{item.description}}
+        a.media__preview__url<[
+          ng-href="{{item.media.url}}"
+          ng-if="item.media.type == 'url'"
+          target="_blank"]
+          | {{item.media.url}}
+      span.media__preview__description
+        | {{item.media.description}}
   a.media__preview__close[
     ng-click="removeMedia(item)"
     ng-if="removable"]

@@ -1,12 +1,11 @@
 .topics {
   @include side-radius(bottom, $global-radius);
   background: $white;
-  border: .0625rem solid $light-grey-color;
-  border-top: .1875rem solid lighten($light-grey-color, 20%);
+  border: $divider;
   margin-bottom: 2rem;
 
   .topic {
-    border-bottom: .0625rem solid $light-grey-color;
+    border-bottom: $divider;
   }
 
   .topic:last-child {
@@ -23,7 +22,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 0;
+    padding: .25rem 0;
   }
 
   &.ui-sortable-helper {
@@ -54,12 +53,6 @@
     }
   }
 
-  &.personal {
-    .topic__description {
-      color: $red-color;
-    }
-  }
-
   &__editing {
     @extend %item-box;
     margin: -.5rem -.1875em;
@@ -78,11 +71,11 @@
   }
 
   &__url {
-    display: block;
-    font-size: .875em;
-    line-height: 1em;
+    display: inline-block;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+    vertical-align: bottom;
     white-space: nowrap;
   }
 
@@ -92,19 +85,23 @@
   }
 
   &__image {
-    flex-basis: 3rem;
+    @include thumbnail(4rem);
+    flex-basis: 4rem;
     text-align: center;
-
-    span {
-      @include thumbnail();
-    }
   }
 
   &__description {
     flex-basis: 6rem;
     flex-grow: 1;
-    padding: 1rem .5rem;
+    line-height: 1.25rem;
+    padding: 1.25rem .5rem;
     word-wrap: break-word;
+
+    span {
+      color: $dark-grey-color;
+      display: block;
+      font-size: .875rem;
+    }
   }
 
   &__actions {

@@ -1,60 +1,64 @@
 .hide__personal__topics,
-.show__personal__topics,
-.back__button {
+.show__personal__topics {
   .icon {
     vertical-align: middle;
   }
-}
-
-.back__button {
-  white-space: nowrap;
 }
 
 .previous__event,
 .next__event {
+  align-items: center;
   background: $white;
-  border: 1px solid $navigation-event-border-color;
+  border: $divider;
   cursor: pointer;
-  display: block;
-  margin-top: .5em;
-  padding: .5em .75em;
+  display: flex;
+  font-size: .875rem;
+  line-height: 1rem;
+  margin-top: .25rem;
+  padding: .75rem;
   text-align: center;
+  text-transform: uppercase;
+
+  &:hover {
+    opacity: .66;
+  }
 
   span {
-    color: $dunno-dark-color;
-    font-size: .75em;
-    text-transform: uppercase;
+    flex-grow: 1;
+  }
+
+  small {
+    color: $dark-grey-color;
+    display: block;
+    font-size: rem-calc(12);
   }
 
   .icon {
     color: $dunno-green-color;
-    line-height: 1.75em;
+    flex-basis: 1.5rem;
     vertical-align: middle;
   }
+}
 
-  &.mobile__day__navigation {
+.lesson__mobile__navigation {
+  background-color: $white;
+  border-top: $divider;
+  display: none;
+
+  @media #{$small-only} {
+    display: flex;
+  }
+
+  a {
     background: transparent;
     border: 0;
-    padding: 0;
-  }
-}
+    display: flex;
+    flex: 1;
+    padding: .75rem 1rem;
 
-.event__cancelled,
-.event__published {
-  .mobile__day__navigation {
-    i.icon {
-      color: $white;
+    .icon {
+      flex-basis: 1rem;
     }
-  }
-}
-
-.hide-for-small {
-  .previous__event {
-    margin-right: -1em;
-  }
-
-  .next__event {
-    margin-left: -1em;
   }
 }
 
@@ -95,47 +99,6 @@
   }
 }
 
-.diary__header {
-  @include radius(.25rem .25rem 0 0);
-  background: $dunno-dark-color;
-  border: 1px solid $dunno-dark-color;
-  color: $white;
-  padding: 1em .75em;
-  position: relative;
-  z-index: 1;
-
-  @media #{$small-only} {
-    @include radius(0);
-  }
-
-  &.event__cancelled {
-    background: $red-color;
-    border-color: $red-color;
-  }
-
-  &.event__published {
-    background: $dunno-green-color;
-    border-color: $dunno-green-color;
-  }
-
-  .diary__date {
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .diary__time {
-    color: $white;
-    font-size: .75em;
-    line-height: 2em;
-    opacity: .5;
-    text-align: right;
-
-    .icon {
-      vertical-align: middle;
-    }
-  }
-}
-
 .form__event__status__save {
   text-align: right;
 }
@@ -150,65 +113,6 @@
   i.icon {
     color: $light-grey-color;
     vertical-align: middle;
-  }
-
-  span {
-    font-size: .75em;
-  }
-
-  .button-group {
-    display: inline-block;
-    margin-left: .5em;
-    white-space: nowrap;
-
-    @media #{$small-only} {
-      margin-left: 0;
-      width: 100%;
-    }
-
-    li {
-      @media #{$small-only} {
-        width: 50%;
-      }
-
-      .button {
-        @media #{$small-only} {
-          width: 100%;
-        }
-      }
-    }
-  }
-
-  .event__status__button {
-    background: lighten($light-grey-color, 15%);
-    border: 1px solid lighten($light-grey-color, 10%) !important; // scss-lint:disable ImportantRule
-    color: $medium-grey-color;
-    font-weight: $font-weight-bold;
-
-    &.event__status__published {
-      .status__icon.status__icon__published {
-        background-color: $light-grey-color;
-        border-color: $light-grey-color;
-      }
-    }
-
-    &.event__status__current {
-      background: $white;
-      color: $dunno-dark-color;
-      pointer-events: none;
-
-      &.event__status__published {
-        .status__icon.status__icon__published {
-          background-color: $dunno-green-color;
-          border-color: $dunno-green-color;
-        }
-      }
-    }
-
-    &[disabled] {
-      pointer-events: none;
-    }
-
   }
 }
 
@@ -228,7 +132,15 @@
   }
 }
 
-.diary__page {
+.add__content__cta {
+  color: $dark-grey-color;
+  display: block;
+  font-size: .75rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.lesson__page {
   .catalog__medias {
     border: 0;
   }
@@ -253,6 +165,151 @@
       margin: 0;
       padding: 1rem 0;
       text-align: center;
+    }
+  }
+
+  .page__header {
+    .lesson__page__header {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      padding: 0 0 1rem;
+      position: relative;
+
+      @media #{$small-only} {
+        flex-wrap: wrap;
+      }
+
+      .page__header__title {
+        @media #{$small-only} {
+          flex-basis: 100%;
+          height: auto;
+          margin: 0 0 1rem;
+          position: static;
+        }
+      }
+    }
+  }
+
+  .close__lesson {
+    position: absolute;
+    right: 1rem;
+    top: .15rem;
+
+    @media #{$small-only} {
+      position: static;
+    }
+  }
+
+  .topics__visibility {
+    background: $white;
+    border-bottom: $divider;
+    font-size: .875rem;
+    padding: .5rem 0;
+    text-align: center;
+
+    a {
+      display: block;
+    }
+  }
+
+  .hide__personal__topics,
+  .topic__personal {
+    color: $red-color;
+  }
+
+  .show__personal__topics {
+    color: $dark-grey-color;
+  }
+
+  .topic__personal {
+    font-size: 1.5rem;
+  }
+
+  .lesson {
+    &__date__weekday {
+      display: block;
+      text-transform: uppercase;
+    }
+
+    &__date__time {
+      color: $medium-grey-color;
+    }
+
+    &__date__classroom {
+      display: block;
+    }
+
+    &__header {
+      @include side-radius(top, $global-radius);
+      background: $white;
+      border: $divider;
+      border-bottom: 0;
+      display: flex;
+      padding: 1em .75em;
+      position: relative;
+      z-index: 1;
+
+      @media #{$small-only} {
+        @include radius(0);
+      }
+
+      .diary__time {
+        color: $white;
+        font-size: .75em;
+        line-height: 2em;
+        opacity: .5;
+        text-align: right;
+
+        .icon {
+          vertical-align: middle;
+        }
+      }
+    }
+
+    &__status {
+      align-self: center;
+      margin-left: auto;
+      text-transform: uppercase;
+    }
+
+    &__canceled {
+      color: $red-color;
+    }
+
+    &__published {
+      color: $dunno-green-color;
+    }
+  }
+}
+
+small {
+  .icon {
+    vertical-align: middle;
+  }
+}
+
+.lesson__status__canceled__info {
+  strong {
+    color: $red-color;
+  }
+}
+
+.lesson__status__published__info {
+  strong {
+    color: $dunno-green-color;
+  }
+
+  @media #{$small-only} {
+    p {
+      .button {
+        margin: 1rem 0 0;
+      }
+
+      span {
+        display: block;
+        padding: 1rem 0 0;
+      }
     }
   }
 }
