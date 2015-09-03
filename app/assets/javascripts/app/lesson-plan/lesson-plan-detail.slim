@@ -6,34 +6,18 @@
         small< ng-if="!!event.course.class_name"
           | › {{event.course.class_name}}
         small< ng-if="!!event.course.institution"
-          | › {{event.course.institution}}
+          | · {{event.course.institution}}
       a.close__lesson.button.dark.tiny ui-sref="courses.show.calendar({course: event.course, month: event.start_at})"
         | fechar o diário
 
   .row.event__status.medium-collapse
-    .small-12.medium-2.medium-offset-3.columns
-      .event__uncancel ng-if="event.status == 'canceled'"
-        span.event__cancelled
-          | Aula Cancelada
-        br
-        small
-          a.event__uncancel__link ng-click="setStatus(event, 'draft')"
-            | Desfazer
-          span<
-            | (Aula ficará Despublicada)
-      a.event__cancel__link.button.alert.transparent.no__side__padding.small[
-        ng-if="event.status != 'canceled'"
-        ng-click="setStatus(event, 'canceled')"]
-        | Cancelar Aula
-      br
-    .small-12.medium-4.columns.end
-      .event__status__group
-        a.button.extend.small.dark[
-          ng-disabled="event.status == 'canceled'"
-          ng-show="event.status == 'published'"
-          ng-click="setStatus(event, 'draft')"]
-            | Mover para rascunho
-        a.button.extend.small[
+    .small-12.medium-6.medium-centered.columns
+      .event__status__actions ng-if="event.status != 'canceled' && event.status != 'published'"
+        a.event__cancel__link.button.alert.transparent.no__side__padding.small[
+          ng-if="event.status != 'canceled'"
+          ng-click="setStatus(event, 'canceled')"]
+          | Cancelar Aula
+        a.button.small.right[
           ng-disabled="event.status == 'canceled'"
           ng-show="event.status == 'draft'"
           ng-click="setStatus(event, 'published')"]
@@ -57,41 +41,61 @@
             | {{event.previous.start_at | amDateFormat:'ddd, DD/MMM HH:mm'}}
       .summary__tasks.previous__event__tasks
         .summary__task.event__canceled ng-if="event.previous.status === 'canceled'"
-          | Aula cancelada.
+          | Aula Cancelada
         .summary__task.empty__results ng-if="event.previous.topics.length === 0"
-          | Nenhum conteúdo.
+          | Nenhum conteúdo
         .summary__task[
           ng-repeat="topic in event.previous.topics"
-          ng-hide="topic.personal && !showPrivateTopics"
-          ng-class="{personal: topic.personal}"]
-          a[
-            ng-href="{{topic.media.url}}"
-            ng-if="!!topic.media"
-            target="_blank"]
-            i.type.icon ng-class="'icon-' + topic.media.type"
-          span
+          ng-hide="topic.personal && !showPrivateTopics"]
+          span.summary__task__info
+            i.summary__task__type.icon.icon-file[
+              ng-attr-title="{{topic.media.filename}}"
+              ng-show="topic.media.type == 'file'"]
+            i.summary__task__type.icon.icon-url[
+              ng-show="topic.media.type == 'url'"
+              ng-attr-title="{{topic.media.url}}"]
             | {{topic.description}}
+          i.icon.icon-private ng-show="topic.personal"
     .small-12.medium-6.columns
-      .lesson__header
-        .show-for-small
-          a.previous__event.mobile__day__navigation[
-            ng-if="!!event.previous.start_at"
-            ui-sref="{ startAt: event.previous.start_at, courseId: event.course.uuid }"
-            analytics-on="click"
-            analytics-event="Event Navigation"
-            analytics-name="previous"
-            analytics-uuid="{{event.uuid}}"
-            analytics-start-at="{{event.start_at}}"
-            analytics-course-name="{{event.course.name}}"
-            analytics-course-uuid="{{event.course.uuid}}"]
-            i.icon.icon-chevron-left
-        .lesson__date
+      .lesson__mobile__navigation
+        a.previous__event.mobile__day__navigation[
+          ng-if="!!event.previous.start_at"
+          ui-sref="{ startAt: event.previous.start_at, courseId: event.course.uuid }"
+          analytics-on="click"
+          analytics-event="Event Navigation"
+          analytics-name="previous"
+          analytics-uuid="{{event.uuid}}"
+          analytics-start-at="{{event.start_at}}"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"]
+          i.icon.icon-chevron-left
           span
+            | aula anterior
+            small
+              | {{event.previous.start_at | amDateFormat:'ddd, DD/MMM HH:mm'}}
+        a.next__event.mobile__day__navigation[
+          ng-if="!!event.next.start_at"
+          ui-sref="{ startAt: event.next.start_at, courseId: event.course.uuid }"
+          analytics-on="click"
+          analytics-event="Event Navigation"
+          analytics-name="next"
+          analytics-uuid="{{event.uuid}}"
+          analytics-start-at="{{event.start_at}}"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"]
+          span
+            | próxima aula
+            small
+              | {{event.next.start_at | amDateFormat:'ddd, DD/MMM HH:mm'}}
+          i.icon.icon-chevron-right
+      .lesson__header
+        .lesson__date__info
+          span.lesson__date__weekday
             | {{event.start_at | amDateFormat:'ddd, DD/MMM/YY'}}
-          small
+          small.lesson__date__time
             i.icon.icon-clock
             | {{event.start_at | amDateFormat:'HH:mm'}} às {{event.end_at | amDateFormat:'HH:mm'}}
-          span ng-show="event.classroom"
+          span.lesson__date__classroom ng-show="event.classroom"
             | Sala: {{event.classroom}}
         span.lesson__status.lesson__draft ng-show="event.status == 'draft'"
           | Rascunho
@@ -99,18 +103,6 @@
           | Publicada
         span.lesson__status.lesson__canceled ng-show="event.status == 'canceled'"
           | Cancelada
-        .show-for-small
-          a.next__event.mobile__day__navigation[
-            ng-if="!!event.next.start_at"
-            ui-sref="{ startAt: event.next.start_at, courseId: event.course.uuid }"
-            analytics-on="click"
-            analytics-event="Event Navigation"
-            analytics-name="next"
-            analytics-uuid="{{event.uuid}}"
-            analytics-start-at="{{event.start_at}}"
-            analytics-course-name="{{event.course.name}}"
-            analytics-course-uuid="{{event.course.uuid}}"]
-            i.icon.icon-chevron-right
       #topics-container.row event-list="topics"
         .new__topic__form[
           ng-controller="NewTopicCtrl"
@@ -251,6 +243,29 @@
         #topics-list.topics[
           ui-sortable="sortableOptions('topics')"
           ng-model="event.topics"]
+          .topic.empty__results ng-if="event.status === 'canceled' || event.status === 'published'"
+            .lesson__status__canceled__info ng-if="event.status == 'canceled'"
+              strong
+                | Esta aula foi cancelada.
+              p
+                | Para editar a aula você deverá
+              a.button.tiny.dark< ng-click="setStatus(event, 'draft')"
+                | Mover para Rascunho
+            .lesson__status__published__info ng-if="event.status == 'published'"
+              strong
+                | Esta aula está publicada.
+                span.smile
+              p
+                | O conteúdo desta aula está público para seus estudantes.
+                br
+                | Se desejar desabilitar a visualização você poderá
+                br
+                a.button.tiny.dark> ng-click="setStatus(event, 'draft')"
+                  | Mover para Rascunho
+                span
+                  | ou
+                a.button.tiny.alert< ng-click="setStatus(event, 'canceled')"
+                  | Cancelar Aula
           .topics__visibility ng-if="event.topics.length != 0 && event.status != 'canceled'"
             a.hide__personal__topics[
               ng-click="setPrivateTopicsVisibility(false)"
@@ -265,9 +280,7 @@
               span
                 | Exibir conteúdos do professor
           .topic.empty__results ng-if="event.topics.length === 0 && event.status != 'canceled'"
-            | Nenhum conteúdo.
-          .topic.empty__results ng-if="event.status === 'canceled'"
-            | Para adicionar conteúdos pressione <b>Desfazer</b> para tornar a aula despublicada.
+            | Nenhum conteúdo
           .topic.clickable[
             ng-controller="TopicEditCtrl"
             ng-class="{done: topic.done, personal: topic.personal}"
@@ -375,17 +388,18 @@
         i.icon.icon-chevron-right
       .summary__tasks.next__event__tasks
         .summary__task.event__canceled ng-if="event.next.status === 'canceled'"
-          | Aula cancelada.
+          | Aula Cancelada
         .summary__task.empty__results ng-if="event.next.topics.length === 0"
-          | Nenhum conteúdo.
+          | Nenhum conteúdo
         .summary__task[
           ng-repeat="topic in event.next.topics"
-          ng-hide="topic.personal && !showPrivateTopics"
-          ng-class="{personal: topic.personal}"]
-          a[
-            ng-href="{{topic.media.url}}"
-            ng-if="!!topic.media"
-            target="_blank"]
-            i.type.icon ng-class="'icon-' + topic.media.type"
-          span
+          ng-hide="topic.personal && !showPrivateTopics"]
+          span.summary__task__info
+            i.summary__task__type.icon.icon-file[
+              ng-attr-title="{{topic.media.filename}}"
+              ng-show="topic.media.type == 'file'"]
+            i.summary__task__type.icon.icon-url[
+              ng-show="topic.media.type == 'url'"
+              ng-attr-title="{{topic.media.url}}"]
             | {{topic.description}}
+          i.icon.icon-private ng-show="topic.personal"

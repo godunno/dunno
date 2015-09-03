@@ -5,10 +5,11 @@ header.page__header ng-style="{'background-color': course.color}"
         | {{course.name}}
         small< ng-if="!!course.class_name"
           | › {{course.class_name}}
+        small< ng-if="!!course.institution"
+          | · {{course.institution}}
       ul.page__header__subtitle
         li.course__teacher ng-if="!!course.teacher"
-          img.course__member__avatar[
-            user-avatar="{{course.teacher.name}}"]
+          img.course__member__avatar user-avatar="{{course.teacher.name}}"
           span
             | {{course.teacher.name}}
     .page__header__info.small-12.medium-4.columns

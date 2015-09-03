@@ -1,5 +1,11 @@
 .dates__programme {
   text-align: center;
+
+  @media #{$small-only} {
+    background: $white;
+    border-bottom: $divider;
+    padding: 2rem 0 0;
+  }
 }
 
 .calendar__header {
@@ -53,14 +59,13 @@
 
 .calendar__date__link {
   background-color: $white;
-  border-bottom: 1px solid $light-grey-color;
+  border-bottom: $divider;
   color: $dunno-dark-color;
   display: flex;
   padding: 1rem;
   white-space: nowrap;
 
   @media #{$small-only} {
-    flex-wrap: wrap;
     line-height: 1.5rem;
   }
 
@@ -92,6 +97,11 @@
   .date__classroom {
     color: $dunno-dark-color;
     margin-left: .5rem;
+
+    @media #{$small-only} {
+      display: block;
+      margin-left: 0;
+    }
   }
 
   .date__info,
@@ -102,6 +112,12 @@
     @media #{$small-only} {
       padding-left: .25rem;
       padding-right: .25rem;
+    }
+  }
+
+  .date__status {
+    @media #{$small-only} {
+      margin-left: auto;
     }
   }
 }
@@ -115,10 +131,7 @@
   text-transform: uppercase;
 
   @media #{$small-only} {
-    flex-basis: 50%;
-    font-size: .625rem;
     margin-left: 0;
-    order: 5;
     text-align: right;
   }
 

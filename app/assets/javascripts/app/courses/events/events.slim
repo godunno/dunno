@@ -1,13 +1,13 @@
 .events__tab
   .event.text-center ng-if="!events.length"
     .events__empty
-      | Nenhuma aula criada. =(
+      | Nenhuma aula criada.
+      span.sad
     .events__schedule__link ng-if="course.user_role == 'teacher'"
-      | Você pode acessar o
-      a<> ui-sref="^.calendar.schedule"
-        | cronograma
-      | para criar novas aulas.
-
+      | Você poderá adicionar novos horários de aula acessando o
+      a< ui-sref="^.calendar.schedule"
+        | cronograma semanal
+      | .
   .event[
     ng-repeat="event in events"
     scroll-to-when="scrollUntil == event.start_at"]
@@ -28,7 +28,7 @@
         a.button.tiny.event__edit[
           ng-click="goToEvent(event)"
           ng-if="course.user_role == 'teacher'"]
-          | editar aula
+          | abrir no diário
     .event__content class="event__status__{{event.status}}"
       .no__topics ng-if="event.topics.length == 0"
         p.empty__results

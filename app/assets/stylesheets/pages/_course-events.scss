@@ -15,9 +15,10 @@
   }
 
   &__header {
-    border-bottom: 0;
+    border-bottom: $divider;
     display: flex;
     margin-bottom: 2rem;
+    padding-bottom: 1rem;
 
     @media #{$small-only} {
       margin-top: 1rem;
