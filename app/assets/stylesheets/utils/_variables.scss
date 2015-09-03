@@ -3,19 +3,13 @@ $dunno-green-color: #1cc678;
 $dunno-dark-color: #2b3738;
 $red-color: #ff5950;
 $orange-color: #ff926a;
-$brown-color: #d18c66;
 $yellow-color: #fffddc;
 $blue-color: #54c5ff;
-$purple-color: #a893ff;
-$black: #000;
+$black: $dunno-dark-color;
 $dark-grey-color: #70797a;
 $medium-grey-color: lighten($dark-grey-color, 16%);
 $light-grey-color: lighten($dark-grey-color, 30%);
 $white: #fff;
-$background-light-grey-color: darken($white, 5%);
-$navigation-event-border-color: lighten($dark-grey-color, 35%);
-$dropdown-border-color: lighten($dark-grey-color, 40%);
-$disabled-color: lighten($light-grey-color, 5%);
 
 // TYPOGRAPHY
 $font-weight-bold: 700;

@@ -7,7 +7,7 @@
 
     &.active {
       a {
-        background-color: $background-light-grey-color;
+        background-color: $body-bg;
 
         @media #{$small-only} {
           background-color: $white;
