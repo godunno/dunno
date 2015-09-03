@@ -14,9 +14,6 @@ CalendarCtrl = (
     else
       $state.go('^.events', until: event.start_at)
 
-  $scope.isTeacher = (course) ->
-    course.user_role == 'teacher'
-
 CalendarCtrl.$inject = [
   '$scope',
   '$state',

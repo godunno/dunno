@@ -1,6 +1,6 @@
 eventStatusCtrl = ($scope) ->
   event  = $scope.event
-  course = $scope.course
+  role = $scope.role
 
   @translatedStatus = =>
     if @isCanceled()
@@ -22,10 +22,10 @@ eventStatusCtrl = ($scope) ->
     event.formatted_status == 'empty'
 
   @isTeacher = ->
-    course.user_role == 'teacher'
+    role == 'teacher'
 
   @isStudent = ->
-    course.user_role != 'teacher'
+    role != 'teacher'
 
   @
 
@@ -38,8 +38,8 @@ eventStatus = ->
   controllerAs: 'vm'
   scope:
     event: '='
-    course: '='
+    role: '='
 
 angular
-  .module('DunnoApp')
+  .module('app.courses')
   .directive('eventStatus', eventStatus)

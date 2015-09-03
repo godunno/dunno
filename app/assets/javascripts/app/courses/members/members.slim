@@ -5,7 +5,7 @@
     | Você ainda não possui nenhum estudante.
   p.add__members
     a.button.add__users[
-      ng-if="course.user_role == 'teacher'"
+      if-teacher=true
       ng-click="vm.openInviteMembers()"]
       i.icon-add>
       | Convidar Estudantes

@@ -1,5 +1,5 @@
 .calendar ui-view=true
-  .dates__programme ng-if="course.user_role == 'teacher'"
+  .dates__programme if-teacher=true
     a.button.small ui-sref=".schedule"
       strong
         | Cronograma Semanal
@@ -42,4 +42,4 @@
               | {{asDate(event.start_at) | amDateFormat:'HH:mm'}}–{{asDate(event.end_at) | amDateFormat:'HH:mm'}}
             span.date__classroom< ng-if="event.classroom"
               | Sala: {{event.classroom}}
-          event-status event="event" course="course"
+          event-status event="event" role="course.user_role"

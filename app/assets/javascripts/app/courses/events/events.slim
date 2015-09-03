@@ -22,10 +22,10 @@
         span.event__classroom ng-show="event.classroom"
           | Sala: {{event.classroom}}
       aside
-        event-status event="event" course="course"
+        event-status event="event" role="course.user_role"
         a.button.tiny.event__edit[
           ng-click="goToEvent(event)"
-          ng-if="course.user_role == 'teacher'"]
+          if-teacher=true]
           | abrir no diário
     .event__content class="event__status__{{event.status}}"
       .no__topics ng-if="event.topics.length == 0"
