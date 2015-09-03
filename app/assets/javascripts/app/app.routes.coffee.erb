@@ -16,7 +16,6 @@ Router = ($stateProvider,
     )
     .state('courses.inactive',
       url: '/inactive'
-      controller: 'CoursesIndexCtrl as vm'
       templateUrl: '<%= asset_path('app/courses/courses-inactive') %>'
     )
     .state('courses.search',
@@ -71,7 +70,7 @@ Router = ($stateProvider,
     .state('events.show',
       url: '/:startAt?courseId'
       controller: 'EventCtrl'
-      templateUrl: '<%= asset_path('app/lesson-plan/lesson-plan') %>'
+      templateUrl: '<%= asset_path('app/lesson-plan/lesson-plan-edit') %>'
       resolve: { event: EventResolver }
     )
     .state('medias',
@@ -87,7 +86,6 @@ Router = ($stateProvider,
     )
     .state('profile.change_password',
       url: '/profile/password/edit'
-      controller: 'ProfileCtrl'
       templateUrl: '<%= asset_path('app/profile/password') %>'
     )
 
