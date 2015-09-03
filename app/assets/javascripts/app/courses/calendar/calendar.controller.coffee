@@ -2,13 +2,9 @@ CalendarCtrl = (
   $scope,
   $state,
   DateUtils,
-  CourseHelper,
-  EventHelper,
   course
 ) ->
   angular.extend($scope, DateUtils)
-  angular.extend($scope, CourseHelper)
-  angular.extend($scope, EventHelper)
 
   $scope.course = course
 
@@ -18,12 +14,13 @@ CalendarCtrl = (
     else
       $state.go('^.events', until: event.start_at)
 
+  $scope.isTeacher = (course) ->
+    course.user_role == 'teacher'
+
 CalendarCtrl.$inject = [
   '$scope',
   '$state',
   'DateUtils',
-  'CourseHelper',
-  'EventHelper',
   'course'
 ]
 

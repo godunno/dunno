@@ -3,11 +3,9 @@ CourseEventsCtrl = (
   $stateParams,
   pagination,
   Event,
-  DateUtils,
-  EventHelper
+  DateUtils
 ) ->
   angular.extend($scope, DateUtils)
-  angular.extend($scope, EventHelper)
 
   setEvents = (pagination) ->
     $scope.events = ($scope.events || []).concat pagination.events
@@ -34,8 +32,7 @@ CourseEventsCtrl.$inject = [
   '$stateParams',
   'pagination',
   'Event',
-  'DateUtils',
-  'EventHelper'
+  'DateUtils'
 ]
 
 angular

@@ -1,0 +1,45 @@
+eventStatusCtrl = ($scope) ->
+  event  = $scope.event
+  course = $scope.course
+
+  @translatedStatus = =>
+    if @isCanceled()
+      'Cancelada'
+    else if @isPublished()
+      'Publicada'
+    else if @isDraft()
+      'Rascunho'
+
+  @isCanceled = ->
+    event.formatted_status == 'canceled'
+
+  @isPublished = ->
+    event.formatted_status == 'published' ||
+    event.formatted_status == 'happened'
+
+  @isDraft = ->
+    event.formatted_status == 'draft' ||
+    event.formatted_status == 'empty'
+
+  @isTeacher = ->
+    course.user_role == 'teacher'
+
+  @isStudent = ->
+    course.user_role != 'teacher'
+
+  @
+
+eventStatusCtrl.$inject = ['$scope']
+
+eventStatus = ->
+  restrict: 'E'
+  templateUrl: '<%= asset_path("app/courses/events/event-status") %>'
+  controller: eventStatusCtrl
+  controllerAs: 'vm'
+  scope:
+    event: '='
+    course: '='
+
+angular
+  .module('DunnoApp')
+  .directive('eventStatus', eventStatus)
