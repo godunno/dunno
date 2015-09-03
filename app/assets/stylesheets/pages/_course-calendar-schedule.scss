@@ -60,34 +60,43 @@
   }
 
   .weekly__schedule {
+    align-items: center;
     border-top: $divider;
     display: flex;
     flex-wrap: wrap;
     padding: 2rem 0;
 
     &__day {
-      flex-basis: 8rem;
-      text-transform: capitalize;
+      flex: 1;
+    }
+
+    &__weekday {
+      display: block;
+      text-transform: uppercase;
     }
 
     &__info {
-      flex-basis: 100%;
-      opacity: .5;
-      order: 3;
+      display: block;
 
       .icon {
         vertical-align: middle;
       }
     }
 
+    &__time {
+      color: $medium-grey-color;
+    }
+
     &__classroom {
-      @media #{$small-only} {
-        display: block;
-      }
+      display: block;
     }
 
     &__actions {
+      flex: 2;
+
       .button {
+        margin-bottom: 0;
+
         .icon {
           font-size: .6rem;
         }

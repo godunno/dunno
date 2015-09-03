@@ -1,6 +1,7 @@
 .events__tab
-  .events__empty ng-if="!events.length"
-    | Nenhuma aula criada. :(
+  .event.text-center ng-if="!events.length"
+    .events__empty
+      | Nenhuma aula criada. =(
     .events__schedule__link ng-if="course.user_role == 'teacher'"
       | Você pode acessar o
       a<> ui-sref="^.calendar.schedule"
@@ -12,19 +13,23 @@
     scroll-to-when="scrollUntil == event.start_at"]
     / TODO: no results for event in events copy
     .event__header
-      span.event__date
-        | {{event.start_at | amDateFormat:'ddd, DD/MMM/YY'}}
-      span.event__time
-        | {{event.start_at | amDateFormat: 'HH:mm'}} – {{event.end_at | amDateFormat: 'HH:mm'}}
-      span.date__status[
-        ng-class="{canceled: isCanceled(event), published: isPublished(event), draft: isDraft(event), hide: (isPublished(event) && isStudent(course))}"]
-        | {{translatedStatus(event)}}
-      .event__edit
-        a.button.tiny[
+      span.event__info
+        span.event__date__weekday
+          | {{event.start_at | amDateFormat:'ddd, DD/MMM/YY'}}
+        small.event__time
+          i.icon.icon-clock
+          | {{event.start_at | amDateFormat: 'HH:mm'}}–{{event.end_at | amDateFormat: 'HH:mm'}}
+        span.event__classroom ng-show="event.classroom"
+          | Sala: {{event.classroom}}
+      aside
+        span.date__status[
+          ng-class="{canceled: isCanceled(event), published: isPublished(event), draft: isDraft(event), hide: (isPublished(event) && isStudent(course))}"]
+          | {{translatedStatus(event)}}
+        a.button.tiny.event__edit[
           ng-click="goToEvent(event)"
           ng-if="course.user_role == 'teacher'"]
           | editar aula
-    .event__content[class="event__status__{{event.status}}"]
+    .event__content class="event__status__{{event.status}}"
       .no__topics ng-if="event.topics.length == 0"
         p.empty__results
           | Nenhum conteúdo disponível para esse dia.

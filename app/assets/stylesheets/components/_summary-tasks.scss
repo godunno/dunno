@@ -5,7 +5,7 @@
     padding-left: 1em;
 
     .summary__task {
-      padding-right: .5em;
+      padding-right: 1em;
     }
   }
 
@@ -13,7 +13,7 @@
     padding-right: 1em;
 
     .summary__task {
-      padding-left: .5em;
+      padding-left: 1em;
     }
   }
 }
@@ -30,7 +30,6 @@
 
   &.empty__results {
     color: $medium-grey-color;
-    font-size: .875em;
   }
 
   &.event__canceled {
@@ -39,7 +38,6 @@
 
   span {
     display: block;
-    font-size: .875em;
     margin-right: 2em;
   }
 
