@@ -49,7 +49,6 @@ header.page__title
                 type="text"]
         .catalog__media__body
           .media__events__usage
-            / TODO: this markup can be improved
             small
               span>
                 | Usado em:
@@ -80,9 +79,6 @@ header.page__title
               on-tag-removed="updateMedia(media)"
               placeholder="Nova tag"
               replace-spaces-with-dashes="false"]
-            /
-              TODO: integrate this with JS (should come right after the input)
-              i.icon.icon-tag
     .row ng-if="!!medias && medias.length > 0"
       .small-6.medium-3.small-centered.columns
         a.media__load__more.button.expand.secondary[

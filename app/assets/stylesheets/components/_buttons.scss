@@ -7,7 +7,6 @@
   }
 
   &.transparent {
-    // TODO: use foundation button() for creating new buttons.
     background: transparent;
     opacity: .85;
 
@@ -53,7 +52,6 @@
   }
 
   &.outline {
-    // TODO: use foundation button() for creating new buttons.
     border: 1px solid $dunno-green-color;
     color: $dunno-green-color;
 
