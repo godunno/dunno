@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 ScheduleCtrl = ($scope, $state, $modal, WeeklySchedule, Utils) ->
   $scope.update = ->
     $scope.$emit('wholePageLoading', $scope.course.update().then ->
@@ -26,4 +24,7 @@ ScheduleCtrl = ($scope, $state, $modal, WeeklySchedule, Utils) ->
         Utils.remove($scope.course.weekly_schedules, weeklySchedule)
 
 ScheduleCtrl.$inject = ['$scope', '$state', '$modal', 'WeeklySchedule', 'Utils']
-DunnoApp.controller 'ScheduleCtrl', ScheduleCtrl
+
+angular
+  .module('app.courses')
+  .controller('ScheduleCtrl', ScheduleCtrl)

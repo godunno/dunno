@@ -1,4 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
 listCtrl = ($scope, $analytics, $rootScope, Media, Utils)->
   list = -> $scope.event[$scope.collection]
@@ -23,10 +23,10 @@ listCtrl = ($scope, $analytics, $rootScope, Media, Utils)->
   $scope.$on 'createdTopic', addToList
 
 listCtrl.$inject = ['$scope', '$analytics', '$rootScope', 'Media', 'Utils']
-DunnoApp.controller 'listCtrl', listCtrl
+app.lessonPlan.controller 'listCtrl', listCtrl
 
 # TODO: Use as controller directly
-DunnoApp.directive 'eventList', ->
+app.lessonPlan.directive 'eventList', ->
   restrict: 'A'
   scope: true
   controller: 'listCtrl'

@@ -1,6 +1,6 @@
-DunnoApp = angular.module('DunnoApp')
+core = angular.module('app.core')
 
-DunnoApp.factory 'Course', ['RailsResource', 'railsSerializer', (RailsResource, railsSerializer)->
+core.factory 'Course', ['RailsResource', 'railsSerializer', (RailsResource, railsSerializer)->
   class Course extends RailsResource
     @configure(
       url: '/api/v1/courses'

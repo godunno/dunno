@@ -1,8 +1,8 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
 NewTextTopicCtrl = ($scope, Topic) ->
   $scope.$on 'newTopic', ($event, topicType) ->
     $scope.$broadcast 'saveTopic' if topicType == 'text'
 
 NewTextTopicCtrl.$inject = ['$scope', 'Topic']
-DunnoApp.controller 'NewTextTopicCtrl', NewTextTopicCtrl
+app.lessonPlan.controller 'NewTextTopicCtrl', NewTextTopicCtrl

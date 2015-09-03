@@ -1,7 +1,11 @@
-DunnoApp = angular.module('DunnoApp')
+link = (scope, element, attrs) ->
+  scope.$watch attrs.scrollToWhen, (newValue) ->
+    $('html,body').animate(scrollTop: element.offset().top) if !!newValue
 
-DunnoApp.directive 'scrollToWhen', ->
+scrollToWhen = ->
+  link: link
   restrict: 'A'
-  link: (scope, element, attr)->
-    scope.$watch attr.scrollToWhen, (newValue) ->
-      $('html,body').animate(scrollTop: element.offset().top) if !!newValue
+
+angular
+  .module('app.courses')
+  .directive('scrollToWhen', scrollToWhen)

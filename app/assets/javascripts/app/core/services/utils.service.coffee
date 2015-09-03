@@ -1,4 +1,3 @@
-
 Utils = ->
   @remove = (list, item)->
     index = list.indexOf(item)
@@ -16,4 +15,6 @@ Utils = ->
 
   @
 
-angular.module('DunnoApp').service 'Utils', Utils
+angular
+  .module('app.core')
+  .service('Utils', Utils)

@@ -1,4 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
 CatalogPickerCtrl = ($scope, $rootScope, MediaSearcher)->
   MediaSearcher.inject($scope)
@@ -6,7 +6,7 @@ CatalogPickerCtrl = ($scope, $rootScope, MediaSearcher)->
 
 CatalogPickerCtrl.$inject = ['$scope', '$rootScope', 'MediaSearcher']
 
-DunnoApp.controller 'CatalogPickerCtrl', CatalogPickerCtrl
+app.lessonPlan.controller 'CatalogPickerCtrl', CatalogPickerCtrl
 
 catalogPicker = ->
   controller: 'CatalogPickerCtrl'
@@ -20,4 +20,4 @@ catalogPicker = ->
       scope.$broadcast('modal.show')
       scope.fetch()
 
-DunnoApp.directive 'catalogPicker', catalogPicker
+app.lessonPlan.directive 'catalogPicker', catalogPicker

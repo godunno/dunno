@@ -1,6 +1,6 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
-DunnoApp.directive 'modal', ->
+app.lessonPlan.directive 'modal', ->
   restrict: 'A'
   link: (scope, element, attr)->
     scope.dismiss = ->

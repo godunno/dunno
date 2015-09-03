@@ -1,4 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
 TopicAttributesCtrl = ($scope, Topic) ->
   initialize = ->
@@ -48,4 +48,4 @@ TopicAttributesCtrl = ($scope, Topic) ->
     startWatcher = setNewStartWatcher()
 
 TopicAttributesCtrl.$inject = ['$scope', 'Topic']
-DunnoApp.controller 'TopicAttributesCtrl', TopicAttributesCtrl
+app.lessonPlan.controller 'TopicAttributesCtrl', TopicAttributesCtrl

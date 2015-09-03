@@ -1,5 +1,6 @@
-DunnoApp = angular.module('DunnoApp')
-DunnoApp.factory 'WeeklySchedule', ['$q', 'RailsResource', ($q, RailsResource)->
+core = angular.module('app.core')
+
+core.factory 'WeeklySchedule', ['$q', 'RailsResource', ($q, RailsResource)->
   class WeeklySchedule extends RailsResource
     @configure(
       url: '/api/v1/weekly_schedules'

@@ -6,5 +6,5 @@ EditCourseCtrl = (course) ->
 EditCourseCtrl.$inject = ['course']
 
 angular
-  .module('DunnoApp')
+  .module('app.courses')
   .controller('EditCourseCtrl', EditCourseCtrl)

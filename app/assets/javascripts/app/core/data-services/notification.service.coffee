@@ -1,6 +1,6 @@
-DunnoApp = angular.module('DunnoApp')
+core = angular.module('app.core')
 
-DunnoApp.factory 'Notification', ['RailsResource', (RailsResource)->
+core.factory 'Notification', ['RailsResource', (RailsResource)->
   class Notification extends RailsResource
     @configure(
       url: '/api/v1/notifications'

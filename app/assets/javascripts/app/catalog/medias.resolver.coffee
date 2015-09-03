@@ -1,7 +1,8 @@
-DunnoApp = angular.module('DunnoApp')
-
-resolver = (PageLoading, Media) ->
+MediasResolver = (PageLoading, Media) ->
   PageLoading.resolve Media.search()
 
-resolver.$inject = ['PageLoading', 'Media']
-DunnoApp.constant 'MediasResolver', resolver
+MediasResolver.$inject = ['PageLoading', 'Media']
+
+angular
+  .module('app.catalog')
+  .constant 'MediasResolver', MediasResolver

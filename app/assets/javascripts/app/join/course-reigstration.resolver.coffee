@@ -1,7 +1,8 @@
-DunnoApp = angular.module('DunnoApp')
-
-resolver = ($stateParams, PageLoading, Course) ->
+CourseRegistrationResolver = ($stateParams, PageLoading, Course) ->
   PageLoading.resolve Course.search($stateParams.id)
 
-resolver.$inject = ['$stateParams', 'PageLoading', 'Course']
-DunnoApp.constant 'CourseRegistrationResolver', resolver
+CourseRegistrationResolver.$inject = ['$stateParams', 'PageLoading', 'Course']
+
+angular
+  .module('app.join')
+  .constant('CourseRegistrationResolver', CourseRegistrationResolver)

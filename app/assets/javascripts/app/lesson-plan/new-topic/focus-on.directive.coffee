@@ -1,6 +1,6 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
-DunnoApp.directive 'focusOn', ['$timeout', ($timeout) ->
+app.lessonPlan.directive 'focusOn', ['$timeout', ($timeout) ->
   restrict: 'A'
   link: (scope, element, attr)->
     scope.$watch attr.focusOn, (newValue) ->

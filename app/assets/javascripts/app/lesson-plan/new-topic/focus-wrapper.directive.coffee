@@ -1,6 +1,6 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
-DunnoApp.directive 'focusWrapper', ->
+app.lessonPlan.directive 'focusWrapper', ->
   restricted: 'A'
   link: (scope, element, attrs)->
     element.on 'focus', ->

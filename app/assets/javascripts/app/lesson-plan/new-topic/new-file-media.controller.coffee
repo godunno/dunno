@@ -1,4 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
 NewFileMediaCtrl = ($scope, Media) ->
   $scope.$on 'newTopic', ($event, topicType) ->
@@ -47,4 +47,4 @@ NewFileMediaCtrl = ($scope, Media) ->
   #    #$analytics.eventTrack('Media Created', type: media.type, title: media.title, eventUuid: $scope.event.uuid)
 
 NewFileMediaCtrl.$inject = ['$scope', 'Media']
-DunnoApp.controller 'NewFileMediaCtrl', NewFileMediaCtrl
+app.lessonPlan.controller 'NewFileMediaCtrl', NewFileMediaCtrl

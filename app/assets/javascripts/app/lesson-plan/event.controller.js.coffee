@@ -1,4 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
 EventCtrl = (
   $scope,
@@ -52,4 +52,4 @@ EventCtrl = (
     $scope.$emit('wholePageLoading', $scope.save(event))
 
 EventCtrl.$inject = ['$scope', '$window', '$q', 'event', 'Event', 'Utils', 'DateUtils']
-DunnoApp.controller 'EventCtrl', EventCtrl
+app.lessonPlan.controller 'EventCtrl', EventCtrl

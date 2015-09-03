@@ -1,4 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
 NewTopicCtrl = ($scope, Topic, $analytics) ->
   $scope.defaultTopicProperties ?= { personal: false }
@@ -40,4 +40,4 @@ NewTopicCtrl = ($scope, Topic, $analytics) ->
     reset()
 
 NewTopicCtrl.$inject = ['$scope', 'Topic', '$analytics']
-DunnoApp.controller 'NewTopicCtrl', NewTopicCtrl
+app.lessonPlan.controller 'NewTopicCtrl', NewTopicCtrl

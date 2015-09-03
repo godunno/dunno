@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 # Shamelessly adapted from
 # https://github.com/paulsmith/angular-slugify/blob/master/angular-slugify.js
 #
@@ -241,9 +239,10 @@ Transliterate = (s) ->
 
 TransliterateFactory = -> { transliterate: Transliterate }
 
-DunnoApp.factory 'Transliterate', TransliterateFactory
-
 TransliterateFilter = (Transliterate) ->
   (input) -> Transliterate.transliterate input
 
-DunnoApp.filter 'transliterate', ['Transliterate', TransliterateFilter]
+angular
+  .module('app.courses')
+  .factory('Transliterate', TransliterateFactory)
+  .filter('transliterate', ['Transliterate', TransliterateFilter])

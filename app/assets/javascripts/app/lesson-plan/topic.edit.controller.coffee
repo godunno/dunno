@@ -1,4 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
 TopicEditCtrl = ($scope, Utils)->
   $scope.isEditing = (topic) -> !!topic._editing
@@ -45,4 +45,4 @@ TopicEditCtrl = ($scope, Utils)->
     !Utils.newRecord(topic) && !!event.next
 
 TopicEditCtrl.$inject = ['$scope', 'Utils']
-DunnoApp.controller 'TopicEditCtrl', TopicEditCtrl
+app.lessonPlan.controller 'TopicEditCtrl', TopicEditCtrl

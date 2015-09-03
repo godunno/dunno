@@ -1,4 +1,4 @@
-angular.module('DunnoApp')
+angular.module('app.core')
 .directive 'userAvatar', ->
   restrict: 'A'
   link: link

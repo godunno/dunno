@@ -1,6 +1,6 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
-DunnoApp.directive 'modalStandalone', ->
+app.lessonPlan.directive 'modalStandalone', ->
   restrict: 'E'
   transclude: true
   templateUrl: '<%= asset_path('app/components/modal') %>'

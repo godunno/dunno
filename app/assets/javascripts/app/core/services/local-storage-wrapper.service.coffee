@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 LocalStorageWrapper = ->
   set = (key, item) ->
     localStorage.setItem(key, angular.toJson(item))
@@ -16,4 +14,6 @@ LocalStorageWrapper = ->
     get: get
   }
 
-DunnoApp.factory "LocalStorageWrapper", LocalStorageWrapper
+angular
+  .module('app.core')
+  .factory('LocalStorageWrapper', LocalStorageWrapper)

@@ -1,4 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
 AddFromMediaCtrl = ($scope, MediaSearcher)->
   MediaSearcher.extend($scope)
@@ -16,4 +16,4 @@ AddFromMediaCtrl = ($scope, MediaSearcher)->
     $scope.$broadcast 'newMedia', $scope.result.media
 
 AddFromMediaCtrl.$inject = ['$scope', 'MediaSearcher']
-DunnoApp.controller 'AddFromMediaCtrl', AddFromMediaCtrl
+app.lessonPlan.controller 'AddFromMediaCtrl', AddFromMediaCtrl

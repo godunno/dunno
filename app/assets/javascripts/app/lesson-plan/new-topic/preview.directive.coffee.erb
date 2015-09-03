@@ -1,4 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
 previewCtrl = ['$scope', ($scope)->
   $scope.removeMedia = ->
@@ -15,5 +15,5 @@ preview = ->
   controller: 'previewCtrl'
   templateUrl: '<%= asset_path('app/components/preview') %>'
 
-DunnoApp.controller 'previewCtrl', previewCtrl
-DunnoApp.directive 'preview', preview
+app.lessonPlan.controller 'previewCtrl', previewCtrl
+app.lessonPlan.directive 'preview', preview

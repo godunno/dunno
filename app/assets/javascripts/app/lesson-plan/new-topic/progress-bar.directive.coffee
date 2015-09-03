@@ -1,6 +1,6 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
-DunnoApp.controller 'progressBarCtrl', ['$scope', ($scope)->
+app.lessonPlan.controller 'progressBarCtrl', ['$scope', ($scope)->
   TRANSITION_END_EVENTS = "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd"
 
   $scope.start = ->
@@ -23,7 +23,7 @@ DunnoApp.controller 'progressBarCtrl', ['$scope', ($scope)->
   $scope.$on "progress.stop", $scope.stop
 ]
 
-DunnoApp.directive 'progressBar', ->
+app.lessonPlan.directive 'progressBar', ->
   restrict: 'E'
   replace: true
   controller: 'progressBarCtrl'

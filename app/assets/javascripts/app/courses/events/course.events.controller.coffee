@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 CourseEventsCtrl = ($scope, $stateParams, pagination, Event, DateUtils)->
   angular.extend($scope, DateUtils)
 
@@ -19,4 +17,7 @@ CourseEventsCtrl = ($scope, $stateParams, pagination, Event, DateUtils)->
       $scope.nextPage = page + 1
 
 CourseEventsCtrl.$inject = ['$scope', '$stateParams', 'pagination', 'Event', 'DateUtils']
-DunnoApp.controller 'CourseEventsCtrl', CourseEventsCtrl
+
+angular
+  .module('app.courses')
+  .controller('CourseEventsCtrl', CourseEventsCtrl)

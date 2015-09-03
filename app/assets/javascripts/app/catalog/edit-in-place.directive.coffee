@@ -1,5 +1,3 @@
-DunnoApp = angular.module("DunnoApp")
-
 editInPlace = ->
   restrict: 'A'
   require: 'ngModel'
@@ -31,4 +29,6 @@ editInPlace = ->
         element.blur()
         e.preventDefault()
 
-DunnoApp.directive "editInPlace", editInPlace
+angular
+  .module('app.catalog')
+  .directive 'editInPlace', editInPlace

@@ -1,6 +1,6 @@
-DunnoApp = angular.module('DunnoApp')
+app.lessonPlan = angular.module('app.lessonPlan')
 
-DunnoApp.directive 'ngFileModel', ->
+app.lessonPlan.directive 'ngFileModel', ->
   restrict: 'A'
   require:'ngModel'
   link: (scope, element, attrs, ngModelCtrl)->
