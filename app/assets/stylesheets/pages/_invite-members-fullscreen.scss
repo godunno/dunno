@@ -16,7 +16,6 @@
 
   .description {
     font-size: 6vh;
-    font-weight: $font-weight-light;
 
     @media #{$small-only} {
       font-size: 6vw;
@@ -35,7 +34,6 @@
 
   .link-to-sign-in {
     font-size: 7vh;
-    font-weight: $font-weight-light;
     position: relative;
     top: 10vh;
 
