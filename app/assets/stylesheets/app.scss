@@ -4,14 +4,13 @@
 
 @import
   'settings', // foundation setup
-  'foundation-apps';
+  'foundation';
 
 @import
   'core/base/reset',
   'core/base/typography';
 
 @import
-  'vendors/action-sheet',
   'vendors/icons',
   'vendors/loading';
 

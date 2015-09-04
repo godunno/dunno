@@ -24,6 +24,8 @@ module Dunno
     config.autoload_paths += %W["#{config.root}/app/validators/"]
     config.autoload_paths << Rails.root.join('lib')
 
+    config.sass.load_paths << File.expand_path('../../vendor/assets/foundation-apps/scss/')
+
     config.assets.precompile += %w( modernizer.js mailers/base.css )
     config.time_zone = 'Brasilia'
     config.i18n.enforce_available_locales = true
