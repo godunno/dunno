@@ -1,23 +1,23 @@
-DunnoApp = angular.module('DunnoApp')
-
 CatalogPickerCtrl = ($scope, $rootScope, MediaSearcher)->
   MediaSearcher.inject($scope)
   $rootScope.$on('$locationChangeStart', -> $scope.$emit("modal.dismiss"))
 
 CatalogPickerCtrl.$inject = ['$scope', '$rootScope', 'MediaSearcher']
 
-DunnoApp.controller 'CatalogPickerCtrl', CatalogPickerCtrl
+link = (scope, element, attrs) ->
+  scope.select = (media)->
+    scope.$emit('catalog-picker.selected', media)
+    scope.$broadcast('modal.dismiss')
+
+  scope.$on 'catalog-picker.open', ->
+    scope.$broadcast('modal.show')
+    scope.fetch()
 
 catalogPicker = ->
-  controller: 'CatalogPickerCtrl'
-  templateUrl: '<%= asset_path('app/lesson-plan/new-topic/catalog-picker') %>'
-  link: (scope, element, attrs)->
-    scope.select = (media)->
-      scope.$emit('catalog-picker.selected', media)
-      scope.$broadcast('modal.dismiss')
+  controller: CatalogPickerCtrl
+  templateUrl: '<%= asset_path('app/lesson-plan/new-topic/catalog-picker.html') %>'
+  link: link
 
-    scope.$on 'catalog-picker.open', ->
-      scope.$broadcast('modal.show')
-      scope.fetch()
-
-DunnoApp.directive 'catalogPicker', catalogPicker
+angular
+  .module('app.lessonPlan')
+  .directive('catalogPicker', catalogPicker)

@@ -78,6 +78,7 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
   Media
 
 Media.$inject = ['RailsResource', '$upload', '$q', 'AWSCredentials', 'SessionManager']
+
 angular
-  .module('DunnoApp')
+  .module('app.core')
   .factory('Media', Media)

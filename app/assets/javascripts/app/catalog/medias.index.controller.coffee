@@ -35,5 +35,5 @@ MediasIndexCtrl = ($scope, searchResult, MediaSearcher, Utils) ->
 MediasIndexCtrl.$inject = ['$scope', 'searchResult', 'MediaSearcher', 'Utils']
 
 angular
-  .module('DunnoApp')
+  .module('app.catalog')
   .controller('MediasIndexCtrl', MediasIndexCtrl)

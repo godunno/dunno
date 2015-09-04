@@ -1,7 +1,16 @@
-DunnoApp = angular.module('DunnoApp')
-
 # TODO: Separar controller de show e edit
-CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, DateUtils, CourseResolver, course)->
+CourseCtrl =
+($scope,
+$location,
+$stateParams,
+$state,
+$modal,
+Course,
+Utils,
+DateUtils,
+CourseResolver,
+course) ->
+
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
 
@@ -20,7 +29,7 @@ CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, Da
     klass
 
   $scope.fetch = (month) ->
-    $scope.$emit('wholePageLoading', Course.get({ uuid: $stateParams.id }, { month: month || $stateParams.month }).then (course)->
+    $scope.$emit('wholePageLoading', Course.get({ uuid: $stateParams.id }, { month: month || $stateParams.month }).then (course) ->
       $scope.course = formatToView(course)
     )
 
@@ -91,7 +100,17 @@ CourseCtrl = ($scope, $location, $stateParams, $state, $modal, Course, Utils, Da
       windowClass: 'send__notification full'
 
 CourseCtrl.$inject = [
-  '$scope', '$location', '$stateParams', '$state', '$modal', 'Course', 'Utils', 'DateUtils', 'CourseResolver', 'course'
-]
-DunnoApp.controller 'CourseCtrl', CourseCtrl
+  '$scope',
+  '$location',
+  '$stateParams',
+  '$state',
+  '$modal',
+  'Course',
+  'Utils',
+  'DateUtils',
+  'CourseResolver',
+  'course']
 
+angular
+  .module('app.courses')
+  .controller('CourseCtrl', CourseCtrl)

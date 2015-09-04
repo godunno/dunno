@@ -43,6 +43,7 @@ Event = (RailsResource, $q, railsSerializer) ->
   Event
 
 Event.$inject = ['RailsResource', '$q', 'railsSerializer']
+
 angular
-  .module('DunnoApp')
+  .module('app.core')
   .factory('Event', Event)

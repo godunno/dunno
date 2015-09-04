@@ -8,7 +8,6 @@ ApplicationCtrl = (
 
   $rootScope.$on '$locationChangeStart', (event)->
     event.preventDefault() if NonLoggedRoutes.isNonLoggedRoute()
-    $(document).foundation()
 
   $scope.signOut = ->
     SessionManager.signOut().then ->
@@ -31,5 +30,5 @@ ApplicationCtrl.$inject = [
   'NavigationGuard']
 
 angular
-  .module('DunnoApp')
+  .module('app')
   .controller('ApplicationCtrl', ApplicationCtrl)

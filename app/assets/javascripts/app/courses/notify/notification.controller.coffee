@@ -1,13 +1,11 @@
-DunnoApp = angular.module('DunnoApp')
-
 NotificationCtrl = (
   $scope,
   $timeout,
   $analytics,
   $modalInstance,
   Notification,
-  ErrorParser
-)->
+  ErrorParser) ->
+
   $scope.limit = 140
 
   reset = ->
@@ -63,4 +61,7 @@ NotificationCtrl.$inject = [
   'Notification',
   'ErrorParser'
 ]
-DunnoApp.controller 'NotificationCtrl', NotificationCtrl
+
+angular
+  .module('app.courses')
+  .controller('NotificationCtrl', NotificationCtrl)

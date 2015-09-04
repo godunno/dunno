@@ -1,13 +1,11 @@
-DunnoApp = angular.module('DunnoApp')
-
 TransferWeeklyScheduleCtrl = (
   $scope,
   $state,
   $modalInstance,
   TimeGetterSetter,
   PageLoading,
-  weeklySchedule
-) ->
+  weeklySchedule) ->
+
   $scope.formButton = "Salvar"
   $scope.originalWeeklySchedule = weeklySchedule
   $scope.weeklySchedule = angular.copy(weeklySchedule)
@@ -33,7 +31,6 @@ TransferWeeklyScheduleCtrl = (
 
   success = (affected_events) ->
     $modalInstance.close()
-    #alert "Aulas afetadas: #{affected_events}"
     $state.go('.', null, reload: true)
 
   $scope.submit = (weeklySchedule) ->
@@ -49,4 +46,7 @@ TransferWeeklyScheduleCtrl.$inject = [
   'PageLoading',
   'weeklySchedule'
 ]
-DunnoApp.controller 'TransferWeeklyScheduleCtrl', TransferWeeklyScheduleCtrl
+
+angular
+  .module('app.courses')
+  .controller('TransferWeeklyScheduleCtrl', TransferWeeklyScheduleCtrl)

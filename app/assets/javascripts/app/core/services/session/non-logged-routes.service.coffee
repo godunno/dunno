@@ -1,6 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
-
-NonLoggedRoutes = ($window)->
+NonLoggedRoutes = ($window) ->
   ROUTES = [
     /^\/sign_in$/,
     /^\/sign_up$/,
@@ -16,4 +14,6 @@ NonLoggedRoutes = ($window)->
 
 NonLoggedRoutes.$inject = ['$window']
 
-DunnoApp.service 'NonLoggedRoutes', NonLoggedRoutes
+angular
+  .module('app.core')
+  .service('NonLoggedRoutes', NonLoggedRoutes)

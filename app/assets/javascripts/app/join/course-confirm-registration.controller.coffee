@@ -22,6 +22,6 @@ CourseConfirmRegistrationCtrl = ($scope, $state, PageLoading, course) ->
 CourseConfirmRegistrationCtrl.$inject = ['$scope', '$state', 'PageLoading', 'course']
 
 angular
-  .module('DunnoApp')
+  .module('app.join')
   .controller 'CourseConfirmRegistrationCtrl', CourseConfirmRegistrationCtrl
 

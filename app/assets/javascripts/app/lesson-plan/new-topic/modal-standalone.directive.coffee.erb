@@ -1,28 +1,32 @@
-DunnoApp = angular.module('DunnoApp')
+link = (scope, element, attrs) ->
+  background = $('<div class="modal-bg">')
+  $('body').append(background)
 
-DunnoApp.directive 'modalStandalone', ->
+  scope.closeButton = attrs.closeButton?
+
+  scope.dismiss = ->
+    element.find(".modal").fadeOut()
+    background.fadeOut()
+    true
+
+  scope.show = ->
+    element.find(".modal").fadeIn()
+    background.fadeIn()
+
+  scope.loading = (ev, promise)->
+    scope.loadingPromise = promise
+    ev.stopPropagation()
+
+  scope.$on "modal.show", scope.show
+  scope.$on "modal.dismiss", scope.dismiss
+  scope.$on "wholePageLoading", scope.loading
+
+modalStandalone = ->
   restrict: 'E'
   transclude: true
-  templateUrl: '<%= asset_path('app/components/modal') %>'
-  link: (scope, element, attrs)->
-    background = $('<div class="modal-bg">')
-    $('body').append(background)
+  templateUrl: '<%= asset_path('app/components/modal.html') %>'
+  link: link
 
-    scope.closeButton = attrs.closeButton?
-
-    scope.dismiss = ->
-      element.find(".modal").fadeOut()
-      background.fadeOut()
-      true
-
-    scope.show = ->
-      element.find(".modal").fadeIn()
-      background.fadeIn()
-
-    scope.loading = (ev, promise)->
-      scope.loadingPromise = promise
-      ev.stopPropagation()
-
-    scope.$on "modal.show", scope.show
-    scope.$on "modal.dismiss", scope.dismiss
-    scope.$on "wholePageLoading", scope.loading
+angular
+  .module('app.lessonPlan')
+  .directive('modalStandalone', modalStandalone)

@@ -1,14 +1,12 @@
-DunnoApp = angular.module('DunnoApp')
-
 ErrorParser = ->
-  @setErrors = (errors, form, scope)->
+  @setErrors = (errors, form, scope) ->
     for attribute, attributeErrors of errors
       # Due to Devise controller
-      attributeErrors = attributeErrors.map (error)-> error.error || error
+      attributeErrors = attributeErrors.map (error) -> error.error || error
       for error in attributeErrors
         form[attribute].$setValidity(error, false)
 
-      scope.$watch (->form[attribute].$viewValue), (oldValue, newValue)->
+      scope.$watch (-> form[attribute].$viewValue), (oldValue, newValue) ->
         if oldValue != newValue
           scope.hasError = false
           for error in attributeErrors
@@ -16,4 +14,6 @@ ErrorParser = ->
 
   @
 
-DunnoApp.service 'ErrorParser', ErrorParser
+angular
+  .module('app.core')
+  .service('ErrorParser', ErrorParser)

@@ -1,5 +1,6 @@
-DunnoApp = angular.module('DunnoApp')
-DunnoApp.factory 'Topic', ['RailsResource', (RailsResource)->
+core = angular.module('app.core')
+
+core.factory 'Topic', ['RailsResource', (RailsResource)->
   class Topic extends RailsResource
     @configure(
       url: '/api/v1/topics'

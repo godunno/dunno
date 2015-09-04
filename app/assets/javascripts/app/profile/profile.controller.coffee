@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 ProfileCtrl = ($scope, $http, SessionManager, ErrorParser)->
   $scope.user = SessionManager.currentUser()
 
@@ -20,4 +18,7 @@ ProfileCtrl = ($scope, $http, SessionManager, ErrorParser)->
     $http.patch("/api/v1/users/password", user: user).then(success, failure)
 
 ProfileCtrl.$inject = ['$scope', '$http', 'SessionManager', 'ErrorParser']
-DunnoApp.controller 'ProfileCtrl', ProfileCtrl
+
+angular
+  .module('app.profile')
+  .controller('ProfileCtrl', ProfileCtrl)

@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 DateUtils = ($filter)->
   @asDate = (value)->
     new Date(value)
@@ -24,4 +22,7 @@ DateUtils = ($filter)->
   @
 
 DateUtils.$inject = ['$filter']
-DunnoApp.service 'DateUtils', DateUtils
+
+angular
+  .module('app.core')
+  .service('DateUtils', DateUtils)

@@ -19,5 +19,5 @@ CourseSearchCtrl = ($scope, $state, Course, PageLoading) ->
 CourseSearchCtrl.$inject = ['$scope', '$state', 'Course', 'PageLoading']
 
 angular
-  .module('DunnoApp')
+  .module('app.join')
   .controller 'CourseSearchCtrl', CourseSearchCtrl

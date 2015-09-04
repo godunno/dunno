@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 SignInCtrl = ($scope, $window, SessionManager)->
   $scope.user = {}
 
@@ -11,5 +9,7 @@ SignInCtrl = ($scope, $window, SessionManager)->
     ).catch(-> $scope.authentication_failed = true)
 
 SignInCtrl.$inject = ['$scope', '$window', 'SessionManager']
-DunnoApp.controller 'SignInCtrl', SignInCtrl
 
+angular
+  .module('app.users')
+  .controller('SignInCtrl', SignInCtrl)

@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 CourseDatesCtrl = ($scope, $state, $modalInstance, course) ->
   $scope.course = course
   $scope.save = (course) ->
@@ -14,4 +12,7 @@ CourseDatesCtrl = ($scope, $state, $modalInstance, course) ->
     $scope.course.end_date = null
 
 CourseDatesCtrl.$inject = ['$scope', '$state', '$modalInstance', 'course']
-DunnoApp.controller 'CourseDatesCtrl', CourseDatesCtrl
+
+angular
+  .module('app.courses')
+  .controller('CourseDatesCtrl', CourseDatesCtrl)

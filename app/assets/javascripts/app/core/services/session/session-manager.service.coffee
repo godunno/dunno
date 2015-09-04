@@ -1,7 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
-
-SessionManager = ($http, $q, $analytics, LocalStorageWrapper)->
-
+SessionManager = ($http, $q, $analytics, LocalStorageWrapper) ->
   setCurrentUser = (user)->
     $analytics.setUsername(user.id)
     $analytics.setUserProperties
@@ -17,7 +14,7 @@ SessionManager = ($http, $q, $analytics, LocalStorageWrapper)->
   removeCurrentUser = -> LocalStorageWrapper.remove('currentUser')
   currentUser = -> LocalStorageWrapper.get('currentUser')
 
-  signIn = (user)->
+  signIn = (user) ->
     deferred = $q.defer()
     $http.post("/api/v1/users/sign_in.json", user: user).then((response)->
       setCurrentUser(response.data)
@@ -33,7 +30,7 @@ SessionManager = ($http, $q, $analytics, LocalStorageWrapper)->
     deferred.promise
 
   fetchUser = ->
-    $http.get('/api/v1/users/profile.json').then (response)->
+    $http.get('/api/v1/users/profile.json').then (response) ->
       setCurrentUser(response.data)
 
   {
@@ -45,4 +42,7 @@ SessionManager = ($http, $q, $analytics, LocalStorageWrapper)->
   }
 
 SessionManager.$inject = ['$http', '$q', '$analytics', 'LocalStorageWrapper']
-DunnoApp.factory "SessionManager", SessionManager
+
+angular
+  .module('app.core')
+  .factory('SessionManager', SessionManager)
