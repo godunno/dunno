@@ -3,15 +3,18 @@
     @extend %cards-container;
 
     @include breakpoint(small) {
-      @include block-grid(1);
+      // TODO: LOOK AT ME, LEO
+      // @include block-grid(1);
     }
 
     @include breakpoint(medium) {
-      @include block-grid(2);
+      // TODO: LOOK AT ME, LEO
+      // @include block-grid(2);
     }
 
     @include breakpoint(large) {
-      @include block-grid(3);
+      // TODO: LOOK AT ME, LEO
+      // @include block-grid(3);
     }
 
     .course__card:hover {
@@ -19,7 +22,8 @@
     }
 
     &__index {
-      @include grid-row();
+      // TODO: LOOK AT ME, LEO
+      // @include grid-row();
     }
 
     &__inactive {

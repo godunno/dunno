@@ -31,7 +31,8 @@
 }
 
 .previous__event {
-  @include side-radius(left, $global-radius);
+  // TODO: LOOK AT ME, LEO
+  // @include side-radius(left, $global-radius);
   padding-right: 1.5em;
 
   .icon {
@@ -40,7 +41,8 @@
 }
 
 .next__event {
-  @include side-radius(right, $global-radius);
+  // TODO: LOOK AT ME, LEO
+  // @include side-radius(right, $global-radius);
   padding-left: 1.5em;
 
   .icon {
@@ -188,7 +190,8 @@
     }
 
     &__header {
-      @include side-radius(top, $global-radius);
+      // TODO: LOOK AT ME, LEO
+      // @include side-radius(top, $global-radius);
       background: $white;
       border: $divider;
       border-bottom: 0;

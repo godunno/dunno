@@ -51,7 +51,8 @@
 .calendar__date {
   &:last-child {
     .calendar__date__link {
-      @include side-radius(bottom, $global-radius);
+      // TODO: LOOK AT ME, LEO
+      // @include side-radius(bottom, $global-radius);
       border-bottom: 0;
     }
   }
