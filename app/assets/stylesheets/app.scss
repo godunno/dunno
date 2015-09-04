@@ -31,7 +31,6 @@
   'components/prebootstrap-loading',
   'components/preview',
   'components/progress',
-  'components/status-icons',
   'components/summary-tasks',
   'components/tabs',
   'components/topic-form',
@@ -43,18 +42,18 @@
 
 // page specific styles
 @import
+  'pages/agenda',
   'pages/catalog',
   'pages/course-calendar',
-  'pages/course-calendar-schedule',
+  'pages/course-detail',
   'pages/course-events',
   'pages/course-members',
-  'pages/course-show',
+  'pages/course-schedule',
   'pages/courses',
-  'pages/diary',
-  'pages/events',
+  'pages/invite-fullscreen',
   'pages/invite-members',
-  'pages/invite-members-fullscreen',
-  'pages/send-notification',
+  'pages/lesson-plan',
+  'pages/notify-members',
   'pages/session';
 
 @import
