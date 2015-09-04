@@ -76,7 +76,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: bottom;
-    white-space: nowrap;
+    word-break: break-all;
   }
 
   &__status,
