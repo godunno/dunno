@@ -1,5 +1,5 @@
 .catalog__medias {
-  @include radius();
+  border-radius: $global-radius;
   background: $white;
   border: 1px solid $light-grey-color;
 }
@@ -33,7 +33,7 @@
   }
 
   .media__thumbnail {
-    @include radius();
+    border-radius: $global-radius;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

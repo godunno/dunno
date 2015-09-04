@@ -1,5 +1,5 @@
 .button {
-  @include radius();
+  border-radius: $global-radius;
 
   &:focus {
     opacity: .7;
@@ -43,7 +43,7 @@
   }
 
   &.rounded {
-    @include radius(50%);
+    border-radius: 50%;
     font-size: 1.75rem;
     height: 2rem;
     line-height: 1.75rem;

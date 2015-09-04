@@ -1,5 +1,5 @@
 .new__topic__form {
-  @include radius();
+  border-radius: $global-radius;
   background: $white;
   border: .0625rem solid $medium-grey-color;
   margin: 0 -.25rem;
@@ -34,7 +34,7 @@
     }
 
     .icon {
-      @include radius(3em);
+      border-radius: 3em;
       background-color: $dunno-green-color;
       color: $white;
       display: inline-block;
@@ -123,7 +123,7 @@
 
 .item__type {
   @extend %item-box;
-  @include radius();
+  border-radius: $global-radius;
   margin: 0 -.25rem -.0625rem;
 
   @include breakpoint(small only) {

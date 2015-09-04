@@ -1,13 +1,13 @@
 .event {
   @include box-shadow();
-  @include radius();
+  border-radius: $global-radius;
   background-color: $white;
   border: $divider;
   margin-bottom: 2rem;
   padding: 2rem;
 
   @include breakpoint(small only) {
-    @include radius(0);
+    border-radius: 0;
     border: 0;
     box-shadow: none;
     margin-bottom: 1rem;

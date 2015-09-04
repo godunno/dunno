@@ -3,7 +3,7 @@
 }
 
 @mixin thumbnail($size: 2.75rem) {
-  @include radius();
+  border-radius: $global-radius;
   background: no-repeat center center;
   background-size: cover;
   display: inline-block;

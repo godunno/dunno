@@ -1,12 +1,12 @@
 %content-box {
   @include box-shadow(0, .125rem, .0625rem, $light-grey-color);
-  @include radius();
+  border-radius: $global-radius;
   background-color: $white;
   border: $divider;
   margin-bottom: 2rem;
 
   @include breakpoint(small only) {
-    @include radius(0);
+    border-radius: 0;
     border: 0;
   }
 }

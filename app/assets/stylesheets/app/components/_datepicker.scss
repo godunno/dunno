@@ -5,7 +5,7 @@ li.ui-timepicker-selected,
 }
 
 .ui-timepicker-wrapper {
-  @include radius();
+  border-radius: $global-radius;
   border: .0625rem solid $light-grey-color;
   box-shadow: none;
   width: 100%;

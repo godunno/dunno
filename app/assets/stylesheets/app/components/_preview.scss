@@ -1,5 +1,5 @@
 .media__preview {
-  @include radius();
+  border-radius: $global-radius;
   background-color: $body-bg;
   border-bottom: $divider;
   padding: .75em;

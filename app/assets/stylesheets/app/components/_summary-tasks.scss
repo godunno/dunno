@@ -49,7 +49,7 @@
   }
 
   &__type {
-    @include radius(10rem);
+    border-radius: 10rem;
     background-color: $dark-grey-color;
     color: $white;
     display: inline-block;

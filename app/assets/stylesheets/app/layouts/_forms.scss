@@ -106,7 +106,7 @@ input[type=datetime],
 select,
 input[type=submit],
 textarea {
-  @include radius();
+  border-radius: $global-radius;
 }
 
 .icon__label {

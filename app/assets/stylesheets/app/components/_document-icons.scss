@@ -16,7 +16,7 @@
 
 .icon {
   &.icon-document {
-    @include radius();
+    border-radius: $global-radius;
     display: inline-block;
     font-size: 1.75rem;
     height: 2.75rem;
