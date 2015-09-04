@@ -1,5 +1,5 @@
 .reveal-modal {
-  @media #{$small-only} {
+  @include breakpoint(small) {
     padding: 0;
   }
 
@@ -51,7 +51,7 @@
       margin: 0 auto;
       width: 70%;
 
-      @media #{$small-only} {
+      @include breakpoint(small) {
         font-size: .875rem;
         width: 100%;
       }

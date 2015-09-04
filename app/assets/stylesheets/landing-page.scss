@@ -1,0 +1,32 @@
+@import
+  'core/utils/variables',
+  'core/utils/mixins';
+
+@import
+  'settings', // foundation setup
+  'foundation';
+
+@import
+  'core/base/reset',
+  'core/base/typography';
+
+@import
+  'vendors/icons';
+
+@import
+  'landing-page/layouts/home',
+  'landing-page/layouts/footer';
+
+@import
+  'core/components/buttons',
+  'landing-page/components/slides',
+  'landing-page/components/slideshow',
+  'landing-page/components/sticky',
+  'landing-page/components/top-bar';
+
+@import
+  'landing-page/pages/home',
+  'landing-page/pages/legal';
+
+@import
+  'core/themes/theme';

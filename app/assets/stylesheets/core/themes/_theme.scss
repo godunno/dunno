@@ -63,9 +63,11 @@ body {
   .cg-busy-backdrop {
     background-color: $body-bg;
 
-    @media #{$small-only} {
-      background-color: $white;
-    }
+    // TODO: This is using the Foundation way, we need to 
+    // fix the conflict with the Foundation Apps way.
+    // @media #{$small-only} {
+    //   background-color: $white;
+    // }
   }
 }
 

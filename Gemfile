@@ -62,6 +62,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-elastic-input', '2.0.2'
   gem 'rails-assets-angular-validation-match', '1.3.0'
   gem 'rails-assets-angular-foundation', '0.5.1'
+  gem 'rails-assets-foundation-apps', '1.1.0'
   gem 'rails-assets-angular-busy', '4.1.2'
   gem 'rails-assets-lunks--angulartics', '0.18.0'
   gem 'rails-assets-scrollmagic', '2.0.5'

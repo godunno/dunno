@@ -17,7 +17,7 @@
   // style defined inside components/_content-box.scss
   padding: 2rem 1.75rem;
 
-  @media #{$small-only} {
+  @include breakpoint(small) {
     padding: 1rem;
   }
 
