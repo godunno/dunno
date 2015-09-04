@@ -3,7 +3,7 @@
   border-top: $divider;
   display: none;
 
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     display: flex;
 
     .mobile__day__navigation {
@@ -51,7 +51,7 @@
 .event__status {
   margin-bottom: 1rem;
 
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     margin: 1rem 0;
   }
 
@@ -105,12 +105,12 @@
       padding: 0 0 1rem;
       position: relative;
 
-      @media #{$small-only} {
+      @include breakpoint(small only) {
         flex-wrap: wrap;
       }
 
       .page__header__title {
-        @media #{$small-only} {
+        @include breakpoint(small only) {
           flex-basis: 100%;
           height: auto;
           margin: 0 0 1rem;
@@ -125,7 +125,7 @@
     right: 1rem;
     top: .15rem;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       position: static;
     }
   }
@@ -197,7 +197,7 @@
       position: relative;
       z-index: 1;
 
-      @media #{$small-only} {
+      @include breakpoint(small only) {
         @include radius(0);
       }
 
@@ -252,7 +252,7 @@
           margin: .5rem 0 0;
         }
 
-        @media #{$small-only} {
+        @include breakpoint(small only) {
           p {
             span {
               display: block;

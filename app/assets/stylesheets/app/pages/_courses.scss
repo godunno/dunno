@@ -2,15 +2,15 @@
   &s {
     @extend %cards-container;
 
-    @media #{$small-up} {
+    @include breakpoint(small) {
       @include block-grid(1);
     }
 
-    @media #{$medium-up} {
+    @include breakpoint(medium) {
       @include block-grid(2);
     }
 
-    @media #{$large-up} {
+    @include breakpoint(large) {
       @include block-grid(3);
     }
 
@@ -52,7 +52,7 @@
     margin-bottom: 1rem;
     padding: 1rem 0;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       flex-wrap: wrap;
     }
 
@@ -68,7 +68,7 @@
     &__info {
       flex-basis: 100%;
 
-      @media #{$small-only} {
+      @include breakpoint(small only) {
         margin-bottom: 1rem;
       }
     }
@@ -89,7 +89,7 @@
     flex-basis: 47%;
     position: relative;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       flex-basis: 100%;
     }
   }

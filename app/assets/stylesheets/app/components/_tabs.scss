@@ -9,7 +9,7 @@
       a {
         background-color: $body-bg;
 
-        @media #{$small-only} {
+        @include breakpoint(small only) {
           background-color: $white;
         }
       }
@@ -22,16 +22,16 @@
       line-height: 1.5rem;
       text-transform: uppercase;
 
-      @media #{$small-only} {
+      @include breakpoint(small only) {
         line-height: 1.75rem;
       }
 
-      @media #{$small-up} {
+      @include breakpoint(small) {
         font-size: .65rem;
         padding: .5rem 0;
       }
 
-      @media #{$medium-up} {
+      @include breakpoint(medium) {
         font-size: .875rem;
         padding: 1rem 0;
       }

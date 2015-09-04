@@ -126,7 +126,7 @@
   @include radius();
   margin: 0 -.25rem -.0625rem;
 
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     margin: 0 -1rem;
   }
 }

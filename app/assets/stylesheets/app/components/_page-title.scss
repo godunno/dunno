@@ -4,7 +4,7 @@
   margin-bottom: 2rem;
   padding: 1rem 0;
 
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     padding: 0;
   }
 
@@ -16,7 +16,7 @@
     font-weight: $font-weight-normal;
     text-transform: uppercase;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       color: $white;
       font-size: .875rem;
       height: 0;
@@ -26,11 +26,11 @@
       top: -2.25rem;
     }
 
-    @media #{$small-up} {
+    @include breakpoint(small) {
       @include grid-column(12);
     }
 
-    @media #{$medium-up} {
+    @include breakpoint(medium) {
       @include grid-column(4);
     }
   }
@@ -40,7 +40,7 @@
     text-align: right;
     white-space: nowrap;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       padding: 1rem;
       text-align: center;
 
@@ -55,11 +55,11 @@
       }
     }
 
-    @media #{$small-up} {
+    @include breakpoint(small) {
       @include grid-column(12);
     }
 
-    @media #{$medium-up} {
+    @include breakpoint(medium) {
       @include grid-column(8);
     }
 

@@ -1,7 +1,7 @@
 .dates__programme {
   text-align: center;
 
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     background: $white;
     border-bottom: $divider;
     padding: 2rem 0 0;
@@ -65,7 +65,7 @@
   padding: 1rem;
   white-space: nowrap;
 
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     line-height: 1.5rem;
   }
 
@@ -104,14 +104,14 @@
     padding-left: .5rem;
     padding-right: .5rem;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       padding-left: .25rem;
       padding-right: .25rem;
     }
   }
 
   .date__status {
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       margin-left: auto;
     }
   }
@@ -125,7 +125,7 @@
   text-align: center;
   text-transform: uppercase;
 
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     margin-left: 0;
     text-align: right;
   }

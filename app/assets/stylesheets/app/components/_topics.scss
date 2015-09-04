@@ -98,7 +98,7 @@
     @extend %item-box;
     margin: -.5rem -.1875em;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       margin: -.5rem -.0625rem;
     }
   }

@@ -1,5 +1,5 @@
 .schedule {
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     background: $white;
 
     .schedule__close {
@@ -25,7 +25,7 @@
   &__header {
     padding: 2rem 0 0;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       padding: 1rem 0 0;
     }
 

@@ -3,7 +3,7 @@
   min-height: 100%;
   padding-bottom: 2em;
 
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     min-height: 100vh;
     padding-bottom: 2em;
   }
@@ -17,7 +17,7 @@
       display: inline-block;
     }
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       padding: 1rem 0;
     }
   }
@@ -25,7 +25,7 @@
   .logo {
     width: 10rem;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       width: 7rem;
     }
   }
@@ -35,7 +35,7 @@
     text-align: center;
     text-transform: uppercase;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       padding: 1rem 0;
     }
   }

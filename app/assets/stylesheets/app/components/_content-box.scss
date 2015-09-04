@@ -5,7 +5,7 @@
   border: $divider;
   margin-bottom: 2rem;
 
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     @include radius(0);
     border: 0;
   }

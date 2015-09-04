@@ -5,7 +5,7 @@
   text-align: center;
   top: 0 !important; //scss-lint:disable ImportantRule
 
-  @media #{$small-only}{
+  @include breakpoint(small only){
     padding-top: 25vw;
   }
 
@@ -17,7 +17,7 @@
   .description {
     font-size: 6vh;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       font-size: 6vw;
     }
   }
@@ -26,7 +26,7 @@
     font-size: 30vh;
     line-height: 30vh;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       font-size: 35vw;
       line-height: 35vw;
     }
@@ -37,7 +37,7 @@
     position: relative;
     top: 10vh;
 
-    @media #{$small-only} {
+    @include breakpoint(small only) {
       font-size: 7vw;
     }
   }
