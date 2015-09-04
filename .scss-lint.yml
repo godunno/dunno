@@ -5,6 +5,7 @@ exclude:
   - 'app/assets/stylesheets/site.scss'
   - 'app/assets/stylesheets/_settings.scss'
   - 'app/assets/stylesheets/vendors/*'
+  - 'vendors/*'
 
 linters:
   SingleLinePerSelector:
