@@ -1,6 +1,6 @@
 .media__preview {
   @include radius();
-  background-color: $background-light-grey-color;
+  background-color: $body-bg;
   border-bottom: $divider;
   padding: .75em;
   position: relative;
