@@ -1,12 +1,16 @@
-app.lessonPlan = angular.module('app.lessonPlan')
+link = (scope, element, attrs, ngModelCtrl) ->
+  element.bind 'change', ->
+    scope.$apply ->
+      ngModelCtrl.$setViewValue(element.val())
+      ngModelCtrl.$render()
 
-app.lessonPlan.directive 'ngFileModel', ->
+  scope.$on 'file.clean', -> element.val(null)
+
+ngFileModel = ->
   restrict: 'A'
-  require:'ngModel'
-  link: (scope, element, attrs, ngModelCtrl)->
-    element.bind 'change', ->
-      scope.$apply ->
-        ngModelCtrl.$setViewValue(element.val())
-        ngModelCtrl.$render()
+  require: 'ngModel'
+  link: link
 
-    scope.$on 'file.clean', -> element.val(null)
+angular
+  .module('app.lessonPlan')
+  .directive('ngFileModel', ngFileModel)

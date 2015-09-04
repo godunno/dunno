@@ -6,9 +6,12 @@ AuthInjector = ($window, $q, NonLoggedRoutes) ->
 
 AuthInjector.$inject = ['$window', '$q', 'NonLoggedRoutes']
 
+config = ($httpProvider) ->
+  $httpProvider.interceptors.push('AuthInjector')
+
+config.$inject = ['$httpProvider']
+
 angular
   .module('app.core')
   .factory('AuthInjector', AuthInjector)
-  .config ['$httpProvider', ($httpProvider) ->
-  $httpProvider.interceptors.push('AuthInjector')
-]
+  .config(config)

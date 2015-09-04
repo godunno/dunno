@@ -1,6 +1,4 @@
-app.lessonPlan = angular.module('app.lessonPlan')
-
-app.lessonPlan.controller 'progressBarCtrl', ['$scope', ($scope)->
+progressBarCtrl = ($scope) ->
   TRANSITION_END_EVENTS = "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd"
 
   $scope.start = ->
@@ -13,7 +11,7 @@ app.lessonPlan.controller 'progressBarCtrl', ['$scope', ($scope)->
       $scope.progress.hide()
       $scope.meter.width("0%")
 
-  $scope.setValue = ($event, value)->
+  $scope.setValue = ($event, value) ->
     $scope.meter.width(value)
     $scope.isAnimating = true
     $scope.meter.on TRANSITION_END_EVENTS, -> $scope.isAnimating = false
@@ -21,17 +19,20 @@ app.lessonPlan.controller 'progressBarCtrl', ['$scope', ($scope)->
   $scope.$on "progress.start", $scope.start
   $scope.$on "progress.setValue", $scope.setValue
   $scope.$on "progress.stop", $scope.stop
-]
 
-app.lessonPlan.directive 'progressBar', ->
+progressBarCtrl.$inject = ['$scope']
+
+link = (scope, element, attrs) ->
+  scope.progress = element
+  scope.meter = element.find(".progress__meter")
+  scope.stop()
+
+progressBar = ->
+  link: link
   restrict: 'E'
   replace: true
-  controller: 'progressBarCtrl'
+  controller: progressBarCtrl
   scope: true
-  link: (scope, element, attrs)->
-    scope.progress = element
-    scope.meter = element.find(".progress__meter")
-    scope.stop()
   template: '
     <div class="progress success round">
       <span class="progress__meter meter"></span>

@@ -1,5 +1,3 @@
-app.lessonPlan = angular.module('app.lessonPlan')
-
 TopicAttributesCtrl = ($scope, Topic) ->
   initialize = ->
     $scope.topic = {}
@@ -48,4 +46,7 @@ TopicAttributesCtrl = ($scope, Topic) ->
     startWatcher = setNewStartWatcher()
 
 TopicAttributesCtrl.$inject = ['$scope', 'Topic']
-app.lessonPlan.controller 'TopicAttributesCtrl', TopicAttributesCtrl
+
+angular
+  .module('app.lessonPlan')
+  .controller('TopicAttributesCtrl', TopicAttributesCtrl)

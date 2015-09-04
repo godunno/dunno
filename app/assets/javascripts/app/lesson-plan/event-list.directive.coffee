@@ -1,9 +1,7 @@
-app.lessonPlan = angular.module('app.lessonPlan')
-
-listCtrl = ($scope, $analytics, $rootScope, Media, Utils)->
+EventListCtrl = ($scope, $analytics, $rootScope, Media, Utils) ->
   list = -> $scope.event[$scope.collection]
 
-  $scope.sortableOptions = (collection)->
+  $scope.sortableOptions = (collection) ->
     handle: '.handle'
     containment: 'parent'
     stop: ->
@@ -22,14 +20,17 @@ listCtrl = ($scope, $analytics, $rootScope, Media, Utils)->
   $scope.$on 'removeTopic', removeTopic
   $scope.$on 'createdTopic', addToList
 
-listCtrl.$inject = ['$scope', '$analytics', '$rootScope', 'Media', 'Utils']
-app.lessonPlan.controller 'listCtrl', listCtrl
+EventListCtrl.$inject = ['$scope', '$analytics', '$rootScope', 'Media', 'Utils']
 
-# TODO: Use as controller directly
-app.lessonPlan.directive 'eventList', ->
+link = (scope, element, attrs) ->
+  scope.collection = attrs.eventList
+
+eventList = ->
   restrict: 'A'
   scope: true
-  controller: 'listCtrl'
-  link: (scope, element, attrs)->
-    scope.collection = attrs.eventList
+  controller: EventListCtrl
+  link: link
 
+angular
+  .module('app.lessonPlan')
+  .directive('eventList', eventList)

@@ -1,6 +1,4 @@
-app.lessonPlan = angular.module('app.lessonPlan')
-
-AddFromMediaCtrl = ($scope, MediaSearcher)->
+AddFromMediaCtrl = ($scope, MediaSearcher) ->
   MediaSearcher.extend($scope)
 
   $scope.$on 'newTopic', ($event, topicType) ->
@@ -16,4 +14,7 @@ AddFromMediaCtrl = ($scope, MediaSearcher)->
     $scope.$broadcast 'newMedia', $scope.result.media
 
 AddFromMediaCtrl.$inject = ['$scope', 'MediaSearcher']
-app.lessonPlan.controller 'AddFromMediaCtrl', AddFromMediaCtrl
+
+angular
+  .module('app.lessonPlan')
+  .controller('AddFromMediaCtrl', AddFromMediaCtrl)

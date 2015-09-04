@@ -1,5 +1,3 @@
-app.lessonPlan = angular.module('app.lessonPlan')
-
 NewTopicCtrl = ($scope, Topic, $analytics) ->
   $scope.defaultTopicProperties ?= { personal: false }
 
@@ -40,4 +38,7 @@ NewTopicCtrl = ($scope, Topic, $analytics) ->
     reset()
 
 NewTopicCtrl.$inject = ['$scope', 'Topic', '$analytics']
-app.lessonPlan.controller 'NewTopicCtrl', NewTopicCtrl
+
+angular
+  .module('app.lessonPlan')
+  .controller('NewTopicCtrl', NewTopicCtrl)

@@ -63,5 +63,5 @@ NotificationCtrl.$inject = [
 ]
 
 angular
-  .module('NotificationCtrl')
+  .module('app.courses')
   .controller('NotificationCtrl', NotificationCtrl)

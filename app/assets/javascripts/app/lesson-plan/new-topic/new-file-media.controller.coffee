@@ -1,5 +1,3 @@
-app.lessonPlan = angular.module('app.lessonPlan')
-
 NewFileMediaCtrl = ($scope, Media) ->
   $scope.$on 'newTopic', ($event, topicType) ->
     $scope.$broadcast 'saveTopic' if topicType == 'file'
@@ -28,7 +26,7 @@ NewFileMediaCtrl = ($scope, Media) ->
     percentage = parseInt(100.0 * event.loaded / event.total)
     $scope.$broadcast("progress.setValue", "#{percentage}%")
 
-  $scope.submitFileMedia = ($files)->
+  $scope.submitFileMedia = ($files) ->
     $scope.$broadcast("progress.start")
     $scope.status = 'submittingMedia'
     # TODO: Find out why the line bellow doesn't work
@@ -44,7 +42,8 @@ NewFileMediaCtrl = ($scope, Media) ->
         $scope.$broadcast("progress.stop")
       )
 
-  #    #$analytics.eventTrack('Media Created', type: media.type, title: media.title, eventUuid: $scope.event.uuid)
-
 NewFileMediaCtrl.$inject = ['$scope', 'Media']
-app.lessonPlan.controller 'NewFileMediaCtrl', NewFileMediaCtrl
+
+angular
+  .module('app.lessonPlan')
+  .controller('NewFileMediaCtrl', NewFileMediaCtrl)

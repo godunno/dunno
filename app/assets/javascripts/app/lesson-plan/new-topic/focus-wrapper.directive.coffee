@@ -1,11 +1,14 @@
-app.lessonPlan = angular.module('app.lessonPlan')
+link = (scope, element, attrs) ->
+  element.on 'focus', ->
+    element.parent().addClass('focus-wrapper')
 
-app.lessonPlan.directive 'focusWrapper', ->
+  element.on 'blur', ->
+    element.parent().removeClass('focus-wrapper')
+
+focusWrapper = ->
   restricted: 'A'
-  link: (scope, element, attrs)->
-    element.on 'focus', ->
-      element.parent().addClass('focus-wrapper')
+  link: link
 
-    element.on 'blur', ->
-      element.parent().removeClass('focus-wrapper')
-
+angular
+  .module('app.lessonPlan')
+  .directive('focusWrapper', focusWrapper)
