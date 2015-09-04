@@ -39,3 +39,6 @@ progressBar = ->
     </div>
   '
 
+angular
+  .module('app.lessonPlan')
+  .directive('progressBar', progressBar)
