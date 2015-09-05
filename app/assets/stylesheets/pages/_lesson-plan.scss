@@ -1,45 +1,3 @@
-.hide__personal__topics,
-.show__personal__topics {
-  .icon {
-    vertical-align: middle;
-  }
-}
-
-.previous__event,
-.next__event {
-  align-items: center;
-  background: $white;
-  border: $divider;
-  cursor: pointer;
-  display: flex;
-  font-size: .875rem;
-  line-height: 1rem;
-  margin-top: .25rem;
-  padding: .75rem;
-  text-align: center;
-  text-transform: uppercase;
-
-  &:hover {
-    opacity: .66;
-  }
-
-  span {
-    flex-grow: 1;
-  }
-
-  small {
-    color: $dark-grey-color;
-    display: block;
-    font-size: rem-calc(12);
-  }
-
-  .icon {
-    color: $dunno-green-color;
-    flex-basis: 1.5rem;
-    vertical-align: middle;
-  }
-}
-
 .lesson__mobile__navigation {
   background-color: $white;
   border-top: $divider;
@@ -80,12 +38,6 @@
   }
 }
 
-.select__event__status {
-  span {
-    white-space: nowrap;
-  }
-}
-
 .event__status {
   margin-bottom: 1rem;
 
@@ -96,39 +48,6 @@
   .button {
     margin-bottom: 0;
     white-space: nowrap;
-  }
-}
-
-.form__event__status__save {
-  text-align: right;
-}
-
-.save__and__exit {
-  margin: 0 1em;
-}
-
-.event__status__group {
-  text-align: right;
-
-  i.icon {
-    color: $light-grey-color;
-    vertical-align: middle;
-  }
-}
-
-.event__uncancel {
-  line-height: 1;
-
-  .event__cancelled {
-    color: $red-color;
-  }
-
-  small {
-    color: $light-grey-color;
-  }
-
-  a {
-    text-decoration: underline;
   }
 }
 
@@ -201,32 +120,50 @@
     }
   }
 
-  .topics__visibility {
-    background: $white;
-    border-bottom: $divider;
-    font-size: .875rem;
-    padding: .5rem 0;
-    text-align: center;
-
-    a {
-      display: block;
-    }
-  }
-
-  .hide__personal__topics,
-  .topic__personal {
-    color: $red-color;
-  }
-
-  .show__personal__topics {
-    color: $dark-grey-color;
-  }
-
-  .topic__personal {
-    font-size: 1.5rem;
-  }
-
   .lesson {
+    &__previous,
+    &__next {
+      align-items: center;
+      background: $white;
+      border: $divider;
+      cursor: pointer;
+      display: flex;
+      font-size: .875rem;
+      line-height: 1rem;
+      margin-top: .25rem;
+      padding: .75rem;
+      text-align: center;
+      text-transform: uppercase;
+
+      &:hover {
+        opacity: .66;
+      }
+
+      span {
+        flex-grow: 1;
+      }
+
+      small {
+        color: $dark-grey-color;
+        display: block;
+        font-size: rem-calc(12);
+      }
+
+      .icon {
+        color: $dunno-green-color;
+        flex-basis: 1.5rem;
+        vertical-align: middle;
+      }
+    }
+
+    &__previous {
+      border-right: 0;
+    }
+
+    &__next {
+      border-left: 0;
+    }
+
     &__date__weekday {
       display: block;
       text-transform: uppercase;
@@ -267,12 +204,6 @@
       }
     }
 
-    &__status {
-      align-self: center;
-      margin-left: auto;
-      text-transform: uppercase;
-    }
-
     &__canceled {
       color: $red-color;
     }
@@ -280,35 +211,75 @@
     &__published {
       color: $dunno-green-color;
     }
-  }
-}
 
-small {
-  .icon {
-    vertical-align: middle;
-  }
-}
+    &__status {
+      align-self: center;
+      margin-left: auto;
+      text-transform: uppercase;
 
-.lesson__status__canceled__info {
-  strong {
-    color: $red-color;
-  }
-}
+      &__info {
+        background-color: $white;
+        border: $divider;
+        border-bottom: 0;
+        border-top: 0;
 
-.lesson__status__published__info {
-  strong {
-    color: $dunno-green-color;
-  }
+        strong {
+          color: $white;
+        }
 
-  @media #{$small-only} {
-    p {
-      .button {
-        margin: 1rem 0 0;
+        p {
+          margin-bottom: 0;
+        }
+
+        strong,
+        p {
+          display: block;
+          padding: .75rem;
+          text-align: center;
+        }
+
+        .button {
+          margin: .5rem 0 0;
+        }
+
+        @media #{$small-only} {
+          p {
+            span {
+              display: block;
+              padding: 1rem 0 0;
+            }
+          }
+        }
+
+        &__draft {
+          strong {
+            background-color: $dunno-dark-color;
+          }
+        }
+
+        &__canceled {
+          strong {
+            background-color: $red-color;
+          }
+        }
+
+        &__published {
+          strong {
+            background-color: $dunno-green-color;
+          }
+        }
       }
 
-      span {
-        display: block;
-        padding: 1rem 0 0;
+      &__actions {
+        background: $white;
+        border: $divider;
+        border-bottom: 0;
+        border-top: 0;
+        padding: 0 .75rem 1rem;
+
+        .button {
+          margin-bottom: 0;
+        }
       }
     }
   }
