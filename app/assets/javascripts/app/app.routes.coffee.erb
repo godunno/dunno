@@ -3,7 +3,6 @@ Router = ($stateProvider,
           CoursesResolver,
           CourseResolver,
           CourseRegistrationResolver,
-          EventsResolver,
           EventsPaginationResolver,
           EventResolver,
           MediasResolver) ->
@@ -69,12 +68,6 @@ Router = ($stateProvider,
             controller: 'EventCtrl'
       resolve: { event: EventResolver }
     )
-    .state('events',
-      url: '/events'
-      controller: 'EventsIndexCtrl'
-      templateUrl: '<%= asset_path('app/agenda/agenda') %>'
-      resolve: { events: EventsResolver }
-    )
     .state('events.show',
       url: '/:startAt?courseId'
       controller: 'EventCtrl'
@@ -104,7 +97,6 @@ Router.$inject = [
   'CoursesResolver',
   'CourseResolver',
   'CourseRegistrationResolver',
-  'EventsResolver',
   'EventsPaginationResolver',
   'EventResolver',
   'MediasResolver']
