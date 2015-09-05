@@ -1,0 +1,3 @@
+[submodule "vendor/javascripts/foundation-apps"]
+	path = vendor/javascripts/foundation-apps
+	url = git@github.com:zurb/foundation-apps.git
