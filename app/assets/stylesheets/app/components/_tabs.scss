@@ -7,7 +7,7 @@
 
     &.active {
       a {
-        background-color: $body-bg;
+        background-color: $body-background;
 
         @include breakpoint(small only) {
           background-color: $white;
@@ -41,5 +41,5 @@
 }
 
 .page__header__tabs {
-  @extend %tabs;
+//  @extend %tabs;
 }

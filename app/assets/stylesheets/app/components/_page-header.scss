@@ -9,7 +9,33 @@
     margin-bottom: 0;
   }
 
+  &__wrapper {
+    // @include grid-container();
+    // @include grid-block();
+  }
+
+  &__header {
+    @include breakpoint(small only) {
+      // @include grid-block(12);
+    }
+
+    @include breakpoint(medium up) {
+      // @include grid-block(8);
+    }
+  }
+
+  &__info {
+    @include breakpoint(small only) {
+      // @include grid-block(12);
+    }
+
+    @include breakpoint(medium up) {
+      // @include grid-block(4);
+    }
+  }
+
   &__title {
+    display: block;
     font-size: 1.25rem;
     font-weight: $font-weight-normal;
     margin: 0 0 .5rem;
@@ -36,45 +62,13 @@
     }
   }
 
-  &__subtitle {
-    list-style: none;
-    margin: 0;
-    padding: 0 0 1rem;
-
-    li {
-      color: transparentize($dunno-dark-color, .25);
-      display: inline;
-      font-size: .875rem;
-      vertical-align: middle;
-
-      &:after {
-        content: '·';
-        margin: 0 .25rem;
-      }
-
-      &:last-child {
-        &:after {
-          display: none;
-        }
-      }
-    }
-
-    .course__teacher {
-      margin-right: .5rem;
-
-      &:after {
-        content: ' ';
-      }
-    }
+  .course__teacher {
+    margin-right: .5rem;
   }
 
   .button {
     margin: 0;
     white-space: nowrap;
-  }
-
-  footer {
-    padding-top: 1rem;
   }
 
   .page__header__info {

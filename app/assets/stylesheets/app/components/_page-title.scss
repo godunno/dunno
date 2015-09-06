@@ -9,8 +9,8 @@
   }
 
   &__wrapper {
-    // TODO: LOOK AT ME, LEO
-    // @include grid-row();
+    @include grid-container();
+    @include grid-block();
   }
 
   &__title {
@@ -28,13 +28,11 @@
     }
 
     @include breakpoint(small) {
-      // TODO: LOOK AT ME, LEO
-      // @include grid-column(12);
+      @include grid-content(12);
     }
 
     @include breakpoint(medium) {
-      // TODO: LOOK AT ME, LEO
-      // @include grid-column(4);
+      @include grid-content(4);
     }
   }
 
@@ -59,13 +57,11 @@
     }
 
     @include breakpoint(small) {
-      // TODO: LOOK AT ME, LEO
-      // @include grid-column(12);
+      @include grid-content(12);
     }
 
     @include breakpoint(medium) {
-      // TODO: LOOK AT ME, LEO
-      // @include grid-column(8);
+      @include grid-content(8);
     }
 
     .button {

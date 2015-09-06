@@ -1,12 +1,6 @@
-.tab-bar.show-for-small {
-  .icons.icon-dunno-logo {
-    color: $white;
-    font-size: 1.5em;
-    margin-left: .5em;
-    vertical-align: -4px;
-  }
+.dunno__footer {
+  @include grid-container();
 }
-
 
 .smile:after {
   content: '=)';
@@ -24,44 +18,9 @@
   transform: rotate(100deg);
 }
 
-.label.secondary {
-  background-color: $light-grey-color;
-  color: $dunno-dark-color;
-}
-
-.translucent {
-  opacity: .5;
-}
-
-.off-canvas-wrap {
-  min-height: 100%;
-}
-
-.inner-wrap,
-.content {
-  min-height: 100%;
-  min-width: 100%;
-}
-
-.right-off-canvas-menu {
-  color: $white;
-  min-height: 100vh;
-
-  .legal {
-    opacity: .75;
-    padding-top: 1rem;
-  }
-
-  .logo {
-    display: block;
-    height: 4.125rem;
-    margin: 3rem auto;
-  }
-}
-
 body {
   .cg-busy-backdrop {
-    background-color: $body-bg;
+    background-color: $body-background;
 
     // TODO: This is using the Foundation way, we need to 
     // fix the conflict with the Foundation Apps way.
@@ -69,26 +28,6 @@ body {
     //   background-color: $white;
     // }
   }
-}
-
-.application__footer {
-  margin-top: 2rem;
-  padding-top: 2rem;
-
-  .logo {
-    height: 1.25rem;
-  }
-
-  .inline-list {
-    > :first-child {
-      margin-left: 0;
-    }
-  }
-}
-
-.alert-box,
-.panel {
-  border-radius: $global-radius;
 }
 
 .type__url {

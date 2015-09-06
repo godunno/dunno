@@ -3,53 +3,46 @@ html lang="pt" ng-app="app"
   head
     meta charset="utf-8"
     meta content="width=device-width, initial-scale=1.0" name="viewport"
-
     title
       | Dunno
-
     link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'
-
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "modernizer"
     = csrf_meta_tags
-
   body ng-controller="ApplicationCtrl"
+    .root.grid-frame.vertical
+      header.title-bar.dark.shrink.show-for-small-only
+        .center
+          | Título
+        span.left
+          a
+            | Menu
+      header.shrink.show-for-medium style="background: #2b3738"
+        .menu-group.grid-container
+          .menu-group-left
+            ul.menu-bar.dark.condense
+              li ui-sref-active="is-active"
+                a ui-sref="courses"
+                  | Disciplinas
+              li ui-sref-active="is-active" ng-if="currentUser().profile == 'teacher'"
+                a ui-sref="medias"
+                  | Catálogo
+          .menu-group-right
+            ul.menu-bar.dark.condense.icon-left
+              li ui-sref-active="is-active"
+                a ui-sref="profile"
+                  img.user__avatar>[user-avatar="{{currentUser().name}}"]
+                  | {{currentUser().name}}
+              li
+                a ng-click="signOut()"
+                  | Sair
+      .content.grid-block.scroll-section[
+        ui-view=true
+        cg-busy="wholePageLoading"]
+      footer.grid-content.collapse.shrink.grid-container
+        p
+          | #{image_tag 'dunno-logo-horizontal.png', class: 'logo'} Copyright © #{Time.zone.now.year} #{link_to 'Termos de Uso', terms_path} #{link_to 'Política de Privacidade', policy_path}
     = render 'application/prebootstrap_loading'
-    .off-canvas-wrap data-offcanvas=''
-      .inner-wrap
-        = render layout: 'application/menu' do
-          / TODO: keep active class to <LI>s inside the scopes
-          li ui-sref-active="active"
-            a ui-sref="courses"
-              | Disciplinas
-          /
-            li ng-class="{active: controller == 'events-index-page'}" ng-if="currentUser().profile == 'teacher'"
-              a ui-sref="events"
-                | Agenda
-          li ui-sref-active="active" ng-if="currentUser().profile == 'teacher'"
-            a ui-sref="medias"
-              | Catálogo
-
-        .content ui-view=true cg-busy="wholePageLoading"
-
-        .row
-          .small-12.columns
-            footer.application__footer.hide-for-small
-              ul.inline-list
-                li
-                  = image_tag 'dunno-logo-horizontal.png', class: 'logo'
-                li
-                  small.legal
-                    | Copyright © #{Time.zone.now.year}
-                li
-                  small
-                    = link_to 'Termos de Uso', terms_path
-                li
-                  small
-                    = link_to 'Política de Privacidade', policy_path
-
     = javascript_include_tag "application"
-
-    / TODO: load only in production
     = render 'application/google_analytics'
     = render 'application/mixpanel'

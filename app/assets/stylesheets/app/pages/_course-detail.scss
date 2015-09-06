@@ -12,7 +12,7 @@
 
   .button {
     position: relative;
-    top: 4.25rem;
+    ///top: 4.25rem;
     z-index: 4;
 
     @include breakpoint(small only) {
@@ -39,10 +39,4 @@
   display: inline-block;
   margin-right: .25rem;
   vertical-align: top;
-}
-
-.members__tab {
-  .label {
-    @extend %badge;
-  }
 }

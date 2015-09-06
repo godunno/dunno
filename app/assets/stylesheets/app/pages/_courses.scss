@@ -1,39 +1,33 @@
 .course {
   &s {
-    @extend %cards-container;
-
-    @include breakpoint(small) {
-      // TODO: LOOK AT ME, LEO
-      // @include block-grid(1);
-    }
+    @include grid-block();
+    @include grid-layout(1);
 
     @include breakpoint(medium) {
-      // TODO: LOOK AT ME, LEO
-      // @include block-grid(2);
+      @include grid-layout(2);
     }
 
     @include breakpoint(large) {
-      // TODO: LOOK AT ME, LEO
-      // @include block-grid(3);
+      @include grid-layout(3);
     }
 
     .course__card:hover {
       @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
     }
 
-    &__index {
-      // TODO: LOOK AT ME, LEO
-      // @include grid-row();
+    &__page {
+      @include grid-container();
     }
 
     &__inactive {
-      margin-top: 2rem;
-      padding: 1rem 0;
+      @include grid-container();
 
-      &__header {
-        h6 {
-          text-transform: uppercase;
-        }
+      &__info {
+        background: $white;
+        border-radius: $global-radius;
+        margin-top: 2rem;
+        padding: 1rem 0;
+        text-align: center;
       }
     }
 
@@ -43,6 +37,18 @@
 
       &__header {
         margin-bottom: 2rem;
+      }
+
+      &__content {
+        @include grid-align(center);
+        @include grid-block();
+        @include grid-container();
+        align-items: center;
+
+
+        > p {
+          margin: 0 2rem;
+        }
       }
     }
   }
