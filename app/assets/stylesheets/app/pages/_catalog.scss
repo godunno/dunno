@@ -20,11 +20,16 @@
     left: .5rem;
     opacity: .5;
     position: absolute;
-    top: .5rem;
+    top: .6rem;
+  }
+
+  label,
+  input {
+    margin: 0;
   }
 
   input {
-    margin-bottom: 0;
+    min-width: 21rem;
     padding-left: 1.5rem;
   }
 

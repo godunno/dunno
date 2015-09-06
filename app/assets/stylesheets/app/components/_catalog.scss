@@ -1,12 +1,17 @@
 .catalog__medias {
-  border-radius: $global-radius;
   background: $white;
   border: 1px solid $light-grey-color;
+  border-radius: $global-radius;
 }
 
 .catalog__media {
   border-bottom: 1px solid $light-grey-color;
   padding: .75em 1em;
+
+  &.empty__results {
+    padding: 2rem 0;
+    text-align: center;
+  }
 
   a {
     color: $dunno-dark-color;
@@ -33,11 +38,11 @@
   }
 
   .media__thumbnail {
-    border-radius: $global-radius;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
     border: 1px solid $light-grey-color;
+    border-radius: $global-radius;
     display: block;
     float: left;
     height: 4em;

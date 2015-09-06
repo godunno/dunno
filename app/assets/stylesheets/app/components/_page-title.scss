@@ -1,4 +1,5 @@
 .page__title {
+  @include grid-block(shrink);
   background: $white;
   border-bottom: .0625rem solid $light-grey-color;
   margin-bottom: 2rem;
@@ -9,8 +10,9 @@
   }
 
   &__wrapper {
-    @include grid-container();
     @include grid-block();
+    @include grid-container();
+    justify-content: space-between;
   }
 
   &__title {
@@ -25,14 +27,6 @@
       position: relative;
       text-align: center;
       top: -2.25rem;
-    }
-
-    @include breakpoint(small) {
-      @include grid-content(12);
-    }
-
-    @include breakpoint(medium) {
-      @include grid-content(4);
     }
   }
 
@@ -54,14 +48,6 @@
         color: $medium-grey-color;
         margin: .25rem 0 1rem;
       }
-    }
-
-    @include breakpoint(small) {
-      @include grid-content(12);
-    }
-
-    @include breakpoint(medium) {
-      @include grid-content(8);
     }
 
     .button {

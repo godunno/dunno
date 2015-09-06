@@ -1,6 +1,7 @@
 .course {
   &s {
     @include grid-block();
+    @include grid-container();
     @include grid-layout(1);
 
     @include breakpoint(medium) {
@@ -13,10 +14,6 @@
 
     .course__card:hover {
       @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
-    }
-
-    &__page {
-      @include grid-container();
     }
 
     &__inactive {

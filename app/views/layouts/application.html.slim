@@ -36,10 +36,10 @@ html lang="pt" ng-app="app"
               li
                 a ng-click="signOut()"
                   | Sair
-      .content.grid-block.scroll-section[
+      .content.grid-block.vertical.scroll-section[
         ui-view=true
         cg-busy="wholePageLoading"]
-      footer.grid-content.collapse.shrink.grid-container
+      footer.grid-content.collapse.shrink.grid-container.show-for-medium
         p
           | #{image_tag 'dunno-logo-horizontal.png', class: 'logo'} Copyright © #{Time.zone.now.year} #{link_to 'Termos de Uso', terms_path} #{link_to 'Política de Privacidade', policy_path}
     = render 'application/prebootstrap_loading'

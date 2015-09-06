@@ -4,8 +4,8 @@
   text-align: center;
 
   &__wrapper {
-    border-radius: $global-radius;
     background: $white;
+    border-radius: $global-radius;
     display: flex;
     flex-wrap: wrap;
   }

@@ -13,12 +13,12 @@
     padding: 3rem 0;
     text-align: center;
 
-    a {
-      display: inline-block;
-    }
-
     @include breakpoint(small only) {
       padding: 1rem 0;
+    }
+
+    a {
+      display: inline-block;
     }
   }
 

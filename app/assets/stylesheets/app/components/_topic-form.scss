@@ -1,7 +1,7 @@
 .new__topic__form {
-  border-radius: $global-radius;
   background: $white;
   border: .0625rem solid $medium-grey-color;
+  border-radius: $global-radius;
   margin: 0 -.25rem;
   padding: .5rem 0 0;
   position: relative;
@@ -34,8 +34,8 @@
     }
 
     .icon {
-      border-radius: 3em;
       background-color: $dunno-green-color;
+      border-radius: 3em;
       color: $white;
       display: inline-block;
       font-size: 1.25em;

@@ -10,9 +10,21 @@
       a.close__lesson.button.dark.tiny ui-sref="courses.show.calendar({course: event.course, month: event.start_at})"
         | fechar o diário
 
-  .row.collapse
-    .hide-for-small.medium-3.columns
-      a.lesson__previous[
+  .event__status
+    .small-12.medium-6.medium-centered.columns
+      .event__status__actions ng-if="event.status != 'canceled' && event.status != 'published'"
+        a.event__cancel__link.button.alert.transparent.no__side__padding.small[
+          ng-if="event.status != 'canceled'"
+          ng-click="setStatus(event, 'canceled')"]
+          | Cancelar Aula
+        a.button.small.right[
+          ng-disabled="event.status == 'canceled'"
+          ng-show="event.status == 'draft'"
+          ng-click="setStatus(event, 'published')"]
+            | Publicar Aula
+  .grid-container
+    .medium-3
+      a.previous__event[
         ng-if="!!event.previous.start_at"
         ui-sref="{startAt: event.previous.start_at, courseId: event.course.uuid}"
         analytics-on="click"
@@ -44,7 +56,7 @@
               ng-attr-title="{{topic.media.url}}"]
             | {{topic.description}}
           i.icon.icon-private ng-show="topic.personal"
-    .small-12.medium-6.columns
+    .small-12.medium-6
       .lesson__mobile__navigation
         a.previous__event.mobile__day__navigation[
           ng-if="!!event.previous.start_at"

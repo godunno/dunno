@@ -1,6 +1,6 @@
-ui-view.grid-block.vertical
-  header.page__title.grid-block.shrink
-    .grid-container.page__title__wrapper
+ui-view.courses__page
+  header.page__title
+    .page__title__wrapper
       h1.page__title__title
         | Disciplinas
       .page__title__actions
@@ -10,35 +10,34 @@ ui-view.grid-block.vertical
           | ou
         a.button ng-click="vm.openNewCourseForm()"
           | Criar disciplina
-  .courses__page
-    .courses__blankslate ng-if="vm.activeCourses.length == 0"
-      .courses__blankslate__header
-        h3
-          | Que papel você vai desempenhar?
-      .courses__blankslate__content.grid-block.grid-container.align-center
-        .courses__blankslate__as__student
-          h5
-            | Serei estudante
-          p
-            | <a ui-sref="courses.search">Entrar em uma turma</a>
+  .courses__blankslate ng-if="vm.activeCourses.length == 0"
+    .courses__blankslate__header
+      h3
+        | Que papel você vai desempenhar?
+    .courses__blankslate__content.grid-block.grid-container.align-center
+      .courses__blankslate__as__student
+        h5
+          | Serei estudante
         p
-          | ou
-        .courses__blankslate__as__teacher
-          h5
-            | Serei professor
-          p
-            a.button ng-click="vm.openNewCourseForm()"
-              | Criar disciplina
-    .courses
-      .course ng-repeat="course in vm.activeCourses"
-        course-link current-page="courses"
-          course-card
-    .courses__inactive ng-if="vm.inactiveCourses.length"
-      .courses__inactive__info
-        | Você possui {{vm.inactiveCourses.length}}
-        span<[
-          ng-pluralize
-          count="vm.inactiveCourses.length"
-          when="{'1': 'disciplina arquivada.', 'other': 'disciplinas arquivadas.'}"]
-        a< ui-sref="courses.inactive"
-          | Ver disciplinas arquivadas.
+          | <a ui-sref="courses.search">Entrar em uma turma</a>
+      p
+        | ou
+      .courses__blankslate__as__teacher
+        h5
+          | Serei professor
+        p
+          a.button ng-click="vm.openNewCourseForm()"
+            | Criar disciplina
+  .courses
+    .course ng-repeat="course in vm.activeCourses"
+      course-link current-page="courses"
+        course-card
+  .courses__inactive ng-if="vm.inactiveCourses.length"
+    .courses__inactive__info
+      | Você possui {{vm.inactiveCourses.length}}
+      span<[
+        ng-pluralize
+        count="vm.inactiveCourses.length"
+        when="{'1': 'disciplina arquivada.', 'other': 'disciplinas arquivadas.'}"]
+      a< ui-sref="courses.inactive"
+        | Ver disciplinas arquivadas.
