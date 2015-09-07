@@ -66,8 +66,8 @@ small {
       @include grid-size(3);
 
       @include breakpoint(small only) {
-        flex-basis: 50%;
-        order: 0;
+        @include grid-order(0);
+        @include grid-size(6);
 
         .summary__tasks {
           display: none;
@@ -175,8 +175,8 @@ small {
       flex-grow: 1;
 
       @include breakpoint(small only) {
-        flex-basis: 100%;
-        order: 2;
+        @include grid-order(2);
+        @include grid-size(12);
       }
 
       .lesson__header {
@@ -209,6 +209,8 @@ small {
 
       @include breakpoint(small only) {
         border-radius: 0;
+        border-top: 0;
+        margin-top: 0;
       }
 
       .diary__time {

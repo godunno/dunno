@@ -7,6 +7,10 @@
   position: relative;
   z-index: 5;
 
+  @include breakpoint(small only) {
+    margin: 0;
+  }
+
   .select__item__type {
     display: flex;
     text-align: center;
@@ -133,10 +137,6 @@
   @extend %item-box;
   border-radius: 0 0 $global-radius $global-radius;
   margin: 0 -.0625rem -.0625rem;
-
-  @include breakpoint(small only) {
-    margin: 0 -1rem;
-  }
 }
 
 .type__catalog {
