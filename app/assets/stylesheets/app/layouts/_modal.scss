@@ -1,4 +1,6 @@
-.ddreveal-modal {
+// scss-lint:disable Comment
+/*
+.reveal-modal {
   @include breakpoint(small) {
     padding: 0;
   }
@@ -35,9 +37,12 @@
       word-wrap: break-word;
     }
   }
+}
+*/
 
-  .modal__header {
-    border-bottom: 1px solid $light-grey-color;
+.modal {
+  &__header {
+    border-bottom: $divider;
     margin-bottom: 2em;
     padding-bottom: 1em;
     text-align: center;

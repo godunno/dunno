@@ -1,8 +1,15 @@
-.dunno__footer {
-  //@include grid-container();
+footer.footer {
+  @include grid-block();
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+
+  @include breakpoint(small only) {
+    display: none;
+  }
 }
 
-.smile:after {
+.happy:after {
   content: '=)';
   display: inline-block;
   font-weight: $font-weight-normal;
@@ -22,11 +29,9 @@ body {
   .cg-busy-backdrop {
     background-color: $body-background;
 
-    // TODO: This is using the Foundation way, we need to 
-    // fix the conflict with the Foundation Apps way.
-    // @media #{$small-only} {
-    //   background-color: $white;
-    // }
+    @include breakpoint(small only) {
+      background-color: $white;
+    }
   }
 }
 

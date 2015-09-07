@@ -1,13 +1,13 @@
-@mixin avatar($size: 2rem) {
+@mixin avatar($size: 1rem) {
   border-radius: 50%;
   display: inline-block;
-  margin-right: .25rem;
+  margin-right: $size/4;
   max-height: $size;
   max-width: $size;
   min-height: $size;
   min-width: $size;
 }
 
-.user__avatar {
+.avatar {
   @include avatar(1rem);
 }

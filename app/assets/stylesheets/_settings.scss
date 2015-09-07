@@ -453,7 +453,7 @@ $modal-sizes: (
 );
 
 // $modal-overlay-class: 'modal-overlay';
-$modal-overlay-background: transparentize($dunno-dark-color, .2);
+$modal-overlay-background: rgba($dunno-dark-color, .8);
 
 // 18. Motion UI
 // - - - - - - - - - - - - - - -

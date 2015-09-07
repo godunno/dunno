@@ -1,0 +1,14 @@
+.course__join {
+  @include grid-block();
+  @include grid-orient(vertical);
+
+  &__form {
+    @include grid-container();
+    text-align: center;
+
+    input[type=text] {
+      margin: 0 auto 1rem;
+      width: 10rem;
+    }
+  }
+}

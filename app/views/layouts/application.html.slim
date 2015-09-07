@@ -31,7 +31,7 @@ html lang="pt" ng-app="app"
             ul.menu-bar.dark.condense.icon-left
               li ui-sref-active="is-active"
                 a ui-sref="profile"
-                  img.user__avatar>[user-avatar="{{currentUser().name}}"]
+                  img.avatar>[user-avatar="{{currentUser().name}}"]
                   | {{currentUser().name}}
               li
                 a ng-click="signOut()"
@@ -39,9 +39,11 @@ html lang="pt" ng-app="app"
       .content.grid-block.vertical.scroll-section[
         ui-view=true
         cg-busy="wholePageLoading"]
-      footer.grid-content.collapse.shrink.grid-container.show-for-medium
-        p
-          | #{image_tag 'dunno-logo-horizontal.png', class: 'logo'} Copyright © #{Time.zone.now.year} #{link_to 'Termos de Uso', terms_path} #{link_to 'Política de Privacidade', policy_path}
+      footer.footer
+        div
+          | #{image_tag 'dunno-logo-horizontal.png', class: 'logo'}
+        div
+          | Copyright © #{Time.zone.now.year} #{link_to 'Termos de Uso', terms_path} #{link_to 'Política de Privacidade', policy_path}
     = render 'application/prebootstrap_loading'
     = javascript_include_tag "application"
     = render 'application/google_analytics'

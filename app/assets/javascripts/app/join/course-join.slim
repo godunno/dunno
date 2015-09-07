@@ -1,24 +1,24 @@
-header.page__title
-  .page__title__wrapper
-    h1.page__title__title
-      | Disciplinas
-      small<
-        | › Entrar em uma turma
-    .page__title__actions
-      a ui-sref="courses.search"
-        | Entrar em uma turma
-      span<>
-        | ou
-      a.button.tiny ng-click="vm.openNewCourseForm()"
-        | Criar disciplina
-.course__join.grid-container
-  .grid-content
+.course__join
+  header.page__title
+    .page__title__wrapper
+      h1.page__title__title
+        | Disciplinas
+        small<
+          | › Entrar em uma turma
+      .page__title__actions
+        a ui-sref="courses.search"
+          | Entrar em uma turma
+        span<>
+          | ou
+        a.button.tiny ng-click="vm.openNewCourseForm()"
+          | Criar disciplina
+  .course__join__form
     p
       a ui-sref="^"
         i.icon.icon-arrow-back>
         | Disciplinas
     h3
-      | Informe o código da turma
+      | Informe o Código da Turma
     p
       | Digite abaixo o código informado pelo professor.
     p
@@ -32,4 +32,4 @@ header.page__title
       .label.alert ng-if="error"
         | {{error}}
       button.button type="submit"
-        | Acessar Disciplina
+        | Acessar Turma

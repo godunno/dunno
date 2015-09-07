@@ -1,42 +1,78 @@
-.course__date__info {
-  text-transform: uppercase;
-}
+.course__detail__page {
+  @include grid-block();
+  @include grid-orient(vertical);
 
-.notify__members {
-  height: 0;
+  .course {
+    &__header {
+      @include grid-block();
+      margin-bottom: 1rem;
 
-  @include breakpoint(small only) {
-    height: auto;
-    padding: .5rem 0;
-  }
+      &__wrapper {
+        @include grid-block();
+        @include grid-container();
+        @include grid-wrap(true);
+        justify-content: space-between;
+        padding-top: 1rem;
+      }
+    }
 
-  .button {
-    position: relative;
-    ///top: 4.25rem;
-    z-index: 4;
+    &__navigation {
+      align-self: flex-end;
+      flex-basis: 100%;
+      padding-top: 1rem;
 
-    @include breakpoint(small only) {
-      position: static;
+      ul {
+        @extend %menu-bar;
+        @include menu-bar-layout(horizontal, false);
+        @include menu-bar-style(
+          $background: transparent,
+          $background-hover: $body-background,
+          $background-active: $body-background,
+          $color: $dunno-dark-color,
+          $color-hover: $dunno-dark-color,
+          $color-active: $dunno-dark-color,
+          $autocolor: false
+        );
+        > li > a {
+          border-radius: $global-radius $global-radius 0 0;
+        }
+      }
+    }
+
+    &__dates {
+      text-transform: uppercase;
+    }
+
+    &__actions {
+      @include grid-block();
+      @include grid-orient(vertical);
+      align-items: flex-end;
+    }
+
+    &__edit {
+      margin-bottom: .5rem;
+
+      .icon-cog {
+        color: $dunno-dark-color;
+        font-size: 1.25rem;
+        vertical-align: middle;
+
+        &:hover {
+          opacity: .5;
+        }
+      }
+    }
+
+    &__notify__members {
+      @extend .button;
+      @extend .transparent;
+      @extend .secondary;
+      @extend .outline;
+      @extend .tiny;
+    }
+
+    &__content {
+      @include grid-content();
     }
   }
-}
-
-.edit__course {
-  .icon-cog {
-    color: $dunno-dark-color;
-    font-size: 1.25rem;
-    margin-left: .5rem;
-    vertical-align: middle;
-
-    &:hover {
-      opacity: .5;
-    }
-  }
-}
-
-.course__member__avatar {
-  @include avatar();
-  display: inline-block;
-  margin-right: .25rem;
-  vertical-align: top;
 }

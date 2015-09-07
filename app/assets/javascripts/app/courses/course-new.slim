@@ -1,12 +1,9 @@
-.row.small-collapse
-  .small-12.small-centered.medium-8.large-6.columns
-    .form__box.text-center
-      a.close-reveal-modal ng-click="$close()"
-        | ×
-      .modal__header
-        h5
-          | Criar disciplina
-        p
-          | Dê um nome para esta disciplina e opcionalmente o nome da turma e da instituição da qual ela faz parte.
-      .modal__content.text-left
-        course-form submit-label="Criar" on-save="$close()"
+a.close-button ng-click="$close()"
+  | ×
+.modal__header
+  h5
+    | Criar disciplina
+  p
+    | Dê um nome para esta disciplina. Opcionalmente você pode indicar a turma e a instituição da qual ela faz parte assim como a duração do período letivo.
+.modal__content
+  course-form submit-label="Criar" on-save="$close()"
