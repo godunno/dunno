@@ -1,51 +1,66 @@
-%divider {
-  border-bottom: .0625rem solid transparentize($dunno-dark-color, .85);
-}
+.members {
+  @include grid-container();
 
-.add__members {
-  text-align: center;
-
-  .button {
-    margin-bottom: 0;
+  &__blankslate {
+    padding: 2rem 0;
+    text-align: center;
   }
 
-  .access__code {
-    font-size: 1.5rem;
+  &__invite {
+    text-align: center;
+
+    a {
+      @extend .button;
+    }
+
+    span {
+      display: block;
+    }
+
+    .access__code {
+      display: block;
+      font-family: $font-family-monospace;
+      font-size: 1.75rem;
+      font-weight: $font-weight-bold;
+    }
   }
-}
 
-.members__content {
-  padding: 2rem 1rem;
-}
-
-.member__group {
-  margin-top: 2.5rem;
-
-  &:first-child {
-    margin-top: 0;
+  &__content {
+    @extend .content__box;
+    padding: 2rem 1rem;
   }
-}
 
-.no__members {
-  padding: 2rem 0;
-  text-align: center;
-}
+  &__count {
+    @extend %badge;
+    @include badge-layout(
+      $fontsize: 1rem,
+      $diameter: .25em
+    );
+    @include badge-style(
+      $background: $white,
+      $color: $dunno-dark-color
+    );
+    border: $divider;
+  }
 
-.members__content__title {
-  @extend %divider;
-  margin-bottom: 1rem;
-  padding: .5rem 0;
+  &__group {
+    margin-top: 2.5rem;
 
-  .role__name {
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  &__header {
+    border-bottom: $divider;
+    margin-bottom: 1rem;
+    padding: .5rem 0;
+  }
+
+  &__role__name {
     text-transform: uppercase;
   }
 
-  .role__count {
-    @extend %badge;
-  }
-}
-
-.members {
   .member {
     margin-bottom: 1rem;
     padding-bottom: 1rem;
@@ -55,16 +70,5 @@
       content: ' ';
       display: block;
     }
-  }
-
-  .member__avatar {
-    @include avatar(2.5rem);
-    display: inline-block;
-    margin-right: .5rem;
-  }
-
-  .member__role {
-    margin-bottom: 0;
-    margin-top: .5rem;
   }
 }

@@ -1,9 +1,8 @@
 .calendar ui-view=true
   .dates__programme if-teacher=true
-  .dates__programme ng-if="course.user_role == 'teacher'"
-    a.button ui-sref=".schedule"
+    a ui-sref=".schedule"
       | Cronograma Semanal
-  .content__box
+  .calendar__wrapper
     .calendar__header
       .calendar__navigation
         a.calendar__navigation__next ui-sref="{month: course.previous_month}"

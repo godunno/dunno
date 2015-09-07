@@ -1,7 +1,11 @@
 .calendar {
   @include grid-container();
 
-  .dates__programme {
+  &__wrapper {
+    @extend .content__box;
+  }
+
+  .schedule {
     padding-bottom: 1rem;
     text-align: center;
 
@@ -9,6 +13,10 @@
       background: $white;
       border-bottom: $divider;
       padding: 2rem 0;
+    }
+
+    a {
+      @extend .button;
     }
   }
 

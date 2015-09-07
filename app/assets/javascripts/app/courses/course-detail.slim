@@ -9,12 +9,12 @@
               | › {{course.class_name}}
             small< ng-if="!!course.institution"
               | · {{course.institution}}
-        span.course__dates ng-if="course.end_date"
-          | {{course.start_date | amDateFormat: 'DD/MMM/YY'}}–{{course.end_date | amDateFormat: 'DD/MMM/YY'}}
-        span.course__teacher< ng-if="!!course.teacher"
+        span.course__teacher ng-if="!!course.teacher"
           img.avatar user-avatar="{{course.teacher.name}}"
           span
             | {{course.teacher.name}}
+        span.course__dates< ng-if="course.end_date"
+          | · {{course.start_date | amDateFormat: 'DD/MMM/YY'}}–{{course.end_date | amDateFormat: 'DD/MMM/YY'}}
       .course__actions
         a.course__edit[
           ng-if="course.user_role == 'teacher'"
