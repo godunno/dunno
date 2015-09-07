@@ -8,6 +8,14 @@ body {
   position: static;
   top: -4rem;
 
+  .top-bar {
+    min-height: 4rem;
+
+    .logo {
+      margin-top: .75rem;
+    }
+  }
+
   &.fixed {
     position: fixed;
     top: 0;

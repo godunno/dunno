@@ -1,3 +1,13 @@
-.root {
-  @include grid-frame(expand, vertical);
+body {
+  .root {
+    @include grid-frame(expand, vertical);
+  }
+
+  .cg-busy-backdrop {
+    background-color: $body-background;
+
+    @include breakpoint(small only) {
+      background-color: $white;
+    }
+  }
 }

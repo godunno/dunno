@@ -1,20 +1,3 @@
-footer.footer {
-  @include grid-block();
-  @include grid-size(shrink);
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-
-  @include breakpoint(small only) {
-    display: none;
-  }
-
-  a {
-    margin-left: 1rem;
-  }
-}
-
-
 .happy:after,
 .sad:after {
   display: inline-block;
@@ -30,16 +13,6 @@ footer.footer {
 .sad:after {
   content: '=(';
   transform: rotate(100deg);
-}
-
-body {
-  .cg-busy-backdrop {
-    background-color: $body-background;
-
-    @include breakpoint(small only) {
-      background-color: $white;
-    }
-  }
 }
 
 .type__url {

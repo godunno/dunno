@@ -1,0 +1,15 @@
+footer.footer {
+  @include grid-block();
+  @include grid-size(shrink);
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+
+  @include breakpoint(small only) {
+    display: none;
+  }
+
+  a {
+    margin-left: 1rem;
+  }
+}
