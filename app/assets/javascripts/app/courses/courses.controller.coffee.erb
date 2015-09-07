@@ -1,4 +1,4 @@
-CoursesIndexCtrl = ($location, $filter, $modal, Utils, courses) ->
+CoursesIndexCtrl = ($location, $filter, ModalFactory, Utils, courses) ->
   @courses = courses
 
   @activeCourses   = @courses.filter (course) -> course.active
@@ -9,13 +9,21 @@ CoursesIndexCtrl = ($location, $filter, $modal, Utils, courses) ->
       course.unregister().then ->
         Utils.remove(@courses, course)
 
-  @openNewCourseForm = ->
-    $modal.open
+  initializeNewCourseModal = =>
+    @newCourseModal = new ModalFactory
       templateUrl: '<%= asset_path('app/courses/course-new.html') %>'
-      windowClass: 'add__course full'
+      contentScope:
+        close: =>
+          @newCourseModal.deactivate()
+
+  initializeNewCourseModal()
+
+  @openNewCourseForm = ->
+    @newCourseModal.activate()
+
   @
 
-CoursesIndexCtrl.$inject = ['$location', '$filter', '$modal', 'Utils', 'courses']
+CoursesIndexCtrl.$inject = ['$location', '$filter', 'ModalFactory', 'Utils', 'courses']
 
 angular
   .module('app.courses')

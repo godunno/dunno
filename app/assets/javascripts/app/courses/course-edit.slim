@@ -1,10 +1,7 @@
-.row.small-collapse
-  .small-12.small-centered.medium-10.large-8.columns
-    .form__box
-      a.close-reveal-modal ng-click="$close()"
-        | ×
-      .modal__header
-        h5
-          | Editar disciplina
-      .modal__content.row
-        course-form submit-label="Atualizar" course="vm.course" on-save="$close()"
+a.close-button zf-close=true
+  | ×
+.modal__header
+  h5
+    | Editar disciplina
+.modal__content
+  course-form submit-label="Atualizar" course="course" on-save="close()"

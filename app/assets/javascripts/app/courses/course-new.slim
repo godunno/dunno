@@ -1,4 +1,4 @@
-a.close-button ng-click="$close()"
+a.close-button zf-close=true
   | ×
 .modal__header
   h5
@@ -6,4 +6,4 @@ a.close-button ng-click="$close()"
   p
     | Dê um nome para esta disciplina. Opcionalmente você pode indicar a turma e a instituição da qual ela faz parte assim como a duração do período letivo.
 .modal__content
-  course-form submit-label="Criar" on-save="$close()"
+  course-form submit-label="Criar" on-save="close()"
