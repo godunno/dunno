@@ -1,5 +1,6 @@
 footer.footer {
   @include grid-block();
+  @include grid-size(shrink);
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
@@ -7,21 +8,27 @@ footer.footer {
   @include breakpoint(small only) {
     display: none;
   }
+
+  a {
+    margin-left: 1rem;
+  }
+}
+
+
+.happy:after,
+.sad:after {
+  display: inline-block;
+  font-weight: $font-weight-normal;
+  margin-left: .5rem;
 }
 
 .happy:after {
   content: '=)';
-  display: inline-block;
-  font-weight: $font-weight-normal;
-  margin-left: .25rem;
   transform: rotate(65deg);
 }
 
 .sad:after {
   content: '=(';
-  display: inline-block;
-  font-weight: $font-weight-normal;
-  margin-left: .5rem;
   transform: rotate(100deg);
 }
 

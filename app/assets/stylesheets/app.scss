@@ -24,6 +24,7 @@
   'app/components/datepicker',
   'app/components/document-icons',
   'app/components/dropdown',
+  'app/components/messages',
   'app/components/open-actions',
   'app/components/page-header',
   'app/components/page-title',
@@ -37,7 +38,9 @@
 
 @import
   'app/layouts/forms',
-  'app/layouts/modal';
+  'app/layouts/header',
+  'app/layouts/modal',
+  'app/layouts/structure';
 
 // page specific styles
 @import
@@ -55,6 +58,7 @@
   'app/pages/invite-members',
   'app/pages/lesson-plan',
   'app/pages/notify-members',
+  'app/pages/profile',
   'app/pages/session';
 
 @import

@@ -1,0 +1,26 @@
+.message {
+  &__error,
+  &__success {
+    @extend %label;
+    @include label-layout(
+      $fontsize: 1rem,
+      $padding: .25em
+    );
+  }
+
+  &__error {
+    @include label-style(
+      $background: $red-color,
+      $color: $white,
+      $radius: 0
+    );
+  }
+
+  &__success {
+    @include label-style(
+      $background: $dunno-green-color,
+      $color: $white,
+      $radius: 0
+    );
+  }
+}

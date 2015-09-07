@@ -10,27 +10,27 @@ html lang="pt" ng-app="app"
     = javascript_include_tag "modernizer"
     = csrf_meta_tags
   body ng-controller="ApplicationCtrl"
-    .root.grid-frame.vertical
-      header.title-bar.dark.shrink.show-for-small-only
+    .root
+      header.header__mobile
         .center
           | Título
         span.left
           a
             | Menu
-      header.shrink.show-for-medium style="background: #2b3738"
-        .menu-group.grid-container
-          .menu-group-left
-            ul.menu-bar.dark.condense
+      header.header__navigation
+        .header__navigation__wrapper
+          .header__navigation__sections
+            ul
               li ui-sref-active="is-active"
                 a ui-sref="courses"
                   | Disciplinas
               li ui-sref-active="is-active" ng-if="currentUser().profile == 'teacher'"
                 a ui-sref="medias"
                   | Catálogo
-          .menu-group-right
-            ul.menu-bar.dark.condense.icon-left
+          .header__navigation__settings
+            ul
               li ui-sref-active="is-active"
-                a ui-sref="profile"
+                a.user__profile ui-sref="profile"
                   img.avatar>[user-avatar="{{currentUser().name}}"]
                   | {{currentUser().name}}
               li

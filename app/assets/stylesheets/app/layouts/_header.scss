@@ -1,0 +1,68 @@
+.header {
+  &__mobile {
+    @extend %title-bar;
+    @include title-bar-style(
+      $background: $dunno-dark-color,
+      $color: $white,
+      $border: 0,
+      $padding: 1rem
+    );
+
+    @include breakpoint(medium) {
+      display: none;
+    }
+  }
+
+  &__navigation {
+    background: $dunno-dark-color;
+
+    @include breakpoint(small only) {
+      display: none;
+    }
+
+    &__wrapper {
+      @include grid-container();
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__sections,
+    &__settings {
+      flex: 0 0 auto;
+
+      ul {
+        @extend %menu-bar;
+        @include menu-bar-layout(
+          $orientation: horizontal,
+          $stretch: false
+        );
+        @include menu-bar-style(
+          $dark-color,
+          $autocolor: true
+        );
+      }
+    }
+
+    &__settings {
+      ul {
+        @include menu-bar-icons(
+          $position: left,
+          $size: 1.5rem
+        );
+      }
+
+      .user__profile {
+        padding-left: 2.5rem;
+        position: relative;
+
+        .avatar {
+          @include avatar(1.5rem);
+          left: .75rem;
+          position: absolute;
+          top: .75rem;
+        }
+      }
+    }
+  }
+}

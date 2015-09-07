@@ -1,4 +1,4 @@
-@mixin avatar($size: 1rem) {
+@mixin avatar($size: 2rem) {
   border-radius: 50%;
   display: inline-block;
   margin-right: $size/4;
@@ -9,5 +9,5 @@
 }
 
 .avatar {
-  @include avatar(1rem);
+  @include avatar(2rem);
 }

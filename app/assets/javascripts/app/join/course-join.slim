@@ -13,17 +13,17 @@
         a.button.tiny ng-click="vm.openNewCourseForm()"
           | Criar disciplina
   .course__join__form
-    p
-      a ui-sref="^"
-        i.icon.icon-arrow-back>
-        | Disciplinas
-    h3
-      | Informe o Código da Turma
-    p
-      | Digite abaixo o código informado pelo professor.
-    p
-      | Se ainda não possui um código, pergunte para seu professor.
-    form ng-submit="search(access_code)"
+    form.form__box ng-submit="search(access_code)"
+      p
+        a ui-sref="^"
+          i.icon.icon-arrow-back>
+          | Disciplinas
+      h3
+        | Informe o Código da Turma
+      p
+        | Digite abaixo o código informado pelo professor.
+      p
+        | Se ainda não possui um código, pergunte para seu professor.
       input[
         ng-model="access_code"
         placeholder="Código da Disciplina"

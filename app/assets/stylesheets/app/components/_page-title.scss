@@ -17,7 +17,6 @@
 
   &__title {
     font-weight: $font-weight-normal;
-    text-transform: uppercase;
 
     @include breakpoint(small only) {
       color: $white;
