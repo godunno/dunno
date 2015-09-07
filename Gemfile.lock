@@ -399,8 +399,6 @@ GEM
       rails-assets-jquery (>= 1.6.0)
     rails-assets-angular-filter (0.5.4)
       rails-assets-angular
-    rails-assets-angular-foundation (0.5.1)
-      rails-assets-angular (>= 1)
     rails-assets-angular-input-masks (2.1.0)
       rails-assets-angular (~> 1.3.16)
       rails-assets-br-validations (~> 0.2.4)
@@ -673,7 +671,6 @@ DEPENDENCIES
   rails-assets-angular-datepicker (= 1.0.12)!
   rails-assets-angular-elastic-input (= 2.0.2)!
   rails-assets-angular-filter (= 0.5.4)!
-  rails-assets-angular-foundation (= 0.5.1)!
   rails-assets-angular-input-masks (= 2.1.0)!
   rails-assets-angular-messages (= 1.3.16)!
   rails-assets-angular-mocks (= 1.3.16)!
