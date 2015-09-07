@@ -131,7 +131,7 @@
               ng-class="{active: topicType == 'text'}"]
               i.icon.icon-text
               span
-                | Texto
+                | Tópico
             a[
               ng-click="selectTopicType('file')"
               ng-class="{active: topicType == 'file'}"]
@@ -157,7 +157,7 @@
                   ng-model="topic.description"
                   type="text"
                   focus-wrapper=""
-                  placeholder="Adicionar texto"
+                  placeholder="Adicionar tópico"
                   ui-keydown="{'enter':'addTopic()'}"
                   name="description"
                   focus-on="topicType == 'text'"]

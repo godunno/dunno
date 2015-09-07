@@ -29,6 +29,7 @@ button.dropdown:after {
 .dropdown.button.tiny:after,
 button.dropdown.tiny:after {
   font-size: .75rem;
+  position: absolute;
   right: .5rem;
   top: .75rem;
   width: auto;

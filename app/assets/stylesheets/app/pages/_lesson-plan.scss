@@ -5,59 +5,6 @@
   }
 }
 
-.lesson__previous,
-.lesson__next {
-  align-items: center;
-  background: $white;
-  border: $divider;
-  cursor: pointer;
-  display: flex;
-  font-size: .875rem;
-  line-height: 1rem;
-  margin-top: .25rem;
-  padding: .75rem;
-  text-align: center;
-  text-transform: uppercase;
-
-  &:hover {
-    opacity: .66;
-  }
-
-  span {
-    flex-grow: 1;
-  }
-
-  small {
-    color: $dark-grey-color;
-    display: block;
-    font-size: rem-calc(12);
-  }
-
-  .icon {
-    color: $dunno-green-color;
-    flex-basis: 1.5rem;
-    vertical-align: middle;
-  }
-}
-
-.lesson__previous {
-  border-radius: $global-radius 0 0 $global-radius;
-  padding-right: 1.5em;
-
-  .icon {
-    float: left;
-  }
-}
-
-.lesson__next {
-  border-radius: 0 $global-radius $global-radius 0;
-  padding-left: 1.5em;
-
-  .icon {
-    float: right;
-  }
-}
-
 .add__content__cta {
   color: $dark-grey-color;
   display: block;
@@ -66,66 +13,112 @@
   text-transform: uppercase;
 }
 
-.lesson__page {
-  .catalog__medias {
-    border: 0;
+small {
+  .icon {
+    vertical-align: middle;
   }
+}
 
-  .catalog__media {
-    .media__select__label {
-      margin-top: .875rem;
-    }
-
-    .media__data {
-      font-size: .875rem;
-    }
-
-    .media__title {
-      line-height: inherit;
-    }
+.lesson__status__canceled__info {
+  strong {
+    color: $red-color;
   }
+}
 
-  .type__file {
+.lesson__status__published__info {
+  @include breakpoint(small only) {
     p {
-      color: $medium-grey-color;
-      margin: 0;
-      padding: 1rem 0;
-      text-align: center;
+      .button {
+        margin: 1rem 0 0;
+      }
+
+      span {
+        display: block;
+        padding: 1rem 0 0;
+      }
     }
   }
 
-  .page__header {
-    .lesson__page__header {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      padding: 0 0 1rem;
-      position: relative;
+  strong {
+    color: $dunno-green-color;
+  }
+}
+
+//////////////////////////////////////////////////////////
+// REFACTOR ABOVE THIS LINE //////////////////////////////
+//////////////////////////////////////////////////////////
+
+.lesson__page {
+  .lesson {
+    &__wrapper {
+      @include grid-container();
+      @include grid-block();
+      align-items: flex-start;
+      justify-content: space-between;
 
       @include breakpoint(small only) {
         flex-wrap: wrap;
       }
+    }
 
-      .page__header__title {
-        @include breakpoint(small only) {
-          flex-basis: 100%;
-          height: auto;
-          margin: 0 0 1rem;
-          position: static;
+    &__previous__day,
+    &__next__day {
+      @include grid-size(3);
+
+      @include breakpoint(small only) {
+        flex-basis: 50%;
+        order: 0;
+
+        .summary__tasks {
+          display: none;
         }
       }
     }
-  }
 
-  .close__lesson {
-    position: absolute;
-    right: 1rem;
-    top: .15rem;
+    &__previous,
+    &__next {
+      align-items: center;
+      background: $white;
+      border: $divider;
+      cursor: pointer;
+      display: flex;
+      font-size: .875rem;
+      line-height: 1rem;
+      margin-top: .25rem;
+      padding: .75rem;
+      text-align: center;
+      text-transform: uppercase;
 
-    @include breakpoint(small only) {
-      position: static;
+      &:hover {
+        opacity: .66;
+      }
+
+      span {
+        flex-grow: 1;
+      }
+
+      small {
+        color: $dark-grey-color;
+        display: block;
+        font-size: rem-calc(12);
+      }
+
+      .icon {
+        color: $dunno-green-color;
+        flex-basis: 1.5rem;
+        vertical-align: middle;
+      }
     }
-  }
+
+    &__previous {
+      border-radius: $global-radius 0 0 $global-radius;
+      border-right: 0;
+      padding-right: 1.5em;
+
+      .icon {
+        float: left;
+      }
+    }
 
   .lesson {
     &__previous,
@@ -169,6 +162,26 @@
 
     &__next {
       border-left: 0;
+      border-radius: 0 $global-radius $global-radius 0;
+      padding-left: 1.5em;
+
+      .icon {
+        float: right;
+      }
+    }
+
+    &__plan__current {
+      @include grid-size(6);
+      flex-grow: 1;
+
+      @include breakpoint(small only) {
+        flex-basis: 100%;
+        order: 2;
+      }
+
+      .lesson__header {
+        margin-bottom: 0;
+      }
     }
 
     &__date__weekday {
@@ -288,75 +301,92 @@
           margin-bottom: 0;
         }
       }
+  }
+
+  .catalog__medias {
+    border: 0;
+  }
+
+  .catalog__media {
+    .media__select__label {
+      margin-top: .875rem;
+    }
+
+    .media__data {
+      font-size: .875rem;
+    }
+
+    .media__title {
+      line-height: inherit;
     }
   }
 
-  strong {
-    color: $dunno-green-color;
+  .type__file {
+    p {
+      color: $medium-grey-color;
+      margin: 0;
+      padding: 1rem 0;
+      text-align: center;
+    }
   }
-}
 
-
-
-
-
-
-
-//////////////////////////////////////////////////////////
-// REFACTOR ABOVE THIS LINE //////////////////////////////
-//////////////////////////////////////////////////////////
-
-.lesson__page {
-  .lesson {
-    &__wrapper {
-      @include grid-container();
-      @include grid-block();
-      align-items: flex-start;
-      justify-content: space-between;
+  .page__header {
+    .lesson__page__header {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      padding: 0 0 1rem;
+      position: relative;
 
       @include breakpoint(small only) {
         flex-wrap: wrap;
       }
-    }
 
-    &__previous__day,
-    &__next__day {
-      @include grid-size(3);
-
-      @include breakpoint(small only) {
-        order: 0;
-        flex-basis: 50%;
-
-        .summary__tasks {
-          display: none;
+      .page__header__title {
+        @include breakpoint(small only) {
+          flex-basis: 100%;
+          height: auto;
+          margin: 0 0 1rem;
+          position: static;
         }
       }
     }
+  }
 
-    &__previous__day {
-      .lesson__previous {
-        border-right: 0;
-      }
-    }
+  .close__lesson {
+    position: absolute;
+    right: 1rem;
+    top: .15rem;
 
-    &__next__day {
-      .lesson__next {
-        border-left: 0;
-      }
-    }
-
-    &__plan__current {
-      @include grid-size(6);
-      flex-grow: 1;
-
-      @include breakpoint(small only) {
-        order: 2;
-        flex-basis: 100%;
-      }
-
-      .lesson__header {
-        margin-bottom: 0;
-      }
+    @include breakpoint(small only) {
+      position: static;
     }
   }
+
+  .topics__visibility {
+    background: $white;
+    border-bottom: $divider;
+    font-size: .875rem;
+    padding: .5rem 0;
+    text-align: center;
+
+    a {
+      display: block;
+    }
+  }
+
+  .hide__personal__topics,
+  .topic__personal {
+    color: $red-color;
+  }
+
+  .show__personal__topics {
+    color: $dark-grey-color;
+  }
+
+  .topic__personal {
+    font-size: 1.5rem;
+  }
+
 }
+
