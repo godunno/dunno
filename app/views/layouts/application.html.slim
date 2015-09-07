@@ -10,12 +10,24 @@ html lang="pt" ng-app="app"
     = javascript_include_tag "modernizer"
     = csrf_meta_tags
   body ng-controller="ApplicationCtrl"
+    = render 'application/prebootstrap_loading'
+    zf-offcanvas id="sidebar" position="left"
+      ul
+        li
+          a ui-sref="courses"
+            | Disciplinas
+        li
+          a ui-sref="medias"
+            | Catálogo
+        li
+          a ui-sref="profile"
+            | {{currentUser().name}}
     .root
       header.header__mobile
         .center
           | Título
         span.left
-          a
+          a zf-toggle="sidebar"
             | Menu
       header.header__navigation
         .header__navigation__wrapper
@@ -44,7 +56,6 @@ html lang="pt" ng-app="app"
           | #{image_tag 'dunno-logo-horizontal.png', class: 'logo'}
         div
           | Copyright © #{Time.zone.now.year} #{link_to 'Termos de Uso', terms_path} #{link_to 'Política de Privacidade', policy_path}
-    = render 'application/prebootstrap_loading'
     = javascript_include_tag "application"
     = render 'application/google_analytics'
     = render 'application/mixpanel'
