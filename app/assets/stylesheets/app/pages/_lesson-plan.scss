@@ -1,38 +1,47 @@
-.lesson__mobile__navigation {
-  background-color: $white;
-  border-top: $divider;
-  display: none;
-
-  @include breakpoint(small only) {
-    display: flex;
-
-    .mobile__day__navigation {
-      align-items: center;
-      display: flex;
-      white-space: nowrap;
-    }
-  }
-
+.hide__personal__topics,
+.show__personal__topics {
   .icon {
-    flex-basis: 1rem;
-  }
-
-  span {
-    background: transparent;
-    border: 0;
-    flex: 1;
-    padding: .75rem 1rem;
-    text-transform: uppercase;
-
-    small {
-      display: block;
-    }
+    vertical-align: middle;
   }
 }
 
-.previous__event {
-  // TODO: LOOK AT ME, LEO
-  // @include side-radius(left, $global-radius);
+.lesson__previous,
+.lesson__next {
+  align-items: center;
+  background: $white;
+  border: $divider;
+  cursor: pointer;
+  display: flex;
+  font-size: .875rem;
+  line-height: 1rem;
+  margin-top: .25rem;
+  padding: .75rem;
+  text-align: center;
+  text-transform: uppercase;
+
+  &:hover {
+    opacity: .66;
+  }
+
+  span {
+    flex-grow: 1;
+  }
+
+  small {
+    color: $dark-grey-color;
+    display: block;
+    font-size: rem-calc(12);
+  }
+
+  .icon {
+    color: $dunno-green-color;
+    flex-basis: 1.5rem;
+    vertical-align: middle;
+  }
+}
+
+.lesson__previous {
+  border-radius: $global-radius 0 0 $global-radius;
   padding-right: 1.5em;
 
   .icon {
@@ -40,26 +49,12 @@
   }
 }
 
-.next__event {
-  // TODO: LOOK AT ME, LEO
-  // @include side-radius(right, $global-radius);
+.lesson__next {
+  border-radius: 0 $global-radius $global-radius 0;
   padding-left: 1.5em;
 
   .icon {
     float: right;
-  }
-}
-
-.event__status {
-  margin-bottom: 1rem;
-
-  @include breakpoint(small only) {
-    margin: 1rem 0;
-  }
-
-  .button {
-    margin-bottom: 0;
-    white-space: nowrap;
   }
 }
 
@@ -190,11 +185,10 @@
     }
 
     &__header {
-      // TODO: LOOK AT ME, LEO
-      // @include side-radius(top, $global-radius);
       background: $white;
       border: $divider;
       border-bottom: 0;
+      border-radius: $global-radius $global-radius 0 0;
       display: flex;
       padding: 1em .75em;
       position: relative;
@@ -299,5 +293,70 @@
 
   strong {
     color: $dunno-green-color;
+  }
+}
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////
+// REFACTOR ABOVE THIS LINE //////////////////////////////
+//////////////////////////////////////////////////////////
+
+.lesson__page {
+  .lesson {
+    &__wrapper {
+      @include grid-container();
+      @include grid-block();
+      align-items: flex-start;
+      justify-content: space-between;
+
+      @include breakpoint(small only) {
+        flex-wrap: wrap;
+      }
+    }
+
+    &__previous__day,
+    &__next__day {
+      @include grid-size(3);
+
+      @include breakpoint(small only) {
+        order: 0;
+        flex-basis: 50%;
+
+        .summary__tasks {
+          display: none;
+        }
+      }
+    }
+
+    &__previous__day {
+      .lesson__previous {
+        border-right: 0;
+      }
+    }
+
+    &__next__day {
+      .lesson__next {
+        border-left: 0;
+      }
+    }
+
+    &__plan__current {
+      @include grid-size(6);
+      flex-grow: 1;
+
+      @include breakpoint(small only) {
+        order: 2;
+        flex-basis: 100%;
+      }
+
+      .lesson__header {
+        margin-bottom: 0;
+      }
+    }
   }
 }
