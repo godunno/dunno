@@ -1,11 +1,17 @@
 .session__page {
+  @include grid-block();
+  @include grid-orient(vertical);
   background-color: $dunno-dark-color;
   min-height: 100%;
   padding-bottom: 2em;
 
-  @include breakpoint(small only) {
-    min-height: 100vh;
-    padding-bottom: 2em;
+  .form__box {
+    @include grid-container();
+
+    @include breakpoint(medium) {
+      max-width: 40vw;
+      min-width: 40vw;
+    }
   }
 
   .root__proxy {
@@ -36,7 +42,7 @@
     text-transform: uppercase;
 
     @include breakpoint(small only) {
-      padding: 1rem 0;
+      padding: 0 0 1rem;
     }
   }
 
@@ -47,6 +53,7 @@
   }
 
   .footer__links {
+    margin-top: 1rem;
     text-align: center;
 
     a {
@@ -56,10 +63,20 @@
 
   .session__error {
     color: $red-color;
+
+    .session__amnesia {
+      color: $dunno-dark-color;
+    }
   }
 
   .session__error,
   .session__amnesia {
     text-align: center;
+  }
+
+  .submit {
+    @extend .large;
+    @extend .expand;
+    margin-bottom: 1rem;
   }
 }

@@ -3,11 +3,22 @@ body {
     @include grid-frame(expand, vertical);
   }
 
+  .content {
+    @include grid-block();
+    @include grid-orient(vertical);
+  }
+
   .cg-busy-backdrop {
     background-color: $body-background;
 
     @include breakpoint(small only) {
       background-color: $white;
+    }
+  }
+
+  .type__url {
+    .cg-busy.cg-busy-animation {
+      min-height: 100%;
     }
   }
 }
