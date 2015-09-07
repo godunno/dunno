@@ -11,17 +11,31 @@ html lang="pt" ng-app="app"
     = csrf_meta_tags
   body ng-controller="ApplicationCtrl"
     = render 'application/prebootstrap_loading'
-    zf-offcanvas id="sidebar" position="left"
-      ul
-        li
-          a ui-sref="courses"
-            | Disciplinas
-        li
-          a ui-sref="medias"
-            | Catálogo
-        li
-          a ui-sref="profile"
-            | {{currentUser().name}}
+    zf-offcanvas#sidebar.sidebar position="left"
+      .sidebar__content
+        header
+          | Seções
+        ul.sidebar__navigation
+          li
+            a zf-close="" ui-sref="courses"
+              | Disciplinas
+          li
+            a zf-close="" ui-sref="medias"
+              | Catálogo
+          li
+            a zf-close="" ui-sref="profile"
+              | Editar perfil - {{currentUser().name}}
+          li
+            | #{link_to 'Termos de Uso', terms_path}
+          li
+            | #{link_to 'Política de Privacidade', policy_path}
+          li
+            a zf-close="" ng-click="signOut()"
+              | Sair
+        .legal
+          = image_tag 'dunno-logo.png'
+          br
+          | Copyright © #{Time.zone.now.year}
     .root
       header.header__mobile
         .center

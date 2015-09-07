@@ -15,8 +15,22 @@
       padding: 2rem 0;
     }
 
-    a {
-      @extend .button;
+    &__close,
+    &__add__new {
+      @extend %button;
+      @include button-style(
+        $background: $dunno-green-color,
+        $background-hover: auto,
+        $color: $white,
+        $style: solid
+      );
+    }
+
+    &__add__new {
+      @include button-size(
+        $size: small,
+        $expand: false
+      );
     }
   }
 

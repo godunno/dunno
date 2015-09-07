@@ -1,21 +1,10 @@
 .schedule {
   @include breakpoint(small only) {
     background: $white;
-
-    .schedule__close {
-      display: block;
-      padding-top: 1rem;
-      text-align: center;
-    }
-  }
-
-  .content__box {
-    border: 0;
   }
 
   &__close {
-    display: inline-block;
-    padding-bottom: 1rem;
+    margin: 1rem 0;
 
     .icon {
       vertical-align: middle;
@@ -32,6 +21,11 @@
     h4 {
       text-transform: uppercase;
     }
+  }
+
+  .content__box {
+    margin-top: 1rem;
+    padding: 1rem;
   }
 
   .weekly__schedules {

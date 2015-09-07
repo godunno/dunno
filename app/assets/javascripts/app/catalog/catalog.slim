@@ -28,8 +28,7 @@
       .catalog__media__header
         .media__remove
           a.icon.icon-trash ng-click="removeMedia(media)"
-        span.media__thumbnail[
-          style="background-image: url({{media.thumbnail}});"]
+        span.media__thumbnail ng-style="{'background-image': media.thumbnail}"
         span.media__data
           .media__title
             a[

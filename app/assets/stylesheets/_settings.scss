@@ -278,7 +278,7 @@ $button-font-size: 1rem;
 // - - - - - - - - - - - - - - -
 
 // $actionsheet-background: white;
-$actionsheet-border-color: $light-grey-color;
+$actionsheet-border-color: lighten($light-grey-color, 15%);
 // $actionsheet-animate: transform opacity;
 // $actionsheet-animation-speed: 0.25s;
 // $actionsheet-width: 300px;
@@ -287,7 +287,7 @@ $actionsheet-shadow: none;
 // $actionsheet-padding: $global-padding;
 // $actionsheet-tail-size: 10px;
 
-$actionsheet-popup-shadow: none;
+$actionsheet-popup-shadow: 0 0 0 .0625rem $light-grey-color;
 
 $actionsheet-link-color: $dunno-dark-color;
 // $actionsheet-link-background-hover: smartscale($actionsheet-background);
@@ -547,7 +547,7 @@ $offcanvas-color: $white;
 $offcanvas-shadow: none;
 // $offcanvas-animation-speed: 0.25s;
 
-// $offcanvas-frame-selector: '.grid-frame';
+$offcanvas-frame-selector: '.root';
 
 // 21. Panel
 // - - - - - - - - - - - - - - -

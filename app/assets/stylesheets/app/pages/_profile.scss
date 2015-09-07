@@ -7,6 +7,10 @@
 
     form {
       min-width: 30vw;
+
+      @include breakpoint(small only) {
+        min-width: 100vw;
+      }
     }
 
     .submit {

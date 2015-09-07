@@ -6,4 +6,6 @@ a.close-button zf-close=true
   p
     | Dê um nome para esta disciplina. Opcionalmente você pode indicar a turma e a instituição da qual ela faz parte assim como a duração do período letivo.
 .modal__content
-  course-form submit-label="Criar" on-save="close()"
+  course-form[
+    submit-label="Criar"
+    on-save="close()"]
