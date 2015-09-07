@@ -64,7 +64,7 @@ Router = ($stateProvider,
       url: '/events/:startAt'
       views:
           '@':
-            templateUrl: '<%= asset_path('app/lesson-plan/lesson-plan-detail') %>'
+            templateUrl: '<%= asset_path('app/lesson-plan/lesson-plan-edit') %>'
             controller: 'EventCtrl'
       resolve: { event: EventResolver }
     )
