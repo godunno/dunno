@@ -82,7 +82,7 @@ $include-css: (
 // $base-font-size: 100%;
 
 // $base-line-height is 24px while $base-font-size is 16px
-// $base-line-height: 1.5;
+$base-line-height: 1.5;
 
 // Text selector helpers
 // $headers: "h1,h2,h3,h4,h5,h6";
@@ -101,7 +101,7 @@ $body-font-family: $font-family-sans-serif;;
 
 // Application Colors
 $primary-color: $dunno-green-color;
-// $secondary-color: $light-grey-color;
+$secondary-color: lighten($light-grey-color, 15%);
 $alert-color: $red-color;
 $info-color: $white;
 $success-color: $dunno-green-color;

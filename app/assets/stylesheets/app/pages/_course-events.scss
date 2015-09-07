@@ -1,10 +1,28 @@
-.event {
+%lesson__box {
   @include box-shadow();
   background-color: $white;
   border: $divider;
   border-radius: $global-radius;
   margin-bottom: 2rem;
-  padding: 2rem;
+  padding: 2rem 2rem 0;
+}
+
+.lessons {
+  @include grid-container();
+
+  &__blankslate {
+    @extend %lesson__box;
+    padding-bottom: 2rem;
+    text-align: center;
+
+    a {
+      @extend .button;
+    }
+  }
+}
+
+.lesson {
+  @extend %lesson__box;
 
   @include breakpoint(small only) {
     border: 0;
@@ -43,7 +61,7 @@
     display: block;
   }
 
-  .date__status {
+  &__status {
     display: block;
     padding-right: .25rem;
     text-transform: uppercase;
@@ -59,15 +77,19 @@
     }
   }
 
-  .no__topics {
-    padding: 1rem;
-    text-align: center;
-  }
-
   &__content {
     margin-bottom: 2rem;
 
     @include breakpoint(small only) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__empty {
+    padding: 1rem 0;
+    text-align: center;
+
+    p {
       margin-bottom: 0;
     }
   }
@@ -92,5 +114,13 @@
 
   .topic__item__description {
     word-break: break-word;
+  }
+
+  &__load__more {
+    text-align: center;
+
+    a {
+      @extend .button;
+    }
   }
 }

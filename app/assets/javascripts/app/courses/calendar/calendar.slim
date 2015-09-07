@@ -5,19 +5,17 @@
       | Cronograma Semanal
   .content__box
     .calendar__header
-      .dates__header__navigation
-        .dates__header__previous-month
-          a.button.transparent.secondary.small ui-sref="{month: course.previous_month}"
-            i.icon.icon-chevron-left
-            span<
-              | {{course.previous_month | amDateFormat:'MMM'}}
-        .dates__header__current-month
-          | {{course.current_month | amDateFormat:'MMMM'}}
-        .dates__header__next-month
-          a.button.transparent.secondary.small ui-sref="{month: course.next_month}"
-            span>
-              | {{course.next_month | amDateFormat:'MMM'}}
-            i.icon.icon-chevron-right
+      .calendar__navigation
+        a.calendar__navigation__next ui-sref="{month: course.previous_month}"
+          i.icon.icon-chevron-left>
+          span
+            | {{course.previous_month | amDateFormat:'MMM/YY'}}
+        .calendar__navigation__current
+          | {{course.current_month | amDateFormat:'MMMM/YY'}}
+        a.calendar__navigation__next ui-sref="{month: course.next_month}"
+          span
+            | {{course.next_month | amDateFormat:'MMM/YY'}}
+          i.icon.icon-chevron-right<
     .calendar__dates
       .empty__results.calendar__date ng-if="!course.events || course.events.length == 0"
         | Até o momento nenhuma aula foi criada neste mês.

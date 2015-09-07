@@ -1,142 +1,147 @@
-.dates__programme {
-  padding-bottom: 1rem;
-  text-align: center;
+.calendar {
+  @include grid-container();
 
-  @include breakpoint(small only) {
-    background: $white;
+  .dates__programme {
+    padding-bottom: 1rem;
+    text-align: center;
+
+    @include breakpoint(small only) {
+      background: $white;
+      border-bottom: $divider;
+      padding: 2rem 0;
+    }
+  }
+
+  &__header {
     border-bottom: $divider;
-    padding: 2rem 0;
-  }
-}
+    font-size: .875em;
+    text-transform: uppercase;
 
-.calendar__header {
-  border-bottom: $divider;
-  font-size: .875em;
-  text-transform: uppercase;
-
-  .button {
-    margin-bottom: 0;
   }
 
-  .dates__header__navigation {
+  &__navigation {
     display: flex;
     padding-top: .25rem;
     text-align: center;
     white-space: nowrap;
+
+    &__current {
+      flex: 1;
+      font-weight: $font-weight-bold;
+      margin: .5rem 1.5rem;
+    }
+
+    &__next,
+    &__previous {
+      @extend .button;
+      @extend .secondary;
+      @extend .small;
+      @extend .transparent;
+      white-space: nowrap;
+
+      .icon {
+        vertical-align: middle;
+      }
+    }
   }
 
-  .dates__header__current-month {
-    flex: 1;
-    font-weight: $font-weight-bold;
-    margin: .5rem 1.5rem;
+
+  .calendar__dates {
+    .empty__results {
+      color: $medium-grey-color;
+      padding: 1rem 0;
+      text-align: center;
+    }
   }
 
-  .dates__header__next-month,
-  .dates__header__previous-month {
+  .calendar__date {
+    &:last-child {
+      .calendar__date__link {
+        border-bottom: 0;
+        border-radius: 0 0 $global-radius $global-radius;
+      }
+    }
+  }
+
+  .calendar__date__link {
+    background-color: $white;
+    border-bottom: $divider;
+    color: $dunno-dark-color;
+    display: flex;
+    padding: 1rem;
     white-space: nowrap;
 
-    .icon {
-      vertical-align: middle;
+    @include breakpoint(small only) {
+      line-height: 1.5rem;
+    }
+
+    &.past {
+      background-color: lighten($light-grey-color, 20%);
+    }
+
+    &.today {
+      background-color: $yellow-color;
+    }
+
+    &:hover {
+      background-color: darken($white, 4%);
+    }
+
+    .date__day {
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .date__today {
+      margin-right: .5rem;
+    }
+
+    .date__time {
+      color: $medium-grey-color;
+    }
+
+    .date__classroom {
+      color: $dunno-dark-color;
+      display: block;
+    }
+
+    .date__info,
+    .date__status {
+      padding-left: .5rem;
+      padding-right: .5rem;
+
+      @include breakpoint(small only) {
+        padding-left: .25rem;
+        padding-right: .25rem;
+      }
+    }
+
+    .date__status {
+      @include breakpoint(small only) {
+        margin-left: auto;
+      }
     }
   }
-}
 
-.calendar__dates {
-  .empty__results {
-    color: $medium-grey-color;
-    padding: 1rem 0;
+  .date__status {
+    align-self: center;
+    font-size: .875rem;
+    font-style: normal;
+    margin-left: auto;
     text-align: center;
-  }
-}
-
-.calendar__date {
-  &:last-child {
-    .calendar__date__link {
-      // TODO: LOOK AT ME, LEO
-      // @include side-radius(bottom, $global-radius);
-      border-bottom: 0;
-    }
-  }
-}
-
-.calendar__date__link {
-  background-color: $white;
-  border-bottom: $divider;
-  color: $dunno-dark-color;
-  display: flex;
-  padding: 1rem;
-  white-space: nowrap;
-
-  @include breakpoint(small only) {
-    line-height: 1.5rem;
-  }
-
-  &.past {
-    background-color: lighten($light-grey-color, 20%);
-  }
-
-  &.today {
-    background-color: $yellow-color;
-  }
-
-  &:hover {
-    background-color: darken($white, 4%);
-  }
-
-  .date__day {
-    display: block;
     text-transform: uppercase;
-  }
-
-  .date__today {
-    margin-right: .5rem;
-  }
-
-  .date__time {
-    color: $medium-grey-color;
-  }
-
-  .date__classroom {
-    color: $dunno-dark-color;
-    display: block;
-  }
-
-  .date__info,
-  .date__status {
-    padding-left: .5rem;
-    padding-right: .5rem;
 
     @include breakpoint(small only) {
-      padding-left: .25rem;
-      padding-right: .25rem;
+      margin-left: 0;
+      text-align: right;
     }
-  }
 
-  .date__status {
-    @include breakpoint(small only) {
-      margin-left: auto;
+    .published {
+      color: $dunno-green-color;
     }
-  }
-}
 
-.date__status {
-  align-self: center;
-  font-size: .875rem;
-  font-style: normal;
-  margin-left: auto;
-  text-align: center;
-  text-transform: uppercase;
-
-  @include breakpoint(small only) {
-    margin-left: 0;
-    text-align: right;
-  }
-
-  .published {
-    color: $dunno-green-color;
-  }
-
-  .canceled {
-    color: $red-color;
+    .canceled {
+      color: $red-color;
+    }
   }
 }
