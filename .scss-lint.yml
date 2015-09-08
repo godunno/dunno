@@ -4,7 +4,7 @@ exclude:
   - 'app/assets/stylesheets/app.scss'
   - 'app/assets/stylesheets/landing-page.scss'
   - 'app/assets/stylesheets/vendors/*'
-  - 'vendors/*'
+  - 'vendor/*'
 
 linters:
   SingleLinePerSelector:
