@@ -12,6 +12,11 @@
       max-width: 40vw;
       min-width: 40vw;
     }
+
+    @include breakpoint(large) {
+      max-width: 27vw;
+      min-width: 27vw;
+    }
   }
 
   .root__proxy {
