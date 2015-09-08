@@ -31,7 +31,7 @@
 //  24. Tabs
 //  25. Title Bar
 
-@import "foundation-apps/scss/helpers/functions";
+@import 'foundation-apps/scss/helpers/functions';
 
 // 1. CSS Exports
 // - - - - - - - - - - - - - - -
@@ -94,7 +94,7 @@ $base-line-height: 1.5;
 // We use these to control various global styles
 $body-background: darken($white, 5%);
 $body-font-color: $dunno-dark-color;
-$body-font-family: $font-family-sans-serif;;
+$body-font-family: $font-family-sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
 // $body-antialiased: true;

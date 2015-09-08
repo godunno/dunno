@@ -1,14 +1,14 @@
 @import
-  'core/utils/variables',
-  'core/utils/mixins';
+  'landing-page/utils/variables',
+  'landing-page/utils/mixins';
 
 @import
-  'settings', // foundation setup
+  'landing-page/settings', // foundation setup
   'foundation';
 
 @import
-  'core/base/reset',
-  'core/base/typography';
+  'landing-page/base/reset',
+  'landing-page/base/typography';
 
 @import
   'vendors/icons';
@@ -18,7 +18,7 @@
   'landing-page/layouts/footer';
 
 @import
-  'core/components/buttons',
+  'landing-page/components/buttons',
   'landing-page/components/slides',
   'landing-page/components/slideshow',
   'landing-page/components/sticky',
@@ -29,4 +29,4 @@
   'landing-page/pages/legal';
 
 @import
-  'core/themes/theme';
+  'landing-page/themes/theme';

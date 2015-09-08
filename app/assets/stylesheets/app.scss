@@ -1,21 +1,21 @@
 @import
-  'core/utils/variables',
-  'core/utils/mixins';
+  'app/utils/variables',
+  'app/utils/mixins';
 
 @import
-  'settings', // foundation setup
+  'app/settings', // foundation setup
   'foundation-apps/scss/foundation';
 
 @import
-  'core/base/reset',
-  'core/base/typography';
+  'app/base/reset',
+  'app/base/typography';
 
 @import
   'vendors/icons',
   'vendors/loading';
 
 @import
-  'core/components/buttons',
+  'app/components/buttons',
   'app/components/avatar',
   'app/components/badge',
   'app/components/cards',
@@ -62,4 +62,4 @@
   'app/pages/session';
 
 @import
-  'core/themes/theme';
+  'app/themes/theme';

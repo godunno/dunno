@@ -1,11 +1,10 @@
 scss_files: 'app/assets/stylesheets/**/*.scss'
 
 exclude:
-  - 'app/assets/stylesheets/_settings.scss'
   - 'app/assets/stylesheets/app.scss'
   - 'app/assets/stylesheets/landing-page.scss'
   - 'app/assets/stylesheets/vendors/*'
-  - 'vendor/*'
+  - 'vendors/*'
 
 linters:
   SingleLinePerSelector:
