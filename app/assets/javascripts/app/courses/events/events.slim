@@ -24,7 +24,7 @@
       aside
         event-status.date__status event="event" role="course.user_role"
         a.button.tiny.event__edit[
-          ng-click="goToEvent(event)"
+          ui-sref="^.event({ startAt: event.start_at })"
           if-teacher=true]
           | abrir no diário
     .event__content class="event__status__{{event.status}}"
