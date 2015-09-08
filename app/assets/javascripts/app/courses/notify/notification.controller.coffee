@@ -4,42 +4,45 @@ NotificationCtrl = (
   $analytics,
   $modalInstance,
   Notification,
-  ErrorParser) ->
+  ErrorParser
+  course) ->
 
-  $scope.limit = 140
+  @limit = 140
+  @course = course
 
-  reset = ->
-    $scope.notification = new Notification()
-    $scope.notification_form.$setPristine() if $scope.notification_form
+  reset = =>
+    @notification = new Notification()
+    @notification_form.$setPristine() if @notification_form
 
-  $scope.status = 'ready'
+  reset()
 
-  $scope.isReady = -> $scope.status == 'ready'
-  $scope.setReady = -> $scope.status = 'ready'
+  status = 'ready'
 
-  $scope.isSending = -> $scope.status == 'sending'
-  $scope.setSending = -> $scope.status = 'sending'
+  @isReady = -> status == 'ready'
+  @setReady = -> status = 'ready'
 
-  $scope.isSent = -> $scope.status == 'sent'
-  $scope.setSent = -> $scope.status = 'sent'
+  @isSending = -> status == 'sending'
+  @setSending = -> status = 'sending'
 
-  $scope.save = (notification)->
-    $scope.hasError = false
-    $scope.setSending()
-    course = $scope.$parent.course
+  @isSent = -> status == 'sent'
+  @setSent = -> status = 'sent'
+
+  @save = (notification) =>
+    @hasError = false
+    @setSending()
     notification.course_id = course.uuid
     notification.abbreviation = course.abbreviation
-    notification.save().then(->
+    notification.save().then(=>
+      @setSent()
       reset()
-      $scope.setSent()
       $analytics.eventTrack 'Notification Sent',
         courseName: course.name
         courseUuid: course.uuid
         message: notification.message
-    ).catch((response)->
-      $scope.hasError = true
-      ErrorParser.setErrors(response.data.errors, $scope.notification_form, $scope)
-      $scope.setReady()
+    ).catch((response) =>
+      @hasError = true
+      ErrorParser.setErrors(response.data.errors, @notification_form, $scope)
+      @setReady()
       $analytics.eventTrack 'Notification Error',
         courseName: course.name,
         courseUuid: course.uuid,
@@ -47,11 +50,13 @@ NotificationCtrl = (
         error: response.data.errors
     )
 
-  $scope.sendButtonText = ->
-    switch $scope.status
+  @sendButtonText = ->
+    switch status
       when 'ready' then 'Enviar mensagem'
       when 'sending' then 'Enviando...'
       when 'sent' then 'Enviado com sucesso!'
+
+  @
 
 NotificationCtrl.$inject = [
   '$scope',
@@ -59,7 +64,8 @@ NotificationCtrl.$inject = [
   '$analytics',
   '$modalInstance',
   'Notification',
-  'ErrorParser'
+  'ErrorParser',
+  'course'
 ]
 
 angular

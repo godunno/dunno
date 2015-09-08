@@ -96,8 +96,9 @@ course) ->
   $scope.openNotification = ->
     $modal.open
       templateUrl: '<%= asset_path('app/courses/notify/notify-members') %>'
-      controller: 'NotificationCtrl'
+      controller: 'NotificationCtrl as vm'
       windowClass: 'send__notification full'
+      resolve: { course: -> $scope.course }
 
 CourseCtrl.$inject = [
   '$scope',
