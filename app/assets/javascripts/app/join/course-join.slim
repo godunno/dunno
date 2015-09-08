@@ -4,10 +4,10 @@
       h1.page__title__title
         | Disciplinas
         small<
-          | › Entrar em uma turma
+          | › Entrar em uma Disciplina
       .page__title__actions
         a ui-sref="courses.search"
-          | Entrar em uma turma
+          | Entrar em uma disciplina
         span<>
           | ou
         a.button.tiny ng-click="vm.openNewCourseForm()"
@@ -19,7 +19,7 @@
           i.icon.icon-arrow-back>
           | Disciplinas
       h3
-        | Informe o Código da Turma
+        | Informe o Código da Disciplina
       p
         | Digite abaixo o código informado pelo professor.
       p
@@ -32,4 +32,4 @@
       .label.alert ng-if="error"
         | {{error}}
       button.button type="submit"
-        | Acessar Turma
+        | Buscar Disciplina
