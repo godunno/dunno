@@ -2,6 +2,9 @@ footer.footer {
   @include grid-block();
   @include grid-size(shrink);
   align-items: center;
+  background: $white;
+  border-top: $divider;
+  font-size: .875rem;
   justify-content: space-between;
   padding: 1rem;
 
@@ -9,7 +12,11 @@ footer.footer {
     display: none;
   }
 
+  .logo {
+    max-height: 1rem;
+  }
+
   a {
-    margin-left: 1rem;
+    margin-left: .5rem;
   }
 }

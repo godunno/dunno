@@ -1,3 +1,11 @@
+%button {
+  @extend %button;
+
+  .icon {
+    vertical-align: middle;
+  }
+}
+
 %primary__button {
   @extend %button;
   @include button-size(
@@ -56,4 +64,28 @@
     $color: $dunno-dark-color,
     $style: solid
   );
+}
+
+%cancel__button {
+  @extend %button;
+  @include button-size(
+    $size: small,
+    $expand: false
+  );
+  @include button-style(
+    $background: $red-color,
+    $background-hover: auto,
+    $color: $white,
+    $style: hollow
+  );
+}
+
+%transparent__tiny__button {
+  @extend %transparent__button;
+  @include button-size($size: tiny);
+}
+
+%darkhollow__tiny__button {
+  @extend %darkhollow__button;
+  @include button-size($size: tiny);
 }

@@ -1,5 +1,4 @@
 .root {
-  // @extend .grid-frame;
   @include grid-frame(expand, vertical);
 }
 
@@ -17,6 +16,12 @@
 
   @include breakpoint(small only) {
     background-color: $white;
+  }
+}
+
+small {
+  .icon {
+    vertical-align: middle;
   }
 }
 

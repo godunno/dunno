@@ -11,6 +11,14 @@
     margin: 0;
   }
 
+  .add__content {
+    color: $dark-grey-color;
+    display: block;
+    font-size: .75rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
   .select__item__type {
     display: flex;
     text-align: center;
@@ -59,37 +67,74 @@
 }
 
 %topic-save-button {
-  font-weight: $font-weight-bold;
-
   &.alert {
     border-color: $red-color;
   }
 }
 
 %topic-actions {
-  border-top: 1px dashed $dunno-green-color;
+  border-top: .0625rem dashed $dunno-green-color;
   clear: both;
   padding: .75em;
   text-align: right;
-
-  .cancel {
-    color: $light-grey-color;
-    float: left;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .button {
-    margin-bottom: 0;
-  }
 
   .create__new__topic__item {
     @extend %topic-save-button;
   }
 }
 
-.new__topic__actions {
-  @extend %topic-actions;
+.new__topic {
+  &__actions {
+    @extend %topic-actions;
+  }
+
+  &__cancel {
+    @extend %transparent__tiny__button;
+    float: left;
+    padding-left: 0;
+    padding-right: 0;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
+  &__visibility {
+    @extend %darkhollow__tiny__button;
+    @extend %dropdown;
+
+    &.topic__private {
+      @extend %cancel__button;
+      @extend %dropdown;
+      @include button-size($size: tiny);
+      @include button-style(
+        $background-hover: auto,
+        $background: $red-color,
+        $color: $red-color,
+        $style: hollow
+      );
+    }
+  }
+
+  &__create {
+    @extend %primary__button;
+    @include button-size($size: tiny);
+
+    &.topic__private {
+      @extend %cancel__button;
+      @include button-size($size: tiny);
+      @include button-style(
+        $background: $red-color,
+        $background-hover: auto,
+        $color: $white,
+        $style: solid
+      );
+    }
+
+    &.disabled {
+      opacity: .5;
+    }
+  }
 }
 
 %item-box {

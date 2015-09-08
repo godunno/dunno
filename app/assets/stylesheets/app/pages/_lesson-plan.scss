@@ -1,53 +1,3 @@
-.hide__personal__topics,
-.show__personal__topics {
-  .icon {
-    vertical-align: middle;
-  }
-}
-
-.add__content__cta {
-  color: $dark-grey-color;
-  display: block;
-  font-size: .75rem;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-small {
-  .icon {
-    vertical-align: middle;
-  }
-}
-
-.lesson__status__canceled__info {
-  strong {
-    color: $red-color;
-  }
-}
-
-.lesson__status__published__info {
-  @include breakpoint(small only) {
-    p {
-      .button {
-        margin: 1rem 0 0;
-      }
-
-      span {
-        display: block;
-        padding: 1rem 0 0;
-      }
-    }
-  }
-
-  strong {
-    color: $dunno-green-color;
-  }
-}
-
-//////////////////////////////////////////////////////////
-// REFACTOR ABOVE THIS LINE //////////////////////////////
-//////////////////////////////////////////////////////////
-
 .lesson__page {
   .lesson {
     &__wrapper {
@@ -120,46 +70,6 @@ small {
       }
     }
 
-  .lesson {
-    &__previous,
-    &__next {
-      align-items: center;
-      background: $white;
-      border: $divider;
-      cursor: pointer;
-      display: flex;
-      font-size: .875rem;
-      line-height: 1rem;
-      margin-top: .25rem;
-      padding: .75rem;
-      text-align: center;
-      text-transform: uppercase;
-
-      &:hover {
-        opacity: .66;
-      }
-
-      span {
-        flex-grow: 1;
-      }
-
-      small {
-        color: $dark-grey-color;
-        display: block;
-        font-size: rem-calc(12);
-      }
-
-      .icon {
-        color: $dunno-green-color;
-        flex-basis: 1.5rem;
-        vertical-align: middle;
-      }
-    }
-
-    &__previous {
-      border-right: 0;
-    }
-
     &__next {
       border-left: 0;
       border-radius: 0 $global-radius $global-radius 0;
@@ -226,14 +136,6 @@ small {
       }
     }
 
-    &__canceled {
-      color: $red-color;
-    }
-
-    &__published {
-      color: $dunno-green-color;
-    }
-
     &__status {
       align-self: center;
       margin-left: auto;
@@ -244,6 +146,15 @@ small {
         border: $divider;
         border-bottom: 0;
         border-top: 0;
+
+        @include breakpoint(small only) {
+          p {
+            span {
+              display: block;
+              padding: 1rem 0 0;
+            }
+          }
+        }
 
         strong {
           color: $white;
@@ -264,15 +175,6 @@ small {
           margin: .5rem 0 0;
         }
 
-        @include breakpoint(small only) {
-          p {
-            span {
-              display: block;
-              padding: 1rem 0 0;
-            }
-          }
-        }
-
         &__draft {
           strong {
             background-color: $dunno-dark-color;
@@ -291,18 +193,35 @@ small {
           }
         }
       }
+    }
 
-      &__actions {
-        background: $white;
-        border: $divider;
-        border-bottom: 0;
-        border-top: 0;
-        padding: 0 .75rem 1rem;
+    &__canceled {
+      color: $red-color;
+    }
 
-        .button {
-          margin-bottom: 0;
-        }
-      }
+    &__published {
+      color: $dunno-green-color;
+    }
+
+    &__cancel,
+    &__publish,
+    &__move__draft {
+      margin: .5rem;
+    }
+
+    &__cancel {
+      @extend %cancel__button;
+    }
+
+    &__publish {
+      @extend %primary__button;
+      @include button-size($size: small);
+    }
+
+    &__move__draft {
+      @extend %darkhollow__button;
+    }
+
   }
 
   .catalog__medias {
@@ -389,6 +308,5 @@ small {
   .topic__personal {
     font-size: 1.5rem;
   }
-
 }
 

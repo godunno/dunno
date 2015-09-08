@@ -1,36 +1,20 @@
-.dropdown {
-  &.secondary {
+%dropdown {
+  padding-right: 2em;
+  position: relative;
+
+  &:after {
     border: 0;
+    content: '\E00D';
+    font-family: 'dunno-icon-font';
+    position: absolute;
+    right: .65em;
+    top: 1em;
+    width: auto;
   }
+}
 
-  .icon {
-    font-size: 1em;
-    vertical-align: top;
+%dropdown__tiny {
+  &:after {
+    font-size: .875em;
   }
-}
-
-.f-dropdown {
-  border-color: $light-grey-color;
-  text-align: left;
-}
-
-.dropdown.button.tiny,
-button.dropdown.tiny {
-  padding-right: 1.75rem;
-}
-
-.dropdown.button:after,
-button.dropdown:after {
-  border: 0;
-  content: '\E00D';
-  font-family: 'dunno-icon-font';
-}
-
-.dropdown.button.tiny:after,
-button.dropdown.tiny:after {
-  font-size: .75rem;
-  position: absolute;
-  right: .5rem;
-  top: .75rem;
-  width: auto;
 }

@@ -9,21 +9,6 @@
           | · {{event.course.institution}}
       a.close__lesson.button.dark.tiny ui-sref="courses.show.calendar({course: event.course, month: event.start_at})"
         | fechar o diário
-
-  /
-    .event__status
-      .small-12.medium-6.medium-centered.columns
-        .event__status__actions ng-if="event.status != 'canceled' && event.status != 'published'"
-          a.event__cancel__link.button.alert.transparent.no__side__padding.small[
-            ng-if="event.status != 'canceled'"
-            ng-click="setStatus(event, 'canceled')"]
-            | Cancelar Aula
-          a.button.small.right[
-            ng-disabled="event.status == 'canceled'"
-            ng-show="event.status == 'draft'"
-            ng-click="setStatus(event, 'published')"]
-              | Publicar Aula
-
   .lesson__wrapper
     .lesson__previous__day
       a.lesson__previous[
@@ -81,11 +66,11 @@
           p
             | Para publicar uma aula
             br
-            a.button.tiny.alert> ng-click="setStatus(event, 'canceled')"
+            a.lesson__cancel ng-click="setStatus(event, 'canceled')"
               | Cancelar Aula
             span
               | ou
-            a.button.tiny< ng-click="setStatus(event, 'published')"
+            a.lesson__publish ng-click="setStatus(event, 'published')"
               | Publicar Aula
             br
             small
@@ -98,11 +83,11 @@
             br
             | Se deseja desfazer você pode
             br
-            a.button.tiny.dark> ng-click="setStatus(event, 'draft')"
+            a.lesson__move__draft ng-click="setStatus(event, 'draft')"
               | Mover para Rascunho
             span
               | ou
-            a.button.tiny< ng-click="setStatus(event, 'published')"
+            a.lesson__publish ng-click="setStatus(event, 'published')"
               | Publicar Aula
         .lesson__status__info__published ng-if="event.status == 'published'"
           strong
@@ -113,17 +98,20 @@
             br
             | Se desejar desabilitar a visualização você poderá
             br
-            a.button.tiny.dark> ng-click="setStatus(event, 'draft')"
-              | Mover para Rascunho
+            a.lesson__cancel ng-click="setStatus(event, 'canceled')"
+              | Cancelar Aula
             span
               | ou
-            a.button.tiny.alert< ng-click="setStatus(event, 'canceled')"
-              | Cancelar Aula
-      #topics-container.row event-list="topics"
+            a.lesson__move__draft ng-click="setStatus(event, 'draft')"
+              | Mover para Rascunho
+            br
+            small
+              | (aulas canceladas terão seu conteúdo preservado)
+      #topics-container event-list="topics"
         .new__topic__form[
           ng-controller="NewTopicCtrl"
           ng-if="event.status != 'canceled'"]
-          small.add__content__cta
+          small.add__content
             | adicione conteúdos para sua aula
           .select__item__type
             a[

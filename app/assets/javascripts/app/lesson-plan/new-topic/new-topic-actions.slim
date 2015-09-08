@@ -1,9 +1,9 @@
 / TODO: use one for each tab
 .new__topic__actions
-  a.cancel.button.transparent.tiny ng-click="cancel()"
+  a.new__topic__cancel ng-click="cancel()"
     | Cancelar
   zf-action-sheet
-    zf-as-button.dropdown.light.transparent.button.tiny.new__topic__visibility
+    zf-as-button.new__topic__visibility ng-class="{'topic__private': defaultTopicProperties.personal}"
       span.private ng-if="defaultTopicProperties.personal"
         i.icon.icon-private>
         | Somente professor
@@ -27,7 +27,7 @@
             zf-close=""]
             i.icon.icon-eye>
             | Estudantes
-  a.create__new__topic__item.button.tiny<[
-    ng-class="{disabled: !canAddTopic, alert: defaultTopicProperties.personal}"
+  a.new__topic__create<[
+    ng-class="{disabled: !canAddTopic, 'topic__private': defaultTopicProperties.personal}"
     ng-click="addTopic()"]
     | Inserir {{topicTypeDescription()}}
