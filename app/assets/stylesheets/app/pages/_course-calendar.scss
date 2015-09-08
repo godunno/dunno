@@ -16,6 +16,7 @@
     }
 
     &__close,
+    &__go,
     &__add__new {
       @extend %button;
       @include button-style(
@@ -43,7 +44,7 @@
 
   &__navigation {
     display: flex;
-    padding-top: .25rem;
+    padding: .25rem;
     text-align: center;
     white-space: nowrap;
 
@@ -55,10 +56,7 @@
 
     &__next,
     &__previous {
-      @extend .button;
-      @extend .secondary;
-      @extend .small;
-      @extend .transparent;
+      @extend %transparent__button;
       white-space: nowrap;
 
       .icon {

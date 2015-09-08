@@ -16,7 +16,7 @@
         @include grid-container();
         @include grid-wrap(true);
         justify-content: space-between;
-        padding: 1rem 1rem 0;
+        padding: 1rem 0 0;
 
         @include breakpoint(small only) {
           @include grid-orient(vertical);
@@ -60,7 +60,7 @@
         }
 
         > li {
-          margin: 0 .5rem;
+          margin: 0 1rem 0 0;
 
           > a {
             border-radius: $global-radius $global-radius 0 0;
@@ -71,6 +71,11 @@
 
     &__dates {
       text-transform: uppercase;
+    }
+
+    &__info,
+    &__actions {
+      padding: 0 1rem;
     }
 
     &__actions {
@@ -98,11 +103,7 @@
     }
 
     &__notify__members {
-      @extend .button;
-      @extend .transparent;
-      @extend .secondary;
-      @extend .outline;
-      @extend .tiny;
+      @extend %darkhollow__button;
     }
 
     &__content {
