@@ -29,7 +29,7 @@
         placeholder="Código da Disciplina"
         required=true
         type="text"]
-      .label.alert ng-if="error"
+      .message__error ng-if="error"
         | {{error}}
       button.button type="submit"
         | Buscar Disciplina
