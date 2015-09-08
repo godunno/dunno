@@ -169,4 +169,33 @@ describe TransferWeeklySchedule do
       it_behaves_like "event rescheduling"
     end
   end
+
+  context "when its course doesn't have an end_date", :wip do
+    let(:course) { create(:course, start_date: Date.parse('2015-08-01'), end_date: nil) }
+    let(:weekday) { weekly_schedule.weekday }
+
+    before { Timecop.freeze Time.zone.parse('2015-08-06 00:00') }
+
+    after { Timecop.return }
+
+    it "and there's no events" do
+      expect { service.transfer! }.not_to raise_error
+    end
+
+    it "and there's a past event" do
+      start_at = Time.zone.parse('2015-08-05 09:00')
+      event = create(:event, course: course, start_at: start_at)
+      expect { service.transfer! }
+        .not_to change { event.reload.start_at }
+    end
+
+    it "and there's a future event" do
+      start_at = Time.zone.parse('2015-08-12 09:00')
+      event = create(:event, course: course, start_at: start_at)
+      expect { service.transfer! }
+        .to change { event.reload.start_at }
+        .from(start_at)
+        .to(start_at.change(hour: 14))
+    end
+  end
 end
