@@ -7,6 +7,10 @@
   .media__load__more {
     margin-top: 1em;
   }
+
+  .media__title {
+    word-break: break-all;
+  }
 }
 
 .catalog__search {
