@@ -96,12 +96,7 @@
 
   .date__classroom {
     color: $dunno-dark-color;
-    margin-left: .5rem;
-
-    @media #{$small-only} {
-      display: block;
-      margin-left: 0;
-    }
+    display: block;
   }
 
   .date__info,
@@ -135,11 +130,11 @@
     text-align: right;
   }
 
-  &.published {
+  .published {
     color: $dunno-green-color;
   }
 
-  &.canceled {
+  .canceled {
     color: $red-color;
   }
 }

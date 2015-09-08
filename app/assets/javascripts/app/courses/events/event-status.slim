@@ -1,3 +1,3 @@
-span.date__status[
+span[
   ng-class="{canceled: vm.isCanceled(), published: vm.isPublished(), draft: vm.isDraft(), hide: (vm.isDraft() && vm.isStudent())}"]
   | {{vm.translatedStatus()}}

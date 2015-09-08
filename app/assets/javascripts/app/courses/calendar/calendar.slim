@@ -42,4 +42,4 @@
               | {{asDate(event.start_at) | amDateFormat:'HH:mm'}}–{{asDate(event.end_at) | amDateFormat:'HH:mm'}}
             span.date__classroom< ng-if="event.classroom"
               | Sala: {{event.classroom}}
-          event-status event="event" role="course.user_role"
+          event-status.date__status event="event" role="course.user_role"
