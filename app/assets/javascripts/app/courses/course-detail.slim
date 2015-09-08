@@ -16,13 +16,14 @@ header.page__header ng-style="{'background-color': course.color}"
       span.course__date__info ng-if="course.end_date"
         | {{course.start_date | amDateFormat: 'DD/MMM/YY'}}–{{course.end_date | amDateFormat: 'DD/MMM/YY'}}
       a.edit__course[
-        ng-if="course.user_role == 'teacher'"
+        if-teacher=true
         ng-click="openEditCourseForm()"]
         i.icon.icon-cog
       .notify__members
         a.button.transparent.secondary.outline.tiny[
           ng-click="openNotification()"
-          ng-if="course.user_role == 'teacher' && course.members.length > 1"]
+          if-teacher=true
+          ng-if="course.members.length > 1"]
           i.icon.icon-buzz>
           | Notificar estudantes
   .row

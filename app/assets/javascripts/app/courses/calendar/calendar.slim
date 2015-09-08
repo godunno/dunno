@@ -1,5 +1,5 @@
 .calendar ui-view=true
-  .dates__programme ng-if="course.user_role == 'teacher'"
+  .dates__programme if-teacher=true
     a.button.small ui-sref=".schedule"
       strong
         | Cronograma Semanal
@@ -25,7 +25,7 @@
         a.calendar__date__link[
           ng-attr-id="{{'event-' + event.uuid}}"
           ng-click="goToEvent(event)"
-          ng-class="eventClass(event)"
+          ng-class="locationInTime(event.start_at)"
           analytics-on="click"
           analytics-event="Event Accessed via Course"
           analytics-uuid="{{event.uuid}}"
@@ -42,6 +42,4 @@
               | {{asDate(event.start_at) | amDateFormat:'HH:mm'}}–{{asDate(event.end_at) | amDateFormat:'HH:mm'}}
             span.date__classroom< ng-if="event.classroom"
               | Sala: {{event.classroom}}
-          span.date__status[
-            ng-class="{canceled: isCanceled(event), published: isPublished(event), draft: isDraft(event), hide: (isDraft(event) && isStudent(course))}"]
-            | {{translatedStatus(event)}}
+          event-status event="event" role="course.user_role"

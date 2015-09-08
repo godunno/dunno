@@ -3,7 +3,7 @@
     .events__empty
       | Nenhuma aula criada.
       span.sad
-    .events__schedule__link ng-if="course.user_role == 'teacher'"
+    .events__schedule__link if-teacher=true
       | Você poderá adicionar novos horários de aula acessando o
       a< ui-sref="^.calendar.schedule"
         | cronograma semanal
@@ -22,12 +22,10 @@
         span.event__classroom ng-show="event.classroom"
           | Sala: {{event.classroom}}
       aside
-        span.date__status[
-          ng-class="{canceled: isCanceled(event), published: isPublished(event), draft: isDraft(event), hide: (isPublished(event) && isStudent(course))}"]
-          | {{translatedStatus(event)}}
+        event-status event="event" role="course.user_role"
         a.button.tiny.event__edit[
           ng-click="goToEvent(event)"
-          ng-if="course.user_role == 'teacher'"]
+          if-teacher=true]
           | abrir no diário
     .event__content class="event__status__{{event.status}}"
       .no__topics ng-if="event.topics.length == 0"
