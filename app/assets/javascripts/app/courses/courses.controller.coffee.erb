@@ -1,8 +1,8 @@
 CoursesIndexCtrl = ($location, $filter, $modal, Utils, courses) ->
   @courses = courses
 
-  @activeCourses = $filter('filter')(@courses, active: true)
-  @inactiveCourses = $filter('filter')(@courses, active: false)
+  @activeCourses   = @courses.filter (course) -> course.active
+  @inactiveCourses = @courses.filter (course) -> !course.active
 
   @unregister = (course)->
     if confirm("Deseja mesmo sair da disciplina #{course.name}?")
