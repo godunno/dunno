@@ -130,11 +130,11 @@
     text-align: right;
   }
 
-  &.published {
+  .published {
     color: $dunno-green-color;
   }
 
-  &.canceled {
+  .canceled {
     color: $red-color;
   }
 }
