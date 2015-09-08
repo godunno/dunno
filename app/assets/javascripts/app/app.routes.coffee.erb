@@ -86,6 +86,7 @@ Router = ($stateProvider,
     )
     .state('profile.change_password',
       url: '/profile/password/edit'
+      controller: 'PasswordCtrl'
       templateUrl: '<%= asset_path('app/profile/password') %>'
     )
 
