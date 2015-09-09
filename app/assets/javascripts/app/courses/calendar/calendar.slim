@@ -34,7 +34,7 @@
           analytics-start-at="{{event.start_at}}"]
           span.date__info
             span.date__day
-              strong.date__today> ng-if="isToday(event)"
+              strong.date__today> ng-if="isToday(event.start_at)"
                 | HOJE
               | {{asDate(event.start_at) | amDateFormat:'ddd, DD/MMM/YY'}}
             small.date__time
