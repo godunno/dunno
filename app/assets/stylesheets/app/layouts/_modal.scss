@@ -1,46 +1,6 @@
-// scss-lint:disable Comment
-/*
-.reveal-modal {
-  @include breakpoint(small) {
-    padding: 0;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  &.send__notification {
-    padding-bottom: 0;
-
-    p {
-      color: $medium-grey-color;
-      margin: 0 auto;
-      width: 70%;
-    }
-
-    .counter {
-      color: $medium-grey-color;
-      display: block;
-      font-size: .875em;
-      line-height: 3em;
-    }
-
-    .abbreviation {
-      width: 10em;
-    }
-
-    .button {
-      z-index: 99;
-    }
-
-    .preview {
-      word-wrap: break-word;
-    }
-  }
-}
-*/
-
 .modal {
+  overflow: visible;
+
   &__header {
     border-bottom: $divider;
     margin-bottom: 2em;
