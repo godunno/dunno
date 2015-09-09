@@ -57,7 +57,7 @@ class TransferWeeklySchedule
   end
 
   def find_event(occurrence)
-    Event.find_by(course: course, start_at: occurrence.to_time.change(usec: 0))
+    course.events.by_start_at(occurrence.to_time)
   end
 
   def update_event!(event)

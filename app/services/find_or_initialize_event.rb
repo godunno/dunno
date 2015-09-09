@@ -12,7 +12,9 @@ class FindOrInitializeEvent
   end
 
   def find
-    course.events.find_or_initialize_by(start_at: start_at).tap do |event|
+    event = course.events.by_start_at(start_at)
+    return event if event.present?
+    course.events.build(start_at: start_at).tap do |event|
       return event if event.persisted?
       service = FindWeeklySchedule.new(event.start_at, course.weekly_schedules)
       return event unless service.weekly_schedule?

@@ -5,7 +5,7 @@ describe EventsForPeriod do
   let(:course) { create(:course, weekly_schedules: [weekly_schedule], start_date: 7.days.ago, end_date: 7.days.from_now) }
   let(:service) { EventsForPeriod.new(course, WholePeriod.new(Date.current).month) }
 
-  let(:events_start_at) { service.events.map(&:start_at) }
+  let(:events_start_at) { service.events.map { |event| event.start_at.change(usec: 0) } }
 
   before { Timecop.travel Time.zone.parse("2015-08-25 10:00")  }
   after { Timecop.return }
