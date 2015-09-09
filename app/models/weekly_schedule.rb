@@ -39,6 +39,6 @@ class WeeklySchedule < ActiveRecord::Base
 
   def recurrence_rule_until_time
     course.end_date ||
-      course.events.last && course.events.last.start_at + 1.week
+      course.events.reload.last && course.events.last.start_at + 1.week
   end
 end
