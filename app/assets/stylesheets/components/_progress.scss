@@ -8,9 +8,9 @@
     transition: width .2s ease;
 
     &:before {
+      color: $medium-grey-color;
       content: 'enviando arquivo…';
       display: block;
-      font-style: italic;
       left: 0;
       line-height: 1rem;
       position: absolute;

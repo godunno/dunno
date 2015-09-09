@@ -1,0 +1,13 @@
+courseLink = ->
+  link = (scope, element, attributes) ->
+    scope.currentPage = attributes.currentPage || "Unknown"
+
+  link: link
+  templateUrl: '<%= asset_path("app/core/components/course-link.directive.html") %>'
+  scope: true
+  transclude: true
+  restrict: 'E'
+
+angular
+  .module('app.core')
+  .directive('courseLink', courseLink)

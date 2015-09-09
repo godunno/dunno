@@ -1,8 +1,8 @@
 CoursesIndexCtrl = ($location, $filter, $modal, Utils, courses) ->
   @courses = courses
 
-  @activeCourses = $filter('filter')(@courses, active: true)
-  @inactiveCourses = $filter('filter')(@courses, active: false)
+  @activeCourses   = @courses.filter (course) -> course.active
+  @inactiveCourses = @courses.filter (course) -> !course.active
 
   @unregister = (course)->
     if confirm("Deseja mesmo sair da disciplina #{course.name}?")
@@ -11,12 +11,12 @@ CoursesIndexCtrl = ($location, $filter, $modal, Utils, courses) ->
 
   @openNewCourseForm = ->
     $modal.open
-      templateUrl: '<%= asset_path('courses/new_course_form.html') %>'
-      controller: 'NewCourseCtrl'
+      templateUrl: '<%= asset_path('app/courses/course-new.html') %>'
+      windowClass: 'add__course full'
   @
 
 CoursesIndexCtrl.$inject = ['$location', '$filter', '$modal', 'Utils', 'courses']
 
 angular
-  .module('DunnoApp')
+  .module('app.courses')
   .controller('CoursesIndexCtrl', CoursesIndexCtrl)

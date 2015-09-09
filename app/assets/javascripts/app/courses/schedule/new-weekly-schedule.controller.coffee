@@ -1,13 +1,10 @@
-DunnoApp = angular.module('DunnoApp')
-
 NewWeeklyScheduleCtrl = (
   $scope,
   $state,
   $modalInstance,
   $filter,
   TimeGetterSetter,
-  weeklySchedule
-) ->
+  weeklySchedule) ->
 
   $scope.formButton = "Adicionar"
   $scope.weeklySchedule = weeklySchedule
@@ -41,4 +38,7 @@ NewWeeklyScheduleCtrl.$inject = [
   'TimeGetterSetter',
   'weeklySchedule'
 ]
-DunnoApp.controller 'NewWeeklyScheduleCtrl', NewWeeklyScheduleCtrl
+
+angular
+  .module('app.courses')
+  .controller('NewWeeklyScheduleCtrl', NewWeeklyScheduleCtrl)

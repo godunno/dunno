@@ -3,5 +3,5 @@ EventsPaginationResolver = ($stateParams, PageLoading, Event) ->
 
 EventsPaginationResolver.$inject = ['$stateParams', 'PageLoading', 'Event']
 angular
-  .module('DunnoApp')
+  .module('app.courses')
   .constant('EventsPaginationResolver', EventsPaginationResolver)

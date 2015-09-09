@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 NewUrlMediaCtrl = ($scope, Media) ->
   $scope.$on 'newTopic', ($event, topicType) ->
     return unless topicType == 'url'
@@ -53,4 +51,7 @@ NewUrlMediaCtrl = ($scope, Media) ->
     $scope.$emit('finishEditing')
     startWatcher = setNewStartWatcher()
 NewUrlMediaCtrl.$inject = ['$scope', 'Media']
-DunnoApp.controller 'NewUrlMediaCtrl', NewUrlMediaCtrl
+
+angular
+  .module('app.lessonPlan')
+  .controller('NewUrlMediaCtrl', NewUrlMediaCtrl)

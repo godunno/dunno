@@ -1,0 +1,55 @@
+.events__tab
+  .event.text-center ng-if="!events.length"
+    .events__empty
+      | Nenhuma aula criada.
+      span.sad
+    .events__schedule__link if-teacher=true
+      | Você poderá adicionar novos horários de aula acessando o
+      a< ui-sref="^.calendar.schedule"
+        | cronograma semanal
+      | .
+  .event[
+    ng-repeat="event in events"
+    scroll-to-when="scrollUntil == event.start_at"]
+    / TODO: no results for event in events copy
+    .event__header
+      span.event__info
+        span.event__date__weekday
+          | {{event.start_at | amDateFormat:'ddd, DD/MMM/YY'}}
+        small.event__time
+          i.icon.icon-clock
+          | {{event.start_at | amDateFormat: 'HH:mm'}}–{{event.end_at | amDateFormat: 'HH:mm'}}
+        span.event__classroom ng-show="event.classroom"
+          | Sala: {{event.classroom}}
+      aside
+        event-status.date__status event="event" role="course.user_role"
+        a.button.tiny.event__edit[
+          ui-sref="^.event({ startAt: event.start_at })"
+          if-teacher=true]
+          | abrir no diário
+    .event__content class="event__status__{{event.status}}"
+      .no__topics ng-if="event.topics.length == 0"
+        p.empty__results
+          | Nenhum conteúdo disponível para esse dia.
+      .event__item[
+        ng-repeat="topic in event.topics"
+        ng-if="topic.personal != true"]
+        img.topic__item__image ng-if="!!topic.media" ng-src="{{topic.media.thumbnail}}"
+        a.topic__item__description[
+          ng-if="!!topic.media"
+          ng-href="{{topic.media.url}}"
+          target="_blank"
+          analytics-on="click"
+          analytics-event="Media Clicked"
+          analytics-uuid="{{media.uuid}}"
+          analytics-event-uuid="{{event.uuid}}"
+          analytics-course-name="{{event.course.name}}"
+          analytics-course-uuid="{{event.course.uuid}}"]
+          | {{topic.description}}
+        span.topic__item__description ng-if="!topic.media"
+          | {{topic.description}}
+.text-center
+  a.button.secondary.tiny[
+    ng-click="paginate(nextPage)"
+    ng-hide="noMoreEvents"]
+    | Carregar mais…

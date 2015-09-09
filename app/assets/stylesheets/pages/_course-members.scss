@@ -26,6 +26,11 @@
   }
 }
 
+.no__members {
+  padding: 2rem 0;
+  text-align: center;
+}
+
 .members__content__title {
   @extend %divider;
   margin-bottom: 1rem;

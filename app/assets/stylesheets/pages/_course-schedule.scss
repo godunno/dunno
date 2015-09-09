@@ -1,0 +1,110 @@
+.schedule {
+  @media #{$small-only} {
+    background: $white;
+
+    .schedule__close {
+      display: block;
+      padding-top: 1rem;
+      text-align: center;
+    }
+  }
+
+  .content__box {
+    border: 0;
+  }
+
+  &__close {
+    display: inline-block;
+    padding-bottom: 1rem;
+
+    .icon {
+      vertical-align: middle;
+    }
+  }
+
+  &__header {
+    padding: 2rem 0 0;
+
+    @media #{$small-only} {
+      padding: 1rem 0 0;
+    }
+
+    h4 {
+      text-transform: uppercase;
+    }
+  }
+
+  .weekly__schedules {
+    &__empty {
+      margin: 0;
+      opacity: .5;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    &__preheader {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+
+      h6 {
+        font-weight: $font-weight-bold;
+        margin-top: .5rem;
+      }
+
+      .add__schedule__time {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .weekly__schedule {
+    align-items: center;
+    border-top: $divider;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+
+    &__day {
+      flex: 1;
+    }
+
+    &__weekday {
+      display: block;
+      text-transform: uppercase;
+    }
+
+    &__info {
+      display: block;
+
+      .icon {
+        vertical-align: middle;
+      }
+    }
+
+    &__time {
+      color: $medium-grey-color;
+    }
+
+    &__classroom {
+      display: block;
+    }
+
+    &__actions {
+      flex: 2;
+
+      .button {
+        margin-bottom: 0;
+
+        .icon {
+          font-size: .6rem;
+        }
+      }
+    }
+  }
+}
+
+.weekday__select {
+  text-transform: capitalize;
+}

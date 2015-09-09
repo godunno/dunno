@@ -7,6 +7,23 @@
   }
 }
 
+
+.smile:after {
+  content: '=)';
+  display: inline-block;
+  font-weight: $font-weight-normal;
+  margin-left: .25rem;
+  transform: rotate(65deg);
+}
+
+.sad:after {
+  content: '=(';
+  display: inline-block;
+  font-weight: $font-weight-normal;
+  margin-left: .5rem;
+  transform: rotate(100deg);
+}
+
 .label.secondary {
   background-color: $light-grey-color;
   color: $dunno-dark-color;
@@ -70,4 +87,10 @@ body {
 .alert-box,
 .panel {
   @include radius();
+}
+
+.type__url {
+  .cg-busy.cg-busy-animation {
+    min-height: 100%;
+  }
 }

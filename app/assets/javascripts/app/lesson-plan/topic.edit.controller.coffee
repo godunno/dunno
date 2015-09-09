@@ -1,6 +1,4 @@
-DunnoApp = angular.module('DunnoApp')
-
-TopicEditCtrl = ($scope, Utils)->
+TopicEditCtrl = ($scope, Utils) ->
   $scope.isEditing = (topic) -> !!topic._editing
 
   initialize = ->
@@ -30,19 +28,22 @@ TopicEditCtrl = ($scope, Utils)->
 
   # TODO: Add to the next event's topics list.
   # TODO: Loading
-  $scope.transferTopic = (topic)->
+  $scope.transferTopic = (topic) ->
     return unless confirm("Você tem certeza que deseja transferir este conteúdo para a próxima aula?")
     topic.transfer().then ->
       $scope.$emit('transferTopic', topic)
 
   # TODO: Loading
-  $scope.removeTopic = (topic)->
+  $scope.removeTopic = (topic) ->
     return unless confirm("Você tem certeza que deseja remover este conteúdo?")
     topic.remove().then ->
       $scope.$emit('removeTopic', topic)
 
-  $scope.canTransferTopic = (topic, event)->
+  $scope.canTransferTopic = (topic, event) ->
     !Utils.newRecord(topic) && !!event.next
 
 TopicEditCtrl.$inject = ['$scope', 'Utils']
-DunnoApp.controller 'TopicEditCtrl', TopicEditCtrl
+
+angular
+  .module('app.lessonPlan')
+  .controller('TopicEditCtrl', TopicEditCtrl)

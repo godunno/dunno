@@ -19,7 +19,7 @@ class WeeklySchedule < ActiveRecord::Base
       .hour_of_day(time_of_day.hour)
       .minute_of_hour(time_of_day.minute)
       .second_of_minute(0)
-      .until(course.try(:end_date))
+      .until(recurrence_rule_until_time)
   end
 
   def range
@@ -35,5 +35,10 @@ class WeeklySchedule < ActiveRecord::Base
       next if weekly_schedule.weekday != weekday
       errors.add(:start_time, :overlapping) if weekly_schedule.overlaps?(range)
     end
+  end
+
+  def recurrence_rule_until_time
+    course.end_date ||
+      course.events.last && course.events.last.start_at + 1.week
   end
 end

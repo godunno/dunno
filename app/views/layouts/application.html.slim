@@ -1,5 +1,5 @@
 doctype 5
-html lang="pt" ng-app="DunnoApp"
+html lang="pt" ng-app="app"
   head
     meta charset="utf-8"
     meta content="width=device-width, initial-scale=1.0" name="viewport"
@@ -7,7 +7,7 @@ html lang="pt" ng-app="DunnoApp"
     title
       | Dunno
 
-    link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic' rel='stylesheet' type='text/css'
+    link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'
 
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "modernizer"
@@ -30,7 +30,7 @@ html lang="pt" ng-app="DunnoApp"
             a ui-sref="medias"
               | Catálogo
 
-        .content ui-view=true cg-busy="wholePageLoading" ng-class="controller"
+        .content ui-view=true cg-busy="wholePageLoading"
 
         .row
           .small-12.columns

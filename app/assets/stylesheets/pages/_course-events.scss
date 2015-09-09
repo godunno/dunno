@@ -15,41 +15,41 @@
   }
 
   &__header {
-    border-bottom: 0;
+    border-bottom: $divider;
     display: flex;
-    flex-wrap: wrap;
     margin-bottom: 2rem;
+    padding-bottom: 1rem;
 
     @media #{$small-only} {
       margin-top: 1rem;
     }
+
+    aside {
+      margin-left: auto;
+      text-align: right;
+    }
   }
 
-  &__date {
-    flex-basis: 70%;
-    order: 1;
+  &__info {
+    flex: 1;
+  }
+
+  &__date__weekday {
     text-transform: uppercase;
   }
 
   &__time {
-    flex-basis: 70%;
-    opacity: .5;
-    order: 3;
+    color: $medium-grey-color;
+    display: block;
   }
 
   .date__status {
-    flex-basis: 30%;
-    order: 2;
+    display: block;
     padding-right: .25rem;
-    text-align: right;
     text-transform: uppercase;
   }
 
   &__edit {
-    flex-basis: 30%;
-    order: 4;
-    text-align: right;
-
     .button {
       margin-bottom: 0;
 
@@ -61,6 +61,7 @@
 
   .no__topics {
     padding: 1rem;
+    text-align: center;
   }
 
   &__content {
@@ -92,11 +93,4 @@
   .topic__item__description {
     word-break: break-word;
   }
-}
-
-.empty__results {
-  margin: 0;
-  opacity: .5;
-  padding: 1rem 0;
-  text-align: center;
 }

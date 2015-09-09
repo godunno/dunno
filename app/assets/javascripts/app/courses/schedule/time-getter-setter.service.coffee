@@ -1,5 +1,3 @@
-DunnoApp = angular.module('DunnoApp')
-
 TimeGetterSetter = ($filter) ->
   @generate = (object, attribute) ->
     templateDate = new Date()
@@ -24,4 +22,7 @@ TimeGetterSetter = ($filter) ->
   @
 
 TimeGetterSetter.$inject = ['$filter']
-DunnoApp.service "TimeGetterSetter", TimeGetterSetter
+
+angular
+  .module('app.courses')
+  .service('TimeGetterSetter', TimeGetterSetter)

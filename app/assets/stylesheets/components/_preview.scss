@@ -1,45 +1,41 @@
-.wrapper-new-list-item {
-  .preview {
-    margin: .75em;
-  }
-}
-
 .media__preview {
   @include radius();
-  background-color: $background-light-grey-color;
-  border-bottom: 1px solid $light-grey-color;
-  overflow: hidden;
+  background-color: $body-bg;
+  border-bottom: $divider;
   padding: .75em;
   position: relative;
 
-  .media__preview__image,
-  .media__preview__title,
-  .media__preview__description {
-    display: inline-block;
-    margin-right: .5em;
+  &__link {
+    align-items: center;
+    display: flex;
   }
 
-  .media__preview__image {
-    @include thumbnail();
-    display: block;
-    float: left;
+  &__image {
+    @include thumbnail(4rem);
+    flex-basis: 4rem;
+    margin-right: .5rem;
   }
 
-  .media__preview__title,
-  .media__preview__description {
+  &__info {
     color: $dark-grey-color;
-    display: block;
+    flex: 1;
     font-size: .875em;
-    margin-left: 4em;
   }
 
-  .media__preview__title {
+  &__url {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__title {
+    display: block;
     font-weight: $font-weight-bold;
-    line-height: 2.75em;
   }
 
-  .media__preview__close {
-    color: $dark-grey-color;
+  &__close {
+    color: $dunno-dark-color;
     position: absolute;
     right: .6em;
     top: 0;

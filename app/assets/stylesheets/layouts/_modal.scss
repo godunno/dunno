@@ -1,4 +1,8 @@
 .reveal-modal {
+  @media #{$small-only} {
+    padding: 0;
+  }
+
   &:focus {
     outline: none;
   }
@@ -43,9 +47,14 @@
     }
 
     p {
-      color: $medium-grey-color;
+      color: $dark-grey-color;
       margin: 0 auto;
       width: 70%;
+
+      @media #{$small-only} {
+        font-size: .875rem;
+        width: 100%;
+      }
     }
   }
 }

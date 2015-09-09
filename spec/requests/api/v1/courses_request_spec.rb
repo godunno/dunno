@@ -63,7 +63,7 @@ describe Api::V1::CoursesController do
   end
 
   describe "GET /api/v1/courses/:identifier.json" do
-    let(:course) { create(:course, start_date: 2.months.ago, end_date: 2.months.from_now, teacher: teacher, students: [student]) }
+    let(:course) { create(:course, start_date: first_date - 2.month, end_date: first_date + 2.months, teacher: teacher, students: [student]) }
     let!(:event_from_another_teacher) { create(:event, course: create(:course, teacher: create(:profile))) }
     let!(:event_from_another_course) { create(:event, course: create(:course, teacher: teacher)) }
 

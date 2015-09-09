@@ -62,7 +62,7 @@ describe Api::V1::EventsController do
             "formatted_status" => event.formatted_status(profile),
             "start_at" => event.start_at.utc.iso8601,
             "end_at" => event.end_at.utc.iso8601,
-            "formatted_classroom" => "101",
+            "classroom" => nil,
             "topics" => [
               "uuid" => topic.uuid,
               "done" => topic.done,
@@ -178,11 +178,10 @@ describe Api::V1::EventsController do
         let(:target) { event }
 
         subject { event_json }
-        it_behaves_like "request return check", %w(uuid status start_at end_at)
+        it_behaves_like "request return check", %w(uuid status start_at end_at classroom)
 
         it { expect(last_response.status).to eq(200) }
         it { expect(subject["formatted_status"]).to eq(event.formatted_status(profile)) }
-        it { expect(subject["formatted_classroom"]).to eq("#{course.class_name} - #{classroom}") }
 
         describe "course" do
           let(:target) { event.course }
@@ -272,7 +271,7 @@ describe Api::V1::EventsController do
           "formatted_status" => "empty",
           "start_at" => start_at.utc.iso8601,
           "end_at" => end_at.utc.iso8601,
-          "formatted_classroom" => "#{course.class_name} - #{weekly_schedule.classroom}",
+          "classroom" => weekly_schedule.classroom,
           "course" => {
             "uuid" => new_course.uuid,
             "name" => new_course.name,
@@ -287,7 +286,7 @@ describe Api::V1::EventsController do
             "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][new_course.order],
             "user_role" => "teacher",
             "students_count" => 0,
-            "active"=> true,
+            "active" => true,
             "teacher" => { "name" => profile.name },
             "weekly_schedules" => [
               "uuid" => weekly_schedule.uuid,

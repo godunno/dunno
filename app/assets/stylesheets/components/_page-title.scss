@@ -13,12 +13,14 @@
   }
 
   &__title {
-    font-weight: $font-weight-light;
+    font-weight: $font-weight-normal;
     text-transform: uppercase;
 
     @media #{$small-only} {
       color: $white;
+      font-size: .875rem;
       height: 0;
+      line-height: 1.75rem;
       position: relative;
       text-align: center;
       top: -2.25rem;

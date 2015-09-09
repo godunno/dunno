@@ -3,7 +3,7 @@
 html,
 body,
 .structure {
-  background: $background-light-grey-color;
+  background: darken($white, 5%);
   min-height: 100%;
   min-width: 100%;
 }

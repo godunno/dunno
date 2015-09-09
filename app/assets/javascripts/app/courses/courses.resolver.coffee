@@ -1,7 +1,8 @@
-DunnoApp = angular.module('DunnoApp')
-
-resolver = (PageLoading, Course) ->
+CoursesResolver = (PageLoading, Course) ->
   PageLoading.resolve Course.query()
 
-resolver.$inject = ['PageLoading', 'Course']
-DunnoApp.constant 'CoursesResolver', resolver
+CoursesResolver.$inject = ['PageLoading', 'Course']
+
+angular
+  .module('app.courses')
+  .constant('CoursesResolver', CoursesResolver)

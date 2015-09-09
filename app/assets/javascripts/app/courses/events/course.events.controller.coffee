@@ -1,6 +1,10 @@
-DunnoApp = angular.module('DunnoApp')
-
-CourseEventsCtrl = ($scope, $stateParams, pagination, Event, DateUtils)->
+CourseEventsCtrl = (
+  $scope,
+  $stateParams,
+  pagination,
+  Event,
+  DateUtils
+) ->
   angular.extend($scope, DateUtils)
 
   setEvents = (pagination) ->
@@ -14,9 +18,23 @@ CourseEventsCtrl = ($scope, $stateParams, pagination, Event, DateUtils)->
   $scope.scrollUntil = $stateParams.until
 
   $scope.paginate = (page) ->
-    Event.paginate(course_id: $scope.course.uuid, offset: $scope.eventsOffset, page: page).then (pagination) ->
+    params =
+      course_id: $scope.course.uuid,
+      offset: $scope.eventsOffset,
+      page: page
+
+    Event.paginate(params).then (pagination) ->
       setEvents(pagination)
       $scope.nextPage = page + 1
 
-CourseEventsCtrl.$inject = ['$scope', '$stateParams', 'pagination', 'Event', 'DateUtils']
-DunnoApp.controller 'CourseEventsCtrl', CourseEventsCtrl
+CourseEventsCtrl.$inject = [
+  '$scope',
+  '$stateParams',
+  'pagination',
+  'Event',
+  'DateUtils'
+]
+
+angular
+  .module('app.courses')
+  .controller('CourseEventsCtrl', CourseEventsCtrl)

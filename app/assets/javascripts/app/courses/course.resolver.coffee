@@ -1,7 +1,8 @@
-DunnoApp = angular.module('DunnoApp')
-
-resolver = ($stateParams, PageLoading, Course) ->
+CourseResolver = ($stateParams, PageLoading, Course) ->
   PageLoading.resolve Course.get({ uuid: $stateParams.courseId }, { month: $stateParams.month })
 
-resolver.$inject = ['$stateParams', 'PageLoading', 'Course']
-DunnoApp.constant 'CourseResolver', resolver
+CourseResolver.$inject = ['$stateParams', 'PageLoading', 'Course']
+
+angular
+  .module('app.core')
+  .constant('CourseResolver', CourseResolver)

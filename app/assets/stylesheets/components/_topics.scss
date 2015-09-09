@@ -1,17 +1,51 @@
 .topics {
   @include side-radius(bottom, $global-radius);
   background: $white;
-  border: .0625rem solid $light-grey-color;
-  border-top: .1875rem solid lighten($light-grey-color, 20%);
+  border: $divider;
   margin-bottom: 2rem;
 
   .topic {
-    border-bottom: .0625rem solid $light-grey-color;
+    border-bottom: $divider;
   }
 
   .topic:last-child {
     @include side-radius(bottom, $global-radius);
     border-bottom: 0;
+  }
+
+  &__private {
+    background: $white;
+    border-bottom: $divider;
+    font-size: .875rem;
+    text-align: center;
+
+    &__hide,
+    &__show {
+      color: $dark-grey-color;
+      display: block;
+      padding: .75rem;
+
+      .icon {
+        font-size: 1.25rem;
+        vertical-align: middle;
+      }
+    }
+
+    &__hide {
+      &:hover {
+        color: $red-color;
+      }
+
+      .icon {
+        color: $red-color;
+      }
+    }
+
+    &__show {
+      &:hover {
+        color: $dunno-dark-color;
+      }
+    }
   }
 }
 
@@ -19,11 +53,17 @@
   background: $white;
   transition: background-color .25s ease-in-out;
 
+
   &__wrapper {
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 0;
+    padding: .25rem 0;
+  }
+
+  &__personal {
+    color: $red-color;
+    font-size: 1.5rem;
   }
 
   &.ui-sortable-helper {
@@ -54,12 +94,6 @@
     }
   }
 
-  &.personal {
-    .topic__description {
-      color: $red-color;
-    }
-  }
-
   &__editing {
     @extend %item-box;
     margin: -.5rem -.1875em;
@@ -78,12 +112,12 @@
   }
 
   &__url {
-    display: block;
-    font-size: .875em;
-    line-height: 1em;
+    display: inline-block;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    vertical-align: bottom;
+    word-break: break-all;
   }
 
   &__status,
@@ -92,19 +126,23 @@
   }
 
   &__image {
-    flex-basis: 3rem;
+    @include thumbnail(4rem);
+    flex-basis: 4rem;
     text-align: center;
-
-    span {
-      @include thumbnail();
-    }
   }
 
   &__description {
     flex-basis: 6rem;
     flex-grow: 1;
-    padding: 1rem .5rem;
+    line-height: 1.25rem;
+    padding: 1.25rem .5rem;
     word-wrap: break-word;
+
+    span {
+      color: $dark-grey-color;
+      display: block;
+      font-size: .875rem;
+    }
   }
 
   &__actions {

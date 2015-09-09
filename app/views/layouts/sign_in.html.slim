@@ -1,11 +1,11 @@
 doctype html
-html lang='pt' ng-app='DunnoApp'
+html lang='pt' ng-app='app'
   head
     meta charset='utf-8'
     meta content='width=device-width, initial-scale=1.0' name='viewport'
     title
       | #{@title || 'Dunno · Dentro e fora da sala de aula'}
-    link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'
+    link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application', :media => 'all'
     = javascript_include_tag 'modernizer'
     = csrf_meta_tags
