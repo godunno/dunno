@@ -17,6 +17,7 @@ class TransferWeeklySchedule
   end
 
   def affected_events
+    return [] if course.events.empty?
     @affected_events ||= old_schedule
                          .all_occurrences
                          .map { |occurrence| find_event(occurrence) }

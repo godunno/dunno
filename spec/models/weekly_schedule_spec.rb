@@ -127,9 +127,20 @@ describe WeeklySchedule do
     end
 
     context "without course's end date" do
-      let!(:course) { create(:course, end_date: nil) }
+      let!(:course) { create(:course, start_date: Date.parse('2015-07-01'), end_date: nil) }
 
-      it { is_expected.to eq "Weekly on Mondays on the 9th hour of the day on the 0th minute of the hour on the 0th second of the minute" }
+      context "without event" do
+        it "doesn't set any until_time for the rule" do
+          is_expected.to eq "Weekly on Mondays on the 9th hour of the day on the 0th minute of the hour on the 0th second of the minute"
+        end
+      end
+
+      context "with event" do
+        let!(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-07-31 09:00')) }
+        it "creates a rule with until_time 1 week after the last event's start_at" do
+          is_expected.to eq "Weekly on Mondays on the 9th hour of the day on the 0th minute of the hour on the 0th second of the minute until August  7, 2015"
+        end
+      end
     end
   end
 end
