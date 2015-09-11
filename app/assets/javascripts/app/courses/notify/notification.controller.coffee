@@ -2,7 +2,7 @@ NotificationCtrl = (
   $scope,
   $timeout,
   $analytics,
-  $modalInstance,
+  modalInstance,
   Notification,
   ErrorParser
   course) ->
@@ -62,7 +62,7 @@ NotificationCtrl.$inject = [
   '$scope',
   '$timeout',
   '$analytics',
-  '$modalInstance',
+  'modalInstance',
   'Notification',
   'ErrorParser',
   'course'
