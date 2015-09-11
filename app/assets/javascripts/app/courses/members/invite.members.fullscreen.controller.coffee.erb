@@ -1,11 +1,11 @@
-InviteMembersFullscreenController = ($modalStack, course) ->
+InviteMembersFullscreenController = (modalInstance, course) ->
   @course = course
   @close = ->
-    $modalStack.dismissAll()
+    modalInstance.destroy()
 
   @
 
-InviteMembersFullscreenController.$inject = ['$modalStack', 'course']
+InviteMembersFullscreenController.$inject = ['modalInstance', 'course']
 
 angular
   .module('app.courses')

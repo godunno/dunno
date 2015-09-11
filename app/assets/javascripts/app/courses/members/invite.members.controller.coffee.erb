@@ -1,16 +1,18 @@
-InviteMembersController = ($modal, course) ->
+InviteMembersController = (ModalFactory, course) ->
   @course = course
   @openInviteMembersFullscreen = ->
-    $modal.open
+    new ModalFactory
       templateUrl: '<%= asset_path('app/courses/invite/invite-fullscreen') %>'
-      controller: 'InviteMembersFullscreenController as vm'
-      windowClass: 'full invite__members__fullscreen'
+      controller: 'InviteMembersFullscreenController'
+      controllerAs: 'vm'
+      class: 'full invite__members__fullscreen'
       resolve:
         course: -> course
+    .activate()
 
   @
 
-InviteMembersController.$inject = ['$modal', 'course']
+InviteMembersController.$inject = ['ModalFactory', 'course']
 
 angular
   .module('app.courses')

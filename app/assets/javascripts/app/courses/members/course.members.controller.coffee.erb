@@ -1,4 +1,4 @@
-CourseMembersCtrl = (course, $modal) ->
+CourseMembersCtrl = (course, ModalFactory) ->
   role = (members) ->
     members[0].role
 
@@ -18,16 +18,18 @@ CourseMembersCtrl = (course, $modal) ->
     rolesInPortuguese[role]
 
   @openInviteMembers = ->
-    $modal.open
+    new ModalFactory
       templateUrl: '<%= asset_path('app/courses/invite/invite-members') %>'
-      controller: 'InviteMembersController as vm'
-      windowClass: 'full invite__members'
+      controller: 'InviteMembersController'
+      controllerAs: 'vm'
+      class: 'full invite__members'
       resolve:
         course: -> course
+    .activate()
 
   @
 
-CourseMembersCtrl.$inject = ['course', '$modal']
+CourseMembersCtrl.$inject = ['course', 'ModalFactory']
 
 angular
   .module('app.courses')

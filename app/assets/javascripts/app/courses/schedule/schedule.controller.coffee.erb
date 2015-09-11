@@ -1,29 +1,31 @@
-ScheduleCtrl = ($scope, $state, $modal, WeeklySchedule, Utils) ->
+ScheduleCtrl = ($scope, $state, ModalFactory, WeeklySchedule, Utils) ->
   $scope.update = ->
     $scope.$emit('wholePageLoading', $scope.course.update().then ->
       $state.go('^', null, reload: true)
     )
 
   $scope.transferWeeklySchedule = (weeklySchedule) ->
-    $modal.open
+    new ModalFactory
       templateUrl: '<%= asset_path('app/courses/schedule/schedule-transfer') %>',
       controller: 'TransferWeeklyScheduleCtrl'
       resolve:
         weeklySchedule: -> angular.copy(weeklySchedule)
+    .activate()
 
   $scope.newWeeklySchedule = ->
-    $modal.open
+    ModalFactory.open
       templateUrl: '<%= asset_path('app/courses/schedule/schedule-new') %>',
       controller: 'NewWeeklyScheduleCtrl'
       resolve:
         weeklySchedule: -> angular.copy(new WeeklySchedule(course_id: $scope.course.uuid))
+    .activate()
 
   $scope.removeWeeklySchedule = (weeklySchedule) ->
     if confirm('Deseja remover esse horário?')
       weeklySchedule.remove().then ->
         Utils.remove($scope.course.weekly_schedules, weeklySchedule)
 
-ScheduleCtrl.$inject = ['$scope', '$state', '$modal', 'WeeklySchedule', 'Utils']
+ScheduleCtrl.$inject = ['$scope', '$state', 'ModalFactory', 'WeeklySchedule', 'Utils']
 
 angular
   .module('app.courses')

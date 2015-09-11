@@ -1,7 +1,7 @@
 TransferWeeklyScheduleCtrl = (
   $scope,
   $state,
-  $modalInstance,
+  modalInstance,
   TimeGetterSetter,
   PageLoading,
   weeklySchedule) ->
@@ -29,19 +29,17 @@ TransferWeeklyScheduleCtrl = (
 
   $scope.$watch('startTime()', setEndTimeDuration, true)
 
-  success = (affected_events) ->
-    $modalInstance.close()
+  success = ->
+    modalInstance.destroy()
     $state.go('.', null, reload: true)
 
   $scope.submit = (weeklySchedule) ->
     PageLoading.resolve weeklySchedule.transfer().then(success)
 
-  $scope.close = -> $modalInstance.close()
-
 TransferWeeklyScheduleCtrl.$inject = [
   '$scope',
   '$state',
-  '$modalInstance',
+  'modalInstance',
   'TimeGetterSetter',
   'PageLoading',
   'weeklySchedule'

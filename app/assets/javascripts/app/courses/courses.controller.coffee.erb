@@ -4,22 +4,13 @@ CoursesIndexCtrl = ($location, $filter, ModalFactory, Utils, courses) ->
   @activeCourses   = @courses.filter (course) -> course.active
   @inactiveCourses = @courses.filter (course) -> !course.active
 
-  @unregister = (course)->
-    if confirm("Deseja mesmo sair da disciplina #{course.name}?")
-      course.unregister().then ->
-        Utils.remove(@courses, course)
-
-  initializeNewCourseModal = =>
-    @newCourseModal = new ModalFactory
-      templateUrl: '<%= asset_path('app/courses/course-new.html') %>'
-      contentScope:
-        close: =>
-          @newCourseModal.deactivate()
-
-  initializeNewCourseModal()
-
   @openNewCourseForm = ->
-    @newCourseModal.activate()
+    new ModalFactory
+      templateUrl: '<%= asset_path('app/courses/course-new.html') %>'
+      controller: 'NewCourseCtrl'
+      controllerAs: 'vm'
+      bindToController: true
+    .activate()
 
   @
 
