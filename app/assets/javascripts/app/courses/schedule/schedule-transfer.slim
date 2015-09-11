@@ -4,7 +4,11 @@ a.close-button zf-close="" ng-click="close()"
   h5
     | Horário atual
   p
-    | <b>{{originalWeeklySchedule.weekday | weekdayLong}}</b>, das <b>{{originalWeeklySchedule.start_time}}</b> às <b>{{originalWeeklySchedule.end_time}}</b>, sala <b>{{originalWeeklySchedule.classroom}}</b>.
+    | <b>{{originalWeeklySchedule.weekday | weekdayLong}}</b>, das <b>{{originalWeeklySchedule.start_time}}</b> às <b>{{originalWeeklySchedule.end_time}}</b>
+    span ng-if="originalWeeklySchedule.classroom"
+      |, sala <b>{{originalWeeklySchedule.classroom}}</b>
+    span
+      |.
   h5
     | Editar horário
 .modal__content
