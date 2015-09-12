@@ -13,7 +13,7 @@ ScheduleCtrl = ($scope, $state, ModalFactory, WeeklySchedule, Utils) ->
     .activate()
 
   $scope.newWeeklySchedule = ->
-    ModalFactory.open
+    new ModalFactory
       templateUrl: '<%= asset_path('app/courses/schedule/schedule-new') %>',
       controller: 'NewWeeklyScheduleCtrl'
       resolve:
