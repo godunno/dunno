@@ -170,7 +170,7 @@ describe TransferWeeklySchedule do
     end
   end
 
-  context "when its course doesn't have an end_date", :wip do
+  context "when its course doesn't have an end_date" do
     let(:course) { create(:course, start_date: Date.parse('2015-08-01'), end_date: nil) }
     let(:weekday) { weekly_schedule.weekday }
 
@@ -196,6 +196,49 @@ describe TransferWeeklySchedule do
         .to change { event.reload.start_at }
         .from(start_at)
         .to(start_at.change(hour: 14))
+    end
+  end
+
+  describe "finds event regardless the milliseconds on the start_at" do
+    let(:course) { create(:course, start_date: Date.parse('2015-08-01'), end_date: nil) }
+    let(:weekday) { weekly_schedule.weekday }
+    let(:milliseconds) { 12345 }
+
+    before { Timecop.freeze Time.zone.parse('2015-08-06 00:00') }
+    after { Timecop.return }
+
+    it do
+      start_at = Time.zone.local(2015, 8, 12, 9, 0, 0, milliseconds)
+      event = create(:event, course: course, start_at: start_at)
+      expect { service.transfer! }
+        .to change { event.reload.start_at }
+        .from(start_at)
+        .to(start_at.change(hour: 14, usec: milliseconds))
+    end
+  end
+
+  describe "ignores milliseconds calculating the time span" do
+    let(:course) { create(:course, start_date: Date.parse('2015-08-01'), end_date: nil) }
+    let(:weekday) { weekly_schedule.weekday }
+
+    let!(:event) { create(:event, course: course, start_at: start_at) }
+    let(:start_at)     { Time.zone.local(2015, 8, 12,  9, 0, 0, 0) }
+    let(:new_start_at) { Time.zone.local(2015, 8, 12, 14, 0, 0, 0) }
+
+    before { Timecop.freeze Time.zone.parse('2015-08-06 00:00') }
+    after { Timecop.return }
+
+    it do
+      old_schedule = double("Schedule", all_occurrences: [start_at], next_occurrence: start_at.change(usec: 999999))
+      allow(service).to receive(:old_schedule).and_return(old_schedule)
+
+      new_schedule = double("Schedule", next_occurrence: new_start_at)
+      allow(service).to receive(:new_schedule).and_return(new_schedule)
+
+      expect { service.transfer! }
+        .to change { event.reload.start_at }
+        .from(start_at)
+        .to(new_start_at.change(usec: 0))
     end
   end
 end

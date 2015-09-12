@@ -18,7 +18,14 @@ class Event < ActiveRecord::Base
   default_scope { order(:start_at).includes(:topics) }
 
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
-  scope :last_published, -> { published.last }
+
+  def self.last_published
+    published.last
+  end
+
+  def self.by_start_at(start_at)
+    find_by(start_at: (start_at - 1)..(start_at + 1))
+  end
 
   settings index: { number_of_shards: 1 } do
     mapping do

@@ -45,7 +45,11 @@ class TransferWeeklySchedule
   end
 
   def time_span
-    @time_spam ||= new_schedule.next_occurrence - old_schedule.next_occurrence
+    @time_span ||= next_occurrence_for(new_schedule) - next_occurrence_for(old_schedule)
+  end
+
+  def next_occurrence_for(schedule)
+    schedule.next_occurrence.change(usec: 0)
   end
 
   def time_to_i(time)
@@ -57,7 +61,7 @@ class TransferWeeklySchedule
   end
 
   def find_event(occurrence)
-    Event.find_by(course: course, start_at: occurrence.to_time.change(usec: 0))
+    course.events.by_start_at(occurrence.to_time)
   end
 
   def update_event!(event)
