@@ -1,0 +1,24 @@
+// COLORS
+$dunno-green-color: #1cc678;
+$dunno-dark-color: #2b3738;
+$red-color: #ff5950;
+$orange-color: #ff926a;
+$yellow-color: #fffddc;
+$blue-color: #54c5ff;
+$black: $dunno-dark-color;
+$dark-grey-color: #70797a;
+$medium-grey-color: lighten($dark-grey-color, 16%);
+$light-grey-color: lighten($dark-grey-color, 30%);
+$white: #fff;
+
+// TYPOGRAPHY
+$font-weight-bold: 700;
+$font-weight-normal: 400;
+$font-weight-light: 300;
+
+$font-family-sans-serif: 'Lato', sans-serif;
+$font-family-serif: serif;
+$font-family-monospace: 'Menlo', 'Consolas', monospace;
+
+// LAYOUT
+$divider: .0625rem solid lighten($light-grey-color, 10%);

@@ -1,23 +1,29 @@
-CourseCtrl = ($scope, $modal, course)->
+CourseCtrl = ($scope, ModalFactory, course)->
   $scope.course = course
 
   $scope.openEditCourseForm = ->
-    $modal.open
-      templateUrl: '<%= asset_path('app/courses/course-edit') %>'
-      windowClass: 'edit__course full'
-      controller: 'EditCourseCtrl as vm'
+    new ModalFactory
+      templateUrl: '<%= asset_path('app/courses/course-edit.html') %>'
+      controller: 'EditCourseCtrl'
+      controllerAs: 'vm'
+      bindToController: true
       resolve: { course: -> angular.copy($scope.course) }
+      scope: $scope
+    .activate()
 
   $scope.openNotification = ->
-    $modal.open
-      templateUrl: '<%= asset_path('app/courses/notify/notify-members') %>'
-      controller: 'NotificationCtrl as vm'
-      windowClass: 'send__notification full'
-      resolve: { course: -> $scope.course }
+    new ModalFactory
+      templateUrl: '<%= asset_path('app/courses/notify/notify-members.html') %>'
+      controller: 'NotificationCtrl'
+      controllerAs: 'vm'
+      bindToController: true
+      resolve: { course: -> angular.copy($scope.course) }
+    .activate()
+
 
 CourseCtrl.$inject = [
   '$scope',
-  '$modal',
+  'ModalFactory',
   'course'
 ]
 

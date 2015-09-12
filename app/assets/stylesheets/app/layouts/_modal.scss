@@ -1,0 +1,25 @@
+.modal {
+  overflow: visible;
+
+  &__header {
+    border-bottom: $divider;
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    text-align: center;
+
+    h5 {
+      text-transform: uppercase;
+    }
+
+    p {
+      color: $dark-grey-color;
+      margin: 0 auto;
+      width: 70%;
+
+      @include breakpoint(small) {
+        font-size: .875rem;
+        width: 100%;
+      }
+    }
+  }
+}

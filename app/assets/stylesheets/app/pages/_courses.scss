@@ -1,0 +1,115 @@
+.course {
+  &s {
+    @include grid-block();
+    @include grid-container();
+    @include grid-layout(1);
+
+    @include breakpoint(medium) {
+      @include grid-layout(2);
+    }
+
+    @include breakpoint(large) {
+      @include grid-layout(3);
+    }
+
+    .course__card:hover {
+      @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
+    }
+
+    &__inactive {
+      @include grid-container();
+
+      &__info {
+        background: $white;
+        border-radius: $global-radius;
+        margin-top: 2rem;
+        padding: 1rem 0;
+        text-align: center;
+      }
+    }
+
+    &__blankslate {
+      margin: 2rem 0;
+      text-align: center;
+
+      &__header {
+        margin-bottom: 2rem;
+      }
+
+      &__content {
+        @include grid-align(center);
+        @include grid-block();
+        @include grid-container();
+        align-items: center;
+
+
+        > p {
+          margin: 0 2rem;
+        }
+      }
+    }
+  }
+
+  &__card {
+    @extend %card;
+  }
+
+  &__inactive {
+    display: flex;
+    margin-bottom: 1rem;
+    padding: 1rem 0;
+
+    @include breakpoint(small only) {
+      flex-wrap: wrap;
+    }
+
+    &__dates,
+    &__info {
+      padding-right: .5rem;
+    }
+
+    &__dates {
+      white-space: nowrap;
+    }
+
+    &__info {
+      flex-basis: 100%;
+
+      @include breakpoint(small only) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  &__date {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &__title {
+      flex-basis: 100%;
+    }
+  }
+
+  &__start__date,
+  &__end__date {
+    flex-basis: 47%;
+    position: relative;
+
+    @include breakpoint(small only) {
+      flex-basis: 100%;
+    }
+  }
+}
+
+.remove__course__end__date {
+  color: $dunno-dark-color;
+  opacity: .5;
+  position: absolute;
+  right: 2.5rem;
+  top: 2.5rem;
+
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -11,6 +11,7 @@ html lang='pt' ng-app='app'
     = csrf_meta_tags
   body ng-controller='ApplicationCtrl'
     = render 'application/prebootstrap_loading'
-    = yield
+    .root
+      = yield
     = javascript_include_tag 'application'
     = render 'shared/analytics'

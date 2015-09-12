@@ -5,30 +5,29 @@ ui-view
         | Disciplinas arquivadas
       .page__title__actions
         a ui-sref="courses.search"
-          | Participar de uma disciplina existente
+          | Entrar em uma disciplina
         span<>
           | ou
         a.button.tiny ng-click="vm.openNewCourseForm()"
           | Criar disciplina
-  .row
-    .small-12.columns
-      .course__inactive ng-repeat="course in vm.inactiveCourses"
-        .course__inactive__dates
-          course-link current-page="courses"
-            span.course__start__date>
-              | {{course.start_date | amDateFormat: 'DD/MM/YY'}}
-            span.course__end__date
-              | – {{course.end_date | amDateFormat: 'DD/MM/YY'}}
-        .course__inactive__info
-          span.course__inactive__classname> ng-if="!!course.class_name"
-            | {{course.class_name}} ·
-          span.couse__inactive__name
-            | {{course.name}}
-          br
-          span.course__inactive__institution ng-if="!!course.institution"
-            | {{course.institution}}
-          br
-          span.course__students__count[
-            ng-pluralize
-            count="{{course.students_count}}"
-            when="{'0': 'Nenhum estudante.', '1': '1 estudante.', 'other': '{{students.members_count}} estudantes.'}"]
+  .courses__inactive
+    .course__inactive ng-repeat="course in vm.inactiveCourses"
+      .course__inactive__dates
+        course-link current-page="courses"
+          span.course__start__date>
+            | {{course.start_date | amDateFormat: 'DD/MM/YY'}}
+          span.course__end__date
+            | – {{course.end_date | amDateFormat: 'DD/MM/YY'}}
+      .course__inactive__info
+        span.course__inactive__classname> ng-if="!!course.class_name"
+          | {{course.class_name}} ·
+        span.couse__inactive__name
+          | {{course.name}}
+        br
+        span.course__inactive__institution ng-if="!!course.institution"
+          | {{course.institution}}
+        br
+        span.course__students__count[
+          ng-pluralize
+          count="{{course.students_count}}"
+          when="{'0': 'Nenhum estudante.', '1': '1 estudante.', 'other': '{{students.members_count}} estudantes.'}"]

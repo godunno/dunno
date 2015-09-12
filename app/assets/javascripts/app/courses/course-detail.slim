@@ -1,47 +1,40 @@
-header.page__header ng-style="{'background-color': course.color}"
-  .row
-    .small-12.medium-8.columns.page__header__header
-      h2.page__header__title
-        | {{course.name}}
-        small< ng-if="!!course.class_name"
-          | › {{course.class_name}}
-        small< ng-if="!!course.institution"
-          | · {{course.institution}}
-      ul.page__header__subtitle
-        li.course__teacher ng-if="!!course.teacher"
-          img.course__member__avatar user-avatar="{{course.teacher.name}}"
+.course__detail__page
+  .course__header ng-style="{'background-color': course.color}"
+    .course__header__wrapper
+      .course__info
+        .course__details
+          h2
+            | {{course.name}}
+            small< ng-if="!!course.class_name"
+              | › {{course.class_name}}
+            small< ng-if="!!course.institution"
+              | · {{course.institution}}
+        span.course__teacher ng-if="!!course.teacher"
+          img.avatar user-avatar="{{course.teacher.name}}"
           span
             | {{course.teacher.name}}
-    .page__header__info.small-12.medium-4.columns
-      span.course__date__info ng-if="course.end_date"
-        | {{course.start_date | amDateFormat: 'DD/MMM/YY'}}–{{course.end_date | amDateFormat: 'DD/MMM/YY'}}
-      a.edit__course[
-        if-teacher=true
-        ng-click="openEditCourseForm()"]
-        i.icon.icon-cog
-      .notify__members
-        a.button.transparent.secondary.outline.tiny[
+        span.course__dates< ng-if="course.end_date"
+          | · {{course.start_date | amDateFormat: 'DD/MMM/YY'}}–{{course.end_date | amDateFormat: 'DD/MMM/YY'}}
+      .course__actions
+        a.course__edit[
+          ng-if="course.user_role == 'teacher'"
+          ng-click="openEditCourseForm()"]
+          i.icon.icon-cog
+        a.course__notify__members[
           ng-click="openNotification()"
           if-teacher=true
           ng-if="course.members.length > 1"]
           i.icon.icon-buzz>
           | Notificar estudantes
-  .row
-    footer.small-12.columns
-      .row
-        .small-12.medium-6.columns
-          ul.small-block-grid-3.page__header__tabs
-            li ui-sref-active='active'
-              a.calendar__tab ui-sref=".calendar"
-                | Calendário
-            li ui-sref-active='active'
-              a.members__tab ui-sref=".events"
-                | Aulas
-            li ui-sref-active='active'
-              a.members__tab ui-sref=".members"
-                | Integrantes
-                span.label.round.info<
-                  | {{course.members.length}}
-.course__detail__page
-  .row.small-collapse
-    .small-12.medium-10.medium-centered.large-8.columns ui-view=true
+      .course__navigation
+        ul
+          li ui-sref-active="is-active"
+            a.calendar__tab ui-sref=".calendar"
+              | Calendário
+          li ui-sref-active="is-active"
+            a.members__tab ui-sref=".events"
+              | Aulas
+          li ui-sref-active="is-active"
+            a.members__tab ui-sref=".members"
+              | Integrantes ({{course.members.length}})
+  ui-view.course__content

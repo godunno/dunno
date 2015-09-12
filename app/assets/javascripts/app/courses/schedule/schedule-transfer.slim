@@ -1,13 +1,15 @@
-.row.small-collapse
-  .small-12.small-centered.medium-8.large-6.columns
-    .form__box
-      a.close-reveal-modal.close.close-modal ng-click="close()"
-        | ×
-      .modal__header
-        h5
-          | Horário atual
-        .panel.secondary
-          | <b>{{originalWeeklySchedule.weekday | weekdayLong}}</b>, das <b>{{originalWeeklySchedule.start_time}}</b> às <b>{{originalWeeklySchedule.end_time}}</b>, sala <b>{{originalWeeklySchedule.classroom}}</b>.
-        h5
-          | Editar horário
-      ng-include src="'#{asset_path('app/courses/schedule/schedule-form')}'"
+a.close-button zf-close="" ng-click="close()"
+  | ×
+.modal__header
+  h5
+    | Horário atual
+  p
+    | <b>{{originalWeeklySchedule.weekday | weekdayLong}}</b>, das <b>{{originalWeeklySchedule.start_time}}</b> às <b>{{originalWeeklySchedule.end_time}}</b>
+    span ng-if="originalWeeklySchedule.classroom"
+      |, sala <b>{{originalWeeklySchedule.classroom}}</b>
+    span
+      |.
+  h5
+    | Editar horário
+.modal__content
+  ng-include src="'#{asset_path('app/courses/schedule/schedule-form')}'"

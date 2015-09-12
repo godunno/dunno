@@ -1,21 +1,21 @@
-header.page__title
-  .page__title__wrapper
-    h1.page__title__title
-      | Confirmar Acesso à Disciplina
-.course__confirmation
-  .row
-    .small-12.medium-6.medium-centered.columns
-      .text-center
-        h3
-          | Confirmação de acesso
-        p
-          | É esta a disciplina?
-        .alert-box.alert ng-if="error"
-          | {{error}}
-      course-card
-      button.button.success.expand ng-click="register(course)"
-        | Confirmo, é essa mesmo!
-      p.text-center
-        | Não é essa.
-        a< ui-sref="courses.search"
-          | Quero corrigir o código.
+.course__confirm
+  header.page__title
+    .page__title__wrapper
+      h1.page__title__title
+        | Disciplinas
+        small>
+         | › Confirmar Disciplina
+  .course__confirm__content
+    h3
+      | Confirmação de acesso
+    p
+      | É esta a Disciplina?
+    .label.alert ng-if="error"
+      | {{error}}
+    course-card
+    button.button ng-click="register(course)"
+      | Confirmo, é essa mesmo!
+    p
+      | Não é essa.
+    a ui-sref="courses.search"
+      | Quero corrigir o código.

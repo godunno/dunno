@@ -1,0 +1,91 @@
+%button {
+  @extend %button;
+
+  .icon {
+    vertical-align: middle;
+  }
+}
+
+%primary__button {
+  @extend %button;
+  @include button-size(
+    $size: medium,
+    $expand: false
+  );
+  @include button-style(
+    $background: $dunno-green-color,
+    $background-hover: auto,
+    $color: $white,
+    $style: solid
+  );
+}
+
+.button {
+  @extend %primary__button;
+}
+
+%secondary__button {
+  @extend %button;
+  @include button-size(
+    $size: small,
+    $expand: false
+  );
+  @include button-style(
+    $background: $dunno-dark-color,
+    $background-hover: auto,
+    $color: $white,
+    $style: solid
+  );
+}
+
+%darkhollow__button {
+  @extend %button;
+  @include button-size(
+    $size: small,
+    $expand: false
+  );
+  @include button-style(
+    $background: $dunno-dark-color,
+    $background-hover: auto,
+    $color: $white,
+    $style: hollow
+  );
+}
+
+%transparent__button {
+  @extend %button;
+  @include button-size(
+    $size: small,
+    $expand: false
+  );
+  @include button-style(
+    $background: $white,
+    $background-hover: auto,
+    $color: $dunno-dark-color,
+    $style: solid
+  );
+}
+
+%cancel__button {
+  @extend %button;
+  @include button-size(
+    $size: small,
+    $expand: false
+  );
+  @include button-style(
+    $background: $red-color,
+    $background-hover: auto,
+    $color: $white,
+    $style: hollow
+  );
+}
+
+%transparent__tiny__button {
+  @extend %transparent__button;
+  @include button-size($size: tiny);
+}
+
+%darkhollow__tiny__button {
+  @extend %darkhollow__button;
+  @include button-size($size: tiny);
+}

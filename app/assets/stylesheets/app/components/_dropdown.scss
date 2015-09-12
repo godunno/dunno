@@ -1,0 +1,20 @@
+%dropdown {
+  padding-right: 2em;
+  position: relative;
+
+  &:after {
+    border: 0;
+    content: '\E00D';
+    font-family: 'dunno-icon-font';
+    position: absolute;
+    right: .65em;
+    top: 1em;
+    width: auto;
+  }
+}
+
+%dropdown__tiny {
+  &:after {
+    font-size: .875em;
+  }
+}

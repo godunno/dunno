@@ -1,0 +1,32 @@
+@import
+  'landing-page/utils/variables',
+  'landing-page/utils/mixins';
+
+@import
+  'landing-page/settings', // foundation setup
+  'foundation';
+
+@import
+  'landing-page/base/reset',
+  'landing-page/base/typography';
+
+@import
+  'vendors/icons';
+
+@import
+  'landing-page/layouts/home',
+  'landing-page/layouts/footer';
+
+@import
+  'landing-page/components/buttons',
+  'landing-page/components/slides',
+  'landing-page/components/slideshow',
+  'landing-page/components/sticky',
+  'landing-page/components/top-bar';
+
+@import
+  'landing-page/pages/home',
+  'landing-page/pages/legal';
+
+@import
+  'landing-page/themes/theme';

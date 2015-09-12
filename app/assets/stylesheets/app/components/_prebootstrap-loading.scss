@@ -1,0 +1,22 @@
+.prebootstrap-loading {
+  background: $dunno-dark-color;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1001;
+
+  .logo {
+    display: block;
+    margin: 25vh auto auto;
+    width: 20%;
+  }
+
+  .spinner {
+    @include spinner(
+      $diameter: 50px,
+      $color: transparentize($white, .7)
+    );
+  }
+}

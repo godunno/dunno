@@ -1,9 +1,12 @@
-EditCourseCtrl = (course) ->
+EditCourseCtrl = (modalInstance, course) ->
   @course = course
+
+  @close = ->
+    modalInstance.destroy()
 
   @
 
-EditCourseCtrl.$inject = ['course']
+EditCourseCtrl.$inject = ['modalInstance', 'course']
 
 angular
   .module('app.courses')

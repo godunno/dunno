@@ -1,0 +1,30 @@
+.profile__page {
+  @include grid-block();
+  @include grid-orient(vertical);
+
+  .profile {
+    @include grid-container();
+
+    form {
+      min-width: 30vw;
+
+      @include breakpoint(small only) {
+        min-width: 100vw;
+      }
+    }
+
+    .submit {
+      display: block;
+      margin: 1rem auto 0;
+    }
+
+    &__change__password,
+    .cancel {
+      text-align: center;
+    }
+
+    .cancel {
+      margin-top: 1rem;
+    }
+  }
+}

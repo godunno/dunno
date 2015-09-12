@@ -1,0 +1,23 @@
+%content-box {
+  @include box-shadow(0, .125rem, .0625rem, $light-grey-color);
+  background-color: $white;
+  border: $divider;
+  border-radius: $global-radius;
+  margin-bottom: 2rem;
+
+  @include breakpoint(small only) {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.content__box,
+.form__box {
+  @extend %content-box;
+
+  .reveal-modal & {
+    @include box-shadow(none, null, null, null);
+    border: 0;
+  }
+}

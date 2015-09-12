@@ -1,28 +1,24 @@
-.row.small-collapse
-  .small-12.small-centered.medium-8.large-6.columns
-    .form__box
-      a.close-reveal-modal ng-click="$close()"
-        | ×
-      .modal__header
-        h5
-          | Convidar Estudantes
-        p
-          | Para convidar estudantes para sua disciplina, eles precisam fazer o seguinte:
-      .row.small-collapse
-        .small-12.columns
-          ol
-            li
-              p
-                | Acessar o endereço:
-              h4
-                = new_user_session_url
-            li
-              p
-                | Escolher participar de uma turma existente, usando o código:
-              h3
-                strong
-                  pre
-                    | {{vm.course.access_code}}
-              a.button.transparent.tiny.outline.fullscreen__invitation ng-click="vm.openInviteMembersFullscreen()"
-                i.icon.icon-expand>
-                | Ampliar código
+a.close-button zf-close="" ng-click="$close()"
+  | ×
+.modal__header
+  h5
+    | Convidar Estudantes
+  p
+    | Para convidar estudantes para sua disciplina, eles precisam fazer o seguinte:
+.modal__content
+  ol
+    li
+      p
+        | Acessar o endereço:
+      h4
+        = new_user_session_url
+    li
+      p
+        | Escolher <b>entrar em uma disciplina</b>, usando o código:
+      h3
+        strong
+          pre
+            | {{vm.course.access_code}}
+      a.fullscreen__invitation ng-click="vm.openInviteMembersFullscreen()"
+        i.icon.icon-expand>
+        | Ampliar código

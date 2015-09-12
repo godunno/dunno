@@ -1,0 +1,117 @@
+.course__detail__page {
+  @include grid-block();
+  @include grid-orient(vertical);
+
+  .course {
+    &__header {
+      @include grid-block();
+      margin-bottom: 1rem;
+
+      @include breakpoint(small only) {
+        margin-bottom: 0;
+      }
+
+      &__wrapper {
+        @include grid-block();
+        @include grid-container();
+        @include grid-wrap(true);
+        justify-content: space-between;
+        padding: 1rem 0 0;
+
+        @include breakpoint(small only) {
+          @include grid-orient(vertical);
+          align-items: center;
+        }
+      }
+    }
+
+    &__navigation {
+      align-self: flex-end;
+      flex-basis: 100%;
+      padding-top: 1rem;
+
+      @include breakpoint(small only) {
+        align-self: center;
+      }
+
+      ul {
+        @extend %menu-bar;
+        @include menu-bar-layout(horizontal, false);
+        @include menu-bar-style(
+          $background: transparent,
+          $background-hover: $body-background,
+          $background-active: $body-background,
+          $color: $dunno-dark-color,
+          $color-hover: $dunno-dark-color,
+          $color-active: $dunno-dark-color,
+          $autocolor: false
+        );
+
+        @include breakpoint(small only) {
+          @include menu-bar-style(
+            $background: transparent,
+            $background-hover: $white,
+            $background-active: $white,
+            $color: $dunno-dark-color,
+            $color-hover: $dunno-dark-color,
+            $color-active: $dunno-dark-color,
+            $autocolor: false
+          );
+        }
+
+        > li {
+          margin: 0 1rem 0 0;
+
+          > a {
+            border-radius: $global-radius $global-radius 0 0;
+          }
+        }
+      }
+    }
+
+    &__dates {
+      text-transform: uppercase;
+    }
+
+    &__info,
+    &__actions {
+      padding: 0 1rem;
+    }
+
+    &__actions {
+      @include grid-block();
+      @include grid-orient(vertical);
+      align-items: flex-end;
+
+      @include breakpoint(small only) {
+        align-items: center;
+      }
+    }
+
+    &__edit {
+      margin-bottom: .5rem;
+
+      .icon-cog {
+        color: $dunno-dark-color;
+        font-size: 1.25rem;
+        vertical-align: middle;
+
+        &:hover {
+          opacity: .5;
+        }
+      }
+    }
+
+    &__notify__members {
+      @extend %darkhollow__button;
+    }
+
+    &__content {
+      @include grid-content();
+
+      @include breakpoint(small only) {
+        padding: 0;
+      }
+    }
+  }
+}

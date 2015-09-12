@@ -1,10 +1,7 @@
-.row.small-collapse
-  .small-12.small-centered.medium-8.large-6.columns
-    .form__box
-      a.close-reveal-modal.close.close-modal ng-click="close()"
-        | ×
-      .modal__header
-        h5
-          | Adicionar horário
-      .modal__content
-        ng-include src="'#{asset_path('app/courses/schedule/schedule-form')}'"
+a.close-button zf-close=true
+  | ×
+.modal__header
+  h5
+    | Adicionar horário
+.modal__content
+  ng-include src="'#{asset_path('app/courses/schedule/schedule-form')}'"

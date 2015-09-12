@@ -1,60 +1,65 @@
 @import
-  'utils/variables',
-  'utils/mixins';
+  'app/utils/variables',
+  'app/utils/mixins';
 
 @import
-  'settings', // foundation setup
-  'foundation';
+  'app/settings', // foundation setup
+  'foundation-apps/scss/foundation';
 
 @import
-  'base/reset',
-  'base/typography';
+  'app/base/reset',
+  'app/base/typography';
 
 @import
-  'vendors/action-sheet',
   'vendors/icons',
   'vendors/loading';
 
 @import
-  'components/avatar',
-  'components/badge',
-  'components/buttons',
-  'components/cards',
-  'components/catalog',
-  'components/content-box',
-  'components/datepicker',
-  'components/document-icons',
-  'components/dropdown',
-  'components/open-actions',
-  'components/page-header',
-  'components/page-title',
-  'components/prebootstrap-loading',
-  'components/preview',
-  'components/progress',
-  'components/summary-tasks',
-  'components/tabs',
-  'components/topic-form',
-  'components/topics';
+  'app/components/buttons',
+  'app/components/avatar',
+  'app/components/badge',
+  'app/components/cards',
+  'app/components/catalog',
+  'app/components/content-box',
+  'app/components/datepicker',
+  'app/components/document-icons',
+  'app/components/dropdown',
+  'app/components/messages',
+  'app/components/open-actions',
+  'app/components/page-header',
+  'app/components/page-title',
+  'app/components/prebootstrap-loading',
+  'app/components/preview',
+  'app/components/progress',
+  'app/components/summary-tasks',
+  'app/components/topic-form',
+  'app/components/topics';
 
 @import
-  'layouts/forms',
-  'layouts/modal';
+  'app/layouts/footer',
+  'app/layouts/forms',
+  'app/layouts/header',
+  'app/layouts/modal',
+  'app/layouts/structure';
 
 // page specific styles
 @import
-  'pages/agenda',
-  'pages/catalog',
-  'pages/course-calendar',
-  'pages/course-detail',
-  'pages/course-events',
-  'pages/course-members',
-  'pages/course-schedule',
-  'pages/courses',
-  'pages/invite-fullscreen',
-  'pages/invite-members',
-  'pages/lesson-plan',
-  'pages/notify-members',
-  'pages/session';
+  'app/pages/agenda',
+  'app/pages/catalog',
+  'app/pages/course-calendar',
+  'app/pages/course-confirm',
+  'app/pages/course-detail',
+  'app/pages/course-events',
+  'app/pages/course-join',
+  'app/pages/course-members',
+  'app/pages/course-schedule',
+  'app/pages/courses',
+  'app/pages/invite-fullscreen',
+  'app/pages/invite-members',
+  'app/pages/lesson-plan',
+  'app/pages/notify-members',
+  'app/pages/profile',
+  'app/pages/session';
 
 @import
-  'themes/theme';
+  'app/themes/theme';

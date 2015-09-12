@@ -1,0 +1,60 @@
+.page__title {
+  @include grid-block(shrink);
+  background: $white;
+  border-bottom: .0625rem solid $light-grey-color;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+
+  @include breakpoint(small only) {
+    padding: 0;
+  }
+
+  &__wrapper {
+    @include grid-block();
+    @include grid-container();
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-weight: $font-weight-normal;
+
+    @include breakpoint(small only) {
+      color: $white;
+      font-size: .875rem;
+      height: 0;
+      line-height: 1.75rem;
+      position: relative;
+      text-align: center;
+      top: -2.25rem;
+    }
+  }
+
+  &__actions {
+    color: $medium-grey-color;
+    text-align: right;
+    white-space: nowrap;
+
+    @include breakpoint(small only) {
+      padding: 1rem;
+      text-align: center;
+
+      a,
+      span {
+        display: block;
+      }
+
+      span {
+        color: $medium-grey-color;
+        margin: .25rem 0 1rem;
+      }
+    }
+
+    .button {
+      margin: 0;
+    }
+
+    .icon {
+      font-size: 1rem;
+    }
+  }
+}

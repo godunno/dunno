@@ -1,0 +1,41 @@
+li.ui-timepicker-selected,
+.ui-timepicker-list li:hover,
+.ui-timepicker-list .ui-timepicker-selected:hover {
+  background: $blue-color;
+}
+
+.ui-timepicker-wrapper {
+  border: .0625rem solid $light-grey-color;
+  border-radius: $global-radius;
+  box-shadow: none;
+  width: 100%;
+}
+
+[date-picker] {
+  th,
+  td {
+    color: $dunno-dark-color;
+  }
+
+  .now {
+    background: $white;
+    color: $dunno-dark-color;
+    font-weight: $font-weight-normal;
+    text-shadow: 0;
+  }
+}
+
+[date-picker] .active:hover,
+[date-picker] .now:hover,
+[date-picker] .active:active,
+[date-picker] .now:active,
+[date-picker] .active.active,
+[date-picker] .active.active:hover,
+[date-picker] .now.active,
+[date-picker] .now.active:hover,
+[date-picker] .active.disabled,
+[date-picker] .now.disabled,
+[date-picker] .active[disabled],
+[date-picker] .now[disabled] {
+  background: $dunno-green-color;
+}

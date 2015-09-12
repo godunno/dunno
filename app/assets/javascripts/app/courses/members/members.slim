@@ -1,30 +1,27 @@
 / TODO: empty results
 / TODO: blankslate
-.content__box.members__content
-  .no__members ng-show="course.students_count == 0"
-    | Você ainda não possui nenhum estudante.
-  p.add__members
-    a.button.add__users[
-      if-teacher=true
-      ng-click="vm.openInviteMembers()"]
-      i.icon-add>
-      | Convidar Estudantes
-    br
-    small<
-      | Código da Disciplina:
-      samp.access__code<
+.members
+  .members__content
+    .members__blankslate ng-show="course.students_count == 0"
+      | Essa disciplina ainda não possui nenhum estudante.
+    p.members__invite
+      a[
+        if-teacher=true
+        ng-click="vm.openInviteMembers()"]
+        i.icon-add>
+        | Convidar Estudantes
+      span
+        | Código da Disciplina:
+      samp.access__code
         | {{course.access_code}}
-  .member__group ng-repeat="members in course.members | groupBy: 'role' | toArray: true | orderBy:vm.order"
-    p.members__content__title
-      strong.role__name>
-        | {{vm.roleName(members)}}
-      span.role__count.label.round.info
-        | {{members.length}}
-    .members
-      .member ng-repeat="member in members | orderBy: 'name' "
-        /
-          .disabled.member__role.button.tiny.right ng-class="{'dark': member.role == 'teacher'}"
-            | {{vm.translateRole(member.role)}}
-        .member__name
-          img.member__avatar[user-avatar="{{member.name}}"]
-          | {{member.name}}
+    .members__group ng-repeat="members in course.members | groupBy:'role' | toArray:true | orderBy:vm.order"
+      .members__header
+        strong.members__role__name>
+          | {{vm.roleName(members)}}
+        span.members__count
+          | {{members.length}}
+      .members__list
+        .member ng-repeat="member in members | orderBy:'name'"
+          .member__name
+            img.avatar user-avatar="{{member.name}}"
+            | {{member.name}}

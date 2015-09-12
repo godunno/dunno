@@ -1,0 +1,312 @@
+.lesson__page {
+  .lesson {
+    &__wrapper {
+      @include grid-container();
+      @include grid-block();
+      align-items: flex-start;
+      justify-content: space-between;
+
+      @include breakpoint(small only) {
+        flex-wrap: wrap;
+      }
+    }
+
+    &__previous__day,
+    &__next__day {
+      @include grid-size(3);
+
+      @include breakpoint(small only) {
+        @include grid-order(0);
+        @include grid-size(6);
+
+        .summary__tasks {
+          display: none;
+        }
+      }
+    }
+
+    &__previous,
+    &__next {
+      align-items: center;
+      background: $white;
+      border: $divider;
+      cursor: pointer;
+      display: flex;
+      font-size: .875rem;
+      line-height: 1rem;
+      margin-top: .25rem;
+      padding: .75rem;
+      text-align: center;
+      text-transform: uppercase;
+
+      &:hover {
+        opacity: .66;
+      }
+
+      span {
+        flex-grow: 1;
+      }
+
+      small {
+        color: $dark-grey-color;
+        display: block;
+        font-size: rem-calc(12);
+      }
+
+      .icon {
+        color: $dunno-green-color;
+        flex-basis: 1.5rem;
+        vertical-align: middle;
+      }
+    }
+
+    &__previous {
+      border-radius: $global-radius 0 0 $global-radius;
+      border-right: 0;
+      padding-right: 1.5em;
+
+      .icon {
+        float: left;
+      }
+    }
+
+    &__next {
+      border-left: 0;
+      border-radius: 0 $global-radius $global-radius 0;
+      padding-left: 1.5em;
+
+      .icon {
+        float: right;
+      }
+    }
+
+    &__plan__current {
+      @include grid-size(6);
+      flex-grow: 1;
+
+      @include breakpoint(small only) {
+        @include grid-order(2);
+        @include grid-size(12);
+      }
+
+      .lesson__header {
+        margin-bottom: 0;
+      }
+    }
+
+    &__date__weekday {
+      display: block;
+      text-transform: uppercase;
+    }
+
+    &__date__time {
+      color: $medium-grey-color;
+    }
+
+    &__date__classroom {
+      display: block;
+    }
+
+    &__header {
+      background: $white;
+      border: $divider;
+      border-bottom: 0;
+      border-radius: $global-radius $global-radius 0 0;
+      display: flex;
+      padding: 1em .75em;
+      position: relative;
+      z-index: 1;
+
+      @include breakpoint(small only) {
+        border-radius: 0;
+        border-top: 0;
+        margin-top: 0;
+      }
+
+      .diary__time {
+        color: $white;
+        font-size: .75em;
+        line-height: 2em;
+        opacity: .5;
+        text-align: right;
+
+        .icon {
+          vertical-align: middle;
+        }
+      }
+    }
+
+    &__status {
+      align-self: center;
+      margin-left: auto;
+      text-transform: uppercase;
+
+      &__info {
+        background-color: $white;
+        border: $divider;
+        border-bottom: 0;
+        border-top: 0;
+
+        @include breakpoint(small only) {
+          p {
+            span {
+              display: block;
+              padding: 1rem 0 0;
+            }
+          }
+        }
+
+        strong {
+          color: $white;
+        }
+
+        p {
+          margin-bottom: 0;
+        }
+
+        strong,
+        p {
+          display: block;
+          padding: .75rem;
+          text-align: center;
+        }
+
+        .button {
+          margin: .5rem 0 0;
+        }
+
+        &__draft {
+          strong {
+            background-color: $dunno-dark-color;
+          }
+        }
+
+        &__canceled {
+          strong {
+            background-color: $red-color;
+          }
+        }
+
+        &__published {
+          strong {
+            background-color: $dunno-green-color;
+          }
+        }
+      }
+    }
+
+    &__canceled {
+      color: $red-color;
+    }
+
+    &__published {
+      color: $dunno-green-color;
+    }
+
+    &__cancel,
+    &__publish,
+    &__move__draft {
+      margin: .5rem;
+    }
+
+    &__cancel {
+      @extend %cancel__button;
+    }
+
+    &__publish {
+      @extend %primary__button;
+      @include button-size($size: small);
+    }
+
+    &__move__draft {
+      @extend %darkhollow__button;
+    }
+
+  }
+
+  .catalog__medias {
+    border: 0;
+  }
+
+  .catalog__media {
+    .media__select__label {
+      margin-top: .875rem;
+    }
+
+    .media__data {
+      font-size: .875rem;
+    }
+
+    .media__title {
+      line-height: inherit;
+    }
+  }
+
+  .type__file {
+    p {
+      color: $medium-grey-color;
+      margin: 0;
+      padding: 1rem 0;
+      text-align: center;
+    }
+  }
+
+  .page__header {
+    .lesson__page__header {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      padding: 0 0 1rem;
+      position: relative;
+
+      @include breakpoint(small only) {
+        flex-wrap: wrap;
+      }
+
+      .page__header__title {
+        @include breakpoint(small only) {
+          flex-basis: 100%;
+          height: auto;
+          margin: 0 0 1rem;
+          position: static;
+        }
+      }
+    }
+  }
+
+  .close__lesson {
+    position: absolute;
+    right: 1rem;
+    top: .15rem;
+
+    @include breakpoint(small only) {
+      position: static;
+    }
+  }
+
+  .topics__visibility {
+    background: $white;
+    border-bottom: $divider;
+    font-size: .875rem;
+    padding: .5rem 0;
+    text-align: center;
+
+    a {
+      display: block;
+    }
+  }
+
+  .hide__personal__topics,
+  .topic__personal {
+    color: $red-color;
+  }
+
+  .show__personal__topics {
+    color: $dark-grey-color;
+  }
+
+  .topic__personal {
+    font-size: 1.5rem;
+  }
+}
+

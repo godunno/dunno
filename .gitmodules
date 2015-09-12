@@ -1,0 +1,3 @@
+[submodule "vendor/javascripts/foundation-apps"]
+	path = vendor/assets/javascripts/foundation-apps
+	url = git@github.com:lunks/foundation-apps.git

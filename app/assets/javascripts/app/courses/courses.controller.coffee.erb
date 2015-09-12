@@ -1,21 +1,20 @@
-CoursesIndexCtrl = ($location, $filter, $modal, Utils, courses) ->
+CoursesIndexCtrl = ($location, $filter, ModalFactory, Utils, courses) ->
   @courses = courses
 
   @activeCourses   = @courses.filter (course) -> course.active
   @inactiveCourses = @courses.filter (course) -> !course.active
 
-  @unregister = (course)->
-    if confirm("Deseja mesmo sair da disciplina #{course.name}?")
-      course.unregister().then ->
-        Utils.remove(@courses, course)
-
   @openNewCourseForm = ->
-    $modal.open
+    new ModalFactory
       templateUrl: '<%= asset_path('app/courses/course-new.html') %>'
-      windowClass: 'add__course full'
+      controller: 'NewCourseCtrl'
+      controllerAs: 'vm'
+      bindToController: true
+    .activate()
+
   @
 
-CoursesIndexCtrl.$inject = ['$location', '$filter', '$modal', 'Utils', 'courses']
+CoursesIndexCtrl.$inject = ['$location', '$filter', 'ModalFactory', 'Utils', 'courses']
 
 angular
   .module('app.courses')

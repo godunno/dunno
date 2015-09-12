@@ -1,0 +1,105 @@
+.agenda {
+  color: $dark-grey-color;
+  font-size: .875rem;
+  text-align: center;
+
+  &__wrapper {
+    background: $white;
+    border-radius: $global-radius;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__day {
+    border-bottom: .0625rem solid $light-grey-color;
+    border-right: .0625rem solid $light-grey-color;
+    flex-basis: 13%;
+    letter-spacing: 1px;
+    padding: .5rem 0;
+    position: relative;
+    text-transform: uppercase;
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+
+  &__today:before {
+    border-top: .25rem solid $dunno-dark-color;
+    content: '';
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  &__past__day {
+    color: $light-grey-color;
+  }
+
+  &__content {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+  }
+
+  .day__period {
+    border-bottom: .0625rem solid $light-grey-color;
+    display: flex;
+    flex-basis: 100%;
+
+    &__evening {
+      border-bottom: 0;
+    }
+  }
+
+  &__period {
+    border-right: .0625rem solid $light-grey-color;
+    flex-basis: 13%;
+    padding: 1rem .25rem 1rem 0;
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    &.happened {
+      background-color: lighten($light-grey-color, 20%);
+
+      .course {
+        opacity: .66;
+      }
+    }
+  }
+
+  &__period__label {
+    flex-basis: 9%;
+  }
+
+  .course {
+    // TODO: LOOK AT ME, LEO
+    // @include side-radius(right, $global-radius);
+    background: $white;
+    border: .0625rem solid $light-grey-color;
+    border-left: 0;
+    color: $dunno-dark-color;
+    margin-bottom: 1rem;
+    text-align: left;
+
+    .title,
+    .classroom {
+      padding: .25rem;
+    }
+
+    .classroom {
+      opacity: .75;
+    }
+
+    .title {
+      border-bottom: .0625rem solid $light-grey-color;
+    }
+  }
+
+  .status__icon {
+    margin-top: .15rem;
+  }
+}

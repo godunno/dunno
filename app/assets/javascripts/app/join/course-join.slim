@@ -1,27 +1,35 @@
-header.page__title
-  .page__title__wrapper
-    h1.page__title__title
-      | Disciplinas
-.course__search
-  .row
-    .small-10.medium-6.large-5.small-centered.columns
+.course__join
+  header.page__title
+    .page__title__wrapper
+      h1.page__title__title
+        | Disciplinas
+        small<
+          | › Entrar em uma Disciplina
+      .page__title__actions
+        a ui-sref="courses.search"
+          | Entrar em uma disciplina
+        span<>
+          | ou
+        a.button.tiny ng-click="vm.openNewCourseForm()"
+          | Criar disciplina
+  .course__join__form
+    form.form__box ng-submit="search(access_code)"
       p
         a ui-sref="^"
           i.icon.icon-arrow-back>
           | Disciplinas
       h3
-        | Informe o código da disciplina
+        | Informe o Código da Disciplina
       p
         | Digite abaixo o código informado pelo professor.
       p
-        | Este código se refere à disciplina que o professor leciona e você está matriculado.
-      form ng-submit="search(access_code)"
-        input[
-          ng-model="access_code"
-          placeholder="Código da Disciplina"
-          required=true
-          type="text"]
-        small.error ng-if="error"
-          | {{error}}
-        button.button.submit.expand type="submit"
-          | Acessar Disciplina
+        | Se ainda não possui um código, pergunte para seu professor.
+      input[
+        ng-model="access_code"
+        placeholder="Código da Disciplina"
+        required=true
+        type="text"]
+      .message__error ng-if="error"
+        | {{error}}
+      button.button type="submit"
+        | Buscar Disciplina

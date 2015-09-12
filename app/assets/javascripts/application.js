@@ -5,9 +5,6 @@
 //= require jquery-ui/ui/sortable
 //= require jquery-timepicker-jt
 //= require jquery-ui-touch-punch/jquery.ui.touch-punch
-//= require foundation/foundation
-//= require foundation/foundation.dropdown
-//= require foundation/foundation.reveal
 //= require ng-file-upload-shim
 //= require angular
 //= require angular-resource
@@ -21,7 +18,6 @@
 //= require ngTagsInput/build/ng-tags-input.js
 //= require angular-elastic-input
 //= require angular-validation-match
-//= require angular-foundation
 //= require angular-busy
 //= require angular-filter
 //= require angular-datepicker
@@ -33,6 +29,6 @@
 //= require angulartics
 //= require ui-router
 //= require initial.js
-//= require_tree ./vendor
+//= require foundation-apps-js
 //= require app/app.module
 //= require_tree ./app

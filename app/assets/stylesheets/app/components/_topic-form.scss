@@ -1,0 +1,215 @@
+.new__topic__form {
+  background: $white;
+  border: .0625rem solid $medium-grey-color;
+  border-radius: $global-radius;
+  margin: 0 -.25rem;
+  padding: .5rem 0 0;
+  position: relative;
+  z-index: 5;
+
+  @include breakpoint(small only) {
+    margin: 0;
+  }
+
+  .add__content {
+    color: $dark-grey-color;
+    display: block;
+    font-size: .75rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .select__item__type {
+    display: flex;
+    text-align: center;
+
+    a {
+      border-bottom: .25rem solid transparent;
+      flex-grow: 1;
+      padding: .5em 0;
+      transition: all .25s ease-in-out;
+
+      &:hover,
+      &.active {
+        border-bottom-color: $dunno-green-color;
+
+        .icon {
+          top: -.25em;
+        }
+      }
+
+      &.active {
+        .icon {
+          position: relative;
+        }
+      }
+    }
+
+    span {
+      display: block;
+    }
+
+    .icon {
+      background-color: $dunno-green-color;
+      border-radius: 3em;
+      color: $white;
+      display: inline-block;
+      font-size: 1.25em;
+      height: 1.75em;
+      line-height: 2em;
+      margin-top: .5em;
+      position: relative;
+      top: 0;
+      transition: all .25s ease-in-out;
+      width: 1.75em;
+    }
+  }
+}
+
+%topic-save-button {
+  &.alert {
+    border-color: $red-color;
+  }
+}
+
+%topic-actions {
+  border-top: .0625rem dashed $dunno-green-color;
+  clear: both;
+  padding: .75em;
+  text-align: right;
+
+  .create__new__topic__item {
+    @extend %topic-save-button;
+  }
+}
+
+.new__topic {
+  &__actions {
+    @extend %topic-actions;
+  }
+
+  &__cancel {
+    @extend %transparent__tiny__button;
+    float: left;
+    padding-left: 0;
+    padding-right: 0;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
+  &__visibility {
+    @extend %darkhollow__tiny__button;
+    @extend %dropdown;
+
+    &.topic__private {
+      @extend %cancel__button;
+      @extend %dropdown;
+      @include button-size($size: tiny);
+      @include button-style(
+        $background-hover: auto,
+        $background: $red-color,
+        $color: $red-color,
+        $style: hollow
+      );
+    }
+  }
+
+  &__create {
+    @extend %primary__button;
+    @include button-size($size: tiny);
+
+    &.topic__private {
+      @extend %cancel__button;
+      @include button-size($size: tiny);
+      @include button-style(
+        $background: $red-color,
+        $background-hover: auto,
+        $color: $white,
+        $style: solid
+      );
+    }
+
+    &.disabled {
+      opacity: .5;
+    }
+  }
+}
+
+%item-box {
+  background: $white;
+  border: .0625rem solid $dunno-green-color;
+  position: relative;
+  z-index: 1;
+
+  .type__file {
+    .media__file__button {
+      display: block;
+      margin: .5em auto;
+      width: 12em;
+
+      .icon {
+        vertical-align: middle;
+      }
+    }
+  }
+
+  input {
+    background: $white;
+    border: 0;
+    box-shadow: none;
+    color: $dunno-dark-color;
+    display: block;
+    font-size: 1em;
+    height: 4em;
+    line-height: 1em;
+    margin: 0;
+    padding: 1.5rem 1rem;
+
+    &:hover,
+    &:focus {
+      border: 0;
+    }
+
+    &.file__input {
+      display: none;
+    }
+  }
+}
+
+.item__type {
+  @extend %item-box;
+  border-radius: 0 0 $global-radius $global-radius;
+  margin: 0 -.0625rem -.0625rem;
+}
+
+.type__catalog {
+  .catalog__header {
+    border-bottom: .0625rem dashed $dunno-green-color;
+    position: relative;
+
+    .icon {
+      color: $light-grey-color;
+      left: 1em;
+      position: absolute;
+      top: 1.5em;
+    }
+
+    input {
+      font-size: 1em;
+      padding-left: 2.5em;
+    }
+  }
+
+  .load__more {
+    padding: 1em;
+
+    a {
+      color: $dark-grey-color;
+      display: block;
+      font-size: .875em;
+      text-align: center;
+    }
+  }
+}

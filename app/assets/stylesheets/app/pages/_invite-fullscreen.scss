@@ -1,0 +1,44 @@
+.invite__members__fullscreen {
+  background: $dunno-green-color;
+  color: $white;
+  padding-top: 25vh;
+  text-align: center;
+  top: 0 !important; //scss-lint:disable ImportantRule
+
+  @include breakpoint(small only) {
+    padding-top: 25vw;
+  }
+
+  .title,
+  .close-reveal-modal {
+    color: $white;
+  }
+
+  .description {
+    font-size: 6vh;
+
+    @include breakpoint(small only) {
+      font-size: 6vw;
+    }
+  }
+
+  .title {
+    font-size: 30vh;
+    line-height: 30vh;
+
+    @include breakpoint(small only) {
+      font-size: 35vw;
+      line-height: 35vw;
+    }
+  }
+
+  .link-to-sign-in {
+    font-size: 7vh;
+    position: relative;
+    top: 10vh;
+
+    @include breakpoint(small only) {
+      font-size: 7vw;
+    }
+  }
+}

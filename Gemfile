@@ -42,7 +42,6 @@ gem 'pundit',                     '1.0.1'
 gem 'redcarpet',                  '3.3.2'
 gem 'ice_cube',                   '0.13.0'
 
-
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular',       '1.3.16'
   gem 'rails-assets-jquery',        '2.1.4'
@@ -61,7 +60,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-lunks--ngTagsInput', '3.0.0'
   gem 'rails-assets-angular-elastic-input', '2.0.2'
   gem 'rails-assets-angular-validation-match', '1.3.0'
-  gem 'rails-assets-angular-foundation', '0.5.1'
   gem 'rails-assets-angular-busy', '4.1.2'
   gem 'rails-assets-lunks--angulartics', '0.18.0'
   gem 'rails-assets-scrollmagic', '2.0.5'

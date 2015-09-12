@@ -1,0 +1,16 @@
+.happy:after,
+.sad:after {
+  display: inline-block;
+  font-weight: $font-weight-normal;
+  margin-left: .5rem;
+}
+
+.happy:after {
+  content: '=)';
+  transform: rotate(65deg);
+}
+
+.sad:after {
+  content: '=(';
+  transform: rotate(100deg);
+}
