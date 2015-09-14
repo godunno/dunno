@@ -12,6 +12,12 @@ li.ui-timepicker-selected,
 }
 
 [date-picker] {
+  table {
+    .switch {
+      display: table-cell;
+    }
+  }
+
   th,
   td {
     color: $dunno-dark-color;
@@ -23,19 +29,19 @@ li.ui-timepicker-selected,
     font-weight: $font-weight-normal;
     text-shadow: 0;
   }
-}
 
-[date-picker] .active:hover,
-[date-picker] .now:hover,
-[date-picker] .active:active,
-[date-picker] .now:active,
-[date-picker] .active.active,
-[date-picker] .active.active:hover,
-[date-picker] .now.active,
-[date-picker] .now.active:hover,
-[date-picker] .active.disabled,
-[date-picker] .now.disabled,
-[date-picker] .active[disabled],
-[date-picker] .now[disabled] {
-  background: $dunno-green-color;
+  .active:hover,
+  .now:hover,
+  .active:active,
+  .now:active,
+  .active.active,
+  .active.active:hover,
+  .now.active,
+  .now.active:hover,
+  .active.disabled,
+  .now.disabled,
+  .active[disabled],
+  .now[disabled] {
+    background: $dunno-green-color;
+  }
 }
