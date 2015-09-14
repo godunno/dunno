@@ -8,6 +8,7 @@ class Event < ActiveRecord::Base
   enum status: %w(draft published canceled)
 
   belongs_to :course, touch: true
+  belongs_to :weekly_schedule
   has_many :topics
 
   delegate :teacher, to: :course
