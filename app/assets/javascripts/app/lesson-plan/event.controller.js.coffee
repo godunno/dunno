@@ -4,6 +4,7 @@ EventCtrl = (
   $q,
   event,
   Event,
+  AnalyticsTracker,
   Utils,
   DateUtils) ->
 
@@ -36,9 +37,12 @@ EventCtrl = (
     $scope.showPrivateTopics = visible
 
   $scope.setStatus = (event, status) ->
+    previousStatus = event.status
     return if status == 'canceled' && !confirm('Deseja cancelar esta aula?')
     event.status = status
-    $scope.$emit('wholePageLoading', $scope.save(event))
+    $scope.$emit 'wholePageLoading', event.save().then ->
+      AnalyticsTracker.trackEventStatus(event, previousStatus)
+
 
 EventCtrl.$inject = [
   '$scope',
@@ -46,6 +50,7 @@ EventCtrl.$inject = [
   '$q',
   'event',
   'Event',
+  'AnalyticsTracker',
   'Utils',
   'DateUtils']
 

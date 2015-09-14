@@ -1,4 +1,4 @@
-NewTopicCtrl = ($scope, Topic, $analytics) ->
+NewTopicCtrl = ($scope, Topic, AnalyticsTracker) ->
   $scope.defaultTopicProperties ?= { personal: false }
 
   $scope.topicTypeDescription = ->
@@ -21,10 +21,7 @@ NewTopicCtrl = ($scope, Topic, $analytics) ->
     $scope.topicType = type
 
   track = ($event, topic) ->
-    $analytics.eventTrack 'Topic Created',
-      private: topic.personal
-      eventId: topic.event_id
-      type: $scope.topicType
+    AnalyticsTracker.topicCreated(topic, $scope.topicType)
 
   $scope.$on 'initializeEvent', reset
   $scope.$on 'createdTopic', track
@@ -37,7 +34,7 @@ NewTopicCtrl = ($scope, Topic, $analytics) ->
     $scope.$broadcast('cancelTopic')
     reset()
 
-NewTopicCtrl.$inject = ['$scope', 'Topic', '$analytics']
+NewTopicCtrl.$inject = ['$scope', 'Topic', 'AnalyticsTracker']
 
 angular
   .module('app.lessonPlan')
