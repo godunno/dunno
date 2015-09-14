@@ -15,6 +15,7 @@
 
   &__navigation {
     background: $dunno-dark-color;
+    min-height: 3rem;
 
     @include breakpoint(small only) {
       display: none;

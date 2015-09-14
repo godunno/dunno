@@ -5,7 +5,7 @@
   .course {
     &__header {
       @include grid-block();
-      margin-bottom: 1rem;
+      min-height: 10rem;
 
       @include breakpoint(small only) {
         margin-bottom: 0;
@@ -108,7 +108,6 @@
 
     &__content {
       @include grid-content();
-
       @include breakpoint(small only) {
         padding: 0;
       }
