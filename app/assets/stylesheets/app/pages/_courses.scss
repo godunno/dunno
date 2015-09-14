@@ -16,6 +16,10 @@
       @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
     }
 
+    &__page {
+      @include grid-block($orientation: vertical);
+    }
+
     &__inactive {
       @include grid-container();
 
@@ -37,11 +41,10 @@
       }
 
       &__content {
-        @include grid-align(center);
         @include grid-block();
         @include grid-container();
+        @include grid-align(center);
         align-items: center;
-
 
         > p {
           margin: 0 2rem;
