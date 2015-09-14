@@ -30,15 +30,6 @@ EventCtrl = (
     return unless event? && event.course?
     "#courses/#{event.course.uuid}?month=#{event.start_at}"
 
-  $scope.finish = (event) ->
-    $scope.save(event).then ->
-      $scope.eventForm.$setPristine()
-      $window.location.href = $scope.courseLocation(event)
-
-  $scope.publish = (event) ->
-    event.status = 'published'
-    $scope.finish(event)
-
   # TODO: Extract this somewhere. Can't currently because we can't see this on EventListCtrl
   $scope.showPrivateTopics = true
   $scope.setPrivateTopicsVisibility = (visible) ->
