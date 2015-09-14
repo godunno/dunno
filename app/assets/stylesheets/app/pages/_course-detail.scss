@@ -108,6 +108,8 @@
 
     &__content {
       @include grid-content();
+      padding: 1rem 0;
+
       @include breakpoint(small only) {
         padding: 0;
       }

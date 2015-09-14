@@ -1,0 +1,21 @@
+.date__status {
+  align-self: center;
+  font-size: .875rem;
+  font-style: normal;
+  margin-left: auto;
+  text-align: center;
+  text-transform: uppercase;
+
+  @include breakpoint(small only) {
+    margin-left: 0;
+    text-align: right;
+  }
+
+  .published {
+    color: $dunno-green-color;
+  }
+
+  .canceled {
+    color: $red-color;
+  }
+}
