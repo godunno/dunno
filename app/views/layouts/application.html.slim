@@ -48,10 +48,16 @@ html lang="pt" ng-app="app"
           .header__navigation__sections
             ul
               li ui-sref-active="is-active"
-                a ui-sref="courses"
+                a[
+                  ui-sref="courses"
+                  analytics-event="Courses List Accessed"
+                  analytics-on="click"]
                   | Disciplinas
               li ui-sref-active="is-active" ng-if="currentUser().profile == 'teacher'"
-                a ui-sref="medias"
+                a[
+                  ui-sref="medias"
+                  analytics-event="Catalog Accessed"
+                  analytics-on="click"]
                   | Catálogo
           .header__navigation__settings
             ul
