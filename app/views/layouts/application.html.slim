@@ -76,6 +76,7 @@ html lang="pt" ng-app="app"
           | #{image_tag 'dunno-logo-horizontal.png', class: 'logo'}
         div
           | Copyright © #{Time.zone.now.year} #{link_to 'Termos de Uso', terms_path} #{link_to 'Política de Privacidade', policy_path}
+      zf-notification-set id="main-notifications" position="bottom-left"
     = javascript_include_tag "application"
     = render 'application/google_analytics'
     = render 'application/mixpanel'
