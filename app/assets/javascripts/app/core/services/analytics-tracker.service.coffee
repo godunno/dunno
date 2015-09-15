@@ -57,6 +57,7 @@ AnalyticsTracker = ($analytics) ->
     endDate: formatDate(course.end_date)
     userRole: course.user_role
     teacherName: course.teacher.name
+    active: course.active
 
   eventAttrs = (event) ->
     courseUuid: event.course.uuid
