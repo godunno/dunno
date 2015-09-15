@@ -3,6 +3,7 @@ NewWeeklyScheduleCtrl = (
   $state,
   modalInstance,
   $filter,
+  AnalyticsTracker,
   TimeGetterSetter,
   weeklySchedule) ->
 
@@ -24,15 +25,18 @@ NewWeeklyScheduleCtrl = (
 
 
   $scope.submit = (weeklySchedule) ->
-    $scope.$emit('wholePageLoading', weeklySchedule.save().then ->
+    $scope.$emit('wholePageLoading', weeklySchedule.save().then (weeklySchedule) ->
       modalInstance.destroy()
+      AnalyticsTracker.scheduleCreated(weeklySchedule)
       $state.go('.', null, reload: true)
     )
 
 NewWeeklyScheduleCtrl.$inject = [
   '$scope',
   '$state',
-  'modalInstance','$filter',
+  'modalInstance',
+  '$filter',
+  'AnalyticsTracker',
   'TimeGetterSetter',
   'weeklySchedule'
 ]

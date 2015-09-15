@@ -2,6 +2,7 @@ TransferWeeklyScheduleCtrl = (
   $scope,
   $state,
   modalInstance,
+  AnalyticsTracker,
   TimeGetterSetter,
   PageLoading,
   weeklySchedule) ->
@@ -31,6 +32,7 @@ TransferWeeklyScheduleCtrl = (
 
   success = ->
     modalInstance.destroy()
+    AnalyticsTracker.scheduleEdited($scope.weeklySchedule)
     $state.go('.', null, reload: true)
 
   $scope.submit = (weeklySchedule) ->
@@ -40,6 +42,7 @@ TransferWeeklyScheduleCtrl.$inject = [
   '$scope',
   '$state',
   'modalInstance',
+  'AnalyticsTracker',
   'TimeGetterSetter',
   'PageLoading',
   'weeklySchedule'
