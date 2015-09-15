@@ -376,18 +376,18 @@ describe Api::V1::CoursesController do
         do_action
       end
 
-      subject { last_course }
+      subject { json["course"] }
 
       it { expect(Course.count).to eq(1) }
       it { expect(last_response.status).to eq(200) }
-      it { expect(json["uuid"]).to eq(Course.last.uuid) }
 
       it { expect(CourseEventsIndexerWorker).not_to have_received(:perform_async) }
 
-      it { expect(subject.name).to eq(course.name) }
-      it { expect(subject.teacher).to eq(teacher) }
-      it { expect(subject.start_date).to eq(course.start_date) }
-      it { expect(subject.end_date).to eq(course.end_date) }
+      it { expect(subject["uuid"]).to eq(last_course.uuid) }
+      it { expect(subject["name"]).to eq(course.name) }
+      it { expect(subject["teacher"]["name"]).to eq(teacher.name) }
+      it { expect(subject["start_date"]).to eq(course.start_date.to_s) }
+      it { expect(subject["end_date"]).to eq(course.end_date.to_s) }
     end
 
     context "trying to create an invalid course" do
@@ -421,6 +421,10 @@ describe Api::V1::CoursesController do
         }
       end
 
+      subject { json["course"] }
+
+      let(:course) { super().reload }
+
       skip "invalid parameters"
 
       before do
@@ -428,8 +432,11 @@ describe Api::V1::CoursesController do
       end
 
       it { expect(last_response.status).to eq(200) }
-      it { expect(course.reload.name).to eq "Some name" }
-      it { expect(json).to eq("uuid" => course.uuid) }
+      it { expect(course.name).to eq "Some name" }
+      it { expect(subject["uuid"]).to eq(course.uuid) }
+      it { expect(subject["teacher"]["name"]).to eq(teacher.name) }
+      it { expect(subject["start_date"]).to eq(course.start_date.to_s) }
+      it { expect(subject["end_date"]).to eq(course.end_date.to_s) }
     end
 
     context "updating Course#start_date to a previous date" do

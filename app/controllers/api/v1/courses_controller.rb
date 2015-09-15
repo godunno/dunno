@@ -15,7 +15,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     course_form = Form::CourseForm.new(course_params)
     authorize course_form
     if course_form.save
-      render json: { uuid: course_form.model.uuid }
+      @course = course_form.model
     else
       render json: { errors: course_form.errors }, status: 400
     end
@@ -24,8 +24,11 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   def update
     authorize course
     course_form = CourseForm.new(course, course_params)
-    course_form.update!
-    render json: { uuid: course.uuid }
+    if course_form.update!
+      render :create
+    else
+      render json: { errors: course_form.errors }, status: 400
+    end
   end
 
   def destroy
