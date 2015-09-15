@@ -30,6 +30,10 @@ AnalyticsTracker = ($analytics) ->
     $analytics.eventTrack 'Course Edited',
       courseAttrs(course)
 
+  courseJoined = (course) ->
+    $analytics.eventTrack 'Course Joined',
+      courseAttrs(course)
+
   courseAttrs = (course) ->
     uuid: course.uuid
     name: course.name
@@ -58,6 +62,7 @@ AnalyticsTracker = ($analytics) ->
   courseAccessed: courseAccessed
   courseCreated: courseCreated
   courseEdited: courseEdited
+  courseJoined: courseJoined
   eventAccessed: eventAccessed
 angular
   .module('app.core')
