@@ -57,4 +57,18 @@ describe User do
       expect(user.profile_name).to eq('student')
     end
   end
+
+  describe "tracking" do
+    let(:user) { create(:user) }
+
+    it "tracks password reset notifications" do
+      expect(user).to receive(:track).with('Reset Password Requested')
+      user.send_reset_password_instructions
+    end
+
+    it "tracks password successfully changed" do
+      expect(user).to receive(:track).with('Password Changed', page: "Password Recovery")
+      user.reset_password("#dunnovc", "#dunnovc")
+    end
+  end
 end

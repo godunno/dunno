@@ -423,8 +423,6 @@ describe Api::V1::CoursesController do
 
       subject { json["course"] }
 
-      let(:course) { super().reload }
-
       skip "invalid parameters"
 
       before do
@@ -432,7 +430,7 @@ describe Api::V1::CoursesController do
       end
 
       it { expect(last_response.status).to eq(200) }
-      it { expect(course.name).to eq "Some name" }
+      it { expect(course.reload.name).to eq "Some name" }
       it { expect(subject["uuid"]).to eq(course.uuid) }
       it { expect(subject["teacher"]["name"]).to eq(teacher.name) }
       it { expect(subject["start_date"]).to eq(course.start_date.to_s) }
