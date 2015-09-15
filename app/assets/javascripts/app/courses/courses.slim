@@ -10,11 +10,11 @@ ui-view.courses__page
           | ou
         a.button ng-click="vm.openNewCourseForm()"
           | Criar disciplina
-  .courses__blankslate ng-if="vm.activeCourses.length == 0"
+  .courses__blankslate ng-if="vm.activeCourses.length == 0 && vm.inactiveCourses.length == 0"
     .courses__blankslate__header
       h3
         | Que papel você vai desempenhar?
-    .courses__blankslate__content.grid-block.grid-container.align-center
+    .courses__blankslate__content
       .courses__blankslate__as__student
         h5
           | Serei estudante
@@ -28,7 +28,7 @@ ui-view.courses__page
         p
           a.button ng-click="vm.openNewCourseForm()"
             | Criar disciplina
-  .courses
+  .courses ng-if="vm.activeCourses.length"
     .course ng-repeat="course in vm.activeCourses"
       course-link current-page="courses"
         course-card

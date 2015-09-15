@@ -1,7 +1,6 @@
 .invite__members__fullscreen {
   background: $dunno-green-color;
   color: $white;
-  padding-top: 25vh;
   text-align: center;
   top: 0 !important; //scss-lint:disable ImportantRule
 
@@ -9,8 +8,12 @@
     padding-top: 25vw;
   }
 
+  .modal {
+    background: transparent;
+  }
+
   .title,
-  .close-reveal-modal {
+  .close-button {
     color: $white;
   }
 

@@ -9,13 +9,13 @@
     @include grid-container();
 
     @include breakpoint(medium) {
-      max-width: 40vw;
-      min-width: 40vw;
+      max-width: 35rem;
+      min-width: 50vw;
     }
 
     @include breakpoint(large) {
-      max-width: 27vw;
-      min-width: 27vw;
+      max-width: 35rem;
+      min-width: 30vw;
     }
   }
 
@@ -80,8 +80,7 @@
   }
 
   .submit {
-    @extend .large;
-    @extend .expand;
-    margin-bottom: 1rem;
+    display: block;
+    margin: 0 auto 1rem;
   }
 }

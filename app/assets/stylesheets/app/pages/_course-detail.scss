@@ -5,7 +5,8 @@
   .course {
     &__header {
       @include grid-block();
-      margin-bottom: 1rem;
+      @include grid-size(shrink);
+      min-height: 10rem;
 
       @include breakpoint(small only) {
         margin-bottom: 0;
@@ -39,7 +40,7 @@
         @include menu-bar-layout(horizontal, false);
         @include menu-bar-style(
           $background: transparent,
-          $background-hover: $body-background,
+          $background-hover: rgba($body-background, .5),
           $background-active: $body-background,
           $color: $dunno-dark-color,
           $color-hover: $dunno-dark-color,
@@ -57,14 +58,29 @@
             $color-active: $dunno-dark-color,
             $autocolor: false
           );
+
+          > li {
+            margin: 0;
+          }
+
+          .is-active a:hover {
+            background-color: $white;
+          }
         }
 
-        > li {
-          margin: 0 1rem 0 0;
-
-          > a {
-            border-radius: $global-radius $global-radius 0 0;
+        @include breakpoint(medium up) {
+          .is-active a:hover {
+            background-color: $body-background;
           }
+
+          > li {
+            margin: 0 1rem 0 0;
+
+          }
+        }
+
+        a {
+          border-radius: $global-radius $global-radius 0 0;
         }
       }
     }
@@ -108,6 +124,7 @@
 
     &__content {
       @include grid-content();
+      padding: 1rem 0;
 
       @include breakpoint(small only) {
         padding: 0;
