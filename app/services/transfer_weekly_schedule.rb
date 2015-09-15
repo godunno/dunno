@@ -18,6 +18,7 @@ class TransferWeeklySchedule
 
   def affected_events
     return [] if course.events.empty?
+    # TODO: Extract to FindAffectedEvents
     @affected_events ||= old_schedule
                          .all_occurrences
                          .map { |occurrence| find_event(occurrence) }
@@ -45,6 +46,7 @@ class TransferWeeklySchedule
   end
 
   def time_span
+    # TODO: Extract to CalculateTimeSpan
     @time_span ||= next_occurrence_for(new_schedule) - next_occurrence_for(old_schedule)
   end
 
