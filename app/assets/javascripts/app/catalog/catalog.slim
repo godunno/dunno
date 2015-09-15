@@ -47,7 +47,6 @@
               type="text"]
       .catalog__media__body
         .media__events__usage
-          / TODO: this markup can be improved
           small
             span>
               | Usado em:
@@ -78,9 +77,6 @@
             on-tag-removed="updateMedia(media)"
             placeholder="Nova tag"
             replace-spaces-with-dashes="false"]
-          /
-            TODO: integrate this with JS (should come right after the input)
-            i.icon.icon-tag
   .grid-container ng-if="!!medias && medias.length > 0"
     a.media__load__more.button.secondary[
       cg-busy="loadingNextPage"
