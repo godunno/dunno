@@ -13,7 +13,7 @@ ui-view
   .courses__inactive
     .course__inactive ng-repeat="course in vm.inactiveCourses"
       .course__inactive__dates
-        course-link current-page="courses"
+        course-link course="course" page="Inactive Courses List"
           span.course__start__date>
             | {{course.start_date | amDateFormat: 'DD/MM/YY'}}
           span.course__end__date

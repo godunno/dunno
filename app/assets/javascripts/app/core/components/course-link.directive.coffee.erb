@@ -1,10 +1,17 @@
 courseLink = ->
-  link = (scope, element, attributes) ->
-    scope.currentPage = attributes.currentPage || "Unknown"
+  courseLinkCtrl = (AnalyticsTracker) ->
+    @track = =>
+      AnalyticsTracker.courseAccessed(@course, @page)
 
-  link: link
+  courseLinkCtrl.$inject = ['AnalyticsTracker']
+
+  controller: courseLinkCtrl
+  controllerAs: 'vm'
   templateUrl: '<%= asset_path("app/core/components/course-link.directive.html") %>'
-  scope: true
+  scope:
+    course: '='
+    page: '@?'
+  bindToController: true
   transclude: true
   restrict: 'E'
 
