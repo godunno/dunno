@@ -18,6 +18,7 @@
 
     &__page {
       @include grid-block($orientation: vertical);
+      flex: 0;
     }
 
     &__inactive {
@@ -27,7 +28,7 @@
         background: $white;
         border-radius: $global-radius;
         margin-top: 2rem;
-        padding: 1rem 0;
+        padding: 1rem 2rem;
         text-align: center;
       }
     }
