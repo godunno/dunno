@@ -6,7 +6,7 @@ ApplicationCtrl = (
   NonLoggedRoutes,
   NavigationGuard) ->
 
-  $rootScope.$on '$locationChangeStart', (event)->
+  $rootScope.$on '$locationChangeStart', (event) ->
     event.preventDefault() if NonLoggedRoutes.isNonLoggedRoute()
 
   $scope.signOut = ->
@@ -16,7 +16,7 @@ ApplicationCtrl = (
   SessionManager.fetchUser()
   $scope.currentUser = SessionManager.currentUser
 
-  $scope.$on 'wholePageLoading', (_, promise)->
+  $scope.$on 'wholePageLoading', (_, promise) ->
     $scope.wholePageLoading = promise
 
   NavigationGuard.guard()
