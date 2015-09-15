@@ -5,6 +5,7 @@
   .course {
     &__header {
       @include grid-block();
+      @include grid-size(shrink);
       min-height: 10rem;
 
       @include breakpoint(small only) {
