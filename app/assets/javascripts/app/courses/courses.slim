@@ -10,7 +10,7 @@ ui-view.courses__page
           | ou
         a.button ng-click="vm.openNewCourseForm()"
           | Criar disciplina
-  .courses__blankslate ng-if="vm.activeCourses.length == 0 && vm.inactiveCourses.length == 0"
+  .courses__blankslate ng-if="vm.courses.length == 0"
     .courses__blankslate__header
       h3
         | Que papel você vai desempenhar?
