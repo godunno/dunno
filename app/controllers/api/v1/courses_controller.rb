@@ -41,14 +41,8 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     @course = course(Course.all)
     authorize @course
     course.add_student current_profile
-    TrackerWrapper.new(course.teacher.user).track(
-      'Student Joined',
-      id: current_user.id,
-      name: current_user.name,
-      courseName: course.name,
-      courseUuid: course.uuid
-    )
-    render nothing: true
+    track_student_joining_course
+    render :create
   rescue Pundit::NotAuthorizedError => exception
     rescue_unauthorized(exception)
   end
@@ -68,6 +62,16 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   private
+
+  def track_student_joining_course
+    TrackerWrapper.new(course.teacher.user).track(
+      'Student Joined',
+      id: current_user.id,
+      name: current_user.name,
+      courseName: course.name,
+      courseUuid: course.uuid
+    )
+  end
 
   def rescue_unauthorized(exception)
     policy_name = exception.policy.class.to_s.underscore
