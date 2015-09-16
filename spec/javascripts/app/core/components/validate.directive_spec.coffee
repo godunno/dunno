@@ -1,17 +1,29 @@
 describe "validate directive", ->
   beforeEach module('app.core')
 
-  scope = null
-  form  = null
-  input = null
+  scope           = null
+  form            = null
+  input           = null
+  button          = null
   errorsContainer = null
 
   beforeEach ->
     inject ($compile, $rootScope) ->
       scope = $rootScope.$new()
       form = angular.element('<form name="form"></form>')
-      input = angular.element('<input name="text" type="text" ng-minlength="2" required validate ng-model="text"></input>')
+      input = angular.element("""
+        <input
+          name="text"
+          type="text"
+          ng-minlength="2"
+          required
+          validate
+          ng-model="text">
+        </input>
+      """)
       form.append(input)
+      button = angular.element('<button type="submit">Submit</button>')
+      form.append(button)
       $compile(form)(scope)
       errorsContainer = input.next('.errors')
       form.appendTo(document.body)
@@ -23,6 +35,9 @@ describe "validate directive", ->
     input.val(value).trigger('input')
     scope.$apply()
 
+  submit = ->
+    button.click()
+
   it "starts without errors", ->
     scope.$apply()
     expect(errorsContainer.find('.error').length).toEqual(0)
@@ -32,7 +47,7 @@ describe "validate directive", ->
     expect(errorsContainer.is(':visible')).toEqual(false)
 
   it "shows required error on submit", ->
-    form.submit()
+    submit()
     expect(errorsContainer.find('.error.required').length).toEqual(1)
 
   it "doesn't show length error on blur if not dirty", ->
@@ -45,7 +60,7 @@ describe "validate directive", ->
     expect(errorsContainer.find('.error.minlength').length).toEqual(1)
 
   it "hides required error on first typed character", ->
-    form.submit()
+    submit()
     write('a')
     expect(errorsContainer.find('.error.required').length).toEqual(0)
 
@@ -57,7 +72,7 @@ describe "validate directive", ->
     expect(errorsContainer.find('.error.minlength').length).toEqual(0)
 
   it "doesn't show required error after it was valid", ->
-    form.submit()
+    submit()
     write('a')
     write('')
     expect(errorsContainer.find('.error.required').length).toEqual(0)
@@ -71,10 +86,10 @@ describe "validate directive", ->
     expect(errorsContainer.find('.error.minlength').length).toEqual(0)
 
   it "shows required error on submit again", ->
-    form.submit()
+    submit()
     write('a')
     write('')
-    form.submit()
+    submit()
     expect(errorsContainer.find('.error.required').length).toEqual(1)
 
   it "shows length error on blur again", ->
@@ -84,4 +99,9 @@ describe "validate directive", ->
     write('ab')
     write('a')
     input.blur()
+    expect(errorsContainer.find('.error.minlength').length).toEqual(1)
+
+  it "shows length error on submit", ->
+    write('a')
+    submit()
     expect(errorsContainer.find('.error.minlength').length).toEqual(1)

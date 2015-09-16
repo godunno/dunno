@@ -1,51 +1,33 @@
 validate = ($compile) ->
-  class ErrorsContainer
-    constructor: (errors, scope) ->
-      @errors = errors
-      @scope = scope
-
-    compile: =>
-      errorsContainer = @buildContainer()
-
-      angular.forEach @errors, (error) =>
-        errorsContainer.append @buildError(error)
-
-      $compile(errorsContainer)(@scope)
-
-      errorsContainer
-
-    buildContainer: -> $('<span class="errors" ng-show="anyErrors()"></span>')
-
-    buildError: (error) ->
-      "<span class=\"error #{error}\" ng-if=\"showError('#{error}')\">#{error}</span>"
-
   class Validate
     constructor: (scope, element, ngModelCtrl) ->
       @scope = scope
       @element = element
       @ngModelCtrl = ngModelCtrl
 
-      @blurred = false
-      @submitted = false
+      @scope.$watch (=> @modelErrors().join()), @removeErrorsOnTyping
+      @element.on 'blur', @setInvalidErrors
+      $(@element[0].form).on 'submit', @setAllErrors
 
-      @setSubmitCallbacks()
-      @setBlurCallbacks()
+    setAllErrors: =>
+      @errors = @modelErrors()
+      @scope.$apply()
 
-    setSubmitCallbacks: =>
-      $(@element[0].form).on 'submit', =>
-        @submitted = true
-        @scope.$apply()
+    setInvalidErrors: =>
+      isRequired = @errors.indexOf('required') != -1
+      errors = @remove(@modelErrors(), 'required')
+      errors.push('required') if isRequired
+      @errors = errors
+      @scope.$apply()
 
-      @scope.$watch (=> @errors().indexOf('required')), (index) =>
-        @submitted = false if index == -1
+    removeErrorsOnTyping: =>
+      removedErrors = @diff(@errors, @modelErrors())
+      @errors = @diff(@errors, removedErrors)
 
-    setBlurCallbacks: =>
-      @element.on 'blur', =>
-        @blurred = true
-        @scope.$apply()
+    modelErrors: =>
+      @mapKeys @ngModelCtrl.$error
 
-      @scope.$watch (=> @onBlurErrors().length > 0), (empty) =>
-        @blurred = false if empty
+    errors: []
 
     mapKeys: (hash) ->
       result = []
@@ -53,48 +35,37 @@ validate = ($compile) ->
         result.push key
       result
 
-    errors: =>
-      @ngModelCtrl.$commitViewValue()
-      @mapKeys @ngModelCtrl.$error
+    remove: (array, element) ->
+      index = array.indexOf(element)
+      array.splice(index, 1) if index != -1
+      array
 
-    onBlurErrors: =>
-      remove = (array, element) ->
-        index = array.indexOf(element)
-        array.splice(index, 1) if index != -1
-        array
-
-      remove(@errors(), 'required')
-
-    showError: (error) =>
-      return false if @errors().indexOf(error) == -1
-      if error == 'required'
-        @submitted
-      else
-        @blurred
-
-    anyErrors: =>
-      @errors().some (error) => @showError(error)
+    diff: (a, b) ->
+      result = []
+      a.forEach (element) ->
+        result.push(element) if b.indexOf(element) == -1
+      result
 
     errorsScope: =>
       newScope = @scope.$new()
-      newScope.errors = @errors
-      newScope.showError = @showError
-      newScope.anyErrors = @anyErrors
+      newScope.errors = => @errors
       newScope
 
-    validators: =>
-      @mapKeys @ngModelCtrl.$validators
-
     compileErrorsContainer: =>
-      errorsContainer = new ErrorsContainer(@validators(), @errorsScope())
-      @element.after errorsContainer.compile()
+      errorsContainer = $("""
+        <span class="errors" ng-show="errors().length > 0">
+          <span ng-repeat="error in errors()" class="error" ng-class="error">
+            {{error}}
+          </span>
+        </span>
+      """)
+      $compile(errorsContainer)(@errorsScope())
+      @element.after errorsContainer
 
   restrict: 'A'
   require: 'ngModel'
-  priority: 1 # WTF
   link: (scope, element, attrs, ngModelCtrl) ->
     new Validate(scope, element, ngModelCtrl).compileErrorsContainer()
-
 
 validate.$inject = ['$compile']
 
