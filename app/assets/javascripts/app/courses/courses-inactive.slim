@@ -8,7 +8,7 @@ ui-view
           | Entrar em uma disciplina
         span<>
           | ou
-        a.button.tiny ng-click="vm.openNewCourseForm()"
+        a.button ng-click="vm.openNewCourseForm()"
           | Criar disciplina
   .courses__inactive
     .course__inactive ng-repeat="course in vm.inactiveCourses"

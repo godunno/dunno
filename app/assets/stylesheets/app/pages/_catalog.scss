@@ -1,4 +1,11 @@
 .catalog__page {
+  @include grid-block();
+  @include grid-orient(vertical);
+
+  .catalog__blankslate {
+    text-align: center;
+  }
+
   .media__data,
   .catalog__media__body {
     margin-left: 5em;

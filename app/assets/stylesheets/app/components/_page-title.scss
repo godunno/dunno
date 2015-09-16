@@ -2,7 +2,6 @@
   @include grid-block(shrink);
   background: $white;
   border-bottom: .0625rem solid $light-grey-color;
-  margin-bottom: 2rem;
   padding: 1rem 0;
 
   @include breakpoint(small only) {
@@ -13,19 +12,17 @@
     @include grid-block();
     @include grid-container();
     justify-content: space-between;
+
+    @include breakpoint(small only) {
+      @include grid-orient(vertical);
+    }
   }
 
   &__title {
     font-weight: $font-weight-normal;
 
     @include breakpoint(small only) {
-      color: $white;
-      font-size: .875rem;
-      height: 0;
-      line-height: 1.75rem;
-      position: relative;
       text-align: center;
-      top: -2.25rem;
     }
   }
 
@@ -35,6 +32,7 @@
     white-space: nowrap;
 
     @include breakpoint(small only) {
+      margin: 0 auto;
       padding: 1rem;
       text-align: center;
 

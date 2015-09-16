@@ -1,8 +1,8 @@
 .course {
   &s {
     @include grid-block();
-    @include grid-container();
     @include grid-layout(1);
+    padding: 2rem 0;
 
     @include breakpoint(medium) {
       @include grid-layout(2);
@@ -17,12 +17,17 @@
     }
 
     &__page {
-      @include grid-block($orientation: vertical);
-      flex: 0;
+      @include grid-content();
+      @include grid-nest(true);
+    }
+
+    &__wrapper {
+      @include grid-container();
     }
 
     &__inactive {
       @include grid-container();
+      padding: 2rem 0;
 
       &__info {
         background: $white;
@@ -43,7 +48,6 @@
 
       &__content {
         @include grid-block();
-        @include grid-container();
         @include grid-align(center);
         align-items: center;
 
@@ -60,8 +64,8 @@
 
   &__inactive {
     display: flex;
-    margin-bottom: 1rem;
-    padding: 1rem 0;
+    margin-bottom: 2rem;
+    padding: 0;
 
     @include breakpoint(small only) {
       flex-wrap: wrap;
