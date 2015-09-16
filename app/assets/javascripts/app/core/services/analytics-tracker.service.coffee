@@ -87,6 +87,9 @@ AnalyticsTracker = ($analytics) ->
   scheduleCreated: scheduleCreated
   scheduleEdited: scheduleEdited
   scheduleRemoved: scheduleRemoved
+
+AnalyticsTracker.$inject = ['$analytics']
+
 angular
   .module('app.core')
   .factory('AnalyticsTracker', AnalyticsTracker)
