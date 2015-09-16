@@ -25,7 +25,6 @@ describe "validate directive", ->
           required
           validate
           ng-model="text">
-        </input>
       """)
       form.append(input)
       button = angular.element('<button type="submit">Submit</button>')
@@ -124,3 +123,57 @@ describe "validate directive", ->
 
     errorMessage = errorsContainer.find('.error.minlength').text().trim()
     expect(errorMessage).toEqual('This field should have at least 2 characters')
+
+  it "throws exception when used in an input without name", ->
+    inject ($compile, $rootScope) ->
+      scope = $rootScope.$new()
+      form = angular.element('<form name="form"></form>')
+      input = angular.element("""
+        <input
+          type="text"
+          ng-minlength="2"
+          required
+          validate
+          ng-model="text">
+        </input>
+      """)
+      form.append(input)
+
+      error = new Error("Input must have a name.")
+      expect(-> $compile(form)(scope)).toThrow(error)
+
+  it "throws exception when used in an input which form has no name", ->
+    inject ($compile, $rootScope) ->
+      scope = $rootScope.$new()
+      form = angular.element('<form></form>')
+      input = angular.element("""
+        <input
+          name="text"
+          type="text"
+          ng-minlength="2"
+          required
+          validate
+          ng-model="text">
+        </input>
+      """)
+      form.append(input)
+
+      error = new Error("Form must have a name.")
+      expect(-> $compile(form)(scope)).toThrow(error)
+
+  it "throws exception when used in an input without a form", ->
+    inject ($compile, $rootScope) ->
+      scope = $rootScope.$new()
+      input = angular.element("""
+        <input
+          name="text"
+          type="text"
+          ng-minlength="2"
+          required
+          validate
+          ng-model="text">
+        </input>
+      """)
+
+      error = new Error("Input must belong to a form.")
+      expect(-> $compile(input)(scope)).toThrow(error)

@@ -1,11 +1,15 @@
 validate = ($compile) ->
   class Validate
     constructor: (scope, element, ngModelCtrl) ->
+      throw new Error("Input must have a name.") unless element.attr('name')?
+
+      form = $(element[0].form)
+      throw new Error("Input must belong to a form.") unless form.length == 1
+      throw new Error("Form must have a name.") unless form.attr('name')?
+
       @scope = scope
       @element = element
       @ngModelCtrl = ngModelCtrl
-
-      form = $(@element[0].form)
 
       @namespace = "#{form.attr('name')}.#{element.attr('name')}"
 
