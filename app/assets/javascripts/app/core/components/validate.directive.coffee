@@ -1,4 +1,4 @@
-validate = ($compile) ->
+validate = ($compile, ErrorsSharedSpace) ->
   class Validate
     constructor: (scope, element, ngModelCtrl) ->
       throw new Error("Input must have a name.") unless element.attr('name')?
@@ -11,31 +11,36 @@ validate = ($compile) ->
       @element = element
       @ngModelCtrl = ngModelCtrl
 
-      @namespace = "#{form.attr('name')}.#{element.attr('name')}"
+      @translationKey = "#{form.attr('name')}.#{element.attr('name')}"
+      @setErrors([])
 
       @scope.$watch (=> @modelErrors().join()), @removeErrorsOnTyping
       @element.on 'blur', @setInvalidErrors
       form.on 'submit', @setAllErrors
 
+    setErrors: (errors) =>
+      ErrorsSharedSpace.setErrorsFor(@translationKey, errors)
+
+    getErrors: =>
+      ErrorsSharedSpace.getErrorsFor(@translationKey)
+
     setAllErrors: =>
-      @errors = @modelErrors()
+      @setErrors(@modelErrors())
       @scope.$apply()
 
     setInvalidErrors: =>
-      isRequired = @errors.indexOf('required') != -1
+      isRequired = @getErrors().indexOf('required') != -1
       errors = @remove(@modelErrors(), 'required')
       errors.push('required') if isRequired
-      @errors = errors
+      @setErrors(errors)
       @scope.$apply()
 
     removeErrorsOnTyping: =>
-      removedErrors = @diff(@errors, @modelErrors())
-      @errors = @diff(@errors, removedErrors)
+      removedErrors = @diff(@getErrors(), @modelErrors())
+      @setErrors(@diff(@getErrors(), removedErrors))
 
     modelErrors: =>
       @mapKeys @ngModelCtrl.$error
-
-    errors: []
 
     mapKeys: (hash) ->
       result = []
@@ -54,28 +59,12 @@ validate = ($compile) ->
         result.push(element) if b.indexOf(element) == -1
       result
 
-    errorsScope: =>
-      newScope = @scope.$new()
-      newScope.errors = => @errors
-      newScope
-
-    compileErrorsContainer: =>
-      errorsContainer = $("""
-        <span class="errors" ng-show="errors().length > 0">
-          <span ng-repeat="error in errors()" class="error" ng-class="error">
-            {{ '#{@namespace}.' + error | translate }}
-          </span>
-        </span>
-      """)
-      $compile(errorsContainer)(@errorsScope())
-      @element.after errorsContainer
-
   restrict: 'A'
   require: 'ngModel'
   link: (scope, element, attrs, ngModelCtrl) ->
-    new Validate(scope, element, ngModelCtrl).compileErrorsContainer()
+    new Validate(scope, element, ngModelCtrl)
 
-validate.$inject = ['$compile']
+validate.$inject = ['$compile', 'ErrorsSharedSpace']
 
 angular
   .module('app.core')
