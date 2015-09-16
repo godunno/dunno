@@ -21,7 +21,7 @@
           | Sala: {{event.classroom}}
       aside
         event-status.date__status event="event" role="course.user_role"
-        a.button.tiny.event__edit[
+        a.button.event__edit[
           if-teacher=true
           ng-click="track(event)"
           ui-sref="^.event({ startAt: event.start_at })"]

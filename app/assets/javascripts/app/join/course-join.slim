@@ -10,14 +10,14 @@
           | Entrar em uma disciplina
         span<>
           | ou
-        a.button.tiny ng-click="vm.openNewCourseForm()"
+        a.button ng-click="vm.openNewCourseForm()"
           | Criar disciplina
   .course__join__form
+    p.text-center
+      a.button ui-sref="^"
+        i.icon.icon-arrow-back>
+        | Disciplinas
     form.form__box ng-submit="search(access_code)"
-      p
-        a ui-sref="^"
-          i.icon.icon-arrow-back>
-          | Disciplinas
       h3
         | Informe o Código da Disciplina
       p
