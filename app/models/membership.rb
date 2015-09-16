@@ -6,6 +6,5 @@ class Membership < ActiveRecord::Base
 
   default_scope -> { order(:id) }
 
-  # TODO: validate presence of course (need to use inverse_of on the association)
   validates :profile, :role, presence: true
 end

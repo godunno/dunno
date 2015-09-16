@@ -1,5 +1,4 @@
 Event = (RailsResource, $q, railsSerializer) ->
-  # TODO: Find a way to include the course's uuid on the default parameters
   class Event extends RailsResource
     @configure(
       url: '/api/v1/events'
@@ -15,7 +14,6 @@ Event = (RailsResource, $q, railsSerializer) ->
 
     planned: -> @topics.length > 0
 
-    # TODO: Extract this configuration
     @paginate: (options) ->
       deferred = $q.defer()
       Event.configure(fullResponse: true)

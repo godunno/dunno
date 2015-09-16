@@ -17,7 +17,6 @@ class TransferTopic
     @next_event ||= find_next_event
   end
 
-  # TODO: Implement it using scopes
   def find_next_event
     e = event
     loop do

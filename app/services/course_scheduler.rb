@@ -48,7 +48,7 @@ class CourseScheduler
       schedule.add_recurrence_rule weekly_schedule.to_recurrence_rule
     end
 
-    # TODO: Find a solution to this bug
+    # This is a bug on Icecube. For more info, see:
     # https://github.com/seejohnrun/ice_cube/issues/298
     schedule.add_exception_time(schedule_start) if weekly_schedules.empty?
   end
