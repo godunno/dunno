@@ -47,7 +47,6 @@ AnalyticsTracker = ($analytics) ->
     $analytics.eventTrack 'Schedule Removed',
       weeklyScheduleAttrs(weeklySchedule)
 
-
   courseAttrs = (course) ->
     uuid: course.uuid
     name: course.name

@@ -1,4 +1,9 @@
-CourseConfirmRegistrationCtrl = ($scope, $state, AnalyticsTracker, PageLoading, course) ->
+CourseConfirmRegistrationCtrl = (
+  $scope,
+  $state,
+  AnalyticsTracker,
+  PageLoading,
+  course) ->
   $scope.course = course
 
   $scope.register = (course) ->
@@ -23,7 +28,12 @@ CourseConfirmRegistrationCtrl = ($scope, $state, AnalyticsTracker, PageLoading, 
         $scope.error = "Ocorreu um erro. Tente novamente mais tarde ou entre em contato. "
 
 
-CourseConfirmRegistrationCtrl.$inject = ['$scope', '$state', 'AnalyticsTracker', 'PageLoading', 'course']
+CourseConfirmRegistrationCtrl.$inject = [
+  '$scope',
+  '$state',
+  'AnalyticsTracker',
+  'PageLoading',
+  'course']
 
 angular
   .module('app.join')

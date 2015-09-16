@@ -23,13 +23,13 @@ NewWeeklyScheduleCtrl = (
 
   $scope.$watch('startTime()', setEndTimeDuration, true)
 
+  afterSave = (weeklySchedule) ->
+    modalInstance.destroy()
+    AnalyticsTracker.scheduleCreated(weeklySchedule)
+    $state.go('.', null, reload: true)
 
   $scope.submit = (weeklySchedule) ->
-    $scope.$emit('wholePageLoading', weeklySchedule.save().then (weeklySchedule) ->
-      modalInstance.destroy()
-      AnalyticsTracker.scheduleCreated(weeklySchedule)
-      $state.go('.', null, reload: true)
-    )
+    $scope.$emit 'wholePageLoading', weeklySchedule.save().then(afterSave)
 
 NewWeeklyScheduleCtrl.$inject = [
   '$scope',
