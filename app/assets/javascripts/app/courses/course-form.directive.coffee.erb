@@ -3,9 +3,9 @@ courseFormCtrl = (Course, PageLoading, $state) ->
     @course.end_date = undefined
 
   @save = ->
-    PageLoading.resolve(new Course(@course).save()).then =>
+    PageLoading.resolve(new Course(@course).save()).then (course) =>
       $state.go('.', null, reload: true)
-      @onSave()
+      @onSave()(course)
 
   @
 

@@ -10,6 +10,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
     if current_user.update_with_password(password_params)
       sign_in current_user, bypass: true
       @resource = current_user
+      TrackerWrapper.new(current_user).track("Password Changed", page: "Profile")
       render "api/v1/sessions/user_sign_in"
     else
       render json: { errors: current_user.errors.details }, status: 422

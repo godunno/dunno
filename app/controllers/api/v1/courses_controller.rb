@@ -15,7 +15,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     course_form = Form::CourseForm.new(course_params)
     authorize course_form
     if course_form.save
-      render json: { uuid: course_form.model.uuid }
+      @course = course_form.model
     else
       render json: { errors: course_form.errors }, status: 400
     end
@@ -24,8 +24,11 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   def update
     authorize course
     course_form = CourseForm.new(course, course_params)
-    course_form.update!
-    render json: { uuid: course.uuid }
+    if course_form.update!
+      render :create
+    else
+      render json: { errors: course_form.errors }, status: 400
+    end
   end
 
   def destroy
@@ -38,14 +41,8 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     @course = course(Course.all)
     authorize @course
     course.add_student current_profile
-    TrackerWrapper.new(course.teacher.user).track(
-      'Student Joined',
-      id: current_user.id,
-      name: current_user.name,
-      courseName: course.name,
-      courseUuid: course.uuid
-    )
-    render nothing: true
+    track_student_joining_course
+    render :create
   rescue Pundit::NotAuthorizedError => exception
     rescue_unauthorized(exception)
   end
@@ -65,6 +62,16 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   private
+
+  def track_student_joining_course
+    TrackerWrapper.new(course.teacher.user).track(
+      'Student Joined',
+      id: current_user.id,
+      name: current_user.name,
+      courseName: course.name,
+      courseUuid: course.uuid
+    )
+  end
 
   def rescue_unauthorized(exception)
     policy_name = exception.policy.class.to_s.underscore

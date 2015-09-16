@@ -1,12 +1,13 @@
-EditCourseCtrl = (modalInstance, course) ->
+EditCourseCtrl = (modalInstance, AnalyticsTracker, course) ->
   @course = course
 
-  @close = ->
+  @trackAndClose = (course) ->
+    AnalyticsTracker.courseEdited(course)
     modalInstance.destroy()
 
   @
 
-EditCourseCtrl.$inject = ['modalInstance', 'course']
+EditCourseCtrl.$inject = ['modalInstance', 'AnalyticsTracker', 'course']
 
 angular
   .module('app.courses')

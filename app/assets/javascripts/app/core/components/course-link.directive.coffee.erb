@@ -1,7 +1,20 @@
-courseCard = ->
-  templateUrl: '<%= asset_path("app/core/components/course-card.directive.html") %>'
+courseLink = ->
+  courseLinkCtrl = (AnalyticsTracker) ->
+    @track = =>
+      AnalyticsTracker.courseAccessed(@course, @page)
+
+  courseLinkCtrl.$inject = ['AnalyticsTracker']
+
+  controller: courseLinkCtrl
+  controllerAs: 'vm'
+  templateUrl: '<%= asset_path("app/core/components/course-link.directive.html") %>'
+  scope:
+    course: '='
+    page: '@?'
+  bindToController: true
+  transclude: true
   restrict: 'E'
 
 angular
   .module('app.core')
-  .directive('courseCard', courseCard)
+  .directive('courseLink', courseLink)

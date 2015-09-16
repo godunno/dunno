@@ -1,6 +1,6 @@
 json.(course, :uuid, :name, :uuid, :start_date, :end_date, :abbreviation,
       :grade, :class_name, :order, :access_code, :institution)
-json.color(SHARED_CONFIG["v1"]["courses"]["schemes"][course.order])
+json.color(SHARED_CONFIG["v1"]["courses"]["schemes"][course.order % 12])
 json.user_role(current_profile.role_in(course))
 json.students_count(course.students.count)
 json.teacher(course.teacher, :name)

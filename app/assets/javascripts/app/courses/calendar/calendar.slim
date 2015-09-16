@@ -22,13 +22,7 @@
         a.calendar__date__link[
           ng-attr-id="{{'event-' + event.uuid}}"
           ng-click="goToEvent(event)"
-          ng-class="locationInTime(event.start_at)"
-          analytics-on="click"
-          analytics-event="Event Accessed via Course"
-          analytics-uuid="{{event.uuid}}"
-          analytics-course-uuid="{{course.uuid}}"
-          analytics-course-name="{{course.name}}"
-          analytics-start-at="{{event.start_at}}"]
+          ng-class="locationInTime(event.start_at)"]
           span.date__info
             span.date__day
               strong.date__today> ng-if="isToday(event.start_at)"

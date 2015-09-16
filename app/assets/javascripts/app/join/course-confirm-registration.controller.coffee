@@ -1,10 +1,19 @@
-CourseConfirmRegistrationCtrl = ($scope, $state, PageLoading, course) ->
+CourseConfirmRegistrationCtrl = (
+  $scope,
+  $state,
+  AnalyticsTracker,
+  PageLoading,
+  course) ->
   $scope.course = course
 
   $scope.register = (course) ->
     PageLoading.resolve course.register()
+    .then(track)
     .then(goToCourses)
     .catch(handleErrors)
+
+  track = (course) ->
+    AnalyticsTracker.courseJoined(course)
 
   goToCourses = ->
     $state.go '^', {}, reload: true
@@ -19,7 +28,12 @@ CourseConfirmRegistrationCtrl = ($scope, $state, PageLoading, course) ->
         $scope.error = "Ocorreu um erro. Tente novamente mais tarde ou entre em contato. "
 
 
-CourseConfirmRegistrationCtrl.$inject = ['$scope', '$state', 'PageLoading', 'course']
+CourseConfirmRegistrationCtrl.$inject = [
+  '$scope',
+  '$state',
+  'AnalyticsTracker',
+  'PageLoading',
+  'course']
 
 angular
   .module('app.join')

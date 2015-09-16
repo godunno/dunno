@@ -42,7 +42,7 @@ core.run ['amMoment', (amMoment) ->
 core.constant 'angularMomentConfig',
   timezone: 'America/Sao_Paulo'
 
-checkProfile = ($rootScope, $window, SessionManager, NonLoggedRoutes)->
+checkProfile = ($rootScope, $window, SessionManager, NonLoggedRoutes) ->
   $rootScope.$on '$stateChangeSuccess', (ev, data) ->
     rootPath = SessionManager.currentUser()?.root_path
     if !NonLoggedRoutes.isNonLoggedRoute() && rootPath? && rootPath != $window.location.pathname

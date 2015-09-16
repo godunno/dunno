@@ -2,6 +2,7 @@ CourseEventsCtrl = (
   $scope,
   $stateParams,
   pagination,
+  AnalyticsTracker,
   Event,
   DateUtils
 ) ->
@@ -17,6 +18,12 @@ CourseEventsCtrl = (
   $scope.nextPage = 1
   $scope.scrollUntil = $stateParams.until
 
+  $scope.track = (event) ->
+    AnalyticsTracker.eventAccessed(
+      angular.extend({}, event, course: $scope.course),
+      "Events Tab"
+    )
+
   $scope.paginate = (page) ->
     params =
       course_id: $scope.course.uuid,
@@ -31,6 +38,7 @@ CourseEventsCtrl.$inject = [
   '$scope',
   '$stateParams',
   'pagination',
+  'AnalyticsTracker',
   'Event',
   'DateUtils'
 ]
