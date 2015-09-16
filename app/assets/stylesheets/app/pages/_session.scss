@@ -42,7 +42,7 @@
   }
 
   h4 {
-    padding: 1rem 0 2rem;
+    padding: 1rem 0;
     text-align: center;
     text-transform: uppercase;
 
@@ -83,4 +83,23 @@
     display: block;
     margin: 0 auto 1rem;
   }
+
+  .sign__in {
+    color: $white;
+    padding: 2rem 0 0;
+    text-align: center;
+  }
+
+  .accept__terms,
+  .privacy__policy__disclaimer {
+    margin: 0 auto;
+    max-width: 25rem;
+    text-align: center;
+  }
+}
+
+.required__fields {
+  font-size: .875rem;
+  margin-bottom: 0;
+  text-align: right;
 }

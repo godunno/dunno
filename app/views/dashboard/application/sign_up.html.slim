@@ -13,6 +13,10 @@ ruby:
       novalidate=""]
       h4
         | Criar minha conta
+      p.required__fields
+        span.required>
+          | *
+        | campos obrigatórios
       .session__error[
         ng-show="hasError"
         ng-cloak=""]
@@ -107,10 +111,18 @@ ruby:
             | Você precisa preencher seu telefone.
           span ng-message="brPhoneNumber"
             | O formato informado é inválido.
+      .accept__terms
+        p
+          | Ao criar sua conta você automaticamente <br><b>declara aceitar</b> os <a href="#{terms_path}" target="_blank">termos de uso</a> do Dunno.
       button.submit[
         tabindex=5
         type="submit"]
-        | Criar
-      .signin.text-center
+        | Criar sua conta
+      .privacy__policy__disclaimer
+        p
+          small
+            | Suas informações não serão comercializadas, podendo ser compartilhadas apenas com a finalidade de estudos academicos. Caso tenha alguma dúvida, consulte nossa <a href="#{policy_path}" target="_blank">política de privacidade</a>.
+    .sign__in
+      p
         | Já faz parte do Dunno? #{link_to "Acesse sua conta.", new_user_session_path}
     = render "application/login_links"
