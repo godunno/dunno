@@ -1,5 +1,11 @@
 describe "validate directive", ->
-  beforeEach module('app.core')
+  beforeEach module('app.core', ($translateProvider) ->
+    $translateProvider.translations 'en',
+      'form.text.required': 'This field is required'
+      'form.text.minlength': 'This field should have at least 2 characters'
+    $translateProvider.preferredLanguage('en')
+    null
+  )
 
   scope           = null
   form            = null
@@ -105,3 +111,16 @@ describe "validate directive", ->
     write('a')
     submit()
     expect(errorsContainer.find('.error.minlength').length).toEqual(1)
+
+  it "shows the correct error message for required", ->
+    submit()
+
+    errorMessage = errorsContainer.find('.error.required').text().trim()
+    expect(errorMessage).toEqual('This field is required')
+
+  it "shows the correct error message for length", ->
+    write('a')
+    input.blur()
+
+    errorMessage = errorsContainer.find('.error.minlength').text().trim()
+    expect(errorMessage).toEqual('This field should have at least 2 characters')

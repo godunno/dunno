@@ -5,9 +5,13 @@ validate = ($compile) ->
       @element = element
       @ngModelCtrl = ngModelCtrl
 
+      form = $(@element[0].form)
+
+      @namespace = "#{form.attr('name')}.#{element.attr('name')}"
+
       @scope.$watch (=> @modelErrors().join()), @removeErrorsOnTyping
       @element.on 'blur', @setInvalidErrors
-      $(@element[0].form).on 'submit', @setAllErrors
+      form.on 'submit', @setAllErrors
 
     setAllErrors: =>
       @errors = @modelErrors()
@@ -55,7 +59,7 @@ validate = ($compile) ->
       errorsContainer = $("""
         <span class="errors" ng-show="errors().length > 0">
           <span ng-repeat="error in errors()" class="error" ng-class="error">
-            {{error}}
+            {{ '#{@namespace}.' + error | translate }}
           </span>
         </span>
       """)

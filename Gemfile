@@ -67,6 +67,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-moment', '0.10.2'
   gem 'rails-assets-moment-timezone', '0.4.0'
   gem 'rails-assets-ng-sortable', '1.3.1'
+  gem 'rails-assets-angular-translate', '2.7.2'
 end
 
 group :production, :staging do

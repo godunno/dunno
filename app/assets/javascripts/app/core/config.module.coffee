@@ -17,7 +17,8 @@ angular
     'foundation',
     'ui.router',
     'ui.timepicker',
-    'ui.utils.masks']
+    'ui.utils.masks',
+    'pascalprecht.translate']
 
 #WIP
 core = angular.module('app.core')
