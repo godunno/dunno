@@ -1,0 +1,14 @@
+errors = (ErrorsSharedSpace) ->
+  restrict: 'E'
+  templateUrl: '<%= asset_path("app/core/components/errors.directive.html") %>'
+  link: (scope, element, attrs) ->
+    throw new Error("Errors must have a for attribute.") unless attrs.for?
+    scope.translationKey = attrs.for
+    scope.errors = ->
+      ErrorsSharedSpace.getErrorsFor(scope.translationKey)
+
+errors.$inject = ['ErrorsSharedSpace']
+
+angular
+  .module('app.core')
+  .directive('errors', errors)
