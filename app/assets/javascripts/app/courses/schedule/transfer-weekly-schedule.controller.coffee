@@ -21,7 +21,6 @@ TransferWeeklyScheduleCtrl = (
     'end_time'
   )
 
-  # TODO: Extract to a service
   addHour = (time) ->
     moment(time).add(1, 'hour').toDate()
 

@@ -29,8 +29,6 @@ NewFileMediaCtrl = ($scope, Media) ->
   $scope.submitFileMedia = ($files) ->
     $scope.$broadcast("progress.start")
     $scope.status = 'submittingMedia'
-    # TODO: Find out why the line bellow doesn't work
-    # new Media(file: $files[0]).upload()
     media = new Media()
     media.file = $files[0]
     media.upload()

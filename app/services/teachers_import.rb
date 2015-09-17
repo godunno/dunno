@@ -1,4 +1,3 @@
-# TODO: change name
 class TeachersImport
   attr_reader :url
 

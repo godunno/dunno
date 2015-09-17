@@ -26,14 +26,11 @@ TopicEditCtrl = ($scope, Utils) ->
     topic._editing = false
     reset()
 
-  # TODO: Add to the next event's topics list.
-  # TODO: Loading
   $scope.transferTopic = (topic) ->
     return unless confirm("Você tem certeza que deseja mover este conteúdo para a próxima aula?")
     topic.transfer().then ->
       $scope.$emit('transferTopic', topic)
 
-  # TODO: Loading
   $scope.removeTopic = (topic) ->
     return unless confirm("Você tem certeza que deseja remover este conteúdo?")
     topic.remove().then ->

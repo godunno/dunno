@@ -8,7 +8,6 @@ class CourseBuilder < BaseBuilder
     json.user_role(options[:profile].role_in(course))
 
     json.weekly_schedules course.weekly_schedules do |weekly_schedule|
-      # TODO: move to builder
       json.(weekly_schedule, :weekday, :start_time, :end_time, :classroom)
     end
 

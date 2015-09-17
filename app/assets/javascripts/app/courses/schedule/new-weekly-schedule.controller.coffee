@@ -14,7 +14,6 @@ NewWeeklyScheduleCtrl = (
   $scope.endTime = TimeGetterSetter.generate(weeklySchedule, 'end_time')
   $scope.weeklySchedule.weekday = $scope.startTime().getDay()
 
-  # TODO: Extract to a service
   addHour = (time) ->
     moment(time).add(1, 'hour').toDate()
 
