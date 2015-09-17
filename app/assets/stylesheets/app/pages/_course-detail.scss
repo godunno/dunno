@@ -1,13 +1,9 @@
 .course__detail__page {
-  @include grid-block();
-  @include grid-orient(vertical);
+  @include grid-content();
+  @include grid-nest(true);
 
   .course {
     &__header {
-      @include grid-block();
-      @include grid-size(shrink);
-      min-height: 10rem;
-
       @include breakpoint(small only) {
         margin-bottom: 0;
       }
@@ -16,12 +12,10 @@
         @include grid-block();
         @include grid-container();
         @include grid-wrap(true);
-        justify-content: space-between;
         padding: 1rem 0 0;
 
         @include breakpoint(small only) {
-          @include grid-orient(vertical);
-          align-items: center;
+          text-align: center;
         }
       }
     }
@@ -60,7 +54,7 @@
           );
 
           > li {
-            margin: 0;
+            margin: 0 .5rem 0 0;
           }
 
           .is-active a:hover {
