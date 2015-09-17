@@ -15,8 +15,8 @@ describe "validate directive", ->
     inject ($compile, $rootScope, $templateCache, _ErrorsSharedSpace_) ->
       ErrorsSharedSpace = _ErrorsSharedSpace_
       $templateCache.put '/assets/app/core/components/errors.directive.html', """
-        <span class="errors" ng-show="errors().length > 0">
-          <span ng-repeat="error in errors()" class="error" ng-class="error">
+        <span class="message__error" ng-show="errors().length > 0">
+          <span ng-repeat="error in errors()" class="error {{error}}-error">
             {{ translationKey + '.' + error | translate }}
           </span>
         </span>
@@ -49,14 +49,14 @@ describe "validate directive", ->
     setErrors(['required'])
     scope.$apply()
 
-    errorMessage = errors.find('.error.required').text().trim()
+    errorMessage = errors.find('.error.required-error').text().trim()
     expect(errorMessage).toEqual('This field is required')
 
   it "shows minlength error", ->
     setErrors(['minlength'])
     scope.$apply()
 
-    errorMessage = errors.find('.error.minlength').text().trim()
+    errorMessage = errors.find('.error.minlength-error').text().trim()
     expect(errorMessage).toEqual('This field should have at least 2 characters')
 
   it "shows more than one error", ->
@@ -84,5 +84,5 @@ describe "validate directive", ->
       setErrors(['required'])
       scope.$apply()
 
-      errorMessage = errors.find('.error.required').text().trim()
+      errorMessage = errors.find('.error.required-error').text().trim()
       expect(errorMessage).toEqual('This field is required')
