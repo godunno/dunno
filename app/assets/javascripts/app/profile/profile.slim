@@ -5,12 +5,13 @@ ui-view.profile__page
         | Meu perfil
   .profile
     form.form__box[
-      name="form"
-      ng-model-options="{ updateOn: 'blur' }"
-      ng-submit="update(user)"]
+      name="profile_form"
+      novalidate=true
+      ng-submit="profile_form.$valid && update(user)"]
       .message__success ng-if="success"
         | Dados salvos com sucesso!
         span.happy
+
       label for="name"
         | Nome
         span.required<
@@ -18,21 +19,18 @@ ui-view.profile__page
       input#name[
         name="name"
         ng-model="user.name"
-        ng-focus="form.name.$setPristine()"
-        ng-blur="form.name.$setDirty()"
         required=true
+        validate=true
         type="text"]
-      small.error[
-        ng-messages="form.name.$error"
-        ng-if="form.name.$invalid && form.name.$dirty"]
-        span ng-message="required"
-          | Este campo é obrigatório.
+      errors for="profile_form.name"
+
       label for="email"
         | Email
       input#email[
         disabled=true
         ng-model="user.email"
         type="email"]
+
       label for="phone_number"
         | Telefone
         span.required<
@@ -40,22 +38,15 @@ ui-view.profile__page
       input#phone_number[
         name="phone_number"
         ng-model="user.phone_number"
-        ng-focus="form.phone_number.$setPristine()"
-        ng-blur="form.phone_number.$setDirty()"
         required=true
         ui-br-phone-number=true
+        validate=true
         type="text"]
-      small.error[
-        ng-messages="form.phone_number.$error"
-        ng-if="form.phone_number.$invalid && form.phone_number.$dirty"]
-        span ng-message="required"
-          | Este campo é obrigatório.
-        span ng-message="brPhoneNumber"
-          | Formato inválido.
+      errors for="profile_form.phone_number"
+
       .profile__change__password
         a ui-sref=".change_password"
           | Quero alterar minha senha
       button.submit[
-        ng-disabled="form.$invalid"
         type="submit"]
         | Atualizar perfil
