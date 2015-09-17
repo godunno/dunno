@@ -7,7 +7,7 @@ describe "validate directive", ->
     null
   )
 
-  errors         = null
+  errors            = null
   scope             = null
   ErrorsSharedSpace = null
 
@@ -75,3 +75,14 @@ describe "validate directive", ->
         $compile(errors)(scope)
         scope.$digest()
       .toThrow(error)
+
+  it "doesn't conflicts with other directives", ->
+    inject ($compile, $rootScope) ->
+      newErrors = angular.element('<errors for="form.name">')
+      $compile(newErrors)(scope)
+
+      setErrors(['required'])
+      scope.$apply()
+
+      errorMessage = errors.find('.error.required').text().trim()
+      expect(errorMessage).toEqual('This field is required')
