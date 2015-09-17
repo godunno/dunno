@@ -1,6 +1,11 @@
 .modal {
   overflow: visible;
 
+  @include breakpoint(small only) {
+    max-width: 100vw;
+    overflow-y: scroll;
+  }
+
   &__header {
     border-bottom: $divider;
     margin-bottom: 2em;
