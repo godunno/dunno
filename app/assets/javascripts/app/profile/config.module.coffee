@@ -18,4 +18,7 @@ profile.config ['$translateProvider', ($translateProvider) ->
     'password_form.password_confirmation.required': 'Você precisa confirmar a senha.'
     'password_form.password_confirmation.match': 'A confirmação não é igual à senha digitada.'
     'password_form.password_confirmation.parse': ''
+
+    'new_password_recovery_form.email.required': 'Você precisa confirmar seu email.'
+    'new_password_recovery_form.email.email': 'O email informado é inválido.'
 ]
