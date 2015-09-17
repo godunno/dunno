@@ -36,6 +36,10 @@ core.config ['$animateProvider', ($animateProvider) ->
   $animateProvider.classNameFilter(/ng-animate/)
 ]
 
+core.config ['$translateProvider', ($translateProvider) ->
+  $translateProvider.preferredLanguage('pt-BR')
+]
+
 core.run ['amMoment', (amMoment) ->
   amMoment.changeLocale('pt-br')
 ]
