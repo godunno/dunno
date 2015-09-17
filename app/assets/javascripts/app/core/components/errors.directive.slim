@@ -1,3 +1,3 @@
-span class="message__error" ng-show="errors().length > 0"
-  span ng-repeat="error in errors()" class="error {{error}}-error"
+span.message__error ng-show="errors().length > 0"
+  span.error ng-repeat="error in errors()" class="{{error}}-error"
     | {{ translationKey + '.' + error | translate }}
