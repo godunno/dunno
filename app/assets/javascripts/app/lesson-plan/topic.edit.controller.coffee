@@ -29,7 +29,7 @@ TopicEditCtrl = ($scope, Utils) ->
   # TODO: Add to the next event's topics list.
   # TODO: Loading
   $scope.transferTopic = (topic) ->
-    return unless confirm("Você tem certeza que deseja transferir este conteúdo para a próxima aula?")
+    return unless confirm("Você tem certeza que deseja mover este conteúdo para a próxima aula?")
     topic.transfer().then ->
       $scope.$emit('transferTopic', topic)
 
