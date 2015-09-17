@@ -7,7 +7,6 @@ ProfileCtrl = ($scope, $http, SessionManager, ErrorParser) ->
     SessionManager.setCurrentUser(response.data)
 
   failure = (response) ->
-    ErrorParser.setErrors(response.data.errors, $scope.form, $scope)
     $scope.error = true
     $scope.success = false
 
