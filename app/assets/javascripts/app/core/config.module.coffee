@@ -32,6 +32,10 @@ core.value('cgBusyDefaults',
   wrapperClass: 'cg-busy cg-busy-animation'
 )
 
+core.config ['$translateProvider', ($translateProvider) ->
+  $translateProvider.preferredLanguage('pt-BR')
+]
+
 core.run ['amMoment', (amMoment) ->
   amMoment.changeLocale('pt-br')
 ]
