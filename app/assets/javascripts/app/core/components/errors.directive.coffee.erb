@@ -1,6 +1,7 @@
 errors = (ErrorsSharedSpace) ->
   restrict: 'E'
   templateUrl: '<%= asset_path("app/core/components/errors.directive.html") %>'
+  scope: true
   link: (scope, element, attrs) ->
     throw new Error("Errors must have a for attribute.") unless attrs.for?
     scope.translationKey = attrs.for
