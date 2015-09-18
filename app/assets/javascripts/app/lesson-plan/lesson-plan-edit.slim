@@ -154,8 +154,8 @@
                   required=true
                   validate=true
                   focus-on="topicType == 'text'"]
-                errors for="textTopicForm.description"
-                ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
+                new-topic-actions
+                  errors for="textTopicForm.description"
 
             .type.type__file ng-show="topicType == 'file'" ng-controller="NewFileMediaCtrl"
               form[
@@ -178,8 +178,8 @@
                   required=true
                   validate=true
                   ng-file-select="submitFileMedia($files)"]
-                errors for="fileMediaForm.file"
-                ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
+                new-topic-actions
+                  errors for="fileMediaForm.file"
 
               .type.type__media[
                 ng-show="status == 'createdMedia'"
@@ -198,8 +198,8 @@
                     required=true
                     validate=true
                     focus-on="topicType == 'file' && status == 'createdMedia'"]
-                  errors for="fileTopicForm.description"
-                  ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
+                  new-topic-actions
+                    errors for="fileTopicForm.description"
               progress-bar
 
             .type.type__url[
@@ -220,8 +220,8 @@
                   required=true
                   validate=true
                   focus-on="topicType == 'url' && !media"]
-                errors for="urlMediaForm.url"
-                ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
+                new-topic-actions
+                  errors for="urlMediaForm.url"
 
               .media ng-show="!!media" ng-controller="TopicAttributesCtrl"
                 preview item="topic" removable="true"
@@ -238,8 +238,8 @@
                     required=true
                     validate=true
                     focus-on="topicType == 'url' && !!media"]
-                  errors for="urlTopicForm.description"
-                  ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
+                  new-topic-actions
+                    errors for="urlTopicForm.description"
 
             .type.type__catalog ng-show="topicType == 'catalog'" ng-controller="AddFromMediaCtrl"
               form[
@@ -284,8 +284,8 @@
                     ng-if="next_page"
                     cg-busy="loadingNextPage"]
                     | Carregar mais&hellip;
-                errors for="catalogTopicForm.media"
-                ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
+                new-topic-actions
+                  errors for="catalogTopicForm.media"
 
         .topics[
           ui-sortable="sortableOptions('topics')"
