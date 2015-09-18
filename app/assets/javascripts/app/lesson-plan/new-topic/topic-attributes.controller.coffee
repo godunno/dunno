@@ -12,7 +12,7 @@ TopicAttributesCtrl = ($scope, Topic) ->
     $scope.topic.media_id = media.id
     $scope.topic.description = media.title
 
-  saveTopic = (e, topic) ->
+  $scope.addTopic = (e, topic) ->
     $scope.topic.event = $scope.event
     $scope.topic.personal = $scope.defaultTopicProperties.personal
     new Topic($scope.topic).create().then (topic) ->
@@ -20,7 +20,6 @@ TopicAttributesCtrl = ($scope, Topic) ->
       reset()
 
   $scope.$on 'newMedia', setMedia
-  $scope.$on 'saveTopic', saveTopic
   $scope.$on 'cancelTopic', reset
   $scope.$on 'removeMedia', reset
 
