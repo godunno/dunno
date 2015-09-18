@@ -1,0 +1,8 @@
+newTopicActions = ->
+  restrict: 'E'
+  transclude: true
+  templateUrl: '<%= asset_path("app/lesson-plan/new-topic/new-topic-actions.directive.html") %>'
+
+angular
+  .module('app.lessonPlan')
+  .directive('newTopicActions', newTopicActions)
