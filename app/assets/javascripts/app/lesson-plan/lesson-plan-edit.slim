@@ -139,19 +139,29 @@
               span
                 | Catálogo
           .item__type ng-show="topicType != null"
-            .type.type__text ng-show="topicType == 'text'" ng-controller="NewTextTopicCtrl"
-              form name="textTopicForm" ng-controller="TopicAttributesCtrl"
+            .type.type__text ng-show="topicType == 'text'"
+              form[
+                name="textTopicForm"
+                ng-submit="textTopicForm.$valid && addTopic()"
+                novalidate=true
+                ng-controller="TopicAttributesCtrl"]
                 input.field__new__list__item[
                   ng-model="topic.description"
                   type="text"
                   focus-wrapper=""
                   placeholder="Adicionar tópico"
-                  ui-keydown="{'enter':'addTopic()'}"
                   name="description"
+                  required=true
+                  validate=true
                   focus-on="topicType == 'text'"]
+                errors for="textTopicForm.description"
+                ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
 
             .type.type__file ng-show="topicType == 'file'" ng-controller="NewFileMediaCtrl"
-              form name="fileMediaForm" ng-show="status == 'newMedia'"
+              form[
+                name="fileMediaForm"
+                novalidate=true
+                ng-show="status == 'newMedia'"]
                 p
                   | Enviar foto, vídeo ou documento
                   br
@@ -165,48 +175,78 @@
                   type="file"
                   ng-model="media_file"
                   name="file"
+                  required=true
+                  validate=true
                   ng-file-select="submitFileMedia($files)"]
+                errors for="fileMediaForm.file"
+                ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
 
-              .type.type__media ng-show="status == 'createdMedia'" ng-controller="TopicAttributesCtrl"
+              .type.type__media[
+                ng-show="status == 'createdMedia'"
+                ng-controller="TopicAttributesCtrl"]
                 preview item="topic" removable="true"
-                form name="fileTopicForm"
+                form[
+                  name="fileTopicForm"
+                  ng-submit="fileTopicForm.$valid && addTopic()"
+                  novalidate=true]
                   input.field__new__list__item[
                     ng-model="topic.description"
                     type="text"
                     focus-wrapper=""
                     placeholder="Adicionar conteúdo"
-                    ui-keydown="{'enter':'addTopic()'}"
                     name="description"
+                    required=true
+                    validate=true
                     focus-on="topicType == 'file' && status == 'createdMedia'"]
+                  errors for="fileTopicForm.description"
+                  ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
               progress-bar
+
             .type.type__url[
               ng-show="topicType == 'url'"
               ng-controller="NewUrlMediaCtrl"
               cg-busy="submittingMediaPromise"]
-              form name="urlMediaForm"
+              form[
+                name="urlMediaForm"
+                ng-show="!media"
+                ng-submit="urlMediaForm.$valid && submitUrlMedia()"
+                novalidate=true]
                 input[
                   ng-show="!media"
-                  type="text"
+                  type="url"
                   name="url"
                   ng-model="url"
                   placeholder="Escreva ou cole o link aqui"
-                  ui-keydown="{'enter':'submitUrlMedia()'}"
+                  required=true
+                  validate=true
                   focus-on="topicType == 'url' && !media"]
+                errors for="urlMediaForm.url"
+                ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
+
               .media ng-show="!!media" ng-controller="TopicAttributesCtrl"
                 preview item="topic" removable="true"
-                form name="urlTopicForm"
+                form[
+                  name="urlTopicForm"
+                  ng-submit="urlTopicForm.$valid && addTopic()"
+                  novalidate=true]
                   input.field__new__list__item[
                     ng-model="topic.description"
                     type="text"
                     focus-wrapper=""
                     placeholder="Adicionar conteúdo"
-                    ui-keydown="{'enter':'addTopic()'}"
                     name="description"
+                    required=true
+                    validate=true
                     focus-on="topicType == 'url' && !!media"]
+                  errors for="urlTopicForm.description"
+                  ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
 
             .type.type__catalog ng-show="topicType == 'catalog'" ng-controller="AddFromMediaCtrl"
-              span ng-controller="TopicAttributesCtrl"
-              ng-form name="catalogTopicForm"
+              form[
+                ng-controller="TopicAttributesCtrl"
+                name="catalogTopicForm"
+                ng-submit="catalogTopicForm.$valid && addTopic()"
+                novalidate=true]
                 .catalog__header
                   .catalog__search
                     i.icon.icon-search
@@ -221,9 +261,12 @@
                   .catalog__media ng-repeat="media in medias"
                     input.media__select[
                       type="radio"
+                      name="media"
                       ng-model="result.media"
                       ng-change="selectMedia()"
                       ng-value="media"
+                      required=true
+                      validate=true
                       id="{{media.uuid}}"]
                     label.media__select__label for="{{media.uuid}}"
                     .media__contents
@@ -241,8 +284,9 @@
                     ng-if="next_page"
                     cg-busy="loadingNextPage"]
                     | Carregar mais&hellip;
+                errors for="catalogTopicForm.media"
+                ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
 
-            ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
         .topics[
           ui-sortable="sortableOptions('topics')"
           ng-model="event.topics"]

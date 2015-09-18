@@ -1,12 +1,4 @@
 NewUrlMediaCtrl = ($scope, Media) ->
-  $scope.$on 'newTopic', ($event, topicType) ->
-    return unless topicType == 'url'
-    saveTopic = -> $scope.$broadcast 'saveTopic'
-    if !$scope.media
-      $scope.submitUrlMedia().then(saveTopic)
-    else
-      saveTopic()
-
   initialize = ->
     $scope.url = undefined
     $scope.media = undefined
@@ -26,7 +18,6 @@ NewUrlMediaCtrl = ($scope, Media) ->
     $scope.$broadcast('newMedia', media)
 
   $scope.submitUrlMedia = ->
-    return unless $scope.canAddTopic
     media = new Media(url: $scope.url)
     $scope.submittingMediaPromise = media.create().then(success)
 

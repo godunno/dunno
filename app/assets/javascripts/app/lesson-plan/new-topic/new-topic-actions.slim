@@ -26,7 +26,7 @@
             zf-close=""]
             i.icon.icon-eye>
             | Estudantes
-  a.new__topic__create<[
-    ng-class="{disabled: !canAddTopic, 'topic__private': defaultTopicProperties.personal}"
-    ng-click="addTopic()"]
+  button.new__topic__create<[
+    ng-class="{'topic__private': defaultTopicProperties.personal}"
+    type="submit"]
     | Inserir {{topicTypeDescription()}}
