@@ -1,14 +1,17 @@
 NewPasswordRecoveryCtrl = ($http, PageLoading, FoundationApi) ->
   @user = {}
 
-  @recoverPassword = (user) =>
-    PageLoading.resolve($http.post("/users/password", user: user)).finally =>
-      FoundationApi.publish 'main-notifications',
-        content: """
-        Instruções enviadas para #{user.email}.
-        Não esqueça de verificar sua caixa de SPAM!
-        """
-      @user = {}
+  completed = =>
+    FoundationApi.publish 'main-notifications',
+      content: """
+      Instruções enviadas para #{@user.email}.
+      Não esqueça de verificar sua caixa de SPAM!
+      """
+    @user = {}
+
+  @recoverPassword = (user) ->
+    PageLoading.resolve($http.post("/dashboard/passwords", user: user))
+      .finally(completed)
 
   @
 

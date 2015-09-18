@@ -8,7 +8,7 @@ ruby:
     form.form__box#recover_password[
       name="new_password_recovery_form"
       ng-submit="new_password_recovery_form.$valid && vm.recoverPassword(vm.user)"
-      novalidate=""]
+      novalidate=true]
       .completed ng-if="vm.completed"
         | Você receberá instruções em seu email.
       h4

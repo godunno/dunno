@@ -19,7 +19,7 @@ ruby:
           br
           | Confira seus dados e tente novamente.
         p.session__amnesia
-          = link_to "Esqueceu sua senha?", new_dashboard_password_path
+          = link_to "Esqueceu sua senha?", new_dashboard_passwords_path
       .session__email
         label for="email"
           | Email
@@ -35,7 +35,7 @@ ruby:
           type="email"]
         errors for="sign_in_form.email"
       .session__password
-        = link_to "Esqueci minha senha", new_dashboard_password_path, class: 'password__recovery', tabindex: 6
+        = link_to "Esqueci minha senha", new_dashboard_passwords_path, class: 'password__recovery', tabindex: 6
         label for="password"
           | Senha
           span.required<
