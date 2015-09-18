@@ -16,7 +16,7 @@
     text-align: center;
 
     a {
-      @extend .button;
+      @extend %button;
     }
   }
 }
@@ -120,7 +120,7 @@
     text-align: center;
 
     a {
-      @extend .button;
+      @extend %button;
     }
   }
 

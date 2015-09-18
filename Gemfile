@@ -81,11 +81,8 @@ end
 gem 'database_cleaner',           '1.4.1',     require: false
 
 group :development do
-  gem 'pronto',                   '0.4.2'
-  gem 'pronto-rubocop',           '0.4.4'
-  gem 'pronto-flay',              '0.4.1'
-  gem 'pronto-scss',              '0.4.6',     require: false
-  gem 'rubocop',                  '0.32.1'
+  gem 'rubocop',                  '0.32.1', require: false
+  gem 'scss-lint',                '0.34.0', require: false
   gem 'foreman',                  '0.78.0'
   gem 'letter_opener',            '1.4.1'
   gem 'pre-commit',               '0.25.0'

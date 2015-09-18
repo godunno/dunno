@@ -1,4 +1,4 @@
-%content-box {
+%content__box {
   @include box-shadow(0, .125rem, .0625rem, $light-grey-color);
   background-color: $white;
   border: $divider;
@@ -14,7 +14,7 @@
 
 .content__box,
 .form__box {
-  @extend %content-box;
+  @extend %content__box;
 
   .reveal-modal & {
     @include box-shadow(none, null, null, null);
