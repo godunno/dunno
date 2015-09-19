@@ -12,7 +12,7 @@ NotificationCtrl = (
 
   reset = =>
     @notification = new Notification()
-    @notification_form.$setPristine() if @notification_form
+    @notificationForm.$setPristine() if @notificationForm
 
   reset()
 
@@ -41,7 +41,7 @@ NotificationCtrl = (
         message: notification.message
     ).catch((response) =>
       @hasError = true
-      ErrorParser.setErrors(response.data.errors, @notification_form, $scope)
+      ErrorParser.setErrors(response.data.errors, @notificationForm, $scope)
       @setReady()
       $analytics.eventTrack 'Notification Error',
         courseName: course.name,

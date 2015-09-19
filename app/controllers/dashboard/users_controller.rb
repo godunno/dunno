@@ -4,8 +4,9 @@ class Dashboard::UsersController < Devise::RegistrationsController
   def create
     User.transaction do
       super do |user|
-        user.update!(profile: Profile.new)
-        TrackerWrapper.new(user).track('User Signed Up')
+        if user.update(profile: Profile.new)
+          TrackerWrapper.new(user).track('User Signed Up')
+        end
       end
     end
   end

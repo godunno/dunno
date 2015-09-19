@@ -65,11 +65,13 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-scrollmagic', '2.0.5'
   gem 'rails-assets-greensock', '1.17.0'
   gem 'rails-assets-ui-router', '0.2.15'
+  gem 'rails-assets-angular-ui-router-title', '0.0.4'
   gem 'rails-assets-angular-filter', '0.5.4'
   gem 'rails-assets-angular-datepicker', '1.0.12'
   gem 'rails-assets-mrodrigues--angular-jquery-timepicker', '0.6.1'
   gem 'rails-assets-angular-moment', '0.10.2'
   gem 'rails-assets-moment-timezone', '0.4.0'
+  gem 'rails-assets-angular-translate', '2.7.2'
 end
 
 group :production, :staging do
@@ -110,4 +112,7 @@ group :development, :test do
   gem 'rspec_api_documentation',  '4.3.0'
   gem 'teaspoon-jasmine',         '2.2.0'
   gem 'rspec_junit_formatter',    '0.2.2'
+
+  gem 'guard'
+  gem 'guard-teaspoon'
 end

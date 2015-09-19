@@ -15,8 +15,10 @@ angular
     'datePicker',
     'foundation',
     'ui.router',
+    'ui.router.title',
     'ui.timepicker',
-    'ui.utils.masks']
+    'ui.utils.masks',
+    'pascalprecht.translate']
 
 #WIP
 core = angular.module('app.core')
@@ -33,6 +35,11 @@ core.value('cgBusyDefaults',
 
 core.config ['$animateProvider', ($animateProvider) ->
   $animateProvider.classNameFilter(/ng-animate/)
+]
+
+core.config ['$translateProvider', ($translateProvider) ->
+  $translateProvider.preferredLanguage('pt-BR')
+  $translateProvider.useSanitizeValueStrategy('escape')
 ]
 
 core.run ['amMoment', (amMoment) ->
