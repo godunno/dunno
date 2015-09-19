@@ -12,7 +12,10 @@ Router = ($stateProvider,
       url: '/courses'
       controller: 'CoursesIndexCtrl as vm'
       templateUrl: '<%= asset_path('app/courses/courses') %>'
-      resolve: { courses: CoursesResolver }
+      resolve: 
+        courses: CoursesResolver
+        $title: ['$translate', ($translate) -> $translate('courses.title.courses')]
+
     )
     .state('courses.inactive',
       url: '/inactive'
@@ -34,19 +37,21 @@ Router = ($stateProvider,
       abstract: true
       controller: 'CourseCtrl'
       templateUrl: '<%= asset_path('app/courses/course-detail') %>'
-      resolve: { course: CourseResolver }
+      resolve:
+        course: CourseResolver
+        $title: ['$translate', 'course', ($translate, course) -> $translate('courses.title.course-detail', course: course)]
     )
     .state('courses.show.calendar',
       url: '/calendar?month'
       controller: 'CalendarCtrl'
       templateUrl: '<%= asset_path('app/courses/calendar/calendar') %>'
-      resolve: { course: CourseResolver }
     )
     .state('courses.show.events',
       url: '/events?until'
       controller: 'CourseEventsCtrl'
       templateUrl: '<%= asset_path('app/courses/events/events') %>'
-      resolve: { pagination: EventsPaginationResolver }
+      resolve:
+        pagination: EventsPaginationResolver
     )
     .state('courses.show.calendar.schedule',
       url: '/schedule'
@@ -57,7 +62,6 @@ Router = ($stateProvider,
       url: '/members'
       controller: 'CourseMembersCtrl as vm'
       templateUrl: '<%= asset_path('app/courses/members/members') %>'
-      resolve: { course: CourseResolver }
     )
     .state('courses.show.event',
       url: '/events/:startAt'
@@ -83,6 +87,8 @@ Router = ($stateProvider,
       url: '/profile/edit'
       controller: 'ProfileCtrl'
       templateUrl: '<%= asset_path('app/profile/profile') %>'
+      resolve:
+        $title: ['$translate', ($translate) -> $translate('profile.title.edit')]
     )
     .state('profile.change_password',
       url: '/profile/password/edit'
