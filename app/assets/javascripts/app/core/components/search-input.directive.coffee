@@ -12,7 +12,7 @@ searchInput = ->
 
   link: link
   restrict: 'E'
-  templateUrl: '<%= asset_path("app/core/components/search-input.directive.html") %>'
+  templateUrl: 'core/components/search-input.directive'
   replace: true
   scope:
     performSearch: '&'

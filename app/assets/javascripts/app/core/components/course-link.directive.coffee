@@ -7,7 +7,7 @@ courseLink = ->
 
   controller: courseLinkCtrl
   controllerAs: 'vm'
-  templateUrl: '<%= asset_path("app/core/components/course-link.directive.html") %>'
+  templateUrl: 'core/components/course-link.directive'
   scope:
     course: '='
     page: '@?'

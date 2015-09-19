@@ -2,7 +2,7 @@ InviteMembersController = (ModalFactory, course) ->
   @course = course
   @openInviteMembersFullscreen = ->
     new ModalFactory
-      templateUrl: '<%= asset_path('app/courses/invite/invite-fullscreen') %>'
+      templateUrl: 'courses/invite/invite-fullscreen'
       controller: 'InviteMembersFullscreenController'
       controllerAs: 'vm'
       class: 'full invite__members__fullscreen'

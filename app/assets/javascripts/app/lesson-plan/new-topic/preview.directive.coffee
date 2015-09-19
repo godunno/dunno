@@ -8,7 +8,7 @@ previewCtrl.$inject = ['$scope']
 preview = ->
   restrict: 'E'
   controller: previewCtrl
-  templateUrl: '<%= asset_path('app/core/components/preview.html') %>'
+  templateUrl: 'core/components/preview'
   scope:
     item: '='
     removable: '='

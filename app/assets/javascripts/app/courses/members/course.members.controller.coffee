@@ -19,7 +19,7 @@ CourseMembersCtrl = (course, ModalFactory) ->
 
   @openInviteMembers = ->
     new ModalFactory
-      templateUrl: '<%= asset_path('app/courses/invite/invite-members') %>'
+      templateUrl: 'courses/invite/invite-members'
       controller: 'InviteMembersController'
       controllerAs: 'vm'
       class: 'full invite__members'

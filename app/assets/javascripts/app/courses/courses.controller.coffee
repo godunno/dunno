@@ -6,7 +6,7 @@ CoursesIndexCtrl = ($location, $filter, ModalFactory, Utils, courses) ->
 
   @openNewCourseForm = ->
     new ModalFactory
-      templateUrl: '<%= asset_path('app/courses/course-new.html') %>'
+      templateUrl: 'courses/course-new'
       controller: 'NewCourseCtrl'
       controllerAs: 'vm'
       bindToController: true

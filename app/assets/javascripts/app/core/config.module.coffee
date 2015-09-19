@@ -21,12 +21,12 @@ angular
 #WIP
 core = angular.module('app.core')
 
-core.config(["railsSerializerProvider", (railsSerializerProvider)->
+core.config(["railsSerializerProvider", (railsSerializerProvider) ->
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
 ])
 
 core.value('cgBusyDefaults',
-  templateUrl: '<%= asset_path('app/core/components/loading.html') %>',
+  templateUrl: 'core/components/loading',
   minDuration: 500,
   wrapperClass: 'cg-busy cg-busy-animation ng-animate'
 )
