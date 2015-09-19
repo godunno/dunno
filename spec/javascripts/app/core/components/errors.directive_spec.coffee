@@ -9,12 +9,13 @@ describe "validate directive", ->
 
   errors            = null
   scope             = null
-  ErrorsSharedSpace = null
+  ErrorsRepository  = null
 
   beforeEach ->
-    inject ($compile, $rootScope, $templateCache, _ErrorsSharedSpace_) ->
-      ErrorsSharedSpace = _ErrorsSharedSpace_
-      $templateCache.put '/assets/app/core/components/errors.directive.html', """
+    inject ($compile, $rootScope, $templateCache, _ErrorsRepository_) ->
+      ErrorsRepository = _ErrorsRepository_
+      templatePath = '/assets/app/core/components/errors.directive.html'
+      $templateCache.put templatePath, """
         <span class="message__error" ng-show="errors().length > 0">
           <span ng-repeat="error in errors()" class="error {{error}}-error">
             {{ translationKey + '.' + error | translate }}
@@ -31,7 +32,7 @@ describe "validate directive", ->
     errors.remove()
 
   setErrors = (errors) ->
-    ErrorsSharedSpace.setErrorsFor('form.text', errors)
+    ErrorsRepository.setErrorsFor('form.text', errors)
 
   it "isn't visible when there's no errors", ->
     setErrors([])

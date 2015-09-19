@@ -1,0 +1,22 @@
+# coffeelint: disable=max_line_length
+
+I18nConfig = ($translateProvider) ->
+  $translateProvider.translations 'pt-BR',
+    'textTopicForm.description.required': 'Você precisa preencher o tópico.'
+
+    'fileMediaForm.file.required': 'Você precisa enviar um arquivo.'
+
+    'fileTopicForm.description.required': 'Você precisa preencher o nome do arquivo.'
+
+    'urlMediaForm.url.required': 'Você precisa preencher o link.'
+    'urlMediaForm.url.url': 'O formato do link é inválido.'
+
+    'urlTopicForm.description.required': 'Você precisa preencher o nome do link'
+
+    'catalogTopicForm.media.required': 'Você precisa escolher um item do catálogo.'
+
+I18nConfig.$inject = ['$translateProvider']
+
+angular
+  .module('app.lessonPlan')
+  .config(I18nConfig)

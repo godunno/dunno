@@ -1,14 +1,17 @@
-errors = (ErrorsSharedSpace) ->
-  restrict: 'E'
-  templateUrl: '<%= asset_path("app/core/components/errors.directive.html") %>'
-  scope: true
-  link: (scope, element, attrs) ->
-    throw new Error("Errors must have a for attribute.") unless attrs.for?
-    scope.translationKey = attrs.for
-    scope.errors = ->
-      ErrorsSharedSpace.getErrorsFor(scope.translationKey)
+ErrorsController = ($scope, ErrorsRepository) ->
+  throw new Error("Errors must have a for attribute.") unless $scope.translationKey?
+  $scope.errors = =>
+    ErrorsRepository.getErrorsFor($scope.translationKey)
 
-errors.$inject = ['ErrorsSharedSpace']
+ErrorsController.$inject = ['$scope', 'ErrorsRepository']
+
+errors = ->
+  restrict: 'E'
+  controller: ErrorsController
+  controllerAs: 'vm'
+  templateUrl: '<%= asset_path("app/core/components/errors.directive.html") %>'
+  scope:
+    translationKey: '@for'
 
 angular
   .module('app.core')

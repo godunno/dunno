@@ -1,4 +1,4 @@
-ErrorsSharedSpace = ->
+ErrorsRepository = ->
   space = {}
 
   setErrorsFor = (translationKey, errors) ->
@@ -12,4 +12,4 @@ ErrorsSharedSpace = ->
 
 angular
   .module('app.core')
-  .factory('ErrorsSharedSpace', ErrorsSharedSpace)
+  .factory('ErrorsRepository', ErrorsRepository)

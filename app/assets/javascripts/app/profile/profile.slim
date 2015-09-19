@@ -5,9 +5,9 @@ ui-view.profile__page
         | Meu perfil
   .profile
     form.form__box[
-      name="profile_form"
+      name="profileForm"
       novalidate=true
-      ng-submit="profile_form.$valid && update(user)"]
+      ng-submit="profileForm.$valid && update(user)"]
       .message__success ng-if="success"
         | Dados salvos com sucesso!
         span.happy
@@ -22,7 +22,7 @@ ui-view.profile__page
         required=true
         validate=true
         type="text"]
-      errors for="profile_form.name"
+      errors for="profileForm.name"
 
       label for="email"
         | Email
@@ -36,13 +36,13 @@ ui-view.profile__page
         span.required<
           | *
       input#phone_number[
-        name="phone_number"
+        name="phoneNumber"
         ng-model="user.phone_number"
         required=true
         ui-br-phone-number=true
         validate=true
         type="text"]
-      errors for="profile_form.phone_number"
+      errors for="profileForm.phoneNumber"
 
       .profile__change__password
         a ui-sref=".change_password"

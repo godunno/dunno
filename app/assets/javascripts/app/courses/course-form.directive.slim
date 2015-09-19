@@ -1,7 +1,7 @@
 form[
-name="courseForm"
-novalidate=true
-ng-submit="courseForm.$valid && vm.save()"]
+  name="courseForm"
+  novalidate=true
+  ng-submit="courseForm.$valid && vm.save()"]
   label for="course__name"
     | Nome da Disciplina
     span.required<
@@ -39,7 +39,7 @@ ng-submit="courseForm.$valid && vm.save()"]
       label.icon__label for="course__start__date"
         i.icon.icon-calendar
       input.start__date#course__start__date[
-        name="start_date"
+        name="startDate"
         ng-model="vm.course.start_date"
         type="datetime"
         date-time=true
@@ -49,7 +49,7 @@ ng-submit="courseForm.$valid && vm.save()"]
         required=true
         validate=true
         placeholder="Início das aulas"]
-      errors for="courseForm.start_date"
+      errors for="courseForm.startDate"
 
     .course__end__date
       label for="course__end__date"
@@ -59,7 +59,7 @@ ng-submit="courseForm.$valid && vm.save()"]
       a.remove__course__end__date ng-click="vm.removeEndDate()" ng-if="vm.course.end_date"
         i.icon.icon-trash
       input.end__date#course__end__date[
-        name="end_date"
+        name="endDate"
         ng-model="vm.course.end_date"
         type="datetime"
         date-time=true
@@ -68,7 +68,7 @@ ng-submit="courseForm.$valid && vm.save()"]
         format="dd/MM/yyyy"
         validate=true
         placeholder="Fim das aulas"]
-      errors for="courseForm.end_date"
+      errors for="courseForm.endDate"
 
   button.submit
     | {{vm.submitLabel}}

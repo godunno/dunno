@@ -5,11 +5,11 @@ describe "validate directive", ->
   form              = null
   input             = null
   button            = null
-  ErrorsSharedSpace = null
+  ErrorsRepository  = null
 
   beforeEach ->
-    inject ($compile, $rootScope, _ErrorsSharedSpace_) ->
-      ErrorsSharedSpace = _ErrorsSharedSpace_
+    inject ($compile, $rootScope, _ErrorsRepository_) ->
+      ErrorsRepository = _ErrorsRepository_
       scope = $rootScope.$new()
       form = angular.element('<form name="form"></form>')
       input = angular.element("""
@@ -38,7 +38,7 @@ describe "validate directive", ->
     button.click()
 
   errors = ->
-    ErrorsSharedSpace.getErrorsFor('form.text')
+    ErrorsRepository.getErrorsFor('form.text')
 
   it "starts without errors", ->
     scope.$apply()
