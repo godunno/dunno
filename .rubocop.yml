@@ -1,5 +1,5 @@
 LineLength:
-  Max: 160
+  Max: 100
 
 Encoding:
   Enabled: false
@@ -32,4 +32,4 @@ AllCops:
   Exclude:
     - "bin/**/*"
     - "db/**/*"
-    - "vendor"
+    - "vendor/**/*"
