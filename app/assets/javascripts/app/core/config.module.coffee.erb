@@ -39,6 +39,7 @@ core.config ['$animateProvider', ($animateProvider) ->
 
 core.config ['$translateProvider', ($translateProvider) ->
   $translateProvider.preferredLanguage('pt-BR')
+  $translateProvider.useSanitizeValueStrategy('escape')
 ]
 
 core.run ['amMoment', (amMoment) ->
