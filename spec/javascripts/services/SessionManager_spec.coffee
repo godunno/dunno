@@ -11,7 +11,7 @@ describe "SessionManager service", ->
     settings:
       pageTracking: {}
 
-  beforeEach module 'DunnoApp', ($provide) ->
+  beforeEach module 'app.core', ($provide) ->
     $provide.value('LocalStorageWrapper', LocalStorageWrapper)
     $provide.value('$analytics', $analytics)
     null

@@ -1,5 +1,5 @@
 describe "ErrorParser service", ->
-  beforeEach module('DunnoApp')
+  beforeEach module('app.core')
   beforeEach teacherAppMockDefaultRoutes
 
   ErrorParser = null
