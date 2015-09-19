@@ -8,7 +8,9 @@ setCoursesRoutes = (
       url: '/courses'
       controller: 'CoursesIndexCtrl as vm'
       templateUrl: 'courses/courses'
-      resolve: { courses: CoursesResolver }
+      resolve:
+        courses: CoursesResolver
+        $title: ['$translate', ($translate) -> $translate('courses.title.courses')]
 
     .state 'courses.inactive',
       url: '/inactive'
@@ -19,7 +21,10 @@ setCoursesRoutes = (
       abstract: true
       controller: 'CourseCtrl'
       templateUrl: 'courses/course-detail'
-      resolve: { course: CourseResolver }
+      resolve:
+        course: CourseResolver
+        $title: ['$translate', 'course', ($translate, course) ->
+          $translate('courses.title.course-detail', course: course)]
 
     .state 'courses.show.calendar',
       url: '/calendar?month'

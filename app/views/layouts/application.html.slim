@@ -1,9 +1,9 @@
 doctype 5
-html lang="pt" ng-app="app"
+html lang="pt" ng-app="app" ng-strict-di=true
   head
     meta charset="utf-8"
     meta content="width=device-width, initial-scale=1.0" name="viewport"
-    title
+    title ng-bind="($title || '') + ' - Dunno'"
       | Dunno
     link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'
     = stylesheet_link_tag "application", :media => "all"
@@ -35,8 +35,7 @@ html lang="pt" ng-app="app"
           | Copyright © #{Time.zone.now.year}
     .root
       header.header__mobile
-        .center
-          | Título
+        .center ng-bind="($title || '')"
         span.left
           a zf-toggle="sidebar"
             | Menu

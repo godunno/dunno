@@ -5,6 +5,8 @@ setupProfileRoutes = (
       url: '/profile/edit'
       controller: 'ProfileCtrl'
       templateUrl: 'profile/profile'
+      resolve:
+        $title: ['$translate', ($translate) -> $translate('profile.title.edit')]
 
     .state 'profile.change_password',
       url: '/profile/password/edit'
