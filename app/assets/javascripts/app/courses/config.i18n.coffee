@@ -2,14 +2,14 @@
 
 I18nConfig = ($translateProvider) ->
   $translateProvider.translations 'pt-BR',
-    'courseForm.name.required': 'Você precisa informar o nome da disciplina.'
-    'courseForm.start_date.required': 'Você precisa informar a data inicial da disciplina.'
-    'courseForm.start_date.parse': 'O formato desta data está inválido. Exemplo de uma data correta: 30/01/2015'
-    'courseForm.end_date.parse': 'O formato desta data está inválido. Exemplo de uma data correta: 30/01/2015'
+    'courseForm.name.required': 'Nós precisamos de um nome para a sua disciplina.'
+    'courseForm.start_date.required': 'A disciplina deve ter uma data de começo.'
+    'courseForm.start_date.parse': 'Preencha a data usando o formato  DD/MM/AAAA.'
+    'courseForm.end_date.parse': 'Preencha a data usando o formato  DD/MM/AAAA.'
 
-    'vm.notificationForm.message.required': 'Você precisa preencher uma mensagem.'
-    'vm.notificationForm.message.repeated': 'Essa notificação é igual à última enviada.'
-    'vm.notificationForm.abbreviation.required': 'Você precisa preencher uma abreviação para sua disciplina.'
+    'vm.notificationForm.message.required': 'Insira uma mensagem para seus estudantes.'
+    'vm.notificationForm.message.repeated': 'Você não pode enviar duas mensagens iguais em sequência.'
+    'vm.notificationForm.abbreviation.required': 'Identifique sua disciplina usando uma abreviação.'
 
 I18nConfig.$inject = ['$translateProvider']
 
