@@ -1,4 +1,4 @@
 angular
-  .module('app.profile', [
+  .module 'app.profile', [
     'validation.match'
-  ])
+  ]
