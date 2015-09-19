@@ -1,5 +1,5 @@
 describe "AWSCredentials service", ->
-  beforeEach module('DunnoApp')
+  beforeEach module('app.core')
   beforeEach teacherAppMockDefaultRoutes
 
   credentials =

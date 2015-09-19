@@ -1,5 +1,5 @@
 describe "DateUtils service", ->
-  beforeEach module('DunnoApp')
+  beforeEach module('app.core')
   beforeEach teacherAppMockDefaultRoutes
 
   DateUtils = null
