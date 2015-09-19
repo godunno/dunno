@@ -27,13 +27,8 @@ core.config(["railsSerializerProvider", (railsSerializerProvider) ->
 
 core.value('cgBusyDefaults',
   templateUrl: 'core/components/loading',
-  minDuration: 500,
-  wrapperClass: 'cg-busy cg-busy-animation ng-animate'
+  wrapperClass: 'cg-busy cg-busy-animation'
 )
-
-core.config ['$animateProvider', ($animateProvider) ->
-  $animateProvider.classNameFilter(/ng-animate/)
-]
 
 core.run ['amMoment', (amMoment) ->
   amMoment.changeLocale('pt-br')
