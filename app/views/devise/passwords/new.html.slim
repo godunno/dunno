@@ -6,8 +6,8 @@ ruby:
       = link_to root_path, tabindex: 4 do
         = image_tag "site/logo.png", class: :logo
     form.form__box#recover_password[
-      name="new_password_recovery_form"
-      ng-submit="new_password_recovery_form.$valid && vm.recoverPassword(vm.user)"
+      name="newPasswordRecoveryForm"
+      ng-submit="newPasswordRecoveryForm.$valid && vm.recoverPassword(vm.user)"
       novalidate=true]
       .completed ng-if="vm.completed"
         | Você receberá instruções em seu email.
@@ -27,7 +27,7 @@ ruby:
           required=true
           validate=true
           autofocus=""]
-        errors for="new_password_recovery_form.email"
+        errors for="newPasswordRecoveryForm.email"
 
       button.submit type="submit"
         | Enviar

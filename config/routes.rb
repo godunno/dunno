@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     delete 'users/sign_out' => 'devise/sessions#destroy', as: :destroy_user_session
 
     namespace :dashboard do
-      resource :passwords, only: [:new, :create, :edit, :update]
+      resource :password, only: [:new, :create, :edit, :update]
     end
   end
 

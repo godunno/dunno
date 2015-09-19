@@ -6,8 +6,8 @@ ruby:
       = image_tag "site/logo.png", class: :logo
 
   form.form__box[
-    name="password_recovery_form"
-    ng-submit="password_recovery_form.$valid && vm.recoverPassword(vm.user)"
+    name="passwordRecoveryForm"
+    ng-submit="passwordRecoveryForm.$valid && vm.recoverPassword(vm.user)"
     novalidate=true]
 
     .message__error  ng-if="vm.error == 'unexpected'"
@@ -43,18 +43,18 @@ ruby:
         autofocus=true
         ng-minlength="8"
         validate=true]
-      errors for="password_recovery_form.password"
+      errors for="passwordRecoveryForm.password"
     .password-confirmation
       label for="password_confirmation"
         | Confirmação da senha
       input#password_confirmation[
-        name="password_confirmation"
+        name="passwordConfirmation"
         type="password"
         ng-model="vm.user.password_confirmation"
         required=true
         validate=true
         match="vm.user.password"]
-      errors for="password_recovery_form.password_confirmation"
+      errors for="passwordRecoveryForm.passwordConfirmation"
 
     button.submit type="submit"
       | Salvar

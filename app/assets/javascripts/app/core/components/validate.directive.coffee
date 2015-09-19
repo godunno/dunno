@@ -1,4 +1,4 @@
-validate = ($compile, ErrorsSharedSpace) ->
+validate = ($compile, ErrorsRepository) ->
   class Validate
     constructor: (scope, element, ngModelCtrl) ->
       throw new Error("Input must have a name.") unless element.attr('name')?
@@ -19,10 +19,10 @@ validate = ($compile, ErrorsSharedSpace) ->
       form.on 'submit', @setAllErrors
 
     setErrors: (errors) =>
-      ErrorsSharedSpace.setErrorsFor(@translationKey, errors)
+      ErrorsRepository.setErrorsFor(@translationKey, errors)
 
     getErrors: =>
-      ErrorsSharedSpace.getErrorsFor(@translationKey)
+      ErrorsRepository.getErrorsFor(@translationKey)
 
     setAllErrors: =>
       @setErrors(@modelErrors())
@@ -64,7 +64,7 @@ validate = ($compile, ErrorsSharedSpace) ->
   link: (scope, element, attrs, ngModelCtrl) ->
     new Validate(scope, element, ngModelCtrl)
 
-validate.$inject = ['$compile', 'ErrorsSharedSpace']
+validate.$inject = ['$compile', 'ErrorsRepository']
 
 angular
   .module('app.core')

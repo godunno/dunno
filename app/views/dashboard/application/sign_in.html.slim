@@ -6,8 +6,8 @@ ruby:
       = link_to root_path, tabindex: 4 do
         = image_tag "site/logo.png", class: :logo
     form#sign_in.form__box[
-      name="sign_in_form"
-      ng-submit="sign_in_form.$valid && sign_in(user)"
+      name="signInForm"
+      ng-submit="signInForm.$valid && sign_in(user)"
       novalidate=""]
       h4
         | Acessar minha conta
@@ -33,7 +33,7 @@ ruby:
           required=true
           validate=true
           type="email"]
-        errors for="sign_in_form.email"
+        errors for="signInForm.email"
       .session__password
         = link_to "Esqueci minha senha", new_dashboard_passwords_path, class: 'password__recovery', tabindex: 6
         label for="password"
@@ -47,7 +47,7 @@ ruby:
           tabindex=2
           validate=true
           type="password"]
-        errors for="sign_in_form.password"
+        errors for="signInForm.password"
         button.submit[
           tabindex=3
           type="submit"]
