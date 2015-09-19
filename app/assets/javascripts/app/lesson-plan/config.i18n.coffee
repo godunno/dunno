@@ -2,18 +2,16 @@
 
 I18nConfig = ($translateProvider) ->
   $translateProvider.translations 'pt-BR',
-    'textTopicForm.description.required': 'Você precisa preencher o tópico.'
+    'textTopicForm.description.required': 'Insira o conteúdo do seu tópico.'
 
-    'fileMediaForm.file.required': 'Você precisa enviar um arquivo.'
+    'fileMediaForm.file.required': 'Você precisa selecionar um arquivo.'
+    'fileTopicForm.description.required': 'Você precisa dar um nome a seu arquivo.'
 
-    'fileTopicForm.description.required': 'Você precisa preencher o nome do arquivo.'
+    'urlMediaForm.url.required': 'Cole o link que você deseja compartilhar.'
+    'urlMediaForm.url.url': 'O link tem que ser uma URL válida.'
+    'urlTopicForm.description.required': 'Dê um título ao seu link.'
 
-    'urlMediaForm.url.required': 'Você precisa preencher o link.'
-    'urlMediaForm.url.url': 'O formato do link é inválido.'
-
-    'urlTopicForm.description.required': 'Você precisa preencher o nome do link'
-
-    'catalogTopicForm.media.required': 'Você precisa escolher um item do catálogo.'
+    'catalogTopicForm.media.required': 'Escolha um item do catálogo para inserir.'
 
 I18nConfig.$inject = ['$translateProvider']
 
