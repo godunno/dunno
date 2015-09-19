@@ -15,7 +15,7 @@ courseFormCtrl.$inject = [
   '$state']
 
 courseForm = ->
-  templateUrl: '<%= asset_path("app/courses/course-form.directive.html") %>'
+  templateUrl: 'courses/course-form.directive'
   controller: courseFormCtrl
   controllerAs: 'vm'
   bindToController: true

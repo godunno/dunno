@@ -1,5 +1,5 @@
 courseCard = ->
-  templateUrl: '<%= asset_path("app/core/components/course-card.directive.html") %>'
+  templateUrl: 'core/components/course-card.directive'
   restrict: 'E'
 
 angular

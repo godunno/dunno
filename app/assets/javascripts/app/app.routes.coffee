@@ -11,83 +11,83 @@ Router = ($stateProvider,
     .state('courses',
       url: '/courses'
       controller: 'CoursesIndexCtrl as vm'
-      templateUrl: '<%= asset_path('app/courses/courses') %>'
+      templateUrl: 'courses/courses'
       resolve: { courses: CoursesResolver }
     )
     .state('courses.inactive',
       url: '/inactive'
-      templateUrl: '<%= asset_path('app/courses/courses-inactive') %>'
+      templateUrl: 'courses/courses-inactive'
     )
     .state('courses.search',
       url: '/search'
       controller: 'CourseSearchCtrl'
-      templateUrl: '<%= asset_path('app/join/course-join') %>'
+      templateUrl: 'join/course-join'
     )
     .state('courses.confirm_registration',
       url: '/:id/confirm_registration'
       controller: 'CourseConfirmRegistrationCtrl'
-      templateUrl: '<%= asset_path('app/join/course-confirm') %>'
+      templateUrl: 'join/course-confirm'
       resolve: { course: CourseRegistrationResolver }
     )
     .state('courses.show',
       url: '/:courseId'
       abstract: true
       controller: 'CourseCtrl'
-      templateUrl: '<%= asset_path('app/courses/course-detail') %>'
+      templateUrl: 'courses/course-detail'
       resolve: { course: CourseResolver }
     )
     .state('courses.show.calendar',
       url: '/calendar?month'
       controller: 'CalendarCtrl'
-      templateUrl: '<%= asset_path('app/courses/calendar/calendar') %>'
+      templateUrl: 'courses/calendar/calendar'
       resolve: { course: CourseResolver }
     )
     .state('courses.show.events',
       url: '/events?until'
       controller: 'CourseEventsCtrl'
-      templateUrl: '<%= asset_path('app/courses/events/events') %>'
+      templateUrl: 'courses/events/events'
       resolve: { pagination: EventsPaginationResolver }
     )
     .state('courses.show.calendar.schedule',
       url: '/schedule'
       controller: 'ScheduleCtrl'
-      templateUrl: '<%= asset_path('app/courses/schedule/schedule') %>'
+      templateUrl: 'courses/schedule/schedule'
     )
     .state('courses.show.members',
       url: '/members'
       controller: 'CourseMembersCtrl as vm'
-      templateUrl: '<%= asset_path('app/courses/members/members') %>'
+      templateUrl: 'courses/members/members'
       resolve: { course: CourseResolver }
     )
     .state('courses.show.event',
       url: '/events/:startAt'
       views:
           '@':
-            templateUrl: '<%= asset_path('app/lesson-plan/lesson-plan-edit') %>'
+            templateUrl: 'lesson-plan/lesson-plan-edit'
             controller: 'EventCtrl'
       resolve: { event: EventResolver }
     )
     .state('events.show',
       url: '/:startAt?courseId'
       controller: 'EventCtrl'
-      templateUrl: '<%= asset_path('app/lesson-plan/lesson-plan-edit') %>'
+      templateUrl: 'lesson-plan/lesson-plan-edit'
       resolve: { event: EventResolver }
     )
     .state('medias',
       url: '/catalog'
       controller: 'MediasIndexCtrl'
-      templateUrl: '<%= asset_path('app/catalog/catalog') %>'
+      templateUrl: 'catalog/catalog'
       resolve: { searchResult: MediasResolver }
     )
     .state('profile',
       url: '/profile/edit'
       controller: 'ProfileCtrl'
-      templateUrl: '<%= asset_path('app/profile/profile') %>'
+      templateUrl: 'profile/profile'
     )
     .state('profile.change_password',
       url: '/profile/password/edit'
       controller: 'PasswordCtrl'
-      templateUrl: '<%= asset_path('app/profile/password') %>'
+      templateUrl: 'profile/password'
     )
 
 Router.$inject = [

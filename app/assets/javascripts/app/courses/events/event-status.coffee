@@ -33,7 +33,7 @@ eventStatusCtrl.$inject = ['$scope']
 
 eventStatus = ->
   restrict: 'E'
-  templateUrl: '<%= asset_path("app/courses/events/event-status") %>'
+  templateUrl: 'courses/events/event-status'
   controller: eventStatusCtrl
   controllerAs: 'vm'
   scope:

@@ -16,4 +16,5 @@ angular
     'app.lessonPlan',
     'app.join',
     'app.profile',
-    'app.users']
+    'app.users',
+    'app.templates']

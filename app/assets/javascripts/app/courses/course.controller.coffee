@@ -1,9 +1,9 @@
-CourseCtrl = ($scope, ModalFactory, course)->
+CourseCtrl = ($scope, ModalFactory, course) ->
   $scope.course = course
 
   $scope.openEditCourseForm = ->
     new ModalFactory
-      templateUrl: '<%= asset_path('app/courses/course-edit.html') %>'
+      templateUrl: 'courses/course-edit'
       controller: 'EditCourseCtrl'
       controllerAs: 'vm'
       bindToController: true
@@ -13,7 +13,7 @@ CourseCtrl = ($scope, ModalFactory, course)->
 
   $scope.openNotification = ->
     new ModalFactory
-      templateUrl: '<%= asset_path('app/courses/notify/notify-members.html') %>'
+      templateUrl: 'courses/notify/notify-members'
       controller: 'NotificationCtrl'
       controllerAs: 'vm'
       bindToController: true
