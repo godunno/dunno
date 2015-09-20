@@ -4,8 +4,7 @@ Router = ($stateProvider,
           CourseResolver,
           CourseRegistrationResolver,
           EventsPaginationResolver,
-          EventResolver,
-          MediasResolver) ->
+          EventResolver) ->
   $urlRouterProvider.otherwise('/courses')
   $stateProvider
     .state('courses',
@@ -73,12 +72,6 @@ Router = ($stateProvider,
       templateUrl: 'lesson-plan/lesson-plan-edit'
       resolve: { event: EventResolver }
     )
-    .state('medias',
-      url: '/catalog'
-      controller: 'MediasIndexCtrl'
-      templateUrl: 'catalog/catalog'
-      resolve: { searchResult: MediasResolver }
-    )
     .state('profile',
       url: '/profile/edit'
       controller: 'ProfileCtrl'
@@ -97,8 +90,7 @@ Router.$inject = [
   'CourseResolver',
   'CourseRegistrationResolver',
   'EventsPaginationResolver',
-  'EventResolver',
-  'MediasResolver']
+  'EventResolver']
 
 angular
   .module('app')
