@@ -22,7 +22,7 @@ CourseMembersCtrl = (course, ModalFactory) ->
       templateUrl: 'courses/invite/invite-members'
       controller: 'InviteMembersController'
       controllerAs: 'vm'
-      class: 'full invite__members'
+      class: 'small invite__members'
       resolve:
         course: -> course
     .activate()

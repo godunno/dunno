@@ -3,7 +3,7 @@ a.close-button zf-close="" ng-click="close()"
 .modal__header
   h5
     | Horário atual
-  p
+  p.schedule__preview
     | <b>{{originalWeeklySchedule.weekday | weekdayLong}}</b>, das <b>{{originalWeeklySchedule.start_time}}</b> às <b>{{originalWeeklySchedule.end_time}}</b>
     span ng-if="originalWeeklySchedule.classroom"
       |, sala <b>{{originalWeeklySchedule.classroom}}</b>

@@ -5,7 +5,7 @@ InviteMembersController = (ModalFactory, course) ->
       templateUrl: 'courses/invite/invite-fullscreen'
       controller: 'InviteMembersFullscreenController'
       controllerAs: 'vm'
-      class: 'full invite__members__fullscreen'
+      class: 'large invite__members__fullscreen'
       resolve:
         course: -> course
     .activate()

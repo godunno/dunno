@@ -4,6 +4,7 @@
 
   .profile {
     @include grid-container();
+    padding-top: 2rem;
 
     form {
       min-width: 30vw;
