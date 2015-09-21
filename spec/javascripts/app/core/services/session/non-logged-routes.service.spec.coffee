@@ -4,8 +4,6 @@ describe "NonLoggedRoutes service", ->
     $provide.value('$window', $window)
     null
 
-  beforeEach teacherAppMockDefaultRoutes
-
   NonLoggedRoutes = null
   beforeEach ->
     inject (_NonLoggedRoutes_) ->

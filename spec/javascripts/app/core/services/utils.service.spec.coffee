@@ -1,6 +1,5 @@
 describe "Utils service", ->
   beforeEach module('app.core')
-  beforeEach teacherAppMockDefaultRoutes
 
   Utils = null
   beforeEach ->

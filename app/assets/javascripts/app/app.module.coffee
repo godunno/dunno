@@ -8,7 +8,6 @@
 #= require app/users/config.module
 angular
   .module 'app', [
-    'app.core',
     'app.agenda',
     'app.courses',
     'app.lessonPlan',

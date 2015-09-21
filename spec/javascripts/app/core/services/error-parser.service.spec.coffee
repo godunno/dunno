@@ -1,6 +1,5 @@
 describe "ErrorParser service", ->
   beforeEach module('app.core')
-  beforeEach teacherAppMockDefaultRoutes
 
   ErrorParser = null
   scope = null
@@ -10,7 +9,11 @@ describe "ErrorParser service", ->
     inject (_ErrorParser_, $rootScope, $compile) ->
       ErrorParser = _ErrorParser_
       scope = $rootScope.$new()
-      html = '<form name="form"><input type="text" name="attribute" ng-model="value"></input></form>'
+      html = """
+        <form name="form">
+          <input type="text" name="attribute" ng-model="value">
+        </form>
+      """
       $compile(html)(scope)
       form = scope.form
 

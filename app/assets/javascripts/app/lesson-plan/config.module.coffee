@@ -1,4 +1,5 @@
 angular
   .module 'app.lessonPlan', [
-    'ui.keypress'
+    'app.core',
+    'ui.keypress',
   ]

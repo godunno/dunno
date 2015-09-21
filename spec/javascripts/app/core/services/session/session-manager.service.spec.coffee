@@ -16,8 +16,6 @@ describe "SessionManager service", ->
     $provide.value('$analytics', $analytics)
     null
 
-  beforeEach teacherAppMockDefaultRoutes
-
   user = name: "John Doe"
   SessionManager = null
   $httpBackend = null

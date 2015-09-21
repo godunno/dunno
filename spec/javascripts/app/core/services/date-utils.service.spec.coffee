@@ -1,6 +1,5 @@
 describe "DateUtils service", ->
   beforeEach module('app.core')
-  beforeEach teacherAppMockDefaultRoutes
 
   DateUtils = null
   date = "2014-10-13T14:13:00.000Z"

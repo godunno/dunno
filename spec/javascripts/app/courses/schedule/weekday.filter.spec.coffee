@@ -1,6 +1,5 @@
 describe "weekday filter", ->
   beforeEach module('app.courses')
-  beforeEach teacherAppMockDefaultRoutes
 
   weekday = null
   beforeEach ->

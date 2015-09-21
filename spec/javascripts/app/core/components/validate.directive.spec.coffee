@@ -11,7 +11,7 @@ describe "validate directive", ->
     inject ($compile, $rootScope, _ErrorsRepository_) ->
       ErrorsRepository = _ErrorsRepository_
       scope = $rootScope.$new()
-      form = angular.element('<form name="form"></form>')
+      form = angular.element('<form name="form" novalidate></form>')
       input = angular.element("""
         <input
           name="text"
