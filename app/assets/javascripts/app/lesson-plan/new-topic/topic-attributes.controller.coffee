@@ -30,18 +30,21 @@ TopicAttributesCtrl = ($scope, Topic) ->
         startEditing()
 
   $scope.$watch 'topic.description', (value) ->
-    return if value == undefined
-    if value.length == 0
+    return if !started
+    unless value?
       finishEditing()
 
   startWatcher = setNewStartWatcher()
 
+  started = false
   startEditing = ->
     $scope.$emit('startEditing')
+    started = true
     startWatcher()
 
   finishEditing = ->
     $scope.$emit('finishEditing')
+    started = false
     startWatcher = setNewStartWatcher()
 
 TopicAttributesCtrl.$inject = ['$scope', 'Topic']
