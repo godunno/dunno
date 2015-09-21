@@ -49,10 +49,6 @@ ruby:
           validate=true
           type="email"]
         errors for="signUpForm.email"
-        span.message__error[
-          ng-show="signUpForm.email.$error.taken"
-          ng-cloak=""]
-          | Já existe uma conta com o email informado.
       .password
         label for="password"
           | Senha

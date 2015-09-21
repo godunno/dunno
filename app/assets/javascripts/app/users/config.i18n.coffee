@@ -2,17 +2,17 @@
 
 I18nConfig = ($translateProvider) ->
   $translateProvider.translations 'pt-BR',
-    'sign_in_form.email.required': 'Você precisa informar seu email.'
-    'sign_in_form.email.email': 'Isto não parece ser um e-mail.'
-    'sign_in_form.password.required': 'Você precisa informar sua senha.'
+    'signInForm.email.required': 'Você precisa informar seu email.'
+    'signInForm.email.email': 'Isto não parece ser um e-mail.'
+    'signInForm.password.required': 'Você precisa informar sua senha.'
 
-    'sign_up_form.name.required': 'Você precisa de um nome no Dunno.'
-    'sign_up_form.email.required': 'Você precisa informar seu email.'
-    'sign_up_form.email.email': 'Isto não parece ser um e-mail.'
-    'sign_up_form.password.required': 'Você precisa escolher uma senha.'
-    'sign_up_form.password.minlength': 'Sua senha deve conter no mínimo 8 caracteres'
-    'sign_up_form.phone_number.required': 'Você precisa preencher seu telefone.'
-    'sign_up_form.phone_number.brPhoneNumber': 'O formato informado é inválido.'
+    'signUpForm.name.required': 'Você precisa de um nome no Dunno.'
+    'signUpForm.email.required': 'Você precisa informar seu email.'
+    'signUpForm.email.email': 'Isto não parece ser um e-mail.'
+    'signUpForm.password.required': 'Você precisa escolher uma senha.'
+    'signUpForm.password.minlength': 'Sua senha deve conter no mínimo 8 caracteres'
+    'signUpForm.phoneNumber.required': 'Você precisa preencher seu telefone.'
+    'signUpForm.phoneNumber.brPhoneNumber': 'O formato informado é inválido.'
 
 I18nConfig.$inject = ['$translateProvider']
 

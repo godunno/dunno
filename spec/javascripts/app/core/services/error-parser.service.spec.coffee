@@ -29,3 +29,9 @@ describe "ErrorParser service", ->
     scope.$apply()
     expect(form.attribute.$valid).toBe(true)
     expect(form.attribute.$error).toEqual({})
+
+  it "broadcasts event", ->
+    spyOn(scope, '$broadcast')
+    ErrorParser.setErrors(errors, form, scope)
+    scope.$apply()
+    expect(scope.$broadcast).toHaveBeenCalledWith('updatedErrors')

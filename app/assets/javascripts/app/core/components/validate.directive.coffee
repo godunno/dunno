@@ -15,8 +15,16 @@ validate = ($compile, ErrorsRepository) ->
       @setErrors([])
 
       @scope.$watch (=> @modelErrors().join()), @removeErrorsOnTyping
-      @element.on 'blur', @setInvalidErrors
-      form.on 'submit', @setAllErrors
+
+      @element.on 'blur', =>
+        @setInvalidErrors()
+        @scope.$apply()
+
+      form.on 'submit', =>
+        @setAllErrors()
+        @scope.$apply()
+
+      @scope.$on 'updatedErrors', @setAllErrors
 
     setErrors: (errors) =>
       ErrorsRepository.setErrorsFor(@translationKey, errors)
@@ -26,14 +34,12 @@ validate = ($compile, ErrorsRepository) ->
 
     setAllErrors: =>
       @setErrors(@modelErrors())
-      @scope.$apply()
 
     setInvalidErrors: =>
       isRequired = @getErrors().indexOf('required') != -1
       errors = @remove(@modelErrors(), 'required')
       errors.push('required') if isRequired
       @setErrors(errors)
-      @scope.$apply()
 
     removeErrorsOnTyping: =>
       removedErrors = @diff(@getErrors(), @modelErrors())

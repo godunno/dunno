@@ -1,14 +1,17 @@
 describe "validate directive", ->
   beforeEach module('app.core')
 
+  $rootScope        = null
   scope             = null
   form              = null
   input             = null
   button            = null
+  ngModel           = null
   ErrorsRepository  = null
 
   beforeEach ->
-    inject ($compile, $rootScope, _ErrorsRepository_) ->
+    inject ($compile, _$rootScope_, _ErrorsRepository_) ->
+      $rootScope = _$rootScope_
       ErrorsRepository = _ErrorsRepository_
       scope = $rootScope.$new()
       form = angular.element('<form name="form" novalidate></form>')
@@ -26,6 +29,7 @@ describe "validate directive", ->
       form.append(button)
       $compile(form)(scope)
       form.appendTo(document.body)
+      ngModel = input.controller('ngModel')
 
   afterEach ->
     form.remove()
@@ -157,3 +161,8 @@ describe "validate directive", ->
 
       error = new Error("Input must belong to a form.")
       expect(-> $compile(input)(scope)).toThrow(error)
+
+  it "shows errors on event", ->
+    ngModel.$setValidity('some_error', false)
+    $rootScope.$broadcast('updatedErrors')
+    expect(errors()).toEqual(['some_error'])
