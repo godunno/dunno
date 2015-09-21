@@ -1,7 +1,6 @@
 #= require_self
 #= require app/core/config.module
 #= require app/agenda/config.module
-#= require app/catalog/config.module
 #= require app/courses/config.module
 #= require app/lesson-plan/config.module
 #= require app/join/config.module
@@ -11,7 +10,6 @@ angular
   .module 'app', [
     'app.core',
     'app.agenda',
-    'app.catalog',
     'app.courses',
     'app.lessonPlan',
     'app.join',

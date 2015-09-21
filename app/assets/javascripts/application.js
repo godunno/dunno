@@ -15,8 +15,6 @@
 //= require angular-ui-sortable
 //= require angular-input-masks
 //= require ng-file-upload
-//= require ngTagsInput/build/ng-tags-input.js
-//= require angular-elastic-input
 //= require angular-validation-match
 //= require angular-busy
 //= require angular-filter

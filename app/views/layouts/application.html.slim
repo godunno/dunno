@@ -20,9 +20,6 @@ html lang="pt" ng-app="app"
             a zf-close="" ui-sref="courses"
               | Disciplinas
           li
-            a zf-close="" ui-sref="medias"
-              | Catálogo
-          li
             a zf-close="" ui-sref="profile"
               | Editar perfil - {{currentUser().name}}
           li
@@ -53,12 +50,6 @@ html lang="pt" ng-app="app"
                   analytics-event="Courses List Accessed"
                   analytics-on="click"]
                   | Disciplinas
-              li ui-sref-active="is-active" ng-if="currentUser().profile == 'teacher'"
-                a[
-                  ui-sref="medias"
-                  analytics-event="Catalog Accessed"
-                  analytics-on="click"]
-                  | Catálogo
           .header__navigation__settings
             ul
               li ui-sref-active="is-active"
