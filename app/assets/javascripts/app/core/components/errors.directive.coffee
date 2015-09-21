@@ -1,6 +1,6 @@
 ErrorsController = ($scope, ErrorsRepository) ->
   throw new Error("Errors must have a for attribute.") unless $scope.translationKey?
-  $scope.errors = =>
+  $scope.errors = ->
     ErrorsRepository.getErrorsFor($scope.translationKey)
 
 ErrorsController.$inject = ['$scope', 'ErrorsRepository']
@@ -9,7 +9,7 @@ errors = ->
   restrict: 'E'
   controller: ErrorsController
   controllerAs: 'vm'
-  templateUrl: '<%= asset_path("app/core/components/errors.directive.html") %>'
+  templateUrl: 'core/components/errors.directive'
   scope:
     translationKey: '@for'
 

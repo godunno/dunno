@@ -1,4 +1,5 @@
 describe "validate directive", ->
+  beforeEach module('app.templates')
   beforeEach module('app.core', ($translateProvider) ->
     $translateProvider.translations 'en',
       'form.text.required': 'This field is required'
@@ -12,16 +13,8 @@ describe "validate directive", ->
   ErrorsRepository  = null
 
   beforeEach ->
-    inject ($compile, $rootScope, $templateCache, _ErrorsRepository_) ->
+    inject ($compile, $rootScope, _ErrorsRepository_) ->
       ErrorsRepository = _ErrorsRepository_
-      templatePath = '/assets/app/core/components/errors.directive.html'
-      $templateCache.put templatePath, """
-        <span class="message__error" ng-show="errors().length > 0">
-          <span ng-repeat="error in errors()" class="error {{error}}-error">
-            {{ translationKey + '.' + error | translate }}
-          </span>
-        </span>
-      """
 
       scope = $rootScope.$new()
       errors = angular.element('<errors for="form.text">')
