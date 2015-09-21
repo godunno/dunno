@@ -7,21 +7,25 @@ form ng-submit="submit(weeklySchedule)"
       ng-value="{{weekday}}"
       ng-selected="weeklySchedule.weekday == weekday"]
       | {{weekday | weekdayLong}}
-  label for="start_time"
-    | Início
-  input#start_time[
-    ng-model="startTime"
-    ng-model-options="{ getterSetter: true }"
-    ui-timepicker="{ timeFormat: 'H:i' }"
-    type="text"]
-  | às
-  label for="end_time"
-    | Término
-  input#end_time[
-    ng-model="endTime"
-    ng-model-options="{ getterSetter: true }"
-    ui-timepicker="{ showDuration: true, durationTime: startTime, timeFormat: 'H:i' }"
-    type="text"]
+  .schedule__duration
+    .schedule__start__time
+      label for="start_time"
+        | Início
+      input#start_time[
+        ng-model="startTime"
+        ng-model-options="{ getterSetter: true }"
+        ui-timepicker="{ timeFormat: 'H:i' }"
+        type="text"]
+    span
+      | às
+    .schedule__end__time
+      label for="end_time"
+        | Término
+      input#end_time[
+        ng-model="endTime"
+        ng-model-options="{ getterSetter: true }"
+        ui-timepicker="{ showDuration: true, durationTime: startTime, timeFormat: 'H:i' }"
+        type="text"]
   label for="classroom"
     | Sala
   input#classroom[

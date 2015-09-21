@@ -1,29 +1,32 @@
 .send__notification {
-  .modal__header {
-    border-bottom: 1px solid $light-grey-color;
-    margin-bottom: 2em;
-    padding-bottom: 1em;
-    text-align: center;
 
-    h5 {
-      text-transform: uppercase;
-    }
+  .modal__content {
+    @include grid-block();
 
-    p {
-      color: $medium-grey-color;
-      margin: 0 auto;
-      width: 70%;
+    form {
+      flex: 1;
+      margin-right: 2rem;
+
+      .submit {
+        margin-left: auto;
+        margin-right: 0;
+        margin-top: -3rem;
+      }
     }
   }
 
-  .counter {
-    color: $light-grey-color;
-    display: block;
-    font-size: .875em;
-    line-height: 3em;
-  }
+  .message {
+    &__counter {
+      color: $light-grey-color;
+      display: block;
+      font-size: .875em;
+      line-height: 3em;
+    }
 
-  .panel {
-    color: $dunno-dark-color;
+    &__preview__content {
+      background: $body-background;
+      border-radius: $global-radius;
+      padding: 1rem;
+    }
   }
 }

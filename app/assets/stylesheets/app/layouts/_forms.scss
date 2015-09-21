@@ -45,6 +45,8 @@
 form {
   .submit {
     @extend %primary__button;
+    display: block;
+    margin: 0 auto;
   }
 }
 

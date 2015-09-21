@@ -87,8 +87,6 @@
     }
 
     &__actions {
-      flex: 2;
-
       .button {
         margin-bottom: 0;
 
@@ -97,6 +95,28 @@
         }
       }
     }
+  }
+
+  &__duration {
+    @include grid-block();
+
+    span {
+      align-self: center;
+      margin: 0 1rem;
+    }
+  }
+
+  &__start__time,
+  &__end__time {
+    flex: 1;
+  }
+
+
+  &__preview {
+    background: $body-background;
+    border-radius: $global-radius;
+    color: $dunno-dark-color;
+    padding: 1rem;
   }
 }
 

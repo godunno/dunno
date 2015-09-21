@@ -83,6 +83,7 @@
   }
 }
 
+.edit__topic,
 .new__topic {
   &__actions {
     @extend %topic-actions;

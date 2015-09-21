@@ -342,7 +342,7 @@
                   required=true
                   type="text"]
                 .edit__topic__actions
-                  a.cancel.button.tiny.transparent ng-click="cancelEditing(topic)"
+                  a.edit__topic__cancel ng-click="cancelEditing(topic)"
                     | Cancelar
                   ng-include src="'#{asset_path('app/lesson-plan/new-topic/edit-personal-topic')}'"
                   a.save__edit__topic.button.tiny<[
