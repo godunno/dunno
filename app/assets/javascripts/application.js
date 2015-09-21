@@ -1,10 +1,5 @@
 //= require jquery
-//= require jquery-ui/ui/core
-//= require jquery-ui/ui/widget
-//= require jquery-ui/ui/mouse
-//= require jquery-ui/ui/sortable
 //= require jquery-timepicker-jt
-//= require jquery-ui-touch-punch/jquery.ui.touch-punch
 //= require ng-file-upload-shim
 //= require angular
 //= require angular-resource
@@ -12,7 +7,6 @@
 //= require angular-i18n/angular-locale_pt-br
 //= require angular-animate
 //= require angular-messages
-//= require angular-ui-sortable
 //= require angular-input-masks
 //= require ng-file-upload
 //= require angular-validation-match
@@ -28,5 +22,6 @@
 //= require ui-router
 //= require initial.js
 //= require foundation-apps-js
+//= require ng-sortable/ng-sortable
 //= require app/app.module
 //= require_tree ./app

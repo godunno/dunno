@@ -1,10 +1,8 @@
 EventListCtrl = ($scope, $analytics, $rootScope, Media, Utils) ->
   list = -> $scope.event[$scope.collection]
 
-  $scope.sortableOptions = (collection) ->
-    handle: '.handle'
-    containment: 'parent'
-    stop: ->
+  $scope.sortableOptions =
+    orderChanged: ->
       $analytics.eventTrack "Item Drag 'n Drop",
         eventUuid: $scope.event.uuid,
         courseUuid: $scope.event.course.uuid

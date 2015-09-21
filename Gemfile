@@ -52,9 +52,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-animate', '1.3.16'
   gem 'rails-assets-angular-messages', '1.3.16'
   gem 'rails-assets-modernizr', '2.8.3'
-  gem 'rails-assets-angular-ui-sortable', '0.13.0'
   gem 'rails-assets-angular-input-masks', '2.1.0'
-  gem 'rails-assets-arktisklada--jquery-ui-touch-punch', '0.2.3'
   gem 'rails-assets-ng-file-upload',      '1.6.12'
   gem 'rails-assets-ng-file-upload-shim', '1.6.12'
   gem 'rails-assets-angular-validation-match', '1.3.0'
@@ -68,6 +66,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-mrodrigues--angular-jquery-timepicker', '0.6.1'
   gem 'rails-assets-angular-moment', '0.10.2'
   gem 'rails-assets-moment-timezone', '0.4.0'
+  gem 'rails-assets-ng-sortable', '1.3.1'
 end
 
 group :production, :staging do

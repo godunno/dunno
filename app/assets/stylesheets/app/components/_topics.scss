@@ -13,7 +13,8 @@
 
   &__private {
     background: $white;
-    border-bottom: $divider;
+    border-left: $divider;
+    border-right: $divider;
     font-size: .875rem;
     text-align: center;
 
@@ -62,21 +63,6 @@
   &__personal {
     color: $red-color;
     font-size: 1.5rem;
-  }
-
-  &.ui-sortable-helper {
-    @include box-shadow();
-    border-color: $dunno-green-color;
-
-    .topic__handle {
-      cursor: grabbing;
-    }
-  }
-
-  &.ui-sortable-placeholder {
-    border-bottom: .125rem dashed $dunno-green-color;
-    border-top: .125rem dashed $dunno-green-color;
-    visibility: visible !important; //scss-lint:disable ImportantRule
   }
 
   &.empty__results {
@@ -191,4 +177,19 @@
       opacity: .5;
     }
   }
+}
+
+.as-sortable-dragging {
+  @include box-shadow();
+  border-color: $dunno-dark-color;
+
+  .topic__handle {
+    cursor: grabbing;
+  }
+}
+
+.as-sortable-placeholder {
+  border-bottom: .125rem dashed $dunno-green-color;
+  border-top: .125rem dashed $dunno-green-color;
+  visibility: visible !important; //scss-lint:disable ImportantRule
 }

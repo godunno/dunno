@@ -243,10 +243,8 @@
                     | Carregar mais&hellip;
 
             ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
-        .topics[
-          ui-sortable="sortableOptions('topics')"
-          ng-model="event.topics"]
-          .topics__private ng-if="event.topics.length != 0 && event.status != 'canceled'"
+        .topics__container
+          .topics__private ng-if="event.topics.length != 0"
             a.topics__private__hide[
               ng-click="setPrivateTopicsVisibility(false)"
               ng-show="showPrivateTopics"]
@@ -261,95 +259,99 @@
                 | Exibir conteúdos do professor
           .topic.empty__results ng-if="event.topics.length === 0 && event.status != 'canceled'"
             | Nenhum conteúdo
-          .topic.clickable[
-            ng-controller="TopicEditCtrl"
-            ng-class="{done: topic.done, personal: topic.personal}"
-            ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
-            ng-hide="topic.personal && !showPrivateTopics"]
-            .topic__wrapper ng-show="!isEditing(topic)"
-              .handle.topic__handle
-                i.icon.icon-handle
-              .topic__status
-                input.topic__status[
-                  id="topic_{{topic.uuid}}_done"
-                  ng-change="save(topic)"
-                  ng-model="topic.done"
-                  type="checkbox"]
-                label.topic__status__checkbox[
-                  for="topic_{{topic.uuid}}_done"]
-                  i.icon.icon-check
-              a.topic__image[
-                ng-href="{{topic.media.url}}"
-                target="_blank"
-                ng-if="!!topic.media"
-                ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
-              .topic__description ng-class="{preview: !!topic.media}"
-                | {{topic.description}}
-                a.topic__url<[
+          .topics[
+            as-sortable="sortableOptions"
+            ng-model="event.topics"]
+            .topic.clickable[
+              as-sortable-item=true
+              ng-controller="TopicEditCtrl"
+              ng-class="{done: topic.done, personal: topic.personal}"
+              ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
+              ng-hide="topic.personal && !showPrivateTopics"]
+              .topic__wrapper ng-show="!isEditing(topic)"
+                .handle.topic__handle as-sortable-item-handle=true
+                  i.icon.icon-handle
+                .topic__status
+                  input.topic__status[
+                    id="topic_{{topic.uuid}}_done"
+                    ng-change="save(topic)"
+                    ng-model="topic.done"
+                    type="checkbox"]
+                  label.topic__status__checkbox[
+                    for="topic_{{topic.uuid}}_done"]
+                    i.icon.icon-check
+                a.topic__image[
                   ng-href="{{topic.media.url}}"
                   target="_blank"
-                  title="{{topic.media.url}}"
-                  ng-show="topic.media.type == 'url'"]
-                  | {{topic.media.url}}
-                span ng-show="topic.media.type == 'url'"
-                  | {{topic.media.description}}
-                span ng-show="topic.media.type == 'file'"
-                  | {{topic.media.filename}}
-                  a<[
+                  ng-if="!!topic.media"
+                  ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
+                .topic__description ng-class="{preview: !!topic.media}"
+                  | {{topic.description}}
+                  a.topic__url<[
                     ng-href="{{topic.media.url}}"
-                    target="_blank"]
-                    | baixar arquivo
-              .topic__visibility.topic__personal[
-                ng-show="topic.personal"
-                title="Este conteúdo está disponível somente para você."]
-                i.icon.icon-private
-              zf-action-sheet.topic__actions
-                zf-as-button
-                  a.open__actions
-                    | …
-                zf-as-content position="top"
-                  ul.topic__actions__list
-                    li
-                      a[
-                        ng-click="startEditing(topic)"
-                        zf-close=""
-                        title="Editar tópico"]
-                        i.icon.icon-pencil>
-                        | Editar
-                    li
-                      a[
-                        ng-click="removeTopic(topic)"
-                        zf-close=""
-                        title="Remover conteúdo"]
-                        i.icon.icon-trash>
-                        | Apagar
-                    li ng-if="canTransferTopic(topic, event)"
-                      a[
-                        ng-click="transferTopic(topic)"
-                        zf-close=""
-                        title="Mover conteúdo para próxima aula"]
-                        i.icon.icon-transfer>
-                        | Mover para próxima aula
-            .topic__editing ng-show="isEditing(topic)"
-              form[
-                name="topicEditForm"
-                ng-submit="finishEditing(topic)"]
-                input.topic__editing[
-                  name="description"
-                  focus-on="isEditing(topic)"
-                  ng-model="editingTopic.description"
-                  on-success="finishEditing(topic)"
-                  required=true
-                  type="text"]
-                .edit__topic__actions
-                  a.edit__topic__cancel ng-click="cancelEditing(topic)"
-                    | Cancelar
-                  ng-include src="'#{asset_path('app/lesson-plan/new-topic/edit-personal-topic')}'"
-                  a.save__edit__topic.button.tiny<[
-                    ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
-                    ng-click="finishEditing(topic)"
-                    ng-disabled="topicEditForm.$invalid"]
-                    | Salvar
+                    target="_blank"
+                    title="{{topic.media.url}}"
+                    ng-show="topic.media.type == 'url'"]
+                    | {{topic.media.url}}
+                  span ng-show="topic.media.type == 'url'"
+                    | {{topic.media.description}}
+                  span ng-show="topic.media.type == 'file'"
+                    | {{topic.media.filename}}
+                    a<[
+                      ng-href="{{topic.media.url}}"
+                      target="_blank"]
+                      | baixar arquivo
+                .topic__visibility.topic__personal[
+                  ng-show="topic.personal"
+                  title="Este conteúdo está disponível somente para você."]
+                  i.icon.icon-private
+                zf-action-sheet.topic__actions
+                  zf-as-button
+                    a.open__actions
+                      | …
+                  zf-as-content position="top"
+                    ul.topic__actions__list
+                      li
+                        a[
+                          ng-click="startEditing(topic)"
+                          zf-close=""
+                          title="Editar tópico"]
+                          i.icon.icon-pencil>
+                          | Editar
+                      li
+                        a[
+                          ng-click="removeTopic(topic)"
+                          zf-close=""
+                          title="Remover conteúdo"]
+                          i.icon.icon-trash>
+                          | Apagar
+                      li ng-if="canTransferTopic(topic, event)"
+                        a[
+                          ng-click="transferTopic(topic)"
+                          zf-close=""
+                          title="Mover conteúdo para próxima aula"]
+                          i.icon.icon-transfer>
+                          | Mover para próxima aula
+              .topic__editing ng-show="isEditing(topic)"
+                form[
+                  name="topicEditForm"
+                  ng-submit="finishEditing(topic)"]
+                  input.topic__editing[
+                    name="description"
+                    focus-on="isEditing(topic)"
+                    ng-model="editingTopic.description"
+                    on-success="finishEditing(topic)"
+                    required=true
+                    type="text"]
+                  .edit__topic__actions
+                    a.edit__topic__cancel ng-click="cancelEditing(topic)"
+                      | Cancelar
+                    ng-include src="'#{asset_path('app/lesson-plan/new-topic/edit-personal-topic')}'"
+                    a.save__edit__topic.button.tiny<[
+                      ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
+                      ng-click="finishEditing(topic)"
+                      ng-disabled="topicEditForm.$invalid"]
+                      | Salvar
     .lesson__next__day
       a.lesson__next[
         ng-if="!!event.next.start_at"
