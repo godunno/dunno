@@ -57,8 +57,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-arktisklada--jquery-ui-touch-punch', '0.2.3'
   gem 'rails-assets-ng-file-upload',      '1.6.12'
   gem 'rails-assets-ng-file-upload-shim', '1.6.12'
-  gem 'rails-assets-lunks--ngTagsInput', '3.0.0'
-  gem 'rails-assets-angular-elastic-input', '2.0.2'
   gem 'rails-assets-angular-validation-match', '1.3.0'
   gem 'rails-assets-angular-busy', '4.1.2'
   gem 'rails-assets-lunks--angulartics', '0.18.0'
