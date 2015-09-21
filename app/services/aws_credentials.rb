@@ -12,7 +12,7 @@ class AwsCredentials
   end
 
   def base_url
-    "https://#{bucket}.s3.amazonaws.com/"
+    "https://#{bucket}.s3-#{ENV['AWS_REGION']}.amazonaws.com/"
   end
 
   private
