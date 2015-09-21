@@ -22,5 +22,6 @@
 //= require ui-router
 //= require initial.js
 //= require foundation-apps-js
+//= require ng-sortable/ng-sortable
 //= require app/app.module
 //= require_tree ./app

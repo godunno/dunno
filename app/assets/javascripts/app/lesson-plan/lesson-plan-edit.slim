@@ -244,6 +244,7 @@
 
             ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
         .topics[
+          as-sortable="sortableOptions"
           ng-model="event.topics"]
           .topics__private ng-if="event.topics.length != 0 && event.status != 'canceled'"
             a.topics__private__hide[
@@ -261,12 +262,13 @@
           .topic.empty__results ng-if="event.topics.length === 0 && event.status != 'canceled'"
             | Nenhum conteúdo
           .topic.clickable[
+            as-sortable-item=true
             ng-controller="TopicEditCtrl"
             ng-class="{done: topic.done, personal: topic.personal}"
             ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
             ng-hide="topic.personal && !showPrivateTopics"]
             .topic__wrapper ng-show="!isEditing(topic)"
-              .handle.topic__handle
+              .handle.topic__handle as-sortable-item-handle=true
                 i.icon.icon-handle
               .topic__status
                 input.topic__status[
