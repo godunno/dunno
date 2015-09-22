@@ -15,6 +15,7 @@ configure = (
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
   $urlRouterProvider.otherwise('/courses')
   $translateProvider.preferredLanguage('pt-BR')
+  $translateProvider.useSanitizeValueStrategy('escape')
 
   $sceDelegateProvider.resourceUrlWhitelist [
     'self'

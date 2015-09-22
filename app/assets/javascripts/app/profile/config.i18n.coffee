@@ -2,6 +2,10 @@
 
 I18nConfig = ($translateProvider) ->
   $translateProvider.translations 'pt-BR',
+    profile:
+      title:
+        edit: 'Meu Perfil'
+
     'profileForm.name.required': 'Você precisa de um nome no Dunno.'
     'profileForm.phoneNumber.required': 'Você precisa preencher seu telefone.'
     'profileForm.phoneNumber.brPhoneNumber': 'Você precisa inserir um numero de telefone válido.'
