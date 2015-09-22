@@ -43,9 +43,9 @@ a.close-button zf-close=true
       .message__submit
         button.submit[
           type="submit"
-          ng-disabled="vm.notification_form.$invalid || !vm.isReady()"]
+          ng-disabled="vm.notificationForm.$invalid || !vm.isReady()"]
           | {{vm.sendButtonText()}}
-        span.message__error ng-if="vm.hasError && !vm.notification_form.$invalid"
+        span.message__error ng-if="vm.hasError && !vm.notificationForm.$invalid"
           | Ocorreu um erro ao enviar a mensagem.
   .message__preview
     label
