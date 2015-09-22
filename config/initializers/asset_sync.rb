@@ -5,6 +5,7 @@ AssetSync.configure do |config|
   config.fog_region = ENV['AWS_REGION']
   config.fog_directory = ENV['AWS_BUCKET_NAME']
   config.gzip_compression = true
+  config.extensions_to_gzip = 'css,js,png,jpg'
 
   # To use AWS reduced redundancy storage.
   # config.aws_reduced_redundancy = true
