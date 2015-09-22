@@ -9,10 +9,12 @@ configure = (
   railsSerializerProvider,
   $animateProvider,
   $urlRouterProvider,
+  $translateProvider,
   $sceDelegateProvider) ->
 
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
   $urlRouterProvider.otherwise('/courses')
+  $translateProvider.preferredLanguage('pt-BR')
 
   $sceDelegateProvider.resourceUrlWhitelist [
     'self'
@@ -23,6 +25,7 @@ configure.$inject = [
   'railsSerializerProvider',
   '$animateProvider',
   '$urlRouterProvider',
+  '$translateProvider',
   '$sceDelegateProvider']
 
 run = (amMoment, $rootScope, $window, SessionManager, NonLoggedRoutes) ->
