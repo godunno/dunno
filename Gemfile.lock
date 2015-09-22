@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/sbeam/asset_sync.git
+  revision: d52e970c8965127cd8de778ff63070e5737ad1ba
+  branch: gzip-before-upload
+  specs:
+    asset_sync (1.1.0)
+      activemodel
+      fog (>= 1.8.0)
+      unf
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -549,6 +559,9 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.1)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -581,6 +594,7 @@ DEPENDENCIES
   active_model-errors_details (= 1.1.0)
   acts-as-taggable-on (= 3.5.0)
   airbrake (= 4.3.0)
+  asset_sync!
   autoprefixer-rails (= 5.2.1)
   bonsai-elasticsearch-rails (= 0.0.4)
   capybara (= 2.4.4)
