@@ -7,10 +7,10 @@ ruby:
 
   form.form__box[
     name="passwordRecoveryForm"
-    ng-submit="passwordRecoveryForm.$valid && vm.recoverPassword(vm.user)"
-    novalidate=true]
+    novalidate=true
+    ng-submit="passwordRecoveryForm.$valid && vm.recoverPassword(vm.user)"]
 
-    .message__error  ng-if="vm.error == 'unexpected'"
+    .session__error ng-if="vm.error == 'unexpected'"
       strong
         | Ocorreu um erro em sua recuperação de senha.
       br
@@ -19,10 +19,9 @@ ruby:
         = link_to new_dashboard_password_path, class: 'button small' do
           | Solicitar nova recuperação de senha.
 
-    .message__error  ng-if="vm.error == 'reset_password_token'"
+    .session__error ng-if="vm.error == 'reset_password_token'"
       strong
         | Sua recuperação de senha expirou.
-
       .text-center
         = link_to new_dashboard_password_path, class: 'button small' do
           | Solicitar nova recuperação de senha.

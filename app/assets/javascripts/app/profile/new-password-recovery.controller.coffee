@@ -7,6 +7,7 @@ NewPasswordRecoveryCtrl = ($http, PageLoading, FoundationApi) ->
       Instruções enviadas para #{@user.email}.
       Não esqueça de verificar sua caixa de SPAM!
       """
+      color: 'success'
     @user = {}
 
   @recoverPassword = (user) ->
