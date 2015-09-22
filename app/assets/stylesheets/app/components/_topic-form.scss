@@ -87,6 +87,13 @@
 .new__topic {
   &__actions {
     @extend %topic-actions;
+
+    .message__error {
+      display: block;
+      margin: -.75rem -.75rem .75rem;
+      padding: .75rem;
+      text-align: center;
+    }
   }
 
   &__cancel {
