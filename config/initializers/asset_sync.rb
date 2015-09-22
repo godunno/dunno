@@ -3,9 +3,11 @@ AssetSync.configure do |config|
   config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
   config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
   config.fog_region = ENV['AWS_REGION']
+  config.fog_directory = ENV['AWS_BUCKET_NAME']
+  config.gzip_compression = true
+
   # To use AWS reduced redundancy storage.
   # config.aws_reduced_redundancy = true
-  config.fog_directory = ENV['AWS_BUCKET_NAME']
 
   # Invalidate a file on a cdn after uploading files
   # config.cdn_distribution_id = "12345"
@@ -18,7 +20,6 @@ AssetSync.configure do |config|
   # config.existing_remote_files = "keep"
   #
   # Automatically replace files with their equivalent gzip compressed version
-  # config.gzip_compression = true
   #
   # Use the Rails generated 'manifest.yml' file to produce the list of files to
   # upload instead of searching the assets directory.
