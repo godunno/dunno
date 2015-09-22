@@ -5,11 +5,25 @@ cgBusyDefaults =
 angularMomentConfig =
   timezone: 'America/Sao_Paulo'
 
-configure = (railsSerializerProvider, $animateProvider, $urlRouterProvider) ->
+configure = (
+  railsSerializerProvider,
+  $animateProvider,
+  $urlRouterProvider,
+  $sceDelegateProvider) ->
+
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
   $urlRouterProvider.otherwise('/courses')
 
-configure.$inject = ['railsSerializerProvider', '$animateProvider', '$urlRouterProvider']
+  $sceDelegateProvider.resourceUrlWhitelist [
+    'self'
+    'http://dunno-*.s3.amazonaws.com/assets/**'
+  ]
+
+configure.$inject = [
+  'railsSerializerProvider',
+  '$animateProvider',
+  '$urlRouterProvider',
+  '$sceDelegateProvider']
 
 run = (amMoment, $rootScope, $window, SessionManager, NonLoggedRoutes) ->
   redirectIfNotLoggedIn = ->
