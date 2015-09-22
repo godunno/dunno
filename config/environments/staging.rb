@@ -27,6 +27,7 @@ Dunno::Application.configure do
   config.assets.css_compressor = :sass
 
   config.assets.prefix = '/assets'
+  config.action_controller.asset_host = "//#{ENV['AWS_BUCKET_NAME']}.s3.amazonaws.com"
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
