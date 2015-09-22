@@ -1,0 +1,8 @@
+button[
+  ng-disabled="blocked"
+  type="submit"]
+  span ng-if="blocked"
+    spinner.submit__loading ng-if="hasSpinner"
+    | {{ blockedLabel }}
+  span ng-if="!blocked"
+    | {{ label }}

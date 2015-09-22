@@ -144,6 +144,11 @@
   @include spinner($diameter: 50px, $color: rgba(0, 0, 0, .3));
 }
 
+.submit__loading .spinner {
+  @include spinner($diameter: 10px, $color: rgba(0, 0, 0, .3));
+  position: relative;
+}
+
 .cg-busy.cg-busy-backdrop,
 .cg-busy.cg-busy-animation {
   max-height: 100%;
