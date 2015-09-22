@@ -4,7 +4,9 @@ link = (scope, element, attrs, ngModelCtrl) ->
       ngModelCtrl.$setViewValue(element.val())
       ngModelCtrl.$render()
 
-  scope.$on 'file.clean', -> element.val(null)
+  scope.$on 'file.clean', ->
+    element.val(null)
+    ngModelCtrl.$setViewValue(null)
 
 ngFileModel = ->
   restrict: 'A'

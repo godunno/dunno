@@ -1,15 +1,13 @@
 ruby:
   @title = 'Acessar minha conta no Dunno'
-.session__page[
-  ng-controller="SignInCtrl"
-  ng-model-options="{ updateOn: 'blur' }"]
+.session__page ng-controller="SignInCtrl"
   .form__wrapper
     .root__proxy
       = link_to root_path, tabindex: 4 do
         = image_tag "site/logo.png", class: :logo
     form#sign_in.form__box[
-      name="user_form"
-      ng-submit="sign_in(user)"
+      name="signInForm"
+      ng-submit="signInForm.$valid && sign_in(user)"
       novalidate=""]
       h4
         | Acessar minha conta
@@ -30,19 +28,12 @@ ruby:
         input#email[
           name="email"
           ng-model="user.email"
-          ng-focus="user_form.email.$setPristine()"
-          ng-blur="user_form.email.$setDirty()"
           autofocus=""
           tabindex=1
           required=true
+          validate=true
           type="email"]
-        span.message__error[
-          ng-show="user_form.email.$dirty && user_form.email.$invalid"
-          ng-cloak=""]
-          span ng-show="user_form.email.$error.required"
-            | Você precisa informar seu email.
-          span ng-show="user_form.email.$error.email"
-            | O email informado é inválido.
+        errors for="signInForm.email"
       .session__password
         = link_to "Esqueci minha senha", new_dashboard_password_path, class: 'password__recovery', tabindex: 6
         label for="password"
@@ -51,17 +42,12 @@ ruby:
             | *
         input#password[
           name="password"
-          ng-blur="user_form.password.$setDirty()"
-          ng-focus="user_form.password.$setPristine()"
           ng-model="user.password"
           required=true
           tabindex=2
+          validate=true
           type="password"]
-        span.message__error[
-          ng-show="user_form.password.$dirty && user_form.password.$invalid"
-          ng-cloak=""]
-          span ng-show="user_form.password.$error.required"
-            | Você precisa informar sua senha.
+        errors for="signInForm.password"
         button.submit[
           tabindex=3
           type="submit"]

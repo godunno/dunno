@@ -11,7 +11,8 @@ html lang='pt' ng-app='app'
     = csrf_meta_tags
   body ng-controller='ApplicationCtrl'
     = render 'application/prebootstrap_loading'
-    .root
+    .root cg-busy="wholePageLoading"
       = yield
+    zf-notification-set id="main-notifications" position="bottom-left"
     = javascript_include_tag 'application'
     = render 'shared/analytics'

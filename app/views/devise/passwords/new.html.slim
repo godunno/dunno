@@ -1,19 +1,16 @@
 ruby:
   @title = 'Esqueci minha senha · Dunno'
-.session__page
+.session__page ng-controller="NewPasswordRecoveryCtrl as vm"
   .form__wrapper
     .root__proxy
       = link_to root_path, tabindex: 4 do
         = image_tag "site/logo.png", class: :logo
     form.form__box#recover_password[
-      name="user_form"
-      action="/dashboard/passwords"
-      method="post"
-      novalidate=""]
-      - if resource.errors.present?
-        - resource.errors.full_messages.each do |message|
-          .message__error
-            = message
+      name="newPasswordRecoveryForm"
+      ng-submit="newPasswordRecoveryForm.$valid && vm.recoverPassword(vm.user)"
+      novalidate=true]
+      .completed ng-if="vm.completed"
+        | Você receberá instruções em seu email.
       h4
         | Esqueci minha senha
       .text-center
@@ -24,10 +21,14 @@ ruby:
         label for="email"
           | E-mail
         input#email[
-          name="user[email]"
+          name="email"
+          ng-model="vm.user.email"
           type="email"
-          required=""
+          required=true
+          validate=true
           autofocus=""]
+        errors for="newPasswordRecoveryForm.email"
+
       button.submit type="submit"
         | Enviar
       .text-center

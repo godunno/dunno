@@ -1,4 +1,6 @@
 .new__topic__actions
+  ng-transclude
+
   a.new__topic__cancel ng-click="cancel()"
     | Cancelar
   zf-action-sheet
@@ -26,7 +28,7 @@
             zf-close=""]
             i.icon.icon-eye>
             | Estudantes
-  a.new__topic__create<[
-    ng-class="{disabled: !canAddTopic, 'topic__private': defaultTopicProperties.personal}"
-    ng-click="addTopic()"]
+  button.new__topic__create<[
+    ng-class="{'topic__private': defaultTopicProperties.personal}"
+    type="submit"]
     | Inserir {{topicTypeDescription()}}

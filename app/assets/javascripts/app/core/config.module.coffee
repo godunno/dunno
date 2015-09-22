@@ -17,7 +17,8 @@ angular
     'foundation',
     'ui.router',
     'ui.timepicker',
-    'ui.utils.masks']
+    'ui.utils.masks',
+    'pascalprecht.translate']
 
 #WIP
 core = angular.module('app.core')
@@ -30,6 +31,10 @@ core.value('cgBusyDefaults',
   templateUrl: 'core/components/loading',
   wrapperClass: 'cg-busy cg-busy-animation'
 )
+
+core.config ['$translateProvider', ($translateProvider) ->
+  $translateProvider.preferredLanguage('pt-BR')
+]
 
 core.run ['amMoment', (amMoment) ->
   amMoment.changeLocale('pt-br')

@@ -6,7 +6,7 @@ PasswordCtrl = ($scope, $http, SessionManager, ErrorParser) ->
     $scope.error = false
 
   failure = (response) ->
-    ErrorParser.setErrors(response.data.errors, $scope.form, $scope)
+    ErrorParser.setErrors(response.data.errors, $scope.passwordForm, $scope)
     $scope.error = true
     $scope.success = false
 

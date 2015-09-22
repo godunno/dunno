@@ -1,6 +1,6 @@
 describe "AWSCredentials service", ->
-  beforeEach module('DunnoApp')
-  beforeEach teacherAppMockDefaultRoutes
+  beforeEach module('app.core')
+  #beforeEach teacherAppMockDefaultRoutes
 
   credentials =
     access_key: 'access key id'

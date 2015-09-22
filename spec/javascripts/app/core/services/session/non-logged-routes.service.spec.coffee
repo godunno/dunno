@@ -1,10 +1,8 @@
 describe "NonLoggedRoutes service", ->
   $window = location: { pathname: '' }
-  beforeEach module 'DunnoApp', ($provide) ->
+  beforeEach module 'app.core', ($provide) ->
     $provide.value('$window', $window)
     null
-
-  beforeEach teacherAppMockDefaultRoutes
 
   NonLoggedRoutes = null
   beforeEach ->

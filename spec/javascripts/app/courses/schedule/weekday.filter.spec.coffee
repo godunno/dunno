@@ -1,6 +1,5 @@
 describe "weekday filter", ->
-  beforeEach module('DunnoApp')
-  beforeEach teacherAppMockDefaultRoutes
+  beforeEach module('app.courses')
 
   weekday = null
   beforeEach ->

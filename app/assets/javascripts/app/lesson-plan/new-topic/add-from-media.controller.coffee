@@ -1,17 +1,20 @@
 AddFromMediaCtrl = ($scope, MediaSearcher) ->
   MediaSearcher.extend($scope)
 
-  $scope.$on 'newTopic', ($event, topicType) ->
-    $scope.$broadcast 'saveTopic' if topicType == 'catalog'
-
   $scope.perPage = 3
 
   $scope.fetch()
 
-  $scope.result = {}
+  reset = ->
+    $scope.result = {}
+
+  reset()
 
   $scope.selectMedia = ->
     $scope.$broadcast 'newMedia', $scope.result.media
+
+  $scope.$on 'createdTopic', reset
+  $scope.$on 'cancelTopic', reset
 
 AddFromMediaCtrl.$inject = ['$scope', 'MediaSearcher']
 

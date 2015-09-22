@@ -1,15 +1,13 @@
 ruby:
   @title = 'Criar minha conta no Dunno'
-.session__page[
-  ng-controller="RegistrationsCtrl"
-  ng-model-options="{ updateOn: 'blur' }"]
+.session__page ng-controller="RegistrationsCtrl"
   .form__wrapper
     .root__proxy
       = link_to root_path, tabindex: 6 do
         = image_tag "site/logo.png", class: :logo
     form#sign_up.form__box[
-      name="user_form"
-      ng-submit="sign_up(user)"
+      name="signUpForm"
+      ng-submit="signUpForm.$valid && sign_up(user)"
       novalidate=""]
       h4
         | Criar minha conta
@@ -32,18 +30,12 @@ ruby:
         input#name[
           name="name"
           ng-model="user.name"
-          ng-focus="user_form.name.$setPristine()"
-          ng-blur="user_form.name.$setDirty()"
           type="text"
           required=true
+          validate=true
           tabindex=1
           autofocus=""]
-        small.message__error[
-          ng-show="user_form.name.$dirty && user_form.name.$invalid"
-          ng-cloak=""
-          ng-messages="user_form.name.$error"]
-          span ng-message="required"
-            | É necessário informar seu nome.
+        errors for="signUpForm.name"
       .email
         label for="email"
           | Email
@@ -52,21 +44,11 @@ ruby:
         input#email[
           name="email"
           ng-model="user.email"
-          ng-focus="user_form.email.$setPristine()"
-          ng-blur="user_form.email.$setDirty()"
           tabindex=2
           required=true
+          validate=true
           type="email"]
-        small.message__error[
-          ng-show="user_form.email.$dirty && user_form.email.$invalid"
-          ng-cloak=""
-          ng-messages="user_form.email.$error"]
-          span ng-message="required"
-            | Você precisa informar seu email.
-          span ng-message="email"
-            | O email informado é inválido.
-          span ng-message="taken"
-            | Já existe uma conta com o email informado.
+        errors for="signUpForm.email"
       .password
         label for="password"
           | Senha
@@ -75,20 +57,12 @@ ruby:
         input#password[
           name="password"
           ng-model="user.password"
-          ng-focus="user_form.password.$setPristine()"
-          ng-blur="user_form.password.$setDirty()"
           type="password"
           tabindex=3
           required=true
+          validate=true
           ng-minlength="8"]
-        small.message__error[
-          ng-show="user_form.password.$dirty && user_form.password.$invalid"
-          ng-cloak=""
-          ng-messages="user_form.password.$error"]
-          span ng-message="required"
-            | Você precisa escolher uma senha.
-          span ng-message="minlength"
-            | Sua senha deve conter no mínimo 8 caracteres.
+        errors for="signUpForm.password"
       .phone
         label for="phone_number"
           | Telefone
@@ -96,21 +70,13 @@ ruby:
             | *
         input#phone_number[
           ui-br-phone-number=true
-          name="phone_number"
+          name="phoneNumber"
           ng-model="user.phone_number"
-          ng-focus="user_form.phone_number.$setPristine()"
-          ng-blur="user_form.phone_number.$setDirty()"
           tabindex=4
           required=true
+          validate=true
           type="text"]
-        small.message__error[
-          ng-show="user_form.phone_number.$dirty && user_form.phone_number.$invalid"
-          ng-cloak=""
-          ng-messages="user_form.phone_number.$error"]
-          span ng-message="required"
-            | Você precisa preencher seu telefone.
-          span ng-message="brPhoneNumber"
-            | O formato informado é inválido.
+        errors for="signUpForm.phoneNumber"
       .accept__terms
         p
           | Ao criar sua conta você automaticamente <br><b>declara aceitar</b> os <a href="#{terms_path}" target="_blank">termos de uso</a> do Dunno.

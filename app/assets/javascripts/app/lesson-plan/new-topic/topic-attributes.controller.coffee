@@ -12,7 +12,7 @@ TopicAttributesCtrl = ($scope, Topic) ->
     $scope.topic.media_id = media.id
     $scope.topic.description = media.title
 
-  saveTopic = (e, topic) ->
+  $scope.addTopic = (e, topic) ->
     $scope.topic.event = $scope.event
     $scope.topic.personal = $scope.defaultTopicProperties.personal
     new Topic($scope.topic).create().then (topic) ->
@@ -20,7 +20,6 @@ TopicAttributesCtrl = ($scope, Topic) ->
       reset()
 
   $scope.$on 'newMedia', setMedia
-  $scope.$on 'saveTopic', saveTopic
   $scope.$on 'cancelTopic', reset
   $scope.$on 'removeMedia', reset
 
@@ -31,18 +30,21 @@ TopicAttributesCtrl = ($scope, Topic) ->
         startEditing()
 
   $scope.$watch 'topic.description', (value) ->
-    return if value == undefined
-    if value.length == 0
+    return if !started
+    unless value?
       finishEditing()
 
   startWatcher = setNewStartWatcher()
 
+  started = false
   startEditing = ->
     $scope.$emit('startEditing')
+    started = true
     startWatcher()
 
   finishEditing = ->
     $scope.$emit('finishEditing')
+    started = false
     startWatcher = setNewStartWatcher()
 
 TopicAttributesCtrl.$inject = ['$scope', 'Topic']

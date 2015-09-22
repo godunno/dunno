@@ -1,6 +1,5 @@
 describe "ErrorParser service", ->
-  beforeEach module('DunnoApp')
-  beforeEach teacherAppMockDefaultRoutes
+  beforeEach module('app.core')
 
   ErrorParser = null
   scope = null
@@ -10,7 +9,11 @@ describe "ErrorParser service", ->
     inject (_ErrorParser_, $rootScope, $compile) ->
       ErrorParser = _ErrorParser_
       scope = $rootScope.$new()
-      html = '<form name="form"><input type="text" name="attribute" ng-model="value"></input></form>'
+      html = """
+        <form name="form">
+          <input type="text" name="attribute" ng-model="value">
+        </form>
+      """
       $compile(html)(scope)
       form = scope.form
 
@@ -26,3 +29,9 @@ describe "ErrorParser service", ->
     scope.$apply()
     expect(form.attribute.$valid).toBe(true)
     expect(form.attribute.$error).toEqual({})
+
+  it "broadcasts event", ->
+    spyOn(scope, '$broadcast')
+    ErrorParser.setErrors(errors, form, scope)
+    scope.$apply()
+    expect(scope.$broadcast).toHaveBeenCalledWith('updatedErrors')

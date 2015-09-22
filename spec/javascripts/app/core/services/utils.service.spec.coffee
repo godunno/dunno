@@ -1,6 +1,5 @@
 describe "Utils service", ->
-  beforeEach module('DunnoApp')
-  beforeEach teacherAppMockDefaultRoutes
+  beforeEach module('app.core')
 
   Utils = null
   beforeEach ->
