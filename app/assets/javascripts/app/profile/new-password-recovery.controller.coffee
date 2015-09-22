@@ -10,7 +10,7 @@ NewPasswordRecoveryCtrl = ($http, PageLoading, FoundationApi) ->
     @user = {}
 
   @recoverPassword = (user) ->
-    PageLoading.resolve($http.post("/dashboard/passwords", user: user))
+    PageLoading.resolve($http.post("/dashboard/password", user: user))
       .finally(completed)
 
   @

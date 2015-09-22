@@ -16,7 +16,7 @@ PasswordRecoveryCtrl = ($http, $window, FoundationApi, PageLoading) ->
                'unexpected'
 
   @recoverPassword = (user) ->
-    PageLoading.resolve($http.patch("/dashboard/passwords.json", user: user))
+    PageLoading.resolve($http.patch("/dashboard/password.json", user: user))
       .success(success).catch(failure)
 
   @
