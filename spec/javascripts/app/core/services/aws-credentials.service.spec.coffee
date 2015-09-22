@@ -1,6 +1,5 @@
 describe "AWSCredentials service", ->
   beforeEach module('app.core')
-  #beforeEach teacherAppMockDefaultRoutes
 
   credentials =
     access_key: 'access key id'
