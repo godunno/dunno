@@ -2,8 +2,8 @@ NonLoggedRoutes = ($window) ->
   ROUTES = [
     /^\/sign_in$/,
     /^\/sign_up$/,
-    /^\/dashboard\/passwords(\/new)?$/,
-    /^\/dashboard\/passwords\/edit$/,
+    /^\/dashboard\/password(\/new)?$/,
+    /^\/dashboard\/password\/edit$/,
     /^\/teaspoon.*/
   ]
 
