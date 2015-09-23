@@ -4,8 +4,11 @@
     @extend %label;
     @include label-layout(
       $fontsize: 1rem,
-      $padding: .25em
+      $padding: .75em
     );
+    display: block;
+    margin-bottom: 1rem;
+    text-align: center;
   }
 
   &__error {
