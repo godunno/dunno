@@ -1,5 +1,5 @@
 TopicEditCtrl = ($scope, Utils) ->
-  $scope.isEditing = (topic) -> !!topic._editing
+  $scope.isEditing = -> !!$scope._editing
 
   initialize = ->
     $scope.editingTopic = {}
@@ -14,16 +14,17 @@ TopicEditCtrl = ($scope, Utils) ->
 
   $scope.startEditing = (topic) ->
     angular.extend $scope.editingTopic, topic
-    topic._editing = true
+    $scope._editing = true
     $scope.$emit('startEditing')
 
   $scope.finishEditing = (topic) ->
     angular.extend topic, $scope.editingTopic
-    topic._editing = false
-    topic.save().then reset
+    $scope.submitting = topic.save().then ->
+      $scope._editing = false
+      reset()
 
   $scope.cancelEditing = (topic) ->
-    topic._editing = false
+    $scope._editing = false
     reset()
 
   $scope.transferTopic = (topic) ->
