@@ -28,6 +28,9 @@ Style/IndentHash:
 Style/LambdaCall:
   Enabled: false
 
+Style/DotPosition:
+  EnforcedStyle: leading
+
 AllCops:
   Exclude:
     - "bin/**/*"
