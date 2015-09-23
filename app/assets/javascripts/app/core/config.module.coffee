@@ -18,5 +18,4 @@ angular
     'ui.router',
     'ui.router.title',
     'ui.timepicker',
-    'ui.utils.masks',
     'pascalprecht.translate']

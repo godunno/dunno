@@ -11,8 +11,6 @@ I18nConfig = ($translateProvider) ->
     'signUpForm.email.email': 'Isto não parece ser um e-mail.'
     'signUpForm.password.required': 'Você precisa escolher uma senha.'
     'signUpForm.password.minlength': 'Sua senha deve conter no mínimo 8 caracteres'
-    'signUpForm.phoneNumber.required': 'Você precisa preencher seu telefone.'
-    'signUpForm.phoneNumber.brPhoneNumber': 'O formato informado é inválido.'
 
 I18nConfig.$inject = ['$translateProvider']
 

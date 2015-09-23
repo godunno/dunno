@@ -12,8 +12,7 @@ class ApplicationController < ActionController::Base
       dashboard_path
     end
 
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) << :name
-      devise_parameter_sanitizer.for(:sign_up) << :phone_number
-    end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) << :name
+  end
 end

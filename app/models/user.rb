@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   belongs_to :profile, dependent: :destroy
   has_many :api_keys, dependent: :destroy
 
-  validates :name, :phone_number, presence: true
+  validates :name, presence: true
 
   before_save :ensure_authentication_token
 

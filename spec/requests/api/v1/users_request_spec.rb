@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Api::V1::UsersController do
   let(:password) { "password" }
   let(:name) { user.name }
-  let(:phone_number) { user.phone_number }
   let(:profile) { create(:profile) }
   let!(:course) { create(:course, teacher: profile) }
   let(:user) { create(:user, profile: profile, password: password) }
@@ -13,7 +12,6 @@ describe Api::V1::UsersController do
       "root_path" => "/dashboard",
       "id" => user.id,
       "name" => name,
-      "phone_number" => phone_number,
       "email" => user.email,
       "authentication_token" => user.authentication_token,
       "courses_count" => 1,
@@ -26,7 +24,6 @@ describe Api::V1::UsersController do
 
   describe "PATCH /api/v1/users" do
     let(:name) { "Novo nome" }
-    let(:phone_number) { "+55 21 12345 6789" }
     def do_action
       patch "/api/v1/users", params_hash.merge(auth_params(user)).to_json
     end
@@ -36,8 +33,7 @@ describe Api::V1::UsersController do
       let(:params_hash) do
         {
           user: {
-            name: name,
-            phone_number: phone_number
+            name: name
           }
         }
       end
@@ -46,7 +42,6 @@ describe Api::V1::UsersController do
 
       it { expect(last_response.status).to eq(200) }
       it { expect(subject.name).to eq(name) }
-      it { expect(subject.phone_number).to eq(phone_number) }
 
       it { expect(json).to eq(user_response_json) }
     end
@@ -90,11 +85,9 @@ describe Api::V1::UsersController do
       it { expect(another_user.reload.name).not_to eq(name) }
       it { expect(user.reload.name).to eq(name) }
     end
-
   end
 
   describe "PATCH /api/v1/users/password" do
-
     def do_action
       patch "/api/v1/users/password", params_hash.merge(auth_params(user)).to_json
     end

@@ -10,7 +10,7 @@ describe User do
   end
 
   describe "validations" do
-    [:name, :email, :phone_number, :password].each do |attr|
+    [:name, :email, :password].each do |attr|
       it { is_expected.to validate_presence_of(attr) }
     end
   end

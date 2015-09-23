@@ -2,25 +2,15 @@ student = Profile.create!(user: User.new(
   name: "João da Silva",
   email: "joao@gmail.com",
   password: "#dunnovc",
-  phone_number: "+55 21 99999 9990",
   authentication_token: "svyZww54cxoE3nE8Hqgo"
-))
-
-Profile.create!(user: User.new(
-  name: "Lucas Boscacci",
-  email: "lucasboscacci@gmail.com",
-  password: "MatteoLucas",
-  phone_number: "+55 21 99999 9991"
 ))
 
 teacher = Profile.create!(user: User.new(
   name: "Girafales",
   email: "prof@dunno.vc",
   password: "#dunnovc",
-  phone_number: "+55 21 99999 9992",
   authentication_token: "VfHCJUg1xTqhNPLyU5ym"
 ))
-
 
 course = Form::CourseForm.create(
   name: "Programming I", class_name: "TR230", teacher: teacher,

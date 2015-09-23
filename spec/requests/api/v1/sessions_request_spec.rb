@@ -25,7 +25,6 @@ describe Api::V1::SessionsController do
           "root_path" => "/dashboard",
           "id" => profile.user.id,
           "name" => profile.name,
-          "phone_number" => profile.phone_number,
           "email" => profile.email,
           "authentication_token" => profile.authentication_token,
           "profile" => "teacher",
