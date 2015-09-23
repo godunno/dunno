@@ -4,7 +4,6 @@ SessionManager = ($http, $q, $analytics, LocalStorageWrapper) ->
     $analytics.setUserProperties
       $email: user.email
       $name: user.name
-      $phone: user.phone_number
       $created: user.created_at
       profile: user.profile
       coursesCount: user.courses_count

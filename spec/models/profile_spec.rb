@@ -12,7 +12,7 @@ describe Profile, type: :model do
   end
 
   describe "delegation" do
-    %w(uuid email authentication_token name phone_number).each do |attribute|
+    %w(uuid email authentication_token name).each do |attribute|
       it { is_expected.to respond_to(attribute) }
     end
   end

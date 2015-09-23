@@ -10,7 +10,7 @@ describe User do
   end
 
   describe "validations" do
-    [:name, :email, :phone_number, :password].each do |attr|
+    [:name, :email, :password].each do |attr|
       it { is_expected.to validate_presence_of(attr) }
     end
   end
@@ -29,7 +29,10 @@ describe User do
         context "when user already have a token" do
           let!(:user) { create(:user) }
 
-          it { expect{ user.save }.to_not change{ user.reload.authentication_token } }
+          it do
+            expect { user.save }
+              .to_not change { user.reload.authentication_token }
+          end
         end
       end
     end

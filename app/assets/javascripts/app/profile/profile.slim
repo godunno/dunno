@@ -31,19 +31,6 @@ ui-view.profile__page
         ng-model="user.email"
         type="email"]
 
-      label for="phone_number"
-        | Telefone
-        span.required<
-          | *
-      input#phone_number[
-        name="phoneNumber"
-        ng-model="user.phone_number"
-        required=true
-        ui-br-phone-number=true
-        validate=true
-        type="text"]
-      errors for="profileForm.phoneNumber"
-
       .profile__change__password
         a ui-sref=".change_password"
           | Quero alterar minha senha
