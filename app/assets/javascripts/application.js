@@ -7,7 +7,6 @@
 //= require angular-i18n/angular-locale_pt-br
 //= require angular-animate
 //= require angular-messages
-//= require angular-input-masks
 //= require ng-file-upload
 //= require angular-validation-match
 //= require angular-busy
