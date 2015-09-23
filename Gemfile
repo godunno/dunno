@@ -32,7 +32,6 @@ gem 'devise-async',               '0.9.0'
 gem 'intercom-rails',             '0.2.27'
 gem 'active_model-errors_details', '1.1.0'
 gem 'dalli',                      '2.7.4'
-gem 'google_drive',               '1.0.0', require: false
 gem 'mixpanel-ruby',              '2.1.0'
 gem 'carrierwave',                '0.10.0'
 gem 'fog',                        '1.32.0'
@@ -107,7 +106,6 @@ group :development, :test do
   gem 'timecop',                  '0.7.1'
   gem 'rspec_api_documentation',  '4.3.0'
   gem 'teaspoon-jasmine',         '2.2.0'
-  gem 'rspec_junit_formatter',    '0.2.2'
 
   gem 'guard'
   gem 'guard-teaspoon'

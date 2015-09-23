@@ -26,7 +26,7 @@ course.add_student(student)
 
 course.events.reload
 
-e1, e2, e3, e4 = course.events[0..3]
+e1 = course.events.first
 
 Topic.new(description: "Machine Learning", order: 1, event: e1).save!
 Topic.new(description: "AI", order: 2, event: e1).save!
