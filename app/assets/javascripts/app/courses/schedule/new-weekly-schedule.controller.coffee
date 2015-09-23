@@ -5,6 +5,7 @@ NewWeeklyScheduleCtrl = (
   $filter,
   AnalyticsTracker,
   TimeGetterSetter,
+  PageLoading,
   weeklySchedule) ->
 
   $scope.formButton = "Adicionar"
@@ -28,7 +29,7 @@ NewWeeklyScheduleCtrl = (
     $state.go('.', null, reload: true)
 
   $scope.submit = (weeklySchedule) ->
-    $scope.$emit 'wholePageLoading', weeklySchedule.save().then(afterSave)
+    $scope.submitting = PageLoading.resolve weeklySchedule.save().then(afterSave)
 
 NewWeeklyScheduleCtrl.$inject = [
   '$scope',
@@ -37,6 +38,7 @@ NewWeeklyScheduleCtrl.$inject = [
   '$filter',
   'AnalyticsTracker',
   'TimeGetterSetter',
+  'PageLoading',
   'weeklySchedule'
 ]
 

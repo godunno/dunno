@@ -19,7 +19,7 @@ NewUrlMediaCtrl = ($scope, Media) ->
 
   $scope.submitUrlMedia = ->
     media = new Media(url: $scope.url)
-    $scope.submittingMediaPromise = media.create().then(success)
+    $scope.submitting = media.create().then(success)
 
   setNewStartWatcher = ->
     $scope.$watch 'url', (value) ->

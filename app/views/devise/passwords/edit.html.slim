@@ -55,6 +55,9 @@ ruby:
         match="vm.user.password"]
       errors for="passwordRecoveryForm.passwordConfirmation"
 
-    button.submit type="submit"
-      | Salvar
+    submit-button.submit[
+      blocked-when="vm.submitting"
+      label="Salvar"
+      blocked-label="Salvando..."
+      has-spinner=true]
   = render "application/login_links"

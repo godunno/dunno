@@ -34,6 +34,8 @@ ui-view.profile__page
       .profile__change__password
         a ui-sref=".change_password"
           | Quero alterar minha senha
-      button.submit[
-        type="submit"]
-        | Atualizar perfil
+      submit-button.submit[
+        blocked-when="submitting"
+        label="Atualizar perfil"
+        blocked-label="Atualizando..."
+        has-spinner=true]

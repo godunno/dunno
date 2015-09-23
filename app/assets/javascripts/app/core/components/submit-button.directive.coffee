@@ -7,14 +7,8 @@ submitButton = ->
 
   SubmitButtonController.$inject = ['$scope']
 
-  moveAttributes = (element, attributes...) ->
-    target = element.find('button')
-    attributes.forEach (attr) ->
-      value = element.attr(attr)
-      element.removeAttr(attr)
-      target.attr(attr, value)
-
   restrict: 'E'
+  replace: true
   scope:
     blockedWhen: '='
     blockedLabel: '@'
@@ -23,7 +17,6 @@ submitButton = ->
   controller: SubmitButtonController
   link: (scope, element, attrs) ->
     scope.hasSpinner = attrs.hasSpinner?
-    moveAttributes(element, 'class', 'tabindex')
 
 angular
   .module('app.core')

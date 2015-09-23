@@ -28,7 +28,9 @@
             zf-close=""]
             i.icon.icon-eye>
             | Estudantes
-  button.new__topic__create<[
+  submit-button.new__topic__create[
     ng-class="{'topic__private': defaultTopicProperties.personal}"
-    type="submit"]
-    | Inserir {{topicTypeDescription()}}
+    blocked-when="submitting"
+    label="Inserir {{topicTypeDescription()}}"
+    blocked-label="Inserindo..."
+    has-spinner=true]

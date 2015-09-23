@@ -2,8 +2,8 @@ courseFormCtrl = (Course, PageLoading, $state) ->
   @removeEndDate = ->
     @course.end_date = undefined
 
-  @save = ->
-    PageLoading.resolve(new Course(@course).save()).then (course) =>
+  @save = =>
+    @submitting = PageLoading.resolve(new Course(@course).save()).then (course) =>
       $state.go('.', null, reload: true)
       @onSave()(course)
 

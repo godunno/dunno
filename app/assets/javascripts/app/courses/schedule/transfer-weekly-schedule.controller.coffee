@@ -35,7 +35,7 @@ TransferWeeklyScheduleCtrl = (
     $state.go('.', null, reload: true)
 
   $scope.submit = (weeklySchedule) ->
-    PageLoading.resolve weeklySchedule.transfer().then(success)
+    $scope.submitting = PageLoading.resolve weeklySchedule.transfer().then(success)
 
 TransferWeeklyScheduleCtrl.$inject = [
   '$scope',

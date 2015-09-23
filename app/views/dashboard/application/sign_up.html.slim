@@ -66,10 +66,12 @@ ruby:
       .accept__terms
         p
           | Ao criar sua conta você automaticamente <br><b>declara aceitar</b> os <a href="#{terms_path}" target="_blank">termos de uso</a> do Dunno.
-      button.submit[
-        tabindex=5
-        type="submit"]
-        | Criar sua conta
+      submit-button.submit[
+        blocked-when="submitting"
+        label="Criar sua conta"
+        blocked-label="Criando..."
+        tabindex="5"
+        has-spinner=true]
       .privacy__policy__disclaimer
         p
           small

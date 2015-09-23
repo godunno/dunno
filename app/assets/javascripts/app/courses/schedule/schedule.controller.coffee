@@ -6,11 +6,6 @@ ScheduleCtrl = (
   WeeklySchedule,
   Utils) ->
 
-  $scope.update = ->
-    $scope.$emit('wholePageLoading', $scope.course.update().then ->
-      $state.go('^', null, reload: true)
-    )
-
   $scope.transferWeeklySchedule = (weeklySchedule) ->
     new ModalFactory
       templateUrl: 'courses/schedule/schedule-transfer'
