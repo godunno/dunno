@@ -73,3 +73,13 @@ small {
     }
   }
 }
+
+.cg-busy-animation {
+  transition-duration: 500;
+  transition-property: opacity;
+
+  &.ng-hide-remove,
+  &.ng-hide-add.ng-hide-add-active {
+    transform: translate(0, 0);
+  }
+}
