@@ -124,9 +124,11 @@
     }
   }
 
-  &__create {
+  &__submit {
     @extend %primary__button;
     @include button-size($size: tiny);
+    border: .0625rem solid $dunno-green-color;
+    margin-left: .25rem;
 
     &.topic__private {
       @extend %cancel__button;
@@ -137,10 +139,8 @@
         $color: $white,
         $style: solid
       );
-    }
-
-    &.disabled {
-      opacity: .5;
+      border: .0625rem solid $red-color;
+      margin-left: .25rem;
     }
   }
 }

@@ -391,8 +391,8 @@
                     a.edit__topic__cancel ng-click="cancelEditing(topic)"
                       | Cancelar
                     ng-include src="'#{asset_path('app/lesson-plan/new-topic/edit-personal-topic')}'"
-                    a.save__edit__topic.button.tiny<[
-                      ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
+                    a.edit__topic__submit[
+                      ng-class="{topic__private: editingTopic.personal}"
                       ng-click="finishEditing(topic)"
                       ng-disabled="topicEditForm.$invalid"]
                       | Salvar
