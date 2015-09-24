@@ -11,6 +11,10 @@
     @include breakpoint(medium) {
       display: none;
     }
+
+    .center {
+      white-space: normal;
+    }
   }
 
   &__navigation {
