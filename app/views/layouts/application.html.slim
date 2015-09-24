@@ -53,7 +53,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
             ul
               li ui-sref-active="is-active"
                 a.user__profile ui-sref="profile"
-                  img.avatar>[user-avatar="{{currentUser().name}}"]
+                  img.avatar>[user-avatar="currentUser().name"]
                   | {{currentUser().name}}
               li
                 a ng-click="signOut()"
