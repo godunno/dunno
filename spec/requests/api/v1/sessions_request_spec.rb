@@ -28,6 +28,7 @@ describe Api::V1::SessionsController do
           "email" => profile.email,
           "authentication_token" => profile.authentication_token,
           "profile" => "teacher",
+          "avatar_url" => nil,
           "courses_count" => 2,
           "students_count" => 10,
           "notifications_count" => 2,
