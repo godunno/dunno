@@ -99,6 +99,7 @@
 
   &__duration {
     @include grid-block();
+    overflow: visible;
 
     span {
       align-self: center;
@@ -109,6 +110,7 @@
   &__start__time,
   &__end__time {
     flex: 1;
+    position: relative;
   }
 
 
