@@ -3,27 +3,7 @@ require "spec_helper"
 describe AuthenticateUserFromFacebook do
   describe "logging with facebook" do
     let(:omniauth_hash) do
-      {
-        "provider" => "facebook",
-        "uid" => "12345678",
-        "info" => {
-          "email" => "darthvader@example.org",
-          "name" => "Darth Vader",
-          "image" => "http://graph.facebook.com/awesome_photo.png"
-        },
-        "credentials" => {
-          "token" => "...",
-          "expires_at" => 1_441_880_921,
-          "expires" => true
-        },
-        "extra" => {
-          "raw_info" => {
-            "name" => "xxx",
-            "email" => "xxxxxx@gmail.com",
-            "id" => "xxxxxxxxxx"
-          }
-        }
-      }
+      OmniAuth.config.mock_auth[:facebook]
     end
 
     let(:authenticate_with_facebook) do
@@ -37,6 +17,7 @@ describe AuthenticateUserFromFacebook do
       it { expect(created_user.facebook_uid).to eq "12345678" }
       it { expect(created_user.name).to eq "Darth Vader" }
       it { expect(created_user.email).to eq "darthvader@example.org" }
+      it { expect(created_user.password).to be_present }
       it { expect(created_user.avatar_url).to eq "http://graph.facebook.com/awesome_photo.png" }
       it { expect(created_user).to be_persisted }
     end
