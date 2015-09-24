@@ -4,6 +4,10 @@
   @include breakpoint(small only) {
     max-width: 100vw;
     overflow-y: scroll;
+
+    .small > & {
+      max-width: 100vw;
+    }
   }
 
   &__header {

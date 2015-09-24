@@ -1,32 +1,52 @@
 .send__notification {
-
   .modal__content {
     @include grid-block();
+
+    @include breakpoint(small only) {
+      @include grid-block($orientation: vertical);
+    }
 
     form {
       flex: 1;
       margin-right: 2rem;
 
+      @include breakpoint(small only) {
+        margin-right: 0;
+      }
+
       .submit {
         margin-left: auto;
         margin-right: 0;
         margin-top: -3rem;
+
+        @include breakpoint(small only) {
+          margin: 0 auto;
+        }
       }
     }
   }
 
   .message {
     &__counter {
-      color: $light-grey-color;
       display: block;
       font-size: .875em;
       line-height: 3em;
+
+      @include breakpoint(small only) {
+        text-align: center;
+      }
     }
 
     &__preview__content {
       background: $body-background;
       border-radius: $global-radius;
       padding: 1rem;
+    }
+
+    &__preview {
+      @include breakpoint(small only) {
+        display: none;
+      }
     }
   }
 }
