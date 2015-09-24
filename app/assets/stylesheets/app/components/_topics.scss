@@ -166,6 +166,7 @@
 
   input[type=checkbox] + label {
     color: $dunno-dark-color;
+    cursor: pointer;
 
     &:hover {
       color: lighten($dunno-dark-color, 10%);
