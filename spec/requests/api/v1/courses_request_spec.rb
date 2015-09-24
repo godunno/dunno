@@ -44,7 +44,7 @@ describe Api::V1::CoursesController do
           "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
           "user_role" => "teacher",
           "students_count" => course.students.count,
-          "teacher" => { "name" => teacher.name },
+          "teacher" => { "name" => teacher.name, "avatar_url" => nil },
           "weekly_schedules" => [
             "uuid" => weekly_schedule.uuid,
             "weekday" => weekly_schedule.weekday,
@@ -54,8 +54,8 @@ describe Api::V1::CoursesController do
           ],
           "members_count" => 2,
           "members" => [
-            { "name" => "Teacher", "role" => "teacher" },
-            { "name" => "Student", "role" => "student" }
+            { "name" => "Teacher", "role" => "teacher", "avatar_url" => nil },
+            { "name" => "Student", "role" => "student", "avatar_url" => nil }
           ]
         }])
       end
@@ -102,7 +102,7 @@ describe Api::V1::CoursesController do
               "abbreviation" => course.abbreviation,
               "students_count" => course.students.count,
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
-              "teacher" => { "name" => teacher.name },
+              "teacher" => { "name" => teacher.name, "avatar_url" => nil },
               "weekly_schedules" => [
                 "uuid" => weekly_schedule.uuid,
                 "weekday" => weekly_schedule.weekday,
@@ -112,8 +112,8 @@ describe Api::V1::CoursesController do
               ],
               "members_count" => 2,
               "members" => [
-                { "name" => "Teacher", "role" => "teacher" },
-                { "name" => "Student", "role" => "student" }
+                { "name" => "Teacher", "role" => "teacher", "avatar_url" => nil },
+                { "name" => "Student", "role" => "student", "avatar_url" => nil }
               ],
               "user_role" => role
             )
@@ -457,13 +457,14 @@ describe Api::V1::CoursesController do
             "color" => "#b6a6f3",
             "user_role" => false,
             "students_count" => 0,
-            "teacher" => { "name" => "Teacher" },
+            "teacher" => { "name" => "Teacher", "avatar_url" => nil },
             "active" => true,
             "weekly_schedules" => [],
             "members_count" => 1,
             "members" => [{
               "name" => "Teacher",
-              "role" => "teacher"
+              "role" => "teacher",
+              "avatar_url" => nil
             }]
           }
         )

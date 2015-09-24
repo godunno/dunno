@@ -14,6 +14,7 @@ describe Api::V1::UsersController do
       "name" => name,
       "email" => user.email,
       "authentication_token" => user.authentication_token,
+      "avatar_url" => nil,
       "courses_count" => 1,
       "notifications_count" => 0,
       "profile" => "teacher",

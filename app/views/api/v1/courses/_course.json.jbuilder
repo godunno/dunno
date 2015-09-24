@@ -3,7 +3,7 @@ json.(course, :uuid, :name, :uuid, :start_date, :end_date, :abbreviation,
 json.color(SHARED_CONFIG["v1"]["courses"]["schemes"][course.order % 12])
 json.user_role(current_profile.role_in(course))
 json.students_count(course.students.count)
-json.teacher(course.teacher, :name)
+json.teacher(course.teacher, :name, :avatar_url)
 json.active course.active?
 
 json.weekly_schedules course.weekly_schedules do |weekly_schedule|
@@ -13,6 +13,6 @@ end
 json.members_count(course.memberships.count)
 
 json.members course.memberships do |membership|
-  json.(membership.profile, :name)
+  json.(membership.profile, :name, :avatar_url)
   json.(membership, :role)
 end

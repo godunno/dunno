@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923191604) do
+ActiveRecord::Schema.define(version: 20150923223509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -186,10 +186,13 @@ ActiveRecord::Schema.define(version: 20150923191604) do
     t.integer  "profile_id"
     t.string   "profile_type"
     t.uuid     "uuid"
+    t.string   "facebook_uid"
+    t.string   "avatar_url"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["facebook_uid"], name: "index_users_on_facebook_uid", using: :btree
   add_index "users", ["profile_id", "profile_type"], name: "index_users_on_profile_id_and_profile_type", using: :btree
   add_index "users", ["profile_id"], name: "index_users_on_profile_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
