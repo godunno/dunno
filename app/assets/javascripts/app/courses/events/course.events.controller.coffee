@@ -4,19 +4,33 @@ CourseEventsCtrl = (
   pagination,
   AnalyticsTracker,
   Event,
-  DateUtils
+  DateUtils,
+  PageLoading
 ) ->
   angular.extend($scope, DateUtils)
 
-  setEvents = (pagination) ->
-    $scope.events = ($scope.events || []).concat pagination.events
-    $scope.noMoreEvents = pagination.finished
+  $scope.previousMonth = pagination.previousMonth
+  $scope.currentMonth = pagination.currentMonth
+  $scope.nextMonth = pagination.nextMonth
+  $scope.events = pagination.events
 
-  setEvents(pagination)
+  showEventsFor = (event) ->
+    if event._fetched
+      event._showTopics = true
+    else
+      event.course = $scope.course
+      PageLoading.resolve event.get().then (response) ->
+        event._fetched = true
+        event._showTopics = true
 
-  $scope.eventsOffset = $scope.events.length
-  $scope.nextPage = 1
-  $scope.scrollUntil = $stateParams.until
+  hideEventsFor = (event) ->
+    event._showTopics = false
+
+  $scope.toggleTopicsFor = (event, show) ->
+    if show
+      showEventsFor(event)
+    else
+      hideEventsFor(event)
 
   $scope.track = (event) ->
     AnalyticsTracker.eventAccessed(
@@ -24,23 +38,14 @@ CourseEventsCtrl = (
       "Events Tab"
     )
 
-  $scope.paginate = (page) ->
-    params =
-      course_id: $scope.course.uuid,
-      offset: $scope.eventsOffset,
-      page: page
-
-    Event.paginate(params).then (pagination) ->
-      setEvents(pagination)
-      $scope.nextPage = page + 1
-
 CourseEventsCtrl.$inject = [
   '$scope',
   '$stateParams',
   'pagination',
   'AnalyticsTracker',
   'Event',
-  'DateUtils'
+  'DateUtils',
+  'PageLoading'
 ]
 
 angular

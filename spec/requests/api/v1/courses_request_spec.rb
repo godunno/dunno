@@ -128,31 +128,31 @@ describe Api::V1::CoursesController do
               "user_role" => role,
               "events" => [
                 {
-                  "formatted_status" => 'empty',
+                  "status" => 'draft',
                   "start_at" => first_date.utc.iso8601,
                   "end_at" => (first_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "formatted_status" => 'empty',
+                  "status" => 'draft',
                   "start_at" => second_date.utc.iso8601,
                   "end_at" => (second_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "formatted_status" => 'empty',
+                  "status" => 'draft',
                   "start_at" => third_date.utc.iso8601,
                   "end_at" => (third_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "formatted_status" => 'empty',
+                  "status" => 'draft',
                   "start_at" => fourth_date.utc.iso8601,
                   "end_at" => (fourth_date + 2.hours).utc.iso8601,
                   "classroom" => nil
                 },
                 {
-                  "formatted_status" => 'empty',
+                  "status" => 'draft',
                   "start_at" => fifth_date.utc.iso8601,
                   "end_at" => (fifth_date + 2.hours).utc.iso8601,
                   "classroom" => nil

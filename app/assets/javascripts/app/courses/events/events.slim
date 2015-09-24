@@ -1,4 +1,21 @@
 .lessons
+  .calendar__wrapper
+    .calendar__header
+      .calendar__navigation
+        a.calendar__navigation__next[
+          ui-sref="{month: previousMonth}"
+          ui-sref-opts="{reload:true}"]
+          i.icon.icon-chevron-left>
+          span
+            | {{previousMonth | amDateFormat:'MMM/YY'}}
+        .calendar__navigation__current
+          | {{currentMonth | amDateFormat:'MMMM/YY'}}
+        a.calendar__navigation__next[
+          ui-sref="{month: nextMonth}"
+          ui-sref-opts="{reload:true}"]
+          span
+            | {{nextMonth | amDateFormat:'MMM/YY'}}
+          i.icon.icon-chevron-right<
   .lessons__blankslate ng-if="!events.length"
     p
       | Nenhuma aula criada.
@@ -7,9 +24,7 @@
       | Para adicionar novos horários de aula acesse o
       a< ui-sref="^.calendar.schedule"
         | Cronograma Semanal
-  .lesson[
-    ng-repeat="event in events"
-    scroll-to-when="scrollUntil == event.start_at"]
+  .lesson ng-repeat="event in events"
     .lesson__header
       span.lesson__info
         span.lesson__date__weekday
@@ -26,7 +41,11 @@
           ng-click="track(event)"
           ui-sref="^.event({ startAt: event.start_at })"]
           | abrir no diário
-    .lesson__content class="event__status__{{event.status}}"
+      a.get__topics ng-click="toggleTopicsFor(event, !event._showTopics)"
+        | Tópicos >
+    .lesson__content[
+      ng-show="event._showTopics"
+      class="event__status__{{event.status}}"]
       .lesson__empty ng-if="event.topics.length == 0"
         p
           | Nenhum conteúdo disponível para esse dia.
@@ -47,8 +66,3 @@
           | {{topic.description}}
         span.topic__item__description ng-if="!topic.media"
           | {{topic.description}}
-.lesson__load__more
-  a[
-    ng-click="paginate(nextPage)"
-    ng-hide="noMoreEvents"]
-    | Carregar mais…
