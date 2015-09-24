@@ -26,18 +26,12 @@
   }
 
   .message__error {
-    border-radius: 0 0 $global-radius $global-radius;
-    display: block;
-    margin-bottom: 1rem;
-    margin-top: -1.0625rem;
-    padding: .5rem 0;
-    text-align: center;
+    margin-top: -.5rem;
   }
 
   .ng-invalid.ng-dirty,
   .ng-invalid.ng-dirty:focus {
     border-color: $red-color;
-    border-radius: $global-radius $global-radius 0 0;
   }
 }
 

@@ -11,10 +11,10 @@
   'app/base/typography';
 
 @import
-  'vendors/icons',
-  'vendors/loading';
+  'vendors/icons';
 
 @import
+  'app/components/app-loading',
   'app/components/avatar',
   'app/components/badge',
   'app/components/buttons',
@@ -28,10 +28,11 @@
   'app/components/messages',
   'app/components/open-actions',
   'app/components/page-header',
+  'app/components/page-loading',
   'app/components/page-title',
-  'app/components/prebootstrap-loading',
   'app/components/preview',
   'app/components/progress',
+  'app/components/submit-loading',
   'app/components/summary-tasks',
   'app/components/topic-form',
   'app/components/topics';

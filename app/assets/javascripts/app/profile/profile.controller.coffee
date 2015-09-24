@@ -11,7 +11,7 @@ ProfileCtrl = ($scope, $http, SessionManager, ErrorParser) ->
     $scope.success = false
 
   $scope.update = (user) ->
-    $http.patch("/api/v1/users", user: user).then(success, failure)
+    $scope.submitting = $http.patch("/api/v1/users", user: user).then(success, failure)
 
 ProfileCtrl.$inject = ['$scope', '$http', 'SessionManager', 'ErrorParser']
 

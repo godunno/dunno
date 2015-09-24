@@ -15,7 +15,7 @@ TopicAttributesCtrl = ($scope, Topic) ->
   $scope.addTopic = (e, topic) ->
     $scope.topic.event = $scope.event
     $scope.topic.personal = $scope.defaultTopicProperties.personal
-    new Topic($scope.topic).create().then (topic) ->
+    $scope.submitting = new Topic($scope.topic).create().then (topic) ->
       $scope.$emit('createdTopic', topic)
       reset()
 

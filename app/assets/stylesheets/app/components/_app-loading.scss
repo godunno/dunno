@@ -1,4 +1,4 @@
-.prebootstrap-loading {
+.app__loading {
   background: $dunno-dark-color;
   height: 100vh;
   left: 0;
@@ -15,7 +15,7 @@
 
   .spinner {
     @include spinner(
-      $diameter: 50px,
+      $diameter: 3.125rem,
       $color: transparentize($white, .7)
     );
   }

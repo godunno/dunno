@@ -205,7 +205,7 @@
             .type.type__url[
               ng-show="topicType == 'url'"
               ng-controller="NewUrlMediaCtrl"
-              cg-busy="submittingMediaPromise"]
+              cg-busy="submitting"]
               form[
                 name="urlMediaForm"
                 ng-show="!media"
@@ -312,7 +312,7 @@
               ng-class="{done: topic.done, personal: topic.personal}"
               ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
               ng-hide="topic.personal && !showPrivateTopics"]
-              .topic__wrapper ng-show="!isEditing(topic)"
+              .topic__wrapper ng-show="!isEditing()"
                 .handle.topic__handle as-sortable-item-handle=true
                   i.icon.icon-handle
                 .topic__status
@@ -376,26 +376,26 @@
                           title="Mover conteúdo para próxima aula"]
                           i.icon.icon-transfer>
                           | Mover para próxima aula
-              .topic__editing ng-show="isEditing(topic)"
+              .topic__editing ng-show="isEditing()"
                 form[
                   name="topicEditForm"
                   ng-submit="finishEditing(topic)"]
                   input.topic__editing[
                     name="description"
-                    focus-on="isEditing(topic)"
+                    focus-on="isEditing()"
                     ng-model="editingTopic.description"
-                    on-success="finishEditing(topic)"
                     required=true
                     type="text"]
                   .edit__topic__actions
                     a.edit__topic__cancel ng-click="cancelEditing(topic)"
                       | Cancelar
                     ng-include src="'#{asset_path('app/lesson-plan/new-topic/edit-personal-topic')}'"
-                    a.save__edit__topic.button.tiny<[
-                      ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
-                      ng-click="finishEditing(topic)"
-                      ng-disabled="topicEditForm.$invalid"]
-                      | Salvar
+                    submit-button.edit__topic__submit[
+                      blocked-when="submitting"
+                      label="Salvar"
+                      blocked-label="Salvando..."
+                      ng-class="{topic__private: editingTopic.personal}"
+                      has-spinner=true]
     .lesson__next__day
       a.lesson__next[
         ng-if="!!event.next.start_at"

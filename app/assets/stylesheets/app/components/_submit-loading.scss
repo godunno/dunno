@@ -1,0 +1,16 @@
+.submit__loading {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  width: 1.25rem;
+
+  .spinner {
+    @include spinner(
+      $diameter: 1rem,
+      $thickness: .1875rem,
+      $color: $white
+    );
+    left: .25rem;
+    top: -.15rem;
+  }
+}

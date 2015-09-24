@@ -31,5 +31,8 @@ form ng-submit="submit(weeklySchedule)"
   input#classroom[
     ng-model="weeklySchedule.classroom"
     type="text"]
-  button.submit type="submit"
-    | {{formButton}}
+  submit-button.submit[
+    blocked-when="submitting"
+    label="{{formButton}}"
+    blocked-label="Salvando..."
+    has-spinner=true]

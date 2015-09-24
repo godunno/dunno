@@ -7,10 +7,10 @@ CourseConfirmRegistrationCtrl = (
   $scope.course = course
 
   $scope.register = (course) ->
-    PageLoading.resolve course.register()
-    .then(track)
-    .then(goToCourses)
-    .catch(handleErrors)
+    $scope.submitting = PageLoading.resolve course.register()
+                        .then(track)
+                        .then(goToCourses)
+                        .catch(handleErrors)
 
   track = (course) ->
     AnalyticsTracker.courseJoined(course)

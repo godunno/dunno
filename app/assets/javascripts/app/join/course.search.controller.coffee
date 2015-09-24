@@ -1,8 +1,8 @@
 CourseSearchCtrl = ($scope, $state, Course, PageLoading) ->
   $scope.search = (accessCode) ->
-    PageLoading.resolve Course.search(accessCode)
-    .then(goToConfirmation(accessCode))
-    .catch(handleErrors)
+    $scope.submitting = PageLoading.resolve Course.search(accessCode)
+                        .then(goToConfirmation(accessCode))
+                        .catch(handleErrors)
 
   goToConfirmation = (accessCode) ->
     $state.go '^.confirm_registration', { id: accessCode }

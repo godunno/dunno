@@ -70,5 +70,8 @@ form[
         placeholder="Fim das aulas"]
       errors for="courseForm.endDate"
 
-  button.submit
-    | {{vm.submitLabel}}
+  submit-button.submit[
+    blocked-when="vm.submitting"
+    label="{{vm.submitLabel}}"
+    blocked-label="Salvando..."
+    has-spinner=true]

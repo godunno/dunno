@@ -10,8 +10,8 @@ NewPasswordRecoveryCtrl = ($http, PageLoading, FoundationApi) ->
       color: 'success'
     @user = {}
 
-  @recoverPassword = (user) ->
-    PageLoading.resolve($http.post("/dashboard/password", user: user))
+  @recoverPassword = (user) =>
+    @submitting = PageLoading.resolve($http.post("/dashboard/password", user: user))
       .finally(completed)
 
   @

@@ -13,8 +13,12 @@
     .label.alert ng-if="error"
       | {{error}}
     course-card
-    button.button ng-click="register(course)"
-      | Confirmo, é essa mesmo!
+    form ng-submit="register(course)"
+      submit-button.button[
+        blocked-when="submitting"
+        label="Confirmo, é essa mesmo!"
+        blocked-label="Registrando..."
+        has-spinner=true]
     p
       | Não é essa.
     a ui-sref="courses.search"

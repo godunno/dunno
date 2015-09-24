@@ -33,7 +33,7 @@
         @extend %menu-bar;
         @include menu-bar-layout(horizontal, false);
         @include menu-bar-style(
-          $background: transparent,
+          $background: $transparent,
           $background-hover: rgba($body-background, .5),
           $background-active: $body-background,
           $color: $dunno-dark-color,
@@ -44,7 +44,7 @@
 
         @include breakpoint(small only) {
           @include menu-bar-style(
-            $background: transparent,
+            $background: $transparent,
             $background-hover: $white,
             $background-active: $white,
             $color: $dunno-dark-color,

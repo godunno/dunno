@@ -3,7 +3,7 @@
 }
 
 .off-canvas ~ .root {
-  background: transparent;
+  background: $transparent;
 }
 
 .content {
@@ -38,7 +38,7 @@ small {
         $color: $white,
         $color-hover: $white,
         $color-disabled: $white,
-        $background: transparent,
+        $background: $transparent,
         $background-hover: rgba($white, .2),
         $border: .0625rem solid rgba($white, .4),
         $padding: 1rem

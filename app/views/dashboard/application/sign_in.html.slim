@@ -48,10 +48,12 @@ ruby:
           validate=true
           type="password"]
         errors for="signInForm.password"
-        button.submit[
-          tabindex=3
-          type="submit"]
-          | Acessar
+        submit-button.submit[
+          blocked-when="submitting"
+          label="Acessar"
+          blocked-label="Autenticando..."
+          tabindex="3"
+          has-spinner=true]
       .signup.text-center
         | Ainda não está no Dunno? #{link_to "Crie sua conta", new_registration_path, tabindex: 6}.
     = render "application/login_links"
