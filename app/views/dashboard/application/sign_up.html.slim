@@ -5,11 +5,13 @@ ruby:
     .root__proxy
       = link_to root_path, tabindex: 6 do
         = image_tag "site/logo.png", class: :logo
-    = link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
     form#sign_up.form__box[
       name="signUpForm"
       ng-submit="signUpForm.$valid && sign_up(user)"
       novalidate=""]
+
+      login-with-facebook
+
       h4
         | Criar minha conta
       p.required__fields
