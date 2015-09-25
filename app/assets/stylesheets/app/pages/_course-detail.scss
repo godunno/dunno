@@ -79,6 +79,12 @@
       }
     }
 
+    &__details {
+      @include breakpoint(small only) {
+        display: none;
+      }
+    }
+
     &__dates {
       text-transform: uppercase;
     }
