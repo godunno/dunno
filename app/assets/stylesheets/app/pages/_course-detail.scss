@@ -94,6 +94,12 @@
       padding: 0 1rem;
     }
 
+    &__info {
+      @include breakpoint(small only) {
+        margin: 0 auto;
+      }
+    }
+
     &__actions {
       @include grid-block();
       @include grid-orient(vertical);
