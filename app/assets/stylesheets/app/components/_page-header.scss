@@ -15,7 +15,7 @@
     padding: 0;
 
     @include breakpoint(small only) {
-      text-align: center;
+      display: none;
     }
   }
 }

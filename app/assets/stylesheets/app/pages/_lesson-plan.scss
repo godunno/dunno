@@ -39,6 +39,10 @@
       text-align: center;
       text-transform: uppercase;
 
+      @include breakpoint(small only) {
+        margin-top: 0;
+      }
+
       &:hover {
         opacity: .66;
       }
@@ -51,6 +55,7 @@
         color: $dark-grey-color;
         display: block;
         font-size: rem-calc(12);
+        white-space: nowrap;
       }
 
       .icon {
@@ -265,10 +270,7 @@
 
       .page__header__title {
         @include breakpoint(small only) {
-          flex-basis: 100%;
-          height: auto;
-          margin: 0 0 1rem;
-          position: static;
+          display: none;
         }
       }
     }

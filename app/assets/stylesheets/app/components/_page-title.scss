@@ -6,6 +6,11 @@
 
   @include breakpoint(small only) {
     padding: 0;
+
+    .course__join &,
+    .course__confirm & {
+      display: none;
+    }
   }
 
   &__wrapper {
@@ -22,7 +27,7 @@
     font-weight: $font-weight-normal;
 
     @include breakpoint(small only) {
-      text-align: center;
+      display: none;
     }
   }
 
