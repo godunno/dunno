@@ -1,68 +1,87 @@
 .lessons
-  .calendar__wrapper
-    .calendar__header
-      .calendar__navigation
-        a.calendar__navigation__next[
-          ui-sref="{month: previousMonth}"
-          ui-sref-opts="{reload:true}"]
-          i.icon.icon-chevron-left>
-          span
-            | {{previousMonth | amDateFormat:'MMM/YY'}}
-        .calendar__navigation__current
-          | {{currentMonth | amDateFormat:'MMMM/YY'}}
-        a.calendar__navigation__next[
-          ui-sref="{month: nextMonth}"
-          ui-sref-opts="{reload:true}"]
-          span
-            | {{nextMonth | amDateFormat:'MMM/YY'}}
-          i.icon.icon-chevron-right<
   .lessons__blankslate ng-if="!events.length"
     p
       | Nenhuma aula criada.
       span.sad
-    .lessons__schedule if-teacher=true
+    .lessons__schedule if-teacher="true"
       | Para adicionar novos horários de aula acesse o
       a< ui-sref="^.calendar.schedule"
-        | Cronograma Semanal
-  .lesson ng-repeat="event in events"
-    .lesson__header
-      span.lesson__info
-        span.lesson__date__weekday
-          | {{event.start_at | amDateFormat:'ddd, DD/MMM/YY'}}
-        small.lesson__time
-          i.icon.icon-clock
-          | {{event.start_at | amDateFormat: 'HH:mm'}}–{{event.end_at | amDateFormat: 'HH:mm'}}
-        span.lesson__classroom ng-show="event.classroom"
-          | Sala: {{event.classroom}}
+        | Cronograma
+      | .
+  .lessons__navigation ng-if="events.length"
+    .lessons__navigation__previous
+      a[
+        ui-sref="{month: previousMonth}"
+        ui-sref-opts="{reload:true}"]
+        i.icon.icon-chevron-left>
+        span
+          | {{previousMonth | amDateFormat:'MMM/YY'}}
+    .lessons__navigation__current
+      span
+        | {{currentMonth | amDateFormat:'MMM/YY'}}
+    .lessons__navigation__next
+      a[
+        ui-sref="{month: nextMonth}"
+        ui-sref-opts="{reload:true}"]
+        span
+          | {{nextMonth | amDateFormat:'MMM/YY'}}
+        i.icon.icon-chevron-right<
+  .lessons__list
+    .lesson ng-repeat="event in events"
       aside
-        event-status.date__status event="event" role="course.user_role"
-        a.button.event__edit[
-          if-teacher=true
-          ng-click="track(event)"
-          ui-sref="^.event({ startAt: event.start_at })"]
-          | abrir no diário
-      a.get__topics ng-click="toggleTopicsFor(event, !event._showTopics)"
-        | Tópicos >
-    .lesson__content[
-      ng-show="event._showTopics"
-      class="event__status__{{event.status}}"]
-      .lesson__empty ng-if="event.topics.length == 0"
-        p
-          | Nenhum conteúdo disponível para esse dia.
-      .lesson__item[
-        ng-repeat="topic in event.topics"
-        ng-if="topic.personal != true"]
-        img.topic__item__image ng-if="!!topic.media" ng-src="{{topic.media.thumbnail}}"
-        a.topic__item__description[
-          ng-if="!!topic.media"
-          ng-href="{{topic.media.url}}"
-          target="_blank"
-          analytics-on="click"
-          analytics-event="Media Clicked"
-          analytics-uuid="{{media.uuid}}"
-          analytics-event-uuid="{{event.uuid}}"
-          analytics-course-name="{{event.course.name}}"
-          analytics-course-uuid="{{event.course.uuid}}"]
-          | {{topic.description}}
-        span.topic__item__description ng-if="!topic.media"
-          | {{topic.description}}
+        .lesson__date
+          .lesson__weekday
+            | {{event.start_at | amDateFormat:'ddd'}}
+          .lesson__day
+            | {{event.start_at | amDateFormat:'DD'}}
+        event-status.lesson__status.date__status[
+          event="event"
+          role="course.user_role"]
+      section
+        .lesson__header
+          .lesson__info
+            .lesson__time
+              i.icon.icon-clock
+              b
+                | {{event.start_at | amDateFormat: 'HH:mm'}} – {{event.end_at | amDateFormat: 'HH:mm'}}
+            .lesson__classroom ng-show="event.classroom"
+              i.icon.icon-radio-checked
+              b
+                | {{event.classroom}}
+          .lesson__actions
+            a.lesson__edit[
+              if-teacher=true
+              ng-click="track(event)"
+              ui-sref="^.event({ startAt: event.start_at })"]
+              | abrir no diário
+        a.lesson__content__toggle ng-click="toggleTopicsFor(event, !event._showTopics)"
+          span ng-show="!event._showTopics"
+            | Exibir conteúdo
+            i.icon.icon-chevron-down<
+          span ng-show="event._showTopics"
+            | Ocultar conteúdo
+            i.icon.icon-chevron-up<
+        .lesson__content[
+          ng-show="event._showTopics"
+          class="event__status__{{event.status}}"]
+          .lesson__item.lesson__empty ng-if="event.topics.length == 0"
+            | Nenhum conteúdo disponível para esse dia.
+          .lesson__item[
+            ng-repeat="topic in event.topics"
+            ng-if="topic.personal != true"]
+            img.lesson__item__image[
+              ng-if="!!topic.media"
+              ng-src="{{topic.media.thumbnail}}"]
+            a.lesson__item__description[
+              ng-if="!!topic.media"
+              ng-href="{{topic.media.url}}"
+              target="_blank"
+              analytics-on="click"
+              analytics-event="Media Clicked"
+              analytics-uuid="{{media.uuid}}"
+              analytics-event-uuid="{{event.uuid}}"
+              analytics-course-name="{{event.course.name}}"
+              analytics-course-uuid="{{event.course.uuid}}"]
+              | {{topic.description}}
+            span.lesson__item__description ng-if="!topic.media"
+              | {{topic.description}}
