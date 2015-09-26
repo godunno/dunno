@@ -1,11 +1,5 @@
-a[
-  ng-attr-id="{{ 'course-' + course.uuid }}"
-  ui-sref="courses.show.calendar({ courseId: course.uuid })"
-  analytics-on="click"
-  analytics-event="Course Accessed"
-  analytics-name="{{course.name}}"
-  analytics-current-page="{{currentPage}}"
-  analytics-uuid="{{course.uuid}}"
-  analytics-teacher-name="{{course.teacher.name}}"
-  analytics-user-role="{{course.user_role}}"]
+a.course__link[
+  ng-attr-id="{{ 'course-' + vm.course.uuid }}"
+  ng-click="vm.track()"
+  ui-sref="courses.show.calendar({ courseId: vm.course.uuid })"]
     ng-transclude

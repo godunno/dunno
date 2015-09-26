@@ -1,5 +1,4 @@
 module HasFile
-  # TODO: Tests
   extend ActiveSupport::Concern
 
   included do

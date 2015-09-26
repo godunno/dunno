@@ -1,0 +1,9 @@
+.course__confirm {
+  @include grid-block();
+  @include grid-orient(vertical);
+
+  &__content {
+    @include grid-container();
+    text-align: center;
+  }
+}

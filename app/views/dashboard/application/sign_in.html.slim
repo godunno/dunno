@@ -1,73 +1,59 @@
 ruby:
   @title = 'Acessar minha conta no Dunno'
-.session__page[
-  ng-controller="SignInCtrl"
-  ng-model-options="{ updateOn: 'blur' }"]
-  .row.small-collapse
-    .small-12.medium-6.large-5.medium-centered.columns
-      .root__proxy
-        = link_to root_path, tabindex: 4 do
-          = image_tag "site/logo.png", class: :logo
-      form#sign_in.form__box[
-        name="user_form"
-        ng-submit="sign_in(user)"
-        novalidate=""]
-        h4
-          | Acessar minha conta
-        div[
-          ng-show="authentication_failed"
-          ng-cloak=""]
-          p.session__error
-            | A combinação de email e senha não confere.
-            br
-            | Confira seus dados e tente novamente.
-          p.session__amnesia
-            = link_to "Esqueceu sua senha?", new_dashboard_password_path
-        .session__email
-          label for="email"
-            small
-              | Email
-            span.required<
-              | *
-          input#email[
-            name="email"
-            ng-model="user.email"
-            ng-focus="user_form.email.$setPristine()"
-            ng-blur="user_form.email.$setDirty()"
-            type="email"
-            autofocus=""
-            tabindex=1
-            required=true]
-          div ng-show="user_form.email.$dirty && user_form.email.$invalid" ng-cloak=""
-            span.error ng-show="user_form.email.$error.required"
-              | Você precisa informar seu email.
-            span.error ng-show="user_form.email.$error.email"
-              | O email informado é inválido.
-        .session__password
-          = link_to "Esqueci minha senha", new_dashboard_password_path, class: 'password__recovery', tabindex: 6
-          label for="password"
-            small
-              | Senha
-            span.required<
-              | *
-          input#password[
-            name="password"
-            ng-model="user.password"
-            ng-focus="user_form.password.$setPristine()"
-            ng-blur="user_form.password.$setDirty()"
-            type="password"
-            tabindex=2
-            required=true]
-          div[
-            ng-show="user_form.password.$dirty && user_form.password.$invalid"
-            ng-cloak=""]
-            span.error ng-show="user_form.password.$error.required"
-              | Você precisa informar sua senha.
-        .session__submit
-          button.button.expand.large[
-            tabindex=3
-            type="submit"]
-            | Acessar
-        .signup.text-center
-          | Ainda não está no Dunno? #{link_to "Crie sua conta", new_registration_path, tabindex: 6}.
-      = render "application/login_links"
+.session__page ng-controller="SignInCtrl"
+  .form__wrapper
+    .root__proxy
+      = link_to root_path, tabindex: 4 do
+        = image_tag "site/logo.png", class: :logo
+    form#sign_in.form__box[
+      name="signInForm"
+      ng-submit="signInForm.$valid && sign_in(user)"
+      novalidate=""]
+      h4
+        | Acessar minha conta
+      .session__error[
+        ng-show="authentication_failed"
+        ng-cloak=""]
+        p
+          | A combinação de email e senha não confere.
+          br
+          | Confira seus dados e tente novamente.
+        p.session__amnesia
+          = link_to "Esqueceu sua senha?", new_dashboard_password_path
+      .session__email
+        label for="email"
+          | Email
+          span.required<
+            | *
+        input#email[
+          name="email"
+          ng-model="user.email"
+          autofocus=""
+          tabindex=1
+          required=true
+          validate=true
+          type="email"]
+        errors for="signInForm.email"
+      .session__password
+        = link_to "Esqueci minha senha", new_dashboard_password_path, class: 'password__recovery', tabindex: 6
+        label for="password"
+          | Senha
+          span.required<
+            | *
+        input#password[
+          name="password"
+          ng-model="user.password"
+          required=true
+          tabindex=2
+          validate=true
+          type="password"]
+        errors for="signInForm.password"
+        submit-button.submit[
+          blocked-when="submitting"
+          label="Acessar"
+          blocked-label="Autenticando..."
+          tabindex="3"
+          has-spinner=true]
+      .signup.text-center
+        | Ainda não está no Dunno? #{link_to "Crie sua conta", new_registration_path, tabindex: 6}.
+    = render "application/login_links"

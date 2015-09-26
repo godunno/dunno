@@ -1,0 +1,145 @@
+.calendar {
+  @include grid-container();
+
+  &__wrapper {
+    @extend %content__box;
+  }
+
+  .schedule {
+    padding-bottom: 1rem;
+    text-align: center;
+
+    @include breakpoint(small only) {
+      background: $white;
+      border-bottom: $divider;
+      padding: 2rem 0;
+    }
+
+    &__close,
+    &__go,
+    &__add__new {
+      @extend %button;
+      @include button-style(
+        $background: $dunno-green-color,
+        $background-hover: auto,
+        $color: $white,
+        $style: solid
+      );
+    }
+
+    &__add__new {
+      @include button-size(
+        $size: small,
+        $expand: false
+      );
+    }
+  }
+
+  &__header {
+    border-bottom: $divider;
+    font-size: .875em;
+    text-transform: uppercase;
+
+  }
+
+  &__navigation {
+    display: flex;
+    padding: .25rem;
+    text-align: center;
+    white-space: nowrap;
+
+    &__current {
+      flex: 1;
+      font-weight: $font-weight-bold;
+      margin: .5rem 1.5rem;
+    }
+
+    &__next,
+    &__previous {
+      @extend %transparent__button;
+      white-space: nowrap;
+
+      .icon {
+        vertical-align: middle;
+      }
+    }
+  }
+
+
+  .calendar__dates {
+    .empty__results {
+      color: $medium-grey-color;
+      padding: 1rem 0;
+      text-align: center;
+    }
+  }
+
+  .calendar__date {
+    &:last-child {
+      .calendar__date__link {
+        border-bottom: 0;
+        border-radius: 0 0 $global-radius $global-radius;
+      }
+    }
+  }
+
+  .calendar__date__link {
+    background-color: $white;
+    border-bottom: $divider;
+    color: $dunno-dark-color;
+    display: flex;
+    padding: 1rem;
+    white-space: nowrap;
+
+    @include breakpoint(small only) {
+      line-height: 1.5rem;
+    }
+
+    &.past {
+      background-color: lighten($light-grey-color, 20%);
+    }
+
+    &.today {
+      background-color: $yellow-color;
+    }
+
+    &:hover {
+      background-color: darken($white, 4%);
+    }
+
+    .date__day {
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .date__today {
+      margin-right: .5rem;
+    }
+
+    .date__time {
+      color: $medium-grey-color;
+    }
+
+    .date__classroom {
+      color: $dunno-dark-color;
+      display: block;
+    }
+
+    .date__info,
+    .date__status {
+      padding-left: .5rem;
+      padding-right: .5rem;
+
+      @include breakpoint(small only) {
+        padding-left: .25rem;
+        padding-right: .25rem;
+      }
+    }
+
+    .date__status {
+      @include breakpoint(small only) {
+        margin-left: auto;
+      }
+    }
+  }
+}

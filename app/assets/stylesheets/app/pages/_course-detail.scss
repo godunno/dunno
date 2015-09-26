@@ -1,0 +1,140 @@
+.course__detail__page {
+  @include grid-content();
+  @include grid-nest(true);
+
+  .course {
+    &__header {
+      @include breakpoint(small only) {
+        margin-bottom: 0;
+      }
+
+      &__wrapper {
+        @include grid-block();
+        @include grid-container();
+        @include grid-wrap(true);
+        padding: 1rem 0 0;
+
+        @include breakpoint(small only) {
+          text-align: center;
+        }
+      }
+    }
+
+    &__navigation {
+      align-self: flex-end;
+      flex-basis: 100%;
+      padding-top: 1rem;
+
+      @include breakpoint(small only) {
+        align-self: center;
+      }
+
+      ul {
+        @extend %menu-bar;
+        @include menu-bar-layout(horizontal, false);
+        @include menu-bar-style(
+          $background: $transparent,
+          $background-hover: rgba($body-background, .5),
+          $background-active: $body-background,
+          $color: $dunno-dark-color,
+          $color-hover: $dunno-dark-color,
+          $color-active: $dunno-dark-color,
+          $autocolor: false
+        );
+
+        @include breakpoint(small only) {
+          @include menu-bar-style(
+            $background: $transparent,
+            $background-hover: $white,
+            $background-active: $white,
+            $color: $dunno-dark-color,
+            $color-hover: $dunno-dark-color,
+            $color-active: $dunno-dark-color,
+            $autocolor: false
+          );
+
+          > li {
+            margin: 0 .5rem 0 0;
+          }
+
+          .is-active a:hover {
+            background-color: $white;
+          }
+        }
+
+        @include breakpoint(medium up) {
+          .is-active a:hover {
+            background-color: $body-background;
+          }
+
+          > li {
+            margin: 0 1rem 0 0;
+
+          }
+        }
+
+        a {
+          border-radius: $global-radius $global-radius 0 0;
+        }
+      }
+    }
+
+    &__details {
+      @include breakpoint(small only) {
+        display: none;
+      }
+    }
+
+    &__dates {
+      text-transform: uppercase;
+    }
+
+    &__info,
+    &__actions {
+      padding: 0 1rem;
+    }
+
+    &__info {
+      @include breakpoint(small only) {
+        margin: 0 auto;
+      }
+    }
+
+    &__actions {
+      @include grid-block();
+      @include grid-orient(vertical);
+      align-items: flex-end;
+
+      @include breakpoint(small only) {
+        align-items: center;
+      }
+    }
+
+    &__edit {
+      margin-bottom: .5rem;
+
+      .icon-cog {
+        color: $dunno-dark-color;
+        font-size: 1.25rem;
+        vertical-align: middle;
+
+        &:hover {
+          opacity: .5;
+        }
+      }
+    }
+
+    &__notify__members {
+      @extend %darkhollow__button;
+    }
+
+    &__content {
+      @include grid-content();
+      padding: 1rem 0;
+
+      @include breakpoint(small only) {
+        padding: 0;
+      }
+    }
+  }
+}

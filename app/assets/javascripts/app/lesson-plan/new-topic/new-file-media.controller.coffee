@@ -1,7 +1,4 @@
 NewFileMediaCtrl = ($scope, Media) ->
-  $scope.$on 'newTopic', ($event, topicType) ->
-    $scope.$broadcast 'saveTopic' if topicType == 'file'
-
   reset = ->
     $scope.$broadcast("file.clean")
     $scope.status = 'newMedia'
@@ -29,8 +26,6 @@ NewFileMediaCtrl = ($scope, Media) ->
   $scope.submitFileMedia = ($files) ->
     $scope.$broadcast("progress.start")
     $scope.status = 'submittingMedia'
-    # TODO: Find out why the line bellow doesn't work
-    # new Media(file: $files[0]).upload()
     media = new Media()
     media.file = $files[0]
     media.upload()

@@ -1,0 +1,21 @@
+angular
+  .module 'app.core', [
+    'ngResource',
+    'rails',
+    'ngMessages',
+    'ngAnimate',
+    'as.sortable',
+    'angular.filter',
+    'angularFileUpload',
+    'angularMoment',
+    'angulartics',
+    'angulartics.google.analytics',
+    'angulartics.intercom',
+    'angulartics.mixpanel',
+    'cgBusy',
+    'datePicker',
+    'foundation',
+    'ui.router',
+    'ui.router.title',
+    'ui.timepicker',
+    'pascalprecht.translate']

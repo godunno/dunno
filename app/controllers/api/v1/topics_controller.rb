@@ -19,7 +19,6 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
     render nothing: true
   end
 
-  # TODO: Transfer as the first topic
   def transfer
     authorize topic.event, :update?
     service = TransferTopic.new(topic)

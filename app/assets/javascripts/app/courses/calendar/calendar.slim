@@ -1,23 +1,20 @@
 .calendar ui-view=true
-  .dates__programme if-teacher=true
-    a.button.small ui-sref=".schedule"
-      strong
-        | Cronograma Semanal
-  .content__box
+  .schedule if-teacher=true
+    a.schedule__go ui-sref=".schedule"
+      | Cronograma Semanal
+  .calendar__wrapper
     .calendar__header
-      .dates__header__navigation
-        .dates__header__previous-month
-          a.button.transparent.secondary.small ui-sref="{month: course.previous_month}"
-            i.icon.icon-chevron-left
-            span<
-              | {{course.previous_month | amDateFormat:'MMM'}}
-        .dates__header__current-month
-          | {{course.current_month | amDateFormat:'MMMM'}}
-        .dates__header__next-month
-          a.button.transparent.secondary.small ui-sref="{month: course.next_month}"
-            span>
-              | {{course.next_month | amDateFormat:'MMM'}}
-            i.icon.icon-chevron-right
+      .calendar__navigation
+        a.calendar__navigation__next ui-sref="{month: course.previous_month}"
+          i.icon.icon-chevron-left>
+          span
+            | {{course.previous_month | amDateFormat:'MMM/YY'}}
+        .calendar__navigation__current
+          | {{course.current_month | amDateFormat:'MMMM/YY'}}
+        a.calendar__navigation__next ui-sref="{month: course.next_month}"
+          span
+            | {{course.next_month | amDateFormat:'MMM/YY'}}
+          i.icon.icon-chevron-right<
     .calendar__dates
       .empty__results.calendar__date ng-if="!course.events || course.events.length == 0"
         | Até o momento nenhuma aula foi criada neste mês.
@@ -25,13 +22,7 @@
         a.calendar__date__link[
           ng-attr-id="{{'event-' + event.uuid}}"
           ng-click="goToEvent(event)"
-          ng-class="locationInTime(event.start_at)"
-          analytics-on="click"
-          analytics-event="Event Accessed via Course"
-          analytics-uuid="{{event.uuid}}"
-          analytics-course-uuid="{{course.uuid}}"
-          analytics-course-name="{{course.name}}"
-          analytics-start-at="{{event.start_at}}"]
+          ng-class="locationInTime(event.start_at)"]
           span.date__info
             span.date__day
               strong.date__today> ng-if="isToday(event.start_at)"

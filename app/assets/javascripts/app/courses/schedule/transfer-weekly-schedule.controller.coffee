@@ -1,7 +1,8 @@
 TransferWeeklyScheduleCtrl = (
   $scope,
   $state,
-  $modalInstance,
+  modalInstance,
+  AnalyticsTracker,
   TimeGetterSetter,
   PageLoading,
   weeklySchedule) ->
@@ -20,7 +21,6 @@ TransferWeeklyScheduleCtrl = (
     'end_time'
   )
 
-  # TODO: Extract to a service
   addHour = (time) ->
     moment(time).add(1, 'hour').toDate()
 
@@ -29,19 +29,19 @@ TransferWeeklyScheduleCtrl = (
 
   $scope.$watch('startTime()', setEndTimeDuration, true)
 
-  success = (affected_events) ->
-    $modalInstance.close()
+  success = ->
+    modalInstance.destroy()
+    AnalyticsTracker.scheduleEdited($scope.weeklySchedule)
     $state.go('.', null, reload: true)
 
   $scope.submit = (weeklySchedule) ->
-    PageLoading.resolve weeklySchedule.transfer().then(success)
-
-  $scope.close = -> $modalInstance.close()
+    $scope.submitting = PageLoading.resolve weeklySchedule.transfer().then(success)
 
 TransferWeeklyScheduleCtrl.$inject = [
   '$scope',
   '$state',
-  '$modalInstance',
+  'modalInstance',
+  'AnalyticsTracker',
   'TimeGetterSetter',
   'PageLoading',
   'weeklySchedule'

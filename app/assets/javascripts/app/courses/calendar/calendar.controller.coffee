@@ -1,6 +1,7 @@
 CalendarCtrl = (
   $scope,
   $state,
+  AnalyticsTracker,
   DateUtils,
   course
 ) ->
@@ -9,6 +10,10 @@ CalendarCtrl = (
   $scope.course = course
 
   $scope.goToEvent = (event) ->
+    AnalyticsTracker.eventAccessed(
+      angular.extend({}, event, course: $scope.course),
+      "Calendar Tab"
+    )
     if $scope.course.user_role == 'teacher'
       $state.go('^.event', { startAt: event.start_at })
     else
@@ -17,6 +22,7 @@ CalendarCtrl = (
 CalendarCtrl.$inject = [
   '$scope',
   '$state',
+  'AnalyticsTracker',
   'DateUtils',
   'course'
 ]

@@ -1,5 +1,5 @@
 LineLength:
-  Max: 160
+  Max: 100
 
 Encoding:
   Enabled: false
@@ -28,7 +28,11 @@ Style/IndentHash:
 Style/LambdaCall:
   Enabled: false
 
+Style/DotPosition:
+  EnforcedStyle: leading
+
 AllCops:
   Exclude:
     - "bin/**/*"
     - "db/**/*"
+    - "vendor/**/*"

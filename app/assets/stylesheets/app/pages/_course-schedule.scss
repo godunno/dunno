@@ -1,0 +1,127 @@
+.schedule {
+  @include breakpoint(small only) {
+    background: $white;
+  }
+
+  &__close {
+    margin: 1rem 0;
+
+    .icon {
+      vertical-align: middle;
+    }
+  }
+
+  &__header {
+    padding: 2rem 0 0;
+
+    @include breakpoint(small only) {
+      padding: 1rem 0 0;
+    }
+
+    h4 {
+      text-transform: uppercase;
+    }
+  }
+
+  .content__box {
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+
+  .weekly__schedules {
+    &__empty {
+      margin: 0;
+      opacity: .5;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    &__preheader {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0;
+
+      h6 {
+        font-weight: $font-weight-bold;
+        margin-top: .5rem;
+      }
+
+      .add__schedule__time {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .weekly__schedule {
+    align-items: center;
+    border-top: $divider;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+
+    &__day {
+      flex: 1;
+      text-align: left;
+    }
+
+    &__weekday {
+      display: block;
+      text-transform: uppercase;
+    }
+
+    &__info {
+      display: block;
+
+      .icon {
+        vertical-align: middle;
+      }
+    }
+
+    &__time {
+      color: $medium-grey-color;
+    }
+
+    &__classroom {
+      display: block;
+    }
+
+    &__actions {
+      .button {
+        margin-bottom: 0;
+
+        .icon {
+          font-size: .6rem;
+        }
+      }
+    }
+  }
+
+  &__duration {
+    @include grid-block();
+    overflow: visible;
+
+    span {
+      align-self: center;
+      margin: 0 1rem;
+    }
+  }
+
+  &__start__time,
+  &__end__time {
+    flex: 1;
+    position: relative;
+  }
+
+
+  &__preview {
+    background: $body-background;
+    border-radius: $global-radius;
+    color: $dunno-dark-color;
+    padding: 1rem;
+  }
+}
+
+.weekday__select {
+  text-transform: capitalize;
+}

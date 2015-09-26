@@ -1,0 +1,28 @@
+body {
+  &.f-topbar-fixed {
+    padding-top: 0 !important; // scss-lint:disable ImportantRule
+  }
+}
+
+.sticky {
+  position: static;
+  top: -4rem;
+
+  .top-bar {
+    min-height: 4rem;
+  }
+
+  &.fixed {
+    position: fixed;
+    top: 0;
+    transition: top .3s ease-in-out;
+  }
+
+  @media #{$medium-up} {
+    &:not(.fixed) {
+      .top-bar {
+        padding: rem-calc(66) rem-calc(44) 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+.members {
+  @include grid-container();
+
+  &__blankslate {
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  &__invite {
+    text-align: center;
+
+    a {
+      @extend %button;
+    }
+
+    span {
+      display: block;
+    }
+
+    .access__code {
+      display: block;
+      font-family: $font-family-monospace;
+      font-size: 1.75rem;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__content {
+    @extend %content__box;
+    padding: 2rem 1rem;
+  }
+
+  &__count {
+    @extend %badge;
+    @include badge-layout(
+      $fontsize: 1rem,
+      $diameter: .25em
+    );
+    @include badge-style(
+      $background: $white,
+      $color: $dunno-dark-color
+    );
+    border: $divider;
+  }
+
+  &__group {
+    margin-top: 2.5rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  &__header {
+    border-bottom: $divider;
+    margin-bottom: 1rem;
+    padding: .5rem 0;
+  }
+
+  &__role__name {
+    text-transform: uppercase;
+  }
+
+  .member {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+
+    &:after {
+      clear: both;
+      content: ' ';
+      display: block;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 TopicEditCtrl = ($scope, Utils) ->
-  $scope.isEditing = (topic) -> !!topic._editing
+  $scope.isEditing = -> !!$scope._editing
 
   initialize = ->
     $scope.editingTopic = {}
@@ -14,26 +14,24 @@ TopicEditCtrl = ($scope, Utils) ->
 
   $scope.startEditing = (topic) ->
     angular.extend $scope.editingTopic, topic
-    topic._editing = true
+    $scope._editing = true
     $scope.$emit('startEditing')
 
   $scope.finishEditing = (topic) ->
     angular.extend topic, $scope.editingTopic
-    topic._editing = false
-    topic.save().then reset
+    $scope.submitting = topic.save().then ->
+      $scope._editing = false
+      reset()
 
   $scope.cancelEditing = (topic) ->
-    topic._editing = false
+    $scope._editing = false
     reset()
 
-  # TODO: Add to the next event's topics list.
-  # TODO: Loading
   $scope.transferTopic = (topic) ->
-    return unless confirm("Você tem certeza que deseja transferir este conteúdo para a próxima aula?")
+    return unless confirm("Você tem certeza que deseja mover este conteúdo para a próxima aula?")
     topic.transfer().then ->
       $scope.$emit('transferTopic', topic)
 
-  # TODO: Loading
   $scope.removeTopic = (topic) ->
     return unless confirm("Você tem certeza que deseja remover este conteúdo?")
     topic.remove().then ->

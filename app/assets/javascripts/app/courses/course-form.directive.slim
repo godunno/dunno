@@ -1,38 +1,45 @@
-form name="courseForm" ng-submit="vm.save()"
+form[
+  name="courseForm"
+  novalidate=true
+  ng-submit="courseForm.$valid && vm.save()"]
   label for="course__name"
-    small
-      | Nome
+    | Nome da Disciplina
     span.required<
       | *
   input#course__name[
+    name="name"
     ng-model="vm.course.name"
     required=true
+    validate=true
     type="text"]
+  errors for="courseForm.name"
+
   label for="course__class__name"
-    small
-      | Turma
+    | Turma
   input#course__class__name[
     ng-model="vm.course.class_name"
     type="text"]
+
   label for="course__institution"
-    small
-      | Instituição
+    | Instituição
   input#course__institution[
     ng-model="vm.course.institution"
     type="text"]
+
   .course__date
     .course__date__title
       h6
         | Período Letivo
+
     .course__start__date
       label for="course__start__date"
-        small
-          | De
+        | De
         span.required<
           | *
       label.icon__label for="course__start__date"
         i.icon.icon-calendar
       input.start__date#course__start__date[
+        name="startDate"
         ng-model="vm.course.start_date"
         type="datetime"
         date-time=true
@@ -40,23 +47,31 @@ form name="courseForm" ng-submit="vm.save()"
         auto-close="true"
         format="dd/MM/yyyy"
         required=true
+        validate=true
         placeholder="Início das aulas"]
+      errors for="courseForm.startDate"
+
     .course__end__date
       label for="course__end__date"
-        small
-          | Até
+        | Até
       label.icon__label for="course__end__date"
         i.icon.icon-calendar
       a.remove__course__end__date ng-click="vm.removeEndDate()" ng-if="vm.course.end_date"
         i.icon.icon-trash
       input.end__date#course__end__date[
+        name="endDate"
         ng-model="vm.course.end_date"
         type="datetime"
         date-time=true
         min-view="date"
         auto-close="true"
         format="dd/MM/yyyy"
+        validate=true
         placeholder="Fim das aulas"]
-  .text-center
-    button.button.large ng-disabled="courseForm.$invalid"
-      | {{vm.submitLabel}}
+      errors for="courseForm.endDate"
+
+  submit-button.submit[
+    blocked-when="vm.submitting"
+    label="{{vm.submitLabel}}"
+    blocked-label="Salvando..."
+    has-spinner=true]

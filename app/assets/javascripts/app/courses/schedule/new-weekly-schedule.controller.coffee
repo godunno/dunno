@@ -1,9 +1,11 @@
 NewWeeklyScheduleCtrl = (
   $scope,
   $state,
-  $modalInstance,
+  modalInstance,
   $filter,
+  AnalyticsTracker,
   TimeGetterSetter,
+  PageLoading,
   weeklySchedule) ->
 
   $scope.formButton = "Adicionar"
@@ -13,7 +15,6 @@ NewWeeklyScheduleCtrl = (
   $scope.endTime = TimeGetterSetter.generate(weeklySchedule, 'end_time')
   $scope.weeklySchedule.weekday = $scope.startTime().getDay()
 
-  # TODO: Extract to a service
   addHour = (time) ->
     moment(time).add(1, 'hour').toDate()
 
@@ -22,20 +23,22 @@ NewWeeklyScheduleCtrl = (
 
   $scope.$watch('startTime()', setEndTimeDuration, true)
 
+  afterSave = (weeklySchedule) ->
+    modalInstance.destroy()
+    AnalyticsTracker.scheduleCreated(weeklySchedule)
+    $state.go('.', null, reload: true)
 
   $scope.submit = (weeklySchedule) ->
-    $scope.$emit('wholePageLoading', weeklySchedule.save().then ->
-      $modalInstance.close()
-      $state.go('.', null, reload: true)
-    )
-
-  $scope.close = -> $modalInstance.close()
+    $scope.submitting = PageLoading.resolve weeklySchedule.save().then(afterSave)
 
 NewWeeklyScheduleCtrl.$inject = [
   '$scope',
   '$state',
-  '$modalInstance','$filter',
+  'modalInstance',
+  '$filter',
+  'AnalyticsTracker',
   'TimeGetterSetter',
+  'PageLoading',
   'weeklySchedule'
 ]
 

@@ -1,37 +1,36 @@
-.events__tab
-  .event.text-center ng-if="!events.length"
-    .events__empty
+.lessons
+  .lessons__blankslate ng-if="!events.length"
+    p
       | Nenhuma aula criada.
       span.sad
-    .events__schedule__link if-teacher=true
-      | Você poderá adicionar novos horários de aula acessando o
+    .lessons__schedule if-teacher=true
+      | Para adicionar novos horários de aula acesse o
       a< ui-sref="^.calendar.schedule"
-        | cronograma semanal
-      | .
-  .event[
+        | Cronograma Semanal
+  .lesson[
     ng-repeat="event in events"
     scroll-to-when="scrollUntil == event.start_at"]
-    / TODO: no results for event in events copy
-    .event__header
-      span.event__info
-        span.event__date__weekday
+    .lesson__header
+      span.lesson__info
+        span.lesson__date__weekday
           | {{event.start_at | amDateFormat:'ddd, DD/MMM/YY'}}
-        small.event__time
+        small.lesson__time
           i.icon.icon-clock
           | {{event.start_at | amDateFormat: 'HH:mm'}}–{{event.end_at | amDateFormat: 'HH:mm'}}
-        span.event__classroom ng-show="event.classroom"
+        span.lesson__classroom ng-show="event.classroom"
           | Sala: {{event.classroom}}
       aside
         event-status.date__status event="event" role="course.user_role"
-        a.button.tiny.event__edit[
-          ui-sref="^.event({ startAt: event.start_at })"
-          if-teacher=true]
+        a.button.event__edit[
+          if-teacher=true
+          ng-click="track(event)"
+          ui-sref="^.event({ startAt: event.start_at })"]
           | abrir no diário
-    .event__content class="event__status__{{event.status}}"
-      .no__topics ng-if="event.topics.length == 0"
-        p.empty__results
+    .lesson__content class="event__status__{{event.status}}"
+      .lesson__empty ng-if="event.topics.length == 0"
+        p
           | Nenhum conteúdo disponível para esse dia.
-      .event__item[
+      .lesson__item[
         ng-repeat="topic in event.topics"
         ng-if="topic.personal != true"]
         img.topic__item__image ng-if="!!topic.media" ng-src="{{topic.media.thumbnail}}"
@@ -48,8 +47,8 @@
           | {{topic.description}}
         span.topic__item__description ng-if="!topic.media"
           | {{topic.description}}
-.text-center
-  a.button.secondary.tiny[
+.lesson__load__more
+  a[
     ng-click="paginate(nextPage)"
     ng-hide="noMoreEvents"]
     | Carregar mais…

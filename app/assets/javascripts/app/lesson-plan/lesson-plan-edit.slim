@@ -9,9 +9,8 @@
           | · {{event.course.institution}}
       a.close__lesson.button.dark.tiny ui-sref="courses.show.calendar({course: event.course, month: event.start_at})"
         | fechar o diário
-
-  .row.collapse
-    .hide-for-small.medium-3.columns
+  .lesson__wrapper
+    .lesson__previous__day
       a.lesson__previous[
         ng-if="!!event.previous.start_at"
         ui-sref="{startAt: event.previous.start_at, courseId: event.course.uuid}"
@@ -44,38 +43,7 @@
               ng-attr-title="{{topic.media.url}}"]
             | {{topic.description}}
           i.icon.icon-private ng-show="topic.personal"
-    .small-12.medium-6.columns
-      .lesson__mobile__navigation
-        a.previous__event.mobile__day__navigation[
-          ng-if="!!event.previous.start_at"
-          ui-sref="{ startAt: event.previous.start_at, courseId: event.course.uuid }"
-          analytics-on="click"
-          analytics-event="Event Navigation"
-          analytics-name="previous"
-          analytics-uuid="{{event.uuid}}"
-          analytics-start-at="{{event.start_at}}"
-          analytics-course-name="{{event.course.name}}"
-          analytics-course-uuid="{{event.course.uuid}}"]
-          i.icon.icon-chevron-left
-          span
-            | aula anterior
-            small
-              | {{event.previous.start_at | amDateFormat:'ddd, DD/MMM HH:mm'}}
-        a.next__event.mobile__day__navigation[
-          ng-if="!!event.next.start_at"
-          ui-sref="{ startAt: event.next.start_at, courseId: event.course.uuid }"
-          analytics-on="click"
-          analytics-event="Event Navigation"
-          analytics-name="next"
-          analytics-uuid="{{event.uuid}}"
-          analytics-start-at="{{event.start_at}}"
-          analytics-course-name="{{event.course.name}}"
-          analytics-course-uuid="{{event.course.uuid}}"]
-          span
-            | próxima aula
-            small
-              | {{event.next.start_at | amDateFormat:'ddd, DD/MMM HH:mm'}}
-          i.icon.icon-chevron-right
+    .lesson__plan__current
       .lesson__header
         .lesson__date__info
           span.lesson__date__weekday
@@ -98,11 +66,11 @@
           p
             | Para publicar uma aula
             br
-            a.button.tiny.alert> ng-click="setStatus(event, 'canceled')"
+            a.lesson__cancel ng-click="setStatus(event, 'canceled')"
               | Cancelar Aula
             span
               | ou
-            a.button.tiny< ng-click="setStatus(event, 'published')"
+            a.lesson__publish ng-click="setStatus(event, 'published')"
               | Publicar Aula
             br
             small
@@ -115,11 +83,11 @@
             br
             | Se deseja desfazer você pode
             br
-            a.button.tiny.dark> ng-click="setStatus(event, 'draft')"
+            a.lesson__move__draft ng-click="setStatus(event, 'draft')"
               | Mover para Rascunho
             span
               | ou
-            a.button.tiny< ng-click="setStatus(event, 'published')"
+            a.lesson__publish ng-click="setStatus(event, 'published')"
               | Publicar Aula
         .lesson__status__info__published ng-if="event.status == 'published'"
           strong
@@ -130,57 +98,70 @@
             br
             | Se desejar desabilitar a visualização você poderá
             br
-            a.button.tiny.dark> ng-click="setStatus(event, 'draft')"
-              | Mover para Rascunho
+            a.lesson__cancel ng-click="setStatus(event, 'canceled')"
+              | Cancelar Aula
             span
               | ou
-            a.button.tiny.alert< ng-click="setStatus(event, 'canceled')"
-              | Cancelar Aula
-      #topics-container.row event-list="topics"
+            a.lesson__move__draft ng-click="setStatus(event, 'draft')"
+              | Mover para Rascunho
+            br
+            small
+              | (aulas canceladas terão seu conteúdo preservado)
+      #topics-container event-list="topics"
         .new__topic__form[
           ng-controller="NewTopicCtrl"
           ng-if="event.status != 'canceled'"]
-          small.add__content__cta
+          small.add__content
             | adicione conteúdos para sua aula
           .select__item__type
             a[
               ng-click="selectTopicType('text')"
               ng-class="{active: topicType == 'text'}"]
               i.icon.icon-text
-              span.hide-for-small
-                | Texto
+              span
+                | Tópico
             a[
               ng-click="selectTopicType('file')"
               ng-class="{active: topicType == 'file'}"]
               i.icon.icon-file
-              span.hide-for-small
+              span
                 | Arquivo
             a[
               ng-click="selectTopicType('url'); startUrlMediaEditing()"
               ng-class="{active: topicType == 'url'}"]
               i.icon.icon-url
-              span.hide-for-small
+              span
                 | Link
             a[
               ng-click="selectTopicType('catalog')"
               ng-class="{active: topicType == 'catalog'}"]
               i.icon.icon-catalog
-              span.hide-for-small
+              span
                 | Catálogo
           .item__type ng-show="topicType != null"
-            .type.type__text ng-show="topicType == 'text'" ng-controller="NewTextTopicCtrl"
-              form name="textTopicForm" ng-controller="TopicAttributesCtrl"
+            .type.type__text ng-show="topicType == 'text'"
+              form[
+                name="textTopicForm"
+                ng-submit="textTopicForm.$valid && addTopic()"
+                novalidate=true
+                ng-controller="TopicAttributesCtrl"]
                 input.field__new__list__item[
                   ng-model="topic.description"
                   type="text"
                   focus-wrapper=""
-                  placeholder="Adicionar texto"
-                  ui-keydown="{'enter':'addTopic()'}"
+                  placeholder="Adicionar tópico"
                   name="description"
+                  required=true
+                  validate=true
                   focus-on="topicType == 'text'"]
+                new-topic-actions
+                  errors for="textTopicForm.description"
 
             .type.type__file ng-show="topicType == 'file'" ng-controller="NewFileMediaCtrl"
-              form name="fileMediaForm" ng-show="status == 'newMedia'"
+              form[
+                name="fileMediaForm"
+                novalidate=true
+                ng-show="status == 'newMedia'"]
                 p
                   | Enviar foto, vídeo ou documento
                   br
@@ -194,49 +175,78 @@
                   type="file"
                   ng-model="media_file"
                   name="file"
+                  required=true
+                  validate=true
                   ng-file-select="submitFileMedia($files)"]
+                new-topic-actions
+                  errors for="fileMediaForm.file"
 
-              / TODO: Extract to directive.
-              .type.type__media ng-show="status == 'createdMedia'" ng-controller="TopicAttributesCtrl"
+              .type.type__media[
+                ng-show="status == 'createdMedia'"
+                ng-controller="TopicAttributesCtrl"]
                 preview item="topic" removable="true"
-                form name="fileTopicForm"
+                form[
+                  name="fileTopicForm"
+                  ng-submit="fileTopicForm.$valid && addTopic()"
+                  novalidate=true]
                   input.field__new__list__item[
                     ng-model="topic.description"
                     type="text"
                     focus-wrapper=""
                     placeholder="Adicionar conteúdo"
-                    ui-keydown="{'enter':'addTopic()'}"
                     name="description"
+                    required=true
+                    validate=true
                     focus-on="topicType == 'file' && status == 'createdMedia'"]
+                  new-topic-actions
+                    errors for="fileTopicForm.description"
               progress-bar
+
             .type.type__url[
               ng-show="topicType == 'url'"
               ng-controller="NewUrlMediaCtrl"
-              cg-busy="submittingMediaPromise"]
-              form name="urlMediaForm"
+              cg-busy="submitting"]
+              form[
+                name="urlMediaForm"
+                ng-show="!media"
+                ng-submit="urlMediaForm.$valid && submitUrlMedia()"
+                novalidate=true]
                 input[
                   ng-show="!media"
-                  type="text"
+                  type="url"
                   name="url"
                   ng-model="url"
                   placeholder="Escreva ou cole o link aqui"
-                  ui-keydown="{'enter':'submitUrlMedia()'}"
+                  required=true
+                  validate=true
                   focus-on="topicType == 'url' && !media"]
+                new-topic-actions
+                  errors for="urlMediaForm.url"
+
               .media ng-show="!!media" ng-controller="TopicAttributesCtrl"
                 preview item="topic" removable="true"
-                form name="urlTopicForm"
+                form[
+                  name="urlTopicForm"
+                  ng-submit="urlTopicForm.$valid && addTopic()"
+                  novalidate=true]
                   input.field__new__list__item[
                     ng-model="topic.description"
                     type="text"
                     focus-wrapper=""
                     placeholder="Adicionar conteúdo"
-                    ui-keydown="{'enter':'addTopic()'}"
                     name="description"
+                    required=true
+                    validate=true
                     focus-on="topicType == 'url' && !!media"]
+                  new-topic-actions
+                    errors for="urlTopicForm.description"
 
             .type.type__catalog ng-show="topicType == 'catalog'" ng-controller="AddFromMediaCtrl"
-              span ng-controller="TopicAttributesCtrl"
-              ng-form name="catalogTopicForm"
+              form[
+                ng-controller="TopicAttributesCtrl"
+                name="catalogTopicForm"
+                ng-submit="catalogTopicForm.$valid && addTopic()"
+                novalidate=true]
                 .catalog__header
                   .catalog__search
                     i.icon.icon-search
@@ -251,9 +261,12 @@
                   .catalog__media ng-repeat="media in medias"
                     input.media__select[
                       type="radio"
+                      name="media"
                       ng-model="result.media"
                       ng-change="selectMedia()"
                       ng-value="media"
+                      required=true
+                      validate=true
                       id="{{media.uuid}}"]
                     label.media__select__label for="{{media.uuid}}"
                     .media__contents
@@ -271,12 +284,11 @@
                     ng-if="next_page"
                     cg-busy="loadingNextPage"]
                     | Carregar mais&hellip;
+                new-topic-actions
+                  errors for="catalogTopicForm.media"
 
-            ng-include src="'#{asset_path('app/lesson-plan/new-topic/new-topic-actions')}'"
-        .topics[
-          ui-sortable="sortableOptions('topics')"
-          ng-model="event.topics"]
-          .topics__private ng-if="event.topics.length != 0 && event.status != 'canceled'"
+        .topics__container
+          .topics__private ng-if="event.topics.length != 0"
             a.topics__private__hide[
               ng-click="setPrivateTopicsVisibility(false)"
               ng-show="showPrivateTopics"]
@@ -291,96 +303,100 @@
                 | Exibir conteúdos do professor
           .topic.empty__results ng-if="event.topics.length === 0 && event.status != 'canceled'"
             | Nenhum conteúdo
-          .topic.clickable[
-            ng-controller="TopicEditCtrl"
-            ng-class="{done: topic.done, personal: topic.personal}"
-            ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
-            ng-hide="topic.personal && !showPrivateTopics"]
-            .topic__wrapper ng-show="!isEditing(topic)"
-              .handle.topic__handle
-                i.icon.icon-handle
-              .topic__status
-                input.topic__status[
-                  id="topic_{{topic.uuid}}_done"
-                  ng-change="save(topic)"
-                  ng-model="topic.done"
-                  type="checkbox"]
-                label.topic__status__checkbox[
-                  for="topic_{{topic.uuid}}_done"]
-                  i.icon.icon-check
-              a.topic__image[
-                ng-href="{{topic.media.url}}"
-                target="_blank"
-                ng-if="!!topic.media"
-                ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
-              .topic__description ng-class="{preview: !!topic.media}"
-                | {{topic.description}}
-                a.topic__url<[
+          .topics[
+            as-sortable="sortableOptions"
+            ng-model="event.topics"]
+            .topic.clickable[
+              as-sortable-item=true
+              ng-controller="TopicEditCtrl"
+              ng-class="{done: topic.done, personal: topic.personal}"
+              ng-repeat="topic in event.topics | filter:{_destroy:'!true'}"
+              ng-hide="topic.personal && !showPrivateTopics"]
+              .topic__wrapper ng-show="!isEditing()"
+                .handle.topic__handle as-sortable-item-handle=true
+                  i.icon.icon-handle
+                .topic__status
+                  input.topic__status[
+                    id="topic_{{topic.uuid}}_done"
+                    ng-change="save(topic)"
+                    ng-model="topic.done"
+                    type="checkbox"]
+                  label.topic__status__checkbox[
+                    for="topic_{{topic.uuid}}_done"]
+                    i.icon.icon-check
+                a.topic__image[
                   ng-href="{{topic.media.url}}"
                   target="_blank"
-                  title="{{topic.media.url}}"
-                  ng-show="topic.media.type == 'url'"]
-                  | {{topic.media.url}}
-                span ng-show="topic.media.type == 'url'"
-                  | {{topic.media.description}}
-                span ng-show="topic.media.type == 'file'"
-                  | {{topic.media.filename}}
-                  a<[
+                  ng-if="!!topic.media"
+                  ng-style="{ 'background-image': 'url(' + topic.media.thumbnail + ')' }"]
+                .topic__description ng-class="{preview: !!topic.media}"
+                  | {{topic.description}}
+                  a.topic__url<[
                     ng-href="{{topic.media.url}}"
-                    target="_blank"]
-                    | baixar arquivo
-              .topic__visibility.topic__personal[
-                ng-show="topic.personal"
-                title="Este conteúdo está disponível somente para você."]
-                i.icon.icon-private
-              zf-action-sheet.topic__actions
-                zf-as-button
-                  a.open__actions
-                    | …
-                zf-as-content position="top"
-                  ul.topic__actions__list
-                    li
-                      a[
-                        ng-click="startEditing(topic)"
-                        zf-close=""
-                        title="Editar tópico"]
-                        i.icon.icon-pencil>
-                        | Editar
-                    li
-                      a[
-                        ng-click="removeTopic(topic)"
-                        zf-close=""
-                        title="Remover conteúdo"]
-                        i.icon.icon-trash>
-                        | Apagar
-                    li ng-if="canTransferTopic(topic, event)"
-                      a[
-                        ng-click="transferTopic(topic)"
-                        zf-close=""
-                        title="Transferir conteúdo para próxima aula"]
-                        i.icon.icon-transfer>
-                        | Transferir
-            .topic__editing ng-show="isEditing(topic)"
-              form[
-                name="topicEditForm"
-                ng-submit="finishEditing(topic)"]
-                input.topic__editing[
-                  name="description"
-                  focus-on="isEditing(topic)"
-                  ng-model="editingTopic.description"
-                  on-success="finishEditing(topic)"
-                  required=true
-                  type="text"]
-                .edit__topic__actions
-                  a.cancel.button.tiny.transparent ng-click="cancelEditing(topic)"
-                    | Cancelar
-                  ng-include src="'#{asset_path('app/lesson-plan/new-topic/edit-personal-topic')}'"
-                  a.save__edit__topic.button.tiny<[
-                    ng-class="{disabled: topicEditForm.$invalid, alert: editingTopic.personal}"
-                    ng-click="finishEditing(topic)"
-                    ng-disabled="topicEditForm.$invalid"]
-                    | Salvar
-    .hide-for-small.medium-3.columns
+                    target="_blank"
+                    title="{{topic.media.url}}"
+                    ng-show="topic.media.type == 'url'"]
+                    | {{topic.media.url}}
+                  span ng-show="topic.media.type == 'url'"
+                    | {{topic.media.description}}
+                  span ng-show="topic.media.type == 'file'"
+                    | {{topic.media.filename}}
+                    a<[
+                      ng-href="{{topic.media.url}}"
+                      target="_blank"]
+                      | baixar arquivo
+                .topic__visibility.topic__personal[
+                  ng-show="topic.personal"
+                  title="Este conteúdo está disponível somente para você."]
+                  i.icon.icon-private
+                zf-action-sheet.topic__actions
+                  zf-as-button
+                    a.open__actions
+                      | …
+                  zf-as-content position="top"
+                    ul.topic__actions__list
+                      li
+                        a[
+                          ng-click="startEditing(topic)"
+                          zf-close=""
+                          title="Editar tópico"]
+                          i.icon.icon-pencil>
+                          | Editar
+                      li
+                        a[
+                          ng-click="removeTopic(topic)"
+                          zf-close=""
+                          title="Remover conteúdo"]
+                          i.icon.icon-trash>
+                          | Apagar
+                      li ng-if="canTransferTopic(topic, event)"
+                        a[
+                          ng-click="transferTopic(topic)"
+                          zf-close=""
+                          title="Mover conteúdo para próxima aula"]
+                          i.icon.icon-transfer>
+                          | Mover para próxima aula
+              .topic__editing ng-show="isEditing()"
+                form[
+                  name="topicEditForm"
+                  ng-submit="finishEditing(topic)"]
+                  input.topic__editing[
+                    name="description"
+                    focus-on="isEditing()"
+                    ng-model="editingTopic.description"
+                    required=true
+                    type="text"]
+                  .edit__topic__actions
+                    a.edit__topic__cancel ng-click="cancelEditing(topic)"
+                      | Cancelar
+                    ng-include src="'#{asset_path('app/lesson-plan/new-topic/edit-personal-topic')}'"
+                    submit-button.edit__topic__submit[
+                      blocked-when="submitting"
+                      label="Salvar"
+                      blocked-label="Salvando..."
+                      ng-class="{topic__private: editingTopic.personal}"
+                      has-spinner=true]
+    .lesson__next__day
       a.lesson__next[
         ng-if="!!event.next.start_at"
         ui-sref="{ startAt: event.next.start_at, courseId: event.course.uuid }"

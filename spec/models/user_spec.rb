@@ -10,7 +10,7 @@ describe User do
   end
 
   describe "validations" do
-    [:name, :email, :phone_number, :password].each do |attr|
+    [:name, :email, :password].each do |attr|
       it { is_expected.to validate_presence_of(attr) }
     end
   end
@@ -29,7 +29,10 @@ describe User do
         context "when user already have a token" do
           let!(:user) { create(:user) }
 
-          it { expect{ user.save }.to_not change{ user.reload.authentication_token } }
+          it do
+            expect { user.save }
+              .to_not change { user.reload.authentication_token }
+          end
         end
       end
     end
@@ -55,6 +58,20 @@ describe User do
     it "doesn't have the role of teacher in any course" do
       user.profile = create(:profile)
       expect(user.profile_name).to eq('student')
+    end
+  end
+
+  describe "tracking" do
+    let(:user) { create(:user) }
+
+    it "tracks password reset notifications" do
+      expect(user).to receive(:track).with('Reset Password Requested')
+      user.send_reset_password_instructions
+    end
+
+    it "tracks password successfully changed" do
+      expect(user).to receive(:track).with('Password Changed', page: "Password Recovery")
+      user.reset_password("#dunnovc", "#dunnovc")
     end
   end
 end

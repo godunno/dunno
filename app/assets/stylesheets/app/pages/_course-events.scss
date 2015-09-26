@@ -1,0 +1,130 @@
+%lesson__box {
+  @include box-shadow();
+  background-color: $white;
+  border: $divider;
+  border-radius: $global-radius;
+  margin-bottom: 2rem;
+  padding: 2rem 2rem 0;
+}
+
+.lessons {
+  @include grid-container();
+
+  &__blankslate {
+    @extend %lesson__box;
+    padding-bottom: 2rem;
+    text-align: center;
+
+    a {
+      @extend %button;
+    }
+  }
+}
+
+.lesson {
+  @extend %lesson__box;
+
+  @include breakpoint(small only) {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+
+  &__header {
+    border-bottom: $divider;
+    display: flex;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+
+    @include breakpoint(small only) {
+      margin-top: 1rem;
+    }
+
+    aside {
+      margin-left: auto;
+      text-align: right;
+    }
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__date__weekday {
+    text-transform: uppercase;
+  }
+
+  &__time {
+    color: $medium-grey-color;
+    display: block;
+  }
+
+  &__status {
+    display: block;
+    padding-right: .25rem;
+    text-transform: uppercase;
+  }
+
+  &__edit {
+    .button {
+      margin-bottom: 0;
+
+      @include breakpoint(small only) {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &__content {
+    margin-bottom: 2rem;
+
+    @include breakpoint(small only) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__empty {
+    padding: 1rem 0;
+    text-align: center;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  &__item {
+    align-items: center;
+    display: flex;
+    margin-bottom: 1rem;
+    padding: 1rem 0;
+
+    &:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .topic__item__image {
+    @include thumbnail();
+    flex-basis: 2.75rem;
+    margin-right: 1rem;
+  }
+
+  .topic__item__description {
+    word-break: break-word;
+  }
+
+  &__load__more {
+    text-align: center;
+
+    a {
+      @extend %button;
+    }
+  }
+
+  .date__status {
+    display: block;
+  }
+}

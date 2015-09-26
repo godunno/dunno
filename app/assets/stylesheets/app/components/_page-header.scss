@@ -1,0 +1,21 @@
+.page__header {
+  background: $white;
+  margin-bottom: 2rem;
+  padding: 1rem 0 0;
+
+  @include breakpoint(small only) {
+    margin-bottom: 0;
+  }
+
+  &__title {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: $font-weight-normal;
+    margin: 0 0 .5rem;
+    padding: 0;
+
+    @include breakpoint(small only) {
+      display: none;
+    }
+  }
+}

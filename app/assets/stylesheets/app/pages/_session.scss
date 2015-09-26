@@ -1,0 +1,105 @@
+.session__page {
+  @include grid-block();
+  @include grid-orient(vertical);
+  background-color: $dunno-dark-color;
+  min-height: 100%;
+  padding-bottom: 2em;
+
+  .form__box {
+    @include grid-container();
+
+    @include breakpoint(medium) {
+      max-width: 35rem;
+      min-width: 50vw;
+    }
+
+    @include breakpoint(large) {
+      max-width: 35rem;
+      min-width: 30vw;
+    }
+  }
+
+  .root__proxy {
+    display: block;
+    padding: 3rem 0;
+    text-align: center;
+
+    @include breakpoint(small only) {
+      padding: 1rem 0;
+    }
+
+    a {
+      display: inline-block;
+    }
+  }
+
+  .logo {
+    width: 10rem;
+
+    @include breakpoint(small only) {
+      width: 7rem;
+    }
+  }
+
+  h4 {
+    padding: 1rem 0;
+    text-align: center;
+    text-transform: uppercase;
+
+    @include breakpoint(small only) {
+      padding: 0 0 1rem;
+    }
+  }
+
+  .password__recovery {
+    float: right;
+    font-size: .875em;
+    line-height: 1.8em;
+  }
+
+  .footer__links {
+    margin-top: 1rem;
+    text-align: center;
+
+    a {
+      margin: 0 .5rem;
+    }
+  }
+
+  .session__error {
+    color: $red-color;
+
+    .session__amnesia {
+      color: $dunno-dark-color;
+    }
+  }
+
+  .session__error,
+  .session__amnesia {
+    text-align: center;
+  }
+
+  .submit {
+    display: block;
+    margin: 0 auto 1rem;
+  }
+
+  .sign__in {
+    color: $white;
+    padding: 2rem 0 0;
+    text-align: center;
+  }
+
+  .accept__terms,
+  .privacy__policy__disclaimer {
+    margin: 0 auto;
+    max-width: 25rem;
+    text-align: center;
+  }
+}
+
+.required__fields {
+  font-size: .875rem;
+  margin-bottom: 0;
+  text-align: right;
+}

@@ -4,13 +4,15 @@ html lang='pt' ng-app='app'
     meta charset='utf-8'
     meta content='width=device-width, initial-scale=1.0' name='viewport'
     title
-      | #{@title || 'Dunno · Dentro e fora da sala de aula'}
+      | #{@title || 'Dunno · Uma nova forma de ensinar e aprender'}
     link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application', :media => 'all'
     = javascript_include_tag 'modernizer'
     = csrf_meta_tags
   body ng-controller='ApplicationCtrl'
-    = render 'application/prebootstrap_loading'
-    = yield
+    = render 'application/app_loading'
+    .root cg-busy="wholePageLoading"
+      = yield
+    zf-notification-set id="main-notifications" position="bottom-left"
     = javascript_include_tag 'application'
     = render 'shared/analytics'

@@ -2,13 +2,13 @@ NonLoggedRoutes = ($window) ->
   ROUTES = [
     /^\/sign_in$/,
     /^\/sign_up$/,
-    /^\/dashboard\/passwords(\/new)?$/,
-    /^\/dashboard\/passwords\/\d+(\/edit)?$/,
+    /^\/dashboard\/password(\/new)?$/,
+    /^\/dashboard\/password\/edit$/,
     /^\/teaspoon.*/
   ]
 
   @isNonLoggedRoute = ->
-    ROUTES.filter((route)-> route.exec($window.location.pathname)).length > 0
+    ROUTES.filter((route) -> route.exec($window.location.pathname)).length > 0
 
   @
 

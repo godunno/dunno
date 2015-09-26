@@ -31,9 +31,7 @@ gem 'autoprefixer-rails',         '5.2.1'
 gem 'devise-async',               '0.9.0'
 gem 'intercom-rails',             '0.2.27'
 gem 'active_model-errors_details', '1.1.0'
-gem 'phonie',                     '3.1.12'
 gem 'dalli',                      '2.7.4'
-gem 'google_drive',               '1.0.0', require: false
 gem 'mixpanel-ruby',              '2.1.0'
 gem 'carrierwave',                '0.10.0'
 gem 'fog',                        '1.32.0'
@@ -41,7 +39,7 @@ gem 'airbrake',                   '4.3.0'
 gem 'pundit',                     '1.0.1'
 gem 'redcarpet',                  '3.3.2'
 gem 'ice_cube',                   '0.13.0'
-
+gem 'asset_sync', github: 'sbeam/asset_sync', branch: 'gzip-before-upload'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular',       '1.3.16'
@@ -53,25 +51,22 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-animate', '1.3.16'
   gem 'rails-assets-angular-messages', '1.3.16'
   gem 'rails-assets-modernizr', '2.8.3'
-  gem 'rails-assets-angular-ui-sortable', '0.13.0'
-  gem 'rails-assets-angular-input-masks', '2.1.0'
-  gem 'rails-assets-arktisklada--jquery-ui-touch-punch', '0.2.3'
   gem 'rails-assets-ng-file-upload',      '1.6.12'
   gem 'rails-assets-ng-file-upload-shim', '1.6.12'
-  gem 'rails-assets-lunks--ngTagsInput', '3.0.0'
-  gem 'rails-assets-angular-elastic-input', '2.0.2'
   gem 'rails-assets-angular-validation-match', '1.3.0'
-  gem 'rails-assets-angular-foundation', '0.5.1'
   gem 'rails-assets-angular-busy', '4.1.2'
   gem 'rails-assets-lunks--angulartics', '0.18.0'
   gem 'rails-assets-scrollmagic', '2.0.5'
   gem 'rails-assets-greensock', '1.17.0'
   gem 'rails-assets-ui-router', '0.2.15'
+  gem 'rails-assets-angular-ui-router-title', '0.0.4'
   gem 'rails-assets-angular-filter', '0.5.4'
   gem 'rails-assets-angular-datepicker', '1.0.12'
   gem 'rails-assets-mrodrigues--angular-jquery-timepicker', '0.6.1'
   gem 'rails-assets-angular-moment', '0.10.2'
   gem 'rails-assets-moment-timezone', '0.4.0'
+  gem 'rails-assets-ng-sortable', '1.3.1'
+  gem 'rails-assets-angular-translate', '2.7.2'
 end
 
 group :production, :staging do
@@ -83,11 +78,8 @@ end
 gem 'database_cleaner',           '1.4.1',     require: false
 
 group :development do
-  gem 'pronto',                   '0.4.2'
-  gem 'pronto-rubocop',           '0.4.4'
-  gem 'pronto-flay',              '0.4.1'
-  gem 'pronto-scss',              '0.4.6',     require: false
-  gem 'rubocop',                  '0.32.1'
+  gem 'rubocop',                  '0.32.1', require: false
+  gem 'scss-lint',                '0.34.0', require: false
   gem 'foreman',                  '0.78.0'
   gem 'letter_opener',            '1.4.1'
   gem 'pre-commit',               '0.25.0'
@@ -114,5 +106,7 @@ group :development, :test do
   gem 'timecop',                  '0.7.1'
   gem 'rspec_api_documentation',  '4.3.0'
   gem 'teaspoon-jasmine',         '2.2.0'
-  gem 'rspec_junit_formatter',    '0.2.2'
+
+  gem 'guard'
+  gem 'guard-teaspoon'
 end
