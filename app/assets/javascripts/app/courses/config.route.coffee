@@ -34,7 +34,7 @@ setCoursesRoutes = (
 
     .state 'courses.show.events',
       url: '/events?month'
-      controller: 'CourseEventsCtrl'
+      controller: 'CourseEventsCtrl as vm'
       templateUrl: 'courses/events/events'
       resolve: { pagination: EventsPaginationResolver }
 
