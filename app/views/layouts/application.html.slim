@@ -21,7 +21,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
               | Disciplinas
           li
             a zf-close="" ui-sref="profile"
-              | Editar perfil - {{currentUser().name}}
+              | Editar perfil - {{currentUser.name}}
           li
             | #{link_to 'Termos de Uso', terms_path}
           li
@@ -53,8 +53,8 @@ html lang="pt" ng-app="app" ng-strict-di=true
             ul
               li ui-sref-active="is-active"
                 a.user__profile ui-sref="profile"
-                  img.avatar>[user-avatar="currentUser().name"]
-                  | {{currentUser().name}}
+                  img.avatar>[user-avatar="currentUser"]
+                  | {{currentUser.name}}
               li
                 a ng-click="signOut()"
                   | Sair
