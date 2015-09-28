@@ -19,6 +19,10 @@
     }
   }
 
+  .form__header {
+    text-align: center;
+  }
+
   .root__proxy {
     display: block;
     padding: 3rem 0;
@@ -95,6 +99,37 @@
     margin: 0 auto;
     max-width: 25rem;
     text-align: center;
+  }
+
+  .connect__with__facebook {
+    @extend %button;
+    @include button-style(
+      $background: $facebook-color,
+      $background-hover: auto,
+      $color: $white,
+      $style: solid
+    );
+    @include button-size(large);
+    margin: 1rem 0;
+
+    .icon {
+      margin-right: .25rem;
+    }
+  }
+
+  .session__or {
+    border-top: $divider;
+    color: $medium-grey-color;
+    margin: 1rem 0;
+    text-align: center;
+
+    span {
+      background-color: $white;
+      display: inline-block;
+      margin-top: -1.35rem;
+      padding: .5rem;
+      vertical-align: 1rem;
+    }
   }
 }
 
