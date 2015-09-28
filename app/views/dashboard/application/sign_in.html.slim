@@ -9,20 +9,22 @@ ruby:
       name="signInForm"
       ng-submit="signInForm.$valid && sign_in(user)"
       novalidate=""]
-
-      login-with-facebook
-
-      h4
-        | Acessar minha conta
-      .session__error[
-        ng-show="authentication_failed"
-        ng-cloak=""]
-        p
-          | A combinação de email e senha não confere.
-          br
-          | Confira seus dados e tente novamente.
-        p.session__amnesia
-          = link_to "Esqueceu sua senha?", new_dashboard_password_path
+      .form__header
+        h4
+          | Acessar minha conta
+        .session__error[
+          ng-show="authentication_failed"
+          ng-cloak=""]
+          p
+            | A combinação de email e senha não confere.
+            br
+            | Confira seus dados e tente novamente.
+          p.session__amnesia
+            = link_to "Esqueceu sua senha?", new_dashboard_password_path
+        login-with-facebook
+      .session__or
+        span
+          | ou
       .session__email
         label for="email"
           | Email

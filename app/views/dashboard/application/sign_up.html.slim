@@ -9,23 +9,25 @@ ruby:
       name="signUpForm"
       ng-submit="signUpForm.$valid && sign_up(user)"
       novalidate=""]
-
-      login-with-facebook
-
-      h4
-        | Criar minha conta
-      p.required__fields
-        span.required>
-          | *
-        | campos obrigatórios
-      .session__error[
-        ng-show="hasError"
-        ng-cloak=""]
-        p
-          | Ocorreu um erro ao criar sua conta.
-          br
-          | Confira seus dados e tente novamente.
+      .form__header
+        h4
+          | Criar minha conta
+        .session__error[
+          ng-show="hasError"
+          ng-cloak=""]
+          p
+            | Ocorreu um erro ao criar sua conta.
+            br
+            | Confira seus dados e tente novamente.
+        login-with-facebook
+      .session__or
+        span
+          | ou
       .name
+        p.required__fields
+          span.required>
+            | *
+          | campos obrigatórios
         label for="name"
           | Nome
           span.required<
