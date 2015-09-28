@@ -49,14 +49,8 @@
 .icon-dunno-logo:before {
   content: "\e008";
 }
-.icon-clock:before {
-  content: "\e009";
-}
 .icon-calendar:before {
   content: "\e00a";
-}
-.icon-circle-check:before {
-  content: "\e00c";
 }
 .icon-trash:before {
   content: "\e00e";
@@ -147,4 +141,10 @@
 }
 .icon-cog:before {
   content: "\e025";
+}
+.icon-clock:before {
+  content: "\e009";
+}
+.icon-location:before {
+  content: "\e00c";
 }

@@ -53,10 +53,6 @@
             $autocolor: false
           );
 
-          > li {
-            margin: 0 .5rem 0 0;
-          }
-
           .is-active a:hover {
             background-color: $white;
           }
