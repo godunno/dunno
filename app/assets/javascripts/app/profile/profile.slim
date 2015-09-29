@@ -7,8 +7,8 @@ ui-view.profile__page
     form.form__box[
       name="profileForm"
       novalidate=true
-      ng-submit="profileForm.$valid && update(user)"]
-      .message__success ng-if="success"
+      ng-submit="profileForm.$valid && vm.update()"]
+      .message__success ng-if="vm.success"
         | Dados salvos com sucesso!
         span.happy
 
@@ -18,7 +18,7 @@ ui-view.profile__page
           | *
       input#name[
         name="name"
-        ng-model="user.name"
+        ng-model="vm.user.name"
         required=true
         validate=true
         type="text"]
@@ -28,14 +28,14 @@ ui-view.profile__page
         | Email
       input#email[
         disabled=true
-        ng-model="user.email"
+        ng-model="vm.user.email"
         type="email"]
 
       .profile__change__password
         a ui-sref=".change_password"
           | Quero alterar minha senha
       submit-button.submit[
-        blocked-when="submitting"
+        blocked-when="vm.submitting"
         label="Atualizar perfil"
         blocked-label="Atualizando…"
         has-spinner=true]

@@ -3,7 +3,7 @@ setupProfileRoutes = (
   $stateProvider
     .state 'profile',
       url: '/profile/edit'
-      controller: 'ProfileCtrl'
+      controller: 'ProfileCtrl as vm'
       templateUrl: 'profile/profile'
       resolve:
         $title: ['$translate', ($translate) -> $translate('profile.title.edit')]
