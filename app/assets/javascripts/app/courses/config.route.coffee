@@ -26,19 +26,13 @@ setCoursesRoutes = (
         $title: ['$translate', 'course', ($translate, course) ->
           $translate('courses.title.course-detail', course: course)]
 
-    .state 'courses.show.calendar',
-      url: '/calendar?month'
-      controller: 'CalendarCtrl'
-      templateUrl: 'courses/calendar/calendar'
-      resolve: { course: CourseResolver }
-
     .state 'courses.show.events',
-      url: '/events?until'
-      controller: 'CourseEventsCtrl'
+      url: '/events?month'
+      controller: 'CourseEventsCtrl as vm'
       templateUrl: 'courses/events/events'
       resolve: { pagination: EventsPaginationResolver }
 
-    .state 'courses.show.calendar.schedule',
+    .state 'courses.show.schedule',
       url: '/schedule'
       controller: 'ScheduleCtrl'
       templateUrl: 'courses/schedule/schedule'

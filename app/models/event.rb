@@ -48,23 +48,7 @@ class Event < ActiveRecord::Base
     }
   end
 
-  def formatted_status(profile)
-    return "empty" if empty? || draft? && profile.role_in(course) == 'student'
-    return "happened" if happened?
-    status
-  end
-
   def index_id
     @index_id ||= "#{course.id}/#{start_at.iso8601}"
-  end
-
-  private
-
-  def empty?
-    draft? && topics.empty?
-  end
-
-  def happened?
-    published? && end_at < Time.now
   end
 end

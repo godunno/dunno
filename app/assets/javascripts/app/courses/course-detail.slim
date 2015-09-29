@@ -29,11 +29,11 @@
       .course__navigation
         ul
           li ui-sref-active="is-active"
-            a.calendar__tab ui-sref=".calendar"
-              | Calendário
-          li ui-sref-active="is-active"
             a.members__tab ui-sref=".events"
               | Aulas
+          li ui-sref-active="is-active"
+            a.calendar__tab ui-sref=".schedule"
+              | Cronograma
           li ui-sref-active="is-active"
             a.members__tab ui-sref=".members"
               | Integrantes ({{course.members.length}})

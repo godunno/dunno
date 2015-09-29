@@ -21,7 +21,9 @@ Event = (RailsResource, $q, railsSerializer) ->
       success = (response) ->
         deferred.resolve
           events: response.data
-          finished: response.originalData.finished
+          previousMonth: response.originalData.previous_month
+          currentMonth: response.originalData.current_month
+          nextMonth: response.originalData.next_month
 
       failure = ->
         deferred.reject(arguments...)

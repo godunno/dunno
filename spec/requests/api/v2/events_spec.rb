@@ -53,7 +53,7 @@ resource "Events" do
           expect(response_event).to eq(
             "id" => event.id,
             "start_at" => event.start_at.iso8601(3),
-            "status" => event.formatted_status(user.profile)
+            "status" => event.status
           )
         end
       end

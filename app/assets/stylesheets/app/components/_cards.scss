@@ -4,6 +4,7 @@
 
 %card {
   @include box-shadow();
+  border: .0625rem solid $light-grey-color;
   border-radius: .3125em;
   display: block;
   margin-bottom: 1em;

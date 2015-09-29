@@ -63,24 +63,14 @@ describe Api::V1::CoursesController do
   end
 
   describe "GET /api/v1/courses/:identifier.json" do
-    let(:course) { create(:course, start_date: first_date - 2.month, end_date: first_date + 2.months, teacher: teacher, students: [student]) }
-    let!(:event_from_another_teacher) { create(:event, course: create(:course, teacher: create(:profile))) }
-    let!(:event_from_another_course) { create(:event, course: create(:course, teacher: teacher)) }
+    let(:course) { create(:course, teacher: teacher, students: [student]) }
 
     shared_examples_for "get course" do |role|
-      let(:first_date)  { Time.zone.parse('2015-08-03 09:00') }
-      let(:second_date) { Time.zone.parse('2015-08-10 09:00') }
-      let(:third_date)  { Time.zone.parse('2015-08-17 09:00') }
-      let(:fourth_date) { Time.zone.parse('2015-08-24 09:00') }
-      let(:fifth_date)  { Time.zone.parse('2015-08-31 09:00') }
-
-      let!(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, start_time: '09:00', end_time: '11:00') }
+      let!(:weekly_schedule) { create(:weekly_schedule, course: course) }
 
       before do
-        Timecop.freeze first_date
         course.save!
         course.reload
-        PersistPastEvents.new(course, since: course.start_date).persist!
       end
 
       after { Timecop.return }
@@ -125,42 +115,7 @@ describe Api::V1::CoursesController do
                 { "name" => "Teacher", "role" => "teacher" },
                 { "name" => "Student", "role" => "student" }
               ],
-              "user_role" => role,
-              "events" => [
-                {
-                  "formatted_status" => 'empty',
-                  "start_at" => first_date.utc.iso8601,
-                  "end_at" => (first_date + 2.hours).utc.iso8601,
-                  "classroom" => nil
-                },
-                {
-                  "formatted_status" => 'empty',
-                  "start_at" => second_date.utc.iso8601,
-                  "end_at" => (second_date + 2.hours).utc.iso8601,
-                  "classroom" => nil
-                },
-                {
-                  "formatted_status" => 'empty',
-                  "start_at" => third_date.utc.iso8601,
-                  "end_at" => (third_date + 2.hours).utc.iso8601,
-                  "classroom" => nil
-                },
-                {
-                  "formatted_status" => 'empty',
-                  "start_at" => fourth_date.utc.iso8601,
-                  "end_at" => (fourth_date + 2.hours).utc.iso8601,
-                  "classroom" => nil
-                },
-                {
-                  "formatted_status" => 'empty',
-                  "start_at" => fifth_date.utc.iso8601,
-                  "end_at" => (fifth_date + 2.hours).utc.iso8601,
-                  "classroom" => nil
-                }
-              ],
-              "previous_month" => 1.month.ago.beginning_of_month.utc.iso8601,
-              "current_month" => Time.current.beginning_of_month.utc.iso8601,
-              "next_month" => 1.month.from_now.beginning_of_month.utc.iso8601
+              "user_role" => role
             )
           end
         end
@@ -187,58 +142,6 @@ describe Api::V1::CoursesController do
 
           it do
             expect { do_action }.to raise_error(ActiveRecord::RecordNotFound)
-          end
-        end
-      end
-
-      context "in previous month" do
-        let(:identifier) { course.uuid }
-
-        before do
-          do_action(month: 1.month.ago.beginning_of_month.utc.iso8601)
-        end
-        subject { json["course"] }
-
-        it { expect(subject["previous_month"]).to eq(2.month.ago.beginning_of_month.utc.iso8601) }
-        it { expect(subject["current_month"]).to eq(1.months.ago.beginning_of_month.utc.iso8601) }
-        it { expect(subject["next_month"]).to eq(Time.current.beginning_of_month.utc.iso8601) }
-
-        describe "events" do
-          subject { json["course"]["events"].map { |e| e["start_at"] } }
-
-          it do
-            expect(subject).to eq([
-              "2015-07-06T12:00:00Z",
-              "2015-07-13T12:00:00Z",
-              "2015-07-20T12:00:00Z",
-              "2015-07-27T12:00:00Z"
-            ])
-          end
-        end
-      end
-
-      context "in next month" do
-        let(:identifier) { course.uuid }
-
-        before do
-          do_action(month: 1.month.from_now.beginning_of_month.utc.iso8601)
-        end
-        subject { json["course"] }
-
-        it { expect(subject["previous_month"]).to eq(Time.current.beginning_of_month.utc.iso8601) }
-        it { expect(subject["current_month"]).to eq(1.months.from_now.beginning_of_month.utc.iso8601) }
-        it { expect(subject["next_month"]).to eq(2.months.from_now.beginning_of_month.utc.iso8601) }
-
-        describe "events" do
-          subject { json["course"]["events"].map { |e| e["start_at"] } }
-
-          it do
-            expect(subject).to eq([
-              "2015-09-07T12:00:00Z",
-              "2015-09-14T12:00:00Z",
-              "2015-09-21T12:00:00Z",
-              "2015-09-28T12:00:00Z"
-            ])
           end
         end
       end

@@ -2,14 +2,8 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   respond_to :json
 
   def index
-    if params[:course_id]
-      search_parameters = params.slice(:page, :per_page, :offset, :until)
-      searcher = SearchEventsByCourse.new(course, search_parameters)
-      @events   = searcher.search
-      @finished = searcher.finished?
-    else
-      @events = current_profile.events.where(start_at: WholePeriod.new(Time.current).week)
-    end
+    @pagination = MonthsNavigation.new(params[:month])
+    @events = EventsForPeriod.new(course, WholePeriod.new(@pagination.current_month).month).events
   end
 
   def show

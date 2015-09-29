@@ -11,15 +11,13 @@ eventStatusCtrl = ($scope) ->
       'Rascunho'
 
   @isCanceled = ->
-    event.formatted_status == 'canceled'
+    event.status == 'canceled'
 
   @isPublished = ->
-    event.formatted_status == 'published' ||
-    event.formatted_status == 'happened'
+    event.status == 'published'
 
   @isDraft = ->
-    event.formatted_status == 'draft' ||
-    event.formatted_status == 'empty'
+    event.status == 'draft'
 
   @isTeacher = ->
     role == 'teacher'

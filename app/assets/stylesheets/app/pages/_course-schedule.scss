@@ -1,4 +1,8 @@
 .schedule {
+  @extend %content__box;
+  @include grid-container();
+  padding: 1rem;
+
   @include breakpoint(small only) {
     background: $white;
   }
@@ -13,6 +17,7 @@
 
   &__header {
     padding: 2rem 0 0;
+    text-align: center;
 
     @include breakpoint(small only) {
       padding: 1rem 0 0;
@@ -23,9 +28,14 @@
     }
   }
 
-  .content__box {
-    margin-top: 1rem;
-    padding: 1rem;
+  &__add__new {
+    @extend %button;
+    @include button-style(
+      $background: $dunno-green-color,
+      $background-hover: auto,
+      $color: $white,
+      $style: solid
+    );
   }
 
   .weekly__schedules {
@@ -86,13 +96,18 @@
       display: block;
     }
 
-    &__actions {
-      .button {
-        margin-bottom: 0;
+    &__action {
+      @extend %button;
+      @include button-style(
+        $background: $light-grey-color,
+        $background-hover: auto,
+        $color: $dunno-dark-color,
+        $style: solid
+      );
+      @include button-size(small);
 
-        .icon {
-          font-size: .6rem;
-        }
+      .icon {
+        font-size: .6rem;
       }
     }
   }

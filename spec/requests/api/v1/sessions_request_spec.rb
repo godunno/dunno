@@ -36,7 +36,7 @@ describe Api::V1::SessionsController do
       end
 
       it "should allow access with authentication_token after the sign in" do
-        get "/api/v1/events.json",
+        get "/api/v1/courses.json",
             user_email: profile.email,
             user_token: profile.authentication_token
         expect(controller.current_user).to eq(profile.user)
