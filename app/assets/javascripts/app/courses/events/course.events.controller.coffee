@@ -9,10 +9,10 @@ CourseEventsCtrl = (
 ) ->
   angular.extend($scope, DateUtils)
 
-  $scope.previousMonth = pagination.previousMonth
-  $scope.currentMonth = pagination.currentMonth
-  $scope.nextMonth = pagination.nextMonth
-  $scope.events = pagination.events
+  @previousMonth = pagination.previousMonth
+  @currentMonth = pagination.currentMonth
+  @nextMonth = pagination.nextMonth
+  @events = pagination.events
 
   showEventsFor = (event) ->
     if event._fetched
@@ -26,17 +26,19 @@ CourseEventsCtrl = (
   hideEventsFor = (event) ->
     event._showTopics = false
 
-  $scope.toggleTopicsFor = (event, show) ->
+  @toggleTopicsFor = (event, show) ->
     if show
       showEventsFor(event)
     else
       hideEventsFor(event)
 
-  $scope.track = (event) ->
+  @track = (event) ->
     AnalyticsTracker.eventAccessed(
       angular.extend({}, event, course: $scope.course),
       "Events Tab"
     )
+
+  @
 
 CourseEventsCtrl.$inject = [
   '$scope',

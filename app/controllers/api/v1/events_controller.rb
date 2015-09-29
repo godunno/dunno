@@ -2,7 +2,6 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   respond_to :json
 
   def index
-    @events = course.events
     @pagination = MonthsNavigation.new(params[:month])
     @events = EventsForPeriod.new(course, WholePeriod.new(@pagination.current_month).month).events
   end

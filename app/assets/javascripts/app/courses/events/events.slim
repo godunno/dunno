@@ -1,33 +1,33 @@
 .events
-  .events__blankslate ng-if="!events.length"
+  .events__navigation
+    .events__navigation__previous
+      a[
+        ui-sref="{month: vm.previousMonth}"
+        ui-sref-opts="{reload:true}"]
+        i.icon.icon-chevron-left>
+        span
+          | {{vm.previousMonth | amDateFormat:'MMM/YY'}}
+    .events__navigation__current
+      span
+        | {{vm.currentMonth | amDateFormat:'MMM/YY'}}
+    .events__navigation__next
+      a[
+        ui-sref="{month: vm.nextMonth}"
+        ui-sref-opts="{reload:true}"]
+        span
+          | {{vm.nextMonth | amDateFormat:'MMM/YY'}}
+        i.icon.icon-chevron-right<
+  .events__blankslate ng-if="!vm.events.length"
     p
       | Nenhuma aula criada.
       span.sad
     .events__schedule if-teacher="true"
       | Para adicionar novos horários de aula acesse o
-      a< ui-sref="^.calendar.schedule"
+      a< ui-sref="^.schedule"
         | Cronograma
       | .
-  .events__navigation ng-if="events.length"
-    .events__navigation__previous
-      a[
-        ui-sref="{month: previousMonth}"
-        ui-sref-opts="{reload:true}"]
-        i.icon.icon-chevron-left>
-        span
-          | {{previousMonth | amDateFormat:'MMM/YY'}}
-    .events__navigation__current
-      span
-        | {{currentMonth | amDateFormat:'MMM/YY'}}
-    .events__navigation__next
-      a[
-        ui-sref="{month: nextMonth}"
-        ui-sref-opts="{reload:true}"]
-        span
-          | {{nextMonth | amDateFormat:'MMM/YY'}}
-        i.icon.icon-chevron-right<
   .events__list
-    .event ng-repeat="event in events"
+    .event ng-repeat="event in vm.events"
       aside
         .event__date
           .event__weekday
@@ -51,10 +51,10 @@
           .event__actions
             a.event__edit[
               if-teacher=true
-              ng-click="track(event)"
+              ng-click="vm.track(event)"
               ui-sref="^.event({ startAt: event.start_at })"]
               | abrir no diário
-        a.event__content__toggle ng-click="toggleTopicsFor(event, !event._showTopics)"
+        a.event__content__toggle ng-click="vm.toggleTopicsFor(event, !event._showTopics)"
           span ng-show="!event._showTopics"
             | Exibir conteúdo
             i.icon.icon-chevron-down<

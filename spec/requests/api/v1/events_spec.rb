@@ -9,17 +9,10 @@ resource "Events" do
 
   let(:json) { JSON.parse(response_body) }
   let!(:teacher) { create(:profile) }
-  let!(:weekly_schedule) do
-    create :weekly_schedule,
-           weekday: 3,
-           start_time: '09:00',
-           end_time: '11:00'
-  end
   let!(:course) do
-    create :course,
+    create :course, :with_events,
            teacher: teacher,
-           weekly_schedules: [weekly_schedule],
-           start_date: '2015-07-01',
+           start_date: '2015-08-05',
            end_date: '2015-09-31'
   end
 
@@ -44,61 +37,57 @@ resource "Events" do
     context do
       let(:events_json) { json["events"] }
 
-      let(:previous_month) { Time.zone.parse('2015-07-01 00:00:00').utc.iso8601 }
-      let(:current_month) { Time.zone.parse('2015-08-01 00:00:00').utc.iso8601 }
-      let(:next_month) { Time.zone.parse('2015-09-01 00:00:00').utc.iso8601 }
-
-      def format_time(time)
-        time && time.utc.iso8601
-      end
-
-      def event_to_json(event)
-        {
-          "uuid" => event.uuid,
-          "start_at" => format_time(event.start_at),
-          "end_at" => format_time(event.end_at),
-          "status" => event.status,
-          "classroom" => event.classroom
-        }
-      end
+      let(:previous_month) { "2015-07-01T03:00:00Z" }
+      let(:current_month) { "2015-08-01T03:00:00Z" }
+      let(:next_month) { "2015-09-01T03:00:00Z" }
 
       let!(:published_event) do
-        create :event,
-               course: course,
-               start_at: Time.zone.parse('2015-08-05 09:00'),
-               end_at: Time.zone.parse('2015-08-05 11:00'),
-               status: 'published'
-      end
-      let!(:canceled_event) do
-        create :event,
-               course: course,
-               start_at: Time.zone.parse('2015-08-12 09:00'),
-               end_at: Time.zone.parse('2015-08-12 11:00'),
-               status: 'canceled'
-      end
-      let!(:draft_event) do
-        create :event,
-               course: course,
-               start_at: Time.zone.parse('2015-08-19 09:00'),
-               end_at: Time.zone.parse('2015-08-19 11:00'),
-               status: 'draft'
-      end
-      let!(:non_persisted_event) do
-        Event.new(
-          start_at: Time.zone.parse('2015-08-26 09:00'),
-          end_at: Time.zone.parse('2015-08-26 11:00')
-        )
+        course.events[0]
       end
 
-      let(:month_order) do
+      let!(:canceled_event) do
+        course.events[1]
+      end
+
+      let!(:draft_event) do
+        course.events[2]
+      end
+
+      let(:non_persisted_event_start_at) { "2015-08-26T12:00:00Z" }
+      let(:non_persisted_event_end_at) { "2015-08-26T14:00:00Z" }
+
+      let(:expected_events_json) do
         [
-          published_event,
-          canceled_event,
-          draft_event,
-          non_persisted_event
+          {
+            "uuid" => published_event.uuid,
+            "start_at" => "2015-08-05T12:00:00Z",
+            "end_at" => "2015-08-05T14:00:00Z",
+            "status" => published_event.status,
+            "classroom" => published_event.classroom
+          },
+          {
+            "uuid" => canceled_event.uuid,
+            "start_at" => "2015-08-12T12:00:00Z",
+            "end_at" => "2015-08-12T14:00:00Z",
+            "status" => canceled_event.status,
+            "classroom" => canceled_event.classroom
+          },
+          {
+            "uuid" => draft_event.uuid,
+            "start_at" => "2015-08-19T12:00:00Z",
+            "end_at" => "2015-08-19T14:00:00Z",
+            "status" => draft_event.status,
+            "classroom" => draft_event.classroom
+          },
+          {
+            "uuid" => nil,
+            "start_at" => non_persisted_event_start_at,
+            "end_at" => non_persisted_event_end_at,
+            "status" => 'draft',
+            "classroom" => nil
+          },
         ]
       end
-      let(:month_order_json) { month_order.map { |event| event_to_json(event) } }
 
       context "omitting the month" do
         before do
@@ -106,7 +95,7 @@ resource "Events" do
         end
 
         example_request "listing events for 08/2015", document: :public do
-          expect(events_json).to eq month_order_json
+          expect(events_json).to eq expected_events_json
         end
 
         example_request "sets the right headers and status" do
@@ -135,7 +124,7 @@ resource "Events" do
         end
 
         example_request "Listing events for 08/2015", document: :public do
-          expect(events_json).to eq month_order_json
+          expect(events_json).to eq expected_events_json
         end
       end
 
