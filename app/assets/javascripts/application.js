@@ -19,6 +19,7 @@
 //= require moment-timezone
 //= require angular-moment
 //= require angulartics
+//= require facebook
 //= require ui-router
 //= require angular-ui-router-title/angular-ui-router-title
 //= require initial.js

@@ -14,6 +14,7 @@ angular
     'angulartics.mixpanel',
     'cgBusy',
     'datePicker',
+    'facebook',
     'foundation',
     'ui.router',
     'ui.router.title',
