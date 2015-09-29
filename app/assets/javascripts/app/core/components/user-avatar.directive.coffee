@@ -10,7 +10,7 @@ link = (scope, element, attrs) ->
     setAvatar(scope.user, element, attrs)
 
   scope.$watch (-> scope.user), (updatedUser, oldUser) ->
-    if updatedUser && updatedUser != oldUser
+    if updatedUser
       setAvatar(updatedUser, element, attrs)
 
 setAvatar = (user, element, attrs) ->
