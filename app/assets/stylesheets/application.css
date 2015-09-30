@@ -13,5 +13,6 @@
  *= require jquery-timepicker-jt
  *= require angular-busy
  *= require angular-datepicker
+ *= require angular-mighty-datepicker
  *= require app
  */

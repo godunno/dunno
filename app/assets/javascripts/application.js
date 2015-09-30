@@ -14,6 +14,8 @@
 //= require angular-datepicker
 //= require angular-jquery-timepicker
 //= require angular-translate
+//= require angular-mighty-datepicker
+//= require angular-bindonce
 //= require moment
 //= require moment/locale/pt-br
 //= require moment-timezone

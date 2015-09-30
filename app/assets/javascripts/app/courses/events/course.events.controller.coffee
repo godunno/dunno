@@ -1,14 +1,10 @@
 CourseEventsCtrl = (
   $scope,
-  $stateParams,
+  $templateCache,
   pagination,
   AnalyticsTracker,
-  Event,
-  DateUtils,
   PageLoading
 ) ->
-  angular.extend($scope, DateUtils)
-
   @previousMonth = pagination.previousMonth
   @currentMonth = pagination.currentMonth
   @nextMonth = pagination.nextMonth
@@ -38,15 +34,32 @@ CourseEventsCtrl = (
       "Events Tab"
     )
 
+  @eventsDates = @events.map (event) ->
+    moment(event.start_at)
+
+  filterDates = (date) =>
+    @eventsDates.find (event) ->
+      event.isSame(date, 'day')
+
+  @calendarOptions =
+    filter: filterDates
+    start: @currentMonth
+    template: $templateCache.get('courses/events/angular-mighty-datepicker')
+
+  @eventsMarkers = @eventsDates.map (date) ->
+    day: date
+    marker: ' '
+
+  @selectedEvent = (event) =>
+    filterDates(@selectedDate)?.isSame(moment(event.start_at))
+
   @
 
 CourseEventsCtrl.$inject = [
   '$scope',
-  '$stateParams',
+  '$templateCache',
   'pagination',
   'AnalyticsTracker',
-  'Event',
-  'DateUtils',
   'PageLoading'
 ]
 
