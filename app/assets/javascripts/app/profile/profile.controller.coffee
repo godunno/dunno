@@ -1,7 +1,7 @@
 ProfileCtrl = ($http, SessionManager) ->
   @user = SessionManager.currentUser()
 
-  @update = (user) ->
+  @update = ->
     @submitting = $http.patch("/api/v1/users", user: @user).then(successFn, failureFn)
 
   successFn = (response) ->

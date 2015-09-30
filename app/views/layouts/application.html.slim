@@ -67,6 +67,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
         div
           | Copyright © #{Time.zone.now.year} #{link_to 'Termos de Uso', terms_path} #{link_to 'Política de Privacidade', policy_path}
       zf-notification-set id="main-notifications" position="bottom-left"
+    = render 'application/facebook'
     = javascript_include_tag "application"
     = render 'application/google_analytics'
     = render 'application/mixpanel'

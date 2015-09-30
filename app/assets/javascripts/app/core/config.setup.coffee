@@ -10,12 +10,17 @@ configure = (
   $animateProvider,
   $urlRouterProvider,
   $translateProvider,
-  $sceDelegateProvider) ->
+  $sceDelegateProvider,
+  FacebookProvider,
+  ENV) ->
 
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
   $urlRouterProvider.otherwise('/courses')
   $translateProvider.preferredLanguage('pt-BR')
   $translateProvider.useSanitizeValueStrategy('escape')
+  FacebookProvider.init
+    appId: ENV.FACEBOOK_APP_ID
+    locale: 'pt_BR'
 
   $sceDelegateProvider.resourceUrlWhitelist [
     'self'
@@ -27,7 +32,9 @@ configure.$inject = [
   '$animateProvider',
   '$urlRouterProvider',
   '$translateProvider',
-  '$sceDelegateProvider']
+  '$sceDelegateProvider',
+  'FacebookProvider',
+  'ENV']
 
 run = (amMoment, $rootScope, $window, SessionManager, NonLoggedRoutes) ->
   redirectIfNotLoggedIn = ->
@@ -41,8 +48,11 @@ run = (amMoment, $rootScope, $window, SessionManager, NonLoggedRoutes) ->
 
 run.$inject = ['amMoment', '$rootScope', '$window', 'SessionManager', 'NonLoggedRoutes']
 
+window.ENV = window.ENV || {}
+
 angular
   .module('app.core')
+  .constant('ENV', window.ENV)
   .value('cgBusyDefaults', cgBusyDefaults)
   .constant('angularMomentConfig', angularMomentConfig)
   .config(configure)
