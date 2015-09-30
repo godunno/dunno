@@ -45,13 +45,18 @@ CourseEventsCtrl = (
     filter: filterDates
     start: @currentMonth
     template: $templateCache.get('courses/events/angular-mighty-datepicker')
+    callback: (date) =>
+      @selectedDate = date
 
   @eventsMarkers = @eventsDates.map (date) ->
     day: date
     marker: ' '
 
-  @selectedEvent = (event) =>
+  @moveToEvent = (event) =>
     filterDates(@selectedDate)?.isSame(moment(event.start_at))
+
+  @selectedEvent = (event) =>
+    @selectedDate?.isSame(moment(event.start_at), 'day')
 
   @
 
