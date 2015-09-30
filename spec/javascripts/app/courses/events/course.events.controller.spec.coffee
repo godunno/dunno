@@ -96,8 +96,19 @@ describe "CourseEventsCtrl", ->
       dayAfter = startAt.clone().add(1, 'day')
       expect(filter(dayAfter)).not.toBeDefined()
 
-    it "selects only the first event in the same day", ->
+    it "assigns the selected date on the callback", ->
+      date = moment()
+      ctrl.calendarOptions.callback(date)
+      expect(ctrl.selectedDate).toBe(date)
+
+    it "moves to the first event in the same day", ->
+      expect(ctrl.moveToEvent(event)).not.toBeDefined()
+      ctrl.selectedDate = startAt
+      expect(ctrl.moveToEvent(event)).toBe(true)
+      expect(ctrl.moveToEvent(eventInSameDay)).toBe(false)
+
+    it "marks all the events in the same day", ->
       expect(ctrl.selectedEvent(event)).not.toBeDefined()
       ctrl.selectedDate = startAt
       expect(ctrl.selectedEvent(event)).toBe(true)
-      expect(ctrl.selectedEvent(eventInSameDay)).toBe(false)
+      expect(ctrl.selectedEvent(eventInSameDay)).toBe(true)

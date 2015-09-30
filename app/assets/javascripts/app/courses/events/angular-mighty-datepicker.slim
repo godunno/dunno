@@ -1,6 +1,6 @@
 .mighty-picker__wrapper
   .mighty-picker__month bindonce="" ng-repeat=("month in months track by $index")
-    .mighty-picker__month-name ng-bind="month.name"
+    .mighty-picker__month-name {{ month.weeks[1][0].date | amDateFormat: 'MMM/YY' }}
     table.mighty-picker-calendar
       tr.mighty-picker-calendar__days
         th.mighty-picker-calendar__weekday bindonce="" bo-text="day.date.format('ddd')" ng-repeat=("day in month.weeks[1]")
