@@ -11,7 +11,7 @@
   }
 
   &__navigation {
-    @include grid-block(8);
+    @include grid-block(12);
     border-bottom: $divider;
     margin: 0 auto 2rem;
     padding: .25rem .25rem 1rem;
@@ -40,6 +40,46 @@
     }
   }
 
+  &__wrapper {
+    @include grid-block(12);
+
+    @include breakpoint(small only) {
+      @include grid-block(
+        $size: 12,
+        $orientation: vertical
+      );
+    }
+  }
+
+  .mighty-picker__wrapper {
+    min-width: 100%;
+  }
+
+  .mighty-picker__month {
+    @include breakpoint(medium up) {
+      position: fixed;
+    }
+  }
+
+  .mighty-picker__holder {
+    @include grid-block(
+      $size: 4,
+      $order: 2
+    );
+
+    @include breakpoint(small only) {
+      @include grid-block(
+        $size: 12,
+        $order: 0
+      );
+
+      .mighty-picker__wrapper {
+        margin: 0 auto;
+        min-width: auto;
+      }
+    }
+  }
+
   &__list {
     @include grid-block(
       $align: center,
@@ -60,12 +100,20 @@
 
 .event {
   @include grid-block();
+  padding-right: 1rem;
+  padding-top: 1rem;
+
   @include breakpoint(small only) {
     @include grid-block(
       $wrap: true
     );
     background-color: $white;
     border-bottom: $divider;
+  }
+
+  &.event__selected {
+    background: lighten($light-grey-color, 15%);
+    position: relative;
   }
 
   aside {
@@ -87,6 +135,7 @@
 
   &__date {
     font-weight: $font-weight-bold;
+    margin-top: 1rem;
     text-align: center;
     text-transform: uppercase;
     width: 3rem;
@@ -131,7 +180,7 @@
     background-color: $white;
     border: $divider;
     border-radius: $global-radius;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     padding: 1rem;
 
     @include breakpoint(small only) {

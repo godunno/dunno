@@ -1,9 +1,14 @@
 .events
-  mighty-datepicker[
-    ng-model="noop"
-    options="vm.calendarOptions"
-    markers="vm.eventsMarkers"]
-  .events__navigation
+  .events__blankslate ng-if="!vm.events.length"
+    p
+      | Nenhuma aula criada.
+      span.sad
+    .events__schedule if-teacher="true"
+      | Para adicionar novos horários de aula acesse o
+      a< ui-sref="^.schedule"
+        | Cronograma
+      | .
+  .events__navigation ng-if="vm.events.length"
     .events__navigation__previous
       a[
         ui-sref="{month: vm.previousMonth}"
@@ -21,74 +26,67 @@
         span
           | {{vm.nextMonth | amDateFormat:'MMM/YY'}}
         i.icon.icon-chevron-right<
-  .events__blankslate ng-if="!vm.events.length"
-    p
-      | Nenhuma aula criada.
-      span.sad
-    .events__schedule if-teacher="true"
-      | Para adicionar novos horários de aula acesse o
-      a< ui-sref="^.schedule"
-        | Cronograma
-      | .
-  .events__list
-    .event[
-      ng-repeat="event in vm.events"
-      scroll-to-when="vm.moveToEvent(event)"
-      ng-class="{ event__selected: vm.selectedEvent(event) }"]
-      aside
-        .event__date
-          .event__weekday
-            | {{event.start_at | amDateFormat:'ddd'}}
-          .event__day
-            | {{event.start_at | amDateFormat:'DD'}}
-        event-status.event__status.date__status[
-          event="event"
-          role="course.user_role"]
-      section
-        .event__header
-          .event__info
-            .event__time
-              i.icon.icon-clock
-              b
-                | {{event.start_at | amDateFormat: 'HH:mm'}} – {{event.end_at | amDateFormat: 'HH:mm'}}
-            .event__classroom ng-show="event.classroom"
-              i.icon.icon-location
-              b
-                | {{event.classroom}}
-          .event__actions
-            a.event__edit[
-              if-teacher=true
-              ng-click="vm.track(event)"
-              ui-sref="^.event({ startAt: event.start_at })"]
-              | abrir no diário
-        a.event__content__toggle ng-click="vm.toggleTopicsFor(event, !event._showTopics)"
-          span ng-show="!event._showTopics"
-            | Exibir conteúdo
-            i.icon.icon-chevron-down<
-          span ng-show="event._showTopics"
-            | Ocultar conteúdo
-            i.icon.icon-chevron-up<
-        .event__content[
-          ng-show="event._showTopics"
-          class="event__status__{{event.status}}"]
-          .event__item.event__empty ng-if="event.topics.length == 0"
-            | Nenhum conteúdo disponível para esse dia.
-          .event__item[
-            ng-repeat="topic in event.topics"
-            ng-if="topic.personal != true"]
-            img.event__item__image[
-              ng-if="!!topic.media"
-              ng-src="{{topic.media.thumbnail}}"]
-            a.event__item__description[
-              ng-if="!!topic.media"
-              ng-href="{{topic.media.url}}"
-              target="_blank"
-              analytics-on="click"
-              analytics-event="Media Clicked"
-              analytics-uuid="{{media.uuid}}"
-              analytics-event-uuid="{{event.uuid}}"
-              analytics-course-name="{{event.course.name}}"
-              analytics-course-uuid="{{event.course.uuid}}"]
-              | {{topic.description}}
-            span.event__item__description ng-if="!topic.media"
-              | {{topic.description}}
+  .events__wrapper ng-if="vm.events.length"
+    mighty-datepicker[
+      ng-model="noop"
+      options="vm.calendarOptions"
+      markers="vm.eventsMarkers"]
+    .events__list
+      .event ng-repeat="event in vm.events" scroll-to-when="vm.selectedEvent(event)"
+        aside
+          .event__date
+            .event__weekday
+              | {{event.start_at | amDateFormat:'ddd'}}
+            .event__day
+              | {{event.start_at | amDateFormat:'DD'}}
+          event-status.event__status.date__status[
+            event="event"
+            role="course.user_role"]
+        section
+          .event__header
+            .event__info
+              .event__time
+                i.icon.icon-clock
+                b
+                  | {{event.start_at | amDateFormat: 'HH:mm'}} – {{event.end_at | amDateFormat: 'HH:mm'}}
+              .event__classroom ng-show="event.classroom"
+                i.icon.icon-location
+                b
+                  | {{event.classroom}}
+            .event__actions
+              a.event__edit[
+                if-teacher=true
+                ng-click="vm.track(event)"
+                ui-sref="^.event({ startAt: event.start_at })"]
+                | abrir no diário
+          a.event__content__toggle ng-click="vm.toggleTopicsFor(event, !event._showTopics)"
+            span ng-show="!event._showTopics"
+              | Exibir conteúdo
+              i.icon.icon-chevron-down<
+            span ng-show="event._showTopics"
+              | Ocultar conteúdo
+              i.icon.icon-chevron-up<
+          .event__content[
+            ng-show="event._showTopics"
+            class="event__status__{{event.status}}"]
+            .event__item.event__empty ng-if="event.topics.length == 0"
+              | Nenhum conteúdo disponível para esse dia.
+            .event__item[
+              ng-repeat="topic in event.topics"
+              ng-if="topic.personal != true"]
+              img.event__item__image[
+                ng-if="!!topic.media"
+                ng-src="{{topic.media.thumbnail}}"]
+              a.event__item__description[
+                ng-if="!!topic.media"
+                ng-href="{{topic.media.url}}"
+                target="_blank"
+                analytics-on="click"
+                analytics-event="Media Clicked"
+                analytics-uuid="{{media.uuid}}"
+                analytics-event-uuid="{{event.uuid}}"
+                analytics-course-name="{{event.course.name}}"
+                analytics-course-uuid="{{event.course.uuid}}"]
+                | {{topic.description}}
+              span.event__item__description ng-if="!topic.media"
+                | {{topic.description}}
