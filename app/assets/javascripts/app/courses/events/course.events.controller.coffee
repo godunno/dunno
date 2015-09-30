@@ -38,8 +38,8 @@ CourseEventsCtrl = (
     moment(event.start_at)
 
   filterDates = (date) =>
-    @eventsDates.find (event) ->
-      event.isSame(date, 'day')
+    for event in @eventsDates
+      return event if event.isSame(date, 'day')
 
   @calendarOptions =
     filter: filterDates
