@@ -1,4 +1,8 @@
 .events
+  mighty-datepicker[
+    ng-model="vm.selectedDate"
+    options="vm.calendarOptions"
+    markers="vm.eventsMarkers"]
   .events__navigation
     .events__navigation__previous
       a[
@@ -27,7 +31,7 @@
         | Cronograma
       | .
   .events__list
-    .event ng-repeat="event in vm.events"
+    .event ng-repeat="event in vm.events" scroll-to-when="vm.selectedEvent(event)"
       aside
         .event__date
           .event__weekday
