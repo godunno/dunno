@@ -7,7 +7,7 @@ angular
     'ngSanitize',
     'as.sortable',
     'angular.filter',
-    'angularFileUpload',
+    'ngFileUpload',
     'angularMoment',
     'angulartics',
     'angulartics.google.analytics',
