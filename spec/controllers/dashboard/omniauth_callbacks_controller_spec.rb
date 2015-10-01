@@ -2,7 +2,13 @@ require "spec_helper"
 
 describe Dashboard::OmniauthCallbacksController do
   describe "#facebook" do
-    before { stub_env_for_omniauth }
+    let(:omniauth_response) { OmniAuth.config.mock_auth[:facebook] }
+
+    before do
+      request.env["devise.mapping"] = Devise.mappings[:user]
+      request.env["omniauth.auth"] = omniauth_response
+    end
+
     def do_action
       get :facebook
     end
@@ -29,8 +35,21 @@ describe Dashboard::OmniauthCallbacksController do
       end
     end
 
+    describe "authenticating an user without e-mail" do
+      let(:omniauth_response) { OmniAuth.config.mock_auth[:facebook_with_no_email] }
+
+      it "rerequests the user e-mail" do
+        expect(do_action).to redirect_to user_omniauth_authorize_path(
+          provider: :facebook,
+          auth_type: :rerequest,
+          scope: :email
+        )
+      end
+    end
+
     describe "authenticating an existent user" do
       let!(:user) { create(:user, email: "darthvader@example.org") }
+
       it "does not create a new user" do
         expect { do_action }.to_not change(User, :count)
       end
@@ -40,10 +59,5 @@ describe Dashboard::OmniauthCallbacksController do
         expect(subject.current_user).to eq user
       end
     end
-  end
-
-  def stub_env_for_omniauth
-    request.env["devise.mapping"] = Devise.mappings[:user]
-    request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
   end
 end
