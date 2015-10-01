@@ -22,6 +22,7 @@ class AuthenticateUserFromFacebook
       u.name = user_info.name
       u.email = user_info.email
       u.password = Devise.friendly_token[0, 20]
+      u.profile = Profile.new
     end
   end
 end

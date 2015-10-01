@@ -20,6 +20,8 @@ describe AuthenticateUserFromFacebook do
       it { expect(created_user.password).to be_present }
       it { expect(created_user.avatar_url).to eq "http://graph.facebook.com/awesome_photo.png" }
       it { expect(created_user).to be_persisted }
+      it { expect(created_user.profile).to be_present }
+      it { expect(created_user.profile).to be_persisted }
     end
 
     context "as an existent user" do
