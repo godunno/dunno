@@ -36,8 +36,8 @@ describe EventNavigation do
     it { expect(service.next).to be_nil }
   end
 
-  context "when it starts in the next month and its course has no start_date and end_date" do
-    let(:course) { create(:course, start_date: nil, end_date: nil, weekly_schedules: [weekly_schedule]) }
+  context "when it starts in the next month and its course has no end_date" do
+    let(:course) { create(:course, end_date: nil, weekly_schedules: [weekly_schedule]) }
     let(:start_at) { fifth_date }
     let(:sixth_date)  { Time.zone.parse('2015-09-07 09:00') }
 

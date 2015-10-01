@@ -16,11 +16,10 @@ class Course < ActiveRecord::Base
   has_many :weekly_schedules
   has_many :notifications
 
-  validates :name, :teacher, presence: true
+  validates :name, :teacher, :start_date, presence: true
   validates :abbreviation, length: { maximum: 10 }
 
   before_create :set_access_code
-  before_create :set_start_date
 
   default_scope -> { order(:created_at) }
 
@@ -56,9 +55,5 @@ class Course < ActiveRecord::Base
       self.access_code = SecureRandom.hex(2)
       break unless Course.exists?(access_code: access_code)
     end
-  end
-
-  def set_start_date
-    self.start_date ||= created_at
   end
 end

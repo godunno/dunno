@@ -3,14 +3,13 @@
 FactoryGirl.define do
   factory :course do
     name "Português Bolado"
+    start_date { Date.today }
     end_date { Date.tomorrow }
     class_name "101"
     institution "PUC-Rio"
     teacher { build(:profile) }
 
     trait :with_events do
-      start_date { Date.today }
-
       transient do
         start_time '09:00'
         end_time '11:00'
