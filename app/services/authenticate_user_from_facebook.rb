@@ -5,9 +5,8 @@ class AuthenticateUserFromFacebook
   end
 
   def authenticate
-    (find_user_by_email || find_or_create_user_by_facebook_uid).tap do |user|
-      user.update(facebook_uid: facebook_uid, avatar_url: user_info.image)
-    end
+    user = (find_user_by_email || find_or_create_user_by_facebook_uid)
+    user.update(facebook_uid: facebook_uid, avatar_url: user_info.image) && user
   end
 
   private

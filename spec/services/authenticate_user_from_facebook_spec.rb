@@ -48,5 +48,13 @@ describe AuthenticateUserFromFacebook do
         it { expect(user.avatar_url).to eq "http://graph.facebook.com/awesome_photo.png" }
       end
     end
+
+    context "with an user with no e-mail" do
+      let(:omniauth_hash) do
+        OmniAuth.config.mock_auth[:facebook_with_no_email]
+      end
+
+      it { expect(authenticate_with_facebook).to be false }
+    end
   end
 end
