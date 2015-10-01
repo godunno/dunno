@@ -7,7 +7,6 @@ describe Api::V1::EventsController do
   let(:event) { create(:event, course: course) }
 
   describe "GET /api/v1/events/:start_at" do
-
     before do
       Timecop.freeze Time.zone.local(2015, 1, 2, 9)
       (0..6).each do |weekday|
@@ -173,7 +172,7 @@ describe Api::V1::EventsController do
             "user_role" => "teacher",
             "students_count" => 0,
             "active" => true,
-            "teacher" => { "name" => profile.name },
+            "teacher" => { "name" => profile.name, "avatar_url" => nil },
             "weekly_schedules" => [
               "uuid" => weekly_schedule.uuid,
               "weekday" => weekly_schedule.weekday,
@@ -182,7 +181,7 @@ describe Api::V1::EventsController do
               "classroom" => weekly_schedule.classroom
             ],
             "members_count" => 1,
-            "members" => ["name" => profile.name, "role" => "teacher"]
+            "members" => ["name" => profile.name, "role" => "teacher", "avatar_url" => nil]
           },
           "topics" => []
         )

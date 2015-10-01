@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Course do
-  subject(:course) { build(:course, start_date: nil) }
+  subject(:course) { build(:course) }
 
   describe "associations" do
     it { is_expected.to have_one(:teacher) }
@@ -22,11 +22,6 @@ describe Course do
   describe "callbacks" do
     describe "after create" do
       context "new course" do
-        it "saves a start_date" do
-          course.save!
-          expect(course.start_date).to eq course.created_at.to_date
-        end
-
         it "saves a new uuid" do
           expect(course.uuid).to be_nil
           course.save!

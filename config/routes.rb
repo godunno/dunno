@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
-
   root 'home#home'
 
   get 'terms' => 'home#terms'
   get 'policy' => 'home#policy'
 
-  devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/users' }
+  devise_for :users,
+             skip: :sessions,
+             controllers: {
+               registrations: 'dashboard/users',
+               omniauth_callbacks: "dashboard/omniauth_callbacks"
+             }
   mount_roboto
 
   as :user do

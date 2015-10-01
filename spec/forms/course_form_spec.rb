@@ -66,24 +66,6 @@ describe CourseForm do
               service.update!
               expect(persist_spy).to have_received(:persist!)
             end
-
-            context "course with a default start date" do
-              let(:course) { create(:course, start_date: nil) }
-
-              it do
-                service.update!
-                expect(persist_spy).to have_received(:persist!)
-              end
-            end
-          end
-
-          context "when start_date was nil" do
-            let(:course) { create(:course, start_date: nil) }
-
-            it do
-              service.update!
-              expect(persist_spy).not_to have_received(:persist!)
-            end
           end
         end
 

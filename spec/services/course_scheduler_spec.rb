@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CourseScheduler do
-  let(:course) { create(:course, start_date: nil, end_date: nil) }
+  let(:course) { create(:course, end_date: nil) }
   let(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, classroom: '1A', start_time: '09:00', end_time: '11:00') }
   let(:service) { CourseScheduler.new(course, current_month) }
   let(:events) { service.events }
@@ -43,7 +43,7 @@ describe CourseScheduler do
     end
 
     context "with an end date set on course" do
-      let!(:course) { create(:course, start_date: nil, end_date: 2.month.from_now) }
+      let!(:course) { create(:course, end_date: 2.month.from_now) }
       let(:three_months_from_now) { 3.months.from_now.beginning_of_month..3.months.from_now.end_of_month }
 
       it 'stops creating occurrences using the course end date' do

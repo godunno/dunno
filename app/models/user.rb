@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :validatable, :async
+         :validatable, :async, :omniauthable,
+         omniauth_providers: [:facebook]
 
   belongs_to :profile, dependent: :destroy
   has_many :api_keys, dependent: :destroy

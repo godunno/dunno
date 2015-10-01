@@ -1,19 +1,21 @@
-ProfileCtrl = ($scope, $http, SessionManager, ErrorParser) ->
-  $scope.user = SessionManager.currentUser()
+ProfileCtrl = ($http, SessionManager) ->
+  @user = SessionManager.currentUser()
 
-  success = (response) ->
-    $scope.success = true
-    $scope.error = false
+  @update = (user) ->
+    @submitting = $http.patch("/api/v1/users", user: @user).then(successFn, failureFn)
+
+  successFn = (response) ->
+    @success = true
+    @error = false
     SessionManager.setCurrentUser(response.data)
 
-  failure = (response) ->
-    $scope.error = true
-    $scope.success = false
+  failureFn = (response) ->
+    @error = true
+    @success = false
 
-  $scope.update = (user) ->
-    $scope.submitting = $http.patch("/api/v1/users", user: user).then(success, failure)
+  @
 
-ProfileCtrl.$inject = ['$scope', '$http', 'SessionManager', 'ErrorParser']
+ProfileCtrl.$inject = ['$http', 'SessionManager']
 
 angular
   .module('app.profile')

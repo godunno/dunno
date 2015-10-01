@@ -1,5 +1,5 @@
 SessionManager = ($http, $q, $analytics, LocalStorageWrapper) ->
-  setCurrentUser = (user)->
+  setCurrentUser = (user) ->
     $analytics.setUsername(user.id)
     $analytics.setUserProperties
       $email: user.email
@@ -15,10 +15,10 @@ SessionManager = ($http, $q, $analytics, LocalStorageWrapper) ->
 
   signIn = (user) ->
     deferred = $q.defer()
-    $http.post("/api/v1/users/sign_in.json", user: user).then((response)->
+    $http.post("/api/v1/users/sign_in.json", user: user).then((response) ->
       setCurrentUser(response.data)
       deferred.resolve(response.data)
-    ).catch((response)-> deferred.reject(response.data))
+    ).catch((response) -> deferred.reject(response.data))
     deferred.promise
 
   signOut = ->
