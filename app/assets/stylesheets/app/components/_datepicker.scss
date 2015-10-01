@@ -68,7 +68,6 @@ li.ui-timepicker-selected,
     &__day--marked {
       .mighty-picker-calendar__day-wrapper {
         background-color: $dunno-dark-color;
-        border-radius: 50%;
         color: $white;
       }
     }
@@ -79,8 +78,15 @@ li.ui-timepicker-selected,
       }
     }
 
+    &__day--disabled {
+      .mighty-picker-calendar__day-wrapper {
+        background-color: $transparent;
+        color: $dark-grey-color;
+      }
+    }
 
     &__day-wrapper {
+      border-radius: 50%;
       display: inline-block;
       font-size: .875rem;
       line-height: 1.5rem;
