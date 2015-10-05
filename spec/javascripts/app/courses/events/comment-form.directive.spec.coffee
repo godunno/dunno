@@ -13,7 +13,14 @@ describe "comment-form directive", ->
     module 'app.courses', ($urlRouterProvider) ->
       $urlRouterProvider.deferIntercept()
 
-    inject (_$rootScope_, _$compile_, _SessionManager_, _$httpBackend_, _UserComment_, _FoundationApi_) ->
+    inject (
+      _$rootScope_,
+      _$compile_,
+      _SessionManager_,
+      _$httpBackend_,
+      _UserComment_,
+      _FoundationApi_) ->
+
       $rootScope = _$rootScope_
       $compile = _$compile_
       SessionManager = _SessionManager_
