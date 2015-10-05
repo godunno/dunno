@@ -38,6 +38,7 @@
       padding: .75rem;
       text-align: center;
       text-transform: uppercase;
+      white-space: nowrap;
 
       @include breakpoint(small only) {
         margin-top: 0;
