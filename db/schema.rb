@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001182847) do
+ActiveRecord::Schema.define(version: 20151005190357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,17 @@ ActiveRecord::Schema.define(version: 20151001182847) do
 
   add_index "comments", ["event_id"], name: "index_comments_on_event_id", using: :btree
   add_index "comments", ["profile_id"], name: "index_comments_on_profile_id", using: :btree
+
+  create_table "attachments", force: true do |t|
+    t.string   "original_filename", null: false
+    t.string   "file_url",          null: false
+    t.integer  "file_size",         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "profile_id"
+  end
+
+  add_index "attachments", ["profile_id"], name: "index_attachments_on_profile_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"

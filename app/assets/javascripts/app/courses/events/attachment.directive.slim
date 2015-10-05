@@ -1,0 +1,28 @@
+.attachment
+  .uploading ng-if="vm.isUploading()"
+    span.sending
+      | Enviando...
+    p.file-name
+      | {{ vm.file.name }}
+    p.file-size
+      | {{ vm.file.size | bytes }}
+    a.abort ng-click="vm.abort()"
+      | abort
+
+  .error ng-if="vm.hasError()"
+    p.file-name
+      | {{ vm.file.name }}
+    p.file-size
+      | {{ vm.file.size | bytes }}
+    a.abort ng-click="vm.abort()"
+      | abort
+    p.message__error ng-if="vm.hasError('file_too_big')"
+      | Arquivo deve ter no máximo 50MB.
+
+  .completed ng-if="vm.isCompleted()"
+    a.file-url ng-href="vm.attachment.url"
+      | {{ vm.attachment.original_filename }}
+    p.file-size
+      | {{ vm.file.size | bytes }}
+    a.delete ng-click="vm.delete()" ng-if="vm.isCompleted()"
+      | delete
