@@ -7,6 +7,7 @@ attachmentUploader = ->
   ) ->
     vm = @
     vm.files = []
+    vm.attachmentIds ?= []
 
     setPromiseFor = (file) ->
       file.promise = if file.size <= UPLOAD_LIMIT
@@ -19,15 +20,15 @@ attachmentUploader = ->
       files.forEach setPromiseFor
       vm.files = vm.files.concat files
 
-    vm.removeFile = (file) ->
+    vm.uploadAborted = (file) ->
       Utils.remove(vm.files, file)
 
     vm.attachmentCreated = (attachment) ->
-      vm.onCreate()?(attachment)
+      vm.attachmentIds.push(attachment.id)
 
     vm.attachmentDeleted = (attachment, file) ->
-      vm.removeFile(file)
-      vm.onDelete()?(attachment)
+      Utils.remove(vm.files, file)
+      Utils.remove(vm.attachmentIds, attachment.id)
 
     vm
 
@@ -39,10 +40,10 @@ attachmentUploader = ->
   ]
 
   restrict: 'E'
-  controller: attachmentUploaderCtrl
+  require: 'ngModel'
   scope:
-    onCreate: '&'
-    onDelete: '&'
+    attachmentIds: '=ngModel'
+  controller: attachmentUploaderCtrl
   controllerAs: 'vm'
   bindToController: true
   templateUrl: 'courses/events/attachment-uploader.directive'

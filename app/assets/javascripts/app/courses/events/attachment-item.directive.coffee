@@ -1,5 +1,5 @@
-attachment = ->
-  attachmentController = (
+attachmentItem = ->
+  attachmentItemController = (
     $scope,
     $element,
     Attachment,
@@ -42,7 +42,7 @@ attachment = ->
 
     vm
 
-  attachmentController.$inject = [
+  attachmentItemController.$inject = [
     '$scope',
     '$element',
     'Attachment',
@@ -56,11 +56,11 @@ attachment = ->
     onAbort: '&'
     onDelete: '&'
     onCreate: '&'
-  controller: attachmentController
+  controller: attachmentItemController
   controllerAs: 'vm'
   bindToController: true
-  templateUrl: 'courses/events/attachment.directive'
+  templateUrl: 'courses/events/attachment-item.directive'
 
 angular
   .module('app.courses')
-  .directive('attachment', attachment)
+  .directive('attachmentItem', attachmentItem)

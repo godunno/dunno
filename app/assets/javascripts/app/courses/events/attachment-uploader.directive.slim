@@ -2,9 +2,9 @@
   a.button.send-file
     | Enviar arquivo
   input.file-select.hide type="file" ngf-multiple="true" ngf-select="vm.upload($files)"
-  attachment[
+  attachment-item[
     ng-model="file"
-    on-abort="vm.removeFile"
+    on-abort="vm.uploadAborted"
     on-create="vm.attachmentCreated"
     on-delete="vm.attachmentDeleted"
     ng-repeat="file in vm.files"]
