@@ -58,6 +58,8 @@ CourseEventsCtrl = (
   @selectedEvent = (event) =>
     @selectedDate?.isSame(moment(event.start_at), 'day')
 
+  @commentSaved = (comment) ->
+
   @
 
 CourseEventsCtrl.$inject = [
