@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :comment do
     body "This is awesome!"
-    user
+    profile
     event
   end
 end
