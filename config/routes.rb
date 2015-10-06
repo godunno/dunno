@@ -44,6 +44,7 @@ Rails.application.routes.draw do
           patch :transfer
         end
       end
+      resources :comments, only: [:create]
       resources :events, param: :start_at, only: [:index, :show, :create, :update]
       resources :courses, only: [:index, :show, :create, :update, :destroy] do
         member do

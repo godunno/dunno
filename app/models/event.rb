@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :course, touch: true
   has_many :topics
+  has_many :comments, dependent: :destroy
 
   delegate :teacher, to: :course
 
