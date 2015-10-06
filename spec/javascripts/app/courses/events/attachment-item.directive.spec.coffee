@@ -7,21 +7,21 @@ describe "attachment-item directive", ->
 
   $q = null
   $compile = null
-  Attachment = null
 
   scope = null
   element = null
   ctrl = null
 
-  file = { name: 'file.txt', size: 1024 }
-  file_url = 'path/to/file.txt'
-
   deferred = null
   promise = null
 
+  file = { name: 'file.txt', size: 1024 }
+  file_url = 'path/to/file.txt'
+  Attachment =
+    delete: (->)
+
   abortCallback = jasmine.createSpy('abortCallback')
   deleteCallback = jasmine.createSpy('deleteCallback')
-  createCallback = jasmine.createSpy('createCallback')
 
   response =
     config:
@@ -33,19 +33,17 @@ describe "attachment-item directive", ->
      ng-model="file"
      promise="promise"
      on-delete="deleteCallback"
-     on-abort="abortCallback"
-     on-create="createCallback">
+     on-abort="abortCallback">
   """
 
   beforeEach ->
-    inject (_$compile_, $rootScope, $httpBackend, _$q_, _Attachment_) ->
+    inject (_$compile_, $rootScope, _$q_) ->
       $compile = _$compile_
       $q = _$q_
-      Attachment = _Attachment_
 
       deferred = $q.defer()
 
-      promise = deferred.promise
+      promise = deferred.promise.then -> Attachment
       promise.abort = -> promise
 
       scope = $rootScope.$new()
@@ -53,19 +51,11 @@ describe "attachment-item directive", ->
       scope.promise = promise
       scope.abortCallback = abortCallback
       scope.deleteCallback = deleteCallback
-      scope.createCallback = createCallback
 
       element = $compile(template)(scope)
       element.appendTo(document.body)
       scope.$digest()
       ctrl = element.controller('attachmentItem')
-
-      $httpBackend.whenPOST('/api/v1/attachments').respond
-        id: 1
-        url: 'http://www.example.com/file.txt'
-        original_filename: file.name
-        file_size: file.size
-      $httpBackend.whenDELETE('/api/v1/attachments').respond(200)
 
   afterEach ->
     element.remove()
@@ -94,41 +84,11 @@ describe "attachment-item directive", ->
   it "shows the file's size", ->
     expect(element.find('.file-size').text().trim()).toEqual('1.0 kB')
 
-  it "creates an Attachment after upload", ->
-    spyOn(Attachment.prototype, 'create').and.callThrough()
-    deferred.resolve(response)
-    scope.$apply()
-    #expect(Attachment.constructor).toHaveBeenCalledWith
-    #  file_url: file_url
-    #  file_size: file.size
-    #  original_filename: file.name
-    expect(Attachment.prototype.create).toHaveBeenCalled()
-
   it "changes to completed", ->
-    newDeferred = $q.defer()
-    spyOn(Attachment.prototype, 'create').and.returnValue newDeferred.promise
     deferred.resolve(response)
-    scope.$apply()
-    expect(ctrl.isUploading()).toBe(true)
-    expect(ctrl.isCompleted()).toBe(false)
-
-    newDeferred.resolve()
     scope.$apply()
     expect(ctrl.isCompleted()).toBe(true)
     expect(ctrl.isUploading()).toBe(false)
-
-  xit "calls callback after creating attachment", ->
-    # Isn't passing for some reason
-    newDeferred = $q.defer()
-    spyOn(Attachment.prototype, 'create').and.returnValue newDeferred.promise
-
-    deferred.resolve(response)
-    scope.$apply()
-    expect(createCallback).not.toHaveBeenCalled()
-
-    newDeferred.resolve()
-    scope.$apply()
-    expect(createCallback).toHaveBeenCalledWith(ctrl.attachment)
 
   it "shows error for file too big", ->
     inject (UPLOAD_LIMIT) ->
@@ -142,14 +102,8 @@ describe "attachment-item directive", ->
 
   describe "after upload", ->
     beforeEach ->
-      newDeferred = $q.defer()
-      spyOn(Attachment.prototype, 'create').and.returnValue newDeferred.promise
       deferred.resolve(response)
-      newDeferred.resolve()
       scope.$apply()
-
-    it "assigns an Attachment", ->
-      expect(Attachment.prototype.isPrototypeOf(ctrl.attachment)).toBe(true)
 
     it "doesn't have a button to abort upload", ->
       expect(element.find('.abort').length).toBe(0)
@@ -160,9 +114,4 @@ describe "attachment-item directive", ->
       element.find('.delete').click()
       scope.$apply()
       expect(ctrl.attachment.delete).toHaveBeenCalled()
-
-    xit "calls callback after clicking delete button", ->
-      # Isn't passing for some reason
-      element.find('.delete').click()
-      scope.$apply()
-      expect(deleteCallback).toHaveBeenCalledWith(ctrl.attachment, file)
+      expect(deleteCallback).toHaveBeenCalledWith(ctrl.attachment, promise)

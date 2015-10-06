@@ -1,16 +1,24 @@
-commentForm = (SessionManager, UserComment, FoundationApi) ->
+commentForm = (
+  $q,
+  SessionManager,
+  UserComment,
+  FoundationApi
+) ->
   commentFormCtrl = ->
     @user = SessionManager.currentUser()
     @comment = new UserComment(event_start_at: @event.start_at)
 
-    @send = ->
+    @send = =>
       return if @commentForm.$invalid
-      @submitting = @comment.save().then (comment) =>
-        @onSave()(comment)
-        FoundationApi.publish 'main-notifications',
-          content: 'Comentário enviado, continue assim!'
-      .then =>
-        @comment = new UserComment(event_start_at: @event.start_at)
+      @submitting = $q.all(@filePromises).then =>
+        @comment.save().then (comment) =>
+          @onSave()(comment)
+          FoundationApi.publish 'main-notifications',
+            content: 'Comentário enviado, continue assim!'
+        .then =>
+          @comment = new UserComment(event_start_at: @event.start_at)
+          @comment.attachment_ids = []
+          @filePromises = []
 
     @
 
@@ -23,7 +31,12 @@ commentForm = (SessionManager, UserComment, FoundationApi) ->
   controllerAs: 'vm'
   bindToController: true
 
-commentForm.$inject = ['SessionManager', 'UserComment', 'FoundationApi']
+commentForm.$inject = [
+  '$q',
+  'SessionManager',
+  'UserComment',
+  'FoundationApi'
+]
 
 angular
   .module('app.courses')

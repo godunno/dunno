@@ -9,11 +9,15 @@ describe "attachment-uploader directive", ->
       $urlRouterProvider.deferIntercept()
       return
 
+  $q = null
   $timeout = null
+  $httpBackend = null
+  NullPromise = null
+
   scope = null
   element = null
   ctrl = null
-  NullPromise = null
+  deferred = null
 
   mockS3Upload =
     upload: -> new NullPromise()
@@ -23,10 +27,18 @@ describe "attachment-uploader directive", ->
     { name: 'file2.txt', size: 123 }
   ]
 
+  attachment =
+    id: 1
+    url: 'http://www.example.com/file.txt'
+    original_filename: file1.name
+    file_size: file1.size
+
   beforeEach ->
-    inject ($compile, $rootScope, _$timeout_, _NullPromise_) ->
-      NullPromise = _NullPromise_
+    inject ($compile, $rootScope, _$httpBackend_, _$q_, _$timeout_, _NullPromise_) ->
+      $httpBackend = _$httpBackend_
+      $q = _$q_
       $timeout = _$timeout_
+      NullPromise = _NullPromise_
 
       scope = $rootScope.$new()
       scope.attachmentIds = undefined
@@ -40,6 +52,8 @@ describe "attachment-uploader directive", ->
       element.appendTo(document.body)
       scope.$digest()
       ctrl = element.controller('attachmentUploader')
+
+      $httpBackend.whenPOST('/api/v1/attachments').respond attachment
 
   afterEach ->
     element.remove()
@@ -63,14 +77,23 @@ describe "attachment-uploader directive", ->
     expect(ctrl.upload).toHaveBeenCalled()
 
   describe "after selecting files", ->
+    deferred1 = null
     promise1 = null
+    deferred2 = null
     promise2 = null
 
     beforeEach ->
-      promise1 = new NullPromise()
+      deferred1 = $q.defer()
+      promise1 = deferred1.promise.then ->
+        config:
+          data:
+            key: 'http://www.example.com/file.txt'
+            file: file1
+
       promise1.file = file1
 
-      promise2 = new NullPromise()
+      deferred2 = $q.defer()
+      promise2 = deferred2.promise.then -> response
       promise2.file = file2
 
       spyOn(mockS3Upload, 'upload').and.callFake (file) ->
@@ -81,35 +104,36 @@ describe "attachment-uploader directive", ->
       scope.$apply()
 
     it "assigns files after selecting files", ->
-      expect(ctrl.filePromises).toEqual([promise1, promise2])
+      expect(ctrl.filePromises.length).toBe(2)
 
     it "allows appending more files", ->
       ctrl.upload([name: 'file3.txt'])
       scope.$apply()
 
-      expect(element.find('.attachment').length).toBe(3)
+      expect(ctrl.filePromises.length).toBe(3)
 
     it "shows each file on the template", ->
       expect(element.find('attachment-item').length).toBe(2)
 
     it "removes file from list when it's aborted", ->
-      ctrl.uploadAborted(promise1)
-      expect(ctrl.filePromises).toEqual([promise2])
+      ctrl.uploadAborted(ctrl.filePromises[0])
+      expect(ctrl.filePromises.length).toBe(1)
 
     describe "after the Attachment is created", ->
       attachment = { id: 1 }
 
       beforeEach ->
-        ctrl.attachmentCreated(attachment)
+        deferred1.resolve()
+        $httpBackend.flush()
         scope.$apply()
 
       it "adds an Attachment's id to the list when it's created", ->
-        expect(scope.attachmentIds).toEqual([1])
+        expect(scope.attachmentIds).toEqual([attachment.id])
 
       it "removes an Attachment's id from the list when it's deleted", ->
-        ctrl.attachmentDeleted(attachment, promise1)
+        ctrl.attachmentDeleted(attachment, ctrl.filePromises[0])
         expect(scope.attachmentIds).toEqual([])
 
       it "removes an Attachment's file from the list when it's deleted", ->
-        ctrl.attachmentDeleted(attachment, promise1)
-        expect(ctrl.filePromises).toEqual([promise2])
+        ctrl.attachmentDeleted(attachment, ctrl.filePromises[0])
+        expect(ctrl.filePromises.length).toBe(1)

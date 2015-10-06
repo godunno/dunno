@@ -1,8 +1,6 @@
 attachmentItem = ->
   attachmentItemController = (
-    $scope,
     $element,
-    Attachment,
     UPLOAD_LIMIT
   ) ->
     vm = @
@@ -13,17 +11,9 @@ attachmentItem = ->
       ngModelCtrl.$setValidity('file_too_big', false)
       state = 'error.file_too_big'
 
-    vm.promise.then (response) ->
-      attributes =
-        file_url: response.config.data.key
-        file_size: vm.file.size
-        original_filename: vm.file.name
-
-      vm.attachment = new Attachment(attributes)
-
-      vm.attachment.create().then ->
-        state = 'completed'
-        vm.onCreate()(vm.attachment)
+    vm.promise.then (attachment) ->
+      vm.attachment = attachment
+      state = 'completed'
 
     vm.abort = ->
       vm.promise.abort()
@@ -42,9 +32,7 @@ attachmentItem = ->
     vm
 
   attachmentItemController.$inject = [
-    '$scope',
     '$element',
-    'Attachment',
     'UPLOAD_LIMIT'
   ]
 
@@ -55,7 +43,6 @@ attachmentItem = ->
     promise: '='
     onAbort: '&'
     onDelete: '&'
-    onCreate: '&'
   controller: attachmentItemController
   controllerAs: 'vm'
   bindToController: true
