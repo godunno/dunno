@@ -4,6 +4,7 @@ commentForm = (SessionManager, UserComment, FoundationApi) ->
     @comment = new UserComment(event_start_at: @event.start_at)
 
     @send = ->
+      return if @commentForm.$invalid
       @submitting = @comment.save().then (comment) =>
         @onSave()(comment)
         FoundationApi.publish 'main-notifications',
