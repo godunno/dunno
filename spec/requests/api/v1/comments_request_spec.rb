@@ -34,7 +34,11 @@ resource "Comments" do
         comment: {
           event_start_at: event_start_at.iso8601(3),
           body: body,
-          profile_id: teacher.id
+          user: {
+            name: teacher.name,
+            avatar_url: nil,
+            id: teacher.user.id
+          }
         }
       )
     end
