@@ -157,6 +157,7 @@ describe Api::V1::EventsController do
           "start_at" => start_at.utc.iso8601,
           "end_at" => end_at.utc.iso8601,
           "classroom" => weekly_schedule.classroom,
+          "comments" => [],
           "course" => {
             "uuid" => new_course.uuid,
             "name" => new_course.name,

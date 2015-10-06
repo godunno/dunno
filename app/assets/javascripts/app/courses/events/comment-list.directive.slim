@@ -1,0 +1,10 @@
+.comment__list
+  .comment__item ng-repeat="comment in vm.event.comments"
+    .comment__user
+      img.comment__user__avatar user-avatar="comment.user"
+      .comment__user__name
+        | {{ comment.user.name }}
+    .comment__body
+      | {{ comment.body }}
+
+comment-form event="vm.event" on-save="vm.addComment"

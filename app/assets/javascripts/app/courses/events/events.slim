@@ -94,4 +94,4 @@
               span.event__item__description ng-if="!topic.media"
                 | {{topic.description}}
 
-            comment-form event="event" on-save="vm.commentSaved"
+            comment-list event="event" ng-if="event.topics.length"

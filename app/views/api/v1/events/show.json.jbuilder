@@ -5,6 +5,7 @@ json.course do
 end
 
 json.topics @event.topics, partial: 'api/v1/topics/topic', as: :topic
+json.comments @event.comments, partial: 'api/v1/comments/comment', as: :comment
 
 json.previous do
   if @previous.present?
