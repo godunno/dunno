@@ -4,6 +4,7 @@ angular
     'rails',
     'ngMessages',
     'ngAnimate',
+    'ngSanitize',
     'as.sortable',
     'angular.filter',
     'angularFileUpload',

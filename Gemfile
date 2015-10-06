@@ -51,6 +51,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular--bower-angular-i18n', '1.3.11'
   gem 'rails-assets-angular-animate', '1.3.16'
   gem 'rails-assets-angular-messages', '1.3.16'
+  gem 'rails-assets-angular-sanitize', '1.3.16'
   gem 'rails-assets-modernizr', '2.8.3'
   gem 'rails-assets-ng-file-upload',      '1.6.12'
   gem 'rails-assets-ng-file-upload-shim', '1.6.12'
