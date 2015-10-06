@@ -24,15 +24,15 @@ attachmentItem = ->
 
       vm.attachment.create().then ->
         state = 'completed'
-        vm.onCreate()?(vm.attachment)
+        vm.onCreate()(vm.attachment)
 
     vm.abort = ->
       promise.abort()
-      vm.onAbort()?(vm.file)
+      vm.onAbort()(vm.file)
 
     vm.delete = ->
       vm.attachment.delete().then ->
-        vm.onDelete()?(vm.attachment, vm.file)
+        vm.onDelete()(vm.attachment, vm.file)
 
     vm.isUploading = -> state == 'uploading'
     vm.isCompleted = -> state == 'completed'

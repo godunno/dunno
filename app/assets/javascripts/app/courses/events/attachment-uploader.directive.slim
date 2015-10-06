@@ -1,7 +1,6 @@
 .attachment-uploader
-  a.button.send-file
+  a.button.send-file ngf-multiple="true" ngf-select="vm.upload($files)"
     | Enviar arquivo
-  input.file-select.hide type="file" ngf-multiple="true" ngf-select="vm.upload($files)"
   attachment-item[
     ng-model="file"
     on-abort="vm.uploadAborted"

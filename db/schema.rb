@@ -27,17 +27,6 @@ ActiveRecord::Schema.define(version: 20151005190357) do
   add_index "api_keys", ["token"], name: "index_api_keys_on_token", unique: true, using: :btree
   add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
 
-  create_table "comments", force: true do |t|
-    t.text     "body"
-    t.integer  "profile_id"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "comments", ["event_id"], name: "index_comments_on_event_id", using: :btree
-  add_index "comments", ["profile_id"], name: "index_comments_on_profile_id", using: :btree
-
   create_table "attachments", force: true do |t|
     t.string   "original_filename", null: false
     t.string   "file_url",          null: false
@@ -48,6 +37,17 @@ ActiveRecord::Schema.define(version: 20151005190357) do
   end
 
   add_index "attachments", ["profile_id"], name: "index_attachments_on_profile_id", using: :btree
+
+  create_table "comments", force: true do |t|
+    t.text     "body"
+    t.integer  "profile_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["event_id"], name: "index_comments_on_event_id", using: :btree
+  add_index "comments", ["profile_id"], name: "index_comments_on_profile_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"

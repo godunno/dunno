@@ -47,10 +47,6 @@ attachmentUploader = ->
   controllerAs: 'vm'
   bindToController: true
   templateUrl: 'courses/events/attachment-uploader.directive'
-  link: (scope, element, attrs) ->
-    sendFileButton = element.find('.send-file')
-    fileInput = element.find('input[type=file]')
-    sendFileButton.click(-> fileInput.click())
 
 angular
   .module('app.courses')

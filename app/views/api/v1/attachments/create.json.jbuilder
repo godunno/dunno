@@ -1,4 +1,3 @@
 json.attachment do
-  json.(@attachment, :id, :original_filename, :file_size)
-  json.url @attachment.file.url
+  json.partial! 'api/v1/attachments/attachment', attachment: @attachment
 end
