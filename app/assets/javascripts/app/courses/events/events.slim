@@ -93,5 +93,6 @@
                 | {{topic.description}}
               span.event__item__description ng-if="!topic.media"
                 | {{topic.description}}
-
-            comment-list event="event" ng-if="event.topics.length"
+          comment-list[
+            event="event"
+            ng-if="event.topics.length"]
