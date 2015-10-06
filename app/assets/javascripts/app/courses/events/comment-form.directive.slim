@@ -1,7 +1,8 @@
 .comment__form
-  form name="commentForm" ng-submit="vm.send()"
+  form name="commentForm" ng-submit="vm.send()" novalidate=true
     img.avatar user-avatar="vm.user"
     input type="text" name="commentBody" ng-model="vm.comment.body" required=true validate=true
+    errors for="commentForm.commentBody"
     submit-button.submit[
       blocked-when="vm.submitting"
       label="Enviar"

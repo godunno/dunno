@@ -9,6 +9,7 @@ RSpec.describe Comment, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:profile) }
     it { is_expected.to validate_presence_of(:event) }
+    it { is_expected.to validate_presence_of(:body) }
   end
 
   describe "#event_start_at" do

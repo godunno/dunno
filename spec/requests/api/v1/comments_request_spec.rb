@@ -38,5 +38,16 @@ resource "Comments" do
         }
       )
     end
+
+    context "with an empty body" do
+      let(:body) { nil }
+      example_request "sending an empty body" do
+        expect(json).to eq(
+          errors: {
+            body: [I18n.t('errors.messages.blank')]
+          }
+        )
+      end
+    end
   end
 end
