@@ -31,7 +31,7 @@ describe "comment-form directive", ->
       SessionManager.setCurrentUser(name: '', avatar_url: 'http://example.org/my/cool/avatar.png')
       el = angular.element("<comment-form event=\"event\" on-save=\"saveCallback\"></comment-form>")
       scope = $rootScope.$new()
-      scope.event = {start_at: 1}
+      scope.event = {start_at: "2015-10-06T00:10:44Z"}
       $compile(el)(scope)
       scope.$apply()
 
@@ -52,7 +52,7 @@ describe "comment-form directive", ->
 
   it 'sets the comment body and event start_at', ->
     commentBodyInput.val('cool!').trigger('input')
-    expect(ctrl.comment.event_start_at).toEqual(1)
+    expect(ctrl.comment.event_start_at).toEqual("2015-10-06T00:10:44Z")
     expect(ctrl.comment.body).toEqual('cool!')
 
   it 'saves the comment', ->
@@ -76,4 +76,4 @@ describe "comment-form directive", ->
   it 'clears comment after save', ->
     sendComment()
     expect(ctrl.comment.body).toBeUndefined()
-    expect(ctrl.comment.event_start_at).toEqual(1)
+    expect(ctrl.comment.event_start_at).toEqual("2015-10-06T00:10:44Z")
