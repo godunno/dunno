@@ -20,6 +20,6 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
   end
 
   def create_params
-    params.require(:comment).permit(:body)
+    params.require(:comment).permit(:body, attachment_ids: [])
   end
 end

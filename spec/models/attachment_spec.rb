@@ -3,10 +3,17 @@ require 'spec_helper'
 RSpec.describe Attachment, type: :model do
   let(:attachment) { build(:attachment) }
 
-  it { is_expected.to validate_presence_of(:original_filename) }
-  it { is_expected.to validate_presence_of(:file_url) }
-  it { is_expected.to validate_presence_of(:file_size) }
-  it { is_expected.to validate_presence_of(:profile) }
+  describe "associations" do
+    it { is_expected.to belong_to :profile }
+    it { is_expected.to belong_to :comment }
+  end
+
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:original_filename) }
+    it { is_expected.to validate_presence_of(:file_url) }
+    it { is_expected.to validate_presence_of(:file_size) }
+    it { is_expected.to validate_presence_of(:profile) }
+  end
 
   it "uses AwsFile to mount the url" do
     expect(attachment.file).to be_a(AwsFile)
@@ -20,5 +27,9 @@ RSpec.describe Attachment, type: :model do
     expect(DeleteAwsFileWorker).to receive(:perform_async).with(attachment.file_url)
     attachment.destroy
     attachment.run_callbacks(:commit)
+  end
+
+  it "delegates #url to file" do
+    expect(attachment.url).to eq attachment.file.url
   end
 end
