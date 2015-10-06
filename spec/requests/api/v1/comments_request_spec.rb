@@ -13,6 +13,8 @@ resource "Comments" do
   let!(:event) { create(:event, course: course) }
 
   post "/api/v1/comments.json" do
+    before { Timecop.freeze }
+    after { Timecop.return }
     let(:raw_post) { params.to_json }
     parameter :event_start_at, 'Event starting date time', required: true, scope: :comment
     parameter :body, 'Comment Body', required: true, scope: :comment
@@ -25,6 +27,7 @@ resource "Comments" do
     let(:event_start_at) { event.start_at }
     let(:comment) { Comment.first }
     let(:body) { 'woot!' }
+
     example 'Creating a comment', document: :public do
       expect { do_request }.to change { event.comments.count }.by(1)
     end
@@ -33,6 +36,7 @@ resource "Comments" do
       expect(json).to eq(
         comment: {
           event_start_at: event_start_at.iso8601(3),
+          created_at: Time.current.iso8601(3),
           body: body,
           user: {
             name: teacher.name,

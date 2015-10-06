@@ -4,8 +4,7 @@
       img.comment__user__avatar.avatar user-avatar="comment.user"
       .comment__user__name
         | {{comment.user.name}}
-    .comment__time
-      | 10:23
+    .comment__time am-time-ago="comment.created_at"
     .comment__body ng-bind-html="comment.body | linky:'_blank'"
 comment-form[
   event="vm.event"
