@@ -12,7 +12,7 @@
       type="text"
       validate="true"]
     errors for="commentForm.commentBody"
-    attachment-uploader ng-model="vm.comment.attachment_ids"
+    attachment-uploader file-promises="vm.filePromises" attachment-ids="vm.comment.attachment_ids"
     submit-button.submit[
       blocked-when="vm.submitting"
       label="Enviar"

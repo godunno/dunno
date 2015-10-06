@@ -31,6 +31,7 @@ describe "attachment-item directive", ->
   template = """
     <attachment-item
      ng-model="file"
+     promise="promise"
      on-delete="deleteCallback"
      on-abort="abortCallback"
      on-create="createCallback">
@@ -45,11 +46,11 @@ describe "attachment-item directive", ->
       deferred = $q.defer()
 
       promise = deferred.promise
-      file.promise = promise
       promise.abort = -> promise
 
       scope = $rootScope.$new()
       scope.file = file
+      scope.promise = promise
       scope.abortCallback = abortCallback
       scope.deleteCallback = deleteCallback
       scope.createCallback = createCallback
@@ -85,7 +86,7 @@ describe "attachment-item directive", ->
   it "calls callback after clicking abort button", ->
     element.find('.abort').click()
     scope.$apply()
-    expect(abortCallback).toHaveBeenCalledWith(file)
+    expect(abortCallback).toHaveBeenCalledWith(promise)
 
   it "shows the file's name", ->
     expect(element.find('.file-name').text().trim()).toEqual(file.name)

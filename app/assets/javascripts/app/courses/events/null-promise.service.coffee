@@ -1,11 +1,12 @@
 NullPromise = ->
-  @then = -> @
-  @catch= -> @
-  @notify= -> @
-  @progress= -> @
-  @abort= -> @
+  nullPromise = ->
+    @then     = -> @
+    @catch    = -> @
+    @notify   = -> @
+    @progress = -> @
+    @abort    = -> @
 
-  @
+    @
 
 angular
   .module('app.courses')

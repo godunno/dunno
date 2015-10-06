@@ -16,7 +16,7 @@ describe "attachment-uploader directive", ->
   NullPromise = null
 
   mockS3Upload =
-    upload: -> NullPromise
+    upload: -> new NullPromise()
 
   [file1, file2] = [
     { name: 'file1.txt', size: 123 },
@@ -27,9 +27,16 @@ describe "attachment-uploader directive", ->
     inject ($compile, $rootScope, _$timeout_, _NullPromise_) ->
       NullPromise = _NullPromise_
       $timeout = _$timeout_
+
       scope = $rootScope.$new()
-      scope.attachmentIds = []
-      element = $compile('<attachment-uploader ng-model="attachmentIds">')(scope)
+      scope.attachmentIds = undefined
+      scope.filePromises = undefined
+      template = """
+        <attachment-uploader
+         attachment-ids="attachmentIds"
+         file-promises="filePromises">
+      """
+      element = $compile(template)(scope)
       element.appendTo(document.body)
       scope.$digest()
       ctrl = element.controller('attachmentUploader')
@@ -38,7 +45,7 @@ describe "attachment-uploader directive", ->
     element.remove()
 
   it "calls S3Upload service after selecting files", ->
-    spyOn(mockS3Upload, 'upload')
+    spyOn(mockS3Upload, 'upload').and.returnValue(new NullPromise())
     ctrl.upload([file1, file2])
 
     calls = mockS3Upload.upload.calls.all()
@@ -56,12 +63,25 @@ describe "attachment-uploader directive", ->
     expect(ctrl.upload).toHaveBeenCalled()
 
   describe "after selecting files", ->
+    promise1 = null
+    promise2 = null
+
     beforeEach ->
+      promise1 = new NullPromise()
+      promise1.file = file1
+
+      promise2 = new NullPromise()
+      promise2.file = file2
+
+      spyOn(mockS3Upload, 'upload').and.callFake (file) ->
+        return promise1 if file == file1
+        return promise2 if file == file2
+
       ctrl.upload([file1, file2])
       scope.$apply()
 
     it "assigns files after selecting files", ->
-      expect(ctrl.files).toEqual([file1, file2])
+      expect(ctrl.filePromises).toEqual([promise1, promise2])
 
     it "allows appending more files", ->
       ctrl.upload([name: 'file3.txt'])
@@ -73,8 +93,8 @@ describe "attachment-uploader directive", ->
       expect(element.find('attachment-item').length).toBe(2)
 
     it "removes file from list when it's aborted", ->
-      ctrl.uploadAborted(file1)
-      expect(ctrl.files).toEqual([file2])
+      ctrl.uploadAborted(promise1)
+      expect(ctrl.filePromises).toEqual([promise2])
 
     describe "after the Attachment is created", ->
       attachment = { id: 1 }
@@ -87,9 +107,9 @@ describe "attachment-uploader directive", ->
         expect(scope.attachmentIds).toEqual([1])
 
       it "removes an Attachment's id from the list when it's deleted", ->
-        ctrl.attachmentDeleted(attachment, file1)
+        ctrl.attachmentDeleted(attachment, promise1)
         expect(scope.attachmentIds).toEqual([])
 
       it "removes an Attachment's file from the list when it's deleted", ->
-        ctrl.attachmentDeleted(attachment, file1)
-        expect(ctrl.files).toEqual([file2])
+        ctrl.attachmentDeleted(attachment, promise1)
+        expect(ctrl.filePromises).toEqual([promise2])

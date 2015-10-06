@@ -7,14 +7,13 @@ attachmentItem = ->
   ) ->
     vm = @
     ngModelCtrl = $element.controller('ngModel')
-    promise = vm.file.promise
     state = 'uploading'
 
     if vm.file.size > UPLOAD_LIMIT
       ngModelCtrl.$setValidity('file_too_big', false)
       state = 'error.file_too_big'
 
-    promise.then (response) ->
+    vm.promise.then (response) ->
       attributes =
         file_url: response.config.data.key
         file_size: vm.file.size
@@ -27,12 +26,12 @@ attachmentItem = ->
         vm.onCreate()(vm.attachment)
 
     vm.abort = ->
-      promise.abort()
-      vm.onAbort()(vm.file)
+      vm.promise.abort()
+      vm.onAbort()(vm.promise)
 
     vm.delete = ->
       vm.attachment.delete().then ->
-        vm.onDelete()(vm.attachment, vm.file)
+        vm.onDelete()(vm.attachment, vm.promise)
 
     vm.isUploading = -> state == 'uploading'
     vm.isCompleted = -> state == 'completed'
@@ -53,6 +52,7 @@ attachmentItem = ->
   require: 'ngModel'
   scope:
     file: '=ngModel'
+    promise: '='
     onAbort: '&'
     onDelete: '&'
     onCreate: '&'

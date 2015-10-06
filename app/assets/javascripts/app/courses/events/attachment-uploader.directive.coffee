@@ -6,28 +6,33 @@ attachmentUploader = ->
     UPLOAD_LIMIT
   ) ->
     vm = @
-    vm.files = []
+    vm.filePromises ?= []
     vm.attachmentIds ?= []
 
-    setPromiseFor = (file) ->
-      file.promise = if file.size <= UPLOAD_LIMIT
-                       S3Upload.upload(file)
-                     else
-                       NullPromise
+    promiseFor = (file) ->
+      if file.size <= UPLOAD_LIMIT
+        S3Upload.upload(file)
+      else
+        new NullPromise()
+
+    filePromiseFor = (file) ->
+      promise = promiseFor(file)
+      promise.file = file
+      promise
 
     vm.upload = (files) ->
       files = [] unless files?
-      files.forEach setPromiseFor
-      vm.files = vm.files.concat files
+      promises = files.map filePromiseFor
+      vm.filePromises = vm.filePromises.concat promises
 
-    vm.uploadAborted = (file) ->
-      Utils.remove(vm.files, file)
+    vm.uploadAborted = (filePromise) ->
+      Utils.remove(vm.filePromises, filePromise)
 
     vm.attachmentCreated = (attachment) ->
       vm.attachmentIds.push(attachment.id)
 
-    vm.attachmentDeleted = (attachment, file) ->
-      Utils.remove(vm.files, file)
+    vm.attachmentDeleted = (attachment, filePromise) ->
+      vm.uploadAborted(filePromise)
       Utils.remove(vm.attachmentIds, attachment.id)
 
     vm
@@ -40,9 +45,9 @@ attachmentUploader = ->
   ]
 
   restrict: 'E'
-  require: 'ngModel'
   scope:
-    attachmentIds: '=ngModel'
+    attachmentIds: '='
+    filePromises: '='
   controller: attachmentUploaderCtrl
   controllerAs: 'vm'
   bindToController: true
