@@ -37,7 +37,7 @@ form[
         span.required<
           | *
       label.icon__label for="course__start__date"
-        i.icon.icon-calendar
+        i.icon.icon-event
       input.start__date#course__start__date[
         name="startDate"
         ng-model="vm.course.start_date"
@@ -55,9 +55,9 @@ form[
       label for="course__end__date"
         | Até
       label.icon__label for="course__end__date"
-        i.icon.icon-calendar
+        i.icon.icon-event
       a.remove__course__end__date ng-click="vm.removeEndDate()" ng-if="vm.course.end_date"
-        i.icon.icon-trash
+        i.icon.icon-delete
       input.end__date#course__end__date[
         name="endDate"
         ng-model="vm.course.end_date"

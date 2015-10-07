@@ -18,7 +18,7 @@
           | {{weekly_schedule.weekday | weekdayLong}}
         span.weekly__schedule__info
           small.weekly__schedule__time>
-            i.icon.icon-clock
+            i.icon.icon-schedule
             | {{weekly_schedule.start_time}} às {{weekly_schedule.end_time}}
           span.weekly__schedule__classroom ng-if="!!weekly_schedule.classroom"
             | Sala: {{weekly_schedule.classroom}}
@@ -26,7 +26,7 @@
         zf-as-button
           a.weekly__schedule__action
             | ações
-            i.icon.icon-chevron-down<
+            i.icon.icon-down<
         zf-as-content position="bottom"
           ul
             li
@@ -41,5 +41,5 @@
                 ng-click="removeWeeklySchedule(weekly_schedule)"
                 zf-close=""
                 title="Remover horário"]
-                i.icon.icon-trash>
+                i.icon.icon-delete>
                 | Remover horário

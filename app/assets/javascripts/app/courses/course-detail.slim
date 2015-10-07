@@ -19,12 +19,12 @@
         a.course__edit[
           ng-if="course.user_role == 'teacher'"
           ng-click="openEditCourseForm()"]
-          i.icon.icon-cog
+          i.icon.icon-settings
         a.course__notify__members[
           ng-click="openNotification()"
           if-teacher=true
           ng-if="course.members.length > 1"]
-          i.icon.icon-buzz>
+          i.icon.icon-notify>
           | Notificar estudantes
       .course__navigation
         ul

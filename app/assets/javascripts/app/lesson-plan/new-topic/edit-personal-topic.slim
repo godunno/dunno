@@ -4,7 +4,7 @@ zf-action-sheet
       i.icon.icon-private>
       | Só você
     span ng-if="!editingTopic.personal"
-      i.icon.icon-eye>
+      i.icon.icon-public>
       | Estudantes
   zf-as-content position="top"
     p
@@ -21,5 +21,5 @@ zf-action-sheet
         a[
           ng-click="editingTopic.personal = false"
           zf-close=""]
-          i.icon.icon-eye>
+          i.icon.icon-public>
           | Estudantes
