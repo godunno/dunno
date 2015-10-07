@@ -1,12 +1,18 @@
 angular.module('app.templates', []).run([ '$templateCache', function($templateCache) {
   <%
+    Rails.application.assets.context_class.class_eval do
+      include ActionView::Helpers
+      include Rails.application.routes.url_helpers
+    end
     app_root  = File.expand_path('../', __FILE__)
     templates = File.join(app_root, %w{** *.slim})
     Dir.glob(templates).each do |f|
       depend_on(f)
       key = f.gsub(%r(^#{app_root}/),'').gsub(/\.slim/, '')
       content = environment["app/#{key}.html"].to_s
+      output = escape_javascript(content)
   %>
-    $templateCache.put("<%= key %>", "<%= escape_javascript(content) %>" );
+    $templateCache.put("<%= key %>", "<%= output %>" );
+    
 <% end %>
 }]);
