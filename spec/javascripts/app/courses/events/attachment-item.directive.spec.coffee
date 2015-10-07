@@ -65,24 +65,24 @@ describe "attachment-item directive", ->
     expect(ctrl.isCompleted()).toBe(false)
 
   it "doesn't have a button to delete attachment", ->
-    expect(element.find('.delete').length).toBe(0)
+    expect(element.find('.attachment__delete').length).toBe(0)
 
   it "shows a button to abort the upload", ->
     spyOn(promise, 'abort').and.callThrough()
-    element.find('.abort').click()
+    element.find('.attachment__delete').click()
     scope.$apply()
     expect(promise.abort).toHaveBeenCalled()
 
   it "calls callback after clicking abort button", ->
-    element.find('.abort').click()
+    element.find('.attachment__delete').click()
     scope.$apply()
     expect(abortCallback).toHaveBeenCalledWith(promise)
 
   it "shows the file's name", ->
-    expect(element.find('.file-name').text().trim()).toEqual(file.name)
+    expect(element.find('.attachment__name').text().trim()).toEqual(file.name)
 
   it "shows the file's size", ->
-    expect(element.find('.file-size').text().trim()).toEqual('1.0 kB')
+    expect(element.find('.attachment__size').text().trim()).toEqual('1.0 kB')
 
   it "changes to completed", ->
     deferred.resolve(response)
@@ -106,12 +106,12 @@ describe "attachment-item directive", ->
       scope.$apply()
 
     it "doesn't have a button to abort upload", ->
-      expect(element.find('.abort').length).toBe(0)
+      expect(element.find('.attachment__delete').length).toBe(0)
 
     it "shows a button to delete attachment", ->
       spyOn(ctrl.attachment, 'delete').and.returnValue
         then: (callback) -> callback()
-      element.find('.delete').click()
+      element.find('.attachment__delete').click()
       scope.$apply()
       expect(ctrl.attachment.delete).toHaveBeenCalled()
       expect(deleteCallback).toHaveBeenCalledWith(ctrl.attachment, promise)
