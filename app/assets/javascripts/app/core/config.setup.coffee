@@ -9,6 +9,7 @@ configure = (
   railsSerializerProvider,
   $animateProvider,
   $urlRouterProvider,
+  $compileProvider,
   $translateProvider,
   $sceDelegateProvider) ->
 
@@ -16,6 +17,7 @@ configure = (
   $urlRouterProvider.otherwise('/courses')
   $translateProvider.preferredLanguage('pt-BR')
   $translateProvider.useSanitizeValueStrategy('escape')
+  $compileProvider.debugInfoEnabled(false)
 
   $sceDelegateProvider.resourceUrlWhitelist [
     'self'
@@ -26,6 +28,7 @@ configure.$inject = [
   'railsSerializerProvider',
   '$animateProvider',
   '$urlRouterProvider',
+  '$compileProvider',
   '$translateProvider',
   '$sceDelegateProvider']
 
