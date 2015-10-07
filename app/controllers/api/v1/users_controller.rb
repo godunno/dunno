@@ -3,7 +3,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   def update
     current_user.update!(user_params)
     @resource = current_user
-    render "api/v1/sessions/user_sign_in"
+    render template: "api/v1/sessions/user_sign_in"
   end
 
   def update_password
@@ -11,7 +11,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
       sign_in current_user, bypass: true
       @resource = current_user
       TrackerWrapper.new(current_user).track("Password Changed", page: "Profile")
-      render "api/v1/sessions/user_sign_in"
+      render template: "api/v1/sessions/user_sign_in"
     else
       render json: { errors: current_user.errors.details }, status: 422
     end
