@@ -49,7 +49,7 @@ resource "Comments" do
             name: teacher.name,
             avatar_url: nil,
             id: teacher.user.id
-          }
+          },
           attachments: [
             id: attachment.id,
             original_filename: attachment.original_filename,
