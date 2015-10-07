@@ -27,6 +27,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   def update
     authorize event.course
     EventForm.new(event, update_params).update!
+    DeliverSystemNotifications.detect(event, current_profile).deliver
     event.reload
     render :show
   end

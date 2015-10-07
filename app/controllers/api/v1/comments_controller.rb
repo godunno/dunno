@@ -7,6 +7,7 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
     authorize @comment
 
     if @comment.save
+      DeliverSystemNotifications.detect(@comment, current_profile).deliver
       render
     else
       render json: { errors: @comment.errors }, status: 422

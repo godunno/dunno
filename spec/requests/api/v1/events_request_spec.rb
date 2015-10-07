@@ -279,6 +279,13 @@ describe Api::V1::EventsController do
               .to change { event.reload.status }
               .from("draft").to("published")
           end
+
+          it "delivers system notifications for course members" do
+            allow(DeliverSystemNotifications).to receive(:detect).and_call_original
+            do_action
+            expect(DeliverSystemNotifications)
+              .to have_received(:detect).with(event, profile)
+          end
         end
 
         context "reordering topics" do

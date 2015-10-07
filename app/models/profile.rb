@@ -4,6 +4,7 @@ class Profile < ActiveRecord::Base
   has_many :courses, through: :memberships
   has_many :events, through: :courses
   has_many :medias, dependent: :destroy
+  has_many :system_notifications, dependent: :destroy
 
   delegate :uuid, :email, :authentication_token, :name, :avatar_url, to: :user
 
