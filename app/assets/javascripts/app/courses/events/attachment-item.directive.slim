@@ -8,7 +8,7 @@
       small.attachment__size
         | ({{vm.file.size | bytes}})
     a.attachment__delete ng-click="vm.abort()"
-      i.icon.icon-trash
+      i.icon.icon-delete
   .attachment__uploaded ng-if="vm.isCompleted()"
     span
       strong.attachment__name>
@@ -21,7 +21,7 @@
     a.attachment__delete[
       ng-click="vm.delete()"
       ng-if="vm.isCompleted()"]
-      i.icon.icon-trash
+      i.icon.icon-delete
   .attachment__error ng-if="vm.hasError()"
     span
       strong.attachment__name>
@@ -29,6 +29,6 @@
       small.attachment__size
         | ({{vm.file.size | bytes}})
     a.attachment__delete ng-click="vm.abort()"
-      i.icon.icon-trash
+      i.icon.icon-delete
     .message__error ng-if="vm.hasError('file_too_big')"
       | Arquivo deve ter no máximo 50MB.
