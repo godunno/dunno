@@ -10,7 +10,7 @@ I18nConfig = ($translateProvider) ->
     'courseForm.startDate.required': 'A disciplina deve ter uma data de começo.'
     'courseForm.startDate.parse': 'Preencha a data usando o formato  DD/MM/AAAA.'
     'courseForm.endDate.parse': 'Preencha a data usando o formato  DD/MM/AAAA.'
-    commentForm:
+    'vm.commentForm':
       commentBody:
         required: 'Escreva alguma coisa para a sua turma.'
 

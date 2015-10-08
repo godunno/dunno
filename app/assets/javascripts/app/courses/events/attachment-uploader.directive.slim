@@ -1,0 +1,14 @@
+.attachment__uploader
+  a.attach__file[
+    ngf-multiple="true"
+    ngf-select="vm.upload($files)"]
+    i.icon.icon-file
+.attached__item
+  attachment-item[
+    name="file"
+    ng-model="filePromise.file"
+    ng-repeat="filePromise in vm.filePromises"
+    on-abort="vm.uploadAborted"
+    on-create="vm.attachmentCreated"
+    on-delete="vm.attachmentDeleted"
+    promise="filePromise"]

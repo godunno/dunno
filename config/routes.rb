@@ -61,6 +61,7 @@ Rails.application.routes.draw do
       namespace :utils do
         get 's3/credentials' => 's3#credentials'
       end
+      resources :attachments, only: [:create, :destroy]
     end
     namespace :v2 do
       resources :courses, only: [:index] do

@@ -18,6 +18,7 @@ resource "Comments" do
     let(:raw_post) { params.to_json }
     parameter :event_start_at, 'Event starting date time', required: true, scope: :comment
     parameter :body, 'Comment Body', required: true, scope: :comment
+    parameter :attachment_ids, "Comment's attachments ids", required: true, scope: :comment
 
     response_field :id, "Comment ID"
     response_field :profile_id, "Profile who created the comment"
@@ -27,12 +28,18 @@ resource "Comments" do
     let(:event_start_at) { event.start_at }
     let(:comment) { Comment.first }
     let(:body) { 'woot!' }
+    let(:attachment_ids) { [attachment.id] }
+    let(:attachment) { create(:attachment) }
 
     example 'Creating a comment', document: :public do
       expect { do_request }.to change { event.comments.count }.by(1)
     end
 
-    example_request "comment attributes" do
+    example "comment attributes" do
+      file_url = 'http://www.example.com/file.txt'
+      allow_any_instance_of(Attachment).to receive(:url).and_return(file_url)
+
+      do_request
       expect(json).to eq(
         comment: {
           event_start_at: event_start_at.iso8601(3),
@@ -42,7 +49,13 @@ resource "Comments" do
             name: teacher.name,
             avatar_url: nil,
             id: teacher.user.id
-          }
+          },
+          attachments: [
+            id: attachment.id,
+            original_filename: attachment.original_filename,
+            file_size: attachment.file_size,
+            url: file_url
+          ]
         }
       )
     end
