@@ -11,7 +11,9 @@ resource "Attachments" do
   let(:json) { JSON.parse(response_body) }
 
   post "/api/v1/attachments.json" do
-    parameter :original_filename, "Original filename before uploading to S3.", required: true, scope: :attachment
+    parameter :original_filename, "Original filename before uploading to S3.",
+              required: true,
+              scope: :attachment
     parameter :file_url, "File's path on S3.", required: true, scope: :attachment
     parameter :file_size, "File's size.", required: true, scope: :attachment
 

@@ -5,5 +5,4 @@ FactoryGirl.define do
     file_url "path/to/file.txt"
     file_size 12345
   end
-
 end
