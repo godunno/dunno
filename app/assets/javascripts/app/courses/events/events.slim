@@ -13,7 +13,7 @@
       a[
         ui-sref="{month: vm.previousMonth}"
         ui-sref-opts="{reload:true}"]
-        i.icon.icon-chevron-left>
+        i.icon.icon-left>
         span
           | {{vm.previousMonth | amDateFormat:'MMM/YY'}}
     .events__navigation__current
@@ -25,7 +25,7 @@
         ui-sref-opts="{reload:true}"]
         span
           | {{vm.nextMonth | amDateFormat:'MMM/YY'}}
-        i.icon.icon-chevron-right<
+        i.icon.icon-right<
   .events__wrapper ng-if="vm.events.length"
     mighty-datepicker[
       ng-model="noop"
@@ -49,11 +49,11 @@
           .event__header
             .event__info
               .event__time
-                i.icon.icon-clock
+                i.icon.icon-schedule
                 b
                   | {{event.start_at | amDateFormat: 'HH:mm'}} – {{event.end_at | amDateFormat: 'HH:mm'}}
               .event__classroom ng-show="event.classroom"
-                i.icon.icon-location
+                i.icon.icon-room
                 b
                   | {{event.classroom}}
             .event__actions
@@ -65,10 +65,10 @@
           a.event__content__toggle ng-click="vm.toggleTopicsFor(event, !event._showTopics)"
             span ng-show="!event._showTopics"
               | Exibir conteúdo
-              i.icon.icon-chevron-down<
+              i.icon.icon-down<
             span ng-show="event._showTopics"
               | Ocultar conteúdo
-              i.icon.icon-chevron-up<
+              i.icon.icon-up<
           .event__content[
             ng-show="event._showTopics"
             class="event__status__{{event.status}}"]

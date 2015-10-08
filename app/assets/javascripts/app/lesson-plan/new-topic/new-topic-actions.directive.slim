@@ -9,7 +9,7 @@
         i.icon.icon-private>
         | Só você
       span ng-if="!defaultTopicProperties.personal"
-        i.icon.icon-eye>
+        i.icon.icon-public>
         | Estudantes
     zf-as-content position="top"
       p
@@ -26,7 +26,7 @@
           a[
             ng-click="defaultTopicProperties.personal = false"
             zf-close=""]
-            i.icon.icon-eye>
+            i.icon.icon-public>
             | Estudantes
   submit-button.new__topic__submit[
     ng-class="{'topic__private': defaultTopicProperties.personal}"
