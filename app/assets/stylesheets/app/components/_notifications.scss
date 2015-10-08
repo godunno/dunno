@@ -1,0 +1,18 @@
+.notifications {
+  padding: 1rem 2rem;
+
+  &__title {
+    border-bottom: $divider;
+    font-size: .75rem;
+    margin: 3rem 0 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__empty {
+    color: $medium-grey-color;
+    padding: 2rem 0;
+    text-align: center;
+  }
+}
