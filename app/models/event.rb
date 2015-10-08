@@ -52,4 +52,9 @@ class Event < ActiveRecord::Base
   def index_id
     @index_id ||= "#{course.id}/#{start_at.iso8601}"
   end
+
+  def was_canceled?
+    _old_status, new_status = previous_changes["status"]
+    new_status == 'canceled'
+  end
 end
