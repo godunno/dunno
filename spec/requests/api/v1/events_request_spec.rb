@@ -279,6 +279,14 @@ describe Api::V1::EventsController do
               .to change { event.reload.status }
               .from("draft").to("published")
           end
+
+          it "delivers system notifications for course members" do
+            notification = double('EventStatusNotification', deliver: nil)
+            allow(EventStatusNotification).to receive(:new).and_return(notification)
+            do_action
+            expect(EventStatusNotification)
+              .to have_received(:new).with(event, profile)
+          end
         end
 
         context "reordering topics" do

@@ -9,6 +9,7 @@ describe Profile, type: :model do
     it { is_expected.to have_many(:memberships).dependent(:destroy) }
     it { is_expected.to have_many(:courses) }
     it { is_expected.to have_many(:medias).dependent(:destroy) }
+    it { is_expected.to have_many(:system_notifications).dependent(:destroy) }
   end
 
   describe "delegation" do

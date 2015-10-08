@@ -60,6 +60,14 @@ resource "Comments" do
       )
     end
 
+    example "delivers system notifications for course members" do
+      notification = double('NewCommentNotification', deliver: nil)
+      allow(NewCommentNotification).to receive(:new).and_return(notification)
+      do_request
+      expect(NewCommentNotification)
+        .to have_received(:new).with(an_instance_of(Comment), teacher)
+    end
+
     context "with an empty body" do
       let(:body) { nil }
       example_request "sending an empty body" do
