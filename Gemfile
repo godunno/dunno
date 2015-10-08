@@ -81,6 +81,9 @@ end
 gem 'database_cleaner',           '1.4.1',     require: false
 
 group :development do
+  gem 'spring',                   '1.4.0'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-teaspoon'
   gem 'rubocop',                  '0.32.1', require: false
   gem 'scss-lint',                '0.34.0', require: false
   gem 'foreman',                  '0.78.0'
