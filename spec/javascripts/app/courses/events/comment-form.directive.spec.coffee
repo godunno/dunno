@@ -6,7 +6,6 @@ describe "comment-form directive", ->
   ctrl = null
   commentBodyInput = null
   UserComment = null
-  FoundationApi = null
 
   beforeEach ->
     module('app.templates')
@@ -23,15 +22,13 @@ describe "comment-form directive", ->
       _$compile_,
       _SessionManager_,
       _$httpBackend_,
-      _UserComment_,
-      _FoundationApi_) ->
+      _UserComment_) ->
 
       $rootScope = _$rootScope_
       $compile = _$compile_
       SessionManager = _SessionManager_
       $httpBackend = _$httpBackend_
       UserComment = _UserComment_
-      FoundationApi = _FoundationApi_
 
       SessionManager.setCurrentUser(name: '', avatar_url: 'http://example.org/my/cool/avatar.png')
       el = angular.element("<comment-form event=\"event\" on-save=\"saveCallback\"></comment-form>")
@@ -70,13 +67,6 @@ describe "comment-form directive", ->
     sendComment()
 
     expect(scope.saveCallback).toHaveBeenCalledWith(jasmine.any(UserComment))
-
-  it 'sends a notification', ->
-    spyOn(FoundationApi, 'publish')
-    sendComment()
-    expect(FoundationApi.publish)
-      .toHaveBeenCalledWith('main-notifications', content: 'Comentário enviado, continue assim!')
-
 
   it 'clears comment after save', ->
     sendComment()
