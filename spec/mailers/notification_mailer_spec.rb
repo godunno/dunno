@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe NotificationMailer do
-
   let(:message) { "MESSAGE" }
   let(:recipients) { %w(user1@email.com user2@email.com user3@email.com) }
   let(:subj) { "SUBJECT" }
@@ -29,5 +28,4 @@ describe NotificationMailer do
   it { expect(subject.body.raw_source).to eq message }
   it { expect(subject.subject).to eq subj }
   it { expect(subject.from).to eq ['contato@dunnoapp.com'] }
-
 end
