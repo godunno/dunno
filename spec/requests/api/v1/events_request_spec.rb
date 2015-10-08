@@ -281,10 +281,11 @@ describe Api::V1::EventsController do
           end
 
           it "delivers system notifications for course members" do
-            allow(DeliverSystemNotifications).to receive(:detect).and_call_original
+            notification = double('EventStatusNotification', deliver: nil)
+            allow(EventStatusNotification).to receive(:new).and_return(notification)
             do_action
-            expect(DeliverSystemNotifications)
-              .to have_received(:detect).with(event, profile)
+            expect(EventStatusNotification)
+              .to have_received(:new).with(event, profile)
           end
         end
 
