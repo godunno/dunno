@@ -10,6 +10,11 @@ describe "comment-form directive", ->
 
   beforeEach ->
     module('app.templates')
+    module 'app.core', ($provide) ->
+      mockS3Upload =
+        upload: (->)
+      $provide.value('S3Upload', mockS3Upload)
+      return
     module 'app.courses', ($urlRouterProvider) ->
       $urlRouterProvider.deferIntercept()
 
@@ -47,7 +52,7 @@ describe "comment-form directive", ->
 
   it 'has avatar and some form components', ->
     expect(el.html()).toMatch('http://example.org/my/cool/avatar.png')
-    expect(el.find('form').attr('name')).toEqual("commentForm")
+    expect(el.find('form').attr('name')).toEqual("vm.commentForm")
     expect(el.find('input').attr('name')).toEqual("commentBody")
 
   it 'sets the comment body and event start_at', ->

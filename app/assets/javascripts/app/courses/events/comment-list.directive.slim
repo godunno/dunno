@@ -6,6 +6,15 @@
         | {{comment.user.name}}
     .comment__time am-time-ago="comment.created_at"
     .comment__body ng-bind-html="comment.body | linky:'_blank'"
+    .comment__attachments
+      .attachment ng-repeat="attachment in comment.attachments"
+        strong.attachment__name>
+          a.attachment__url[
+            ng-href="{{attachment.url}}"
+            target="_blank"]
+            | {{attachment.original_filename}}
+        small.attachment__size
+          | ({{attachment.file_size | bytes}})
 comment-form[
   event="vm.event"
   on-save="vm.addComment"]
