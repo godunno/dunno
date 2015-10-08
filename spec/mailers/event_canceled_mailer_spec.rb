@@ -22,7 +22,11 @@ RSpec.describe EventCanceledMailer, type: :mailer do
   let(:email) { ActionMailer::Base.deliveries.first }
 
   it { expect(email.to).to match_array [student.email, teacher.email] }
-  it { expect(email.subject).to eq "[Dunno] Aula cancelada: #{course.name} - Quinta (01/Jan – 14:00)" }
+  it do
+    expect(email.subject).to eq(
+      "[Dunno] Aula cancelada: #{course.name} - Quinta (01/Jan – 14:00)"
+    )
+  end
   it { expect(email.from).to eq ['contato@dunnoapp.com'] }
   it { expect(email.body).to include course.name }
   it { expect(email.body).to include 'Quinta (01/Jan – 14:00' }
