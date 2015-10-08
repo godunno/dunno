@@ -35,7 +35,7 @@ EventCtrl = (
 
   $scope.setStatus = (event, status) ->
     previousStatus = event.status
-    return if status == 'canceled' && !confirm('Deseja cancelar esta aula?')
+    return if status == 'canceled' && !confirm('Deseja cancelar esta aula?\n\nAtenção: você e seus alunos serão notificados por e-mail do cancelamento dessa aula.')
     event.status = status
     $scope.$emit 'wholePageLoading', event.save().then ->
       AnalyticsTracker.trackEventStatus(event, previousStatus)

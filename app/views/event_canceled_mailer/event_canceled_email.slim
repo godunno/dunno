@@ -1,5 +1,9 @@
-h1
-  strong
-    | Aula de #{@course.name} cancelada!
-  p
-    | em #{@start_at}
+h1.attention
+  | Aula cancelada
+p
+  | <b>#{@course.teacher.name}</b> cancelou a aula de <b>#{@start_at}</b>, na disciplina <b>#{@course.name}</b>.
+p
+  | Essa informação pode ser conferida na
+  a< href="#{@event_link}"
+    | aba de aulas da disciplina
+  |.
