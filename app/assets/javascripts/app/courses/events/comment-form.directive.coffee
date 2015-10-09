@@ -13,11 +13,10 @@ commentForm = (
       @submitting = $q.all(@filePromises).then =>
         @comment.save().then (comment) =>
           @onSave()(comment)
-          FoundationApi.publish 'main-notifications',
-            content: 'Comentário enviado, continue assim!'
         .then =>
-          @comment = new UserComment(event_start_at: @event.start_at)
-          @comment.attachment_ids = []
+          @comment = new UserComment
+            event_start_at: @event.start_at
+            attachment_ids: []
           @filePromises = []
 
     @
