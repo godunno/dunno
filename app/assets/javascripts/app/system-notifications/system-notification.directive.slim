@@ -1,0 +1,11 @@
+.system-notification
+  .author
+    img.avatar user-avatar="notification.user"
+    .name
+      | {{ notification.author.name }}
+  .message
+    | New event from user
+  .type
+    | {{ notification.notification_type }}
+  .created-at
+    | {{ notification.created_at | amDateFormat:'DD/MM/YY HH:mm' }}

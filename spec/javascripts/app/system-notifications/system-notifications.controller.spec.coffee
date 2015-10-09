@@ -29,13 +29,4 @@ describe 'SystemNotificationsCtrl', ->
     expect(ctrl.systemNotifications).toBe(systemNotifications)
 
   it "has the notification's type", ->
-    expect(view.html()).toContain(systemNotification.notification_type)
-
-  it "has the notification's creation date", ->
-    expect(view.html()).toContain('09/10/15 15:09')
-
-  it "has the author's name", ->
-    expect(view.html()).toContain(author.name)
-
-  it "has the author's avatar", ->
-    expect(view.find('[user-avatar="notification.user"]').length).toBe(1)
+    expect(view.find('system-notification').length).toBe(1)
