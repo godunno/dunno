@@ -101,6 +101,8 @@
 
 .event {
   @include grid-block();
+  border-left: .25rem solid $transparent;
+  padding-right: 1rem;
   padding-top: 1rem;
 
   @include breakpoint(small only) {
@@ -109,10 +111,12 @@
     );
     background-color: $white;
     border-bottom: $divider;
+    padding-right: 0;
   }
 
   &.event__selected {
     background: lighten($light-grey-color, 15%);
+    border-left-color: $dunno-green-color;
     position: relative;
   }
 
@@ -173,6 +177,7 @@
   }
 
   section {
+    @include box-shadow(0, .125rem, .0625rem, $light-grey-color);
     @include grid-block(
       $size: 9,
       $orientation: vertical
@@ -180,7 +185,7 @@
     background-color: $white;
     border: $divider;
     border-radius: $global-radius;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 
     @include breakpoint(small only) {
       @include grid-block(
