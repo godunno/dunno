@@ -1,4 +1,4 @@
-.comment__list
+.comment__list ng-if="vm.event.comments.length"
   .comment__item ng-repeat="comment in vm.event.comments"
     .comment__user
       img.comment__user__avatar.avatar user-avatar="comment.user"

@@ -72,6 +72,10 @@
 
   &__body {
     flex-basis: 100%;
+  }
+
+  &__attachments,
+  &__body {
     padding-left: 2.4rem;
   }
 }
