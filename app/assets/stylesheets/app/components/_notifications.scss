@@ -3,6 +3,14 @@
   background: $white;
   padding: 1rem 2rem;
 
+  &__toggle {
+    .icon {
+      font-size: 1.25rem;
+      line-height: 0;
+      margin-top: -.5rem;
+    }
+  }
+
   &__title {
     border-bottom: $divider;
     font-size: .75rem;

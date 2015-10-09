@@ -39,6 +39,9 @@ html lang="pt" ng-app="app" ng-strict-di=true
         span.left
           a zf-toggle="sidebar"
             | Menu
+        span.right
+          a.system__notifications__toggle ui-sref="system-notifications"
+            i.icon.icon-notification-off
       header.header__navigation
         .header__navigation__wrapper
           .header__navigation__sections
@@ -52,7 +55,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
           .header__navigation__settings
             ul
               li
-                a ui-sref="system-notifications"
+                a.system__notifications__toggle ui-sref="system-notifications"
                   i.icon.icon-notification-off
               li ui-sref-active="is-active"
                 a.user__profile ui-sref="profile"
