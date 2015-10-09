@@ -56,6 +56,8 @@ html lang="pt" ng-app="app" ng-strict-di=true
             ul
               li
                 a.system__notifications__toggle ui-sref="system-notifications"
+                  span.new-count
+                    | {{ newNotificationsCount }}
                   i.icon.icon-notification-off
               li ui-sref-active="is-active"
                 a.user__profile ui-sref="profile"

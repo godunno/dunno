@@ -8,6 +8,8 @@ class Profile < ActiveRecord::Base
 
   delegate :uuid, :email, :authentication_token, :name, :avatar_url, to: :user
 
+  validates :last_viewed_notifications_at, presence: true
+
   def role_in(course)
     has_course?(course) && memberships.find_by(course: course).role
   end

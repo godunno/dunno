@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rspec_api_documentation/dsl'
 
-resource "Events" do
+resource "SystemNotifications" do
   parameter :user_email, "User's email", required: true
   parameter :user_token, "User's authentication_token", required: true
   let(:user_email) { profile.email }
@@ -19,11 +19,13 @@ resource "Events" do
     let!(:notification) do
       create(:system_notification, :event_canceled, profile: profile)
     end
+
     let!(:older_notification) do
       create :system_notification, :event_canceled,
         profile: profile,
         created_at: 1.hour.ago
     end
+
     let!(:notification_for_another_user) do
       create(:system_notification, :event_canceled)
     end
@@ -47,6 +49,33 @@ resource "Events" do
           }
         }
       ]
+    end
+  end
+
+  get "/api/v1/system_notifications/new_notifications.json" do
+    response_field :new_notifications_count,
+      "How many new system notifications since the user last viewed them"
+
+    let!(:notification) do
+      create(:system_notification, :event_canceled, profile: profile)
+    end
+
+    let!(:older_notification) do
+      create :system_notification, :event_canceled,
+        profile: profile,
+        created_at: 1.hour.ago
+    end
+
+    let!(:notification_for_another_user) do
+      create(:system_notification, :event_canceled)
+    end
+
+    before do
+      profile.update!(last_viewed_notifications_at: 1.minute.ago)
+    end
+
+    example_request "shows all available notifications for the user", document: :public do
+      expect(json).to eq new_notifications_count: 1
     end
   end
 end

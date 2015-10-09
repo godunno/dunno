@@ -19,6 +19,8 @@ describe Profile, type: :model do
   end
 
   describe "validations" do
+    it { is_expected.to validate_presence_of(:last_viewed_notifications_at) }
+
     describe "#courses" do
       let(:profile) { create(:profile) }
       let(:course) { create(:course) }
