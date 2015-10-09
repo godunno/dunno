@@ -62,6 +62,7 @@ Rails.application.routes.draw do
         get 's3/credentials' => 's3#credentials'
       end
       resources :attachments, only: [:create, :destroy]
+      resources :system_notifications, only: [:index]
     end
     namespace :v2 do
       resources :courses, only: [:index] do

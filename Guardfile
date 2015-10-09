@@ -15,7 +15,7 @@
 #
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
-guard :teaspoon do
+guard :teaspoon, cmd: 'bin/teaspoon' do
   # Implementation files
   watch(%r{^app/assets/javascripts/(.+).coffee}) { |m| "#{m[1]}.spec.coffee" }
 
