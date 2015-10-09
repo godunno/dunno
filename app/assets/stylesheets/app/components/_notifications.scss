@@ -1,4 +1,6 @@
-.notifications {
+.system__notifications {
+  @include grid-container();
+  background: $white;
   padding: 1rem 2rem;
 
   &__title {
@@ -14,5 +16,22 @@
     color: $medium-grey-color;
     padding: 2rem 0;
     text-align: center;
+  }
+}
+
+.system__notification {
+  clear: both;
+  font-size: .875rem;
+  padding: .5rem 0 1.5rem;
+
+  &__author__avatar {
+    display: block;
+    float: left;
+    margin-top: -.25rem;
+  }
+
+  &__wrapper {
+    display: block;
+    margin-left: 2.5rem;
   }
 }

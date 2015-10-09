@@ -11,13 +11,6 @@ html lang="pt" ng-app="app" ng-strict-di=true
     = csrf_meta_tags
   body ng-controller="ApplicationCtrl"
     = render 'application/app_loading'
-    zf-panel#notifications.notifications position="right"
-      a.close-button zf-close=""
-        | ×
-      h4.notifications__title
-        | Notificações
-      p.notifications__empty
-        | Nenhuma notificação.
     zf-offcanvas#sidebar.sidebar position="left"
       .sidebar__content
         header
@@ -59,8 +52,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
           .header__navigation__settings
             ul
               li
-                a zf-toggle="notifications" ui-sref="system-notifications"
-                  / i.icon.icon-notification-on
+                a ui-sref="system-notifications"
                   i.icon.icon-notification-off
               li ui-sref-active="is-active"
                 a.user__profile ui-sref="profile"
