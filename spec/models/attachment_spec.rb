@@ -29,7 +29,5 @@ RSpec.describe Attachment, type: :model do
     attachment.run_callbacks(:commit)
   end
 
-  it "delegates #url to file" do
-    is_expected.to delegate_method(:url).to(:file)
-  end
+  it { is_expected.to delegate_method(:url).to(:file) }
 end
