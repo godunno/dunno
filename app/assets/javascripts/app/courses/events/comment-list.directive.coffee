@@ -1,8 +1,11 @@
-commentList = ->
+commentList = ($location) ->
   commentListCtrl = ->
     vm = this
     vm.addComment = (comment) ->
       vm.event.comments.push(comment)
+
+    vm.commentSelected = (comment) ->
+      parseInt($location.search().commentId) == comment.id
 
     vm
 
@@ -14,7 +17,8 @@ commentList = ->
   controllerAs: 'vm'
   bindToController: true
 
-#commentList.$inject = ['SessionManager', 'UserComment', 'FoundationApi']
+commentList.$inject = ['$location']
+
 angular
   .module('app.courses')
   .directive('commentList', commentList)

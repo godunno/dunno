@@ -3,7 +3,9 @@ CourseEventsCtrl = (
   $templateCache,
   pagination,
   AnalyticsTracker,
-  PageLoading
+  PageLoading,
+  $location,
+  $filter
 ) ->
   @previousMonth = pagination.previousMonth
   @currentMonth = pagination.currentMonth
@@ -21,6 +23,12 @@ CourseEventsCtrl = (
 
   hideEventsFor = (event) ->
     event._showTopics = false
+
+  filterEvent = (event) =>
+    @selectedDate?.isSame(event.start_at, 'day')
+
+  @selectedEvents = =>
+    $filter('filter')(@events, filterEvent)
 
   @toggleTopicsFor = (event, show) ->
     if show
@@ -56,7 +64,19 @@ CourseEventsCtrl = (
     filterDates(@selectedDate)?.isSame(moment(event.start_at))
 
   @selectedEvent = (event) =>
-    @selectedDate?.isSame(moment(event.start_at), 'day')
+    @selectedEvents().indexOf(event) != -1
+
+  goToDate = =>
+    startAt = $location.search().startAt
+    commentId = $location.search().commentId
+    if startAt
+      @selectedDate = moment(startAt)
+
+      if commentId
+        @selectedEvents().forEach (event) ->
+          showEventsFor(event)
+
+  goToDate()
 
   @
 
@@ -65,7 +85,9 @@ CourseEventsCtrl.$inject = [
   '$templateCache',
   'pagination',
   'AnalyticsTracker',
-  'PageLoading'
+  'PageLoading',
+  '$location',
+  '$filter'
 ]
 
 angular

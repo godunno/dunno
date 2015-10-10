@@ -1,5 +1,5 @@
 .comment__list ng-if="vm.event.comments.length"
-  .comment__item ng-repeat="comment in vm.event.comments"
+  .comment__item ng-repeat="comment in vm.event.comments" scroll-to-when="vm.commentSelected(comment)" ng-class="{highlight: vm.commentSelected(comment)}"
     .comment__user
       img.comment__user__avatar.avatar user-avatar="comment.user"
       .comment__user__name

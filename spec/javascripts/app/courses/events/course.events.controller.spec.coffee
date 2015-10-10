@@ -19,18 +19,31 @@ describe "CourseEventsCtrl", ->
     get: ->
       then: (fn) -> fn()
 
+  selectedEvent =
+    uuid: "cde53377-508c-418c-a627-d2e06601df76"
+    start_at: "2015-08-08T12:00:00Z"
+    end_at: "2015-08-08T14:00:00Z"
+    status: "draft"
+    classroom: "201-A"
+    get: ->
+      then: (fn) -> fn()
+
   pagination =
     previousMonth: "2015-07-01T03:00:00Z"
     currentMonth: "2015-08-01T03:00:00Z"
     nextMonth: "2015-09-01T03:00:00Z"
-    events: [event]
+    events: [event, selectedEvent]
 
   beforeEach ->
     inject ($controller) ->
       ctrl = $controller 'CourseEventsCtrl',
-               $scope: $scope
-               pagination: pagination
-               AnalyticsTracker: AnalyticsTracker
+        $scope: $scope
+        pagination: pagination
+        AnalyticsTracker: AnalyticsTracker
+        $location:
+          search: ->
+            startAt: selectedEvent.start_at
+            commentId: 1
 
   it "assigns events", ->
     expect(ctrl.events).toBe(pagination.events)
@@ -70,13 +83,29 @@ describe "CourseEventsCtrl", ->
     ctrl.track(event)
     expect(AnalyticsTracker.eventAccessed).toHaveBeenCalledWith(event, "Events Tab")
 
+  it "selects date by default", ->
+    expect(ctrl.selectedDate).toEqual(moment(selectedEvent.start_at))
+
+  it "exposes events selected", ->
+    expect(ctrl.selectedEvents()).toEqual([selectedEvent])
+
+  it "fetches events topics and comments if comment id is passed on", ->
+    expect(selectedEvent._fetched).toEqual(true)
+
   describe "calendar widget", ->
     startAt = moment(event.start_at)
     inSameDay = startAt.clone().add(2, 'hours')
     eventInSameDay =
       start_at: inSameDay
 
-    pagination.events.push(eventInSameDay)
+    beforeEach ->
+      calendarPagination = angular.copy(pagination)
+      calendarPagination.events = [event, eventInSameDay]
+      inject ($controller) ->
+        ctrl = $controller 'CourseEventsCtrl',
+          $scope: $scope
+          pagination: calendarPagination
+          AnalyticsTracker: AnalyticsTracker
 
     it "assigns events dates", ->
       expect(ctrl.eventsDates).toEqual([startAt, inSameDay])
@@ -108,7 +137,9 @@ describe "CourseEventsCtrl", ->
       expect(ctrl.moveToEvent(eventInSameDay)).toBe(false)
 
     it "marks all the events in the same day", ->
-      expect(ctrl.selectedEvent(event)).not.toBeDefined()
+      expect(ctrl.selectedEvent(event)).toBe(false)
       ctrl.selectedDate = startAt
       expect(ctrl.selectedEvent(event)).toBe(true)
       expect(ctrl.selectedEvent(eventInSameDay)).toBe(true)
+
+
