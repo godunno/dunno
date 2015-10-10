@@ -23,7 +23,7 @@ RSpec.describe SystemNotification, type: :model do
 
     let!(:older_notification) do
       create :system_notification, :event_canceled,
-        created_at: 1.hour.ago
+             created_at: 1.hour.ago
     end
 
     it "returns only recent notifications" do
