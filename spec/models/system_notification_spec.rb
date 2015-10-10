@@ -30,6 +30,11 @@ RSpec.describe SystemNotification, type: :model do
       expect(SystemNotification.more_recent_than(1.minute.ago))
         .to eq [notification]
     end
+
+    it "returns all if no time is sent" do
+      expect(SystemNotification.more_recent_than(nil))
+        .to eq [notification, older_notification]
+    end
   end
 
   describe "#notification_type" do
