@@ -83,7 +83,7 @@ resource "SystemNotifications" do
     let(:raw_post) { params.to_json }
 
     before do
-      Timecop.freeze
+      Timecop.freeze(Time.local(2015, 10, 10, 15, 00))
       profile.update!(last_viewed_notifications_at: 1.hour.ago)
     end
 
