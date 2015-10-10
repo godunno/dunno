@@ -78,4 +78,19 @@ resource "SystemNotifications" do
       expect(json).to eq new_notifications_count: 1
     end
   end
+
+  patch "/api/v1/system_notifications/viewed.json" do
+    let(:raw_post) { params.to_json }
+
+    before do
+      Timecop.freeze
+      profile.update!(last_viewed_notifications_at: 1.hour.ago)
+    end
+
+    after { Timecop.return }
+
+    example_request "updates the current profile's last_viewed_notifications_at", document: :public do
+      expect(profile.reload.last_viewed_notifications_at).to eq Time.current
+    end
+  end
 end

@@ -15,4 +15,11 @@ class Api::V1::SystemNotificationsController < Api::V1::ApplicationController
       .count
     render json: { new_notifications_count: count }
   end
+
+  def viewed
+    # TODO: Do we need authorization here?
+    skip_authorization
+    current_profile.update!(last_viewed_notifications_at: Time.current)
+    render nothing: true
+  end
 end

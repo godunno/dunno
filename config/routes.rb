@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       resources :system_notifications, only: [:index] do
         collection do
           get :new_notifications
+          patch :viewed
         end
       end
     end
