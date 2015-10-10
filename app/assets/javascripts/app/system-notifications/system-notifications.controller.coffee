@@ -1,14 +1,14 @@
-SystemNotificationsCtrl = ($scope, $http, systemNotifications) ->
+SystemNotificationsCtrl = ($scope, SystemNotification, systemNotifications) ->
   vm = @
 
   vm.systemNotifications = systemNotifications
 
-  $http.patch('/api/v1/system_notifications/viewed.json').then ->
+  SystemNotification.viewed().then ->
     $scope.$emit('$stateChangeStart')
 
   vm
 
-SystemNotificationsCtrl.$inject = ['$scope', '$http', 'systemNotifications']
+SystemNotificationsCtrl.$inject = ['$scope', 'SystemNotification', 'systemNotifications']
 
 angular
   .module('app.system-notifications')

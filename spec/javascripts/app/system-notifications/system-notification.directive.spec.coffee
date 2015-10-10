@@ -20,14 +20,11 @@ describe 'SystemNotificationsCtrl', ->
       element = $compile(template)($scope)
       $scope.$digest()
 
-  it "has the notification's type", ->
-    expect(element.html()).toContain(systemNotification.notification_type)
-
-  it "has the notification's creation date", ->
-    expect(element.html()).toContain('09/10/15 15:09')
+  # it "has the notification's creation date", ->
+  #   expect(element.html()).toContain('Sexta (09/Out - 18:09)')
 
   it "has the author's name", ->
     expect(element.html()).toContain(author.name)
 
   it "has the author's avatar", ->
-    expect(element.find('[user-avatar="notification.user"]').length).toBe(1)
+    expect(element.find('[user-avatar="notification.author"]').length).toBe(1)

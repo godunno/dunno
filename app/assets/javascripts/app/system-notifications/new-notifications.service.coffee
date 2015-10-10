@@ -1,17 +1,17 @@
-NewNotifications = ($rootScope, $http) ->
+NewNotifications = ($rootScope, SystemNotification) ->
   count = 0
 
-  setCount = (response) ->
-    count = response.data.new_notifications_count
+  setCount = (newNotificationsCount) ->
+    count = newNotificationsCount
 
   getCount = -> count
 
   $rootScope.$on '$stateChangeStart', ->
-    $http.get('/api/v1/system_notifications/new_notifications.json').then(setCount)
+    SystemNotification.newNotifications().then(setCount)
 
   getCount: getCount
 
-NewNotifications.$inject = ['$rootScope', '$http']
+NewNotifications.$inject = ['$rootScope', 'SystemNotification']
 
 angular
   .module('app.system-notifications')

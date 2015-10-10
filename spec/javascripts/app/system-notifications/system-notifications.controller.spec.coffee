@@ -22,7 +22,7 @@ describe 'SystemNotificationsCtrl', ->
     inject ($controller, $rootScope, $compile, $templateCache, _$httpBackend_) ->
       $httpBackend = _$httpBackend_
       $httpBackend
-        .expectPATCH('/api/v1/system_notifications/viewed.json')
+        .expectPATCH('/api/v1/system_notifications/viewed')
         .respond(200, '')
 
       html = $templateCache.get('system-notifications/system-notifications')
