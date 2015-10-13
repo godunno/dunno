@@ -1,14 +1,5 @@
 .events
-  .events__blankslate ng-if="!vm.events.length"
-    p
-      | Nenhuma aula criada.
-      span.sad
-    .events__schedule if-teacher="true"
-      | Para adicionar novos horários de aula acesse o
-      a< ui-sref="^.schedule"
-        | Cronograma
-      | .
-  .events__navigation ng-if="vm.events.length"
+  .events__navigation
     .events__navigation__previous
       a[
         ui-sref="{month: vm.previousMonth}"
@@ -26,6 +17,15 @@
         span
           | {{vm.nextMonth | amDateFormat:'MMM/YY'}}
         i.icon.icon-right<
+  .events__blankslate ng-if="!vm.events.length"
+    p
+      | Nenhuma aula criada.
+      span.sad
+    .events__schedule if-teacher="true"
+      | Para adicionar novos horários de aula acesse o
+      a< ui-sref="^.schedule"
+        | Cronograma
+      | .
   .events__wrapper ng-if="vm.events.length"
     mighty-datepicker[
       ng-model="noop"
