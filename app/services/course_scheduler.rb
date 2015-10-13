@@ -45,7 +45,7 @@ class CourseScheduler
 
   def add_weekly_schedules_to_schedule
     weekly_schedules.each do |weekly_schedule|
-      schedule.add_recurrence_rule weekly_schedule.to_recurrence_rule
+      schedule.add_recurrence_rule rule_for(weekly_schedule)
     end
 
     # This is a bug on Icecube. For more info, see:
@@ -55,5 +55,9 @@ class CourseScheduler
 
   def schedule_start
     (course.start_date || course.created_at).beginning_of_day
+  end
+
+  def rule_for(weekly_schedule)
+    WeeklyRule.new(weekly_schedule).rule_for_event_listing
   end
 end

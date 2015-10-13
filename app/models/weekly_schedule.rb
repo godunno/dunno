@@ -12,16 +12,6 @@ class WeeklySchedule < ActiveRecord::Base
 
   delegate :overlaps?, to: :range
 
-  def to_recurrence_rule
-    time_of_day = Tod::TimeOfDay.parse start_time
-    IceCube::Rule.weekly
-      .day(weekday)
-      .hour_of_day(time_of_day.hour)
-      .minute_of_hour(time_of_day.minute)
-      .second_of_minute(0)
-      .until(recurrence_rule_until_time)
-  end
-
   def range
     Tod::Shift.new(Tod::TimeOfDay.parse(start_time), Tod::TimeOfDay.parse(end_time), true)
   end
@@ -35,10 +25,5 @@ class WeeklySchedule < ActiveRecord::Base
       next if weekly_schedule.weekday != weekday
       errors.add(:start_time, :overlapping) if weekly_schedule.overlaps?(range)
     end
-  end
-
-  def recurrence_rule_until_time
-    course.end_date ||
-      course.events.reload.last && course.events.last.start_at + 1.week
   end
 end
