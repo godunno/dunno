@@ -7,9 +7,6 @@ RSpec.describe EventCanceledMailer, type: :mailer do
   let(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-01-01 14:00')) }
 
   before do
-    ActionMailer::Base.delivery_method = :test
-    ActionMailer::Base.perform_deliveries = true
-    ActionMailer::Base.deliveries = []
     EventCanceledMailer.event_canceled_email(event).deliver
   end
 
