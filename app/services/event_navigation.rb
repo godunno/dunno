@@ -6,7 +6,7 @@ class EventNavigation
   end
 
   def previous
-    events[event_index - 1] if event_index > 0
+    events[event_index - 1] if event_index && event_index > 0
   end
 
   def next
