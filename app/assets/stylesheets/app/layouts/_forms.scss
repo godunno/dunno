@@ -63,8 +63,6 @@ input[type=radio] {
   }
 }
 
-input[type=checkbox] + label:before,
-input[type=checkbox]:checked + label:before,
 input[type=radio] + label:before,
 input[type=radio]:checked + label:before {
   display: inline-block;
@@ -75,24 +73,14 @@ input[type=radio]:checked + label:before {
   vertical-align: bottom;
 }
 
-input[type=checkbox] + label:before {
-  color: $medium-grey-color;
-  content: '\e021';
-}
-
-input[type=checkbox]:checked + label:before {
-  color: $dunno-green-color;
-  content: '\e015';
-}
-
 input[type=radio] + label:before {
   color: $medium-grey-color;
-  content: '\e003';
+  content: '\e022';
 }
 
 input[type=radio]:checked + label:before {
   color: $dunno-green-color;
-  content: '\e002';
+  content: '\e021';
 }
 
 input[type=text],
