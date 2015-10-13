@@ -55,6 +55,10 @@
     &:last-child {
       border-bottom: 0;
     }
+
+    &.highlight {
+      background-color: $yellow-color;
+    }
   }
 
   &__user {
