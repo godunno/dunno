@@ -1,10 +1,7 @@
 object false
 
 child @events do
-  attributes :id, :start_at
-  node(:status) do |event|
-    event.formatted_status(current_profile)
-  end
+  attributes :id, :start_at, :status
 end
 node(:prev) do
   api_v2_course_events_url(

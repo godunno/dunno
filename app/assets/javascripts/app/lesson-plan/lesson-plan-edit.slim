@@ -7,7 +7,7 @@
           | › {{event.course.class_name}}
         small< ng-if="!!event.course.institution"
           | · {{event.course.institution}}
-      a.close__lesson.button.dark.tiny ui-sref="courses.show.calendar({course: event.course, month: event.start_at})"
+      a.close__lesson.button.dark.tiny ui-sref="courses.show.events({course: event.course, month: event.start_at})"
         | fechar o diário
   .lesson__wrapper
     .lesson__previous__day
@@ -21,7 +21,7 @@
         analytics-start-at="{{event.start_at}}"
         analytics-course-name="{{event.course.name}}"
         analytics-course-uuid="{{event.course.uuid}}"]
-        i.icon.icon-chevron-left
+        i.icon.icon-left
         span
           | Aula anterior
           small
@@ -46,13 +46,16 @@
     .lesson__plan__current
       .lesson__header
         .lesson__date__info
-          span.lesson__date__weekday
+          .lesson__date__weekday
             | {{event.start_at | amDateFormat:'ddd, DD/MMM/YY'}}
-          small.lesson__date__time
-            i.icon.icon-clock
-            | {{event.start_at | amDateFormat:'HH:mm'}} às {{event.end_at | amDateFormat:'HH:mm'}}
-          span.lesson__date__classroom ng-show="event.classroom"
-            | Sala: {{event.classroom}}
+          .lesson__date__time
+            i.icon.icon-schedule
+            b
+              | {{event.start_at | amDateFormat:'HH:mm'}} às {{event.end_at | amDateFormat:'HH:mm'}}
+          .lesson__date__classroom ng-show="event.classroom"
+            i.icon.icon-room
+            b
+              | {{event.classroom}}
         span.lesson__status.lesson__draft ng-show="event.status == 'draft'"
           | Rascunho
         span.lesson__status.lesson__published ng-show="event.status == 'published'"
@@ -117,7 +120,7 @@
             a[
               ng-click="selectTopicType('text')"
               ng-class="{active: topicType == 'text'}"]
-              i.icon.icon-text
+              i.icon.icon-topic
               span
                 | Tópico
             a[
@@ -129,13 +132,13 @@
             a[
               ng-click="selectTopicType('url'); startUrlMediaEditing()"
               ng-class="{active: topicType == 'url'}"]
-              i.icon.icon-url
+              i.icon.icon-link
               span
                 | Link
             a[
               ng-click="selectTopicType('catalog')"
               ng-class="{active: topicType == 'catalog'}"]
-              i.icon.icon-catalog
+              i.icon.icon-folder
               span
                 | Catálogo
           .item__type ng-show="topicType != null"
@@ -177,7 +180,7 @@
                   name="file"
                   required=true
                   validate=true
-                  ng-file-select="submitFileMedia($files)"]
+                  ngf-select="submitFileMedia($files)"]
                 new-topic-actions
                   errors for="fileMediaForm.file"
 
@@ -298,7 +301,7 @@
             a.topics__private__show[
               ng-click="setPrivateTopicsVisibility(true)"
               ng-show="!showPrivateTopics"]
-              i.icon.icon-eye>
+              i.icon.icon-public>
               span
                 | Exibir conteúdos do professor
           .topic.empty__results ng-if="event.topics.length === 0 && event.status != 'canceled'"
@@ -360,14 +363,14 @@
                           ng-click="startEditing(topic)"
                           zf-close=""
                           title="Editar tópico"]
-                          i.icon.icon-pencil>
+                          i.icon.icon-edit>
                           | Editar
                       li
                         a[
                           ng-click="removeTopic(topic)"
                           zf-close=""
                           title="Remover conteúdo"]
-                          i.icon.icon-trash>
+                          i.icon.icon-delete>
                           | Apagar
                       li ng-if="canTransferTopic(topic, event)"
                         a[
@@ -393,7 +396,7 @@
                     submit-button.edit__topic__submit[
                       blocked-when="submitting"
                       label="Salvar"
-                      blocked-label="Salvando..."
+                      blocked-label="Salvando…"
                       ng-class="{topic__private: editingTopic.personal}"
                       has-spinner=true]
     .lesson__next__day
@@ -411,7 +414,7 @@
           | Próxima aula
           small
             | {{event.next.start_at | amDateFormat:'ddd, DD/MMM HH:mm'}}
-        i.icon.icon-chevron-right
+        i.icon.icon-right
       .summary__tasks.next__event__tasks
         .summary__task.event__canceled ng-if="event.next.status === 'canceled'"
           | Aula Cancelada

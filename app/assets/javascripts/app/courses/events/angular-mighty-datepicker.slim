@@ -1,0 +1,28 @@
+.mighty-picker__wrapper
+  .mighty-picker__month[
+      bindonce=""
+      ng-repeat=("month in months track by $index")]
+    .mighty-picker__month-name
+      | {{ month.weeks[1][0].date | amDateFormat: 'MMM/YY' }}
+    table.mighty-picker-calendar
+      tr.mighty-picker-calendar__days
+        th.mighty-picker-calendar__weekday[
+          bindonce=""
+          bo-text="day.date.format('ddd')"
+          ng-repeat=("day in month.weeks[1]")]
+      tr[
+        bindonce=""
+        ng-repeat=("week in month.weeks")]
+        td[
+          bo-class="{
+            'mighty-picker-calendar__day': day,
+            'mighty-picker-calendar__day--selected': day.selected,
+            'mighty-picker-calendar__day--disabled': day.disabled,
+            'mighty-picker-calendar__day--marked': day.marker}"
+          ng-click="select(day)"
+          ng-repeat="day in week track by $index"]
+          .mighty-picker-calendar__day-wrapper bo-text="day.date.date()"
+          .mighty-picker-calendar__day-marker-wrapper
+            .mighty-picker-calendar__day-marker[
+              ng-bind-template=""
+              ng-if="day.marker"]

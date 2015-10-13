@@ -1,0 +1,26 @@
+.comment__form
+  form[
+    name="vm.commentForm"
+    ng-submit="vm.send()"
+    novalidate="true"]
+    .comment__form__user
+      img.avatar user-avatar="vm.user"
+    .comment__form__input
+      input[
+        name="commentBody"
+        ng-model="vm.comment.body"
+        placeholder="Colabore com o conteúdo da aula"
+        required="true"
+        type="text"
+        validate="true"]
+      attachment-uploader[
+        file-promises="vm.filePromises"
+        attachment-ids="vm.comment.attachment_ids"]
+    .comment__form__submit
+      submit-button.submit[
+        blocked-label="Enviando…"
+        blocked-when="vm.submitting"
+        has-spinner="true"
+        label="Enviar"]
+  .comment__form__validation
+    errors for="vm.commentForm.commentBody"

@@ -12,6 +12,7 @@ gem 'coffee-rails',               '4.1.0'
 gem 'uglifier',                   '2.7.2'
 gem 'rack-canonical-host',        '0.1.0'
 gem 'devise',                     '3.5.1'
+gem 'omniauth-facebook',          '2.0.1'
 gem 'rabl',                       '0.11.6'
 gem 'oj',                         '2.12.9'
 gem 'tod',                        '2.0.2'
@@ -50,9 +51,10 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular--bower-angular-i18n', '1.3.11'
   gem 'rails-assets-angular-animate', '1.3.16'
   gem 'rails-assets-angular-messages', '1.3.16'
+  gem 'rails-assets-angular-sanitize', '1.3.16'
   gem 'rails-assets-modernizr', '2.8.3'
-  gem 'rails-assets-ng-file-upload',      '1.6.12'
-  gem 'rails-assets-ng-file-upload-shim', '1.6.12'
+  gem 'rails-assets-ng-file-upload', '8.0.4'
+  gem 'rails-assets-ng-file-upload-shim', '8.0.4'
   gem 'rails-assets-angular-validation-match', '1.3.0'
   gem 'rails-assets-angular-busy', '4.1.2'
   gem 'rails-assets-lunks--angulartics', '0.18.0'
@@ -63,10 +65,11 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-filter', '0.5.4'
   gem 'rails-assets-angular-datepicker', '1.0.12'
   gem 'rails-assets-mrodrigues--angular-jquery-timepicker', '0.6.1'
-  gem 'rails-assets-angular-moment', '0.10.2'
+  gem 'rails-assets-angular-moment', '0.10.3'
   gem 'rails-assets-moment-timezone', '0.4.0'
   gem 'rails-assets-ng-sortable', '1.3.1'
   gem 'rails-assets-angular-translate', '2.7.2'
+  gem 'rails-assets-mrodrigues--angular-mighty-datepicker', '0.0.18'
 end
 
 group :production, :staging do
@@ -78,6 +81,9 @@ end
 gem 'database_cleaner',           '1.4.1',     require: false
 
 group :development do
+  gem 'spring',                   '1.4.0'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-teaspoon'
   gem 'rubocop',                  '0.32.1', require: false
   gem 'scss-lint',                '0.34.0', require: false
   gem 'foreman',                  '0.78.0'

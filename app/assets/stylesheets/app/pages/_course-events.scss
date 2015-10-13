@@ -1,130 +1,285 @@
-%lesson__box {
-  @include box-shadow();
-  background-color: $white;
-  border: $divider;
-  border-radius: $global-radius;
-  margin-bottom: 2rem;
-  padding: 2rem 2rem 0;
-}
-
-.lessons {
+.events {
   @include grid-container();
 
-  &__blankslate {
-    @extend %lesson__box;
-    padding-bottom: 2rem;
-    text-align: center;
-
-    a {
-      @extend %button;
-    }
-  }
-}
-
-.lesson {
-  @extend %lesson__box;
-
   @include breakpoint(small only) {
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-    margin-bottom: 1rem;
-    padding: 1rem;
+    background-color: $white;
   }
 
-  &__header {
+  &__blankslate {
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  &__navigation {
+    @include grid-block(12);
     border-bottom: $divider;
-    display: flex;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    margin: 0 auto 2rem;
+    padding: .25rem .25rem 1rem;
+    text-transform: uppercase;
+    white-space: nowrap;
 
     @include breakpoint(small only) {
-      margin-top: 1rem;
+      @include grid-block(12);
     }
 
-    aside {
-      margin-left: auto;
-      text-align: right;
+    &__previous,
+    &__next {
+      a {
+        @extend %button;
+        @include button-size($size: small);
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    &__current {
+      flex-grow: 1;
+      font-weight: $font-weight-bold;
+      line-height: 2rem;
+      text-align: center;
     }
   }
 
-  &__info {
-    flex: 1;
+  &__wrapper {
+    @include grid-block(12);
+
+    @include breakpoint(small only) {
+      @include grid-block(
+        $size: 12,
+        $orientation: vertical
+      );
+    }
   }
 
-  &__date__weekday {
-    text-transform: uppercase;
+  .mighty-picker__wrapper {
+    min-width: 100%;
   }
 
-  &__time {
-    color: $medium-grey-color;
-    display: block;
+  .mighty-picker__month {
+    @include breakpoint(medium up) {
+      position: fixed;
+    }
   }
 
-  &__status {
-    display: block;
-    padding-right: .25rem;
-    text-transform: uppercase;
-  }
+  .mighty-picker__holder {
+    @include grid-block(
+      $size: 4,
+      $order: 2
+    );
+    padding-left: 2rem;
 
-  &__edit {
-    .button {
-      margin-bottom: 0;
+    @include breakpoint(small only) {
+      @include grid-block(
+        $size: 12,
+        $order: 0
+      );
 
-      @include breakpoint(small only) {
-        white-space: nowrap;
+      .mighty-picker__wrapper {
+        margin: 0 auto;
+        min-width: auto;
       }
     }
   }
 
-  &__content {
-    margin-bottom: 2rem;
+  &__list {
+    @include grid-block(
+      $align: center,
+      $orientation: vertical,
+      $size: 8
+    );
+    margin: 0 auto;
 
     @include breakpoint(small only) {
-      margin-bottom: 0;
+      @include grid-block(
+        $align: center,
+        $orientation: vertical,
+        $size: 12
+      );
+    }
+  }
+}
+
+.event {
+  @include grid-block();
+  border-left: .25rem solid $transparent;
+  padding-right: 1rem;
+  padding-top: 1rem;
+
+  @include breakpoint(small only) {
+    @include grid-block(
+      $wrap: true
+    );
+    background-color: $white;
+    border-bottom: $divider;
+    padding-right: 0;
+  }
+
+  &.event__selected {
+    background: lighten($light-grey-color, 15%);
+    border-left-color: $dunno-green-color;
+    position: relative;
+  }
+
+  aside {
+    @include grid-block(
+      $size: 3,
+      $orientation: vertical
+    );
+    align-items: center;
+    justify-content: flex-start;
+    padding-right: 1rem;
+
+    @include breakpoint(small only) {
+      @include grid-block(
+        $size: 12,
+        $orientation: vertical
+      );
     }
   }
 
-  &__empty {
-    padding: 1rem 0;
+  &__date {
+    font-weight: $font-weight-bold;
+    margin-top: 1rem;
     text-align: center;
+    text-transform: uppercase;
+    width: 3rem;
 
-    p {
-      margin-bottom: 0;
+    @include breakpoint(small only) {
+      margin: 1rem auto 0;
+    }
+  }
+
+  &__weekday,
+  &__day {
+    display: block;
+    line-height: 1.25rem;
+  }
+
+  &__weekday {
+    background-color: darken($red-color, 20%);
+    border: .0625rem solid darken($red-color, 20%);
+    border-radius: $global-radius $global-radius 0 0;
+    color: $white;
+    font-size: .875rem;
+  }
+
+  &__day {
+    background-color: $white;
+    border: .0625rem solid $light-grey-color;
+    border-radius: 0 0 $global-radius $global-radius;
+    border-top: 0;
+    font-size: 1.5rem;
+    padding: .25rem .5rem .5rem;
+  }
+
+  &__status {
+    margin: .25rem 0 0;
+  }
+
+  section {
+    @include box-shadow(0, .125rem, .0625rem, $light-grey-color);
+    @include grid-block(
+      $size: 9,
+      $orientation: vertical
+    );
+    background-color: $white;
+    border: $divider;
+    border-radius: $global-radius;
+    margin-bottom: 1.5rem;
+
+    @include breakpoint(small only) {
+      @include grid-block(
+        $size: 12,
+        $orientation: vertical
+      );
+      border: 0;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__header {
+    @include grid-block();
+    padding: 1rem;
+  }
+
+  &__info {
+    b {
+      color: $dunno-dark-color;
+      font-size: .875rem;
+    }
+
+    .icon {
+      color: $light-grey-color;
+      font-size: 1.125rem;
+      margin-right: .25em;
+      vertical-align: middle;
+    }
+  }
+
+  &__time {
+    color: $dark-grey-color;
+    font-size: .875rem;
+    white-space: nowrap;
+  }
+
+  &__actions {
+    margin-left: auto;
+  }
+
+  &__edit {
+    @extend %button;
+    @include button-size($size: small);
+    @include button-style(
+      $background: $dunno-green-color,
+      $background-hover: auto,
+      $color: $white,
+      $style: solid
+    );
+  }
+
+  &__content {
+    &__toggle {
+      @extend %button;
+      @include button-size(
+        $size: small,
+        $expand: true
+      );
+      border-radius: none;
+      margin-top: .5rem;
     }
   }
 
   &__item {
+    @include grid-block();
     align-items: center;
-    display: flex;
-    margin-bottom: 1rem;
+    border-bottom: $divider;
+    margin: 0 1rem;
     padding: 1rem 0;
 
     &:last-child {
       border-bottom: 0;
-      margin-bottom: 0;
     }
-  }
 
-  .topic__item__image {
-    @include thumbnail();
-    flex-basis: 2.75rem;
-    margin-right: 1rem;
-  }
-
-  .topic__item__description {
-    word-break: break-word;
-  }
-
-  &__load__more {
-    text-align: center;
-
-    a {
-      @extend %button;
+    &.event__empty {
+      border-bottom: 0;
+      color: $medium-grey-color;
+      justify-content: center;
+      margin-top: 1rem;
+      text-align: center;
     }
-  }
 
-  .date__status {
-    display: block;
+    &__image {
+      flex-basis: 4rem;
+      margin-right: 1rem;
+      max-height: 4rem;
+      max-width: 4rem;
+      min-height: 4rem;
+      min-width: 4rem;
+    }
+
+    &__description {
+      flex-grow: 1;
+      word-break: break-word;
+    }
   }
 }

@@ -1,4 +1,5 @@
 angular
   .module 'app.courses', [
-    'app.core'
+    'app.core',
+    'mightyDatepicker'
   ]

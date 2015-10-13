@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
-
   root 'home#home'
 
   get 'terms' => 'home#terms'
   get 'policy' => 'home#policy'
 
-  devise_for :users, skip: :sessions, controllers: { registrations: 'dashboard/users' }
+  devise_for :users,
+             skip: :sessions,
+             controllers: {
+               registrations: 'dashboard/users',
+               omniauth_callbacks: "dashboard/omniauth_callbacks"
+             }
   mount_roboto
 
   as :user do
@@ -40,6 +44,7 @@ Rails.application.routes.draw do
           patch :transfer
         end
       end
+      resources :comments, only: [:create]
       resources :events, param: :start_at, only: [:index, :show, :create, :update]
       resources :courses, only: [:index, :show, :create, :update, :destroy] do
         member do
@@ -56,6 +61,7 @@ Rails.application.routes.draw do
       namespace :utils do
         get 's3/credentials' => 's3#credentials'
       end
+      resources :attachments, only: [:create, :destroy]
     end
     namespace :v2 do
       resources :courses, only: [:index] do

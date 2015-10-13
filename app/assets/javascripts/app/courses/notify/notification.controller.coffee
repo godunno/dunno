@@ -53,7 +53,7 @@ NotificationCtrl = (
   @sendButtonText = ->
     switch status
       when 'ready' then 'Enviar mensagem'
-      when 'sending' then 'Enviando...'
+      when 'sending' then 'Enviando…'
       when 'sent' then 'Enviado com sucesso!'
 
   @

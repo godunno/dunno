@@ -1,0 +1,81 @@
+.comment {
+  &__form {
+    border-top: $divider;
+    padding: 1rem;
+
+    &__input {
+      flex-grow: 1;
+      position: relative;
+    }
+
+    &__submit {
+      margin-left: auto;
+
+      .submit {
+        @include button-size(tiny);
+      }
+    }
+
+    &__validation {
+      flex-basis: 100%;
+      margin-top: .25rem;
+      order: 2;
+
+      .message__error {
+        margin-bottom: 0;
+      }
+    }
+
+    form {
+      display: flex;
+    }
+
+    input[type=text] {
+      border: 0;
+      margin-bottom: 0;
+      padding: 0 2rem 0 0;
+    }
+  }
+
+  &__list {
+    background-color: lighten($light-grey-color, 20%);
+    border-top: $divider;
+
+    .avatar {
+      margin-right: .25rem;
+    }
+  }
+
+  &__item {
+    border-bottom: $divider;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  &__user {
+    &__name {
+      display: inline-block;
+      font-size: .875rem;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__time {
+    font-size: .75rem;
+    margin-left: auto;
+  }
+
+  &__body {
+    flex-basis: 100%;
+  }
+
+  &__attachments,
+  &__body {
+    padding-left: 2.4rem;
+  }
+}

@@ -14,7 +14,10 @@ ApplicationCtrl = (
       $window.location.href = '/'
 
   SessionManager.fetchUser()
-  $scope.currentUser = SessionManager.currentUser
+
+  $scope.$watchCollection (-> SessionManager.currentUser()), (updatedUser) ->
+    if updatedUser
+      $scope.currentUser = updatedUser
 
   $scope.$on 'wholePageLoading', (_, promise) ->
     $scope.wholePageLoading = promise

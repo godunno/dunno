@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923191604) do
+ActiveRecord::Schema.define(version: 20151007192841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,30 @@ ActiveRecord::Schema.define(version: 20150923191604) do
 
   add_index "api_keys", ["token"], name: "index_api_keys_on_token", unique: true, using: :btree
   add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
+
+  create_table "attachments", force: true do |t|
+    t.string   "original_filename", null: false
+    t.string   "file_url",          null: false
+    t.integer  "file_size",         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "profile_id"
+    t.integer  "comment_id"
+  end
+
+  add_index "attachments", ["comment_id"], name: "index_attachments_on_comment_id", using: :btree
+  add_index "attachments", ["profile_id"], name: "index_attachments_on_profile_id", using: :btree
+
+  create_table "comments", force: true do |t|
+    t.text     "body"
+    t.integer  "profile_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["event_id"], name: "index_comments_on_event_id", using: :btree
+  add_index "comments", ["profile_id"], name: "index_comments_on_profile_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -127,6 +151,20 @@ ActiveRecord::Schema.define(version: 20150923191604) do
     t.datetime "updated_at"
   end
 
+  create_table "system_notifications", force: true do |t|
+    t.integer  "author_id"
+    t.integer  "profile_id"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.integer  "notification_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_notifications", ["author_id"], name: "index_system_notifications_on_author_id", using: :btree
+  add_index "system_notifications", ["notifiable_id", "notifiable_type"], name: "index_system_notifications_on_notifiable_id_and_notifiable_type", using: :btree
+  add_index "system_notifications", ["profile_id"], name: "index_system_notifications_on_profile_id", using: :btree
+
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -186,10 +224,13 @@ ActiveRecord::Schema.define(version: 20150923191604) do
     t.integer  "profile_id"
     t.string   "profile_type"
     t.uuid     "uuid"
+    t.string   "facebook_uid"
+    t.string   "avatar_url"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["facebook_uid"], name: "index_users_on_facebook_uid", using: :btree
   add_index "users", ["profile_id", "profile_type"], name: "index_users_on_profile_id_and_profile_type", using: :btree
   add_index "users", ["profile_id"], name: "index_users_on_profile_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

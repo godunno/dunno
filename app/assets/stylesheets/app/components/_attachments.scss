@@ -1,0 +1,55 @@
+.attachment {
+  font-size: .875rem;
+  padding-bottom: 1rem;
+
+  &__uploader {
+    position: absolute;
+    right: 0;
+    top: .25rem;
+
+    .attach__file {
+      font-size: 1.25rem;
+      padding: .25rem .5rem;
+    }
+  }
+
+  &__uploading,
+  &__uploaded,
+  &__error {
+    display: flex;
+  }
+
+  &__error {
+    flex-wrap: wrap;
+  }
+
+  &__delete {
+    color: $red-color;
+    margin-left: auto;
+    padding: 0 .5rem;
+  }
+
+  .message__error {
+    flex-basis: 100%;
+    margin-bottom: 1rem;
+    margin-top: .5rem;
+  }
+
+  &__status {
+    align-self: center;
+    padding: .5rem .25rem 0 0;
+  }
+
+  .spinner {
+    @include spinner(
+      $diameter: .875rem,
+      $thickness: .1875rem,
+      $color: $light-grey-color
+    );
+    position: static;
+  }
+}
+
+.attached__items {
+  margin-top: 1rem;
+}

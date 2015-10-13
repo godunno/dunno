@@ -9,6 +9,7 @@ describe Profile, type: :model do
     it { is_expected.to have_many(:memberships).dependent(:destroy) }
     it { is_expected.to have_many(:courses) }
     it { is_expected.to have_many(:medias).dependent(:destroy) }
+    it { is_expected.to have_many(:system_notifications).dependent(:destroy) }
   end
 
   describe "delegation" do
@@ -24,12 +25,12 @@ describe Profile, type: :model do
 
       it "doesn't allow associate as student to the same course more than once" do
         expect { course.students << profile }.not_to raise_error
-        expect { course.students << profile }.to raise_error
+        expect { course.students << profile }.to raise_error(ActiveRecord::RecordNotUnique)
       end
 
       it "doesn't allow associate as both student and teacher to the same course" do
         expect { course.students << profile }.not_to raise_error
-        expect { course.teacher = profile }.to raise_error
+        expect { course.teacher = profile }.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end
   end

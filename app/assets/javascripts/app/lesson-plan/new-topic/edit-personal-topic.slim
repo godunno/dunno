@@ -2,9 +2,9 @@ zf-action-sheet
   zf-as-button.new__topic__visibility.dropdown ng-class="{'topic__private': editingTopic.personal}"
     span.private ng-if="editingTopic.personal"
       i.icon.icon-private>
-      | Somente professor
+      | Só você
     span ng-if="!editingTopic.personal"
-      i.icon.icon-eye>
+      i.icon.icon-public>
       | Estudantes
   zf-as-content position="top"
     p
@@ -16,10 +16,10 @@ zf-action-sheet
           ng-click="editingTopic.personal = true"
           zf-close=""]
           i.icon.icon-private>
-          | Somente professor
+          | Só você
       li
         a[
           ng-click="editingTopic.personal = false"
           zf-close=""]
-          i.icon.icon-eye>
+          i.icon.icon-public>
           | Estudantes

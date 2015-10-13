@@ -15,11 +15,13 @@
 
 @import
   'app/components/app-loading',
+  'app/components/attachments',
   'app/components/avatar',
   'app/components/badge',
   'app/components/buttons',
   'app/components/cards',
   'app/components/catalog',
+  'app/components/comments',
   'app/components/content-box',
   'app/components/date-status',
   'app/components/datepicker',
@@ -46,7 +48,6 @@
 
 // page specific styles
 @import
-  'app/pages/course-calendar',
   'app/pages/course-confirm',
   'app/pages/course-detail',
   'app/pages/course-events',

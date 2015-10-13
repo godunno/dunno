@@ -38,6 +38,7 @@
       padding: .75rem;
       text-align: center;
       text-transform: uppercase;
+      white-space: nowrap;
 
       @include breakpoint(small only) {
         margin-top: 0;
@@ -104,8 +105,14 @@
       text-transform: uppercase;
     }
 
-    &__date__time {
-      color: $medium-grey-color;
+    &__date__time,
+    &__date__classroom {
+      font-weight: .875rem;
+
+      .icon {
+        color: $medium-grey-color;
+        margin-right: .5rem;
+      }
     }
 
     &__date__classroom {

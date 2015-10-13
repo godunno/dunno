@@ -7,9 +7,9 @@
     zf-as-button.new__topic__visibility ng-class="{'topic__private': defaultTopicProperties.personal}"
       span.private ng-if="defaultTopicProperties.personal"
         i.icon.icon-private>
-        | Somente professor
+        | Só você
       span ng-if="!defaultTopicProperties.personal"
-        i.icon.icon-eye>
+        i.icon.icon-public>
         | Estudantes
     zf-as-content position="top"
       p
@@ -21,16 +21,16 @@
             ng-click="defaultTopicProperties.personal = true"
             zf-close=""]
             i.icon.icon-private>
-            | Somente professor
+            | Só você
         li
           a[
             ng-click="defaultTopicProperties.personal = false"
             zf-close=""]
-            i.icon.icon-eye>
+            i.icon.icon-public>
             | Estudantes
   submit-button.new__topic__submit[
     ng-class="{'topic__private': defaultTopicProperties.personal}"
     blocked-when="submitting"
     label="Inserir {{topicTypeDescription()}}"
-    blocked-label="Inserindo..."
+    blocked-label="Inserindo…"
     has-spinner=true]

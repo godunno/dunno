@@ -1,4 +1,4 @@
-Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
+Media = (RailsResource, Upload, $q, AWSCredentials, SessionManager) ->
   class Media extends RailsResource
     @configure(
       url: '/api/v1/medias'
@@ -18,7 +18,7 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
       path = "uploads/#{user_id}/#{timestamp}_#{original_filename}"
 
       # https://github.com/danialfarid/angular-file-upload#s3
-      $upload.upload(
+      Upload.upload(
         url: AWSCredentials.baseUrl
         method: 'POST'
         data:
@@ -29,7 +29,7 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
           signature: AWSCredentials.signature
           "Content-Type": if @file.type != '' then @file.type else 'application/octet-stream'
           filename: original_filename
-        file: @file
+          file: @file
       ).progress(->
         deferred.notify(arguments...)
       ).then(=>
@@ -38,7 +38,7 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
         @create().then(->
           deferred.resolve(arguments...)
         ).catch(-> deferred.reject(arguments...))
-      ).catch((response)->
+      ).catch((response) ->
         error = if /<Code>EntityTooLarge<\/Code>/.exec(response.data)
                   'too_large'
                 else
@@ -47,7 +47,7 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
       )
       deferred.promise
 
-    updateTagList: -> @tag_list = @tags.map((tag)-> tag.text)
+    updateTagList: -> @tag_list = @tags.map((tag) -> tag.text)
 
     @search: (options) ->
       deferred = $q.defer()
@@ -69,15 +69,15 @@ Media = (RailsResource, $upload, $q, AWSCredentials, SessionManager) ->
 
       deferred.promise
 
-  Media.interceptAfterResponse (response)->
+  Media.interceptAfterResponse (response) ->
     medias = if response.data? then response.data else [response]
     for media in medias
-      media.tags = (media.tag_list || []).map (tag)-> { text: tag }
+      media.tags = (media.tag_list || []).map (tag) -> { text: tag }
     response
 
   Media
 
-Media.$inject = ['RailsResource', '$upload', '$q', 'AWSCredentials', 'SessionManager']
+Media.$inject = ['RailsResource', 'Upload', '$q', 'AWSCredentials', 'SessionManager']
 
 angular
   .module('app.core')

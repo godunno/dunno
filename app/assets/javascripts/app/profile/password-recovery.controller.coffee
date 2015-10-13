@@ -6,7 +6,7 @@ PasswordRecoveryCtrl = ($http, $window, FoundationApi, PageLoading) ->
 
   success = ->
     FoundationApi.publish 'main-notifications',
-      content: 'Recuperação feita com sucesso! Redirecionando...'
+      content: 'Recuperação feita com sucesso! Redirecionando…'
     $window.location.href = '/dashboard'
 
   failure = (response) =>

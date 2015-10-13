@@ -7,6 +7,7 @@
 //= require angular-i18n/angular-locale_pt-br
 //= require angular-animate
 //= require angular-messages
+//= require angular-sanitize
 //= require ng-file-upload
 //= require angular-validation-match
 //= require angular-busy
@@ -14,6 +15,8 @@
 //= require angular-datepicker
 //= require angular-jquery-timepicker
 //= require angular-translate
+//= require angular-mighty-datepicker
+//= require angular-bindonce
 //= require moment
 //= require moment/locale/pt-br
 //= require moment-timezone

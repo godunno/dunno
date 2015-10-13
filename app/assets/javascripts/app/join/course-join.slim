@@ -2,9 +2,7 @@
   header.page__title
     .page__title__wrapper
       h1.page__title__title
-        | Disciplinas
-        small<
-          | › Entrar em uma Disciplina
+        | Entrar em uma Disciplina
       .page__title__actions
         a ui-sref="courses.search"
           | Entrar em uma disciplina
@@ -15,7 +13,7 @@
   .course__join__form
     p.text-center
       a.button ui-sref="^"
-        i.icon.icon-arrow-back>
+        i.icon.icon-back>
         | Disciplinas
     form.form__box ng-submit="search(access_code)"
       h3
@@ -34,5 +32,5 @@
       submit-button.submit[
         blocked-when="submitting"
         label="Buscar Disciplina"
-        blocked-label="Buscando..."
+        blocked-label="Buscando…"
         has-spinner=true]

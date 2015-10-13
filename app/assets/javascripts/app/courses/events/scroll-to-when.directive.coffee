@@ -1,10 +1,13 @@
-link = (scope, element, attrs) ->
-  scope.$watch attrs.scrollToWhen, (newValue) ->
-    $('html,body').animate(scrollTop: element.offset().top) if !!newValue
+scrollToWhen = ($timeout) ->
+  link = (scope, element, attrs) ->
+    scope.$watch attrs.scrollToWhen, (newValue) ->
+      if !!newValue
+        $timeout(-> element[0].scrollIntoView())
 
-scrollToWhen = ->
   link: link
   restrict: 'A'
+
+scrollToWhen.$inject = ['$timeout']
 
 angular
   .module('app.courses')

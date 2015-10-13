@@ -3,16 +3,16 @@ class HomeController < ApplicationController
     @features = [
       {
         description: 'Envie lembretes por e-mail.',
-        icon: 'icon-buzz'
+        icon: 'icon-notify'
       }, {
         description: 'Tenha uma visão geral das suas aulas.',
-        icon: 'icon-calendar'
+        icon: 'icon-event'
       }, {
         description: 'Seus conteúdos organizados.',
-        icon: 'icon-task-list'
+        icon: 'icon-list'
       }, {
         description: 'Compartilhe facilmente seus arquivos.',
-        icon: 'icon-catalog'
+        icon: 'icon-folder'
       }
     ]
     @slides = [

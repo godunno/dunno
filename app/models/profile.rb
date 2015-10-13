@@ -4,8 +4,9 @@ class Profile < ActiveRecord::Base
   has_many :courses, through: :memberships
   has_many :events, through: :courses
   has_many :medias, dependent: :destroy
+  has_many :system_notifications, dependent: :destroy
 
-  delegate :uuid, :email, :authentication_token, :name, to: :user
+  delegate :uuid, :email, :authentication_token, :name, :avatar_url, to: :user
 
   def role_in(course)
     has_course?(course) && memberships.find_by(course: course).role
