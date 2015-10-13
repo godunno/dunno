@@ -31,7 +31,7 @@
           li ui-sref-active="is-active"
             a.members__tab ui-sref=".events"
               | Aulas
-          li ui-sref-active="is-active"
+          li ui-sref-active="is-active" if-teacher=true
             a.calendar__tab ui-sref=".schedule"
               | Cronograma
           li ui-sref-active="is-active"
