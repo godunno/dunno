@@ -4,7 +4,9 @@
       img.comment__user__avatar.avatar user-avatar="comment.user"
       .comment__user__name
         | {{comment.user.name}}
-    .comment__time am-time-ago="comment.created_at"
+    a.comment__time[
+      am-time-ago="comment.created_at"
+      ui-sref="{commentId: comment.id, startAt: vm.event.start_at}"]
     .comment__body ng-bind-html="comment.body | linky:'_blank'"
     .comment__attachments
       .attachment ng-repeat="attachment in comment.attachments"
