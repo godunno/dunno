@@ -129,8 +129,18 @@ describe Media do
 
   describe ".search_by_profile", :elasticsearch do
     let(:profile) { create(:profile) }
-    let!(:old_media) { create(:media, profile: profile, title: "Another Title", tag_list: %w(cool stuff)) }
-    let!(:new_media) { create(:media, profile: profile, title: "Some Title") }
+    let!(:old_media) do
+      create :media,
+             profile: profile,
+             title: "Another Title",
+             tag_list: %w(cool stuff)
+    end
+    let!(:new_media) do
+      create :media,
+             profile: profile,
+             title: "Some Title",
+             created_at: 1.hour.from_now
+    end
     let!(:media_from_another_profile) { create(:media) }
 
     before { refresh_index! }
