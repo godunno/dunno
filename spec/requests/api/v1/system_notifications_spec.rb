@@ -16,14 +16,28 @@ resource "SystemNotifications" do
     response_field :name, "Name of the user who generated the notification", scope: :author
     response_field :avatar_url, "Name of the user who generated the notification", scope: :author
 
-    let!(:notification) do
-      create(:system_notification, :event_canceled, profile: profile)
+    let(:course) { create(:course) }
+    let(:event) { create(:event, course: course) }
+    let(:comment) { create(:comment, event: event) }
+
+    let!(:new_comment_notification) do
+      create :system_notification, :new_comment,
+             profile: profile,
+             notifiable: comment
     end
 
-    let!(:older_notification) do
+    let!(:event_canceled_notification) do
       create :system_notification, :event_canceled,
              profile: profile,
-             created_at: 1.hour.ago
+             created_at: 1.hour.ago,
+             notifiable: event
+    end
+
+    let!(:event_published_notification) do
+      create :system_notification, :event_published,
+             profile: profile,
+             created_at: 2.hours.ago,
+             notifiable: event
     end
 
     let!(:notification_for_another_user) do
@@ -33,19 +47,47 @@ resource "SystemNotifications" do
     example_request "shows all available notifications for the user", document: :public do
       expect(json).to eq system_notifications: [
         {
-          created_at: notification.created_at.utc.iso8601,
-          notification_type: notification.notification_type,
+          created_at: new_comment_notification.created_at.utc.iso8601,
+          notification_type: 'new_comment',
           author: {
-            name: notification.author.name,
-            avatar_url: notification.author.avatar_url
+            name: new_comment_notification.author.name,
+            avatar_url: new_comment_notification.author.avatar_url
+          },
+          notifiable: {
+            event: {
+              start_at: event.start_at.utc.iso8601,
+              course: {
+                name: course.name
+              }
+            }
           }
         },
         {
-          created_at: older_notification.created_at.utc.iso8601,
-          notification_type: older_notification.notification_type,
+          created_at: event_canceled_notification.created_at.utc.iso8601,
+          notification_type: 'event_canceled',
           author: {
-            name: older_notification.author.name,
-            avatar_url: older_notification.author.avatar_url
+            name: event_canceled_notification.author.name,
+            avatar_url: event_canceled_notification.author.avatar_url
+          },
+          notifiable: {
+            start_at: event.start_at.utc.iso8601,
+            course: {
+              name: course.name
+            }
+          }
+        },
+        {
+          created_at: event_published_notification.created_at.utc.iso8601,
+          notification_type: 'event_published',
+          author: {
+            name: event_published_notification.author.name,
+            avatar_url: event_published_notification.author.avatar_url
+          },
+          notifiable: {
+            start_at: event.start_at.utc.iso8601,
+            course: {
+              name: course.name
+            }
           }
         }
       ]
@@ -83,7 +125,7 @@ resource "SystemNotifications" do
     let(:raw_post) { params.to_json }
 
     before do
-      Timecop.freeze(Time.local(2015, 10, 10, 15, 00))
+      Timecop.freeze(Time.zone.local(2015, 10, 10, 15, 00))
       profile.update!(last_viewed_notifications_at: 1.hour.ago)
     end
 

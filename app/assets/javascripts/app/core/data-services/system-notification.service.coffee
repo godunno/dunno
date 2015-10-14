@@ -1,4 +1,4 @@
-SystemNotification = (RailsResource, $q) ->
+SystemNotification = (RailsResource, $http) ->
   class SystemNotification extends RailsResource
     @configure(
       url: '/api/v1/system_notifications'
@@ -9,22 +9,12 @@ SystemNotification = (RailsResource, $q) ->
       @$patch(@$url('viewed'))
 
     @newNotifications: ->
-      deferred = $q.defer()
-      SystemNotification.configure(fullResponse: true)
+      $http.get(@$url('new_notifications')).then (response) ->
+        response.data.new_notifications_count
 
-      @$get(@$url('new_notifications')).then (response) ->
-        deferred.resolve(response.data.new_notifications_count)
-      .catch ->
-        deferred.reject(arguments...)
-      .finally ->
-        SystemNotification.configure(fullResponse: false)
-
-      deferred.promise
-
-    window.bla = @
   SystemNotification
 
-SystemNotification.$inject = ['RailsResource', '$q']
+SystemNotification.$inject = ['RailsResource', '$http']
 
 angular
   .module('app.core')

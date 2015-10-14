@@ -13,8 +13,12 @@ describe 'SystemNotificationsCtrl', ->
 
   systemNotification =
     created_at: "2015-10-09T18:09:23Z"
-    notification_type: 'event_canceled'
     author: author
+    notification_type: 'event_canceled'
+    notifiable:
+      start_at: "2015-10-14T17:00:00Z"
+      course:
+        name: "Português"
 
   systemNotifications = [systemNotification]
 
