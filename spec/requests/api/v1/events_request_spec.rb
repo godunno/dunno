@@ -284,6 +284,26 @@ describe Api::V1::EventsController do
             expect(EventStatusNotification)
               .to have_received(:new).with(event, profile)
           end
+
+          it "doesn't deliver emails if not canceling event" do
+            allow(EventCanceledMailer)
+              .to receive(:event_canceled_email)
+            do_action
+            expect(EventCanceledMailer)
+              .not_to have_received(:event_canceled_email)
+          end
+        end
+
+        context "when canceling event" do
+          let(:params_hash) { { event: { status: "canceled" } } }
+
+          it "delivers email to all members" do
+            mail = double("mail", deliver: nil)
+            allow(EventCanceledMailer)
+              .to receive_message_chain(:delay, :event_canceled_email).and_return(mail)
+            do_action
+            expect(mail).to have_received(:deliver)
+          end
         end
 
         context "reordering topics" do

@@ -30,6 +30,6 @@ RSpec.describe Attachment, type: :model do
   end
 
   it "delegates #url to file" do
-    expect(attachment.url).to eq attachment.file.url
+    is_expected.to delegate_method(:url).to(:file)
   end
 end

@@ -97,4 +97,17 @@ describe Event do
     let(:event) { create(:event) }
     it { expect(event.index_id).to eq "#{event.course.id}/#{event.start_at.iso8601}" }
   end
+
+  describe "#was_canceled?" do
+    it "knows if it was just canceled" do
+      event.update!(status: 'published')
+      expect(event.was_canceled?).to be false
+
+      event.update!(status: 'canceled')
+      expect(event.was_canceled?).to be true
+
+      event.reload
+      expect(event.was_canceled?).to be false
+    end
+  end
 end
