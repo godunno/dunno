@@ -133,13 +133,13 @@ describe Media do
       create :media,
              profile: profile,
              title: "Another Title",
-             tag_list: %w(cool stuff)
+             tag_list: %w(cool stuff),
+             created_at: 1.hour.ago
     end
     let!(:new_media) do
       create :media,
              profile: profile,
-             title: "Some Title",
-             created_at: 1.hour.from_now
+             title: "Some Title"
     end
     let!(:media_from_another_profile) { create(:media) }
 

@@ -122,7 +122,9 @@ describe Api::V1::MediasController do
 
     context "paginating" do
       let!(:medias) do
-        create_list(:media_with_url, 11, profile: profile).reverse
+        (1..11).map do |i|
+          create(:media_with_url, profile: profile, created_at: i.minutes.ago)
+        end
       end
 
       let(:medias_uuids) { medias.map(&:uuid) }
