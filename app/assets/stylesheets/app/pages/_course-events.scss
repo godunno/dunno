@@ -42,13 +42,6 @@
 
   &__wrapper {
     @include grid-block(12);
-
-    @include breakpoint(small only) {
-      @include grid-block(
-        $size: 12,
-        $orientation: vertical
-      );
-    }
   }
 
   .mighty-picker__wrapper {
@@ -110,7 +103,7 @@
       $wrap: true
     );
     background-color: $white;
-    border-bottom: $divider;
+    border: 0;
     padding-right: 0;
   }
 
