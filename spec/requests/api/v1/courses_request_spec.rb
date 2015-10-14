@@ -299,7 +299,7 @@ describe Api::V1::CoursesController do
         do_action
       end
 
-      it { expect(last_response.status).to eq(400) }
+      it { expect(last_response.status).to eq(422) }
       it { expect(json['errors']).to have_key('name') }
     end
   end

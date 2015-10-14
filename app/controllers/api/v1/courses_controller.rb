@@ -10,13 +10,10 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def create
-    course_form = Form::CourseForm.new(course_params)
-    authorize course_form
-    if course_form.save
-      @course = course_form.model
-    else
-      render json: { errors: course_form.errors }, status: 400
-    end
+    @course = Course.new
+    course_form = CourseForm.new(@course, course_params)
+    authorize @course
+    course_form.create!
   end
 
   def update
