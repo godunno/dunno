@@ -1,13 +1,17 @@
 describe 'system-notification directive', ->
   beforeEach module('app.templates')
   beforeEach module('app.system-notifications')
+  beforeEach module('app.courses')
 
   element = null
+  $scope = null
+  $httpBackend = null
 
   author =
     name: 'José'
 
   course =
+    uuid: 'some-uuid'
     name: 'Português'
 
   event =
@@ -15,6 +19,7 @@ describe 'system-notification directive', ->
     course: course
 
   comment =
+    id: 1
     event: event
 
   systemNotification =
@@ -32,17 +37,37 @@ describe 'system-notification directive', ->
   beforeEach ->
     jasmine.clock().mockDate(new Date("2015-10-14T15:00:00Z"))
 
+    inject (_$httpBackend_) ->
+      $httpBackend = _$httpBackend_
+      $httpBackend.whenGET('/api/v1/courses').respond(200, [])
+      $httpBackend.whenGET('/api/v1/courses/' + course.uuid).respond(200, {})
+      $httpBackend.whenGET('/api/v1/events?course_id=' + course.uuid).respond(200, [])
+
   describe "notification for new comment", ->
     beforeEach ->
       systemNotification.notification_type = 'new_comment'
       systemNotification.notifiable = comment
       compile()
 
+    it "links to the comment", inject ($timeout, $state, $stateParams) ->
+      element.find('a.system__notification').click()
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      expect($state.is('courses.show.events')).toBe(true)
+      expect($stateParams).toEqual
+        courseId: course.uuid
+        startAt: event.start_at
+        commentId: String(comment.id)
+        month: undefined
+
     it "has the author's name", ->
       expect(element.html()).toContain(author.name)
 
     it "has the author's avatar", ->
-      expect(element.find('[user-avatar="vm.author"]').length).toBe(1)
+      expect(element.find('[user-avatar="notification.author"]').length).toBe(1)
 
     it "shows the message for new comment", ->
       expect(element.text().trim())
@@ -58,11 +83,25 @@ describe 'system-notification directive', ->
       systemNotification.notifiable = event
       compile()
 
+    it "links to the event", inject ($timeout, $state, $stateParams) ->
+      element.find('a.system__notification').click()
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      expect($state.is('courses.show.events')).toBe(true)
+      expect($stateParams).toEqual
+        courseId: course.uuid
+        startAt: event.start_at
+        commentId: null
+        month: undefined
+
     it "has the author's name", ->
       expect(element.html()).toContain(author.name)
 
     it "has the author's avatar", ->
-      expect(element.find('[user-avatar="vm.author"]').length).toBe(1)
+      expect(element.find('[user-avatar="notification.author"]').length).toBe(1)
 
     it "shows the message for new comment", ->
       expect(element.text().trim())
@@ -78,11 +117,25 @@ describe 'system-notification directive', ->
       systemNotification.notifiable = event
       compile()
 
+    it "links to the event", inject ($timeout, $state, $stateParams) ->
+      element.find('a.system__notification').click()
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      expect($state.is('courses.show.events')).toBe(true)
+      expect($stateParams).toEqual
+        courseId: course.uuid
+        startAt: event.start_at
+        commentId: null
+        month: undefined
+
     it "has the author's name", ->
       expect(element.html()).toContain(author.name)
 
     it "has the author's avatar", ->
-      expect(element.find('[user-avatar="vm.author"]').length).toBe(1)
+      expect(element.find('[user-avatar="notification.author"]').length).toBe(1)
 
     it "shows the message for new comment", ->
       expect(element.text().trim())

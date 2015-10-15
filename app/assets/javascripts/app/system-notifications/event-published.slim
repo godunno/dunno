@@ -1,15 +1,22 @@
-strong.system__notification__author__name>
-  | {{ vm.author.name }}
-span.system__notification__type>
-  | publicou
-| há
-span.system__notification__created__at<> am-time-ago="vm.notification.created_at"
-span.system__notification__event>
-  | a aula de
-  b<
-    | {{ vm.event.start_at | amDateFormat: 'dddd (DD/MMM - HH:mm)' }}
-span.system__notification__course
-  | da disciplina
-  b<
-    | {{ vm.course.name }}
-| .
+a.system__notification[
+  ui-sref="courses.show.events({
+    startAt: notification.notifiable.start_at,
+    courseId: notification.notifiable.course.uuid
+  })"]
+  img.avatar.system__notification__author__avatar user-avatar="notification.author"
+  span.system__notification__wrapper
+    strong.system__notification__author__name>
+      | {{ notification.author.name }}
+    span.system__notification__type>
+      | publicou
+    | há
+    span.system__notification__created__at<> am-time-ago="notification.created_at"
+    span.system__notification__event>
+      | a aula de
+      b<
+        | {{ notification.notifiable.start_at | amDateFormat: 'dddd (DD/MMM - HH:mm)' }}
+    span.system__notification__course
+      | da disciplina
+      b<
+        | {{ notification.notifiable.course.name }}
+    | .

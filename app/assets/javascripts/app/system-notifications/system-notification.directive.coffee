@@ -1,24 +1,14 @@
-systemNotification = ->
-  systemNotificationCtrl = ->
-    @viewPath = "system-notifications/#{@notification.notification_type.replace('_', '-')}"
-    @author = @notification.author
-
-    if @notification.notification_type == 'new_comment'
-      @comment = @notification.notifiable
-      @event = @comment.event
-      @course = @event.course
-
-    if @notification.notification_type.match /^event_published|event_canceled$/
-      @event = @notification.notifiable
-      @course = @event.course
-
+systemNotification = ($compile, $templateCache) ->
   restrict: 'E'
-  templateUrl: 'system-notifications/system-notification.directive'
-  controller: systemNotificationCtrl
-  controllerAs: 'vm'
-  bindToController: true
   scope:
     notification: '='
+  link: (scope, element, attrs) ->
+    notificationType = scope.notification.notification_type.replace('_', '-')
+    viewPath = "system-notifications/#{notificationType}"
+    element.html($templateCache.get(viewPath)).show()
+    $compile(element.contents())(scope)
+
+systemNotification.$inject = ['$compile', '$templateCache']
 
 angular
   .module('app.system-notifications')

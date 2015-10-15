@@ -54,9 +54,11 @@ resource "SystemNotifications" do
             avatar_url: new_comment_notification.author.avatar_url
           },
           notifiable: {
+            id: comment.id,
             event: {
               start_at: event.start_at.utc.iso8601,
               course: {
+                uuid: course.uuid,
                 name: course.name
               }
             }
@@ -72,6 +74,7 @@ resource "SystemNotifications" do
           notifiable: {
             start_at: event.start_at.utc.iso8601,
             course: {
+              uuid: course.uuid,
               name: course.name
             }
           }
@@ -86,6 +89,7 @@ resource "SystemNotifications" do
           notifiable: {
             start_at: event.start_at.utc.iso8601,
             course: {
+              uuid: course.uuid,
               name: course.name
             }
           }
