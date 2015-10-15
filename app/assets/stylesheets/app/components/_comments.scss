@@ -3,6 +3,10 @@
     border-top: $divider;
     padding: 1rem;
 
+    @include breakpoint(small only) {
+      border-bottom: $divider;
+    }
+
     &__input {
       flex-grow: 1;
       position: relative;
