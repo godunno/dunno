@@ -2,12 +2,13 @@ strong.system__notification__author__name>
   | {{ vm.author.name }}
 span.system__notification__type>
   | comentou
-span.system__notification__created__at> am-time-ago="vm.notification.created_at"
+| há
+span.system__notification__created__at<> am-time-ago="vm.notification.created_at"
 span.system__notification__event>
   | na aula de
   b<
     | {{ vm.event.start_at | amDateFormat: 'dddd (DD/MMM - HH:mm)' }}
-span.system__notification__course>
+span.system__notification__course
   | da disciplina
   b<
     | {{ vm.course.name }}

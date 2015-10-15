@@ -4,6 +4,8 @@
   padding: 1rem 2rem;
 
   &__toggle {
+    position: relative;
+
     .icon {
       font-size: 1.25rem;
       line-height: 0;
@@ -14,7 +16,7 @@
   &__title {
     border-bottom: $divider;
     font-size: .75rem;
-    margin: 3rem 0 1rem;
+    margin: 1rem 0;
     padding-bottom: 1rem;
     text-align: center;
     text-transform: uppercase;
@@ -25,12 +27,28 @@
     padding: 2rem 0;
     text-align: center;
   }
+
+  &__count {
+    background-color: $red-color;
+    border-radius: 50%;
+    font-size: .75rem;
+    font-weight: $font-weight-bold;
+    height: 1rem;
+    line-height: 1rem;
+    position: absolute;
+    right: .5rem;
+    text-align: center;
+    top: .5rem;
+    width: 1rem;
+  }
 }
 
 .system__notification {
+  border-bottom: $divider;
   clear: both;
+  display: block;
   font-size: .875rem;
-  padding: .5rem 0 1.5rem;
+  padding: 2rem 0;
 
   &__author__avatar {
     display: block;
