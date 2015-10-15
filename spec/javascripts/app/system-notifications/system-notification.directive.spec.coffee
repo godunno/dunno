@@ -47,9 +47,9 @@ describe 'system-notification directive', ->
     it "shows the message for new comment", ->
       expect(element.text().trim())
         .toEqual(
-          'José comentou um dia atrás na aula de ' +
+          'José comentou há um dia atrás na aula de ' +
           'Quarta-Feira (14/Out - 14:00) da ' +
-          'disciplina Português .'
+          'disciplina Português.'
         )
 
   describe "notification for event canceled", ->
@@ -67,9 +67,9 @@ describe 'system-notification directive', ->
     it "shows the message for new comment", ->
       expect(element.text().trim())
         .toEqual(
-          'José cancelou um dia atrás a aula de ' +
+          'José cancelou há um dia atrás a aula de ' +
           'Quarta-Feira (14/Out - 14:00) da ' +
-          'disciplina Português .'
+          'disciplina Português.'
         )
 
   describe "notification for event published", ->
@@ -87,7 +87,7 @@ describe 'system-notification directive', ->
     it "shows the message for new comment", ->
       expect(element.text().trim())
         .toEqual(
-          'José publicou um dia atrás a aula de ' +
+          'José publicou há um dia atrás a aula de ' +
           'Quarta-Feira (14/Out - 14:00) da ' +
-          'disciplina Português .'
+          'disciplina Português.'
         )
