@@ -21,15 +21,3 @@ setSystemNotificationsRoutes.$inject = [
 angular
   .module('app.system-notifications')
   .config(setSystemNotificationsRoutes)
-
-# TODO: Find out why isn't this working on the config.i18n.coffee file
-I18nConfig = ($translateProvider) ->
-  $translateProvider.translations 'pt-BR',
-    'system-notifications':
-      'title':
-        'system-notifications': 'Notificações'
-
-I18nConfig.$inject = ['$translateProvider']
-angular
-  .module('app.system-notifications')
-  .config(I18nConfig)
