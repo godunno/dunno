@@ -6,6 +6,11 @@ class CourseForm
     @params = params.with_indifferent_access
   end
 
+  def create!
+    course.attributes = params
+    course.save!
+  end
+
   def update!
     course.attributes = params
     index_events

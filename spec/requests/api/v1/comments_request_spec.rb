@@ -45,6 +45,7 @@ resource "Comments" do
           event_start_at: event_start_at.iso8601(3),
           created_at: Time.current.iso8601(3),
           body: body,
+          id: comment.id,
           user: {
             name: teacher.name,
             avatar_url: nil,

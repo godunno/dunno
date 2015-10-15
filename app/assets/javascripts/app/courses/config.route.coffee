@@ -27,10 +27,13 @@ setCoursesRoutes = (
           $translate('courses.title.course-detail', course: course)]
 
     .state 'courses.show.events',
-      url: '/events?month'
+      url: '/events?month&startAt&commentId'
       controller: 'CourseEventsCtrl as vm'
       templateUrl: 'courses/events/events'
       resolve: { pagination: EventsPaginationResolver }
+      params:
+        startAt: { value: null, squash: true }
+        commentId: { value: null, squash: true }
 
     .state 'courses.show.schedule',
       url: '/schedule'
