@@ -1,6 +1,9 @@
 .system__notifications
   h4.system__notifications__title
     | Notificações
+  a.system__notifications__mark__all_as__read ng-click="vm.markAllAsRead()"
+    | Marcar todas como lidas
+
   system-notification[
     ng-repeat="notification in vm.systemNotifications"
     notification="notification"]

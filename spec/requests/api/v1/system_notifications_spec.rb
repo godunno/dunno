@@ -48,6 +48,7 @@ resource "SystemNotifications" do
     example_request "shows all available notifications for the user", document: :public do
       expect(json).to eq system_notifications: [
         {
+          id: new_comment_notification.id,
           notification_type: 'new_comment',
           created_at: new_comment_notification.created_at.utc.iso8601,
           read_at: nil,
@@ -67,6 +68,7 @@ resource "SystemNotifications" do
           }
         },
         {
+          id: event_canceled_notification.id,
           notification_type: 'event_canceled',
           created_at: event_canceled_notification.created_at.utc.iso8601,
           read_at: nil,
@@ -83,6 +85,7 @@ resource "SystemNotifications" do
           }
         },
         {
+          id: event_published_notification.id,
           notification_type: 'event_published',
           created_at: event_published_notification.created_at.utc.iso8601,
           read_at: nil,
@@ -121,6 +124,7 @@ resource "SystemNotifications" do
 
     example_request "sets notification as read", document: :public do
       expect(json).to eq system_notification: {
+        id: notification.id,
         created_at: notification.created_at.utc.iso8601,
         notification_type: notification.notification_type,
         read_at: Time.current.utc.change(usec: 0).iso8601,
@@ -131,6 +135,7 @@ resource "SystemNotifications" do
         notifiable: {
           start_at: notification.notifiable.start_at.utc.iso8601,
           course: {
+            uuid: notification.notifiable.course.uuid,
             name: notification.notifiable.course.name
           }
         }
@@ -164,6 +169,7 @@ resource "SystemNotifications" do
     example_request "marks all notifications as read", document: :public do
       expect(json).to eq system_notifications: [
         {
+          id: notification.id,
           created_at: notification.created_at.utc.iso8601,
           notification_type: notification.notification_type,
           read_at: Time.current.utc.change(usec: 0).iso8601,
@@ -174,11 +180,13 @@ resource "SystemNotifications" do
           notifiable: {
             start_at: notification.notifiable.start_at.utc.iso8601,
             course: {
+              uuid: notification.notifiable.course.uuid,
               name: notification.notifiable.course.name
             }
           }
         },
         {
+          id: older_notification.id,
           created_at: older_notification.created_at.utc.iso8601,
           notification_type: older_notification.notification_type,
           read_at: Time.current.utc.change(usec: 0).iso8601,
@@ -189,6 +197,7 @@ resource "SystemNotifications" do
           notifiable: {
             start_at: older_notification.notifiable.start_at.utc.iso8601,
             course: {
+              uuid: older_notification.notifiable.course.uuid,
               name: older_notification.notifiable.course.name
             }
           }

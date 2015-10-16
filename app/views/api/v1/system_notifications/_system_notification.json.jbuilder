@@ -1,4 +1,4 @@
-json.(system_notification, :notification_type)
+json.(system_notification, :notification_type, :id)
 json.created_at(format_time(system_notification.created_at))
 json.read_at(format_time(system_notification.read_at))
 json.author do
