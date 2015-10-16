@@ -38,7 +38,6 @@ AnalyticsTracker = ($analytics) ->
     $analytics.eventTrack 'Schedule Created',
       weeklyScheduleAttrs(weeklySchedule)
 
-
   scheduleEdited = (weeklySchedule) ->
     $analytics.eventTrack 'Schedule Edited',
       weeklyScheduleAttrs(weeklySchedule)
@@ -46,6 +45,10 @@ AnalyticsTracker = ($analytics) ->
   scheduleRemoved = (weeklySchedule) ->
     $analytics.eventTrack 'Schedule Removed',
       weeklyScheduleAttrs(weeklySchedule)
+
+  commentCreated = (comment) ->
+    $analytics.eventTrack 'Comment Created',
+      commentAttrs(comment)
 
   courseAttrs = (course) ->
     uuid: course.uuid
@@ -71,6 +74,12 @@ AnalyticsTracker = ($analytics) ->
     endTime: weeklySchedule.end_time
     weekday: weeklySchedule.weekday
 
+  commentAttrs = (comment) ->
+    id: comment.id
+    userId: comment.user.id
+    userName: comment.user.name
+    attachmentsCount: comment.attachments.length
+
   merge = ->
     angular.extend({}, arguments...)
 
@@ -87,10 +96,10 @@ AnalyticsTracker = ($analytics) ->
   scheduleCreated: scheduleCreated
   scheduleEdited: scheduleEdited
   scheduleRemoved: scheduleRemoved
+  commentCreated: commentCreated
 
 AnalyticsTracker.$inject = ['$analytics']
 
 angular
   .module('app.core')
   .factory('AnalyticsTracker', AnalyticsTracker)
-

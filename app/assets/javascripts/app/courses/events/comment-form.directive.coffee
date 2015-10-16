@@ -2,7 +2,8 @@ commentForm = (
   $q,
   SessionManager,
   UserComment,
-  FoundationApi
+  FoundationApi,
+  AnalyticsTracker
 ) ->
   commentFormCtrl = ->
     @user = SessionManager.currentUser()
@@ -13,6 +14,7 @@ commentForm = (
       @submitting = $q.all(@filePromises).then =>
         @comment.save().then (comment) =>
           @onSave()(comment)
+          AnalyticsTracker.commentCreated(comment)
         .then =>
           @comment = new UserComment
             event_start_at: @event.start_at
@@ -34,7 +36,8 @@ commentForm.$inject = [
   '$q',
   'SessionManager',
   'UserComment',
-  'FoundationApi'
+  'FoundationApi',
+  'AnalyticsTracker'
 ]
 
 angular
