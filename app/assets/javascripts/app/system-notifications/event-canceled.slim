@@ -1,6 +1,6 @@
 a.system__notification[
   ng-click="vm.markAsRead()"
-  ng-class="{'system__notification__read': vm.notification.read_at}"
+  ng-class="{'system__notification__unread': !vm.notification.read_at}"
   ui-sref="courses.show.events({
     startAt: vm.notification.notifiable.start_at,
     courseId: vm.notification.notifiable.course.uuid
