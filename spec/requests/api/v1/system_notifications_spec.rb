@@ -12,6 +12,7 @@ resource "SystemNotifications" do
 
   get "/api/v1/system_notifications.json" do
     response_field :created_at, "Timestamp of when the notification was created"
+    response_field :read_at, "Timestamp of when the notification was read by user"
     response_field :notification_type, "Event that triggered the notification"
     response_field :name, "Name of the user who generated the notification", scope: :author
     response_field :avatar_url, "Name of the user who generated the notification", scope: :author
@@ -47,8 +48,9 @@ resource "SystemNotifications" do
     example_request "shows all available notifications for the user", document: :public do
       expect(json).to eq system_notifications: [
         {
-          created_at: new_comment_notification.created_at.utc.iso8601,
           notification_type: 'new_comment',
+          created_at: new_comment_notification.created_at.utc.iso8601,
+          read_at: nil,
           author: {
             name: new_comment_notification.author.name,
             avatar_url: new_comment_notification.author.avatar_url
@@ -65,8 +67,9 @@ resource "SystemNotifications" do
           }
         },
         {
-          created_at: event_canceled_notification.created_at.utc.iso8601,
           notification_type: 'event_canceled',
+          created_at: event_canceled_notification.created_at.utc.iso8601,
+          read_at: nil,
           author: {
             name: event_canceled_notification.author.name,
             avatar_url: event_canceled_notification.author.avatar_url
@@ -80,8 +83,9 @@ resource "SystemNotifications" do
           }
         },
         {
-          created_at: event_published_notification.created_at.utc.iso8601,
           notification_type: 'event_published',
+          created_at: event_published_notification.created_at.utc.iso8601,
+          read_at: nil,
           author: {
             name: event_published_notification.author.name,
             avatar_url: event_published_notification.author.avatar_url
@@ -91,6 +95,101 @@ resource "SystemNotifications" do
             course: {
               uuid: course.uuid,
               name: course.name
+            }
+          }
+        }
+      ]
+    end
+  end
+
+  get "/api/v1/system_notifications/:id.json" do
+    response_field :created_at, "Timestamp of when the notification was created"
+    response_field :read_at, "Timestamp of when the notification was read by user"
+    response_field :notification_type, "Event that triggered the notification"
+    response_field :name, "Name of the user who generated the notification", scope: :author
+    response_field :avatar_url, "Name of the user who generated the notification", scope: :author
+
+    before { Timecop.freeze }
+
+    after { Timecop.return }
+
+    let!(:notification) do
+      create(:system_notification, :event_canceled, profile: profile)
+    end
+
+    let(:id) { notification.id }
+
+    example_request "sets notification as read", document: :public do
+      expect(json).to eq system_notification: {
+        created_at: notification.created_at.utc.iso8601,
+        notification_type: notification.notification_type,
+        read_at: Time.current.utc.change(usec: 0).iso8601,
+        author: {
+          name: notification.author.name,
+          avatar_url: notification.author.avatar_url
+        },
+        notifiable: {
+          start_at: notification.notifiable.start_at.utc.iso8601,
+          course: {
+            name: notification.notifiable.course.name
+          }
+        }
+      }
+    end
+  end
+
+  post "api/v1/system_notifications/mark_all_as_read.json" do
+    response_field :created_at, "Timestamp of when the notification was created"
+    response_field :read_at, "Timestamp of when the notification was read by user"
+    response_field :notification_type, "Event that triggered the notification"
+    response_field :name, "Name of the user who generated the notification", scope: :author
+    response_field :avatar_url, "Name of the user who generated the notification", scope: :author
+
+    let(:raw_post) { params.to_json }
+
+    before { Timecop.freeze }
+
+    after { Timecop.return }
+
+    let!(:notification) do
+      create(:system_notification, :event_canceled, profile: profile)
+    end
+
+    let!(:older_notification) do
+      create :system_notification, :event_canceled,
+             profile: profile,
+             created_at: 1.hour.ago
+    end
+
+    example_request "marks all notifications as read", document: :public do
+      expect(json).to eq system_notifications: [
+        {
+          created_at: notification.created_at.utc.iso8601,
+          notification_type: notification.notification_type,
+          read_at: Time.current.utc.change(usec: 0).iso8601,
+          author: {
+            name: notification.author.name,
+            avatar_url: notification.author.avatar_url
+          },
+          notifiable: {
+            start_at: notification.notifiable.start_at.utc.iso8601,
+            course: {
+              name: notification.notifiable.course.name
+            }
+          }
+        },
+        {
+          created_at: older_notification.created_at.utc.iso8601,
+          notification_type: older_notification.notification_type,
+          read_at: Time.current.utc.change(usec: 0).iso8601,
+          author: {
+            name: older_notification.author.name,
+            avatar_url: older_notification.author.avatar_url
+          },
+          notifiable: {
+            start_at: older_notification.notifiable.start_at.utc.iso8601,
+            course: {
+              name: older_notification.notifiable.course.name
             }
           }
         }

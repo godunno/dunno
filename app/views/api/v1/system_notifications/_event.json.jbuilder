@@ -1,4 +1,4 @@
-json.start_at format_time(notifiable.start_at)
+json.start_at format_time(event.start_at)
 json.course do
-  json.(notifiable.course, :uuid, :name)
+  json.(event.course, :uuid, :name)
 end
