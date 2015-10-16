@@ -41,6 +41,12 @@ resource "SystemNotifications" do
              notifiable: event
     end
 
+    let!(:notification_from_himself) do
+      create :system_notification, :event_published,
+             author: profile,
+             profile: profile
+    end
+
     let!(:notification_for_another_user) do
       create(:system_notification, :event_canceled)
     end
@@ -222,6 +228,12 @@ resource "SystemNotifications" do
 
     let!(:notification_for_another_user) do
       create(:system_notification, :event_canceled)
+    end
+
+    let!(:notification_from_himself) do
+      create :system_notification, :event_published,
+             author: profile,
+             profile: profile
     end
 
     before do

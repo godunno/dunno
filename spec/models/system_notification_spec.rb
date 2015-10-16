@@ -43,4 +43,17 @@ RSpec.describe SystemNotification, type: :model do
         .with %w(event_canceled event_published new_comment)
     end
   end
+
+  describe ".without_author" do
+    it "should filter out the author when listing notifications" do
+      profile = create(:profile)
+      notification_from_himself = create :system_notification, :event_canceled,
+                                         author: profile, profile: profile
+      notification_from_someone_else = create :system_notification, :new_comment,
+                                              profile: profile
+
+      expect(profile.system_notifications.without_author(profile))
+        .to eq [notification_from_someone_else]
+    end
+  end
 end
