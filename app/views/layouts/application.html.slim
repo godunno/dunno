@@ -40,7 +40,9 @@ html lang="pt" ng-app="app" ng-strict-di=true
           a zf-toggle="sidebar"
             | Menu
         span.right
-          a.system__notifications__toggle ui-sref="system-notifications"
+          a.system__notifications__toggle[
+            ui-sref="system-notifications"
+            ng-click="trackNotificationsAccessed()"]
             span.system__notifications__count ng-if="newNotificationsCount > 0"
               | {{newNotificationsCount}}
             i.icon ng-class="{'icon-notification-off': newNotificationsCount == 0, 'icon-notification-on': newNotificationsCount > 0}"
@@ -57,7 +59,9 @@ html lang="pt" ng-app="app" ng-strict-di=true
           .header__navigation__settings
             ul
               li
-                a.system__notifications__toggle ui-sref="system-notifications"
+                a.system__notifications__toggle[
+                  ui-sref="system-notifications"
+                  ng-click="trackNotificationsAccessed()"]
                   span.system__notifications__count ng-if="newNotificationsCount > 0"
                     | {{newNotificationsCount}}
                   i.icon ng-class="{'icon-notification-off': newNotificationsCount == 0, 'icon-notification-on': newNotificationsCount > 0}"

@@ -50,6 +50,13 @@ AnalyticsTracker = ($analytics) ->
     $analytics.eventTrack 'Comment Created',
       commentAttrs(comment)
 
+  systemNotificationsAccessed = ->
+    $analytics.eventTrack 'Notifications Accessed'
+
+  systemNotificationClicked = (systemNotification) ->
+    $analytics.eventTrack 'Notification Clicked',
+      systemNotificationAttrs(systemNotification)
+
   courseAttrs = (course) ->
     uuid: course.uuid
     name: course.name
@@ -80,6 +87,10 @@ AnalyticsTracker = ($analytics) ->
     userName: comment.user.name
     attachmentsCount: comment.attachments.length
 
+  systemNotificationAttrs = (systemNotification) ->
+    notificationType: systemNotification.notification_type
+    authorName: systemNotification.author.name
+
   merge = ->
     angular.extend({}, arguments...)
 
@@ -97,6 +108,8 @@ AnalyticsTracker = ($analytics) ->
   scheduleEdited: scheduleEdited
   scheduleRemoved: scheduleRemoved
   commentCreated: commentCreated
+  systemNotificationsAccessed: systemNotificationsAccessed
+  systemNotificationClicked: systemNotificationClicked
 
 AnalyticsTracker.$inject = ['$analytics']
 
