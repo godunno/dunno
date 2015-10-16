@@ -1,0 +1,146 @@
+describe 'system-notification directive', ->
+  beforeEach module('app.templates')
+  beforeEach module('app.system-notifications')
+  beforeEach module('app.courses')
+
+  element = null
+  $scope = null
+  $httpBackend = null
+
+  author =
+    name: 'José'
+
+  course =
+    uuid: 'some-uuid'
+    name: 'Português'
+
+  event =
+    start_at: "2015-10-14T17:00:00Z"
+    course: course
+
+  comment =
+    id: 1
+    event: event
+
+  systemNotification =
+    created_at: "2015-10-13T17:00:00Z"
+    author: author
+
+  compile = ->
+    inject ($controller, $rootScope, $compile, $templateCache) ->
+      $scope = $rootScope.$new()
+      $scope.systemNotification = systemNotification
+      template = '<system-notification notification="systemNotification">'
+      element = $compile(template)($scope)
+      $scope.$digest()
+
+  beforeEach ->
+    jasmine.clock().mockDate(new Date("2015-10-14T15:00:00Z"))
+
+    inject (_$httpBackend_) ->
+      $httpBackend = _$httpBackend_
+      $httpBackend.whenGET('/api/v1/courses').respond(200, [])
+      $httpBackend.whenGET('/api/v1/courses/' + course.uuid).respond(200, {})
+      $httpBackend.whenGET('/api/v1/events?course_id=' + course.uuid).respond(200, [])
+
+  describe "notification for new comment", ->
+    beforeEach ->
+      systemNotification.notification_type = 'new_comment'
+      systemNotification.notifiable = comment
+      compile()
+
+    it "links to the comment", inject ($timeout, $state, $stateParams) ->
+      element.find('a.system__notification').click()
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      expect($state.is('courses.show.events')).toBe(true)
+      expect($stateParams).toEqual
+        courseId: course.uuid
+        startAt: event.start_at
+        commentId: String(comment.id)
+        month: undefined
+
+    it "has the author's name", ->
+      expect(element.html()).toContain(author.name)
+
+    it "has the author's avatar", ->
+      expect(element.find('[user-avatar="notification.author"]').length).toBe(1)
+
+    it "shows the message for new comment", ->
+      expect(element.text().trim())
+        .toEqual(
+          'José comentou há um dia atrás na aula de ' +
+          'Quarta-Feira (14/Out - 14:00) da ' +
+          'disciplina Português.'
+        )
+
+  describe "notification for event canceled", ->
+    beforeEach ->
+      systemNotification.notification_type = 'event_canceled'
+      systemNotification.notifiable = event
+      compile()
+
+    it "links to the event", inject ($timeout, $state, $stateParams) ->
+      element.find('a.system__notification').click()
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      expect($state.is('courses.show.events')).toBe(true)
+      expect($stateParams).toEqual
+        courseId: course.uuid
+        startAt: event.start_at
+        commentId: null
+        month: undefined
+
+    it "has the author's name", ->
+      expect(element.html()).toContain(author.name)
+
+    it "has the author's avatar", ->
+      expect(element.find('[user-avatar="notification.author"]').length).toBe(1)
+
+    it "shows the message for new comment", ->
+      expect(element.text().trim())
+        .toEqual(
+          'José cancelou há um dia atrás a aula de ' +
+          'Quarta-Feira (14/Out - 14:00) da ' +
+          'disciplina Português.'
+        )
+
+  describe "notification for event published", ->
+    beforeEach ->
+      systemNotification.notification_type = 'event_published'
+      systemNotification.notifiable = event
+      compile()
+
+    it "links to the event", inject ($timeout, $state, $stateParams) ->
+      element.find('a.system__notification').click()
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      expect($state.is('courses.show.events')).toBe(true)
+      expect($stateParams).toEqual
+        courseId: course.uuid
+        startAt: event.start_at
+        commentId: null
+        month: undefined
+
+    it "has the author's name", ->
+      expect(element.html()).toContain(author.name)
+
+    it "has the author's avatar", ->
+      expect(element.find('[user-avatar="notification.author"]').length).toBe(1)
+
+    it "shows the message for new comment", ->
+      expect(element.text().trim())
+        .toEqual(
+          'José publicou há um dia atrás a aula de ' +
+          'Quarta-Feira (14/Out - 14:00) da ' +
+          'disciplina Português.'
+        )

@@ -4,7 +4,8 @@ ApplicationCtrl = (
   $rootScope,
   SessionManager,
   NonLoggedRoutes,
-  NavigationGuard) ->
+  NavigationGuard
+  NewNotifications) ->
 
   $rootScope.$on '$locationChangeStart', (event) ->
     event.preventDefault() if NonLoggedRoutes.isNonLoggedRoute()
@@ -19,6 +20,9 @@ ApplicationCtrl = (
     if updatedUser
       $scope.currentUser = updatedUser
 
+  $scope.$watch (-> NewNotifications.getCount()), (newNotificationsCount) ->
+    $scope.newNotificationsCount = newNotificationsCount
+
   $scope.$on 'wholePageLoading', (_, promise) ->
     $scope.wholePageLoading = promise
 
@@ -30,7 +34,8 @@ ApplicationCtrl.$inject = [
   '$rootScope',
   'SessionManager',
   'NonLoggedRoutes',
-  'NavigationGuard']
+  'NavigationGuard'
+  'NewNotifications']
 
 angular
   .module('app')

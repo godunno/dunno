@@ -28,4 +28,12 @@
 //= require foundation-apps-js
 //= require ng-sortable/ng-sortable
 //= require app/app.module
+//= require app/agenda/config.module
+//= require app/core/config.module
+//= require app/courses/config.module
+//= require app/join/config.module
+//= require app/lesson-plan/config.module
+//= require app/profile/config.module
+//= require app/system-notifications/config.module
+//= require app/users/config.module
 //= require_tree ./app

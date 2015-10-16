@@ -39,6 +39,11 @@ html lang="pt" ng-app="app" ng-strict-di=true
         span.left
           a zf-toggle="sidebar"
             | Menu
+        span.right
+          a.system__notifications__toggle ui-sref="system-notifications"
+            span.system__notifications__count ng-if="newNotificationsCount > 0"
+              | {{newNotificationsCount}}
+            i.icon ng-class="{'icon-notification-off': newNotificationsCount == 0, 'icon-notification-on': newNotificationsCount > 0}"
       header.header__navigation
         .header__navigation__wrapper
           .header__navigation__sections
@@ -51,6 +56,11 @@ html lang="pt" ng-app="app" ng-strict-di=true
                   | Disciplinas
           .header__navigation__settings
             ul
+              li
+                a.system__notifications__toggle ui-sref="system-notifications"
+                  span.system__notifications__count ng-if="newNotificationsCount > 0"
+                    | {{newNotificationsCount}}
+                  i.icon ng-class="{'icon-notification-off': newNotificationsCount == 0, 'icon-notification-on': newNotificationsCount > 0}"
               li ui-sref-active="is-active"
                 a.user__profile ui-sref="profile"
                   img.avatar>[user-avatar="currentUser"]
