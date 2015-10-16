@@ -6,6 +6,7 @@ describe 'system-notification directive', ->
   element = null
   $scope = null
   $httpBackend = null
+  systemNotification = null
 
   author =
     name: 'José'
@@ -22,12 +23,8 @@ describe 'system-notification directive', ->
     id: 1
     event: event
 
-  systemNotification =
-    created_at: "2015-10-13T17:00:00Z"
-    author: author
-
   compile = ->
-    inject ($controller, $rootScope, $compile, $templateCache) ->
+    inject ($controller, $rootScope, $compile, $templateCache, SystemNotification) ->
       $scope = $rootScope.$new()
       $scope.systemNotification = systemNotification
       template = '<system-notification notification="systemNotification">'
@@ -37,11 +34,18 @@ describe 'system-notification directive', ->
   beforeEach ->
     jasmine.clock().mockDate(new Date("2015-10-14T15:00:00Z"))
 
-    inject (_$httpBackend_) ->
+    inject (_$httpBackend_, SystemNotification) ->
+
+      systemNotification = new SystemNotification
+        id: 1
+        created_at: "2015-10-13T17:00:00Z"
+        author: author
+
       $httpBackend = _$httpBackend_
       $httpBackend.whenGET('/api/v1/courses').respond(200, [])
       $httpBackend.whenGET('/api/v1/courses/' + course.uuid).respond(200, {})
       $httpBackend.whenGET('/api/v1/events?course_id=' + course.uuid).respond(200, [])
+      $httpBackend.whenGET('/api/v1/system_notifications/1').respond(200, [])
 
   describe "notification for new comment", ->
     beforeEach ->
@@ -67,7 +71,7 @@ describe 'system-notification directive', ->
       expect(element.html()).toContain(author.name)
 
     it "has the author's avatar", ->
-      expect(element.find('[user-avatar="notification.author"]').length).toBe(1)
+      expect(element.find('[user-avatar="vm.notification.author"]').length).toBe(1)
 
     it "shows the message for new comment", ->
       expect(element.text().trim())
@@ -76,6 +80,11 @@ describe 'system-notification directive', ->
           'Quarta-Feira (14/Out - 14:00) da ' +
           'disciplina Português.'
         )
+
+    it "marks as read when clicked", ->
+      spyOn(systemNotification, 'get').and.callThrough()
+      element.find('a.system__notification').click()
+      expect(systemNotification.get).toHaveBeenCalled()
 
   describe "notification for event canceled", ->
     beforeEach ->
@@ -101,7 +110,7 @@ describe 'system-notification directive', ->
       expect(element.html()).toContain(author.name)
 
     it "has the author's avatar", ->
-      expect(element.find('[user-avatar="notification.author"]').length).toBe(1)
+      expect(element.find('[user-avatar="vm.notification.author"]').length).toBe(1)
 
     it "shows the message for new comment", ->
       expect(element.text().trim())
@@ -135,7 +144,7 @@ describe 'system-notification directive', ->
       expect(element.html()).toContain(author.name)
 
     it "has the author's avatar", ->
-      expect(element.find('[user-avatar="notification.author"]').length).toBe(1)
+      expect(element.find('[user-avatar="vm.notification.author"]').length).toBe(1)
 
     it "shows the message for new comment", ->
       expect(element.text().trim())

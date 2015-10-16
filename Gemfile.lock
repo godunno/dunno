@@ -443,7 +443,7 @@ GEM
     rb-fsevent (0.9.6)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
-    redcarpet (3.3.2)
+    redcarpet (3.3.3)
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
@@ -664,7 +664,7 @@ DEPENDENCIES
   rails-assets-scrollmagic (= 2.0.5)!
   rails-assets-ui-router (= 0.2.15)!
   rails_12factor (= 0.0.3)
-  redcarpet (= 3.3.2)
+  redcarpet (= 3.3.3)
   roadie-rails (= 1.0.6)
   roboto (= 0.2.0)
   rspec-rails (= 3.3.2)

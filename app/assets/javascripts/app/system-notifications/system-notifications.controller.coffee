@@ -3,6 +3,10 @@ SystemNotificationsCtrl = ($scope, SystemNotification, systemNotifications) ->
 
   vm.systemNotifications = systemNotifications
 
+  vm.markAllAsRead = ->
+    SystemNotification.markAllAsRead().then (systemNotifications) ->
+      vm.systemNotifications = systemNotifications
+
   SystemNotification.viewed().then ->
     $scope.$emit('$stateChangeStart')
 

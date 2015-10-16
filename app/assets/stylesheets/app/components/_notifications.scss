@@ -1,7 +1,6 @@
 .system__notifications {
   @include grid-container();
   background: $white;
-  padding: 1rem 2rem;
 
   &__toggle {
     position: relative;
@@ -13,14 +12,33 @@
     }
   }
 
-  &__title {
+  &__header {
+    @include grid-block();
     border-bottom: $divider;
+    padding: 2rem;
+  }
+
+  &__title {
+    align-self: center;
+    flex-grow: 1;
     font-size: .75rem;
-    margin: 1rem 0;
-    padding-bottom: 1rem;
-    text-align: center;
+    margin: 0;
+    padding-right: 1rem;
     text-transform: uppercase;
   }
+
+  &__mark__as__read {
+    @include button;
+    @include button-size(tiny);
+    @include button-style(
+      $background: $dunno-green-color,
+      $background-hover: auto,
+      $color: $dunno-green-color,
+      $style: hollow
+    );
+    flex-shrink: 1;
+  }
+
 
   &__empty {
     color: $medium-grey-color;
@@ -46,9 +64,18 @@
 .system__notification {
   border-bottom: $divider;
   clear: both;
+  color: $dunno-dark-color;
   display: block;
   font-size: .875rem;
-  padding: 2rem 0;
+  padding: 2rem;
+
+  &:hover {
+    color: lighten($dunno-dark-color, 15%);
+  }
+
+  &__unread {
+    background-color: $yellow-color;
+  }
 
   &__author__avatar {
     display: block;
