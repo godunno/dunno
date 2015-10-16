@@ -7,5 +7,15 @@ FactoryGirl.define do
       notifiable { create(:event) }
       notification_type :event_canceled
     end
+
+    trait :event_published do
+      notifiable { create(:event) }
+      notification_type :event_published
+    end
+
+    trait :new_comment do
+      notifiable { create(:comment) }
+      notification_type :new_comment
+    end
   end
 end

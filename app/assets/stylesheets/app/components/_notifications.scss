@@ -1,0 +1,63 @@
+.system__notifications {
+  @include grid-container();
+  background: $white;
+  padding: 1rem 2rem;
+
+  &__toggle {
+    position: relative;
+
+    .icon {
+      font-size: 1.25rem;
+      line-height: 0;
+      margin-top: -.5rem;
+    }
+  }
+
+  &__title {
+    border-bottom: $divider;
+    font-size: .75rem;
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__empty {
+    color: $medium-grey-color;
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  &__count {
+    background-color: $red-color;
+    border-radius: 50%;
+    font-size: .75rem;
+    font-weight: $font-weight-bold;
+    height: 1rem;
+    line-height: 1rem;
+    position: absolute;
+    right: .5rem;
+    text-align: center;
+    top: .5rem;
+    width: 1rem;
+  }
+}
+
+.system__notification {
+  border-bottom: $divider;
+  clear: both;
+  display: block;
+  font-size: .875rem;
+  padding: 2rem 0;
+
+  &__author__avatar {
+    display: block;
+    float: left;
+    margin-top: -.25rem;
+  }
+
+  &__wrapper {
+    display: block;
+    margin-left: 2.5rem;
+  }
+}

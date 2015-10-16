@@ -14,4 +14,5 @@ angular
     'app.join',
     'app.profile',
     'app.users',
+    'app.system-notifications',
     'app.templates']

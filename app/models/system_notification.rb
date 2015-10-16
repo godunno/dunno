@@ -6,4 +6,8 @@ class SystemNotification < ActiveRecord::Base
   belongs_to :notifiable, polymorphic: true
 
   validates :author, :profile, :notifiable, :notification_type, presence: true
+
+  default_scope { order(created_at: :desc) }
+
+  scope :more_recent_than, -> (datetime) { datetime ? where('created_at > ?', datetime) : all }
 end
