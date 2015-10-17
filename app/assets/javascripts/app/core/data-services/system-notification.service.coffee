@@ -8,6 +8,9 @@ SystemNotification = (RailsResource, $http) ->
     @viewed: ->
       @$patch(@$url('viewed'))
 
+    @markAllAsRead: ->
+      @$post(@$url('mark_all_as_read'))
+
     @newNotifications: ->
       $http.get(@$url('new_notifications')).then (response) ->
         response.data.new_notifications_count

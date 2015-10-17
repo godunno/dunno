@@ -38,7 +38,7 @@ gem 'carrierwave',                '0.10.0'
 gem 'fog',                        '1.32.0'
 gem 'airbrake',                   '4.3.0'
 gem 'pundit',                     '1.0.1'
-gem 'redcarpet',                  '3.3.2'
+gem 'redcarpet',                  '3.3.3'
 gem 'ice_cube',                   '0.13.0'
 gem 'asset_sync', github: 'sbeam/asset_sync', branch: 'gzip-before-upload'
 

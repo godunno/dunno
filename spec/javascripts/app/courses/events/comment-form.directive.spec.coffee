@@ -40,7 +40,13 @@ describe "comment-form directive", ->
       scope.saveCallback = jasmine.createSpy('onSave')
       commentBodyInput = el.find('input')
       ctrl = el.controller('commentForm')
-      $httpBackend.whenPOST('/api/v1/comments').respond({comment: {body: 'cool!'}})
+      $httpBackend.whenPOST('/api/v1/comments').respond
+        comment:
+          id: 1
+          body: 'cool!'
+          user:
+            id: 1
+          attachments: []
 
   sendComment = ->
     commentBodyInput.val('cool!').trigger('input')

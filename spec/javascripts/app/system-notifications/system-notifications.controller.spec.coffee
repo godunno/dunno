@@ -48,3 +48,10 @@ describe 'SystemNotificationsCtrl', ->
     spyOn($scope, '$emit')
     $httpBackend.flush()
     expect($scope.$emit).toHaveBeenCalledWith('$stateChangeStart')
+
+  it "marks all as read", ->
+    $httpBackend
+      .expectPOST('/api/v1/system_notifications/mark_all_as_read')
+      .respond(200, '')
+    ctrl.markAllAsRead()
+    $httpBackend.flush()
