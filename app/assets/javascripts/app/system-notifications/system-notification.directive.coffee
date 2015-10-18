@@ -1,11 +1,20 @@
 systemNotification = ($compile, $templateCache) ->
-  systemNotificationCtrl = ->
+  systemNotificationCtrl = (AnalyticsTracker) ->
     vm = this
-    vm.markAsRead = ->
+    markAsRead = ->
       vm.notification.get().then (notification) ->
         vm.notification = notification
 
+    trackClick = ->
+      AnalyticsTracker.systemNotificationClicked(vm.notification)
+
+    vm.trackAndMarkAsRead = ->
+      trackClick()
+      markAsRead()
+
     vm
+
+  systemNotificationCtrl.$inject = ['AnalyticsTracker']
 
   controller: systemNotificationCtrl
   controllerAs: 'vm'
