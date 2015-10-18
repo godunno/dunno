@@ -1,4 +1,4 @@
-UPLOAD_LIMIT = 50 * 1024 * 1024 # 50 MB
+UPLOAD_LIMIT = 500 * 1024 * 1024 # 500 MB
 
 angular
   .module('app.courses')
