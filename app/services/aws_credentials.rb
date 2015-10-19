@@ -36,6 +36,6 @@ class AwsCredentials
   end
 
   def size_limit
-    50.megabytes
+    500.megabytes
   end
 end
