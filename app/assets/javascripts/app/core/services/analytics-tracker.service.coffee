@@ -22,6 +22,10 @@ AnalyticsTracker = ($analytics) ->
     $analytics.eventTrack 'Event Accessed',
       merge eventAttrs(event), page: page
 
+  eventCanceledAccessed = (event) ->
+    $analytics.eventTrack 'Event Canceled Accessed',
+      eventAttrs(event)
+
   courseCreated = (course) ->
     $analytics.eventTrack 'Course Created',
       courseAttrs(course)
@@ -104,6 +108,7 @@ AnalyticsTracker = ($analytics) ->
   courseEdited: courseEdited
   courseJoined: courseJoined
   eventAccessed: eventAccessed
+  eventCanceledAccessed: eventCanceledAccessed
   scheduleCreated: scheduleCreated
   scheduleEdited: scheduleEdited
   scheduleRemoved: scheduleRemoved
