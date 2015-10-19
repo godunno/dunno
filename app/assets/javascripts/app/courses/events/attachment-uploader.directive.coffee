@@ -34,7 +34,6 @@ attachmentUploader = ->
 
       # Saving abort function due to lack of
       # chaining in ng-file-upload promises.
-      # TODO: Fix this problem in a fork.
       abort = promise.abort
 
       promise = promise.then(createAttachment)
