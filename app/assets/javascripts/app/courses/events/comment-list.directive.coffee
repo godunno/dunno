@@ -3,6 +3,7 @@ commentList = ($location) ->
     vm = this
     vm.addComment = (comment) ->
       vm.event.comments.push(comment)
+      vm.event.comments_count = vm.event.comments.length
 
     vm.commentSelected = (comment) ->
       parseInt($location.search().commentId) == comment.id
