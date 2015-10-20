@@ -1,5 +1,8 @@
 EventsPaginationResolver = ($stateParams, PageLoading, Event) ->
-  PageLoading.resolve Event.paginate(course_id: $stateParams.courseId, month: $stateParams.month)
+  params =
+    course_id: $stateParams.courseId
+    month: $stateParams.month || $stateParams.startAt
+  PageLoading.resolve Event.paginate(params)
 
 EventsPaginationResolver.$inject = ['$stateParams', 'PageLoading', 'Event']
 angular

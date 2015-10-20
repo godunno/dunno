@@ -40,10 +40,9 @@ describe "CourseEventsCtrl", ->
         $scope: $scope
         pagination: pagination
         AnalyticsTracker: AnalyticsTracker
-        $location:
-          search: ->
-            startAt: selectedEvent.start_at
-            commentId: 1
+        $stateParams:
+          startAt: selectedEvent.start_at
+          commentId: 1
 
   it "assigns events", ->
     expect(ctrl.events).toBe(pagination.events)

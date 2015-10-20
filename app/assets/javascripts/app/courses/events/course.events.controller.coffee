@@ -4,8 +4,8 @@ CourseEventsCtrl = (
   pagination,
   AnalyticsTracker,
   PageLoading,
-  $location,
-  $filter
+  $filter,
+  $stateParams
 ) ->
   @previousMonth = pagination.previousMonth
   @currentMonth = pagination.currentMonth
@@ -67,14 +67,20 @@ CourseEventsCtrl = (
     @selectedEvents().indexOf(event) != -1
 
   goToDate = =>
-    startAt = $location.search().startAt
-    commentId = $location.search().commentId
+    startAt = $stateParams.startAt
+    commentId = $stateParams.commentId
     if startAt
       @selectedDate = moment(startAt)
 
       if commentId
         @selectedEvents().forEach (event) ->
           showCommentsFor(event)
+
+      if $stateParams.trackEventCanceled
+        event = @selectedEvents().filter(@selectedEvent)[0]
+        AnalyticsTracker.eventCanceledAccessed(
+          angular.extend({}, event, course: $scope.course)
+        )
 
   goToDate()
 
@@ -86,8 +92,8 @@ CourseEventsCtrl.$inject = [
   'pagination',
   'AnalyticsTracker',
   'PageLoading',
-  '$location',
-  '$filter'
+  '$filter',
+  '$stateParams'
 ]
 
 angular
