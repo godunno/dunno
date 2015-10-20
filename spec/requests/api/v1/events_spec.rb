@@ -31,6 +31,7 @@ resource "Events" do
     response_field :end_at, "When event ends, in ISO8601 Datetime with TZ."
     response_field :status, "Event's status. It can be draft, published or canceled."
     response_field :classroom, "Event's classroom."
+    response_field :topics_count, "Event's topics count."
 
     let(:course_id) { course.uuid }
 
@@ -56,6 +57,9 @@ resource "Events" do
       let(:non_persisted_event_start_at) { "2015-08-26T12:00:00Z" }
       let(:non_persisted_event_end_at) { "2015-08-26T14:00:00Z" }
 
+      let!(:topic) { create(:topic, event: published_event) }
+      let!(:personal_topic) { create(:topic, :personal, event: published_event) }
+
       let(:expected_events_json) do
         [
           {
@@ -63,28 +67,47 @@ resource "Events" do
             "start_at" => "2015-08-05T12:00:00Z",
             "end_at" => "2015-08-05T14:00:00Z",
             "status" => published_event.status,
-            "classroom" => published_event.classroom
+            "classroom" => published_event.classroom,
+            "topics" => [
+              {
+                "uuid" => topic.uuid,
+                "done" => topic.done,
+                "personal" => false,
+                "media_id" => topic.media_id,
+                "description" => topic.description
+              },
+              {
+                "uuid" => personal_topic.uuid,
+                "done" => personal_topic.done,
+                "personal" => true,
+                "media_id" => personal_topic.media_id,
+                "description" => personal_topic.description
+              }
+            ]
           },
           {
             "uuid" => canceled_event.uuid,
             "start_at" => "2015-08-12T12:00:00Z",
             "end_at" => "2015-08-12T14:00:00Z",
             "status" => canceled_event.status,
-            "classroom" => canceled_event.classroom
+            "classroom" => canceled_event.classroom,
+            "topics" => []
           },
           {
             "uuid" => draft_event.uuid,
             "start_at" => "2015-08-19T12:00:00Z",
             "end_at" => "2015-08-19T14:00:00Z",
             "status" => draft_event.status,
-            "classroom" => draft_event.classroom
+            "classroom" => draft_event.classroom,
+            "topics" => []
           },
           {
             "uuid" => nil,
             "start_at" => non_persisted_event_start_at,
             "end_at" => non_persisted_event_end_at,
             "status" => 'draft',
-            "classroom" => nil
+            "classroom" => nil,
+            "topics" => []
           },
         ]
       end

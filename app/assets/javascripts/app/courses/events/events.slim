@@ -64,7 +64,7 @@
                 | abrir no diário
           a.event__content__toggle ng-click="vm.toggleTopicsFor(event, !event._showTopics)"
             span ng-show="!event._showTopics"
-              | Exibir conteúdo
+              | Exibir conteúdo ({{ event.topics.length }})
               i.icon.icon-down<
             span ng-show="event._showTopics"
               | Ocultar conteúdo
@@ -75,8 +75,7 @@
             .event__item.event__empty ng-if="event.topics.length == 0"
               | Nenhum conteúdo disponível para esse dia.
             .event__item[
-              ng-repeat="topic in event.topics"
-              ng-if="topic.personal != true"]
+              ng-repeat="topic in event.topics"]
               img.event__item__image[
                 ng-if="!!topic.media"
                 ng-src="{{topic.media.thumbnail}}"]

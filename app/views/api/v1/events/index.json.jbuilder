@@ -1,6 +1,7 @@
 json.events do
   json.array! @events do |event|
     json.partial! 'api/v1/events/event', event: event
+    json.topics TopicsFor.new(event, current_profile).topics, partial: 'api/v1/topics/topic', as: :topic
   end
 end
 
