@@ -12,17 +12,17 @@ CourseEventsCtrl = (
   @nextMonth = pagination.nextMonth
   @events = pagination.events
 
-  showEventsFor = (event) ->
+  showCommentsFor = (event) ->
     if event._fetched
-      event._showTopics = true
+      event._showComments = true
     else
       event.course = $scope.course
       PageLoading.resolve event.get().then (response) ->
         event._fetched = true
-        event._showTopics = true
+        event._showComments = true
 
-  hideEventsFor = (event) ->
-    event._showTopics = false
+  hideCommentsFor = (event) ->
+    event._showComments = false
 
   filterEvent = (event) =>
     @selectedDate?.isSame(event.start_at, 'day')
@@ -30,11 +30,11 @@ CourseEventsCtrl = (
   @selectedEvents = =>
     $filter('filter')(@events, filterEvent)
 
-  @toggleTopicsFor = (event, show) ->
+  @toggleCommentsFor = (event, show) ->
     if show
-      showEventsFor(event)
+      showCommentsFor(event)
     else
-      hideEventsFor(event)
+      hideCommentsFor(event)
 
   @track = (event) ->
     AnalyticsTracker.eventAccessed(
@@ -74,7 +74,7 @@ CourseEventsCtrl = (
 
       if commentId
         @selectedEvents().forEach (event) ->
-          showEventsFor(event)
+          showCommentsFor(event)
 
   goToDate()
 

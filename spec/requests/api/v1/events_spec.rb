@@ -60,6 +60,10 @@ resource "Events" do
       let!(:topic) { create(:topic, event: published_event) }
       let!(:personal_topic) { create(:topic, :personal, event: published_event) }
 
+      before do
+        create(:comment, event: published_event)
+      end
+
       let(:expected_events_json) do
         [
           {
@@ -68,6 +72,7 @@ resource "Events" do
             "end_at" => "2015-08-05T14:00:00Z",
             "status" => published_event.status,
             "classroom" => published_event.classroom,
+            "comments_count" => 1,
             "topics" => [
               {
                 "uuid" => topic.uuid,
@@ -91,6 +96,7 @@ resource "Events" do
             "end_at" => "2015-08-12T14:00:00Z",
             "status" => canceled_event.status,
             "classroom" => canceled_event.classroom,
+            "comments_count" => 0,
             "topics" => []
           },
           {
@@ -99,6 +105,7 @@ resource "Events" do
             "end_at" => "2015-08-19T14:00:00Z",
             "status" => draft_event.status,
             "classroom" => draft_event.classroom,
+            "comments_count" => 0,
             "topics" => []
           },
           {
@@ -107,6 +114,7 @@ resource "Events" do
             "end_at" => non_persisted_event_end_at,
             "status" => 'draft',
             "classroom" => nil,
+            "comments_count" => 0,
             "topics" => []
           },
         ]

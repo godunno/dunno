@@ -62,16 +62,7 @@
                 ng-click="vm.track(event)"
                 ui-sref="^.event({ startAt: event.start_at })"]
                 | abrir no diário
-          a.event__content__toggle ng-click="vm.toggleTopicsFor(event, !event._showTopics)"
-            span ng-show="!event._showTopics"
-              | Exibir conteúdo ({{ event.topics.length }})
-              i.icon.icon-down<
-            span ng-show="event._showTopics"
-              | Ocultar conteúdo
-              i.icon.icon-up<
-          .event__content[
-            ng-show="event._showTopics"
-            class="event__status__{{event.status}}"]
+          .event__content class="event__status__{{event.status}}"
             .event__item.event__empty ng-if="event.topics.length == 0"
               | Nenhum conteúdo disponível para esse dia.
             .event__item[
@@ -92,6 +83,14 @@
                 | {{topic.description}}
               span.event__item__description ng-if="!topic.media"
                 | {{topic.description}}
-          comment-list[
-            event="event"
-            ng-if="event.topics.length"]
+          span ng-if="event.uuid"
+            a.event__content__toggle ng-click="vm.toggleCommentsFor(event, !event._showComments)"
+              span ng-show="!event._showComments"
+                | Exibir comentários ({{ event.comments_count }})
+                i.icon.icon-down<
+              span ng-show="event._showComments"
+                | Ocultar comentários
+                i.icon.icon-up<
+            comment-list[
+              event="event"
+              ng-show="event._showComments"]
