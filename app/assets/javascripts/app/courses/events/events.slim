@@ -62,7 +62,7 @@
                 ng-click="vm.track(event)"
                 ui-sref="^.event({ startAt: event.start_at })"]
                 | abrir no diário
-          .event__content class="event__status__{{event.status}}"
+          .event__content ng-class="'event__status__' + event.status"
             .event__item.event__empty ng-if="event.topics.length == 0"
               | Nenhum conteúdo disponível para esse dia.
             .event__item[
