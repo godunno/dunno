@@ -166,6 +166,12 @@ resource "SystemNotifications" do
       create(:system_notification, :event_canceled, profile: profile)
     end
 
+    let!(:notification_from_himself) do
+      create :system_notification, :event_published,
+             author: profile,
+             profile: profile
+    end
+
     let!(:older_notification) do
       create :system_notification, :event_canceled,
              profile: profile,
