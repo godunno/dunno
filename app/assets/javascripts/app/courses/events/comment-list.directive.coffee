@@ -14,6 +14,7 @@ commentList = ($location) ->
   restrict: 'E'
   scope:
     event: '='
+    course: '='
   controller: commentListCtrl
   controllerAs: 'vm'
   bindToController: true
