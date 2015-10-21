@@ -122,7 +122,8 @@
     }
 
     &__content {
-      @include grid-content();
+      display: block;
+      margin: 0 0 2rem;
       padding: 1rem 0;
 
       @include breakpoint(small only) {
