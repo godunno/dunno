@@ -40,10 +40,9 @@ describe "CourseEventsCtrl", ->
         $scope: $scope
         pagination: pagination
         AnalyticsTracker: AnalyticsTracker
-        $location:
-          search: ->
-            startAt: selectedEvent.start_at
-            commentId: 1
+        $stateParams:
+          startAt: selectedEvent.start_at
+          commentId: 1
 
   it "assigns events", ->
     expect(ctrl.events).toBe(pagination.events)
@@ -57,9 +56,9 @@ describe "CourseEventsCtrl", ->
   it "assigns next month", ->
     expect(ctrl.nextMonth).toBe(pagination.nextMonth)
 
-  it "fetches topics for event", ->
+  it "fetches comments for event", ->
     spyOn(event, 'get').and.callThrough()
-    ctrl.toggleTopicsFor(event, true)
+    ctrl.toggleCommentsFor(event, true)
     expect(event.course).toBe(course)
     expect(event.get).toHaveBeenCalled()
     expect(event._fetched).toBe(true)
@@ -67,16 +66,16 @@ describe "CourseEventsCtrl", ->
   it "doesn't fetch again topics for event", ->
     event._fetched = true
     spyOn(event, 'get')
-    ctrl.toggleTopicsFor(event, true)
+    ctrl.toggleCommentsFor(event, true)
     expect(event.get).not.toHaveBeenCalled()
 
   it "shows topics for event", ->
-    ctrl.toggleTopicsFor(event, true)
-    expect(event._showTopics).toBe(true)
+    ctrl.toggleCommentsFor(event, true)
+    expect(event._showComments).toBe(true)
 
   it "hides topics for event", ->
-    ctrl.toggleTopicsFor(event, false)
-    expect(event._showTopics).toBe(false)
+    ctrl.toggleCommentsFor(event, false)
+    expect(event._showComments).toBe(false)
 
   it "tracks event", ->
     spyOn(AnalyticsTracker, 'eventAccessed')

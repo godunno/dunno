@@ -27,6 +27,7 @@ class EventCanceledMailer < ActionMailer::Base
   end
 
   def path_for(event)
-    "/dashboard#/courses/#{event.course.uuid}/events?month=#{event.start_at.utc.iso8601}"
+    params = { startAt: event.start_at.utc.iso8601, trackEventCanceled: true }
+    "/dashboard#/courses/#{event.course.uuid}/events?#{params.to_param}"
   end
 end

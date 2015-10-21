@@ -62,21 +62,11 @@
                 ng-click="vm.track(event)"
                 ui-sref="^.event({ startAt: event.start_at })"]
                 | abrir no diário
-          a.event__content__toggle ng-click="vm.toggleTopicsFor(event, !event._showTopics)"
-            span ng-show="!event._showTopics"
-              | Exibir conteúdo
-              i.icon.icon-down<
-            span ng-show="event._showTopics"
-              | Ocultar conteúdo
-              i.icon.icon-up<
-          .event__content[
-            ng-show="event._showTopics"
-            class="event__status__{{event.status}}"]
+          .event__content ng-class="'event__status__' + event.status"
             .event__item.event__empty ng-if="event.topics.length == 0"
               | Nenhum conteúdo disponível para esse dia.
             .event__item[
-              ng-repeat="topic in event.topics"
-              ng-if="topic.personal != true"]
+              ng-repeat="topic in event.topics"]
               img.event__item__image[
                 ng-if="!!topic.media"
                 ng-src="{{topic.media.thumbnail}}"]
@@ -93,6 +83,16 @@
                 | {{topic.description}}
               span.event__item__description ng-if="!topic.media"
                 | {{topic.description}}
-          comment-list[
-            event="event"
-            ng-if="event.topics.length"]
+          span ng-if="event.uuid"
+            a.event__content__toggle ng-click="vm.toggleCommentsFor(event, !event._showComments)"
+              span ng-show="!event._showComments && event.comments_count == 0"
+                | faça o primeiro comentário
+                span.happy<
+              span ng-show="!event._showComments && event.comments_count"
+                i.icon.icon-comment>
+                | {{ event.comments_count }}
+              span ng-show="event._showComments && event.comments_count"
+                | ocultar comentários
+            comment-list[
+              event="event"
+              ng-show="event._showComments"]

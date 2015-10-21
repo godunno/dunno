@@ -44,7 +44,8 @@ describe 'system-notification directive', ->
       $httpBackend = _$httpBackend_
       $httpBackend.whenGET('/api/v1/courses').respond(200, [])
       $httpBackend.whenGET('/api/v1/courses/' + course.uuid).respond(200, {})
-      $httpBackend.whenGET('/api/v1/events?course_id=' + course.uuid).respond(200, [])
+      $httpBackend.whenGET("/api/v1/events?course_id=#{course.uuid}&month=#{event.start_at}")
+        .respond(200, [])
       $httpBackend.whenGET('/api/v1/system_notifications/1').respond(200, [])
 
   describe "notification for new comment", ->
@@ -66,6 +67,7 @@ describe 'system-notification directive', ->
         startAt: event.start_at
         commentId: String(comment.id)
         month: undefined
+        trackEventCanceled: undefined
 
     it "has the author's name", ->
       expect(element.html()).toContain(author.name)
@@ -105,6 +107,7 @@ describe 'system-notification directive', ->
         startAt: event.start_at
         commentId: null
         month: undefined
+        trackEventCanceled: undefined
 
     it "has the author's name", ->
       expect(element.html()).toContain(author.name)
@@ -139,6 +142,7 @@ describe 'system-notification directive', ->
         startAt: event.start_at
         commentId: null
         month: undefined
+        trackEventCanceled: undefined
 
     it "has the author's name", ->
       expect(element.html()).toContain(author.name)
