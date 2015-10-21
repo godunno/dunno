@@ -2,7 +2,7 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
   respond_to :json
 
   def create
-    event = course.events.find_by!(start_at: event_start_at)
+    event = FindOrInitializeEvent.by(course, start_at: event_start_at)
     @comment = event.comments.build(create_params.merge(profile: current_profile))
     authorize @comment
 

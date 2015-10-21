@@ -83,17 +83,16 @@
                 | {{topic.description}}
               span.event__item__description ng-if="!topic.media"
                 | {{topic.description}}
-          span ng-if="event.uuid"
-            a.event__content__toggle ng-click="vm.toggleCommentsFor(event, !event._showComments)"
-              span ng-show="!event._showComments && event.comments_count == 0"
-                | faça o primeiro comentário
-                span.happy<
-              span ng-show="!event._showComments && event.comments_count"
-                i.icon.icon-comment>
-                | {{ event.comments_count }}
-              span ng-show="event._showComments && event.comments_count"
-                | ocultar comentários
-            comment-list[
-              event="event"
-              course="course"
-              ng-show="event._showComments"]
+          a.event__content__toggle ng-click="vm.toggleCommentsFor(event, !event._showComments)"
+            span ng-show="!event._showComments && event.comments_count == 0"
+              | faça o primeiro comentário
+              span.happy<
+            span ng-show="!event._showComments && event.comments_count"
+              i.icon.icon-comment>
+              | {{ event.comments_count }}
+            span ng-show="event._showComments && event.comments_count"
+              | ocultar comentários
+          comment-list[
+            event="event"
+            course="course"
+            ng-show="event._showComments"]

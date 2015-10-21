@@ -10,9 +10,14 @@ resource "Comments" do
   let(:json) { JSON.parse(response_body).deep_symbolize_keys }
   let!(:teacher) { create(:profile) }
   let!(:course) { create(:course, teacher: teacher) }
+  let!(:weekly_schedule) do
+    create(:weekly_schedule, course: course, weekday: 3, start_time: '14:00')
+  end
 
   post "/api/v1/comments.json" do
-    before { Timecop.freeze }
+    before do
+      Timecop.freeze Time.zone.parse('2015-10-20 00:00')
+    end
     after { Timecop.return }
     let(:raw_post) { params.to_json }
     parameter :course_id, "Course's uuid", required: true, scope: :comment
@@ -28,14 +33,21 @@ resource "Comments" do
     let(:course_id) { course.uuid }
     let(:event_start_at) { "2015-10-21T14:00:00.000-02:00" }
     let!(:event_from_another_course) { create(:event, start_at: event_start_at) }
-    let!(:event) { create(:event, course: course, start_at: event_start_at) }
     let(:comment) { Comment.first }
     let(:body) { 'woot!' }
     let(:attachment_ids) { [attachment.id] }
     let(:attachment) { create(:attachment) }
 
-    example 'Creating a comment', document: :public do
-      expect { do_request }.to change { event.comments.count }.by(1)
+    def event
+      course.events.reload.last
+    end
+
+    example_request 'Creating a comment', document: :public do
+      expect(event.comments.count).to be 1
+    end
+
+    example 'creates non-persisted event' do
+      expect { do_request }.to change { course.events.count }.by(1)
     end
 
     example "comment attributes" do
