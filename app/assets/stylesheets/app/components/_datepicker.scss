@@ -48,13 +48,52 @@ li.ui-timepicker-selected,
 
 
 .mighty-picker {
+  &__wrapper {
+    display: inline-block;
+    position: relative;
+  }
+
   &__month {
+    display: block;
     font-weight: $font-weight-bold;
+    margin: 0 auto;
     text-align: center;
     text-transform: uppercase;
   }
 
+  &__prev-month,
+  &__next-month {
+    background: $transparent;
+    border: 0;
+    color: $dunno-green-color;
+    padding: 0;
+    position: absolute;
+    top: 0;
+
+    &:focus {
+      color: darken($dunno-green-color, 15%);
+      outline: none;
+    }
+  }
+
+  &__prev-month {
+    left: 0;
+  }
+
+  &__next-month {
+    right: 0;
+  }
+
   &-calendar {
+    margin: 0 auto;
+    min-height: 14rem;
+
+    tbody {
+      th {
+        vertical-align: top;
+      }
+    }
+
     th,
     td {
       padding: .25rem .15rem;
@@ -72,16 +111,21 @@ li.ui-timepicker-selected,
       }
     }
 
-    &__day--selected {
-      .mighty-picker-calendar__day-wrapper {
-        background-color: $dunno-green-color;
-      }
-    }
-
     &__day--disabled {
       .mighty-picker-calendar__day-wrapper {
         background-color: $transparent;
         color: $dark-grey-color;
+
+        .course__date & {
+          color: $transparent;
+        }
+      }
+    }
+
+    &__day--selected {
+      .mighty-picker-calendar__day-wrapper {
+        background-color: $dunno-green-color;
+        color: $white;
       }
     }
 

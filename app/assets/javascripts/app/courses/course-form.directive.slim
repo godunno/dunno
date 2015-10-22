@@ -36,8 +36,6 @@ form[
         | De
         span.required<
           | *
-      label.icon__label for="course__start__date"
-        i.icon.icon-event
       mighty-datepicker.start__date#course__start__date[
         ng-model="vm.startDate"
         options="vm.startDateOptions"
@@ -46,8 +44,6 @@ form[
     .course__end__date
       label for="course__end__date"
         | Até
-      label.icon__label for="course__end__date"
-        i.icon.icon-event
       /a.remove__course__end__date ng-click="vm.removeEndDate()" ng-if="vm.course.end_date"
         i.icon.icon-delete
       mighty-datepicker.end__date#course__end__date[
