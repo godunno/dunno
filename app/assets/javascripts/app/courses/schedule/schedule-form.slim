@@ -20,7 +20,6 @@ form[
         ui-timepicker="{ timeFormat: 'H:i' }"
         type="text"
         validate=true]
-      errors for="vm.weeklyScheduleForm.startTime"
     span
       | às
     .schedule__end__time
@@ -31,6 +30,7 @@ form[
         ng-model-options="{ getterSetter: true }"
         ui-timepicker="{ showDuration: true, durationTime: vm.startTime, timeFormat: 'H:i' }"
         type="text"]
+  errors for="vm.weeklyScheduleForm.startTime"
   label for="classroom"
     | Sala
   input#classroom[
