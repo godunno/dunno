@@ -38,37 +38,22 @@ form[
           | *
       label.icon__label for="course__start__date"
         i.icon.icon-event
-      input.start__date#course__start__date[
-        name="startDate"
-        ng-model="vm.course.start_date"
-        type="datetime"
-        date-time=true
-        min-view="date"
-        auto-close="true"
-        format="dd/MM/yyyy"
-        required=true
-        validate=true
-        placeholder="Início das aulas"]
-      errors for="courseForm.startDate"
+      mighty-datepicker.start__date#course__start__date[
+        ng-model="vm.startDate"
+        options="vm.startDateOptions"
+        before="vm.endDate"]
 
     .course__end__date
       label for="course__end__date"
         | Até
       label.icon__label for="course__end__date"
         i.icon.icon-event
-      a.remove__course__end__date ng-click="vm.removeEndDate()" ng-if="vm.course.end_date"
+      /a.remove__course__end__date ng-click="vm.removeEndDate()" ng-if="vm.course.end_date"
         i.icon.icon-delete
-      input.end__date#course__end__date[
-        name="endDate"
-        ng-model="vm.course.end_date"
-        type="datetime"
-        date-time=true
-        min-view="date"
-        auto-close="true"
-        format="dd/MM/yyyy"
-        validate=true
-        placeholder="Fim das aulas"]
-      errors for="courseForm.endDate"
+      mighty-datepicker.end__date#course__end__date[
+        ng-model="vm.endDate"
+        options="vm.endDateOptions"
+        after="vm.startDate"]
 
   submit-button.submit[
     blocked-when="vm.submitting"
