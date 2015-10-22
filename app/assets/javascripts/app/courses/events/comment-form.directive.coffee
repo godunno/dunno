@@ -7,7 +7,14 @@ commentForm = (
 ) ->
   commentFormCtrl = ->
     @user = SessionManager.currentUser()
-    @comment = new UserComment(event_start_at: @event.start_at)
+    reset = =>
+      @comment = new UserComment
+        course_id: @course.uuid
+        event_start_at: @event.start_at
+        attachment_ids: []
+      @filePromises = []
+
+    reset()
 
     @send = =>
       return if @commentForm.$invalid
@@ -15,11 +22,7 @@ commentForm = (
         @comment.save().then (comment) =>
           @onSave()(comment)
           AnalyticsTracker.commentCreated(comment)
-        .then =>
-          @comment = new UserComment
-            event_start_at: @event.start_at
-            attachment_ids: []
-          @filePromises = []
+        .then(reset)
 
     @
 
@@ -28,6 +31,7 @@ commentForm = (
   scope:
     onSave: '&'
     event: '='
+    course: '='
   controller: commentFormCtrl
   controllerAs: 'vm'
   bindToController: true
