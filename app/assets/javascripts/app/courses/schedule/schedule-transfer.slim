@@ -4,9 +4,9 @@ a.close-button zf-close="" ng-click="close()"
   h5
     | Horário atual
   p.schedule__preview
-    | <b>{{originalWeeklySchedule.weekday | weekdayLong}}</b>, das <b>{{originalWeeklySchedule.start_time}}</b> às <b>{{originalWeeklySchedule.end_time}}</b>
-    span ng-if="originalWeeklySchedule.classroom"
-      |, sala <b>{{originalWeeklySchedule.classroom}}</b>
+    | <b>{{vm.originalWeeklySchedule.weekday | weekdayLong}}</b>, das <b>{{vm.originalWeeklySchedule.start_time}}</b> às <b>{{vm.originalWeeklySchedule.end_time}}</b>
+    span ng-if="vm.originalWeeklySchedule.classroom"
+      |, sala <b>{{vm.originalWeeklySchedule.classroom}}</b>
     span
       |.
   h5

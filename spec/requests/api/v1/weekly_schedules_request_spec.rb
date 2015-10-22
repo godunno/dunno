@@ -52,7 +52,7 @@ describe Api::V1::WeeklySchedulesController do
         }
       end
 
-      let(:errors) { { "weekday" => "invalid" } }
+      let(:errors) { double("Errors", details: { "weekday" => "invalid" }) }
       let(:transfer_spy) { double("TransferWeeklySchedule", valid?: false, errors: errors) }
 
       before do
@@ -66,7 +66,7 @@ describe Api::V1::WeeklySchedulesController do
 
       it { expect(transfer_spy).to have_received(:valid?) }
       it { expect(transfer_spy).to have_received(:errors) }
-      it { expect(json).to eq("errors" => errors) }
+      it { expect(json).to eq("errors" => errors.details) }
     end
   end
 
@@ -115,7 +115,7 @@ describe Api::V1::WeeklySchedulesController do
       it do
         expect(json).to eq(
           "errors" => {
-            "weekday" => ["não pode ficar em branco"]
+            "weekday" => ["error" => "blank"]
           }
         )
       end

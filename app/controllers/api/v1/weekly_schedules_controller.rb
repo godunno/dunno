@@ -7,7 +7,7 @@ class Api::V1::WeeklySchedulesController < Api::V1::ApplicationController
       index!
       render json: { affected_events: service.affected_events.count }
     else
-      render json: { errors: service.errors }, status: 422
+      render json: { errors: service.errors.details }, status: 422
     end
   end
 
@@ -18,7 +18,7 @@ class Api::V1::WeeklySchedulesController < Api::V1::ApplicationController
       @weekly_schedule = weekly_schedule_form.model
       index!
     else
-      render json: { errors: weekly_schedule_form.errors }, status: 422
+      render json: { errors: weekly_schedule_form.errors.details }, status: 422
     end
   end
 
