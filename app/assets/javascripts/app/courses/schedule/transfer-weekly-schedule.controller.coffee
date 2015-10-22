@@ -5,8 +5,9 @@ TransferWeeklyScheduleCtrl = (
   AnalyticsTracker,
   TimeGetterSetter,
   PageLoading,
-  weeklySchedule,
-  ErrorParser
+  ErrorParser,
+  WeeklySchedule,
+  weeklySchedule
 ) ->
   vm = @
 
@@ -32,6 +33,13 @@ TransferWeeklyScheduleCtrl = (
 
   $scope.$watch('vm.startTime()', setEndTimeDuration, true)
 
+  setAffectedEvents = (affectedEvents) ->
+    vm.affectedEvents = affectedEvents
+
+  WeeklySchedule
+    .affectedEventsOnTransfer(vm.weeklySchedule)
+    .then(setAffectedEvents)
+
   success = ->
     modalInstance.destroy()
     AnalyticsTracker.scheduleEdited(vm.weeklySchedule)
@@ -52,8 +60,9 @@ TransferWeeklyScheduleCtrl.$inject = [
   'AnalyticsTracker',
   'TimeGetterSetter',
   'PageLoading',
-  'weeklySchedule',
-  'ErrorParser'
+  'ErrorParser',
+  'WeeklySchedule',
+  'weeklySchedule'
 ]
 
 angular

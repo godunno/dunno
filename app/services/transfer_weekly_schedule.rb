@@ -5,7 +5,7 @@ class TransferWeeklySchedule
 
   def initialize(options)
     @weekly_schedule = options.fetch(:from)
-    @attributes = options.fetch(:to)
+    @attributes = options[:to]
   end
 
   def transfer!

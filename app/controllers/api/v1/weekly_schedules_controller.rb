@@ -29,6 +29,12 @@ class Api::V1::WeeklySchedulesController < Api::V1::ApplicationController
     render nothing: true
   end
 
+  def affected_events_on_transfer
+    authorize weekly_schedule
+    service = TransferWeeklySchedule.new(from: weekly_schedule)
+    render json: { affected_events: service.affected_events.count }
+  end
+
   private
 
   def weekly_schedule

@@ -9,6 +9,8 @@ a.close-button zf-close="" ng-click="close()"
       |, sala <b>{{vm.originalWeeklySchedule.classroom}}</b>
     span
       |.
+  p.affected-events ng-show="vm.affectedEvents !== undefined"
+    | Aulas afetadas com essa mudança: {{ vm.affectedEvents }}
   h5
     | Editar horário
 .modal__content

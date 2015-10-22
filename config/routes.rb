@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       resources :weekly_schedules, only: [:create, :destroy] do
         member do
           patch :transfer
+          get :affected_events_on_transfer
         end
       end
       namespace :utils do
