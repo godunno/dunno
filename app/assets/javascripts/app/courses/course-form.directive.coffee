@@ -1,4 +1,9 @@
-courseFormCtrl = (Course, PageLoading, $state) ->
+courseFormCtrl = (
+  Course,
+  PageLoading,
+  $state,
+  $templateCache
+) ->
   vm = @
 
   vm.course ?= { start_date: moment(), end_date: moment() }
@@ -16,11 +21,15 @@ courseFormCtrl = (Course, PageLoading, $state) ->
   formatDate = (date) ->
     date.format('YYYY-MM-DD')
 
+  datepickerTemplate =  $templateCache.get('courses/datepicker-for-course-form')
+
   vm.startDateOptions =
+    template: datepickerTemplate
     callback: (date) ->
       vm.course.start_date = formatDate(date)
 
   vm.endDateOptions =
+    template: datepickerTemplate
     callback: (date) ->
       vm.course.end_date = formatDate(date)
 
@@ -29,7 +38,8 @@ courseFormCtrl = (Course, PageLoading, $state) ->
 courseFormCtrl.$inject = [
   'Course',
   'PageLoading',
-  '$state'
+  '$state',
+  '$templateCache'
 ]
 
 courseForm = ->
