@@ -9,9 +9,16 @@ a.close-button zf-close="" ng-click="close()"
       |, sala <b>{{vm.originalWeeklySchedule.classroom}}</b>
     span
       |.
-  p.affected-events ng-show="vm.affectedEvents !== undefined"
-    | Aulas afetadas com essa mudança: {{ vm.affectedEvents }}
   h5
     | Editar horário
+  .affected__events ng-show="vm.affectedEvents !== undefined"
+    strong
+      | Atenção!
+    br
+    strong[
+      ng-pluralize
+      count="{{vm.affectedEvents}}"
+      when="{'1': 'Uma aula será afetada ', 'other': '{{vm.affectedEvents}} aulas serão afetadas '}"]
+    | por essa mudança.
 .modal__content
   ng-include src="'#{asset_path('app/courses/schedule/schedule-form')}'"
