@@ -11,13 +11,13 @@ a.close-button zf-close="" ng-click="close()"
       |.
   h5
     | Editar horário
-  .affected__events ng-show="vm.affectedEvents !== undefined"
+  .affected__events ng-show="vm.affectedEvents"
     strong
       | Atenção!
     br
     strong[
       ng-pluralize
-      count="{{vm.affectedEvents}}"
+      count="vm.affectedEvents"
       when="{'1': 'Uma aula será afetada ', 'other': '{{vm.affectedEvents}} aulas serão afetadas '}"]
     | por essa mudança.
 .modal__content
