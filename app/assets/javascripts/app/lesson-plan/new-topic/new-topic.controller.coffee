@@ -16,12 +16,13 @@ NewTopicCtrl = ($scope, Topic, AnalyticsTracker) ->
   $scope.selectTopicType = (type) ->
     $scope.topicType = type
 
-  track = ($event, topic) ->
+  track = (topic) ->
     AnalyticsTracker.topicCreated(topic, $scope.topicType)
 
   $scope.$on 'initializeEvent', reset
-  $scope.$on 'createdTopic', track
-  $scope.$on 'createdTopic', reset
+  $scope.$on 'createdTopic', ($event, topic) ->
+    track(topic)
+    reset()
 
   $scope.cancel = ->
     $scope.$broadcast('cancelTopic')
