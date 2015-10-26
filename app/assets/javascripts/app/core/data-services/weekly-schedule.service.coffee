@@ -1,6 +1,6 @@
 core = angular.module('app.core')
 
-core.factory 'WeeklySchedule', ['$q', 'RailsResource', ($q, RailsResource)->
+core.factory 'WeeklySchedule', ['$q', 'RailsResource', ($q, RailsResource) ->
   class WeeklySchedule extends RailsResource
     @configure(
       url: '/api/v1/weekly_schedules'
@@ -23,5 +23,9 @@ core.factory 'WeeklySchedule', ['$q', 'RailsResource', ($q, RailsResource)->
         WeeklySchedule.configure(fullResponse: false)
 
       deferred.promise
+
+    @affectedEventsOnTransfer: (weeklySchedule) ->
+      url = weeklySchedule.$url("affected_events_on_transfer")
+      @$get(url).then (response) -> response.affected_events
 ]
 

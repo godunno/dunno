@@ -4,12 +4,21 @@ a.close-button zf-close="" ng-click="close()"
   h5
     | Horário atual
   p.schedule__preview
-    | <b>{{originalWeeklySchedule.weekday | weekdayLong}}</b>, das <b>{{originalWeeklySchedule.start_time}}</b> às <b>{{originalWeeklySchedule.end_time}}</b>
-    span ng-if="originalWeeklySchedule.classroom"
-      |, sala <b>{{originalWeeklySchedule.classroom}}</b>
+    | <b>{{vm.originalWeeklySchedule.weekday | weekdayLong}}</b>, das <b>{{vm.originalWeeklySchedule.start_time}}</b> às <b>{{vm.originalWeeklySchedule.end_time}}</b>
+    span ng-if="vm.originalWeeklySchedule.classroom"
+      |, sala <b>{{vm.originalWeeklySchedule.classroom}}</b>
     span
       |.
   h5
     | Editar horário
+  .affected__events ng-show="vm.affectedEvents"
+    strong
+      | Atenção!
+    br
+    strong[
+      ng-pluralize
+      count="vm.affectedEvents"
+      when="{'1': 'Uma aula será afetada ', 'other': '{{vm.affectedEvents}} aulas serão afetadas '}"]
+    | por essa mudança.
 .modal__content
   ng-include src="'#{asset_path('app/courses/schedule/schedule-form')}'"

@@ -5,6 +5,7 @@ class WeeklySchedulePolicy < ApplicationPolicy
 
   alias_method :destroy?, :create?
   alias_method :transfer?, :create?
+  alias_method :affected_events_on_transfer?, :create?
 
   private
 

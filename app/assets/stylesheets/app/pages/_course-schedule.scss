@@ -140,3 +140,10 @@
 .weekday__select {
   text-transform: capitalize;
 }
+
+.affected__events {
+  background-color: $yellow-color;
+  color: $dunno-dark-color;
+  padding: .5rem;
+  text-align: center;
+}

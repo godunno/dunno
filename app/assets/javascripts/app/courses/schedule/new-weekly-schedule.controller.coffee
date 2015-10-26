@@ -6,30 +6,46 @@ NewWeeklyScheduleCtrl = (
   AnalyticsTracker,
   TimeGetterSetter,
   PageLoading,
-  weeklySchedule) ->
+  weeklySchedule,
+  ErrorParser
+) ->
+  vm = @
 
-  $scope.formButton = "Adicionar"
-  $scope.weeklySchedule = weeklySchedule
+  vm.formButton = "Adicionar"
+  vm.weeklySchedule = weeklySchedule
 
-  $scope.startTime = TimeGetterSetter.generate(weeklySchedule, 'start_time')
-  $scope.endTime = TimeGetterSetter.generate(weeklySchedule, 'end_time')
-  $scope.weeklySchedule.weekday = $scope.startTime().getDay()
+  vm.startTime = TimeGetterSetter.generate(
+    vm.weeklySchedule,
+    'start_time'
+  )
+
+  vm.endTime = TimeGetterSetter.generate(
+    vm.weeklySchedule,
+    'end_time'
+  )
+
+  vm.weeklySchedule.weekday = vm.startTime().getDay()
 
   addHour = (time) ->
     moment(time).add(1, 'hour').toDate()
 
   setEndTimeDuration = (newStartTime) ->
-    $scope.endTime(addHour(newStartTime))
+    vm.endTime(addHour(newStartTime))
 
-  $scope.$watch('startTime()', setEndTimeDuration, true)
+  $scope.$watch('vm.startTime()', setEndTimeDuration, true)
 
-  afterSave = (weeklySchedule) ->
+  success = (weeklySchedule) ->
     modalInstance.destroy()
     AnalyticsTracker.scheduleCreated(weeklySchedule)
     $state.go('.', null, reload: true)
 
-  $scope.submit = (weeklySchedule) ->
-    $scope.submitting = PageLoading.resolve weeklySchedule.save().then(afterSave)
+  failure = (response) ->
+    ErrorParser.setErrors(response.data.errors, vm.weeklyScheduleForm, $scope)
+
+  vm.submit = (weeklySchedule) ->
+    vm.submitting = PageLoading.resolve weeklySchedule.save().then(success, failure)
+
+  vm
 
 NewWeeklyScheduleCtrl.$inject = [
   '$scope',
@@ -39,7 +55,8 @@ NewWeeklyScheduleCtrl.$inject = [
   'AnalyticsTracker',
   'TimeGetterSetter',
   'PageLoading',
-  'weeklySchedule'
+  'weeklySchedule',
+  'ErrorParser'
 ]
 
 angular

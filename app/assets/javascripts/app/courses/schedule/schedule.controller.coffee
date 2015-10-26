@@ -9,7 +9,7 @@ ScheduleCtrl = (
   $scope.transferWeeklySchedule = (weeklySchedule) ->
     new ModalFactory
       templateUrl: 'courses/schedule/schedule-transfer'
-      controller: 'TransferWeeklyScheduleCtrl'
+      controller: 'TransferWeeklyScheduleCtrl as vm'
       class: 'small edit__schedule'
       resolve:
         weeklySchedule: -> angular.copy(weeklySchedule)
@@ -18,7 +18,7 @@ ScheduleCtrl = (
   $scope.newWeeklySchedule = ->
     new ModalFactory
       templateUrl: 'courses/schedule/schedule-new'
-      controller: 'NewWeeklyScheduleCtrl'
+      controller: 'NewWeeklyScheduleCtrl as vm'
       class: 'small new__schedule'
       resolve:
         weeklySchedule: -> angular.copy(new WeeklySchedule(course_id: $scope.course.uuid))

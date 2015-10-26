@@ -52,7 +52,7 @@ describe Api::V1::WeeklySchedulesController do
         }
       end
 
-      let(:errors) { { "weekday" => "invalid" } }
+      let(:errors) { double("Errors", details: { "weekday" => "invalid" }) }
       let(:transfer_spy) { double("TransferWeeklySchedule", valid?: false, errors: errors) }
 
       before do
@@ -66,7 +66,7 @@ describe Api::V1::WeeklySchedulesController do
 
       it { expect(transfer_spy).to have_received(:valid?) }
       it { expect(transfer_spy).to have_received(:errors) }
-      it { expect(json).to eq("errors" => errors) }
+      it { expect(json).to eq("errors" => errors.details) }
     end
   end
 
@@ -115,7 +115,7 @@ describe Api::V1::WeeklySchedulesController do
       it do
         expect(json).to eq(
           "errors" => {
-            "weekday" => ["não pode ficar em branco"]
+            "weekday" => ["error" => "blank"]
           }
         )
       end
@@ -140,6 +140,31 @@ describe Api::V1::WeeklySchedulesController do
 
       it { expect(subject.weekly_schedules).to be_empty }
       it { expect(CourseEventsIndexerWorker).to have_received(:perform_async).with(course.id) }
+    end
+  end
+
+  describe "GET /api/v1/weekly_schedules/:uuid/affected_events_on_transfer", :wip do
+    def do_action
+      url = "/api/v1/weekly_schedules/#{weekly_schedule.uuid}/affected_events_on_transfer"
+      get url, auth_params(profile)
+    end
+
+    context "transfering to a valid weekly schedule" do
+      let(:affected_events_spy) { double("affected_events", count: 1) }
+      let(:transfer_spy) { double("TransferWeeklySchedule", affected_events: affected_events_spy) }
+
+      before do
+        allow(TransferWeeklySchedule)
+          .to receive(:new)
+          .with(hash_including(from: weekly_schedule))
+          .and_return(transfer_spy)
+
+        do_action
+      end
+
+      it { expect(transfer_spy).to have_received(:affected_events) }
+      it { expect(affected_events_spy).to have_received(:count) }
+      it { expect(json).to eq("affected_events" => affected_events_spy.count) }
     end
   end
 end
