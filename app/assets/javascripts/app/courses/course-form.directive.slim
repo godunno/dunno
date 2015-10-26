@@ -28,12 +28,12 @@ form[
 
   .course__date
     .course__date__title
-      h6
+      label
         | Período Letivo
 
     .course__start__date
       label for="course__start__date"
-        | De
+        | Inicia em
         span.required<
           | *
       mighty-datepicker.start__date#course__start__date[
@@ -41,17 +41,21 @@ form[
         options="vm.calendarOptions"]
 
     .course__end__date
-      label for="course__end__date"
-        | Até
-      a.add-course-end-date[
+      a.add__course__end__date[
         ng-if="!vm.hasEndDate()"
         ng-click="vm.addEndDate()"]
-        | Eu sei a data de término
+        i.icon.icon-event>
+        | Definir quando termina
       a.remove__course__end__date[
         ng-if="vm.hasEndDate()"
         ng-click="vm.removeEndDate()"]
-        i.icon.icon-delete
-        | Eu não sei a data de término
+        small
+          i.icon.icon-cancel>
+          | Remover, não sei quando termina
+      label[
+        for="course__end__date"
+        ng-show="vm.hasEndDate()"]
+        | Termina em
       mighty-datepicker.end__date#course__end__date[
         ng-if="vm.hasEndDate()"
         ng-model="vm.endDate"

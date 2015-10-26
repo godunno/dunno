@@ -114,13 +114,9 @@
 }
 
 .remove__course__end__date {
-  color: $dunno-dark-color;
-  opacity: .5;
+  left: 0;
   position: absolute;
-  right: 2.5rem;
-  top: 2.5rem;
-
-  &:hover {
-    opacity: 1;
-  }
+  text-align: center;
+  top: -2rem;
+  width: 100%;
 }
