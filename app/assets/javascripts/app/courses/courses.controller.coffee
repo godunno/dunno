@@ -8,7 +8,7 @@ CoursesIndexCtrl = ($location, $filter, ModalFactory, Utils, courses) ->
     new ModalFactory
       templateUrl: 'courses/course-new'
       controller: 'NewCourseCtrl'
-      class: 'small course__new'
+      class: 'medium course__new'
       controllerAs: 'vm'
       bindToController: true
     .activate()

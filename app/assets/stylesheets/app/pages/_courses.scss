@@ -105,6 +105,7 @@
   &__end__date {
     flex-basis: 47%;
     position: relative;
+    text-align: center;
 
     @include breakpoint(small only) {
       flex-basis: 100%;
