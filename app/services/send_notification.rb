@@ -19,16 +19,16 @@ class SendNotification
   private
 
   def message
-    "[Dunno] #{@course.abbreviation} - #{@original_message}"
+    "Mensagem de #{@course.teacher.name}\nDisciplina: #{@course.name}\n\nMensagem: #{@original_message}"
   end
 
   def email_subject
-    "[Dunno] Notificação de #{@course.abbreviation}"
+    "Dunno - Notificação da disciplina #{@course.name}"
   end
 
   def send_email(email)
     NotificationMailer.delay.notify(
-      message: NotificationFormatter.format(message),
+      message: message,
       to: email,
       subject: email_subject
     )
