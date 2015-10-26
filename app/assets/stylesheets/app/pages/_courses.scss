@@ -13,7 +13,9 @@
     }
 
     .course__card:hover {
-      @include box-shadow(0, .125rem, .125rem, $dark-grey-color);
+      @include box-shadow(0, .125rem, 0, $dark-grey-color);
+      position: relative;
+      top: -.0625rem;
     }
 
     &__page {
@@ -103,6 +105,7 @@
   &__end__date {
     flex-basis: 47%;
     position: relative;
+    text-align: center;
 
     @include breakpoint(small only) {
       flex-basis: 100%;
@@ -111,13 +114,9 @@
 }
 
 .remove__course__end__date {
-  color: $dunno-dark-color;
-  opacity: .5;
+  left: 0;
   position: absolute;
-  right: 2.5rem;
-  top: 2.5rem;
-
-  &:hover {
-    opacity: 1;
-  }
+  text-align: center;
+  top: -2rem;
+  width: 100%;
 }

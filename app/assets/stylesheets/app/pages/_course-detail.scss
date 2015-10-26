@@ -9,9 +9,8 @@
       }
 
       &__wrapper {
-        @include grid-block();
+        @include grid-block($wrap: true);
         @include grid-container();
-        @include grid-wrap(true);
         padding: 1rem 0 0;
 
         @include breakpoint(small only) {
@@ -85,21 +84,19 @@
       text-transform: uppercase;
     }
 
-    &__info,
-    &__actions {
-      padding: 0 1rem;
-    }
-
     &__info {
+      padding-right: 1rem;
+
       @include breakpoint(small only) {
+        flex-basis: 100%;
         margin: 0 auto;
       }
     }
 
     &__actions {
-      @include grid-block();
-      @include grid-orient(vertical);
+      @include grid-block($orientation: vertical);
       align-items: flex-end;
+      padding-left: 1rem;
 
       @include breakpoint(small only) {
         align-items: center;
@@ -125,7 +122,8 @@
     }
 
     &__content {
-      @include grid-content();
+      display: block;
+      margin: 0 0 2rem;
       padding: 1rem 0;
 
       @include breakpoint(small only) {

@@ -77,7 +77,7 @@
               | Publicar Aula
             br
             small
-              | (aulas canceladas terão seu conteúdo preservado)
+              | (aulas canceladas terão seu conteúdo preservado, e os alunos serão notificados através de email)
         .lesson__status__info__canceled ng-if="event.status == 'canceled'"
           strong
             | Esta aula foi cancelada.
@@ -95,7 +95,7 @@
         .lesson__status__info__published ng-if="event.status == 'published'"
           strong
             | Esta aula está publicada.
-            span.smile
+            span.happy
           p
             | O conteúdo desta aula já está público para seus estudantes.
             br
@@ -169,7 +169,7 @@
                   | Enviar foto, vídeo ou documento
                   br
                   small
-                    | (Máximo 50Mb)
+                    | (Máximo 500Mb)
                 label.item__button.media__file__button.small.button[
                   for="topic-file"]
                   | Buscar arquivo

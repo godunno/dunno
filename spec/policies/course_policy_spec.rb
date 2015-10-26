@@ -16,8 +16,7 @@ describe CoursePolicy do
   end
 
   permissions :create? do
-    it { is_expected.to permit(anyone, Course.new(teacher: anyone)) }
-    it { is_expected.not_to permit(anyone, Course.new(teacher: teacher)) }
+    it { is_expected.to permit(anyone, Course.new) }
   end
 
   permissions :update? do

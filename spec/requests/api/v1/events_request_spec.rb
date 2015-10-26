@@ -191,41 +191,18 @@ describe Api::V1::EventsController do
   end
 
   describe "POST /api/v1/events.json" do
-
     context "authenticated" do
-
-      let(:event_template) { build(:event, course: course) }
-
-      let(:topic) { build :topic, order: 1, done: true, media: media_with_url, personal: true }
-      let(:media_with_url) { create :media_with_url }
-      let(:another_media_with_url) { create :media_with_url }
-      let(:start_at) { event_template.start_at.utc.iso8601 }
-      let(:end_at)   { event_template.end_at.utc.iso8601 }
-
-      let(:params_hash) do
-        {
-          event: {
-            "course_id" => event_template.course_id,
-            "start_at" => start_at,
-            "end_at"   => end_at,
-            topics: [
-              description: topic.description,
-              done: topic.done,
-              order: topic.order,
-              media_id: topic.media.uuid,
-              personal: topic.personal
-            ]
-          }
-        }
-      end
-
       def do_action
         post "/api/v1/events.json", auth_params(profile).merge(params_hash).to_json
       end
 
       context "trying to create an invalid event" do
-        before do
-          event_template.course = nil
+        let(:params_hash) do
+          {
+            event: {
+              "course_id" => nil
+            }
+          }
         end
 
         it { expect { do_action }.to raise_error(Pundit::NotAuthorizedError) }
@@ -234,31 +211,51 @@ describe Api::V1::EventsController do
       skip "trying to create event on another profile's course"
 
       context "creating an event" do
+        let(:media) { create(:media_with_url) }
+        let(:start_at) { Time.current.change(usec: 0) }
+        let(:end_at)   { 2.hours.from_now.change(usec: 0) }
+
+        let(:params_hash) do
+          {
+            event: {
+              "course_id" => course.id,
+              "start_at" => start_at.utc.iso8601,
+              "end_at"   => end_at.utc.iso8601,
+              topics: [
+                description: 'Some description',
+                done: true,
+                order: 1,
+                media_id: media.uuid,
+                personal: true
+              ]
+            }
+          }
+        end
 
         before do
           do_action
         end
 
-        let(:event) { Event.order('created_at desc').first }
+        let(:event) { course.events.first }
         subject { event }
 
-        it { expect(subject.start_at).to eq(event_template.start_at) }
-        it { expect(subject.end_at).to eq(event_template.end_at) }
+        it { expect(subject.start_at.change(usec: 0)).to eq(start_at) }
+        it { expect(subject.end_at.change(usec: 0)).to eq(end_at) }
 
         it { expect(subject.topics.count).to eq 1 }
         describe "topic" do
           subject { event.topics.first }
           it { expect(subject.description).to be_nil }
-          it { expect(subject.order).to eq topic.order }
+          it { expect(subject.order).to eq 1 }
           it { expect(subject).to be_done }
           it { expect(subject).to be_personal }
 
-          describe "media with url" do
+          describe "media" do
             subject { event.topics.first.media }
-            it { expect(subject.title).to eq topic.description }
-            it { expect(subject.description).to eq media_with_url.description }
-            it { expect(subject.url).to eq media_with_url.url }
-            it { expect(subject.thumbnail).to eq media_with_url.thumbnail }
+            it { expect(subject.title).to eq "Some description" }
+            it { expect(subject.description).to eq media.description }
+            it { expect(subject.url).to eq media.url }
+            it { expect(subject.thumbnail).to eq media.thumbnail }
           end
         end
       end
@@ -286,6 +283,26 @@ describe Api::V1::EventsController do
             do_action
             expect(EventStatusNotification)
               .to have_received(:new).with(event, profile)
+          end
+
+          it "doesn't deliver emails if not canceling event" do
+            allow(EventCanceledMailer)
+              .to receive(:event_canceled_email)
+            do_action
+            expect(EventCanceledMailer)
+              .not_to have_received(:event_canceled_email)
+          end
+        end
+
+        context "when canceling event" do
+          let(:params_hash) { { event: { status: "canceled" } } }
+
+          it "delivers email to all members" do
+            mail = double("mail", deliver: nil)
+            allow(EventCanceledMailer)
+              .to receive_message_chain(:delay, :event_canceled_email).and_return(mail)
+            do_action
+            expect(mail).to have_received(:deliver)
           end
         end
 

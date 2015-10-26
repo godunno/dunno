@@ -22,6 +22,10 @@ AnalyticsTracker = ($analytics) ->
     $analytics.eventTrack 'Event Accessed',
       merge eventAttrs(event), page: page
 
+  eventCanceledAccessed = (event) ->
+    $analytics.eventTrack 'Event Canceled Accessed',
+      eventAttrs(event)
+
   courseCreated = (course) ->
     $analytics.eventTrack 'Course Created',
       courseAttrs(course)
@@ -38,7 +42,6 @@ AnalyticsTracker = ($analytics) ->
     $analytics.eventTrack 'Schedule Created',
       weeklyScheduleAttrs(weeklySchedule)
 
-
   scheduleEdited = (weeklySchedule) ->
     $analytics.eventTrack 'Schedule Edited',
       weeklyScheduleAttrs(weeklySchedule)
@@ -46,6 +49,17 @@ AnalyticsTracker = ($analytics) ->
   scheduleRemoved = (weeklySchedule) ->
     $analytics.eventTrack 'Schedule Removed',
       weeklyScheduleAttrs(weeklySchedule)
+
+  commentCreated = (comment) ->
+    $analytics.eventTrack 'Comment Created',
+      commentAttrs(comment)
+
+  systemNotificationsAccessed = ->
+    $analytics.eventTrack 'Notifications Accessed'
+
+  systemNotificationClicked = (systemNotification) ->
+    $analytics.eventTrack 'Notification Clicked',
+      systemNotificationAttrs(systemNotification)
 
   courseAttrs = (course) ->
     uuid: course.uuid
@@ -71,6 +85,16 @@ AnalyticsTracker = ($analytics) ->
     endTime: weeklySchedule.end_time
     weekday: weeklySchedule.weekday
 
+  commentAttrs = (comment) ->
+    id: comment.id
+    userId: comment.user.id
+    userName: comment.user.name
+    attachmentsCount: comment.attachments.length
+
+  systemNotificationAttrs = (systemNotification) ->
+    notificationType: systemNotification.notification_type
+    authorName: systemNotification.author.name
+
   merge = ->
     angular.extend({}, arguments...)
 
@@ -84,13 +108,16 @@ AnalyticsTracker = ($analytics) ->
   courseEdited: courseEdited
   courseJoined: courseJoined
   eventAccessed: eventAccessed
+  eventCanceledAccessed: eventCanceledAccessed
   scheduleCreated: scheduleCreated
   scheduleEdited: scheduleEdited
   scheduleRemoved: scheduleRemoved
+  commentCreated: commentCreated
+  systemNotificationsAccessed: systemNotificationsAccessed
+  systemNotificationClicked: systemNotificationClicked
 
 AnalyticsTracker.$inject = ['$analytics']
 
 angular
   .module('app.core')
   .factory('AnalyticsTracker', AnalyticsTracker)
-

@@ -29,5 +29,5 @@ ui-view
         br
         span.course__students__count[
           ng-pluralize
-          count="{{course.students_count}}"
+          count="course.students_count"
           when="{'0': 'Nenhum estudante.', '1': '1 estudante.', 'other': '{{students.members_count}} estudantes.'}"]

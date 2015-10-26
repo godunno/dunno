@@ -5,19 +5,23 @@ TransferWeeklyScheduleCtrl = (
   AnalyticsTracker,
   TimeGetterSetter,
   PageLoading,
-  weeklySchedule) ->
+  ErrorParser,
+  WeeklySchedule,
+  weeklySchedule
+) ->
+  vm = @
 
-  $scope.formButton = "Salvar"
-  $scope.originalWeeklySchedule = weeklySchedule
-  $scope.weeklySchedule = angular.copy(weeklySchedule)
+  vm.formButton = "Salvar"
+  vm.originalWeeklySchedule = weeklySchedule
+  vm.weeklySchedule = angular.copy(weeklySchedule)
 
-  $scope.startTime = TimeGetterSetter.generate(
-    $scope.weeklySchedule,
+  vm.startTime = TimeGetterSetter.generate(
+    vm.weeklySchedule,
     'start_time'
   )
 
-  $scope.endTime = TimeGetterSetter.generate(
-    $scope.weeklySchedule,
+  vm.endTime = TimeGetterSetter.generate(
+    vm.weeklySchedule,
     'end_time'
   )
 
@@ -25,17 +29,29 @@ TransferWeeklyScheduleCtrl = (
     moment(time).add(1, 'hour').toDate()
 
   setEndTimeDuration = (newStartTime, oldStartTime) ->
-    $scope.endTime(addHour(newStartTime)) if newStartTime != oldStartTime
+    vm.endTime(addHour(newStartTime)) if newStartTime != oldStartTime
 
-  $scope.$watch('startTime()', setEndTimeDuration, true)
+  $scope.$watch('vm.startTime()', setEndTimeDuration, true)
+
+  setAffectedEvents = (affectedEvents) ->
+    vm.affectedEvents = affectedEvents
+
+  WeeklySchedule
+    .affectedEventsOnTransfer(vm.weeklySchedule)
+    .then(setAffectedEvents)
 
   success = ->
     modalInstance.destroy()
-    AnalyticsTracker.scheduleEdited($scope.weeklySchedule)
+    AnalyticsTracker.scheduleEdited(vm.weeklySchedule)
     $state.go('.', null, reload: true)
 
-  $scope.submit = (weeklySchedule) ->
-    $scope.submitting = PageLoading.resolve weeklySchedule.transfer().then(success)
+  failure = (response) ->
+    ErrorParser.setErrors(response.data.errors, vm.weeklyScheduleForm, $scope)
+
+  vm.submit = (weeklySchedule) ->
+    vm.submitting = PageLoading.resolve weeklySchedule.transfer().then(success, failure)
+
+  vm
 
 TransferWeeklyScheduleCtrl.$inject = [
   '$scope',
@@ -44,6 +60,8 @@ TransferWeeklyScheduleCtrl.$inject = [
   'AnalyticsTracker',
   'TimeGetterSetter',
   'PageLoading',
+  'ErrorParser',
+  'WeeklySchedule',
   'weeklySchedule'
 ]
 

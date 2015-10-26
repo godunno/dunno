@@ -5,7 +5,7 @@ CourseCtrl = ($scope, ModalFactory, course) ->
     new ModalFactory
       templateUrl: 'courses/course-edit'
       controller: 'EditCourseCtrl'
-      class: 'small course__edit'
+      class: 'medium course__edit'
       controllerAs: 'vm'
       bindToController: true
       resolve: { course: -> angular.copy($scope.course) }

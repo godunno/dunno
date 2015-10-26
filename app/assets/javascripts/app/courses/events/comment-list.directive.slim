@@ -1,10 +1,12 @@
 .comment__list ng-if="vm.event.comments.length"
-  .comment__item ng-repeat="comment in vm.event.comments"
+  .comment__item ng-repeat="comment in vm.event.comments" scroll-to-when="vm.commentSelected(comment)" ng-class="{highlight: vm.commentSelected(comment)}"
     .comment__user
       img.comment__user__avatar.avatar user-avatar="comment.user"
       .comment__user__name
         | {{comment.user.name}}
-    .comment__time am-time-ago="comment.created_at"
+    a.comment__time[
+      am-time-ago="comment.created_at"
+      ui-sref="{commentId: comment.id, startAt: vm.event.start_at}"]
     .comment__body ng-bind-html="comment.body | linky:'_blank'"
     .comment__attachments
       .attachment ng-repeat="attachment in comment.attachments"
@@ -17,4 +19,5 @@
           | ({{attachment.file_size | bytes}})
 comment-form[
   event="vm.event"
+  course="vm.course"
   on-save="vm.addComment"]

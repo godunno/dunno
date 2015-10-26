@@ -14,6 +14,11 @@ I18nConfig = ($translateProvider) ->
       commentBody:
         required: 'Escreva alguma coisa para a sua turma.'
 
+    vm:
+      weeklyScheduleForm:
+        startTime:
+          overlapping: 'Já existe um horário nesse período.'
+
     'vm.notificationForm.message.required': 'Insira uma mensagem para seus estudantes.'
     'vm.notificationForm.message.repeated': 'Você não pode enviar duas mensagens iguais em sequência.'
     'vm.notificationForm.abbreviation.required': 'Identifique sua disciplina usando uma abreviação.'

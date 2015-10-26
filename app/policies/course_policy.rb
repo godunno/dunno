@@ -4,6 +4,10 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def create?
+    true
+  end
+
+  def update?
     profile == record.teacher
   end
 
@@ -15,11 +19,9 @@ class CoursePolicy < ApplicationPolicy
     profile.role_in(record) == 'student'
   end
 
-  alias_method :update?, :create?
+  alias_method :destroy?, :update?
 
-  alias_method :destroy?, :create?
-
-  alias_method :send_notification?, :create?
+  alias_method :send_notification?, :update?
 
   alias_method :search?, :register?
 end

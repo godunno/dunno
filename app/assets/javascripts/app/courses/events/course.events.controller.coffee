@@ -3,30 +3,38 @@ CourseEventsCtrl = (
   $templateCache,
   pagination,
   AnalyticsTracker,
-  PageLoading
+  PageLoading,
+  $filter,
+  $stateParams
 ) ->
   @previousMonth = pagination.previousMonth
   @currentMonth = pagination.currentMonth
   @nextMonth = pagination.nextMonth
   @events = pagination.events
 
-  showEventsFor = (event) ->
+  showCommentsFor = (event) ->
     if event._fetched
-      event._showTopics = true
+      event._showComments = true
     else
       event.course = $scope.course
       PageLoading.resolve event.get().then (response) ->
         event._fetched = true
-        event._showTopics = true
+        event._showComments = true
 
-  hideEventsFor = (event) ->
-    event._showTopics = false
+  hideCommentsFor = (event) ->
+    event._showComments = false
 
-  @toggleTopicsFor = (event, show) ->
+  filterEvent = (event) =>
+    @selectedDate?.isSame(event.start_at, 'day')
+
+  @selectedEvents = =>
+    $filter('filter')(@events, filterEvent)
+
+  @toggleCommentsFor = (event, show) ->
     if show
-      showEventsFor(event)
+      showCommentsFor(event)
     else
-      hideEventsFor(event)
+      hideCommentsFor(event)
 
   @track = (event) ->
     AnalyticsTracker.eventAccessed(
@@ -56,7 +64,25 @@ CourseEventsCtrl = (
     filterDates(@selectedDate)?.isSame(moment(event.start_at))
 
   @selectedEvent = (event) =>
-    @selectedDate?.isSame(moment(event.start_at), 'day')
+    @selectedEvents().indexOf(event) != -1
+
+  goToDate = =>
+    startAt = $stateParams.startAt
+    commentId = $stateParams.commentId
+    if startAt
+      @selectedDate = moment(startAt)
+
+      if commentId
+        @selectedEvents().forEach (event) ->
+          showCommentsFor(event)
+
+      if $stateParams.trackEventCanceled
+        event = @selectedEvents().filter(@selectedEvent)[0]
+        AnalyticsTracker.eventCanceledAccessed(
+          angular.extend({}, event, course: $scope.course)
+        )
+
+  goToDate()
 
   @
 
@@ -65,7 +91,9 @@ CourseEventsCtrl.$inject = [
   '$templateCache',
   'pagination',
   'AnalyticsTracker',
-  'PageLoading'
+  'PageLoading',
+  '$filter',
+  '$stateParams'
 ]
 
 angular

@@ -87,14 +87,15 @@ html xmlns="http://www.w3.org/1999/xhtml"
             tr
               td
                 = yield
-            tr
-              td
-                p.panel-info
-                  strong
-                    | Qual é a sua experiência com o Dunno?
-                  br
-                  em
-                    | Se você quer elogiar, reclamar, sugerir ou tirar dúvidas fale com um humano usando nossa #{link_to 'comunicação integrada', '#'}.
+            /
+              tr
+                td
+                  p.panel-info
+                    strong
+                      | Qual é a sua experiência com o Dunno?
+                    br
+                    em
+                      | Se você quer elogiar, reclamar, sugerir ou tirar dúvidas fale com um humano usando nossa #{link_to 'comunicação integrada', '#'}.
             tr
               td
                 table.footer border="0" cellpadding="0" cellspacing="0"
@@ -105,7 +106,8 @@ html xmlns="http://www.w3.org/1999/xhtml"
                     td.footer-right align="right"
                       | #{link_to 'Termos de Uso', terms_path}
                       | #{link_to 'Política de Privacidade', policy_path}
-                      | #{link_to 'Suporte', '/support_path'}
+                      /
+                        | #{link_to 'Suporte', '/support_path'}
       tr
         td align="center"
           table.legal-footer border="0" cellpadding="0" cellspacing="0"

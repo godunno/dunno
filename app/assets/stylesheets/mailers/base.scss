@@ -19,7 +19,7 @@ a {
 
 hr {
   border: 0;
-  border-top: .0625em solid $light-grey-color;
+  border-top: $divider;
 }
 
 h1 {
@@ -40,9 +40,10 @@ p {
   }
 
   &.panel-info {
-    border: 1px solid $light-grey-color;
+    border: $divider;
     border-radius: 3px;
-    padding: 2rem;
+    font-size: .875rem;
+    padding: 1rem 2rem;
   }
 }
 
@@ -68,10 +69,11 @@ strong {
 }
 
 .content {
-  background: $white;
-  border: 1px solid $light-grey-color;
-  border-radius: 3px;
-  box-shadow: 0 2px 2px $light-grey-color;
+  background-color: $white;
+  border: $divider;
+  border-radius: .1875rem;
+  box-shadow: 0 .125rem .0625rem $light-grey-color;
+  margin-bottom: 2rem;
   padding: 2em;
   text-align: center;
 }
@@ -102,7 +104,7 @@ strong {
 }
 
 .footer {
-  border-top: 1px solid $light-grey-color;
+  border-top: $divider;
   margin-top: 2rem;
   padding-top: 2rem;
   width: 100%;
@@ -126,4 +128,9 @@ strong {
     color: $medium-grey-color;
     font-size: .75em;
   }
+}
+
+.attention {
+  color: $red-color;
+  text-transform: uppercase;
 }

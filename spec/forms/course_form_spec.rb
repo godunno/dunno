@@ -1,6 +1,21 @@
 require 'spec_helper'
 
 describe CourseForm do
+  describe "create!" do
+    let(:course_params) do
+      { name: "Physics", start_date: "2015-08-01T03:00:00Z", teacher: create(:profile) }
+    end
+    let(:course) { Course.last }
+    let(:service) { CourseForm.new(Course.new, course_params) }
+    let(:persist_spy) { double("PersistPastEvents", persist!: nil) }
+
+    it "creates a new course" do
+      service.create!
+      expect(course.name).to eq "Physics"
+      expect(course.start_date).to eq Time.zone.local(2015, 8, 1).to_date
+    end
+  end
+
   describe "#update!" do
     let(:start_date) { Date.parse('2015-08-01') }
     let(:end_date) { Date.parse('2015-09-01') }

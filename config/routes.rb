@@ -56,12 +56,20 @@ Rails.application.routes.draw do
       resources :weekly_schedules, only: [:create, :destroy] do
         member do
           patch :transfer
+          get :affected_events_on_transfer
         end
       end
       namespace :utils do
         get 's3/credentials' => 's3#credentials'
       end
       resources :attachments, only: [:create, :destroy]
+      resources :system_notifications, only: [:index, :show] do
+        collection do
+          get :new_notifications
+          patch :viewed
+          post :mark_all_as_read
+        end
+      end
     end
     namespace :v2 do
       resources :courses, only: [:index] do

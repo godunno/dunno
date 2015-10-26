@@ -1,0 +1,24 @@
+a.system__notification[
+  ng-click="vm.trackAndMarkAsRead()"
+  ng-class="{'system__notification__unread': !vm.notification.read_at}"
+  ui-sref="courses.show.events({
+    startAt: vm.notification.notifiable.start_at,
+    courseId: vm.notification.notifiable.course.uuid
+  })"]
+  img.avatar.system__notification__author__avatar user-avatar="vm.notification.author"
+  span.system__notification__wrapper
+    strong.system__notification__author__name>
+      | {{ vm.notification.author.name }}
+    span.system__notification__type>
+      | publicou
+    | há
+    span.system__notification__created__at<> am-time-ago="vm.notification.created_at"
+    span.system__notification__event>
+      | a aula de
+      b<
+        | {{ vm.notification.notifiable.start_at | amDateFormat: 'dddd (DD/MMM - HH:mm)' }}
+    span.system__notification__course
+      | da disciplina
+      b<
+        | {{ vm.notification.notifiable.course.name }}
+    | .

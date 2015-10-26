@@ -42,13 +42,6 @@
 
   &__wrapper {
     @include grid-block(12);
-
-    @include breakpoint(small only) {
-      @include grid-block(
-        $size: 12,
-        $orientation: vertical
-      );
-    }
   }
 
   .mighty-picker__wrapper {
@@ -73,6 +66,7 @@
         $size: 12,
         $order: 0
       );
+      padding-left: 0;
 
       .mighty-picker__wrapper {
         margin: 0 auto;
@@ -110,7 +104,7 @@
       $wrap: true
     );
     background-color: $white;
-    border-bottom: $divider;
+    border: 0;
     padding-right: 0;
   }
 
@@ -118,6 +112,11 @@
     background: lighten($light-grey-color, 15%);
     border-left-color: $dunno-green-color;
     position: relative;
+
+    @include breakpoint(small only) {
+      background-color: $white;
+      border: .125rem solid $dunno-green-color;
+    }
   }
 
   aside {
@@ -193,6 +192,7 @@
         $orientation: vertical
       );
       border: 0;
+      box-shadow: none;
       margin-bottom: 1rem;
     }
   }
