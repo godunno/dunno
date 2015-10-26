@@ -16,20 +16,16 @@ describe SendNotification do
   end
 
   it "should notify all users with e-mail" do
-    expect(NotificationFormatter).to receive(:format)
-      .with(complete_message)
-      .exactly(3)
-      .times
-      .and_return(complete_message)
+    SendNotification.new(message: message, course: course).call
+
     users.each do |user|
-      expect(delayed_mailer).to receive(:notify).with(
-        message: complete_message,
-        subject: "[Dunno] Notificação de #{course.abbreviation}",
+      expect(delayed_mailer).to have_received(:notify).with(
+        course: course,
+        message: message,
+        subject: "Dunno - Notificação da disciplina #{course.name}",
         to: user.email
       )
     end
-
-    SendNotification.new(message: message, course: course).call
   end
 
   it "should record the notification" do

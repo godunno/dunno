@@ -5,9 +5,11 @@ class NotificationMailer < ActionMailer::Base
 
   def notify(options)
     emails = options.fetch(:to)
-    body = options.fetch(:message)
     subject = options.fetch(:subject)
 
-    mail to: emails, body: body, subject: subject
+    @message = options.fetch(:message)
+    @course = options.fetch(:course)
+
+    mail to: emails, subject: subject
   end
 end
