@@ -1,6 +1,8 @@
-h1
-  | Mensagem de #{@course.teacher.name}
-h2
-  | Disciplina: #{@course.name}
-h3
-  | Mensagem: #{@message}
+h4
+  | Notificação para a disciplina #{@course.name}
+.message
+  p
+    strong
+      | #{@course.teacher.name} diz:
+  p
+    | #{@message}
