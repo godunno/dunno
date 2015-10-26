@@ -1,7 +1,7 @@
 form[
-  name="courseForm"
+  name="vm.courseForm"
   novalidate=true
-  ng-submit="courseForm.$valid && vm.save()"]
+  ng-submit="vm.courseForm.$valid && vm.save()"]
   label for="course__name"
     | Nome da Disciplina
     span.required<
@@ -12,7 +12,7 @@ form[
     required=true
     validate=true
     type="text"]
-  errors for="courseForm.name"
+  errors for="vm.courseForm.name"
 
   label for="course__class__name"
     | Turma
@@ -39,6 +39,12 @@ form[
       mighty-datepicker.start__date#course__start__date[
         ng-model="vm.startDate"
         options="vm.calendarOptions"]
+      input[
+        type="hidden"
+        name="startDate"
+        ng-model="vm.startDate"
+        validate=true]
+      errors for="vm.courseForm.startDate"
 
     .course__end__date
       a.add__course__end__date[

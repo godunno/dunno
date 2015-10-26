@@ -6,10 +6,15 @@ I18nConfig = ($translateProvider) ->
       title:
         courses: 'Disciplinas'
         'course-detail': '{{course.name}} › {{course.class_name}}'
-    'courseForm.name.required': 'Nós precisamos de um nome para a sua disciplina.'
-    'courseForm.startDate.required': 'A disciplina deve ter uma data de começo.'
-    'courseForm.startDate.parse': 'Preencha a data usando o formato  DD/MM/AAAA.'
-    'courseForm.endDate.parse': 'Preencha a data usando o formato  DD/MM/AAAA.'
+    'vm.courseForm':
+      name:
+        required: 'Nós precisamos de um nome para a sua disciplina.'
+      startDate:
+        required: 'A disciplina deve ter uma data de começo.'
+        parse: 'Preencha a data usando o formato  DD/MM/AAAA.'
+        after_end_date: 'A data de início deve vir antes da data de término.'
+      endDate:
+        parse: 'Preencha a data usando o formato  DD/MM/AAAA.'
     'vm.commentForm':
       commentBody:
         required: 'Escreva alguma coisa para a sua turma.'

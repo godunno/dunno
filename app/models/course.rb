@@ -18,6 +18,7 @@ class Course < ActiveRecord::Base
 
   validates :name, :teacher, :start_date, presence: true
   validates :abbreviation, length: { maximum: 10 }
+  validate :assert_start_date_comes_before_end_date
 
   before_create :set_access_code
 
@@ -55,5 +56,10 @@ class Course < ActiveRecord::Base
       self.access_code = SecureRandom.hex(2)
       break unless Course.exists?(access_code: access_code)
     end
+  end
+
+  def assert_start_date_comes_before_end_date
+    return unless start_date.present? && end_date.present?
+    errors.add(:start_date, :after_end_date) if start_date > end_date
   end
 end
