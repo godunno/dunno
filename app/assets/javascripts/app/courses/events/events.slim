@@ -63,8 +63,18 @@
                 ui-sref="^.event({ startAt: event.start_at })"]
                 | abrir no diário
           .event__content ng-class="'event__status__' + event.status"
-            .event__item.event__empty ng-if="event.topics.length == 0"
+            .event__item.event__empty ng-if="event.topics.length == 0 && event.status != 'canceled'"
               | Nenhum conteúdo disponível para esse dia.
+            .event__item.event__canceled__with__topics ng-if="event.topics.length && event.status == 'canceled'"
+              p.message__warning
+                strong>
+                  | Atenção:
+                | Essa aula foi cancelada e possui conteúdos. Informe-se quando eles serão retomados.
+            .event__item.event__canceled__with__no__topics ng-if="event.topics.length == 0 && event.status == 'canceled'"
+              p.message__warning
+                strong>
+                  | Atenção:
+                | Essa aula foi cancelada.
             .event__item[
               ng-repeat="topic in event.topics"]
               img.event__item__image[
