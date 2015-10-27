@@ -31,6 +31,9 @@ resource "Attachments" do
     context "valid attachment" do
       let(:attachment) { Attachment.last }
 
+      before { Timecop.freeze }
+      after { Timecop.return }
+
       example "creates a new Attachment" do
         expect { do_request }.to change { Attachment.count }.by(1)
       end
