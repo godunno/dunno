@@ -8,8 +8,13 @@
           | {{course.class_name}}
         span.course__institution ng-if="!!course.institution"
           | {{course.institution}}
-    span.students-count {{course.students_count}}
   .card__content
     .course__teacher
       img.avatar user-avatar="course.teacher"
       | {{course.teacher.name}}
+    .course__students__count[
+      title="Número de estudantes"
+      ng-if="course.students_count"]
+      i.icon.icon-group>
+      strong
+        | {{course.students_count}}
