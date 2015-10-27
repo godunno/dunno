@@ -1,0 +1,192 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://waffle.io/godunno/dunno
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Server:
+      - cloudflare-nginx
+      Date:
+      - Tue, 27 Oct 2015 18:19:34 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d0be72c94b1ec1b2dca6087c355a3cb0f1445969973; expires=Wed, 26-Oct-16
+        18:19:33 GMT; path=/; domain=.waffle.io; HttpOnly
+      - express:sess.sig=da4zm-cAULQkcWF6Liam31OKk_4; path=/; expires=Tue, 08 Dec
+        2015 18:12:07 GMT; secure; httponly
+      - express:sess=eyJwYXNzcG9ydCI6e30sImNzcmZTZWNyZXQiOiIxek5hbWQwYmVSSmNlNXpnRVk5Qnhvb0wifQ==;
+        path=/; expires=Tue, 08 Dec 2015 18:12:07 GMT; secure; httponly
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - ALLOW-FROM http://okfnlabs.org
+      Strict-Transport-Security:
+      - max-age=86400
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"1169-TC/93nbY+dd9FgWHjzd8xw"
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 vegur
+      Cf-Ray:
+      - 23c068ed8b110fb8-GRU
+    body:
+      encoding: UTF-8
+      string: |-
+        <!DOCTYPE html><html><head><title>godunno/dunno</title><meta name="description" content="GitHub-powered work tracking for teams and open source."><meta name="keywords" content="Waffle, GitHub, Workflow, Waffle.io, Waffleio, Project Management, Kanban, Open Source, README, Repository, Startup, IOWaffle, GitHub Issues"><meta property="og:site_name" content="waffle.io"><meta property="og:title" content="waffle.io"><meta property="og:description" content="GitHub-powered work tracking for teams and open source."><meta property="og:image" content="https://www.waffle.io/resources/images/waffle-yellow-on-blue.png"><meta property="og:url" content="https://waffle.io/"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link href="/resources/images/apple-touch-icon.png" rel="apple-touch-icon"><link href="/resources/images/apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"><link href="/resources/images/apple-touch-icon-120x120@2x.png" rel="apple-touch-icon" sizes="120x120"><link href="/resources/images/apple-touch-icon-152x152@2x.png" rel="apple-touch-icon" sizes="152x152"><link href="/resources/images/apple-touch-icon-180x180@3x.png" rel="apple-touch-icon" sizes="180x180"><link rel="mask-icon" href="/resources/images/waffle-no-drip.svg" color="#8b8b8b"><link rel="fluid-icon" href="/resources/images/fluid-icon.png" title="Waffle"><link href="//d2mzqhzagbaems.cloudfront.net/vendor/bootstrap-3.3.1/css/bootstrap.min.css" type="text/css" rel="stylesheet"><link href="//d2mzqhzagbaems.cloudfront.net/vendor/font-awesome-4.2.0/css/font-awesome.min.css" type="text/css" rel="stylesheet"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-41898719-1', 'waffle.io');
+        ga('send', 'pageview');</script><script>(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+        for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+
+        mixpanel.init("87e445678ca45e9d64dc98e995fbcec5", {
+          cross_subdomain_cookie: false,
+          track_pageview: false,
+          cookie_name: 'user-v1.0'
+        }, 'user');
+        mixpanel.user.register({
+          isUser: true,
+          isAccount: false
+        });
+
+        mixpanel.init("87e445678ca45e9d64dc98e995fbcec5", {
+          cross_subdomain_cookie: false,
+          track_pageview: false,
+          cookie_name: 'account-v1.0'
+        }, 'account');
+        mixpanel.account.register({
+          isUser: false,
+          isAccount: true
+        });
+        </script><meta name="viewport" content="width=device-width"><link href="/marketing.css" rel="stylesheet" type="text/css"><script src="/vendor/require-2.1.6.min.js"></script><script src="/vendor/jquery-2.1.0.min.js"></script><script src="/vendor/jquery-ui-1.10.3.min.js"></script><script src="/vendor/jquery.ui.touch-punch-0.2.2.min.js"></script><script src="/vendor/typethis.js"></script><script src="/vendor/bootstrap-3.1.1.min.js"></script><script>$(function() {
+          $('#login-link').click(function() {
+            $('#login-form').submit();
+          });
+        });
+        </script></head><body><form id="login-form" method="post" action="/login/oauth/github?client_redirect_uri=/godunno/dunno&amp;private=true"><input type="hidden" name="_csrf" value="CqjIMxky-x_M1lcq8BAp_FOdGwdGT34RtBw0"></form><div class="fourohfour-container"><p><i class="ico-logo"></i></p><p>Is godunno/dunno a private repo?<br><span class="larger">Try signing in <a id="login-link">here</a> - it's free.</span></p></div></body></html>
+    http_version: 
+  recorded_at: Tue, 27 Oct 2015 18:19:34 GMT
+- request:
+    method: get
+    uri: https://waffle.io/godunno/dunno
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - none
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      - link_thumbnailer
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 30
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Server:
+      - cloudflare-nginx
+      Date:
+      - Tue, 27 Oct 2015 18:19:35 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d191595d9662f97565ec8775deaef33d41445969974; expires=Wed, 26-Oct-16
+        18:19:34 GMT; path=/; domain=.waffle.io; HttpOnly
+      - express:sess.sig=hYVKcOyePUhD2MdDBabo7aN6eak; path=/; expires=Tue, 08 Dec
+        2015 18:12:08 GMT; secure; httponly
+      - express:sess=eyJwYXNzcG9ydCI6e30sImNzcmZTZWNyZXQiOiJ1TWJ0NWVsOVZDT1B6a3Y2cWE1bmxNNGMifQ==;
+        path=/; expires=Tue, 08 Dec 2015 18:12:08 GMT; secure; httponly
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - ALLOW-FROM http://okfnlabs.org
+      Strict-Transport-Security:
+      - max-age=86400
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"1169-JNrTFiD4Scod+VGr76azbw"
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 vegur
+      Cf-Ray:
+      - 23c068f4cf860fee-GRU
+    body:
+      encoding: UTF-8
+      string: |-
+        <!DOCTYPE html><html><head><title>godunno/dunno</title><meta name="description" content="GitHub-powered work tracking for teams and open source."><meta name="keywords" content="Waffle, GitHub, Workflow, Waffle.io, Waffleio, Project Management, Kanban, Open Source, README, Repository, Startup, IOWaffle, GitHub Issues"><meta property="og:site_name" content="waffle.io"><meta property="og:title" content="waffle.io"><meta property="og:description" content="GitHub-powered work tracking for teams and open source."><meta property="og:image" content="https://www.waffle.io/resources/images/waffle-yellow-on-blue.png"><meta property="og:url" content="https://waffle.io/"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link href="/resources/images/apple-touch-icon.png" rel="apple-touch-icon"><link href="/resources/images/apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"><link href="/resources/images/apple-touch-icon-120x120@2x.png" rel="apple-touch-icon" sizes="120x120"><link href="/resources/images/apple-touch-icon-152x152@2x.png" rel="apple-touch-icon" sizes="152x152"><link href="/resources/images/apple-touch-icon-180x180@3x.png" rel="apple-touch-icon" sizes="180x180"><link rel="mask-icon" href="/resources/images/waffle-no-drip.svg" color="#8b8b8b"><link rel="fluid-icon" href="/resources/images/fluid-icon.png" title="Waffle"><link href="//d2mzqhzagbaems.cloudfront.net/vendor/bootstrap-3.3.1/css/bootstrap.min.css" type="text/css" rel="stylesheet"><link href="//d2mzqhzagbaems.cloudfront.net/vendor/font-awesome-4.2.0/css/font-awesome.min.css" type="text/css" rel="stylesheet"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-41898719-1', 'waffle.io');
+        ga('send', 'pageview');</script><script>(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+        for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+
+        mixpanel.init("87e445678ca45e9d64dc98e995fbcec5", {
+          cross_subdomain_cookie: false,
+          track_pageview: false,
+          cookie_name: 'user-v1.0'
+        }, 'user');
+        mixpanel.user.register({
+          isUser: true,
+          isAccount: false
+        });
+
+        mixpanel.init("87e445678ca45e9d64dc98e995fbcec5", {
+          cross_subdomain_cookie: false,
+          track_pageview: false,
+          cookie_name: 'account-v1.0'
+        }, 'account');
+        mixpanel.account.register({
+          isUser: false,
+          isAccount: true
+        });
+        </script><meta name="viewport" content="width=device-width"><link href="/marketing.css" rel="stylesheet" type="text/css"><script src="/vendor/require-2.1.6.min.js"></script><script src="/vendor/jquery-2.1.0.min.js"></script><script src="/vendor/jquery-ui-1.10.3.min.js"></script><script src="/vendor/jquery.ui.touch-punch-0.2.2.min.js"></script><script src="/vendor/typethis.js"></script><script src="/vendor/bootstrap-3.1.1.min.js"></script><script>$(function() {
+          $('#login-link').click(function() {
+            $('#login-form').submit();
+          });
+        });
+        </script></head><body><form id="login-form" method="post" action="/login/oauth/github?client_redirect_uri=/godunno/dunno&amp;private=true"><input type="hidden" name="_csrf" value="jbigKYeQ-qKyCFnfI1rTPSZHV90z_y7depZk"></form><div class="fourohfour-container"><p><i class="ico-logo"></i></p><p>Is godunno/dunno a private repo?<br><span class="larger">Try signing in <a id="login-link">here</a> - it's free.</span></p></div></body></html>
+    http_version: 
+  recorded_at: Tue, 27 Oct 2015 18:19:35 GMT
+recorded_with: VCR 2.9.3
