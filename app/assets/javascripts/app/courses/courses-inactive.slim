@@ -14,20 +14,4 @@ ui-view
     .course__inactive ng-repeat="course in vm.inactiveCourses"
       .course__inactive__dates
         course-link course="course" page="Inactive Courses List"
-          span.course__start__date>
-            | {{course.start_date | amDateFormat: 'DD/MM/YY'}}
-          span.course__end__date
-            | – {{course.end_date | amDateFormat: 'DD/MM/YY'}}
-      .course__inactive__info
-        span.course__inactive__classname> ng-if="!!course.class_name"
-          | {{course.class_name}} ·
-        span.couse__inactive__name
-          | {{course.name}}
-        br
-        span.course__inactive__institution ng-if="!!course.institution"
-          | {{course.institution}}
-        br
-        span.course__students__count[
-          ng-pluralize
-          count="course.students_count"
-          when="{'0': 'Nenhum estudante.', '1': '1 estudante.', 'other': '{{students.members_count}} estudantes.'}"]
+          course-card
