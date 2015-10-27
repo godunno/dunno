@@ -31,6 +31,7 @@ ui-view.courses__page
       .course ng-repeat="course in vm.activeCourses"
         course-link course="course" page="Active Courses List"
           course-card
+        course-actions
     .courses__inactive__info ng-if="vm.inactiveCourses.length"
       | Você possui {{vm.inactiveCourses.length}}
       span<[

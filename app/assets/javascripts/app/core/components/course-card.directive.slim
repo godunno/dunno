@@ -1,9 +1,5 @@
 .course__card
   .card__header ng-style="{'background-color': course.color}"
-    a.unregister[
-      ng-if="isStudent(course)"
-      ng-click="unregister($event, course)"]
-      | Sair
     h2.card__title
       | {{course.name}}
       small

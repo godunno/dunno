@@ -1,0 +1,16 @@
+zf-action-sheet.course-actions
+  zf-as-button
+    a
+      i.icon.icon-more-vert
+  zf-as-content position="bottom"
+    ul
+      li ng-if="isStudent(course)"
+        a.unregister[
+          zf-close=true
+          ng-click="unregister(course)"]
+          | Sair
+      li
+        a.course__edit[
+          ng-if="isTeacher(course)"
+          ng-click="openEditCourseForm(course)"]
+          | Editar
