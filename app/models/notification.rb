@@ -2,7 +2,7 @@ class Notification < ActiveRecord::Base
   belongs_to :course
 
   validates :course, presence: true
-  validates :message, presence: true, length: { in: 1..160 }
+  validates :message, presence: true
   validate :repeated_message
 
   private

@@ -10,14 +10,12 @@ a.close-button zf-close=true
     name="vm.notificationForm"
     novalidate=true
     ng-submit="vm.notificationForm.$valid && vm.save(vm.notification)"]
-    errors for="vm.notificationForm.abbreviation"
     errors for="vm.notificationForm.message"
     .message__wrapper
       .message__content
         label for="message"
           | Mensagem
         textarea#message[
-          maxlength="{{vm.limit}}"
           name="message"
           ng-disabled="vm.isSending()"
           ng-focus="vm.setReady()"
@@ -28,9 +26,8 @@ a.close-button zf-close=true
           validate=true
           rows="5"]
       .message__submit
-        button.submit[
-          type="submit"
-          ng-disabled="vm.notificationForm.$invalid || !vm.isReady()"]
-          | {{vm.sendButtonText()}}
-        span.message__error ng-if="vm.hasError && !vm.notificationForm.$invalid"
-          | Ocorreu um erro ao enviar a mensagem.
+        submit-button.submit[
+          blocked-when="vm.submitting"
+          label="Enviar mensagem"
+          blocked-label="Enviando…"
+          has-spinner=true]
