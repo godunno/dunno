@@ -134,3 +134,20 @@ strong {
   color: $red-color;
   text-transform: uppercase;
 }
+
+.message {
+  background-color: lighten($light-grey-color, 15%);
+  border-radius: .25rem;
+  padding: 2rem;
+  text-align: left;
+
+  p {
+    font-size: 1.125rem;
+    margin: 0;
+
+    + p {
+      margin-top: 1rem;
+      white-space: pre-line;
+    }
+  }
+}
