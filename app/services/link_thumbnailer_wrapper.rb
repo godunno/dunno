@@ -7,7 +7,11 @@ class LinkThumbnailerWrapper
 
   def generate
     parse_link
-  rescue SocketError, Net::HTTP::Persistent::Error, Net::OpenTimeout, OpenSSL::SSL::SSLError
+  rescue SocketError,
+         Net::HTTP::Persistent::Error,
+         Net::OpenTimeout,
+         Net::HTTPServerException,
+         OpenSSL::SSL::SSLError
     Hashie::Mash.new(title: url, images: [])
   end
 
