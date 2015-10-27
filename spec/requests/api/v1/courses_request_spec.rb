@@ -246,6 +246,16 @@ describe Api::V1::CoursesController do
 
       it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
     end
+
+    context "as a teacher" do
+      def do_action
+        delete "/api/v1/courses/#{course.uuid}/unregister.json", auth_params(teacher).to_json
+      end
+
+      it "should not allow to unregister" do
+        expect { do_action }.to raise_error(Pundit::NotAuthorizedError)
+      end
+    end
   end
 
   describe "POST /api/v1/courses.json" do
