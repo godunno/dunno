@@ -11,7 +11,11 @@ resource "Comments" do
   let!(:teacher) { create(:profile) }
   let!(:course) { create(:course, teacher: teacher) }
   let!(:weekly_schedule) do
-    create(:weekly_schedule, course: course, weekday: 3, start_time: '14:00')
+    create :weekly_schedule,
+      course: course,
+      weekday: 3,
+      start_time: '14:00',
+      end_time: '16:00'
   end
 
   post "/api/v1/comments.json" do
