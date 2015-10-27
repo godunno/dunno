@@ -64,7 +64,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-ui-router-title', '0.0.4'
   gem 'rails-assets-angular-filter', '0.5.4'
   gem 'rails-assets-angular-datepicker', '1.0.12'
-  gem 'rails-assets-mrodrigues--angular-jquery-timepicker', '0.6.1'
+  gem 'rails-assets-mrodrigues--angular-jquery-timepicker', '0.6.2'
   gem 'rails-assets-angular-moment', '0.10.3'
   gem 'rails-assets-moment-timezone', '0.4.0'
   gem 'rails-assets-ng-sortable', '1.3.1'

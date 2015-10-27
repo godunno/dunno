@@ -22,8 +22,12 @@ I18nConfig = ($translateProvider) ->
     vm:
       weeklyScheduleForm:
         startTime:
+          time: 'Você deve preencher o horário de início da aula.'
           overlapping: 'Já existe um horário nesse período.'
           after_end_time: 'O início deve ser antes do término.'
+
+        endTime:
+          time: 'Você deve preencher o horário de término da aula.'
 
     'vm.notificationForm.message.required': 'Insira uma mensagem para seus estudantes.'
     'vm.notificationForm.message.repeated': 'Você não pode enviar duas mensagens iguais em sequência.'
