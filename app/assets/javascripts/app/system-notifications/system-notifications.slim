@@ -2,9 +2,15 @@
   .system__notifications__header
     h4.system__notifications__title
       | Notificações
-    a.system__notifications__mark__as__read ng-click="vm.markAllAsRead()"
-      | marcar todas como lidas
-
-  system-notification[
-    ng-repeat="notification in vm.systemNotifications"
-    notification="notification"]
+  .system__notifications__content
+    p.system__notifications__empty ng-if="vm.systemNotifications.length == 0"
+      | Você não possui nenhuma notificação.
+      span.sad<
+    p.system__notifications__clear
+      a.system__notifications__mark__as__read[
+        ng-click="vm.markAllAsRead()"
+        ng-if="vm.systemNotifications.length"]
+        | marcar todas como lidas
+    system-notification[
+      ng-repeat="notification in vm.systemNotifications"
+      notification="notification"]
