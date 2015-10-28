@@ -10,9 +10,9 @@ ui-view
           | ou
         a.button ng-click="vm.openNewCourseForm()"
           | Criar disciplina
-  .courses.courses__inactive
-    .course__inactive ng-repeat="course in vm.inactiveCourses"
-      .course.course__inactive__dates
+  .courses__wrapper
+    .courses.courses__inactive
+      .course.course__inactive ng-repeat="course in vm.inactiveCourses"
         course-actions
         course-link course="course" page="Inactive Courses List"
           course-card

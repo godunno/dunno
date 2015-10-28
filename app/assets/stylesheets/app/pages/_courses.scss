@@ -39,7 +39,6 @@
     }
 
     &__inactive {
-      @include grid-container();
       padding: 2rem 0;
 
       &__info {
