@@ -23,6 +23,7 @@
 //= require angular-moment
 //= require angulartics
 //= require ui-router
+//= require ui-router-extras
 //= require angular-ui-router-title/angular-ui-router-title
 //= require initial.js
 //= require foundation-apps-js

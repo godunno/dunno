@@ -2,7 +2,7 @@ setupLessonPlanRoutes = (
   $stateProvider,
   EventResolver) ->
   $stateProvider
-    .state 'courses.show.event',
+    .state 'app.courses.show.event',
       url: '/events/:startAt'
       views:
         '@':
@@ -10,7 +10,7 @@ setupLessonPlanRoutes = (
           controller: 'EventCtrl'
       resolve: { event: EventResolver }
 
-    .state 'events.show',
+    .state 'app.events.show',
       url: '/:startAt?courseId'
       controller: 'EventCtrl'
       templateUrl: 'lesson-plan/lesson-plan-edit'

@@ -70,6 +70,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-ng-sortable', '1.3.1'
   gem 'rails-assets-angular-translate', '2.7.2'
   gem 'rails-assets-mrodrigues--angular-mighty-datepicker', '0.0.18'
+  gem 'rails-assets-ui-router-extras', '0.1.0'
 end
 
 group :production, :staging do

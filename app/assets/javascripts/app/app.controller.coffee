@@ -2,15 +2,23 @@ ApplicationCtrl = (
   $scope,
   $window,
   $rootScope,
+  $state,
   SessionManager,
   NonLoggedRoutes,
-  NavigationGuard
-  NewNotifications
+  NavigationGuard,
+  NewNotifications,
   AnalyticsTracker
 ) ->
 
   $rootScope.$on '$locationChangeStart', (event) ->
     event.preventDefault() if NonLoggedRoutes.isNonLoggedRoute()
+
+  $rootScope.$on "$stateChangeStart", (evt, toState, toParams, fromState, fromParams) ->
+    return unless fromState? && toState?
+    if fromState.name == "" && toState.name.startsWith('panel.')
+      evt.preventDefault()
+      $state.go("app.courses").then ->
+        $state.go(toState, toParams)
 
   $scope.signOut = ->
     SessionManager.signOut().then ->
@@ -37,6 +45,7 @@ ApplicationCtrl.$inject = [
   '$scope',
   '$window',
   '$rootScope',
+  '$state',
   'SessionManager',
   'NonLoggedRoutes',
   'NavigationGuard',

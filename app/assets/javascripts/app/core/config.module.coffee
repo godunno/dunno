@@ -18,5 +18,6 @@ angular
     'foundation',
     'ui.router',
     'ui.router.title',
+    'ct.ui.router.extras',
     'ui.timepicker',
     'pascalprecht.translate']

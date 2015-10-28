@@ -1,12 +1,14 @@
 setSystemNotificationsRoutes = (
   $stateProvider,
-  SystemNotificationsResolver
+  SystemNotificationsResolver,
 ) ->
   $stateProvider
-    .state 'system-notifications',
+    .state 'panel.system-notifications',
       url: '/notifications'
-      controller: 'SystemNotificationsCtrl as vm'
-      templateUrl: 'system-notifications/system-notifications'
+      views:
+        "panel":
+          controller: 'SystemNotificationsCtrl as vm'
+          templateUrl: 'system-notifications/system-notifications'
       resolve:
         systemNotifications: SystemNotificationsResolver
         $title: ['$translate', ($translate) ->

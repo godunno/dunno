@@ -17,10 +17,10 @@ html lang="pt" ng-app="app" ng-strict-di=true
           | Seções
         ul.sidebar__navigation
           li
-            a zf-close="" ui-sref="courses"
+            a zf-close="" ui-sref="app.courses"
               | Disciplinas
           li
-            a zf-close="" ui-sref="profile"
+            a zf-close="" ui-sref="app.profile"
               | Editar perfil - {{currentUser.name}}
           li
             | #{link_to 'Termos de Uso', terms_path}
@@ -41,7 +41,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
             | Menu
         span.right
           a.system__notifications__toggle[
-            ui-sref="system-notifications"
+            ui-sref="panel.system-notifications"
             ng-click="trackNotificationsAccessed()"]
             span.system__notifications__count ng-if="newNotificationsCount > 0"
               | {{newNotificationsCount}}
@@ -52,7 +52,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
             ul
               li ui-sref-active="is-active"
                 a[
-                  ui-sref="courses"
+                  ui-sref="app.courses"
                   analytics-event="Courses List Accessed"
                   analytics-on="click"]
                   | Disciplinas
@@ -60,13 +60,13 @@ html lang="pt" ng-app="app" ng-strict-di=true
             ul
               li
                 a.system__notifications__toggle[
-                  ui-sref="system-notifications"
+                  ui-sref="panel.system-notifications"
                   ng-click="trackNotificationsAccessed()"]
                   span.system__notifications__count ng-if="newNotificationsCount > 0"
                     | {{newNotificationsCount}}
                   i.icon ng-class="{'icon-notification-off': newNotificationsCount == 0, 'icon-notification-on': newNotificationsCount > 0}"
               li ui-sref-active="is-active"
-                a.user__profile ui-sref="profile"
+                a.user__profile ui-sref="app.profile"
                   img.avatar>[user-avatar="currentUser"]
                   | {{currentUser.name}}
               li
@@ -81,6 +81,8 @@ html lang="pt" ng-app="app" ng-strict-di=true
         div
           | Copyright © #{Time.zone.now.year} #{link_to 'Termos de Uso', terms_path} #{link_to 'Política de Privacidade', policy_path}
       zf-notification-set id="main-notifications" position="bottom-left"
+      zf-panel#panel
+        .panel-wrapper ui-view="panel" autoscroll="false"
     = javascript_include_tag "application"
     = render 'application/google_analytics'
     = render 'application/mixpanel'
