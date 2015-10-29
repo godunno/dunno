@@ -11,6 +11,7 @@
       &__wrapper {
         @include grid-block($wrap: true);
         @include grid-container();
+        overflow: visible;
         padding: 1rem 0 0;
 
         @include breakpoint(small only) {
@@ -96,10 +97,29 @@
     &__actions {
       @include grid-block($orientation: vertical);
       align-items: flex-end;
+      overflow: visible;
       padding-left: 1rem;
 
       @include breakpoint(small only) {
         align-items: center;
+      }
+
+      &__show {
+        color: $dunno-dark-color;
+
+        &:hover {
+          color: $black;
+        }
+      }
+
+      .action-sheet,
+      .action-sheet.is-active {
+        transform: translateX(-96.7%) translateY(106%);
+
+        &::before,
+        &::after {
+          left: 96.5%;
+        }
       }
     }
 
