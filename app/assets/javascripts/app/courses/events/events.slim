@@ -1,9 +1,7 @@
 .events
   .events__navigation
     .events__navigation__previous
-      a[
-        ui-sref="{month: vm.previousMonth}"
-        ui-sref-opts="{reload:true}"]
+      a ui-sref="{month: vm.previousMonth}"
         i.icon.icon-left>
         span
           | {{vm.previousMonth | amDateFormat:'MMM/YY'}}
@@ -11,9 +9,7 @@
       span
         | {{vm.currentMonth | amDateFormat:'MMM/YY'}}
     .events__navigation__next
-      a[
-        ui-sref="{month: vm.nextMonth}"
-        ui-sref-opts="{reload:true}"]
+      a ui-sref="{month: vm.nextMonth}"
         span
           | {{vm.nextMonth | amDateFormat:'MMM/YY'}}
         i.icon.icon-right<

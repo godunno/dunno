@@ -18,6 +18,6 @@ describe "NewNotifications service", ->
     $httpBackend
       .expectGET('/api/v1/system_notifications/new_notifications')
       .respond(200, new_notifications_count: 1)
-    $rootScope.$emit('$stateChangeStart')
+    $rootScope.$emit('checkNewNotifications')
     $httpBackend.flush()
     expect(NewNotifications.getCount()).toBe(1)

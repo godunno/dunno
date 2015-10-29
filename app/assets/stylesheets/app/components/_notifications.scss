@@ -13,9 +13,10 @@
   }
 
   &__header {
-    @include grid-block();
     border-bottom: $divider;
-    padding: 2rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    text-align: center;
   }
 
   &__title {
@@ -36,14 +37,18 @@
       $color: $dunno-green-color,
       $style: hollow
     );
-    flex-shrink: 1;
+    margin: 0 auto;
   }
 
+  &__clear,
+  &__empty {
+    padding: 2rem;
+    text-align: center;
+  }
 
   &__empty {
     color: $medium-grey-color;
-    padding: 2rem 0;
-    text-align: center;
+    font-size: .875rem;
   }
 
   &__count {
