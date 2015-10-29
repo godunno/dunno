@@ -41,9 +41,11 @@ ApplicationCtrl = (
     FoundationPanel.activate('notifications-panel')
     $scope.showNotifications = true
 
-  $scope.closeNotifications = ->
+  closeNotifications = ->
     FoundationPanel.deactivate('notifications-panel')
     $scope.showNotifications = false
+
+  $scope.$on('closeNotifications', closeNotifications)
 
   NavigationGuard.guard()
 

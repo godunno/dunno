@@ -2,6 +2,8 @@
   .system__notifications__header
     h4.system__notifications__title
       | Notificações
+    a class="close-button" ng-click="vm.close()"
+      | ×
   .system__notifications__content
     p.system__notifications__empty ng-if="vm.systemNotifications.length == 0"
       | Você não possui nenhuma notificação.

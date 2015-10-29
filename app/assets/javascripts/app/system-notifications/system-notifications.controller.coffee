@@ -10,6 +10,9 @@ SystemNotificationsCtrl = ($scope, SystemNotification) ->
     SystemNotification.markAllAsRead().then (systemNotifications) ->
       vm.systemNotifications = systemNotifications
 
+  vm.close = ->
+    $scope.$emit('closeNotifications')
+
   SystemNotification.viewed().then ->
     $scope.$emit('checkNewNotifications')
 
