@@ -1,4 +1,4 @@
-describe 'SystemNotificationsCtrl', ->
+describe 'system-notifications directive', ->
   beforeEach module('app.templates')
   beforeEach module('app.system-notifications')
 
@@ -6,7 +6,7 @@ describe 'SystemNotificationsCtrl', ->
 
   $scope = null
   ctrl = null
-  view = null
+  element = null
 
   author =
     name: 'Professor Girafales'
@@ -20,37 +20,38 @@ describe 'SystemNotificationsCtrl', ->
       course:
         name: "Português"
 
-  systemNotifications = [systemNotification]
-
   beforeEach ->
     inject ($controller, $rootScope, $compile, $templateCache, _$httpBackend_) ->
       $httpBackend = _$httpBackend_
       $httpBackend
+        .expectGET('/api/v1/system_notifications')
+        .respond(200, [systemNotification])
+      $httpBackend
         .expectPATCH('/api/v1/system_notifications/viewed')
         .respond(200, '')
 
-      html = $templateCache.get('system-notifications/system-notifications')
+      template = '<system-notifications></system-notifications>'
       $scope = $rootScope.$new()
-      ctrl = $controller 'SystemNotificationsCtrl',
-               systemNotifications: systemNotifications
-               $scope: $scope
-      $scope.vm = ctrl
-      view = $compile(angular.element(html))($scope)
+      element = $compile(angular.element(template))($scope)
       $scope.$digest()
+      ctrl = element.controller('systemNotifications')
 
-  it "assigns system notifications", ->
-    expect(ctrl.systemNotifications).toBe(systemNotifications)
-
-  it "has the notification's type", ->
-    expect(view.find('system-notification').length).toBe(1)
-
-  it "zeroes the new notifications count", ->
+  beforeEach ->
     spyOn($scope, '$emit')
     $httpBackend.flush()
+    $scope.$apply()
+
+  it "assigns system notifications", ->
+    systemNotifications = [jasmine.objectContaining(systemNotification)]
+    expect(ctrl.systemNotifications).toEqual(systemNotifications)
+
+  it "has the notification's type", ->
+    expect(element.find('system-notification').length).toBe(1)
+
+  it "zeroes the new notifications count", ->
     expect($scope.$emit).toHaveBeenCalledWith('checkNewNotifications')
 
   it "marks all as read", ->
-    $httpBackend.flush()
     $httpBackend
       .expectPOST('/api/v1/system_notifications/mark_all_as_read')
       .respond(200, '')
