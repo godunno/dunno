@@ -21,7 +21,7 @@
         ng-if="!comment.removed_at"]
       small[
         ng-if="!!comment.removed_at"]
-        | [removido] há
+        | [removido]
         span< am-time-ago="comment.removed_at"
     .comment__attachments
       .attachment ng-repeat="attachment in comment.attachments"

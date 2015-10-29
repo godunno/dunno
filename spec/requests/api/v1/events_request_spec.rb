@@ -60,7 +60,8 @@ describe Api::V1::EventsController do
       it { expect(last_response.status).to eq(200) }
 
       def do_action
-        get "/api/v1/events/#{event_start_at}.json", { course_id: course.uuid }.merge(auth_params(profile))
+        get "/api/v1/events/#{event_start_at}.json",
+            { course_id: course.uuid }.merge(auth_params(profile))
       end
 
       before(:each) do
