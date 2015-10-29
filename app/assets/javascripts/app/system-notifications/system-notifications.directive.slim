@@ -1,0 +1,18 @@
+.system__notifications cg-busy="vm.loading"
+  .system__notifications__header
+    h4.system__notifications__title
+      | Notificações
+    a class="close-button" ng-click="vm.close()"
+      | ×
+  .system__notifications__content
+    p.system__notifications__empty ng-if="vm.systemNotifications.length == 0"
+      | Você não possui nenhuma notificação.
+      span.sad<
+    p.system__notifications__clear
+      a.system__notifications__mark__as__read[
+        ng-click="vm.markAllAsRead()"
+        ng-if="vm.systemNotifications.length"]
+        | marcar todas como lidas
+    system-notification[
+      ng-repeat="notification in vm.systemNotifications"
+      notification="notification"]

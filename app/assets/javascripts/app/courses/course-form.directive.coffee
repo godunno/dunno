@@ -1,6 +1,8 @@
 courseFormCtrl = (
   Course,
   PageLoading,
+  ErrorParser,
+  $scope,
   $state,
   $templateCache
 ) ->
@@ -13,12 +15,17 @@ courseFormCtrl = (
   formatDate = (date) ->
     date?.format('YYYY-MM-DD') || null
 
+  success = (course) ->
+    $state.go('.', null, reload: true)
+    vm.onSave()(course)
+
+  failure = (response) ->
+    ErrorParser.setErrors(response.data.errors, vm.courseForm, $scope)
+
   vm.save = ->
     vm.course.start_date = formatDate(vm.startDate)
     vm.course.end_date = formatDate(vm.endDate)
-    vm.submitting = PageLoading.resolve(new Course(vm.course).save()).then (course) ->
-      $state.go('.', null, reload: true)
-      vm.onSave()(course)
+    vm.submitting = PageLoading.resolve(new Course(vm.course).save()).then(success, failure)
 
   datepickerTemplate =  $templateCache.get('courses/datepicker-for-course-form')
 
@@ -37,6 +44,8 @@ courseFormCtrl = (
 courseFormCtrl.$inject = [
   'Course',
   'PageLoading',
+  'ErrorParser',
+  '$scope',
   '$state',
   '$templateCache'
 ]

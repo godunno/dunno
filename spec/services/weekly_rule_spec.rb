@@ -20,7 +20,10 @@ describe WeeklyRule do
     end
 
     it "creates a rule with the course's end date" do
-      weekly_schedule.course.update!(end_date: Date.parse('2015-07-31'))
+      weekly_schedule.course.update!(
+        start_date: Date.parse('2015-07-30'),
+        end_date: Date.parse('2015-07-31')
+      )
       is_expected.to eq(
         'Weekly on Mondays on the 9th hour of the day ' +
         'on the 0th minute of the hour on the 0th second ' +
@@ -40,7 +43,9 @@ describe WeeklyRule do
     subject { weekly_rule.rule_for_weekly_schedule_transfer.to_s }
 
     context "with course's end date" do
-      let!(:course) { create(:course, end_date: Date.parse('2015-07-31')) }
+      let!(:course) do
+        create(:course, start_date: Date.parse('2015-07-30'), end_date: Date.parse('2015-07-31'))
+      end
 
       it "uses the course's end date for its limit" do
         is_expected.to eq(

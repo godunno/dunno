@@ -18,6 +18,23 @@ describe LinkThumbnailerWrapper, :vcr do
     expect(result.title).to eq(url)
   end
 
+  it "should be able to receive an URL with an invalid SSL certificate" do
+    allow(LinkThumbnailer).to receive(:generate).and_raise(OpenSSL::SSL::SSLError)
+    url = "https://invalidssl.com"
+    link_thumbnailer = LinkThumbnailerWrapper.new(url)
+    result = nil
+    expect { result = link_thumbnailer.generate }.not_to raise_error
+    expect(result.title).to eq(url)
+  end
+
+  it "should be able to receive a 404", :vcr do
+    url = "https://waffle.io/godunno/dunno"
+    link_thumbnailer = LinkThumbnailerWrapper.new(url)
+    result = nil
+    expect { result = link_thumbnailer.generate }.not_to raise_error
+    expect(result.title).to eq(url)
+  end
+
   it "should use the LinkThumbnailer" do
     url = "http://www.google.com"
     expect(LinkThumbnailer).to receive(:generate).with(url)

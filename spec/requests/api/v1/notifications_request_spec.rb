@@ -37,8 +37,7 @@ describe Api::V1::NotificationsController do
           expect(json).to eq(
             "errors" => {
               "message" => [
-                { "error" => "blank" },
-                { "error" => "too_short", "count"=>1 }
+                { "error" => "blank" }
               ]
             }
           )

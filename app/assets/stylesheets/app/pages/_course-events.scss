@@ -82,6 +82,7 @@
       $size: 8
     );
     margin: 0 auto;
+    overflow: visible;
 
     @include breakpoint(small only) {
       @include grid-block(
@@ -96,6 +97,7 @@
 .event {
   @include grid-block();
   border-left: .25rem solid $transparent;
+  overflow: visible;
   padding-right: 1rem;
   padding-top: 1rem;
 
@@ -185,6 +187,7 @@
     border: $divider;
     border-radius: $global-radius;
     margin-bottom: 1.5rem;
+    overflow: visible;
 
     @include breakpoint(small only) {
       @include grid-block(
@@ -199,6 +202,7 @@
 
   &__header {
     @include grid-block();
+    overflow: visible;
     padding: 1rem;
   }
 
@@ -224,6 +228,10 @@
 
   &__actions {
     margin-left: auto;
+
+    &__show {
+      color: $dunno-dark-color;
+    }
   }
 
   &__edit {

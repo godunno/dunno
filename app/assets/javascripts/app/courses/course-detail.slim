@@ -15,17 +15,23 @@
             | {{course.teacher.name}}
         span.course__dates< ng-if="course.end_date"
           | · {{course.start_date | amDateFormat: 'DD/MMM/YY'}}–{{course.end_date | amDateFormat: 'DD/MMM/YY'}}
-      .course__actions
-        a.course__edit[
-          ng-if="course.user_role == 'teacher'"
-          ng-click="openEditCourseForm()"]
-          i.icon.icon-settings
-        a.course__notify__members[
-          ng-click="openNotification()"
-          if-teacher=true
-          ng-if="course.members.length > 1"]
-          i.icon.icon-notify>
-          | Notificar estudantes
+      .course__actions if-teacher=true
+        zf-action-sheet
+          zf-as-button
+            a.course__actions__show
+              i.icon.icon-more-vert
+          zf-as-content position="bottom"
+            ul
+              li
+                a ng-click="openEditCourseForm()"
+                  i.icon.icon-settings>
+                  | editar disciplina
+              li
+                a[
+                  ng-click="openNotification()"
+                  ng-if="course.members.length > 1"]
+                  i.icon.icon-notify>
+                  | notificar estudantes
       .course__navigation
         ul
           li ui-sref-active="is-active"

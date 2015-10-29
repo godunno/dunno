@@ -4,7 +4,7 @@ setCoursesRoutes = (
   CourseResolver,
   EventsPaginationResolver) ->
   $stateProvider
-    .state 'courses',
+    .state 'app.courses',
       url: '/courses'
       controller: 'CoursesIndexCtrl as vm'
       templateUrl: 'courses/courses'
@@ -12,11 +12,11 @@ setCoursesRoutes = (
         courses: CoursesResolver
         $title: ['$translate', ($translate) -> $translate('courses.title.courses')]
 
-    .state 'courses.inactive',
+    .state 'app.courses.inactive',
       url: '/inactive'
       templateUrl: 'courses/courses-inactive'
 
-    .state 'courses.show',
+    .state 'app.courses.show',
       url: '/:courseId'
       abstract: true
       controller: 'CourseCtrl'
@@ -26,7 +26,7 @@ setCoursesRoutes = (
         $title: ['$translate', 'course', ($translate, course) ->
           $translate('courses.title.course-detail', course: course)]
 
-    .state 'courses.show.events',
+    .state 'app.courses.show.events',
       url: '/events?month&startAt&commentId&trackEventCanceled'
       controller: 'CourseEventsCtrl as vm'
       templateUrl: 'courses/events/events'
@@ -35,12 +35,12 @@ setCoursesRoutes = (
         startAt: { value: null, squash: true }
         commentId: { value: null, squash: true }
 
-    .state 'courses.show.schedule',
+    .state 'app.courses.show.schedule',
       url: '/schedule'
       controller: 'ScheduleCtrl'
       templateUrl: 'courses/schedule/schedule'
 
-    .state 'courses.show.members',
+    .state 'app.courses.show.members',
       url: '/members'
       controller: 'CourseMembersCtrl as vm'
       templateUrl: 'courses/members/members'

@@ -35,6 +35,16 @@ describe WeeklySchedule do
       end
     end
 
+    it "validates that start time comes before than end time" do
+      weekly_schedule.start_time = '09:00'
+      weekly_schedule.end_time = '11:00'
+      expect(weekly_schedule).to be_valid
+
+      weekly_schedule.start_time = '12:00'
+      expect(weekly_schedule).not_to be_valid
+      expect(weekly_schedule.errors.details).to include(start_time: [error: :after_end_time])
+    end
+
     describe "overlapping in the same course" do
       let!(:course) { create(:course) }
       let!(:weekly_schedule) { create(:weekly_schedule, course: course, weekday: 1, start_time: '09:00', end_time: '11:00') }

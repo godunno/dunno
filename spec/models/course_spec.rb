@@ -17,6 +17,13 @@ describe Course do
     end
 
     it { is_expected.to validate_length_of(:abbreviation).is_at_most(10) }
+
+    it "validates that start date comes before than end date" do
+      course.end_date = Time.zone.today
+      course.start_date = Time.zone.tomorrow
+      expect(course).not_to be_valid
+      expect(course.errors.details).to include(start_date: [error: :after_end_date])
+    end
   end
 
   describe "callbacks" do
@@ -117,9 +124,15 @@ describe Course do
   end
 
   context "#active" do
-    let!(:finished_course) { create(:course, end_date: Date.yesterday) }
-    let!(:active_course) { create(:course, end_date: Date.today) }
-    let!(:course_without_end_date) { create(:course, end_date: nil) }
+    let!(:finished_course) do
+      create(:course, start_date: 2.days.ago, end_date: Time.zone.yesterday)
+    end
+    let!(:active_course) do
+      create(:course, start_date: 2.days.ago, end_date: Time.zone.today)
+    end
+    let!(:course_without_end_date) do
+      create(:course, end_date: nil)
+    end
 
     it { expect(finished_course).to_not be_active }
     it { expect(active_course).to be_active }

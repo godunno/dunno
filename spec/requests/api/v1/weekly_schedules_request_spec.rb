@@ -143,7 +143,7 @@ describe Api::V1::WeeklySchedulesController do
     end
   end
 
-  describe "GET /api/v1/weekly_schedules/:uuid/affected_events_on_transfer", :wip do
+  describe "GET /api/v1/weekly_schedules/:uuid/affected_events_on_transfer" do
     def do_action
       url = "/api/v1/weekly_schedules/#{weekly_schedule.uuid}/affected_events_on_transfer"
       get url, auth_params(profile)

@@ -8,9 +8,27 @@ describe PersistPastEvents do
 
   let(:course) { create(:course, start_date: first_date - 1.day, end_date: first_date + 1.month) }
   let!(:event) { create(:event, course: course, start_at: first_date) }
-  let!(:yesterday_schedule) { create(:weekly_schedule, course: course, weekday: 6, start_time: "09:00") }
-  let!(:today_schedule) { create(:weekly_schedule, course: course, weekday: 0, start_time: "23:59") }
-  let!(:tomorrow_schedule) { create(:weekly_schedule, course: course, weekday: 1, start_time: "23:59") }
+  let!(:yesterday_schedule) do
+    create :weekly_schedule,
+      course: course,
+      weekday: 6,
+      start_time: "09:00",
+      end_time: "11:00"
+  end
+  let!(:today_schedule) do
+    create :weekly_schedule,
+      course: course,
+      weekday: 0,
+      start_time: "23:59",
+      end_time: "23:59"
+  end
+  let!(:tomorrow_schedule) do
+    create :weekly_schedule,
+      course: course,
+      weekday: 1,
+      start_time: "23:59",
+      end_time: "23:59"
+  end
 
   before { Timecop.travel today }
   after { Timecop.return }

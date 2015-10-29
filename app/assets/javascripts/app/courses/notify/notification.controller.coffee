@@ -4,59 +4,42 @@ NotificationCtrl = (
   $analytics,
   modalInstance,
   Notification,
-  ErrorParser
+  ErrorParser,
+  FoundationApi,
   course) ->
 
-  @limit = 140
-  @course = course
+  vm = @
 
-  reset = =>
-    @notification = new Notification()
-    @notificationForm.$setPristine() if @notificationForm
+  vm.course = course
 
-  reset()
+  vm.notification = new Notification()
 
-  status = 'ready'
+  success = ->
+    FoundationApi.publish 'main-notifications',
+      content: """
+      Mensagem enviada com sucesso!
+      """
+      color: 'success'
+    $analytics.eventTrack 'Notification Sent',
+      courseName: vm.course.name
+      courseUuid: vm.course.uuid
+      message: vm.notification.message
+    modalInstance.destroy()
 
-  @isReady = -> status == 'ready'
-  @setReady = -> status = 'ready'
+  failure = (response) ->
+    ErrorParser.setErrors(response.data.errors, vm.notificationForm, $scope)
+    $analytics.eventTrack 'Notification Error',
+      courseName: vm.course.name,
+      courseUuid: vm.course.uuid,
+      message: vm.notification.message,
+      error: response.data.errors
 
-  @isSending = -> status == 'sending'
-  @setSending = -> status = 'sending'
-
-  @isSent = -> status == 'sent'
-  @setSent = -> status = 'sent'
-
-  @save = (notification) =>
-    @hasError = false
-    @setSending()
+  vm.save = (notification) ->
     notification.course_id = course.uuid
     notification.abbreviation = course.abbreviation
-    notification.save().then(=>
-      @setSent()
-      reset()
-      $analytics.eventTrack 'Notification Sent',
-        courseName: course.name
-        courseUuid: course.uuid
-        message: notification.message
-    ).catch((response) =>
-      @hasError = true
-      ErrorParser.setErrors(response.data.errors, @notificationForm, $scope)
-      @setReady()
-      $analytics.eventTrack 'Notification Error',
-        courseName: course.name,
-        courseUuid: course.uuid,
-        message: notification.message,
-        error: response.data.errors
-    )
+    vm.submitting = notification.save().then(success, failure)
 
-  @sendButtonText = ->
-    switch status
-      when 'ready' then 'Enviar mensagem'
-      when 'sending' then 'Enviando…'
-      when 'sent' then 'Enviado com sucesso!'
-
-  @
+  vm
 
 NotificationCtrl.$inject = [
   '$scope',
@@ -65,6 +48,7 @@ NotificationCtrl.$inject = [
   'modalInstance',
   'Notification',
   'ErrorParser',
+  'FoundationApi',
   'course'
 ]
 

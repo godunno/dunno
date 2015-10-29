@@ -46,6 +46,8 @@ EventCtrl = (
     $scope.$emit 'wholePageLoading', event.save().then ->
       AnalyticsTracker.trackEventStatus(event, previousStatus)
 
+  $scope.$on 'transferTopic', (_, topic) ->
+    $scope.event.next.topics.push(topic)
 
 EventCtrl.$inject = [
   '$scope',
