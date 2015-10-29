@@ -8,4 +8,8 @@ class Comment < ActiveRecord::Base
   def event_start_at
     event.start_at
   end
+
+  def removed?
+    removed_at.present?
+  end
 end

@@ -7,6 +7,7 @@ Event = (RailsResource, $q, railsSerializer) ->
       updateMethod: 'patch'
       serializer: railsSerializer ->
         @resource('topics', 'Topic')
+        @resource('comments', 'UserComment')
     )
 
     topics: []
