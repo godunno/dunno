@@ -17,7 +17,7 @@ describe Api::V1::EventsController do
     after { Timecop.return }
 
     context "existing event" do
-      let!(:comment) { create(:comment, event: event) }
+      let!(:comment) { create(:comment, event: event, created_at: 2.hours.ago) }
       let!(:removed_comment) { create(:comment, event: event, removed_at: Time.current) }
       let(:topic) { create(:topic) }
       let(:topic_with_url) { create(:topic, media: media_with_url) }
