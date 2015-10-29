@@ -7,7 +7,8 @@ ApplicationCtrl = (
   NonLoggedRoutes,
   NavigationGuard,
   NewNotifications,
-  AnalyticsTracker
+  AnalyticsTracker,
+  FoundationPanel
 ) ->
 
   $rootScope.$on '$locationChangeStart', (event) ->
@@ -35,8 +36,14 @@ ApplicationCtrl = (
   $scope.$on 'wholePageLoading', (_, promise) ->
     $scope.wholePageLoading = promise
 
-  $scope.trackNotificationsAccessed = ->
+  $scope.trackAndOpenNotifications = ->
     AnalyticsTracker.systemNotificationsAccessed()
+    FoundationPanel.activate('notifications-panel')
+    $scope.showNotifications = true
+
+  $scope.closeNotifications = ->
+    FoundationPanel.deactivate('notifications-panel')
+    $scope.showNotifications = false
 
   NavigationGuard.guard()
 
@@ -49,7 +56,8 @@ ApplicationCtrl.$inject = [
   'NonLoggedRoutes',
   'NavigationGuard',
   'NewNotifications',
-  'AnalyticsTracker'
+  'AnalyticsTracker',
+  'FoundationPanel'
 ]
 
 angular

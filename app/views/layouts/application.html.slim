@@ -60,8 +60,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
             ul
               li
                 a.system__notifications__toggle[
-                  ui-sref="panel.system-notifications"
-                  ng-click="trackNotificationsAccessed()"]
+                  ng-click="trackAndOpenNotifications()"]
                   span.system__notifications__count ng-if="newNotificationsCount > 0"
                     | {{newNotificationsCount}}
                   i.icon ng-class="{'icon-notification-off': newNotificationsCount == 0, 'icon-notification-on': newNotificationsCount > 0}"
@@ -81,8 +80,13 @@ html lang="pt" ng-app="app" ng-strict-di=true
         div
           | Copyright © #{Time.zone.now.year} #{link_to 'Termos de Uso', terms_path} #{link_to 'Política de Privacidade', policy_path}
       zf-notification-set id="main-notifications" position="bottom-left"
-      zf-panel#panel position='right'
-        .panel-wrapper ui-view="panel" autoscroll="false"
+      zf-panel#notifications-panel position='right'
+        .panel-wrapper
+          a class="close-button" ng-click="closeNotifications()"
+            | ×
+          .panel-content ng-if="showNotifications"
+            system-notifications
+
     = javascript_include_tag "application"
     = render 'application/google_analytics'
     = render 'application/mixpanel'
