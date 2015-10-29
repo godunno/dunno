@@ -5,6 +5,8 @@ class Comment < ActiveRecord::Base
 
   validates :profile, :event, :body, presence: true
 
+  default_scope { order(created_at: :asc) }
+
   def event_start_at
     event.start_at
   end

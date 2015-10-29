@@ -149,7 +149,7 @@ describe Api::V1::EventsController do
                 "user" => {
                   "name" => comment.profile.name,
                   "avatar_url" => nil,
-                  "id" => comment.profile_id
+                  "id" => comment.profile.user.id
                 },
                 "attachments" => [],
                 "removed_at" => nil
@@ -161,7 +161,7 @@ describe Api::V1::EventsController do
                 "user" => {
                   "name" => removed_comment.profile.name,
                   "avatar_url" => nil,
-                  "id" => removed_comment.profile_id
+                  "id" => removed_comment.profile.user.id
                 },
                 "removed_at" => removed_comment.removed_at.iso8601(3)
               }
