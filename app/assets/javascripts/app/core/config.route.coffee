@@ -22,5 +22,5 @@ setAppRoutes = ($stateProvider) ->
 setAppRoutes.$inject = ['$stateProvider']
 
 angular
-  .module('app')
+  .module('app.core')
   .config(setAppRoutes)

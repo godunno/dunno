@@ -1,4 +1,4 @@
-SystemNotificationsCtrl = ($scope, SystemNotification, systemNotifications) ->
+SystemNotificationsCtrl = ($scope, $state, SystemNotification, systemNotifications) ->
   vm = @
 
   vm.systemNotifications = systemNotifications
@@ -7,12 +7,13 @@ SystemNotificationsCtrl = ($scope, SystemNotification, systemNotifications) ->
     SystemNotification.markAllAsRead().then (systemNotifications) ->
       vm.systemNotifications = systemNotifications
 
+  window.$state = $state
   SystemNotification.viewed().then ->
-    $scope.$emit('$stateChangeStart')
+    $scope.$emit('checkNewNotifications')
 
   vm
 
-SystemNotificationsCtrl.$inject = ['$scope', 'SystemNotification', 'systemNotifications']
+SystemNotificationsCtrl.$inject = ['$scope', '$state', 'SystemNotification', 'systemNotifications']
 
 angular
   .module('app.system-notifications')

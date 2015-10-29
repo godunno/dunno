@@ -61,7 +61,7 @@ describe 'system-notification directive', ->
       $timeout.flush()
       $httpBackend.flush()
 
-      expect($state.is('courses.show.events')).toBe(true)
+      expect($state.is('app.courses.show.events')).toBe(true)
       expect($stateParams).toEqual
         courseId: course.uuid
         startAt: event.start_at
@@ -101,7 +101,7 @@ describe 'system-notification directive', ->
       $timeout.flush()
       $httpBackend.flush()
 
-      expect($state.is('courses.show.events')).toBe(true)
+      expect($state.is('app.courses.show.events')).toBe(true)
       expect($stateParams).toEqual
         courseId: course.uuid
         startAt: event.start_at
@@ -136,7 +136,7 @@ describe 'system-notification directive', ->
       $timeout.flush()
       $httpBackend.flush()
 
-      expect($state.is('courses.show.events')).toBe(true)
+      expect($state.is('app.courses.show.events')).toBe(true)
       expect($stateParams).toEqual
         courseId: course.uuid
         startAt: event.start_at

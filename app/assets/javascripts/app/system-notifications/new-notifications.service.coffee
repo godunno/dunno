@@ -6,8 +6,11 @@ NewNotifications = ($rootScope, SystemNotification) ->
 
   getCount = -> count
 
-  $rootScope.$on '$stateChangeStart', ->
+  checkNewNotifications = ->
     SystemNotification.newNotifications().then(setCount)
+
+  $rootScope.$on 'checkNewNotifications', checkNewNotifications
+  $rootScope.$on '$stateChangeStart', checkNewNotifications
 
   getCount: getCount
 

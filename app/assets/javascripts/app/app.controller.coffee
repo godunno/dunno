@@ -14,7 +14,6 @@ ApplicationCtrl = (
     event.preventDefault() if NonLoggedRoutes.isNonLoggedRoute()
 
   $rootScope.$on "$stateChangeStart", (evt, toState, toParams, fromState, fromParams) ->
-    return unless fromState? && toState?
     if fromState.name == "" && toState.name.startsWith('panel.')
       evt.preventDefault()
       $state.go("app.courses").then ->

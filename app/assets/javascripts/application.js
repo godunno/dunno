@@ -23,7 +23,10 @@
 //= require angular-moment
 //= require angulartics
 //= require ui-router
-//= require ui-router-extras
+//= require ui-router-extras/modular/ct-ui-router-extras.core
+//= require ui-router-extras/modular/ct-ui-router-extras.sticky
+//= require ui-router-extras/modular/ct-ui-router-extras.previous
+//= require ui-router-extras/modular/ct-ui-router-extras.transition
 //= require angular-ui-router-title/angular-ui-router-title
 //= require initial.js
 //= require foundation-apps-js

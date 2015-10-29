@@ -47,9 +47,10 @@ describe 'SystemNotificationsCtrl', ->
   it "zeroes the new notifications count", ->
     spyOn($scope, '$emit')
     $httpBackend.flush()
-    expect($scope.$emit).toHaveBeenCalledWith('$stateChangeStart')
+    expect($scope.$emit).toHaveBeenCalledWith('checkNewNotifications')
 
   it "marks all as read", ->
+    $httpBackend.flush()
     $httpBackend
       .expectPOST('/api/v1/system_notifications/mark_all_as_read')
       .respond(200, '')
