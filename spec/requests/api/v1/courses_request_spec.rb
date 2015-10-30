@@ -13,13 +13,15 @@ describe Api::V1::CoursesController do
 
   describe "GET /api/v1/courses.json" do
     let!(:another_course) { create(:course) }
+    let!(:blocked_course) { create(:course, students: [student]) }
 
     def do_action
-      get "/api/v1/courses.json", auth_params(teacher)
+      get "/api/v1/courses.json", auth_params(student)
     end
 
     before(:each) do
       course.save!
+      student.block_in!(blocked_course)
       do_action
     end
 
@@ -42,7 +44,7 @@ describe Api::V1::CoursesController do
           "access_code" => course.access_code,
           "institution" => course.institution,
           "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
-          "user_role" => "teacher",
+          "user_role" => "student",
           "students_count" => course.students.count,
           "teacher" => { "name" => teacher.name, "avatar_url" => nil },
           "weekly_schedules" => [

@@ -147,4 +147,13 @@ describe Profile, type: :model do
       expect { other_profile.unblock_in!(course) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
+
+  describe "#courses" do
+    let(:student) { create(:profile) }
+    let(:course) { create(:course, students: [student]) }
+    it "doesn't show blocked courses" do
+      student.block_in!(course)
+      expect(student.courses).to eq []
+    end
+  end
 end

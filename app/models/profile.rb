@@ -1,7 +1,9 @@
 class Profile < ActiveRecord::Base
   has_one :user
   has_many :memberships, dependent: :destroy
-  has_many :courses, through: :memberships
+  has_many :courses,
+           -> { includes(:memberships).where('memberships.role != ?', 'blocked') },
+           through: :memberships
   has_many :events, through: :courses
   has_many :medias, dependent: :destroy
   has_many :system_notifications, dependent: :destroy
