@@ -214,5 +214,9 @@ pt-BR:
 
   pundit:
     course_policy:
-      search?: &course_policy_search 'Você já faz parte desta disciplina.'
-      register?: *course_policy_search
+      search?:
+        already_registered: 'Você já faz parte desta disciplina.'
+        blocked: 'Você foi bloqueado dessa disciplina'
+      register?:
+        already_registered: 'Você já faz parte desta disciplina.'
+        blocked: 'Você foi bloqueado dessa disciplina'

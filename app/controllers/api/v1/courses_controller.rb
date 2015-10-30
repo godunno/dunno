@@ -83,9 +83,10 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def rescue_unauthorized(exception)
     policy_name = exception.policy.class.to_s.underscore
+    error = current_profile.blocked_in?(@course) ? 'blocked' : 'already_registered'
     render json: {
       errors: {
-        unprocessable: t("#{policy_name}.#{exception.query}", scope: "pundit")
+        unprocessable: t("#{policy_name}.#{exception.query}.#{error}", scope: "pundit")
       }
     }, status: 422
   end

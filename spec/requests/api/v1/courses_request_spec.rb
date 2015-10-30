@@ -496,6 +496,25 @@ describe Api::V1::CoursesController do
 
         it { expect(last_response.status).to eq 422 }
       end
+
+      context "blocked from course" do
+        def do_action
+          get "/api/v1/courses/#{course.access_code}/search.json", auth_params(student)
+        end
+
+        before do
+          student.block_in!(course)
+          do_action
+        end
+
+        it do
+          expect(json).to eq(
+            "errors" => { "unprocessable" => "Você foi bloqueado dessa disciplina" }
+          )
+        end
+
+        it { expect(last_response.status).to eq 422 }
+      end
     end
   end
 end
