@@ -59,6 +59,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   def block
     authorize course
     student.block_in!(course)
+    BlockedNotification.new(course, student).deliver
     render nothing: true
   end
 

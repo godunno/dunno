@@ -41,6 +41,13 @@ resource "SystemNotifications" do
              notifiable: event
     end
 
+    let!(:blocked_notification) do
+      create :system_notification, :blocked,
+             profile: profile,
+             created_at: 3.hours.ago,
+             notifiable: course
+    end
+
     let!(:notification_from_himself) do
       create :system_notification, :event_published,
              author: profile,
@@ -105,6 +112,19 @@ resource "SystemNotifications" do
               uuid: course.uuid,
               name: course.name
             }
+          }
+        },
+        {
+          id: blocked_notification.id,
+          notification_type: 'blocked',
+          created_at: blocked_notification.created_at.utc.iso8601,
+          read_at: nil,
+          author: {
+            name: blocked_notification.author.name,
+            avatar_url: blocked_notification.author.avatar_url
+          },
+          notifiable: {
+            name: course.name
           }
         }
       ]

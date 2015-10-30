@@ -24,6 +24,16 @@ resource "Courses" do
       example_request "should have blocked student" do
         expect(student.reload.blocked_in?(course)).to be true
       end
+
+      example "generates a SystemNotification for the student" do
+        deliverer = double("BlockedNotification", deliver: nil)
+        expect(BlockedNotification)
+          .to receive(:new).with(course, student).and_return(deliverer)
+
+        do_request
+
+        expect(deliverer).to have_received(:deliver)
+      end
     end
 
     context "trying to block himself" do
@@ -36,12 +46,19 @@ resource "Courses" do
           }
         )
       end
+
+      example "doesn't generate a SystemNotification" do
+        expect(BlockedNotification).not_to receive(:new)
+        do_request
+      end
     end
 
     context "trying to block someone who's not in the course" do
-      let(:student_id) { create(:profile).id }
+      let(:other_profile) { create(:profile) }
+      let(:student_id) { other_profile.id }
 
       example "should not be able to block" do
+        expect(BlockedNotification).not_to receive(:new)
         expect { do_request }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
