@@ -56,6 +56,18 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     rescue_unauthorized(exception)
   end
 
+  def block
+    authorize course
+    student.block_in!(course)
+    render nothing: true
+  end
+
+  def unblock
+    authorize course
+    student.unblock_in!(course)
+    render nothing: true
+  end
+
   private
 
   def track_student_joining_course
@@ -86,5 +98,9 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
       .require(:course)
       .permit(:name, :start_date, :end_date, :class_name, :institution)
       .merge(teacher: current_profile)
+  end
+
+  def student
+    Profile.find(params[:course][:student_id])
   end
 end

@@ -20,6 +20,16 @@
           | {{members.length}}
       .members__list
         .member ng-repeat="member in members | orderBy:'name'"
+          a.block-member[
+            if-teacher=true
+            ng-if="member.role == 'student'"
+            ng-click="vm.block(member)"]
+            | Bloquear
+          a.unblock-member[
+            if-teacher=true
+            ng-if="member.role == 'blocked'"
+            ng-click="vm.unblock(member)"]
+            | Desbloquear
           .member__name
             img.avatar user-avatar="member"
             | {{member.name}}

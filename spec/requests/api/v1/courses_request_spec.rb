@@ -54,8 +54,8 @@ describe Api::V1::CoursesController do
           ],
           "members_count" => 2,
           "members" => [
-            { "name" => "Teacher", "role" => "teacher", "avatar_url" => nil },
-            { "name" => "Student", "role" => "student", "avatar_url" => nil }
+            { "id" => teacher.id, "name" => "Teacher", "role" => "teacher", "avatar_url" => nil },
+            { "id" => student.id, "name" => "Student", "role" => "student", "avatar_url" => nil }
           ]
         }])
       end
@@ -112,8 +112,8 @@ describe Api::V1::CoursesController do
               ],
               "members_count" => 2,
               "members" => [
-                { "name" => "Teacher", "role" => "teacher", "avatar_url" => nil },
-                { "name" => "Student", "role" => "student", "avatar_url" => nil }
+                { "id" => teacher.id, "name" => "Teacher", "role" => "teacher", "avatar_url" => nil },
+                { "id" => student.id, "name" => "Student", "role" => "student", "avatar_url" => nil }
               ],
               "user_role" => role
             )
@@ -472,6 +472,7 @@ describe Api::V1::CoursesController do
             "weekly_schedules" => [],
             "members_count" => 1,
             "members" => [{
+              "id" => teacher.id,
               "name" => "Teacher",
               "role" => "teacher",
               "avatar_url" => nil

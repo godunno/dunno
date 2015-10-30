@@ -101,4 +101,50 @@ describe Profile, type: :model do
         .to raise_error(ActiveRecord::RecordInvalid)
     end
   end
+
+  describe "#block_in!" do
+    let(:course) { create(:course, teacher: teacher, students: [student]) }
+    let(:teacher) { create(:profile) }
+    let(:student) { create(:profile) }
+    let(:other_profile) { create(:profile) }
+
+    it do
+      student.block_in!(course)
+      expect(student.blocked_in?(course)).to be true
+    end
+
+    it do
+      expect { teacher.block_in!(course) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(teacher.blocked_in?(course)).to be false
+    end
+
+    it do
+      expect { other_profile.block_in!(course) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect(other_profile.blocked_in?(course)).to be nil
+    end
+  end
+
+  describe "#unblock_in!" do
+    let(:course) { create(:course, teacher: teacher, students: [blocked_student]) }
+    let(:teacher) { create(:profile) }
+    let(:blocked_student) { create(:profile) }
+    let(:other_profile) { create(:profile) }
+
+    before do
+      blocked_student.block_in!(course)
+    end
+
+    it do
+      blocked_student.unblock_in!(course)
+      expect(blocked_student.blocked_in?(course)).to be false
+    end
+
+    it do
+      expect { teacher.unblock_in!(course) }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it do
+      expect { other_profile.unblock_in!(course) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 end
