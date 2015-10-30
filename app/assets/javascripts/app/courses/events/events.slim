@@ -1,9 +1,7 @@
 .events
   .events__navigation
     .events__navigation__previous
-      a[
-        ui-sref="{month: vm.previousMonth}"
-        ui-sref-opts="{reload:true}"]
+      a ui-sref="{month: vm.previousMonth}"
         i.icon.icon-left>
         span
           | {{vm.previousMonth | amDateFormat:'MMM/YY'}}
@@ -11,9 +9,7 @@
       span
         | {{vm.currentMonth | amDateFormat:'MMM/YY'}}
     .events__navigation__next
-      a[
-        ui-sref="{month: vm.nextMonth}"
-        ui-sref-opts="{reload:true}"]
+      a ui-sref="{month: vm.nextMonth}"
         span
           | {{vm.nextMonth | amDateFormat:'MMM/YY'}}
         i.icon.icon-right<
@@ -56,12 +52,19 @@
                 i.icon.icon-room
                 b
                   | {{event.classroom}}
-            .event__actions
-              a.event__edit[
-                if-teacher=true
-                ng-click="vm.track(event)"
-                ui-sref="^.event({ startAt: event.start_at })"]
-                | abrir no diário
+            .event__actions if-teacher=true
+              zf-action-sheet
+                zf-as-button
+                  a.event__actions__show
+                    i.icon.icon-more-vert
+                zf-as-content position="bottom"
+                  ul
+                    li
+                      a[
+                        ng-click="vm.track(event)"
+                        ui-sref="^.event({ startAt: event.start_at })"]
+                        i.icon.icon-event>
+                        | abrir aula no diário
           .event__content ng-class="'event__status__' + event.status"
             .event__item.event__empty ng-if="event.topics.length == 0 && event.status != 'canceled'"
               | Nenhum conteúdo disponível para esse dia.

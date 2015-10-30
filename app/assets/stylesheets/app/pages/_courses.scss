@@ -1,4 +1,17 @@
 .course {
+  position: relative;
+
+  &__actions {
+    position: absolute;
+    right: 1rem;
+    top: .5rem;
+
+    a {
+      color: $dunno-dark-color;
+      padding: 0 .5rem;
+    }
+  }
+
   &s {
     @include grid-block();
     @include grid-layout(1);
@@ -14,8 +27,6 @@
 
     .course__card:hover {
       @include box-shadow(0, .125rem, 0, $dark-grey-color);
-      position: relative;
-      top: -.0625rem;
     }
 
     &__page {
@@ -28,7 +39,6 @@
     }
 
     &__inactive {
-      @include grid-container();
       padding: 2rem 0;
 
       &__info {
@@ -64,33 +74,6 @@
     @extend %card;
   }
 
-  &__inactive {
-    display: flex;
-    margin-bottom: 2rem;
-    padding: 0;
-
-    @include breakpoint(small only) {
-      flex-wrap: wrap;
-    }
-
-    &__dates,
-    &__info {
-      padding-right: .5rem;
-    }
-
-    &__dates {
-      white-space: nowrap;
-    }
-
-    &__info {
-      flex-basis: 100%;
-
-      @include breakpoint(small only) {
-        margin-bottom: 1rem;
-      }
-    }
-  }
-
   &__date {
     display: flex;
     flex-wrap: wrap;
@@ -119,4 +102,10 @@
   text-align: center;
   top: -2rem;
   width: 100%;
+
+  @include breakpoint(small only) {
+    display: block;
+    margin-top: 1rem;
+    position: static;
+  }
 }

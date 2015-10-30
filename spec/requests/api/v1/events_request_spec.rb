@@ -17,6 +17,8 @@ describe Api::V1::EventsController do
     after { Timecop.return }
 
     context "existing event" do
+      let!(:comment) { create(:comment, event: event, created_at: 2.hours.ago) }
+      let!(:removed_comment) { create(:comment, event: event, removed_at: Time.current) }
       let(:topic) { create(:topic) }
       let(:topic_with_url) { create(:topic, media: media_with_url) }
       let(:topic_with_file) { create(:topic, media: media_with_file) }
@@ -53,11 +55,13 @@ describe Api::V1::EventsController do
 
       subject { json }
       let(:event_json) { json }
+      let(:event_start_at) { start_at.utc.iso8601 }
 
       it { expect(last_response.status).to eq(200) }
 
       def do_action
-        get "/api/v1/events/#{start_at.utc.iso8601}.json", { course_id: course.uuid }.merge(auth_params(profile))
+        get "/api/v1/events/#{event_start_at}.json",
+            { course_id: course.uuid }.merge(auth_params(profile))
       end
 
       before(:each) do
@@ -131,6 +135,37 @@ describe Api::V1::EventsController do
             let(:target) { media_with_url }
             subject { topic_json["media"] }
             it_behaves_like "request return check", %w(title description url uuid type thumbnail)
+          end
+        end
+
+        describe "comments" do
+          it do
+            expect(json["comments"]).to eq [
+              {
+                "id" => comment.id,
+                "body" => comment.body,
+                "event_start_at" => event.start_at.iso8601(3),
+                "created_at" => comment.created_at.iso8601(3),
+                "user" => {
+                  "name" => comment.profile.name,
+                  "avatar_url" => nil,
+                  "id" => comment.profile.user.id
+                },
+                "attachments" => [],
+                "removed_at" => nil
+              },
+              {
+                "id" => removed_comment.id,
+                "event_start_at" => event.start_at.iso8601(3),
+                "created_at" => removed_comment.created_at.iso8601(3),
+                "user" => {
+                  "name" => removed_comment.profile.name,
+                  "avatar_url" => nil,
+                  "id" => removed_comment.profile.user.id
+                },
+                "removed_at" => removed_comment.removed_at.iso8601(3)
+              }
+            ]
           end
         end
       end

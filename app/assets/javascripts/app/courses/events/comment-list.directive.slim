@@ -1,5 +1,13 @@
 .comment__list ng-if="vm.event.comments.length"
-  .comment__item ng-repeat="comment in vm.event.comments" scroll-to-when="vm.commentSelected(comment)" ng-class="{highlight: vm.commentSelected(comment)}"
+  .comment__item[
+    ng-repeat="comment in vm.event.comments"
+    scroll-to-when="vm.commentSelected(comment)"
+    ng-class="{highlight: vm.commentSelected(comment)}"
+    cg-busy="comment._loading"]
+    a.comment__delete[
+      ng-click="vm.removeComment(comment)"
+      ng-if="vm.canRemoveComment(comment)"]
+      | ×
     .comment__user
       img.comment__user__avatar.avatar user-avatar="comment.user"
       .comment__user__name
@@ -7,7 +15,14 @@
     a.comment__time[
       am-time-ago="comment.created_at"
       ui-sref="{commentId: comment.id, startAt: vm.event.start_at}"]
-    .comment__body ng-bind-html="comment.body | linky:'_blank'"
+    .comment__body ng-class="{ removed: !!comment.removed_at }"
+      span[
+        ng-bind-html="comment.body | linky:'_blank'"
+        ng-if="!comment.removed_at"]
+      small[
+        ng-if="!!comment.removed_at"]
+        | [removido]
+        span< am-time-ago="comment.removed_at"
     .comment__attachments
       .attachment ng-repeat="attachment in comment.attachments"
         strong.attachment__name>

@@ -14,6 +14,11 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
     end
   end
 
+  def destroy
+    authorize comment
+    comment.update!(removed_at: Time.current)
+  end
+
   private
 
   def event_start_at
@@ -26,5 +31,9 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
 
   def course
     Course.find_by_identifier!(params[:comment][:course_id])
+  end
+
+  def comment
+    @comment ||= Comment.find(params[:id])
   end
 end

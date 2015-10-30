@@ -65,6 +65,7 @@ resource "Comments" do
           created_at: Time.current.iso8601(3),
           body: body,
           id: comment.id,
+          removed_at: nil,
           user: {
             name: teacher.name,
             avatar_url: nil,
@@ -96,6 +97,47 @@ resource "Comments" do
             body: [I18n.t('errors.messages.blank')]
           }
         )
+      end
+    end
+  end
+
+  delete "/api/v1/comments/:id.json" do
+    let(:id) { comment.id }
+
+    let(:raw_post) { params.to_json }
+
+    before { Timecop.freeze }
+    after { Timecop.return }
+
+    context "deleting own comment" do
+      let!(:comment) { create(:comment, profile: teacher) }
+
+      example_request "removes a comment" do
+        expect(comment.reload).to be_removed
+      end
+
+      example_request "returns the updated comment" do
+        expect(json).to eq(
+          comment: {
+            event_start_at: comment.event.start_at.iso8601(3),
+            created_at: Time.current.iso8601(3),
+            id: comment.id,
+            removed_at: Time.current.iso8601(3),
+            user: {
+              name: comment.profile.name,
+              avatar_url: nil,
+              id: comment.profile.user.id
+            }
+          }
+        )
+      end
+    end
+
+    context "trying to remove other person's comment" do
+      let!(:comment) { create(:comment) }
+
+      example "removes a comment" do
+        expect { do_request }.to raise_error(Pundit::NotAuthorizedError)
       end
     end
   end
