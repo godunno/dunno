@@ -7,7 +7,8 @@ courseActions = ->
       course.user_role == 'teacher'
 
     $scope.unregister = (course) ->
-      PageLoading.resolve course.unregister().then -> $state.reload()
+      PageLoading.resolve course.unregister().then ->
+        $state.go($state.current.name, $state.params, { reload: true })
 
     $scope.openEditCourseForm = (course) ->
       new ModalFactory
