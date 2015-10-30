@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe Comment, type: :model do
+  let(:comment) { build(:comment) }
+
   describe "associations" do
     it { is_expected.to belong_to :profile }
     it { is_expected.to belong_to :event }
@@ -17,5 +19,12 @@ RSpec.describe Comment, type: :model do
     let(:comment) { create(:comment) }
 
     it { expect(comment.event_start_at).to eq comment.event.start_at }
+  end
+
+  it "knows if it's removed" do
+    expect(comment).not_to be_removed
+
+    comment.removed_at = Time.current
+    expect(comment).to be_removed
   end
 end

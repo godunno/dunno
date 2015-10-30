@@ -10,7 +10,10 @@ class CommentPolicy < ApplicationPolicy
   end
 
   alias_method :update?, :create?
-  alias_method :destroy?, :create?
+
+  def destroy?
+    record.profile == profile
+  end
 
   private
 
