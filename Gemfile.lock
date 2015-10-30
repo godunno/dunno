@@ -397,7 +397,7 @@ GEM
       rails-assets-angular
     rails-assets-greensock (1.17.0)
     rails-assets-jquery (2.1.4)
-    rails-assets-jquery-timepicker-jt (1.8.1)
+    rails-assets-jquery-timepicker-jt (1.8.3)
       rails-assets-jquery (>= 1.7)
     rails-assets-lunks--angulartics (0.18.0)
       rails-assets-SHA-1
@@ -409,7 +409,7 @@ GEM
       rails-assets-moment (>= 1)
     rails-assets-moment-timezone (0.4.0)
       rails-assets-moment (>= 2.6.0)
-    rails-assets-mrodrigues--angular-jquery-timepicker (0.6.1)
+    rails-assets-mrodrigues--angular-jquery-timepicker (0.6.2)
       rails-assets-angular (>= 1.2)
       rails-assets-jquery-timepicker-jt (>= 1.2)
     rails-assets-mrodrigues--angular-mighty-datepicker (0.0.18)
@@ -661,7 +661,7 @@ DEPENDENCIES
   rails-assets-lunks--angulartics (= 0.18.0)!
   rails-assets-modernizr (= 2.8.3)!
   rails-assets-moment-timezone (= 0.4.0)!
-  rails-assets-mrodrigues--angular-jquery-timepicker (= 0.6.1)!
+  rails-assets-mrodrigues--angular-jquery-timepicker (= 0.6.2)!
   rails-assets-mrodrigues--angular-mighty-datepicker (= 0.0.18)!
   rails-assets-ng-file-upload (= 8.0.4)!
   rails-assets-ng-file-upload-shim (= 8.0.4)!
