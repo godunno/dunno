@@ -17,7 +17,7 @@ CourseMembersCtrl = (course, ModalFactory, PageLoading) ->
     rolesInPortuguese =
       teacher: 'Professor'
       student: 'Estudante'
-      blocked: 'Bloqueado(a)'
+      blocked: 'Bloqueado'
     rolesInPortuguese[role]
 
   @openInviteMembers = ->
@@ -32,8 +32,9 @@ CourseMembersCtrl = (course, ModalFactory, PageLoading) ->
 
   @block = (member) ->
     message = """
-      Tem certeza que deseja bloquear esse(a) estudante?
-      Ele não terá mais acesso à disciplina.
+      Atenção:
+      Ao bloquear o acesso, esse(a) estudante não irá mais acessar a disciplina e seu conteúdo.
+      Tem certeza que deseja prosseguir?s
     """
     return unless confirm(message)
     PageLoading.resolve(course.block(member.id)).then ->
