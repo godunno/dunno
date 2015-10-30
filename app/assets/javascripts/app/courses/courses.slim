@@ -3,7 +3,7 @@ ui-view.courses__page
     .page__title__wrapper
       h1.page__title__title
       .page__title__actions
-        a ui-sref="courses.search"
+        a ui-sref="app.courses.search"
           | Entrar em uma disciplina
         span<>
           | ou
@@ -19,7 +19,7 @@ ui-view.courses__page
           h5
             | Serei estudante
           p
-            | <a ui-sref="courses.search">Entrar em uma disciplina</a>
+            | <a ui-sref="app.courses.search">Entrar em uma disciplina</a>
         p
         .courses__blankslate__as__teacher
           h5
@@ -38,5 +38,5 @@ ui-view.courses__page
         ng-pluralize
         count="vm.inactiveCourses.length"
         when="{'1': 'disciplina arquivada.', 'other': 'disciplinas arquivadas.'}"]
-      a< ui-sref="courses.inactive"
+      a< ui-sref="app.courses.inactive"
         | Ver disciplinas arquivadas.

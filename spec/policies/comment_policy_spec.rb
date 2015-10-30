@@ -32,4 +32,11 @@ describe CommentPolicy do
       end
     end
   end
+
+  permissions :destroy? do
+    let(:comment) { create(:comment) }
+
+    it { is_expected.to permit(comment.profile, comment) }
+    it { is_expected.not_to permit(anyone, comment) }
+  end
 end

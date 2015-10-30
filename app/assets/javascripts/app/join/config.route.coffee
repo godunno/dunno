@@ -3,12 +3,12 @@ setupJoinRoutes = (
   CourseRegistrationResolver) ->
 
   $stateProvider
-    .state 'courses.search',
+    .state 'app.courses.search',
       url: '/search'
       controller: 'CourseSearchCtrl'
       templateUrl: 'join/course-join'
 
-    .state 'courses.confirm_registration',
+    .state 'app.courses.confirm_registration',
       url: '/:id/confirm_registration'
       controller: 'CourseConfirmRegistrationCtrl'
       templateUrl: 'join/course-confirm'
