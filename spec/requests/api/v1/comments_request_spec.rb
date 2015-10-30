@@ -69,7 +69,7 @@ resource "Comments" do
           user: {
             name: teacher.name,
             avatar_url: nil,
-            id: teacher.user.id
+            id: teacher.id
           },
           attachments: [
             id: attachment.id,
@@ -126,7 +126,7 @@ resource "Comments" do
             user: {
               name: comment.profile.name,
               avatar_url: nil,
-              id: comment.profile.user.id
+              id: comment.profile.id
             }
           }
         )

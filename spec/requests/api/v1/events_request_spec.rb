@@ -149,7 +149,7 @@ describe Api::V1::EventsController do
                 "user" => {
                   "name" => comment.profile.name,
                   "avatar_url" => nil,
-                  "id" => comment.profile.user.id
+                  "id" => comment.profile.id
                 },
                 "attachments" => [],
                 "removed_at" => nil
@@ -161,7 +161,7 @@ describe Api::V1::EventsController do
                 "user" => {
                   "name" => removed_comment.profile.name,
                   "avatar_url" => nil,
-                  "id" => removed_comment.profile.user.id
+                  "id" => removed_comment.profile.id
                 },
                 "removed_at" => removed_comment.removed_at.iso8601(3)
               }
@@ -217,7 +217,12 @@ describe Api::V1::EventsController do
               "classroom" => weekly_schedule.classroom
             ],
             "members_count" => 1,
-            "members" => ["name" => profile.name, "role" => "teacher", "avatar_url" => nil]
+            "members" => [
+              "id" => profile.id,
+              "name" => profile.name,
+              "role" => "teacher",
+              "avatar_url" => nil
+            ]
           },
           "topics" => []
         )

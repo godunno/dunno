@@ -56,8 +56,18 @@ describe Api::V1::CoursesController do
           ],
           "members_count" => 2,
           "members" => [
-            { "id" => teacher.id, "name" => "Teacher", "role" => "teacher", "avatar_url" => nil },
-            { "id" => student.id, "name" => "Student", "role" => "student", "avatar_url" => nil }
+            {
+              "id" => teacher.id,
+              "name" => "Teacher",
+              "role" => "teacher",
+              "avatar_url" => nil
+            },
+            {
+              "id" => student.id,
+              "name" => "Student",
+              "role" => "student",
+              "avatar_url" => nil
+            }
           ]
         }])
       end
@@ -114,8 +124,18 @@ describe Api::V1::CoursesController do
               ],
               "members_count" => 2,
               "members" => [
-                { "id" => teacher.id, "name" => "Teacher", "role" => "teacher", "avatar_url" => nil },
-                { "id" => student.id, "name" => "Student", "role" => "student", "avatar_url" => nil }
+                {
+                  "id" => teacher.id,
+                  "name" => "Teacher",
+                  "role" => "teacher",
+                  "avatar_url" => nil
+                },
+                {
+                  "id" => student.id,
+                  "name" => "Student",
+                  "role" => "student",
+                  "avatar_url" => nil
+                }
               ],
               "user_role" => role
             )

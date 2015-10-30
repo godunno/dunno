@@ -165,6 +165,12 @@ describe 'system-notification directive', ->
       compile()
 
     it "links to the courses page", inject ($timeout, $state, $stateParams) ->
+      $state.go('app.courses.inactive')
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
       element.find('a.system__notification').click()
 
       $scope.$apply()

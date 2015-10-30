@@ -25,32 +25,26 @@ describe Membership do
     end
 
     it "allows to block student" do
-      membership = Membership.create!(
-                     course: course,
-                     profile: profile,
-                     role: 'student'
-                   )
+      membership = Membership.create! course: course,
+                                      profile: profile,
+                                      role: 'student'
       membership.update(role: 'blocked')
       expect(membership).to be_valid
     end
 
     it "doesn't allow to block teacher" do
-      membership = Membership.create!(
-                     course: course,
-                     profile: profile,
-                     role: 'teacher'
-                   )
+      membership = Membership.create! course: course,
+                                      profile: profile,
+                                      role: 'teacher'
       membership.update(role: 'blocked')
       expect(membership).not_to be_valid
       expect(membership.errors.details).to include(role: [error: :is_teacher])
     end
 
     it "doesn't allow to turn teacher to student" do
-      membership = Membership.create!(
-                     course: course,
-                     profile: profile,
-                     role: 'teacher'
-                   )
+      membership = Membership.create! course: course,
+                                      profile: profile,
+                                      role: 'teacher'
       membership.update(role: 'student')
       expect(membership).not_to be_valid
       expect(membership.errors.details).to include(role: [error: :is_teacher])
