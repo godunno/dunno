@@ -1,5 +1,5 @@
 a.system__notification[
-  ng-click="vm.trackAndMarkAsRead()"
+  ng-click="vm.trackAndMarkAsRead() && vm.reload()"
   ng-class="{'system__notification__unread': !vm.notification.read_at}"
   ui-sref="app.courses"]
   img.avatar.system__notification__author__avatar user-avatar="vm.notification.author"

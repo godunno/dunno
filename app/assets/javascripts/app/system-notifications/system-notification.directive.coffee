@@ -1,5 +1,5 @@
 systemNotification = ($compile, $templateCache) ->
-  systemNotificationCtrl = (AnalyticsTracker) ->
+  systemNotificationCtrl = ($state, AnalyticsTracker) ->
     vm = this
     markAsRead = ->
       vm.notification.get().then (notification) ->
@@ -12,9 +12,12 @@ systemNotification = ($compile, $templateCache) ->
       trackClick()
       markAsRead()
 
+    vm.reload = ->
+      $state.go($state.current.name, $state.params, { reload: true })
+
     vm
 
-  systemNotificationCtrl.$inject = ['AnalyticsTracker']
+  systemNotificationCtrl.$inject = ['$state', 'AnalyticsTracker']
 
   controller: systemNotificationCtrl
   controllerAs: 'vm'
