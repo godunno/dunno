@@ -1,0 +1,36 @@
+.catalog.grid-container
+  .catalog__search
+    input type='search' placeholder='Buscar por arquivo ou link'
+    i.icon.icon-search
+  .catalog__items
+    - 10.times do |i|
+      - if i % 2 == 0
+        / file
+        .catalog__item.course__catalog__item__file
+          .catalog__item__info
+            i.catalog__item__type.icon.icon-file
+            strong.catalog__item__name>
+              | Nome do Arquivo
+            span.catalog__item__date__added>
+              | adicionado há alguns segundos
+          .catalog__item__actions
+            a.catalog__item__download href='#'
+              i.icon.icon-download
+              | baixar arquivo
+            a.catalog__item__more__actions
+              i.icon.icon-more-horiz
+              / remove, edit
+      - else
+        / link
+        .catalog__item.catalog__item__link
+          .catalog__item__info
+            i.catalog__item__type.icon.icon-link>
+            strong.catalog__item__name>
+              a href='#' target='_blank'
+                | http://google.com
+            span.catalog__item__date__added
+              | adicionado há 3 dias atrás
+          .catalog__item__actions
+            a.catalog__item__more__actions
+              i.icon.icon-more-horiz
+              / only remove (since we can't edit its url)

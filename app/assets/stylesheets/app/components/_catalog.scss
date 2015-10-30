@@ -149,3 +149,61 @@
     }
   }
 }
+
+.catalog {
+  @extend %content__box;
+  @include grid-container();
+  padding: 1rem;
+
+  &__search {
+    position: relative;
+
+    input {
+      padding-left: 2rem;
+    }
+
+    .icon {
+      color: $medium-grey-color;
+      left: .5rem;
+      position: absolute;
+      top: .5rem;
+    }
+  }
+
+  &__item {
+    @include grid-block();
+    border-bottom: $divider;
+    padding: 1rem 0;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &__actions {
+      margin-left: auto;
+    }
+
+    &__more__actions {
+      color: $dunno-dark-color;
+      margin-left: .5rem;
+
+      &:hover {
+        color: lighten($dunno-dark-color, 10%);
+      }
+    }
+
+    &__type {
+      background: $dark-grey-color;
+      border-radius: 50%;
+      color: $light-grey-color;
+      display: inline-block;
+      font-size: 1.25rem;
+      height: 2rem;
+      line-height: 2.3rem;
+      margin-right: .25rem;
+      text-align: center;
+      vertical-align: middle;
+      width: 2rem;
+    }
+  }
+}
