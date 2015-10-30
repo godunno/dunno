@@ -29,6 +29,7 @@ ui-view.courses__page
               | Criar disciplina
     .courses ng-if="vm.activeCourses.length"
       .course ng-repeat="course in vm.activeCourses"
+        course-actions
         course-link course="course" page="Active Courses List"
           course-card
     .courses__inactive__info ng-if="vm.inactiveCourses.length"
