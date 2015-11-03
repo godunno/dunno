@@ -1,1 +1,1 @@
-json.(course, :name)
+json.(course, :uuid, :name)

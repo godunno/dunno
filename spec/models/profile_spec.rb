@@ -154,6 +154,7 @@ describe Profile, type: :model do
     it "doesn't show blocked courses" do
       student.block_in!(course)
       expect(student.courses).to eq []
+      expect(student.courses_with_blocked).to eq [course]
     end
   end
 end

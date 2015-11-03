@@ -124,6 +124,7 @@ resource "SystemNotifications" do
             avatar_url: blocked_notification.author.avatar_url
           },
           notifiable: {
+            uuid: course.uuid,
             name: course.name
           }
         }

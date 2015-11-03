@@ -160,12 +160,13 @@ describe 'system-notification directive', ->
 
   describe "notification for blocked", ->
     beforeEach ->
+      $httpBackend.whenGET("/api/v1/events?course_id=#{course.uuid}").respond(403)
       systemNotification.notification_type = 'blocked'
       systemNotification.notifiable = course
       compile()
 
     it "links to the courses page", inject ($timeout, $state, $stateParams) ->
-      $state.go('app.courses.inactive')
+      $state.go('app.courses')
 
       $scope.$apply()
       $timeout.flush()
