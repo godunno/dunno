@@ -245,7 +245,10 @@ describe Api::V1::EventsController do
           }
         end
 
-        it { expect { do_action }.to raise_error(Pundit::NotAuthorizedError) }
+        it do
+          do_action
+          expect(last_response.status).to be 403
+        end
       end
 
       skip "trying to create event on another profile's course"

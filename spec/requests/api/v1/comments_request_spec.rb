@@ -136,8 +136,8 @@ resource "Comments" do
     context "trying to remove other person's comment" do
       let!(:comment) { create(:comment) }
 
-      example "removes a comment" do
-        expect { do_request }.to raise_error(Pundit::NotAuthorizedError)
+      example_request "removes a comment" do
+        expect(response_status).to be 403
       end
     end
   end

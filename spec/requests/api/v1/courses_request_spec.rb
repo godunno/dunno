@@ -85,8 +85,6 @@ describe Api::V1::CoursesController do
         course.reload
       end
 
-      after { Timecop.return }
-
       def do_action(parameters = {})
         get "/api/v1/courses/#{identifier}.json", auth_params(profile).merge(parameters)
       end
@@ -177,6 +175,19 @@ describe Api::V1::CoursesController do
     context "as student" do
       let(:profile) { student }
       it_behaves_like "get course", 'student'
+
+      context "when blocked" do
+        before do
+          student.block_in!(course)
+          do_action
+        end
+
+        def do_action
+          get "/api/v1/courses/#{course.uuid}.json", auth_params(profile)
+        end
+
+        it { expect(last_response.status).to be 403 }
+      end
     end
   end
 
@@ -275,7 +286,8 @@ describe Api::V1::CoursesController do
       end
 
       it "should not allow to unregister" do
-        expect { do_action }.to raise_error(Pundit::NotAuthorizedError)
+        do_action
+        expect(last_response.status).to be 403
       end
     end
   end

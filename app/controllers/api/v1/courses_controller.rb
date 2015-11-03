@@ -6,7 +6,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   end
 
   def show
-    authorize course
+    authorize course(current_profile.courses_with_blocked)
   end
 
   def create
