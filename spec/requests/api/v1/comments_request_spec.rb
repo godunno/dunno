@@ -2,6 +2,11 @@ require 'spec_helper'
 require 'rspec_api_documentation/dsl'
 
 resource "Comments" do
+  before do
+    # Provoke errors related to id synchrony
+    Profile.create!
+  end
+
   parameter :user_email, "User's email", required: true
   parameter :user_token, "User's authentication_token", required: true
   let(:user_email) { teacher.email }
@@ -30,9 +35,17 @@ resource "Comments" do
     parameter :attachment_ids, "Comment's attachments ids", required: true, scope: :comment
 
     response_field :id, "Comment ID"
-    response_field :profile_id, "Profile who created the comment"
     response_field :event_start_at, "Event starting date time"
     response_field :body, "Comment body"
+    response_field :created_at, "Comment's creation date"
+    response_field :removed_at, "Comment's removal date"
+    response_field :name, "User's name", scope: :user
+    response_field :avatar_url, "User's avatar", scope: :user
+    response_field :id, "User's id", scope: :user
+    response_field :id, "Attachment's id", scope: :attachments
+    response_field :original_filename, "Attachment's filename", scope: :attachments
+    response_field :file_size, "Attachment's file size", scope: :attachments
+    response_field :url, "Attachment's url", scope: :attachments
 
     let(:course_id) { course.uuid }
     let(:event_start_at) { "2015-10-21T14:00:00.000-02:00" }
@@ -69,7 +82,7 @@ resource "Comments" do
           user: {
             name: teacher.name,
             avatar_url: nil,
-            id: teacher.id
+            id: teacher.user.id
           },
           attachments: [
             id: attachment.id,
@@ -126,7 +139,7 @@ resource "Comments" do
             user: {
               name: comment.profile.name,
               avatar_url: nil,
-              id: comment.profile.id
+              id: comment.profile.user.id
             }
           }
         )
