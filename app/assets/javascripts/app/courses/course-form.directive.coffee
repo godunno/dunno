@@ -16,7 +16,7 @@ courseFormCtrl = (
     date?.format('YYYY-MM-DD') || null
 
   success = (course) ->
-    $state.go('.', null, reload: true)
+    $state.go('.', $state.params, reload: true)
     vm.onSave()(course)
 
   failure = (response) ->

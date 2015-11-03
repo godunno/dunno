@@ -8,7 +8,7 @@ courseActions = ->
 
     $scope.unregister = (course) ->
       PageLoading.resolve course.unregister().then ->
-        $state.go($state.current.name, $state.params, { reload: true })
+        $state.go('.', $state.params, reload: true)
 
     $scope.openEditCourseForm = (course) ->
       new ModalFactory
