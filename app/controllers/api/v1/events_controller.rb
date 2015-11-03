@@ -28,7 +28,7 @@ class Api::V1::EventsController < Api::V1::ApplicationController
     authorize event.course
     EventForm.new(event, update_params).update!
     EventStatusNotification.new(event, current_profile).deliver
-    EventCanceledMailer.delay.event_canceled_email(event).deliver if event.was_canceled?
+    EventCanceledMailer.delay.event_canceled_email(event) if event.was_canceled?
     event.reload
     render :show
   end

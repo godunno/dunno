@@ -342,10 +342,9 @@ describe Api::V1::EventsController do
 
           it "delivers email to all members" do
             mail = double("mail", deliver: nil)
-            allow(EventCanceledMailer)
-              .to receive_message_chain(:delay, :event_canceled_email).and_return(mail)
+            expect(EventCanceledMailer)
+              .to receive_message_chain(:delay, :event_canceled_email)
             do_action
-            expect(mail).to have_received(:deliver)
           end
         end
 
