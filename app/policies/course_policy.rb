@@ -1,6 +1,6 @@
 class CoursePolicy < ApplicationPolicy
   def show?
-    profile.has_course?(record)
+    has_course? && !blocked?
   end
 
   def create?
@@ -12,11 +12,11 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def register?
-    !profile.has_course?(record)
+    !has_course? && !blocked?
   end
 
   def unregister?
-    profile.role_in(record) == 'student'
+    profile.role_in(record) == 'student' && !blocked?
   end
 
   alias_method :destroy?, :update?
@@ -24,4 +24,18 @@ class CoursePolicy < ApplicationPolicy
   alias_method :send_notification?, :update?
 
   alias_method :search?, :register?
+
+  alias_method :block?, :update?
+
+  alias_method :unblock?, :update?
+
+  private
+
+  def has_course?
+    profile.has_course?(record)
+  end
+
+  def blocked?
+    profile.blocked_in?(record)
+  end
 end

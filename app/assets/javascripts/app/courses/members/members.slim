@@ -17,9 +17,18 @@
         strong.members__role__name>
           | {{vm.roleName(members)}}
         span.members__count
-          | {{members.length}}
+          | ({{members.length}})
       .members__list
         .member ng-repeat="member in members | orderBy:'name'"
           .member__name
             img.avatar user-avatar="member"
             | {{member.name}}
+          .member__access__toggle if-teacher=true
+            a.member__access__block[
+              ng-if="member.role == 'student'"
+              ng-click="vm.block(member)"]
+              | Bloquear
+            a.member__access__unblock[
+              ng-if="member.role == 'blocked'"
+              ng-click="vm.unblock(member)"]
+              | Desbloquear

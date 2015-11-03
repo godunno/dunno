@@ -13,13 +13,15 @@ describe Api::V1::CoursesController do
 
   describe "GET /api/v1/courses.json" do
     let!(:another_course) { create(:course) }
+    let!(:blocked_course) { create(:course, students: [student]) }
 
     def do_action
-      get "/api/v1/courses.json", auth_params(teacher)
+      get "/api/v1/courses.json", auth_params(student)
     end
 
     before(:each) do
       course.save!
+      student.block_in!(blocked_course)
       do_action
     end
 
@@ -42,7 +44,7 @@ describe Api::V1::CoursesController do
           "access_code" => course.access_code,
           "institution" => course.institution,
           "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
-          "user_role" => "teacher",
+          "user_role" => "student",
           "students_count" => course.students.count,
           "teacher" => { "name" => teacher.name, "avatar_url" => nil },
           "weekly_schedules" => [
@@ -54,8 +56,18 @@ describe Api::V1::CoursesController do
           ],
           "members_count" => 2,
           "members" => [
-            { "name" => "Teacher", "role" => "teacher", "avatar_url" => nil },
-            { "name" => "Student", "role" => "student", "avatar_url" => nil }
+            {
+              "id" => teacher.id,
+              "name" => "Teacher",
+              "role" => "teacher",
+              "avatar_url" => nil
+            },
+            {
+              "id" => student.id,
+              "name" => "Student",
+              "role" => "student",
+              "avatar_url" => nil
+            }
           ]
         }])
       end
@@ -112,8 +124,18 @@ describe Api::V1::CoursesController do
               ],
               "members_count" => 2,
               "members" => [
-                { "name" => "Teacher", "role" => "teacher", "avatar_url" => nil },
-                { "name" => "Student", "role" => "student", "avatar_url" => nil }
+                {
+                  "id" => teacher.id,
+                  "name" => "Teacher",
+                  "role" => "teacher",
+                  "avatar_url" => nil
+                },
+                {
+                  "id" => student.id,
+                  "name" => "Student",
+                  "role" => "student",
+                  "avatar_url" => nil
+                }
               ],
               "user_role" => role
             )
@@ -472,6 +494,7 @@ describe Api::V1::CoursesController do
             "weekly_schedules" => [],
             "members_count" => 1,
             "members" => [{
+              "id" => teacher.id,
               "name" => "Teacher",
               "role" => "teacher",
               "avatar_url" => nil
@@ -488,6 +511,25 @@ describe Api::V1::CoursesController do
         it do
           expect(json).to eq(
             "errors" => { "unprocessable" => "Você já faz parte desta disciplina." }
+          )
+        end
+
+        it { expect(last_response.status).to eq 422 }
+      end
+
+      context "blocked from course" do
+        def do_action
+          get "/api/v1/courses/#{course.access_code}/search.json", auth_params(student)
+        end
+
+        before do
+          student.block_in!(course)
+          do_action
+        end
+
+        it do
+          expect(json).to eq(
+            "errors" => { "unprocessable" => "Você foi bloqueado dessa disciplina" }
           )
         end
 

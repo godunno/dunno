@@ -1,6 +1,6 @@
 core = angular.module('app.core')
 
-core.factory 'Course', ['RailsResource', 'railsSerializer', (RailsResource, railsSerializer)->
+core.factory 'Course', ['RailsResource', 'railsSerializer', (RailsResource, railsSerializer) ->
   class Course extends RailsResource
     @configure(
       url: '/api/v1/courses'
@@ -22,5 +22,12 @@ core.factory 'Course', ['RailsResource', 'railsSerializer', (RailsResource, rail
 
     unregister: ->
       @$delete(@$url('/unregister'))
-]
 
+    block: (studentId) ->
+      @student_id = studentId
+      @$patch(@$url('/block'))
+
+    unblock: (studentId) ->
+      @student_id = studentId
+      @$patch(@$url('/unblock'))
+]

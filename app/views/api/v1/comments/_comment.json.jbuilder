@@ -4,7 +4,5 @@ unless comment.removed?
   json.attachments comment.attachments, partial: 'api/v1/attachments/attachment', as: :attachment
 end
 json.user do
-  json.name comment.profile.name
-  json.avatar_url comment.profile.avatar_url
-  json.id comment.profile.user.id
+  json.(comment.profile, :id, :name, :avatar_url)
 end

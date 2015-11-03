@@ -13,6 +13,6 @@ end
 json.members_count(course.memberships.count)
 
 json.members course.memberships do |membership|
-  json.(membership.profile, :name, :avatar_url)
+  json.(membership.profile, :id, :name, :avatar_url)
   json.(membership, :role)
 end
