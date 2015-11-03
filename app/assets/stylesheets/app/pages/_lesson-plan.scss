@@ -236,24 +236,6 @@
 
   }
 
-  .catalog__medias {
-    border: 0;
-  }
-
-  .catalog__media {
-    .media__select__label {
-      margin-top: .875rem;
-    }
-
-    .media__data {
-      font-size: .875rem;
-    }
-
-    .media__title {
-      line-height: inherit;
-    }
-  }
-
   .type__file {
     p {
       color: $medium-grey-color;
