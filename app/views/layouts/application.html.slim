@@ -33,7 +33,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
           = image_tag 'dunno-logo.png'
           br
           | Copyright © #{Time.zone.now.year}
-    .root
+    .root cg-busy="wholePageLoading"
       header.header__mobile
         .center ng-bind="($title || '')"
         span.left
@@ -71,9 +71,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
               li
                 a ng-click="signOut()"
                   | Sair
-      .content[
-        ui-view=true
-        cg-busy="wholePageLoading"]
+      .content ui-view=true
       footer.footer
         div
           | #{image_tag 'dunno-logo-horizontal.png', class: 'logo'}
