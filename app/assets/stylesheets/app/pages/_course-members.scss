@@ -30,19 +30,6 @@
     padding: 2rem 1rem;
   }
 
-  &__count {
-    @extend %badge;
-    @include badge-layout(
-      $fontsize: 1rem,
-      $diameter: .25em
-    );
-    @include badge-style(
-      $background: $white,
-      $color: $dunno-dark-color
-    );
-    border: $divider;
-  }
-
   &__group {
     margin-top: 2.5rem;
 
@@ -62,6 +49,7 @@
   }
 
   .member {
+    @include grid-block();
     margin-bottom: 1rem;
     padding-bottom: 1rem;
 
@@ -69,6 +57,36 @@
       clear: both;
       content: ' ';
       display: block;
+    }
+
+    &__access {
+      &__toggle {
+        margin-left: auto;
+      }
+
+      &__block,
+      &__unblock {
+        @extend %button;
+        @include button-size($size: tiny);
+      }
+
+      &__block {
+        @include button-style(
+          $background: $red-color,
+          $background-hover: auto,
+          $color: $white,
+          $style: solid
+        );
+      }
+
+      &__unblock {
+        @include button-style(
+          $background: $dunno-green-color,
+          $background-hover: auto,
+          $color: $dunno-green-color,
+          $style: hollow
+        );
+      }
     }
   }
 }

@@ -1,1 +1,1 @@
-  json.partial! 'event', event: notifiable
+json.partial! 'event', event: notifiable

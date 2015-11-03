@@ -1,7 +1,7 @@
 @mixin avatar($size: 2rem) {
   border-radius: 50%;
   display: inline-block;
-  margin-right: $size/4;
+  margin-right: $size/8;
   max-height: $size;
   max-width: $size;
   min-height: $size;

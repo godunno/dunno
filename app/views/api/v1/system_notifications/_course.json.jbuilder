@@ -1,0 +1,1 @@
+json.(course, :uuid, :name)

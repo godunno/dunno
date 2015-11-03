@@ -73,13 +73,12 @@ resource "Attachments" do
   end
 
   delete "/api/v1/attachments/:id.json" do
-    let(:attachment) { create(:attachment, profile: profile) }
+    let!(:attachment) { create(:attachment, profile: profile) }
     let(:id) { attachment.id }
 
     let(:raw_post) { params.to_json }
 
     example "deletes an attachment" do
-      attachment
       expect { do_request }.to change { Attachment.count }.by(-1)
       expect(Attachment.exists?(attachment.id)).to be false
     end

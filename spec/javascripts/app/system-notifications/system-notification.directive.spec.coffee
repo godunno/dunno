@@ -157,3 +157,38 @@ describe 'system-notification directive', ->
           'Quarta-Feira (14/Out - 14:00) da ' +
           'disciplina Português.'
         )
+
+  describe "notification for blocked", ->
+    beforeEach ->
+      $httpBackend.whenGET("/api/v1/events?course_id=#{course.uuid}").respond(403)
+      systemNotification.notification_type = 'blocked'
+      systemNotification.notifiable = course
+      compile()
+
+    it "links to the courses page", inject ($timeout, $state, $stateParams) ->
+      $state.go('app.courses')
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      element.find('a.system__notification').click()
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      expect($state.is('app.courses')).toBe(true)
+
+    it "has the author's name", ->
+      expect(element.html()).toContain(author.name)
+
+    it "has the author's avatar", ->
+      expect(element.find('[user-avatar="vm.notification.author"]').length).toBe(1)
+
+    it "shows the message for new comment", ->
+      expect(element.text().trim())
+        .toEqual(
+          'José bloqueou você há um dia atrás ' +
+          'da disciplina Português.'
+        )

@@ -5,6 +5,7 @@ class Api::V1::ApplicationController < ApplicationController
   before_action :authenticate_user!
   after_action :verify_authorized, except: :index
   rescue_from ActiveRecord::RecordInvalid, with: :render_invalid_record
+  rescue_from Pundit::NotAuthorizedError, with: :unauthorized_access
   helper_method :current_profile
 
   protected
@@ -20,6 +21,10 @@ class Api::V1::ApplicationController < ApplicationController
   def render_invalid_record(exception)
     notify_airbrake exception
     render json: { errors: exception.record.errors.details }, status: 422
+  end
+
+  def unauthorized_access
+    render nothing: true, status: :forbidden
   end
 
   # Solution given on:

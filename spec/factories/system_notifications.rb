@@ -17,5 +17,10 @@ FactoryGirl.define do
       notifiable { create(:comment) }
       notification_type :new_comment
     end
+
+    trait :blocked do
+      notifiable { create(:course) }
+      notification_type :blocked
+    end
   end
 end

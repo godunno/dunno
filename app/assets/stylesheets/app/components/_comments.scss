@@ -55,6 +55,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: 1rem;
+    position: relative;
 
     &:last-child {
       border-bottom: 0;
@@ -62,6 +63,18 @@
 
     &.highlight {
       background-color: $yellow-color;
+    }
+  }
+
+  &__delete {
+    color: $dark-grey-color;
+    font-size: 1.5rem;
+    position: absolute;
+    right: .5rem;
+    top: 0;
+
+    &:hover {
+      color: $red-color;
     }
   }
 
@@ -75,7 +88,7 @@
 
   &__time {
     font-size: .75rem;
-    margin-left: auto;
+    padding: .45rem 0 0 .5rem;
   }
 
   &__body {

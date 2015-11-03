@@ -45,10 +45,21 @@
   }
 
   .card__content {
+    @include grid-block();
     background-color: $white;
+    border-radius: 0 0 .3125em .3125em;
     color: $dunno-dark-color;
     font-size: .875rem;
-    text-align: center;
+    justify-content: space-between;
+
+    .course__students__count {
+      .icon {
+        font-size: 1.5rem;
+        line-height: 0;
+        opacity: .5;
+        vertical-align: middle;
+      }
+    }
   }
 }
 

@@ -16,7 +16,7 @@ courseFormCtrl = (
     date?.format('YYYY-MM-DD') || null
 
   success = (course) ->
-    $state.go('.', null, reload: true)
+    $state.go('.', $state.params, reload: true)
     vm.onSave()(course)
 
   failure = (response) ->
@@ -24,7 +24,7 @@ courseFormCtrl = (
 
   vm.save = ->
     vm.course.start_date = formatDate(vm.startDate)
-    vm.course.end_date = formatDate(vm.endDate)
+    vm.course.end_date = formatDate(vm.endDate) if vm.hasEndDate()
     vm.submitting = PageLoading.resolve(new Course(vm.course).save()).then(success, failure)
 
   datepickerTemplate =  $templateCache.get('courses/datepicker-for-course-form')

@@ -16,9 +16,10 @@ form[
       input#start_time[
         name="startTime"
         ng-model="vm.startTime"
-        ng-model-options="{ getterSetter: true }"
+        ng-model-options="{ getterSetter: true, allowInvalid: true }"
         ui-timepicker="{ timeFormat: 'H:i' }"
         type="text"
+        required=true
         validate=true]
     span
       | às
@@ -26,11 +27,15 @@ form[
       label for="end_time"
         | Término
       input#end_time[
+        name="endTime"
         ng-model="vm.endTime"
-        ng-model-options="{ getterSetter: true }"
+        ng-model-options="{ getterSetter: true, allowInvalid: true }"
         ui-timepicker="{ showDuration: true, durationTime: vm.startTime, timeFormat: 'H:i' }"
-        type="text"]
+        type="text"
+        required=true
+        validate=true]
   errors for="vm.weeklyScheduleForm.startTime"
+  errors for="vm.weeklyScheduleForm.endTime"
   label for="classroom"
     | Sala
   input#classroom[

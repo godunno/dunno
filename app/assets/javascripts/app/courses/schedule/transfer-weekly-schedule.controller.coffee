@@ -43,7 +43,7 @@ TransferWeeklyScheduleCtrl = (
   success = ->
     modalInstance.destroy()
     AnalyticsTracker.scheduleEdited(vm.weeklySchedule)
-    $state.go('.', null, reload: true)
+    $state.go('.', $state.params, reload: true)
 
   failure = (response) ->
     ErrorParser.setErrors(response.data.errors, vm.weeklyScheduleForm, $scope)
