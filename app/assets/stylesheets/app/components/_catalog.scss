@@ -10,11 +10,24 @@
       padding-left: 2rem;
     }
 
-    .icon {
+    &__clear,
+    &__icon {
       color: $medium-grey-color;
-      left: .5rem;
       position: absolute;
       top: .5rem;
+    }
+
+    &__icon {
+      left: .5rem;
+    }
+
+    &__clear {
+      cursor: pointer;
+      right: .5rem;
+
+      &:hover {
+        color: $dunno-dark-color;
+      }
     }
   }
 
@@ -74,6 +87,13 @@
     cursor: pointer;
     font-size: .875rem;
     padding: .5rem 0;
+    text-align: center;
+  }
+
+  &__empty {
+    color: $dark-grey-color;
+    font-size: .875rem;
+    padding: 2rem 0;
     text-align: center;
   }
 }

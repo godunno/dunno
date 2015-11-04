@@ -7,14 +7,16 @@
       name="q"
       placeholder="Procurar material"
       focus-on="true"]
-    i.icon.icon-search
+    i.icon.icon-search.catalog__search__icon
+    i.icon.icon-cancel.catalog__search__clear ng-click="clearSearch()"
   .catalog__items
-    .catalog--no-results ng-if="!medias.length"
+    .catalog__empty ng-if="!medias.length"
       | Nenhum material encontrado.
+      span.sad<
     .catalog__item ng-repeat="media in medias"
       .catalog__item__info
         strong.catalog__item__title>
-          | {{ media.title }}
+          | {{media.title}}
         small.catalog__item__date__added
           | adicionado
           span< am-time-ago="media.created_at"
@@ -26,7 +28,7 @@
               'icon-link': media.type == 'url',
               'icon-file': media.type == 'file'
             }"]
-          span
+          span<
             | {{formatMediaUrl(media)}}
       .catalog__item__actions
         a.catalog__item__download[
