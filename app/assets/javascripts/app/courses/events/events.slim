@@ -80,9 +80,9 @@
                 | Essa aula foi cancelada.
             .event__item[
               ng-repeat="topic in event.topics"]
-              img.event__item__image[
+              span.event__item__image[
                 ng-if="!!topic.media"
-                ng-src="{{topic.media.thumbnail}}"]
+                ng-style="{'background-image': 'url(' + topic.media.thumbnail + ')'}"]
               a.event__item__description[
                 ng-if="!!topic.media"
                 ng-href="{{topic.media.url}}"
