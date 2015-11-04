@@ -8,6 +8,14 @@ CourseCatalogCtrl = ($scope, MediaSearcher) ->
   $scope.eventFor = (media) ->
     courseFor(media).events[0]
 
+  $scope.remove = (media) ->
+    message = """
+      Você tem certeza de que deseja remover este material?
+      Esta ação não poderá ser desfeita.
+    """
+    if confirm(message)
+      media.remove().then -> $scope.fetch()
+
 CourseCatalogCtrl.$inject = ['$scope', 'MediaSearcher']
 
 angular
