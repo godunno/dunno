@@ -86,9 +86,10 @@ describe Api::V1::MediasController do
       end
     end
 
-    context "searching" do
+    context "searching by profile" do
       let!(:awesome_media) { create :media_with_url, title: "awesome", profile: profile }
       let!(:boring_media)  { create :media_with_url, title: "boring", profile: profile }
+      let!(:media_from_another_profile)  { create :media_with_url }
       let(:params_hash) do
         {
           q: awesome_media.title
@@ -114,7 +115,66 @@ describe Api::V1::MediasController do
             "filename"    => nil,
             "tag_list"    => awesome_media.tag_list,
             "url"         => awesome_media.url,
-            "courses"      => []
+            "courses"     => []
+          }]
+        )
+      end
+    end
+
+    context "searching by course" do
+      let(:course) { create(:course, teacher: profile) }
+      let(:event) { create(:event, course: course) }
+      let!(:awesome_media) do
+        create :media_with_url,
+               title: "awesome",
+               topics: [create(:topic, event: event)]
+      end
+      let!(:boring_media) do
+        create :media_with_url,
+               title: "boring",
+               topics: [create(:topic, event: event)]
+      end
+      let!(:media_from_another_course)  do
+        create :media_with_url, topics: [create(:topic)]
+      end
+      let(:params_hash) do
+        {
+          q: awesome_media.title,
+          course_uuid: course.uuid
+        }
+      end
+
+      before do
+        refresh_index!
+        do_action
+      end
+
+      it { expect(last_response.status).to eq(200) }
+      it "should return only the searched terms" do
+        expect(json["medias"]).to eq(
+          [{
+            "id"          => awesome_media.id,
+            "uuid"        => awesome_media.uuid,
+            "title"       => awesome_media.title,
+            "description" => awesome_media.description,
+            "preview"     => awesome_media.preview,
+            "type"        => awesome_media.type,
+            "thumbnail"   => awesome_media.thumbnail,
+            "filename"    => nil,
+            "tag_list"    => awesome_media.tag_list,
+            "url"         => awesome_media.url,
+            "courses"     => [
+              {
+                "uuid" => course.uuid,
+                "name" => course.name,
+                "events"   => [
+                  {
+                    "uuid"     => event.uuid,
+                    "start_at" => event.start_at.utc.iso8601
+                  }
+                ]
+              }
+            ]
           }]
         )
       end

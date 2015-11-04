@@ -2,7 +2,14 @@ class Api::V1::MediasController < Api::V1::ApplicationController
   respond_to :json
 
   def index
-    @result = Media.search_by_profile(current_profile, media_search_params)
+    @result = if params[:course_uuid].present?
+                course = current_profile
+                         .courses
+                         .find_by_identifier!(params[:course_uuid])
+                Media.search_by_course(course, media_search_params)
+              else
+                Media.search_by_profile(current_profile, media_search_params)
+              end
   end
 
   def create
