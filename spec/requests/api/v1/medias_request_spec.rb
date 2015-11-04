@@ -37,6 +37,7 @@ describe Api::V1::MediasController do
             "filename"    => nil,
             "tag_list"    => media.tag_list,
             "url"         => media.url,
+            "created_at"  => media.created_at.iso8601(3),
             "courses"     => [
               {
                 "uuid" => course.uuid,
@@ -80,7 +81,8 @@ describe Api::V1::MediasController do
             "filename"    => media.original_filename,
             "tag_list"    => media.tag_list,
             "url"         => media.url,
-            "courses"      => []
+            "created_at"  => media.created_at.iso8601(3),
+            "courses"     => []
           }]
         )
       end
@@ -115,6 +117,7 @@ describe Api::V1::MediasController do
             "filename"    => nil,
             "tag_list"    => awesome_media.tag_list,
             "url"         => awesome_media.url,
+            "created_at"  => awesome_media.created_at.iso8601(3),
             "courses"     => []
           }]
         )
@@ -163,6 +166,7 @@ describe Api::V1::MediasController do
             "filename"    => nil,
             "tag_list"    => awesome_media.tag_list,
             "url"         => awesome_media.url,
+            "created_at"  => awesome_media.created_at.iso8601(3),
             "courses"     => [
               {
                 "uuid" => course.uuid,

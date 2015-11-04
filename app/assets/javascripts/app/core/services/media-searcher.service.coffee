@@ -29,7 +29,11 @@ MediaSearcher = (Media) ->
       parser.hostname
 
     $scope.searchMedia = (page) ->
-      Media.search(q: query.q, page: page, per_page: $scope.perPage)
+      Media.search
+        q: query.q
+        page: page
+        per_page: $scope.perPage
+        course_uuid: $scope.course.uuid
 
   @
 
