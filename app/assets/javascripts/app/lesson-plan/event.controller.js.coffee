@@ -39,7 +39,7 @@ EventCtrl = (
       Deseja cancelar esta aula?
 
       Atenção: você e seus alunos serão notificados
-      por e-mail do cancelamento dessa aula.
+      por email do cancelamento dessa aula.
     """
     return if status == 'canceled' && !confirm(message)
     event.status = status

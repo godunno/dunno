@@ -1,9 +1,12 @@
 .session__page {
-  @include grid-block();
-  @include grid-orient(vertical);
+  @include grid-block($orientation: vertical);
   background-color: $dunno-dark-color;
   min-height: 100%;
   padding-bottom: 2em;
+
+  label {
+    cursor: pointer;
+  }
 
   .form__box {
     @include grid-container();
@@ -109,7 +112,7 @@
       $color: $white,
       $style: solid
     );
-    @include button-size(large);
+    @include button-size($size: large);
     margin: 1rem 0;
 
     .icon {
