@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Media do
-
   let(:media) { build(:media) }
 
   describe "associations" do
@@ -163,6 +162,58 @@ describe Media do
 
     it "searches by tag" do
       expect(Media.search_by_profile(profile, q: "cool").records.to_a).to eq([old_media])
+    end
+  end
+
+  describe ".search_by_course", :elasticsearch do
+    let(:course) { create(:course) }
+    let(:another_course) { create(:course) }
+    let(:media_from_another_course) do
+      create :media,
+             topics: [
+               create(:topic, event: create(:event, course: another_course))
+             ]
+    end
+    let!(:old_media) do
+      create :media,
+             title: "Another Title",
+             tag_list: %w(cool stuff),
+             created_at: 1.hour.ago,
+             topics: [
+               create(:topic, event: create(:event, course: course)),
+               create(:topic, event: create(:event, course: another_course))
+             ]
+    end
+    let!(:new_media) do
+      create :media,
+             title: "Some Title",
+             topics: [
+               create(:topic, event: create(:event, course: course)),
+               create(:topic, event: create(:event, course: another_course))
+             ]
+    end
+    let!(:media_from_another_profile) { create(:media) }
+
+    before { refresh_index! }
+
+    it "can set a number of items per page" do
+      expect(Media.search_by_course(course, per_page: 1).records.to_a).to eq([new_media])
+    end
+
+    it "paginates" do
+      expect(Media.search_by_course(course, per_page: 1, page: 2).records.to_a).to eq([old_media])
+    end
+
+    it "orders all from newest to oldest" do
+      expect(Media.search_by_course(course, {}).records.to_a).to eq([new_media, old_media])
+    end
+
+    it "searches by title" do
+      expect(Media.search_by_course(course, q: "Some").records.to_a).to eq([new_media])
+    end
+
+    it "searches by tag" do
+      expect(Media.search_by_course(course, q: "cool").records.to_a).to eq([old_media])
     end
   end
 end

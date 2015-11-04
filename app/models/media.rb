@@ -53,6 +53,7 @@ class Media < ActiveRecord::Base
       indexes :title, type: :string, analyzer: :custom_analyzer
       indexes :tags, type: :string, analyzer: :custom_analyzer
       indexes :profile_id, type: :integer
+      indexes :course_id, type: :integer
       indexes :created_at, type: :date
     end
   end
@@ -63,6 +64,7 @@ class Media < ActiveRecord::Base
       title: title,
       tags: tag_list.to_a,
       profile_id: profile_id,
+      course_id: topics.map { |topic| topic.event.course.id },
       created_at: created_at
     }
   end
@@ -78,6 +80,10 @@ class Media < ActiveRecord::Base
 
   def self.search_by_profile(profile, options)
     search(options.merge(filter: { profile_id: profile.id }))
+  end
+
+  def self.search_by_course(course, options)
+    search(options.merge(filter: { course_id: course.id }))
   end
 
   def self.search(options = {})
