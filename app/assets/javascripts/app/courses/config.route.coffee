@@ -48,7 +48,7 @@ setCoursesRoutes = (
     .state 'app.courses.show.catalog',
       url: '/catalog'
       controller: 'CourseCatalogCtrl as vm'
-      templateUrl: 'courses/catalog/catalog'
+      templateUrl: 'courses/catalog/course-catalog'
 
 setCoursesRoutes.$inject = [
   '$stateProvider',
