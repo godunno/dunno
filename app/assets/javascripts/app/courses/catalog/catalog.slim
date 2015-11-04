@@ -17,9 +17,14 @@
       .catalog__item__info
         strong.catalog__item__title>
           | {{media.title}}
-        small.catalog__item__date__added
-          | adicionado
-          span< am-time-ago="media.created_at"
+        a[
+          ui-sref="app.courses.show.events({
+            startAt: eventFor(media).start_at,
+            courseId: course.uuid
+          })"]
+          small.catalog__item__date__added
+            | adicionado
+            span< am-time-ago="media.created_at"
         a.catalog__item__link[
           ng-href="{{media.url}}"
           target="_blank"]

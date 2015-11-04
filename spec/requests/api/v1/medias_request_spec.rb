@@ -126,7 +126,7 @@ describe Api::V1::MediasController do
 
     context "searching by course" do
       let(:course) { create(:course, teacher: profile) }
-      let(:event) { create(:event, course: course) }
+      let(:event) { create(:event, :published, course: course) }
       let!(:awesome_media) do
         create :media_with_url,
                title: "awesome",
