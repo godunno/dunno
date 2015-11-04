@@ -277,12 +277,9 @@
     }
 
     &__image {
+      @include thumbnail(4rem);
       flex-basis: 4rem;
-      margin-right: 1rem;
-      max-height: 4rem;
-      max-width: 4rem;
-      min-height: 4rem;
-      min-width: 4rem;
+      text-align: center;
     }
 
     &__description {

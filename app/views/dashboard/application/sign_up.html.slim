@@ -23,7 +23,7 @@ ruby:
       .session__or
         span
           | ou
-      .name
+      .session__name
         p.required__fields
           span.required>
             | *
@@ -41,7 +41,7 @@ ruby:
           tabindex=1
           autofocus=""]
         errors for="signUpForm.name"
-      .email
+      .session__email
         label for="email"
           | Email
           span.required<
@@ -54,7 +54,7 @@ ruby:
           validate=true
           type="email"]
         errors for="signUpForm.email"
-      .password
+      .sessin__password
         label for="password"
           | Senha
           span.required<
@@ -70,13 +70,13 @@ ruby:
         errors for="signUpForm.password"
       .accept__terms
         p
-          | Ao criar sua conta você automaticamente <br><b>declara aceitar</b> os <a href="#{terms_path}" target="_blank">termos de uso</a> do Dunno.
+          | Ao criar sua conta você <b>automaticamente</b> <br><b>declara aceitar</b> os <a href="#{terms_path}" target="_blank">termos de uso</a> do Dunno.
       submit-button.submit[
-        blocked-when="submitting"
-        label="Criar sua conta"
         blocked-label="Criando…"
-        tabindex="5"
-        has-spinner=true]
+        blocked-when="submitting"
+        has-spinner=true
+        label="Criar sua conta"
+        tabindex="5"]
       .privacy__policy__disclaimer
         p
           small

@@ -8,18 +8,18 @@ ruby:
     form.form__box#recover_password[
       name="newPasswordRecoveryForm"
       ng-submit="newPasswordRecoveryForm.$valid && vm.recoverPassword(vm.user)"
-      novalidate=true]
+      novalidate="true"]
       .completed ng-if="vm.completed"
         | Você receberá instruções em seu email.
       h4
         | Esqueci minha senha
       .text-center
-        | Digite seu e-mail de cadastro.
+        | Digite seu email de cadastro.
         br
         | Você receberá instruções para recuperar o seu acesso.
       .email
         label for="email"
-          | E-mail
+          | Email
         input#email[
           name="email"
           ng-model="vm.user.email"
@@ -28,7 +28,6 @@ ruby:
           validate=true
           autofocus=""]
         errors for="newPasswordRecoveryForm.email"
-
       submit-button.submit[
         blocked-when="vm.submitting"
         label="Enviar"
