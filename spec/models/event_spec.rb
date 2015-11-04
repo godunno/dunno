@@ -51,7 +51,10 @@ describe Event do
         topic = create(:topic)
         event = create(:event, topics: [topic])
         Timecop.freeze 2.hours.from_now
-        expect { event.save }.to change { topic.reload.updated_at }.from(created_at).to(Time.current)
+        expect { event.save }
+          .to change { topic.reload.updated_at }
+          .from(created_at)
+          .to(Time.current)
       end
     end
   end

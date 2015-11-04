@@ -91,7 +91,7 @@ describe Api::V1::MediasController do
     context "searching by profile" do
       let!(:awesome_media) { create :media_with_url, title: "awesome", profile: profile }
       let!(:boring_media)  { create :media_with_url, title: "boring", profile: profile }
-      let!(:media_from_another_profile)  { create :media_with_url }
+      let!(:media_from_another_profile) { create :media_with_url }
       let(:params_hash) do
         {
           q: awesome_media.title
@@ -171,7 +171,7 @@ describe Api::V1::MediasController do
               {
                 "uuid" => course.uuid,
                 "name" => course.name,
-                "events"   => [
+                "events" => [
                   {
                     "uuid"     => event.uuid,
                     "start_at" => event.start_at.utc.iso8601
