@@ -64,7 +64,7 @@ class Media < ActiveRecord::Base
       title: title,
       tags: tag_list.to_a,
       profile_id: profile_id,
-      course_id: topics.map { |topic| topic.event.course.id },
+      course_id: topics.map(&:event).select(&:published?).map(&:course_id),
       created_at: created_at
     }
   end

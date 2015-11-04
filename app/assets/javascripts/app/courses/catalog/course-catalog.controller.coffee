@@ -1,6 +1,5 @@
 CourseCatalogCtrl = ($scope, MediaSearcher) ->
   MediaSearcher.extend($scope)
-  $scope.perPage = 2
   $scope.fetch()
 
 CourseCatalogCtrl.$inject = ['$scope', 'MediaSearcher']

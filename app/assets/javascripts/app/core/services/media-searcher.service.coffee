@@ -33,7 +33,7 @@ MediaSearcher = (Media) ->
         q: query.q
         page: page
         per_page: $scope.perPage
-        course_uuid: $scope.course.uuid
+        course_uuid: $scope.course?.uuid
 
   @
 

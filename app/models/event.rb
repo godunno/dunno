@@ -20,6 +20,8 @@ class Event < ActiveRecord::Base
 
   scope :not_canceled, -> { where('status <> ?', Event.statuses[:canceled]) }
 
+  after_save :touch_topics
+
   def self.last_published
     published.last
   end
@@ -56,5 +58,11 @@ class Event < ActiveRecord::Base
   def was_canceled?
     _old_status, new_status = previous_changes["status"]
     new_status == 'canceled'
+  end
+
+  private
+
+  def touch_topics
+    topics.update_all(updated_at: Time.current)
   end
 end

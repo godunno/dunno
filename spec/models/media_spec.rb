@@ -168,31 +168,37 @@ describe Media do
   describe ".search_by_course", :elasticsearch do
     let(:course) { create(:course) }
     let(:another_course) { create(:course) }
-    let(:media_from_another_course) do
-      create :media,
-             topics: [
-               create(:topic, event: create(:event, course: another_course))
-             ]
-    end
     let!(:old_media) do
       create :media,
              title: "Another Title",
              tag_list: %w(cool stuff),
              created_at: 1.hour.ago,
              topics: [
-               create(:topic, event: create(:event, course: course)),
-               create(:topic, event: create(:event, course: another_course))
+               create(:topic, event: create(:event, :published, course: course)),
+               create(:topic, event: create(:event, :published, course: another_course))
              ]
     end
     let!(:new_media) do
       create :media,
              title: "Some Title",
              topics: [
-               create(:topic, event: create(:event, course: course)),
-               create(:topic, event: create(:event, course: another_course))
+               create(:topic, event: create(:event, :published, course: course)),
+               create(:topic, event: create(:event, :published, course: another_course))
              ]
     end
     let!(:media_from_another_profile) { create(:media) }
+    let!(:media_from_another_course) do
+      create :media,
+             topics: [
+               create(:topic, event: create(:event, :published, course: another_course))
+             ]
+    end
+    let!(:media_from_unpublished_event) do
+      create :media,
+             topics: [
+               create(:topic, event: create(:event, :draft, course: course))
+             ]
+    end
 
     before { refresh_index! }
 

@@ -17,7 +17,6 @@ describe Event do
   end
 
   describe "callbacks" do
-
     describe "after create" do
       context "new event" do
         it "saves a new uuid" do
@@ -37,6 +36,22 @@ describe Event do
           event.save!
           expect(event.reload.uuid).to eq(old_uuid)
         end
+      end
+    end
+
+    describe "after save" do
+      let(:created_at) { Time.zone.parse('2015-10-01 09:00') }
+
+      before do
+        Timecop.freeze created_at
+      end
+      after { Timecop.return }
+
+      it "touches its topics" do
+        topic = create(:topic)
+        event = create(:event, topics: [topic])
+        Timecop.freeze 2.hours.from_now
+        expect { event.save }.to change { topic.reload.updated_at }.from(created_at).to(Time.current)
       end
     end
   end

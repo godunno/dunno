@@ -3,7 +3,7 @@ class Topic < ActiveRecord::Base
 
   belongs_to :event, touch: true
   has_many :ratings, as: :rateable
-  belongs_to :media
+  belongs_to :media, touch: true
 
   validate :ensure_description_or_media_present
 
