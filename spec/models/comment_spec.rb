@@ -27,4 +27,11 @@ RSpec.describe Comment, type: :model do
     comment.removed_at = Time.current
     expect(comment).to be_removed
   end
+
+  it "knows if it's blocked" do
+    expect(comment).not_to be_blocked
+
+    comment.blocked_at = Time.current
+    expect(comment).to be_blocked
+  end
 end

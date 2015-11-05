@@ -39,4 +39,50 @@ describe CommentPolicy do
     it { is_expected.to permit(comment.profile, comment) }
     it { is_expected.not_to permit(anyone, comment) }
   end
+
+  permissions :block? do
+    let(:comment) { create(:comment, event: event) }
+
+    it { is_expected.to permit(teacher, comment) }
+    it { is_expected.not_to permit(comment.profile, comment) }
+    it { is_expected.not_to permit(student, comment) }
+    it { is_expected.not_to permit(anyone, comment) }
+  end
+
+  permissions :unblock? do
+    let(:comment) { create(:comment, event: event) }
+
+    it { is_expected.to permit(teacher, comment) }
+    it { is_expected.not_to permit(comment.profile, comment) }
+    it { is_expected.not_to permit(student, comment) }
+    it { is_expected.not_to permit(anyone, comment) }
+  end
+
+  permissions :show? do
+    context "public comment" do
+      let(:comment) { create(:comment, event: event) }
+
+      it { is_expected.to permit(teacher, comment) }
+      it { is_expected.to permit(student, comment) }
+      it { is_expected.not_to permit(anyone, comment) }
+    end
+
+    context "removed comment" do
+      let(:removed_comment) { create(:comment, event: event, removed_at: Time.current) }
+
+      it { is_expected.not_to permit(teacher, removed_comment) }
+      it { is_expected.not_to permit(removed_comment.profile, removed_comment) }
+      it { is_expected.not_to permit(student, removed_comment) }
+      it { is_expected.not_to permit(anyone, removed_comment) }
+    end
+
+    context "blocked comment" do
+      let(:blocked_comment) { create(:comment, event: event, blocked_at: Time.current) }
+
+      it { is_expected.to permit(teacher, blocked_comment) }
+      it { is_expected.not_to permit(blocked_comment.profile, blocked_comment) }
+      it { is_expected.not_to permit(student, blocked_comment) }
+      it { is_expected.not_to permit(anyone, blocked_comment) }
+    end
+  end
 end

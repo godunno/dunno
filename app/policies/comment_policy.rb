@@ -15,6 +15,16 @@ class CommentPolicy < ApplicationPolicy
     record.profile == profile
   end
 
+  def block?
+    teacher?
+  end
+
+  alias_method :unblock?, :block?
+
+  def show?
+    can_see_event? && !record.removed? && (!record.blocked? || teacher?)
+  end
+
   private
 
   def can_see_event?
