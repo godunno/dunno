@@ -11,7 +11,8 @@ CourseCatalogCtrl = ($scope, MediaSearcher) ->
   $scope.remove = (media) ->
     message = """
       Você tem certeza de que deseja remover este material?
-      Esta ação não poderá ser desfeita.
+      Esta ação também removerá este material de todas as
+      aulas em que foi utilizado, e não poderá ser desfeita.
     """
     if confirm(message)
       media.remove().then -> $scope.fetch()

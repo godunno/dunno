@@ -8,7 +8,7 @@ class Media < ActiveRecord::Base
 
   belongs_to :mediable, polymorphic: true
   belongs_to :profile
-  has_many :topics
+  has_many :topics, dependent: :destroy
   has_many :events, through: :topics
 
   validates :title, presence: true

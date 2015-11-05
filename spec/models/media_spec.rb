@@ -4,8 +4,10 @@ describe Media do
   let(:media) { build(:media) }
 
   describe "associations" do
-    it { should belong_to(:mediable) }
-    it { should belong_to(:profile) }
+    it { is_expected.to belong_to(:mediable) }
+    it { is_expected.to belong_to(:profile) }
+    it { is_expected.to have_many(:topics).dependent(:destroy) }
+    it { is_expected.to have_many(:events).through(:topics) }
   end
 
   describe "validations" do
