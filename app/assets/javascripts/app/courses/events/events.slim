@@ -23,10 +23,19 @@
         | Cronograma
       | .
   .events__wrapper ng-if="vm.events.length"
-    mighty-datepicker[
-      ng-model="noop"
-      options="vm.calendarOptions"
-      markers="vm.eventsMarkers"]
+    .calendar
+      a ui-sref="{month: vm.previousMonth}"
+        i.icon.icon-left>
+      a[
+        ng-if="vm.showToday()"
+        ui-sref="{month: vm.today}"]
+        | Hoje
+      mighty-datepicker[
+        ng-model="noop"
+        options="vm.calendarOptions"
+        markers="vm.eventsMarkers"]
+      a ui-sref="{month: vm.nextMonth}"
+        i.icon.icon-right<
     .events__list
       .event[
         ng-repeat="event in vm.events"
