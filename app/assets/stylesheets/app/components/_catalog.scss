@@ -1,6 +1,7 @@
 .catalog {
   @extend %content__box;
   @include grid-container();
+  overflow: visible;
   padding: 1rem;
 
   &__search {
@@ -35,6 +36,7 @@
     @include grid-block();
     align-items: center;
     border-bottom: $divider;
+    overflow: visible;
     padding: 1rem 0;
 
     &:last-child {
@@ -56,6 +58,16 @@
 
     &__actions {
       margin-left: auto;
+
+      .action-sheet,
+      .action-sheet.is-active {
+        transform: translateX(-96.7%) translateY(106%);
+
+        &::before,
+        &::after {
+          left: 96.5%;
+        }
+      }
     }
 
     &__more__actions {
