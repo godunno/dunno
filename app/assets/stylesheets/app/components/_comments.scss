@@ -13,6 +13,7 @@
     }
 
     &__submit {
+      align-self: center;
       margin-left: auto;
 
       .submit {
@@ -36,6 +37,7 @@
 
     input[type=text] {
       border: 0;
+      line-height: 1;
       margin-bottom: 0;
       padding: 0 2rem 0 0;
     }
@@ -92,7 +94,7 @@
 
   &__time {
     align-self: center;
-    padding-left: .5rem;
+    padding-left: .35rem;
   }
 
   &__body {
