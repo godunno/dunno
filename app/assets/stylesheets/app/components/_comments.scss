@@ -54,6 +54,7 @@
     border-bottom: $divider;
     display: flex;
     flex-wrap: wrap;
+    font-size: .875rem;
     padding: 1rem;
     position: relative;
 
@@ -66,11 +67,12 @@
     }
   }
 
+  &__block,
+  &__unblock,
   &__delete {
     color: $dark-grey-color;
-    font-size: 1.5rem;
     position: absolute;
-    right: .5rem;
+    right: .25rem;
     top: 0;
 
     &:hover {
@@ -79,16 +81,18 @@
   }
 
   &__user {
+    align-items: center;
+    display: flex;
+
     &__name {
       display: inline-block;
-      font-size: .875rem;
       font-weight: $font-weight-bold;
     }
   }
 
   &__time {
-    font-size: .75rem;
-    padding: .45rem 0 0 .5rem;
+    align-self: center;
+    padding-left: .5rem;
   }
 
   &__body {
