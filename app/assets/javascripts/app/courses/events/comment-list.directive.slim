@@ -17,7 +17,7 @@
       i.icon.icon-block
     a.comment__unblock[
       if-teacher=true
-      ng-if="!vm.canBlockComment(comment)"
+      ng-if="vm.canUnblockComment(comment)"
       ng-click="vm.unblockComment(comment)"
       title="Desbloquear comentário"]
       i.icon.icon-unblock

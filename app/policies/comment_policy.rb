@@ -12,11 +12,11 @@ class CommentPolicy < ApplicationPolicy
   alias_method :update?, :create?
 
   def destroy?
-    record.profile == profile
+    !record.blocked? && record.profile == profile
   end
 
   def block?
-    teacher?
+    !record.removed? && teacher? && record.profile != profile
   end
 
   alias_method :unblock?, :block?

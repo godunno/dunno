@@ -35,18 +35,33 @@ describe CommentPolicy do
 
   permissions :destroy? do
     let(:comment) { create(:comment) }
+    let(:blocked_comment) { create(:comment, blocked_at: Time.current) }
 
     it { is_expected.to permit(comment.profile, comment) }
     it { is_expected.not_to permit(anyone, comment) }
+
+    it "doesn't allow to remove blocked comments" do
+      is_expected.not_to permit(blocked_comment.profile, blocked_comment)
+    end
   end
 
   permissions :block? do
     let(:comment) { create(:comment, event: event) }
+    let(:removed_comment) { create(:comment, event: event, removed_at: Time.current) }
+    let(:teacher_comment) { create(:comment, event: event, profile: teacher) }
 
     it { is_expected.to permit(teacher, comment) }
     it { is_expected.not_to permit(comment.profile, comment) }
     it { is_expected.not_to permit(student, comment) }
     it { is_expected.not_to permit(anyone, comment) }
+
+    it "doesn't allow to block removed comments" do
+      is_expected.not_to permit(teacher, removed_comment)
+    end
+
+    it "doesn't allow the teacher to block its own comment" do
+      is_expected.not_to permit(teacher, teacher_comment)
+    end
   end
 
   permissions :unblock? do
