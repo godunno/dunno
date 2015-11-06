@@ -1,37 +1,36 @@
 .events
-  .events__navigation
-    .events__navigation__previous
-      a ui-sref="{month: vm.previousMonth}"
-        i.icon.icon-left>
-        span
-          | {{vm.previousMonth | amDateFormat:'MMM/YY'}}
-    .events__navigation__current
-      span
-        | {{vm.currentMonth | amDateFormat:'MMM/YY'}}
-    .events__navigation__next
-      a ui-sref="{month: vm.nextMonth}"
-        span
-          | {{vm.nextMonth | amDateFormat:'MMM/YY'}}
-        i.icon.icon-right<
-  .events__blankslate ng-if="!vm.events.length"
-    p
-      | Nenhuma aula criada.
-      span.sad
-    .events__schedule if-teacher="true"
-      | Para adicionar novos horários de aula acesse o
-      a< ui-sref="^.schedule"
-        | Cronograma
-      | .
-  .events__wrapper ng-if="vm.events.length"
-    mighty-datepicker[
-      ng-model="noop"
-      options="vm.calendarOptions"
-      markers="vm.eventsMarkers"]
+  .events__wrapper
+    .events__navigation
+      .events__navigation__calendar
+        a.events__navigation__today[
+          ng-if="vm.showToday()"
+          ui-sref="{month: vm.today}"]
+          | Voltar para hoje
+        .events__navigation__months
+          a.events__navigation__previous ui-sref="{month: vm.previousMonth}"
+            i.icon.icon-left>
+            | {{vm.previousMonth | amDateFormat:'MMM'}}
+          a.events__navigation__next ui-sref="{month: vm.nextMonth}"
+            | {{vm.nextMonth | amDateFormat:'MMM'}}
+            i.icon.icon-right<
+        mighty-datepicker[
+          ng-model="noop"
+          options="vm.calendarOptions"
+          markers="vm.eventsMarkers"]
     .events__list
+      .event.events__blankslate ng-if="!vm.events.length"
+        p
+          | Nenhuma aula criada.
+          span.sad
+        .events__schedule if-teacher="true"
+          | Para adicionar novos horários de aula acesse a aba
+          a< ui-sref="^.schedule"
+            | Cronograma
+          | .
       .event[
         ng-repeat="event in vm.events"
         scroll-to-when="vm.moveToEvent(event)"
-        ng-class="{ event__selected: vm.selectedEvent(event) }"]
+        ng-class="{event__selected: vm.selectedEvent(event)}"]
         aside
           .event__date
             .event__weekday

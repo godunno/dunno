@@ -11,6 +11,12 @@ CourseEventsCtrl = (
   @currentMonth = pagination.currentMonth
   @nextMonth = pagination.nextMonth
   @events = pagination.events
+  @today = new Date().toISOString()
+  @showToday = ->
+    current = moment(@currentMonth)
+    startOfMonth = current.startOf('month').toISOString()
+    endOfMonth = current.endOf('month').toISOString()
+    !moment(@today).isBetween(startOfMonth, endOfMonth)
 
   showCommentsFor = (event) ->
     if event._fetched
