@@ -14,7 +14,8 @@ resource "Comments" do
 
   let(:json) { JSON.parse(response_body).deep_symbolize_keys }
   let!(:teacher) { create(:profile) }
-  let!(:course) { create(:course, teacher: teacher) }
+  let!(:student) { create(:profile) }
+  let!(:course) { create(:course, teacher: teacher, students: [student]) }
   let!(:weekly_schedule) do
     create :weekly_schedule,
       course: course,
@@ -79,6 +80,7 @@ resource "Comments" do
           body: body,
           id: comment.id,
           removed_at: nil,
+          blocked_at: nil,
           user: {
             name: teacher.name,
             avatar_url: nil,
@@ -136,6 +138,7 @@ resource "Comments" do
             created_at: Time.current.iso8601(3),
             id: comment.id,
             removed_at: Time.current.iso8601(3),
+            blocked_at: nil,
             user: {
               name: comment.profile.name,
               avatar_url: nil,
@@ -148,6 +151,104 @@ resource "Comments" do
 
     context "trying to remove other person's comment" do
       let!(:comment) { create(:comment) }
+
+      example_request "removes a comment" do
+        expect(response_status).to be 403
+      end
+    end
+  end
+
+  patch "/api/v1/comments/:id/block.json" do
+    let(:id) { comment.id }
+
+    let(:raw_post) { params.to_json }
+
+    let(:event) { create(:event, course: course) }
+    let(:comment) { create(:comment, event: event) }
+
+    before { Timecop.freeze }
+    after { Timecop.return }
+
+    context "as a teacher" do
+      let(:user_email) { teacher.email }
+      let(:user_token) { teacher.authentication_token }
+
+      example_request "removes a comment" do
+        expect(comment.reload).to be_blocked
+      end
+
+      example_request "returns the updated comment" do
+        expect(json).to eq(
+          comment: {
+            event_start_at: comment.event.start_at.iso8601(3),
+            created_at: Time.current.iso8601(3),
+            id: comment.id,
+            body: comment.body,
+            removed_at: nil,
+            blocked_at: Time.current.iso8601(3),
+            user: {
+              name: comment.profile.name,
+              avatar_url: nil,
+              id: comment.profile.user.id
+            },
+            attachments: []
+          }
+        )
+      end
+    end
+
+    context "trying to remove other person's comment" do
+      let(:user_email) { student.email }
+      let(:user_token) { student.authentication_token }
+
+      example_request "removes a comment" do
+        expect(response_status).to be 403
+      end
+    end
+  end
+
+  patch "/api/v1/comments/:id/unblock.json" do
+    let(:id) { comment.id }
+
+    let(:raw_post) { params.to_json }
+
+    let(:event) { create(:event, course: course) }
+    let(:comment) { create(:comment, event: event, blocked_at: Time.current) }
+
+    before { Timecop.freeze }
+    after { Timecop.return }
+
+    context "as a teacher" do
+      let(:user_email) { teacher.email }
+      let(:user_token) { teacher.authentication_token }
+
+      example_request "removes a comment" do
+        expect(comment.reload).not_to be_blocked
+      end
+
+      example_request "returns the updated comment" do
+        expect(json).to eq(
+          comment: {
+            event_start_at: comment.event.start_at.iso8601(3),
+            created_at: Time.current.iso8601(3),
+            id: comment.id,
+            body: comment.body,
+            removed_at: nil,
+            blocked_at: nil,
+            user: {
+              name: comment.profile.name,
+              avatar_url: nil,
+              id: comment.profile.user.id
+            },
+            attachments: []
+          }
+        )
+      end
+    end
+
+    context "trying to remove other person's comment" do
+      let(:user_email) { student.email }
+      let(:user_token) { student.authentication_token }
 
       example_request "removes a comment" do
         expect(response_status).to be 403

@@ -12,7 +12,17 @@ class CommentPolicy < ApplicationPolicy
   alias_method :update?, :create?
 
   def destroy?
-    record.profile == profile
+    !record.blocked? && record.profile == profile
+  end
+
+  def block?
+    !record.removed? && teacher? && record.profile != profile
+  end
+
+  alias_method :unblock?, :block?
+
+  def show?
+    can_see_event? && !record.removed? && (!record.blocked? || teacher?)
   end
 
   private
