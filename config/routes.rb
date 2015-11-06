@@ -48,6 +48,7 @@ Rails.application.routes.draw do
         member do
           patch :block
           patch :unblock
+          patch :restore
         end
       end
       resources :events, param: :start_at, only: [:index, :show, :create, :update]

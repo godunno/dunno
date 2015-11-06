@@ -34,7 +34,7 @@ CourseMembersCtrl = (course, ModalFactory, PageLoading) ->
     message = """
       Atenção:
       Ao bloquear o acesso, esse(a) estudante não irá mais acessar a disciplina e seu conteúdo.
-      Tem certeza que deseja prosseguir?s
+      Tem certeza que deseja prosseguir?
     """
     return unless confirm(message)
     PageLoading.resolve(course.block(member.id)).then ->

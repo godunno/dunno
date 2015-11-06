@@ -15,6 +15,8 @@ class CommentPolicy < ApplicationPolicy
     !record.blocked? && record.profile == profile
   end
 
+  alias_method :restore?, :destroy?
+
   def block?
     !record.removed? && teacher? && record.profile != profile
   end
