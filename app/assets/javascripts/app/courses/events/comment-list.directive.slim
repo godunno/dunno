@@ -8,6 +8,16 @@
       ng-click="vm.removeComment(comment)"
       ng-if="vm.canRemoveComment(comment)"]
       | ×
+    a.block[
+      if-teacher=true
+      ng-if="vm.canBlockComment(comment)"
+      ng-click="vm.blockComment(comment)"]
+      | Bloquear
+    a.unblock[
+      if-teacher=true
+      ng-if="!vm.canBlockComment(comment)"
+      ng-click="vm.unblockComment(comment)"]
+      | Desbloquear
     .comment__user
       img.comment__user__avatar.avatar user-avatar="comment.user"
       .comment__user__name
@@ -15,14 +25,28 @@
     a.comment__time[
       am-time-ago="comment.created_at"
       ui-sref="{commentId: comment.id, startAt: vm.event.start_at}"]
-    .comment__body ng-class="{ removed: !!comment.removed_at }"
+    .comment__body ng-class="{ removed: vm.isRemoved(comment) }"
+      a[
+        if-teacher=true
+        ng-if="vm.isBlocked(comment) && !comment._showBody"
+        ng-click="vm.showBlockedBody(comment)"]
+        | Exibir conteúdo
+      a[
+        if-teacher=true
+        ng-if="vm.isBlocked(comment) && comment._showBody"
+        ng-click="vm.hideBlockedBody(comment)"]
+        | Esconder conteúdo
       span[
         ng-bind-html="comment.body | linky:'_blank'"
-        ng-if="!comment.removed_at"]
+        ng-if="vm.canShowBody(comment)"]
       small[
-        ng-if="!!comment.removed_at"]
+        ng-if="vm.isRemoved(comment)"]
         | [removido]
         span< am-time-ago="comment.removed_at"
+      small[
+        ng-if="vm.isBlocked(comment)"]
+        | [removido pelo professor]
+        span< am-time-ago="comment.blocked_at"
     .comment__attachments
       .attachment ng-repeat="attachment in comment.attachments"
         strong.attachment__name>
