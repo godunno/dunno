@@ -1,5 +1,5 @@
 commentList = ($location) ->
-  commentListCtrl = ($scope, SessionManager) ->
+  commentListCtrl = ($scope, $sce, SessionManager, ngToast) ->
     vm = this
     $scope.course = vm.course
 
@@ -18,12 +18,24 @@ commentList = ($location) ->
     # Need to unset the loading property to avoid conflicts with the object's serialization
     unsetLoading = (comment) -> comment._loading = undefined
 
+    vm.restoreComment = ->
+      ngToast.dismiss(vm.restoreCommentToast)
+      vm.removedComment._loading = vm.removedComment.restore().then(unsetLoading)
+
     vm.removeComment = (comment) ->
-      message = """
-        Tem certeza de que deseja remover este comentário?
-        Esta operação não poderá ser desfeita.
-      """
-      comment._loading = comment.remove().then(unsetLoading) if confirm(message)
+      comment._loading = comment.remove().then(unsetLoading).then ->
+        vm.removedComment = comment
+        vm.restoreCommentToast = ngToast.create
+          dismissOnTimeout: false
+          dismissOnClick: false
+          dismissButton: true
+          compileContent: $scope
+          content: $sce.trustAsHtml("""
+            <p>
+              Comentário removido.
+              <a ng-click="vm.restoreComment()">Desfazer</a>
+            </p>
+          """)
 
     vm.canBlockComment = (comment) ->
       !comment.removed_at &&
@@ -49,7 +61,7 @@ commentList = ($location) ->
 
     vm
 
-  commentListCtrl.$inject = ['$scope', 'SessionManager']
+  commentListCtrl.$inject = ['$scope', '$sce', 'SessionManager', 'ngToast']
 
   templateUrl: 'courses/events/comment-list.directive'
   restrict: 'E'

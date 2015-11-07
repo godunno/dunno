@@ -14,4 +14,7 @@ core.factory 'UserComment', ['RailsResource', 'railsSerializer',
 
     unblock: ->
       @$patch(@$url('/unblock'))
+
+    restore: ->
+      @$patch(@$url('/restore'))
 ]

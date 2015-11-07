@@ -21,4 +21,5 @@ angular
     'ct.ui.router.extras.previous',
     'ct.ui.router.extras.sticky',
     'ui.timepicker',
-    'pascalprecht.translate']
+    'pascalprecht.translate'
+    'ngToast']
