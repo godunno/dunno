@@ -30,15 +30,12 @@ describe Api::V1::EventsController do
                created_at: 2.hours.ago
       end
       let!(:removed_comment) do
-        create :comment,
+        create :comment, :removed,
                event: event,
-               removed_at: Time.current,
                created_at: 1.hour.ago
       end
       let!(:blocked_comment) do
-        create :comment,
-               event: event,
-               blocked_at: Time.current
+        create :comment, :blocked, event: event
       end
       let(:topic) { create(:topic) }
       let(:topic_with_url) { create(:topic, media: media_with_url) }

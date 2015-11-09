@@ -35,7 +35,7 @@ describe CommentPolicy do
 
   permissions :destroy? do
     let(:comment) { create(:comment) }
-    let(:blocked_comment) { create(:comment, blocked_at: Time.current) }
+    let(:blocked_comment) { create(:comment, :blocked) }
 
     it { is_expected.to permit(comment.profile, comment) }
     it { is_expected.not_to permit(anyone, comment) }
@@ -45,9 +45,16 @@ describe CommentPolicy do
     end
   end
 
+  permissions :restore? do
+    let(:removed_comment) { create(:comment, :removed) }
+
+    it { is_expected.to permit(removed_comment.profile, removed_comment) }
+    it { is_expected.not_to permit(anyone, removed_comment) }
+  end
+
   permissions :block? do
     let(:comment) { create(:comment, event: event) }
-    let(:removed_comment) { create(:comment, event: event, removed_at: Time.current) }
+    let(:removed_comment) { create(:comment, :removed, event: event) }
     let(:teacher_comment) { create(:comment, event: event, profile: teacher) }
 
     it { is_expected.to permit(teacher, comment) }
@@ -83,7 +90,7 @@ describe CommentPolicy do
     end
 
     context "removed comment" do
-      let(:removed_comment) { create(:comment, event: event, removed_at: Time.current) }
+      let(:removed_comment) { create(:comment, :removed, event: event) }
 
       it { is_expected.not_to permit(teacher, removed_comment) }
       it { is_expected.not_to permit(removed_comment.profile, removed_comment) }
@@ -92,7 +99,7 @@ describe CommentPolicy do
     end
 
     context "blocked comment" do
-      let(:blocked_comment) { create(:comment, event: event, blocked_at: Time.current) }
+      let(:blocked_comment) { create(:comment, :blocked, event: event) }
 
       it { is_expected.to permit(teacher, blocked_comment) }
       it { is_expected.not_to permit(blocked_comment.profile, blocked_comment) }

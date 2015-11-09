@@ -14,5 +14,7 @@
  *= require angular-busy
  *= require angular-datepicker
  *= require angular-mighty-datepicker
+ *= require ngtoast/ngToast
+ *= require ngtoast/ngToast-animations
  *= require app
  */

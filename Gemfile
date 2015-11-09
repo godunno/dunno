@@ -71,6 +71,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-translate', '2.7.2'
   gem 'rails-assets-mrodrigues--angular-mighty-datepicker', '0.0.18'
   gem 'rails-assets-ui-router-extras', '0.1.0'
+  gem 'rails-assets-ngtoast', '1.5.6'
 end
 
 group :production, :staging do
