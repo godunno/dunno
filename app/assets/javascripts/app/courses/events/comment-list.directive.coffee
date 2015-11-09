@@ -29,6 +29,7 @@ commentList = ($location) ->
           dismissOnTimeout: false
           dismissOnClick: false
           dismissButton: true
+          dismissButtonHtml: '<a class="close-button">×</a>'
           compileContent: $scope
           content: $sce.trustAsHtml("""
             <p>
