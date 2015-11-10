@@ -42,13 +42,13 @@
 
   &__clear,
   &__empty {
-    padding: 2rem;
     text-align: center;
   }
 
   &__empty {
     color: $medium-grey-color;
     font-size: .875rem;
+    padding: 2rem;
   }
 
   &__count {
