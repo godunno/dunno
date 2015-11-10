@@ -67,14 +67,16 @@
 }
 
 .system__notification {
+  @include grid-block();
+  align-items: center;
   border-bottom: $divider;
-  clear: both;
   color: $dunno-dark-color;
-  display: block;
   font-size: .875rem;
-  padding: 2rem;
+  padding: 1rem;
 
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus {
     color: lighten($dunno-dark-color, 15%);
   }
 
@@ -83,13 +85,16 @@
   }
 
   &__author__avatar {
-    display: block;
-    float: left;
-    margin-top: -.25rem;
+    display: inline-block;
   }
 
   &__wrapper {
     display: block;
-    margin-left: 2.5rem;
+  }
+
+  &__icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    opacity: .5;
   }
 }
