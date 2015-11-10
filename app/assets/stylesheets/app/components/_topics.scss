@@ -110,8 +110,8 @@
   }
 
   &__image {
-    @include thumbnail(4rem);
-    flex-basis: 4rem;
+    @include thumbnail(3rem);
+    flex-basis: 3rem;
     text-align: center;
   }
 
