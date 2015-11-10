@@ -3,11 +3,12 @@
 }
 
 @mixin thumbnail($size: 2.75rem) {
-  background-size: cover;
   background: no-repeat center center;
+  background-size: cover;
   border-radius: $global-radius;
   display: inline-block;
   height: $size;
+  margin-right: .25rem;
   vertical-align: middle;
   width: $size;
 }

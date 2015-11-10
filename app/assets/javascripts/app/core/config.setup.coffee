@@ -7,10 +7,12 @@ angularMomentConfig =
 
 configure = (
   railsSerializerProvider,
+  ngToast,
   $animateProvider,
   $urlRouterProvider,
   $translateProvider,
-  $sceDelegateProvider) ->
+  $sceDelegateProvider
+) ->
 
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)
   $urlRouterProvider.otherwise('/courses')
@@ -22,12 +24,20 @@ configure = (
     'http://dunno-*.s3.amazonaws.com/assets/**'
   ]
 
+  ngToast.configure
+    additionalClasses: 'notification'
+    horizontalPosition: 'left'
+    verticalPosition: 'bottom'
+    animation: 'slide'
+
 configure.$inject = [
   'railsSerializerProvider',
+  'ngToastProvider',
   '$animateProvider',
   '$urlRouterProvider',
   '$translateProvider',
-  '$sceDelegateProvider']
+  '$sceDelegateProvider'
+]
 
 run = (amMoment, $rootScope, $window, SessionManager, NonLoggedRoutes) ->
   redirectIfNotLoggedIn = ->

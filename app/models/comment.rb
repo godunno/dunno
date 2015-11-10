@@ -14,4 +14,8 @@ class Comment < ActiveRecord::Base
   def removed?
     removed_at.present?
   end
+
+  def blocked?
+    blocked_at.present?
+  end
 end

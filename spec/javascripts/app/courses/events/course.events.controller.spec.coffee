@@ -91,6 +91,31 @@ describe "CourseEventsCtrl", ->
   it "fetches events topics and comments if comment id is passed on", ->
     expect(selectedEvent._fetched).toEqual(true)
 
+  describe "go to today", ->
+    today = new Date(selectedEvent.start_at)
+    beforeEach ->
+      jasmine.clock().mockDate(today)
+
+    initializeController = ->
+      inject ($controller) ->
+        ctrl = $controller 'CourseEventsCtrl',
+          $scope: $scope
+          pagination: pagination
+
+    it "sets today correctly", ->
+      initializeController()
+      expect(ctrl.today).toEqual(today.toISOString())
+
+    it "doesn't show button when it's in current month", ->
+      initializeController()
+      expect(ctrl.showToday()).toBe(false)
+
+    it "shows button when it's in another month", ->
+      oneMonth = 1000 * 60 * 60 * 24 * 31 * 2
+      jasmine.clock().mockDate(new Date(today.getTime() + oneMonth))
+      initializeController()
+      expect(ctrl.showToday()).toBe(true)
+
   describe "calendar widget", ->
     startAt = moment(event.start_at)
     inSameDay = startAt.clone().add(2, 'hours')
@@ -140,5 +165,3 @@ describe "CourseEventsCtrl", ->
       ctrl.selectedDate = startAt
       expect(ctrl.selectedEvent(event)).toBe(true)
       expect(ctrl.selectedEvent(eventInSameDay)).toBe(true)
-
-

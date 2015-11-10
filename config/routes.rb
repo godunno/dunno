@@ -44,7 +44,13 @@ Rails.application.routes.draw do
           patch :transfer
         end
       end
-      resources :comments, only: [:create, :destroy]
+      resources :comments, only: [:create, :destroy] do
+        member do
+          patch :block
+          patch :unblock
+          patch :restore
+        end
+      end
       resources :events, param: :start_at, only: [:index, :show, :create, :update]
       resources :courses, only: [:index, :show, :create, :update, :destroy] do
         member do

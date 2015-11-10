@@ -140,7 +140,7 @@
               ng-class="{active: topicType == 'catalog'}"]
               i.icon.icon-folder
               span
-                | Catálogo
+                | Materiais
           .item__type ng-show="topicType != null"
             .type.type__text ng-show="topicType == 'text'"
               form[
@@ -244,12 +244,14 @@
                   new-topic-actions
                     errors for="urlTopicForm.description"
 
-            .type.type__catalog ng-show="topicType == 'catalog'" ng-controller="AddFromMediaCtrl"
+            .type.type__catalog[
+              ng-show="topicType == 'catalog'"
+              ng-controller="AddFromMediaCtrl"]
               form[
                 ng-controller="TopicAttributesCtrl"
                 name="catalogTopicForm"
                 ng-submit="catalogTopicForm.$valid && addTopic()"
-                novalidate=true]
+                novalidate="true"]
                 .catalog__header
                   .catalog__search
                     i.icon.icon-search
@@ -258,35 +260,34 @@
                       perform-search="search"
                       clear-search="clearSearch()"
                       name="q"
-                      placeholder="Procure por assunto, palavra-chave ou tags"
+                      placeholder="Procurar material"
                       focus-on="topicType == 'catalog'"]
-                .catalog__medias
-                  .catalog__media ng-repeat="media in medias"
-                    input.media__select[
-                      type="radio"
-                      name="media"
-                      ng-model="result.media"
-                      ng-change="selectMedia()"
-                      ng-value="media"
-                      required=true
-                      validate=true
-                      id="{{media.uuid}}"]
-                    label.media__select__label for="{{media.uuid}}"
-                    .media__contents
-                      span.media__data
-                        strong.media__title
-                          | {{media.title}}
-                        a.media__url ng-href="{{media.url}}" target="_blank"
-                          i.media__type__icon.icon>[
-                            ng-class="'icon-' + media.type"]
-                          span
-                            | {{formatMediaUrl(media)}}
-                .load__more ng-if="next_page"
-                  a.load__more__media[
+                .catalog__items
+                  .catalog__item ng-repeat="media in medias"
+                    .catalog__item__select
+                      input[
+                        type="radio"
+                        name="media"
+                        ng-model="result.media"
+                        ng-change="selectMedia()"
+                        ng-value="media"
+                        required=true
+                        validate=true
+                        id="{{media.uuid}}"]
+                      label.media__select__label for="{{media.uuid}}"
+                    .catalog__item__info
+                      strong.catalog__item__title
+                        | {{media.title}}
+                      a.catalog__item__link ng-href="{{media.url}}" target="_blank"
+                        i.icon>[
+                          ng-class="{'icon-link': media.type == 'url', 'icon-file': media.type == 'file'}"]
+                        span
+                          | {{formatMediaUrl(media)}}
+                .catalog__load__more ng-if="next_page"
+                  div[
                     ng-click="paginate(next_page)"
-                    ng-if="next_page"
                     cg-busy="loadingNextPage"]
-                    | Carregar mais&hellip;
+                    | Carregar mais…
                 new-topic-actions
                   errors for="catalogTopicForm.media"
 
@@ -398,7 +399,7 @@
                       label="Salvar"
                       blocked-label="Salvando…"
                       ng-class="{topic__private: editingTopic.personal}"
-                      has-spinner=true]
+                      has-spinner="true"]
     .lesson__next__day
       a.lesson__next[
         ng-if="!!event.next.start_at"

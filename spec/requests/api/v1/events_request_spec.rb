@@ -3,7 +3,14 @@ require 'spec_helper'
 describe Api::V1::EventsController do
 
   let(:profile) { create(:profile) }
-  let(:course) { create(:course, start_date: 1.month.ago, end_date: 1.month.from_now, teacher: profile) }
+  let(:student) { create(:profile) }
+  let(:course) do
+    create :course,
+           start_date: 1.month.ago,
+           end_date: 1.month.from_now,
+           teacher: profile,
+           students: [student]
+  end
   let(:event) { create(:event, course: course) }
 
   describe "GET /api/v1/events/:start_at" do
@@ -17,8 +24,19 @@ describe Api::V1::EventsController do
     after { Timecop.return }
 
     context "existing event" do
-      let!(:comment) { create(:comment, event: event, created_at: 2.hours.ago) }
-      let!(:removed_comment) { create(:comment, event: event, removed_at: Time.current) }
+      let!(:comment) do
+        create :comment,
+               event: event,
+               created_at: 2.hours.ago
+      end
+      let!(:removed_comment) do
+        create :comment, :removed,
+               event: event,
+               created_at: 1.hour.ago
+      end
+      let!(:blocked_comment) do
+        create :comment, :blocked, event: event
+      end
       let(:topic) { create(:topic) }
       let(:topic_with_url) { create(:topic, media: media_with_url) }
       let(:topic_with_file) { create(:topic, media: media_with_file) }
@@ -59,9 +77,9 @@ describe Api::V1::EventsController do
 
       it { expect(last_response.status).to eq(200) }
 
-      def do_action
+      def do_action(current_profile = profile)
         get "/api/v1/events/#{event_start_at}.json",
-            { course_id: course.uuid }.merge(auth_params(profile))
+            { course_id: course.uuid }.merge(auth_params(current_profile))
       end
 
       before(:each) do
@@ -139,33 +157,100 @@ describe Api::V1::EventsController do
         end
 
         describe "comments" do
-          it do
-            expect(json["comments"]).to eq [
-              {
-                "id" => comment.id,
-                "body" => comment.body,
-                "event_start_at" => event.start_at.iso8601(3),
-                "created_at" => comment.created_at.iso8601(3),
-                "user" => {
-                  "name" => comment.profile.name,
-                  "avatar_url" => nil,
-                  "id" => comment.profile.user.id
+          context "as a teacher" do
+            it do
+              expect(json["comments"]).to eq [
+                {
+                  "id" => comment.id,
+                  "body" => comment.body,
+                  "event_start_at" => event.start_at.iso8601(3),
+                  "created_at" => comment.created_at.iso8601(3),
+                  "user" => {
+                    "name" => comment.profile.name,
+                    "avatar_url" => nil,
+                    "id" => comment.profile.user.id
+                  },
+                  "attachments" => [],
+                  "removed_at" => nil,
+                  "blocked_at" => nil
                 },
-                "attachments" => [],
-                "removed_at" => nil
-              },
-              {
-                "id" => removed_comment.id,
-                "event_start_at" => event.start_at.iso8601(3),
-                "created_at" => removed_comment.created_at.iso8601(3),
-                "user" => {
-                  "name" => removed_comment.profile.name,
-                  "avatar_url" => nil,
-                  "id" => removed_comment.profile.user.id
+                {
+                  "id" => removed_comment.id,
+                  "event_start_at" => event.start_at.iso8601(3),
+                  "created_at" => removed_comment.created_at.iso8601(3),
+                  "user" => {
+                    "name" => removed_comment.profile.name,
+                    "avatar_url" => nil,
+                    "id" => removed_comment.profile.user.id
+                  },
+                  "removed_at" => removed_comment.removed_at.iso8601(3),
+                  "blocked_at" => nil
                 },
-                "removed_at" => removed_comment.removed_at.iso8601(3)
-              }
-            ]
+                {
+                  "id" => blocked_comment.id,
+                  "body" => blocked_comment.body,
+                  "event_start_at" => event.start_at.iso8601(3),
+                  "created_at" => blocked_comment.created_at.iso8601(3),
+                  "user" => {
+                    "name" => blocked_comment.profile.name,
+                    "avatar_url" => nil,
+                    "id" => blocked_comment.profile.user.id
+                  },
+                  "attachments" => [],
+                  "removed_at" => nil,
+                  "blocked_at" => blocked_comment.blocked_at.iso8601(3)
+                }
+              ]
+            end
+          end
+
+          context "as a student" do
+            before do
+              do_action(student)
+            end
+
+            it do
+              expect(json["comments"]).to eq [
+                {
+                  "id" => comment.id,
+                  "body" => comment.body,
+                  "event_start_at" => event.start_at.iso8601(3),
+                  "created_at" => comment.created_at.iso8601(3),
+                  "user" => {
+                    "name" => comment.profile.name,
+                    "avatar_url" => nil,
+                    "id" => comment.profile.user.id
+                  },
+                  "attachments" => [],
+                  "removed_at" => nil,
+                  "blocked_at" => nil
+                },
+                {
+                  "id" => removed_comment.id,
+                  "event_start_at" => event.start_at.iso8601(3),
+                  "created_at" => removed_comment.created_at.iso8601(3),
+                  "user" => {
+                    "name" => removed_comment.profile.name,
+                    "avatar_url" => nil,
+                    "id" => removed_comment.profile.user.id
+                  },
+                  "removed_at" => removed_comment.removed_at.iso8601(3),
+                  "blocked_at" => nil
+                },
+                {
+                  "id" => blocked_comment.id,
+                  "event_start_at" => event.start_at.iso8601(3),
+                  "created_at" => blocked_comment.created_at.iso8601(3),
+                  "user" => {
+                    "name" => blocked_comment.profile.name,
+                    "avatar_url" => nil,
+                    "id" => blocked_comment.profile.user.id
+                  },
+                  "removed_at" => nil,
+                  "blocked_at" => blocked_comment.blocked_at.iso8601(3)
+                }
+              ]
+            end
           end
         end
       end

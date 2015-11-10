@@ -8,5 +8,13 @@ core.factory 'UserComment', ['RailsResource', 'railsSerializer',
       name: 'comment'
       updateMethod: 'patch'
     )
-]
 
+    block: ->
+      @$patch(@$url('/block'))
+
+    unblock: ->
+      @$patch(@$url('/unblock'))
+
+    restore: ->
+      @$patch(@$url('/restore'))
+]

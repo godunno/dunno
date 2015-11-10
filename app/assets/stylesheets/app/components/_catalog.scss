@@ -1,151 +1,111 @@
-.catalog__medias {
-  background: $white;
-  border: 1px solid $light-grey-color;
-  border-radius: $global-radius;
-}
+.catalog {
+  @extend %content__box;
+  @include grid-container();
+  overflow: visible;
+  padding: 1rem;
 
-.catalog__media {
-  border-bottom: 1px solid $light-grey-color;
-  padding: .75em 1em;
+  &__search {
+    position: relative;
 
-  &.empty__results {
-    padding: 2rem 0;
+    input {
+      padding-left: 2rem;
+    }
+
+    &__clear,
+    &__icon {
+      color: $medium-grey-color;
+      position: absolute;
+      top: .5rem;
+    }
+
+    &__icon {
+      left: .5rem;
+    }
+
+    &__clear {
+      cursor: pointer;
+      right: .5rem;
+
+      &:hover {
+        color: $dunno-dark-color;
+      }
+    }
+  }
+
+  &__item {
+    @include grid-block();
+    align-items: center;
+    border-bottom: $divider;
+    overflow: visible;
+    padding: 1rem 0;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &__link {
+      display: block;
+    }
+
+    &__select {
+      padding-left: .5rem;
+    }
+
+    &__select,
+    &__actions {
+      flex-shrink: 1;
+    }
+
+    &__actions {
+      margin-left: auto;
+
+      .action-sheet,
+      .action-sheet.is-active {
+        transform: translateX(-96.7%) translateY(106%);
+
+        &::before,
+        &::after {
+          left: 96.5%;
+        }
+      }
+    }
+
+    &__more__actions {
+      color: $dunno-dark-color;
+      margin-left: .5rem;
+
+      &:hover {
+        color: lighten($dunno-dark-color, 10%);
+      }
+    }
+
+    &__type {
+      background: $dark-grey-color;
+      border-radius: 50%;
+      color: $light-grey-color;
+      display: inline-block;
+      font-size: 1.25rem;
+      height: 2rem;
+      line-height: 2.3rem;
+      margin-right: .25rem;
+      text-align: center;
+      vertical-align: middle;
+      width: 2rem;
+    }
+  }
+
+  &__load__more {
+    color: $dunno-green-color;
+    cursor: pointer;
+    font-size: .875rem;
+    padding: .5rem 0;
     text-align: center;
   }
 
-  a {
-    color: $dunno-dark-color;
-  }
-
-  .media__thumbnail,
-  .media__data,
-  .media__select__label {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  .media__remove {
-    float: right;
-  }
-
-  .media__select__label {
-    float: left;
-    margin-top: 1.75em;
-  }
-
-  .media__select {
-    display: none;
-  }
-
-  .media__thumbnail {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: 1px solid $light-grey-color;
-    border-radius: $global-radius;
-    display: block;
-    float: left;
-    height: 4em;
-    margin-right: .5em;
-    vertical-align: middle;
-    width: 4em;
-  }
-
-  .media__title {
-    color: $dunno-dark-color;
-    display: block;
-    font-weight: $font-weight-normal;
-    line-height: 2.5em;
-    margin-right: 2em;
-
-    input {
-      margin: 0;
-    }
-  }
-
-  .media__data,
-  .catalog__media__body {
-    display: block;
-  }
-
-  .media__contents {
-    margin-left: 2.5em;
-
-    &:after {
-      clear: both;
-      content: ' ';
-      display: block;
-    }
-  }
-
-  .media__url {
-    .icon {
-      background-color: $dark-grey-color;
-      color: $white;
-      display: inline-block;
-      font-size: .875em;
-      height: 1.5em;
-      line-height: 1em;
-      padding: .25em;
-      vertical-align: middle;
-      width: 1.5em;
-    }
-
-    span {
-      color: $dunno-green-color;
-    }
-  }
-}
-
-.tags-label {
-  color: $light-grey-color;
-  float: left;
-  margin-top: .5rem;
-}
-
-.media__tags {
-  .tags {
-    background: none;
-    border: 0;
-    box-shadow: none;
-
-    &.focused {
-      box-shadow: none;
-      outline: none;
-    }
-
-    .tags__input {
-      float: left;
-    }
-
-    .tag-item {
-      @include label($radius: 2px);
-      background: $light-grey-color;
-      border: 0;
-      font-size: 1em;
-      font-weight: 300;
-      margin: 0 .25em .25em 0;
-
-      span:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
-
-      &.selected {
-        background: $light-grey-color;
-        border: 1px solid $red-color;
-      }
-
-      .remove-button {
-        color: $white;
-        opacity: .8;
-      }
-    }
-
-    .input {
-      border: 1px solid $light-grey-color;
-      font-family: inherit;
-      margin: 0;
-    }
+  &__empty {
+    color: $dark-grey-color;
+    font-size: .875rem;
+    padding: 2rem 0;
+    text-align: center;
   }
 }

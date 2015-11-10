@@ -79,6 +79,18 @@ describe Api::V1::CoursesController do
 
     shared_examples_for "get course" do |role|
       let!(:weekly_schedule) { create(:weekly_schedule, course: course) }
+      let!(:media_from_published_event) do
+        create :media,
+               topics: [
+                 create(:topic, event: create(:event, :published, course: course))
+               ]
+      end
+      let!(:media_from_unpublished_event) do
+        create :media,
+               topics: [
+                 create(:topic, event: create(:event, :draft, course: course))
+               ]
+      end
 
       before do
         course.save!
@@ -113,6 +125,7 @@ describe Api::V1::CoursesController do
               "students_count" => course.students.count,
               "color" => SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
               "teacher" => { "name" => teacher.name, "avatar_url" => nil },
+              "medias_count" => 1,
               "weekly_schedules" => [
                 "uuid" => weekly_schedule.uuid,
                 "weekday" => weekly_schedule.weekday,

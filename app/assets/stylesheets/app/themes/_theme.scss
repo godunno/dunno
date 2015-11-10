@@ -15,6 +15,13 @@
   transform: rotate(100deg);
 }
 
+.notification {
+  button {
+    background: transparent;
+    border: 0;
+  }
+}
+
 %button {
   @extend %button;
   -webkit-font-smoothing: subpixel-antialiased;

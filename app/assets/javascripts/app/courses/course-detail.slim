@@ -43,4 +43,7 @@
           li ui-sref-active="is-active"
             a.members__tab ui-sref=".members"
               | Integrantes ({{course.members.length}})
+          li ui-sref-active="is-active"
+            a.catalog__tab ui-sref=".catalog"
+              | Materiais ({{course.medias_count}})
   ui-view.course__content

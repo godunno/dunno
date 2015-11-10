@@ -19,6 +19,21 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
     comment.update!(removed_at: Time.current)
   end
 
+  def restore
+    authorize comment
+    comment.update!(removed_at: nil)
+  end
+
+  def block
+    authorize comment
+    comment.update!(blocked_at: Time.current)
+  end
+
+  def unblock
+    authorize comment
+    comment.update!(blocked_at: nil)
+  end
+
   private
 
   def event_start_at

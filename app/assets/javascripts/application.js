@@ -9,6 +9,7 @@
 //= require angular-messages
 //= require angular-sanitize
 //= require ng-file-upload
+//= require ngtoast
 //= require angular-validation-match
 //= require angular-busy
 //= require angular-filter
