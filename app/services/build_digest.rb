@@ -3,10 +3,6 @@ class BuildDigest
     self.profile = profile
   end
 
-  def deliver
-    DigestMailer.delay.digest(profile, notifications)
-  end
-
   def notifications
     NotificationsDigest.new.tap do |result|
       system_notifications.map do |system_notification|

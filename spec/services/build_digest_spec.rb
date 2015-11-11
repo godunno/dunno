@@ -47,16 +47,6 @@ describe BuildDigest do
   end
 
   it "sends a digest email with event published notifications" do
-    delayed_mailer = double("Delayed Mailer", digest: :digest_method)
-
-    expect(DigestMailer)
-      .to receive(:delay)
-      .and_return(delayed_mailer)
-
-    expect(delayed_mailer)
-      .to receive(:digest)
-      .with(profile, notifications_digest)
-
-    digest.deliver
+    expect(digest.notifications).to eq notifications_digest
   end
 end

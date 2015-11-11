@@ -51,12 +51,9 @@ RSpec.describe DigestMailer, type: :mailer do
     profile.block_in!(blocked_course)
   end
 
-  let(:notifications_digest) do
-    BuildDigest.new(profile).notifications
-  end
-
   before do
-    DigestMailer.digest(profile, notifications_digest).deliver
+    expect(BuildDigest).to receive(:new).with(profile).and_call_original
+    DigestMailer.digest(profile).deliver
   end
 
   after do
