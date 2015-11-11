@@ -1,9 +1,10 @@
 module EventsHelper
-  def status_label(status)
+  def readable_status(status)
     case status
-    when 'available' then 'label-success'
-    when 'opened' then 'label-warning'
-    when 'closed' then 'label-danger'
+    when 'canceled' then 'Aula cancelada'
+    when 'published' then 'Aula publicada'
+    when 'draft' then 'Aula vazia'
+    else raise "Unknown status: #{status}"
     end
   end
 end

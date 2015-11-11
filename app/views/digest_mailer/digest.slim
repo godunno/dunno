@@ -1,0 +1,19 @@
+Bom dia, #{@profile.name}! Já tomou seu café? Confira o que rolou ontem no Dunno:
+
+- @notifications_digest.courses.each do |course_digest|
+  h2 #{course_digest.course.name} - #{course_digest.course.teacher.name}
+
+  - if @profile.blocked_in?(course_digest.course)
+    .blocked Você foi bloqueado desta disciplina.
+  - else
+    - course_digest.events.each do |event_digest|
+      h3
+        | #{l event_digest.event.start_at, format: '%A (%d/%b – %H:%M)'}
+        | - #{readable_status(event_digest.event.status)}
+
+      - if event_digest.comment_notifications.any?
+        h4 Novos comentários:
+        - event_digest.comment_notifications.each do |comment_notification|
+          .avatar #{comment_notification.author.avatar_url}
+          .author #{comment_notification.author.name}
+          .body #{comment_notification.notifiable.body}
