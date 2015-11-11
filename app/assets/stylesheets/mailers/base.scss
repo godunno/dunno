@@ -151,3 +151,55 @@ strong {
     }
   }
 }
+
+.digest {
+  text-align: left;
+
+  h5 {
+    font-size: .75rem;
+    margin: 0 1rem;
+    text-transform: uppercase;
+  }
+
+  &__course {
+
+    &__header {
+      border: $divider;
+      border-bottom-width: .125rem;
+      border-radius: .25rem;
+      text-align: center;
+    }
+
+    &__title {
+      padding: 2rem 1rem;
+    }
+
+    &__teacher {
+      padding: .5rem 1rem;
+    }
+  }
+
+  &__event {
+    border-bottom: $divider;
+    margin-left: 2rem;
+
+    &__info {
+      padding: 1rem;
+    }
+
+    &__topics,
+    &__comments {
+      padding: 1rem;
+    }
+  }
+
+  .event {
+    &__published {
+      color: $dunno-green-color;
+    }
+
+    &__canceled {
+      color: $red-color;
+    }
+  }
+}

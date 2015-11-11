@@ -72,7 +72,7 @@ RSpec.describe DigestMailer, type: :mailer do
   it { expect(email.body).to include course.name }
   it { expect(email.body).to include teacher.name }
 
-  it { expect(email.body).to include 'Quinta (01/Jan – 14:00)' }
+  it { expect(email.body).to include 'Quinta, 01/Jan - 14:00' }
   it { expect(email.body).to include 'Aula publicada' }
   it { expect(email.body).to include topic.description }
 
