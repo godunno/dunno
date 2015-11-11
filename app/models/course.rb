@@ -49,6 +49,10 @@ class Course < ActiveRecord::Base
     super || (Abbreviate.abbreviate(name) if name.present?)
   end
 
+  def color
+    SHARED_CONFIG["v1"]["courses"]["schemes"][order % 12]
+  end
+
   private
 
   def set_access_code

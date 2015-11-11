@@ -1,7 +1,9 @@
-Bom dia, #{@profile.name}! Já tomou seu café? Confira o que rolou ontem no Dunno:
+p
+  | Bom dia, #{@profile.name}! Já tomou seu café? Confira o que rolou ontem no Dunno:
 
 - @notifications_digest.courses.each do |course_digest|
-  h2 #{course_digest.course.name} - #{course_digest.course.teacher.name}
+  h2[style="{ background-color: #{course_digest.course.color} }"]
+    | #{course_digest.course.name} - #{course_digest.course.teacher.name}
 
   - if @profile.blocked_in?(course_digest.course)
     .blocked Você foi bloqueado desta disciplina.
