@@ -11,8 +11,10 @@ RSpec.describe DigestMailer, type: :mailer do
   let(:event) do
     create :event, :published,
            course: course,
+           topics: [topic],
            start_at: Time.zone.parse('2015-01-01 14:00')
   end
+  let(:topic) { create(:topic) }
   let(:comment_from_blocked_course) do
     create :comment,
            body: 'Blocked comment',
@@ -75,6 +77,7 @@ RSpec.describe DigestMailer, type: :mailer do
 
   it { expect(email.body).to include 'Quinta (01/Jan – 14:00)' }
   it { expect(email.body).to include 'Aula publicada' }
+  it { expect(email.body).to include topic.description }
 
   it { expect(email.body).to include comment.body }
   it { expect(email.body).to include comment.profile.name}

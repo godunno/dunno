@@ -12,6 +12,15 @@ p
       h3
         | #{l event_digest.event.start_at, format: '%A (%d/%b – %H:%M)'}
         | - #{readable_status(event_digest.event.status)}
+      h4 Conteúdo:
+      - event_digest.event.topics.each do |topic|
+        p #{topic.description}
+        - if topic.media.present?
+          - case topic.media.type
+          - when 'url'
+            i.icon.icon-link
+          - when 'file'
+            i.icon.icon-file
 
       - if event_digest.comment_notifications.any?
         h4 Novos comentários:
