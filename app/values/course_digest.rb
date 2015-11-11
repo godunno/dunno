@@ -20,12 +20,12 @@ class CourseDigest
     @events.to_a.sort_by(&:start_at)
   end
 
-  def ==(obj)
-    obj.course == course
+  def ==(other)
+    other.course == course
   end
 
-  def eql?(obj)
-    self == obj
+  def eql?(other)
+    self == other
   end
 
   delegate :hash, to: :course
@@ -44,6 +44,6 @@ class CourseDigest
   def event_digest_for(system_notification)
     event_digest = EventDigest.new(event_for system_notification)
     @events << event_digest
-    @events.find { |e| e == event_digest }
+    @events.detect { |e| e == event_digest }
   end
 end

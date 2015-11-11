@@ -13,12 +13,12 @@ class NotificationsDigest
     @courses.to_a.sort_by(&:order)
   end
 
-  def ==(obj)
-    courses == obj.courses
+  def ==(other)
+    courses == other.courses
   end
 
-  def eql?(obj)
-    self == obj
+  def eql?(other)
+    self == other
   end
 
   delegate :hash, to: :courses
@@ -38,6 +38,6 @@ class NotificationsDigest
   def course_digest_for(system_notification)
     course_digest = CourseDigest.new(course_for system_notification)
     @courses << course_digest
-    @courses.find { |c| c == course_digest }
+    @courses.detect { |c| c == course_digest }
   end
 end

@@ -51,7 +51,7 @@ RSpec.describe DigestMailer, type: :mailer do
     profile.block_in!(blocked_course)
   end
 
-  let (:notifications_digest) do
+  let(:notifications_digest) do
     BuildDigest.new(profile).notifications
   end
 
@@ -80,8 +80,8 @@ RSpec.describe DigestMailer, type: :mailer do
   it { expect(email.body).to include topic.description }
 
   it { expect(email.body).to include comment.body }
-  it { expect(email.body).to include comment.profile.name}
-  it { expect(email.body).to include comment.profile.avatar_url}
+  it { expect(email.body).to include comment.profile.name }
+  it { expect(email.body).to include comment.profile.avatar_url }
 
   it { expect(email.body).to include blocked_course.name }
   it { expect(email.body).to include 'Você foi bloqueado desta disciplina.' }

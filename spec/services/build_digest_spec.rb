@@ -33,7 +33,7 @@ describe BuildDigest do
   end
   let(:digest) { BuildDigest.new(profile) }
 
-  let (:notifications_digest) do
+  let(:notifications_digest) do
     event_digest = EventDigest.new(event)
     event_digest.comment_notifications = [new_comment_notification]
 
@@ -50,12 +50,12 @@ describe BuildDigest do
     delayed_mailer = double("Delayed Mailer", digest: :digest_method)
 
     expect(DigestMailer)
-    .to receive(:delay)
-    .and_return(delayed_mailer)
+      .to receive(:delay)
+      .and_return(delayed_mailer)
 
     expect(delayed_mailer)
-    .to receive(:digest)
-    .with(profile, notifications_digest)
+      .to receive(:digest)
+      .with(profile, notifications_digest)
 
     digest.deliver
   end
