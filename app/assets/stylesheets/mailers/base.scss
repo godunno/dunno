@@ -156,13 +156,13 @@ strong {
   text-align: left;
 
   h5 {
+    color: $dark-grey-color;
     font-size: .75rem;
-    margin: 0 1rem;
+    margin: 0 0 0 2rem;
     text-transform: uppercase;
   }
 
   &__course {
-
     &__header {
       border: $divider;
       border-bottom-width: .125rem;
@@ -171,35 +171,68 @@ strong {
     }
 
     &__title {
+      color: $dunno-dark-color;
+      display: block;
       padding: 2rem 1rem;
     }
 
     &__teacher {
       padding: .5rem 1rem;
     }
+
+    &__blocked {
+      padding-left: 2rem;
+    }
   }
 
   &__event {
     border-bottom: $divider;
+    border-left: $divider;
     margin-left: 2rem;
 
     &__info {
+      display: block;
       padding: 1rem;
+    }
+
+    &__status {
+      span {
+        border-radius: .1875rem;
+        color: $white;
+        display: inline-block;
+        font-size: .75rem;
+        margin-right: .5rem;
+        padding: .25rem .75rem;
+        text-transform: uppercase;
+      }
     }
 
     &__topics,
     &__comments {
-      padding: 1rem;
+      display: block;
+      padding: 0 0 1rem 3rem;
+    }
+
+    &__topic,
+    &__comment {
+      &__icon,
+      &__description,
+      &__author,
+      &__body {
+        font-size: .875rem;
+        padding-bottom: .75rem;
+        padding-top: .5rem;
+      }
     }
   }
 
   .event {
     &__published {
-      color: $dunno-green-color;
+      background-color: $dunno-green-color;
     }
 
     &__canceled {
-      color: $red-color;
+      background-color: $red-color;
     }
   }
 }

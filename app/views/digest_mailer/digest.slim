@@ -27,16 +27,14 @@
         - if @profile.blocked_in?(course_digest.course)
           .digest__course__blocked
             p
-              | Ooops!
-              br
-              | Você foi bloqueado desta disciplina.
+              | Ooops! Você foi bloqueado desta disciplina.
         - else
           - course_digest.events.each do |event_digest|
             .digest__event
               a.digest__event__info href="#{angular_event_path(event_digest.event)}"
                 span.digest__event__status>
                   span< class="event__#{event_digest.status}"
-                    | #{readable_status(event_digest.status)}:
+                    | #{readable_status(event_digest.status)}
                 span.digest__event__date<
                   | #{l event_digest.start_at, format: '%A, %d/%b - %H:%M'}
               - if event_digest.topics.any?
@@ -46,16 +44,17 @@
                   - event_digest.topics.each do |topic|
                     tr.digest__event__topic
                       - if topic.media.present?
-                        - case topic.media.type
-                        - when 'url'
-                          td.icon.icon-link>
-                            | link
-                        - when 'file'
-                          td.icon.icon-file>
-                            | file
+                        td.digest__event__topic__icon
+                          - case topic.media.type
+                          - when 'url'
+                            .icon__link
+                              = image_tag 'mailers/link-icon.png'
+                          - when 'file'
+                            .icon__file
+                              = image_tag 'mailers/file-icon.png'
                       - else
                         td
-                      td
+                      td.digest__event__topic__description
                         | #{topic.description}
               - if event_digest.comment_notifications.any?
                 h5
@@ -64,10 +63,10 @@
                   - event_digest.comment_notifications.each do |comment_notification|
                     tr.digest__event__comment
                       td.digest__event__comment__author
-                        a.comment--link href="#{angular_comment_path(comment_notification.notifiable)}"
-                          b
-                            | #{comment_notification.author.name}:
-                      td
-                        a.comment--link href="#{angular_comment_path(comment_notification.notifiable)}"
-                          span.digest__event__comment__body
-                            | #{comment_notification.notifiable.body}
+                        b
+                          | #{comment_notification.author.name}:
+                      td.digest__event__comment__body
+                        | #{comment_notification.notifiable.body}
+                        a.digest__event__comment__link< href="#{angular_comment_path(comment_notification.notifiable)}"
+                          small
+                            | ver no Dunno
