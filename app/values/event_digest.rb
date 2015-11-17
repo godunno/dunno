@@ -23,5 +23,9 @@ class EventDigest
     self == other
   end
 
-  delegate :hash, to: :event
+  delegate :hash, :status, :start_at, to: :event
+
+  def topics
+    event.topics.without_personal
+  end
 end

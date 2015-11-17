@@ -35,15 +35,15 @@
             .digest__event
               a.digest__event__info href="#{angular_event_path(event_digest.event)}"
                 span.digest__event__status>
-                  span< class="event__#{event_digest.event.status}"
-                    | #{readable_status(event_digest.event.status)}:
+                  span< class="event__#{event_digest.status}"
+                    | #{readable_status(event_digest.status)}:
                 span.digest__event__date<
-                  | #{l event_digest.event.start_at, format: '%A, %d/%b - %H:%M'}
-              - if event_digest.event.topics.any?
+                  | #{l event_digest.start_at, format: '%A, %d/%b - %H:%M'}
+              - if event_digest.topics.any?
                 h5
                   | Novos conteúdos
                 table.digest__event__topics
-                  - event_digest.event.topics.each do |topic|
+                  - event_digest.topics.each do |topic|
                     tr.digest__event__topic
                       - if topic.media.present?
                         - case topic.media.type
