@@ -11,7 +11,9 @@
     - @notifications_digest.courses.each do |course_digest|
       .digest__course
         .digest__course__header
-          .digest__course__title style="background-color: #{course_digest.course.color}"
+          a.digest__course__title[
+            href="#{angular_course_path(course_digest.course)}"
+            style="background-color: #{course_digest.course.color}"]
             span>
               | #{course_digest.course.name}
             - if course_digest.course.class_name
@@ -31,7 +33,7 @@
         - else
           - course_digest.events.each do |event_digest|
             .digest__event
-              .digest__event__info
+              a.digest__event__info href="#{angular_event_path(event_digest.event)}"
                 span.digest__event__status>
                   span< class="event__#{event_digest.event.status}"
                     | #{readable_status(event_digest.event.status)}:
@@ -62,8 +64,10 @@
                   - event_digest.comment_notifications.each do |comment_notification|
                     tr.digest__event__comment
                       td.digest__event__comment__author
-                        b
-                          | #{comment_notification.author.name}:
+                        a.comment--link href="#{angular_comment_path(comment_notification.notifiable)}"
+                          b
+                            | #{comment_notification.author.name}:
                       td
-                        span.digest__event__comment__body
-                          | #{comment_notification.notifiable.body}
+                        a.comment--link href="#{angular_comment_path(comment_notification.notifiable)}"
+                          span.digest__event__comment__body
+                            | #{comment_notification.notifiable.body}

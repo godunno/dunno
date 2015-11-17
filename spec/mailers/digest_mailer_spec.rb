@@ -53,7 +53,7 @@ RSpec.describe DigestMailer, type: :mailer do
 
   before do
     expect(BuildDigest).to receive(:new).with(profile).and_call_original
-    DigestMailer.digest(profile).deliver
+    DigestMailer.digest(profile.id).deliver
   end
 
   after do
