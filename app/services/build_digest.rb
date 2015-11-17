@@ -16,6 +16,6 @@ class BuildDigest
   attr_accessor :profile
 
   def system_notifications
-    profile.system_notifications.where('created_at > ?', 1.day.ago)
+    profile.system_notifications.more_recent_than(profile.last_digest_sent_at)
   end
 end

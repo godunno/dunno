@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe BuildDigest do
-  let(:profile) { create(:profile) }
+  let(:profile) { create(:profile, last_digest_sent_at: 1.day.ago) }
   let(:course) { create(:course) }
   let(:event) { create(:event, course: course) }
   let(:comment) { create(:comment, event: event) }
