@@ -32,12 +32,12 @@ describe DeliverDigests do
 
   it do
     expect { do_service }
-    .to change { profile_with_recent_notifications.reload.last_digest_sent_at }
-    .to(Time.current)
+      .to change { profile_with_recent_notifications.reload.last_digest_sent_at.change(usec: 0) }
+      .to(Time.current.change(usec: 0))
   end
   it do
     expect { do_service }
-    .not_to change { profile_without_recent_notifications.reload.last_digest_sent_at }
+      .not_to change { profile_without_recent_notifications.reload.last_digest_sent_at }
   end
 
   it "only delivers the digest for the profiles with recent notifications" do
