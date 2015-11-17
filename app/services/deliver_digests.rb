@@ -1,6 +1,7 @@
 class DeliverDigests
   def deliver
-    Profile.find_each do |profile|
+    User.where(receive_digests: true).find_each do |user|
+      profile = user.profile
       next unless has_notifications?(profile)
       DigestMailer.delay.digest(profile)
       profile.update!(last_digest_sent_at: Time.current)

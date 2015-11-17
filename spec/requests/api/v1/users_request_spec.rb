@@ -34,7 +34,8 @@ describe Api::V1::UsersController do
       let(:params_hash) do
         {
           user: {
-            name: name
+            name: name,
+            receive_digests: false
           }
         }
       end
@@ -43,6 +44,7 @@ describe Api::V1::UsersController do
 
       it { expect(last_response.status).to eq(200) }
       it { expect(subject.name).to eq(name) }
+      it { expect(subject.receive_digests?).to be false }
 
       it { expect(json).to eq(user_response_json) }
     end

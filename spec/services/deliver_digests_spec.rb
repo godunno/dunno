@@ -3,6 +3,7 @@ require 'spec_helper'
 describe DeliverDigests do
   let!(:profile_with_recent_notifications) { create(:profile, last_digest_sent_at: 1.day.ago) }
   let!(:profile_without_recent_notifications) { create(:profile, last_digest_sent_at: 1.day.ago) }
+  let!(:profile_that_doesnt_receive_digests) { create(:profile, user: create(:user, receive_digests: false)) }
 
   let!(:recent_notification) do
     create(:system_notification, :new_comment, profile: profile_with_recent_notifications)
@@ -12,6 +13,10 @@ describe DeliverDigests do
     create :system_notification, :new_comment,
            profile: profile_without_recent_notifications,
            created_at: 2.days.ago
+  end
+
+  let!(:notification_for_user_who_doesnt_receive_digests) do
+    create(:system_notification, :new_comment, profile: profile_that_doesnt_receive_digests)
   end
 
   let(:delayed_mailer) { double("Delayed Mailer", digest: nil) }
@@ -43,6 +48,7 @@ describe DeliverDigests do
   it "only delivers the digest for the profiles with recent notifications" do
     expect(delayed_mailer).to receive(:digest).with(profile_with_recent_notifications)
     expect(delayed_mailer).not_to receive(:digest).with(profile_without_recent_notifications)
+    expect(delayed_mailer).not_to receive(:digest).with(profile_that_doesnt_receive_digests)
     do_service
   end
 end
