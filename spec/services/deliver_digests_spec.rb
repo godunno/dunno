@@ -3,7 +3,9 @@ require 'spec_helper'
 describe DeliverDigests do
   let!(:profile_with_recent_notifications) { create(:profile, last_digest_sent_at: 1.day.ago) }
   let!(:profile_without_recent_notifications) { create(:profile, last_digest_sent_at: 1.day.ago) }
-  let!(:profile_that_doesnt_receive_digests) { create(:profile, user: create(:user, receive_digests: false)) }
+  let!(:profile_that_doesnt_receive_digests) do
+    create(:profile, user: create(:user, receive_digests: false))
+  end
 
   let!(:recent_notification) do
     create(:system_notification, :new_comment, profile: profile_with_recent_notifications)
