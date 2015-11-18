@@ -8,6 +8,16 @@ RSpec.describe DigestMailer, type: :mailer do
   let(:blocked_course) { create(:course, students: [profile]) }
   let(:event) { create(:event, course: course) }
   let(:comment) { create(:comment, event: event) }
+  let!(:new_comment_notification_with_single_attachment) do
+    create :system_notification, :new_comment,
+           notifiable: create(:comment, event: event, attachments: [create(:attachment)]),
+           profile: profile
+  end
+  let!(:new_comment_notification_with_multiple_attachments) do
+    create :system_notification, :new_comment,
+           notifiable: create(:comment, event: event, attachments: create_list(:attachment, 2)),
+           profile: profile
+  end
   let(:event) do
     create :event, :published,
            course: course,
@@ -81,6 +91,8 @@ RSpec.describe DigestMailer, type: :mailer do
   it { expect(email.body).to include comment.body }
   it { expect(email.body).to include comment.profile.name }
   it { expect(email.body).to include comment.profile.avatar_url }
+  it { expect(email.body).to include "(1 anexo)" }
+  it { expect(email.body).to include "(2 anexos)" }
 
   it { expect(email.body).to include blocked_course.name }
   it { expect(email.body).to include 'Você foi bloqueado desta disciplina.' }
