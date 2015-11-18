@@ -63,16 +63,20 @@
                   - event_digest.comment_notifications.each do |comment_notification|
                     tr.digest__event__comment
                       td.digest__event__comment__author
-                        b
-                          | #{comment_notification.author.name}:
+                        | <b>#{comment_notification.author.name}</b> disse:
                       td.digest__event__comment__body
-                        | #{comment_notification.notifiable.body}
-                        a.digest__event__comment__link< href="#{angular_comment_path(comment_notification.notifiable)}"
-                          small
-                            | ver no Dunno
-  .unsubscribe
+                        i>
+                          | #{comment_notification.notifiable.body}
+                        /
+                          a.digest__event__comment__link href="#{angular_comment_path(comment_notification.notifiable)}"
+                            small
+                              | ver no Dunno
+  .digest__unsubscribe
     p
-      | Deseja parar de receber novidades diárias em seu email? Acesse a
-      a href="/dashboard#/profile/edit"
-        | página de sua conta
-      | e desmarque a opção "Receber novidades diárias em meu email"
+      b
+        | Deseja parar de receber novidades diárias em seu email?
+      br
+      | Acesse sua
+      a.link__unsubscribe<> href="/dashboard#/profile/edit"
+        | página de perfil
+      | e desmarque a opção <i>Receber novidades diárias em meu email</i>.

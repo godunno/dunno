@@ -235,4 +235,18 @@ strong {
       background-color: $red-color;
     }
   }
+
+  &__unsubscribe {
+    font-size: .875rem;
+    padding-top: 1rem;
+    text-align: center;
+
+    b {
+      color: $dark-grey-color;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
 }
