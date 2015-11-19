@@ -3,8 +3,13 @@ require 'spec_helper'
 describe DeliverSystemNotifications do
   let(:teacher) { create(:profile) }
   let(:student) { create(:profile) }
-  let(:course) { create(:course, teacher: teacher, students: [student]) }
+  let(:blocked_student) { create(:profile) }
+  let(:course) { create(:course, teacher: teacher, students: [student, blocked_student]) }
   let(:event) { create(:event, course: course) }
+
+  before do
+    blocked_student.block_in! course
+  end
 
   it "delivers event_canceled notification for each course member" do
     DeliverSystemNotifications.new(
@@ -21,5 +26,7 @@ describe DeliverSystemNotifications do
     teacher_notification = teacher.system_notifications.last
     expect(teacher_notification.notifiable).to eq event
     expect(teacher_notification.notification_type).to eq 'event_canceled'
+
+    expect(blocked_student.system_notifications).to be_empty
   end
 end
