@@ -1,5 +1,5 @@
 json.root_path(dashboard_path)
-json.(@resource, :id, :name, :email, :authentication_token, :avatar_url)
+json.(@resource, :id, :name, :email, :authentication_token, :avatar_url, :receive_digests)
 json.created_at(@resource.created_at.utc.iso8601)
 json.profile(@resource.profile_name)
 json.courses_count(@resource.profile.courses.count)

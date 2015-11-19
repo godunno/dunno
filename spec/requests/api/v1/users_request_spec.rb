@@ -7,22 +7,6 @@ describe Api::V1::UsersController do
   let!(:course) { create(:course, teacher: profile) }
   let(:user) { create(:user, profile: profile, password: password) }
 
-  let(:user_response_json) do
-    {
-      "root_path" => "/dashboard",
-      "id" => user.id,
-      "name" => name,
-      "email" => user.email,
-      "authentication_token" => user.authentication_token,
-      "avatar_url" => nil,
-      "courses_count" => 1,
-      "notifications_count" => 0,
-      "profile" => "teacher",
-      "students_count" => 0,
-      "created_at" => user.created_at.utc.iso8601
-    }
-  end
-
   describe "PATCH /api/v1/users" do
     let(:name) { "Novo nome" }
     def do_action
@@ -34,7 +18,8 @@ describe Api::V1::UsersController do
       let(:params_hash) do
         {
           user: {
-            name: name
+            name: name,
+            receive_digests: false
           }
         }
       end
@@ -43,8 +28,24 @@ describe Api::V1::UsersController do
 
       it { expect(last_response.status).to eq(200) }
       it { expect(subject.name).to eq(name) }
+      it { expect(subject.receive_digests?).to be false }
 
-      it { expect(json).to eq(user_response_json) }
+      it do
+        expect(json).to eq(
+          "root_path" => "/dashboard",
+          "id" => user.id,
+          "name" => name,
+          "email" => user.email,
+          "authentication_token" => user.authentication_token,
+          "avatar_url" => nil,
+          "courses_count" => 1,
+          "notifications_count" => 0,
+          "profile" => "teacher",
+          "students_count" => 0,
+          "created_at" => user.created_at.utc.iso8601,
+          "receive_digests" => false
+        )
+      end
     end
 
     context "updating not allowed fields" do
@@ -109,7 +110,22 @@ describe Api::V1::UsersController do
 
         it { expect(last_response.status).to eq(200) }
         it { expect(user.reload.valid_password?(new_password)).to eq(true) }
-        it { expect(json).to eq(user_response_json) }
+        it do
+          expect(json).to eq(
+            "root_path" => "/dashboard",
+            "id" => user.id,
+            "name" => name,
+            "email" => user.email,
+            "authentication_token" => user.authentication_token,
+            "avatar_url" => nil,
+            "courses_count" => 1,
+            "notifications_count" => 0,
+            "profile" => "teacher",
+            "students_count" => 0,
+            "created_at" => user.created_at.utc.iso8601,
+            "receive_digests" => true
+          )
+        end
       end
 
       context "unsuccessfully" do
