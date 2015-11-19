@@ -1,6 +1,7 @@
 class BuildDigest
-  def initialize(profile)
+  def initialize(profile, system_notifications)
     self.profile = profile
+    self.system_notifications = system_notifications
   end
 
   def notifications
@@ -13,9 +14,5 @@ class BuildDigest
 
   private
 
-  attr_accessor :profile
-
-  def system_notifications
-    profile.system_notifications.more_recent_than(profile.last_digest_sent_at)
-  end
+  attr_accessor :profile, :system_notifications
 end
