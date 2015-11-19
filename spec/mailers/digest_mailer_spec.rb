@@ -8,16 +8,6 @@ RSpec.describe DigestMailer, type: :mailer do
   let(:blocked_course) { create(:course, students: [profile]) }
   let(:event) { create(:event, course: course) }
   let(:comment) { create(:comment, event: event) }
-  let!(:new_comment_notification_with_single_attachment) do
-    create :system_notification, :new_comment,
-           notifiable: create(:comment, event: event, attachments: [create(:attachment)]),
-           profile: profile
-  end
-  let!(:new_comment_notification_with_multiple_attachments) do
-    create :system_notification, :new_comment,
-           notifiable: create(:comment, event: event, attachments: create_list(:attachment, 2)),
-           profile: profile
-  end
   let(:event) do
     create :event, :published,
            course: course,
@@ -34,6 +24,16 @@ RSpec.describe DigestMailer, type: :mailer do
   let!(:new_comment_notification_from_blocked_course) do
     create :system_notification, :new_comment,
            notifiable: comment_from_blocked_course,
+           profile: profile
+  end
+  let!(:new_comment_notification_with_single_attachment) do
+    create :system_notification, :new_comment,
+           notifiable: create(:comment, event: event, attachments: [create(:attachment)]),
+           profile: profile
+  end
+  let!(:new_comment_notification_with_multiple_attachments) do
+    create :system_notification, :new_comment,
+           notifiable: create(:comment, event: event, attachments: create_list(:attachment, 2)),
            profile: profile
   end
   let!(:event_published_notification) do
@@ -63,8 +63,21 @@ RSpec.describe DigestMailer, type: :mailer do
   end
 
   before do
-    expect(BuildDigest).to receive(:new).with(profile).and_call_original
-    DigestMailer.digest(profile.id).deliver
+    notifications = [
+      new_comment_notification_from_blocked_course,
+      new_comment_notification_with_single_attachment,
+      new_comment_notification_with_multiple_attachments,
+      event_published_notification,
+      event_canceled_notification,
+      new_comment_notification
+    ]
+
+    # For some reason the array is coming reversed from ActiveRecord::find
+    expect(BuildDigest).to receive(:new).with(
+      profile,
+      match_array(notifications)
+    ).and_call_original
+    DigestMailer.digest(profile.id, notifications.map(&:id)).deliver
   end
 
   after do

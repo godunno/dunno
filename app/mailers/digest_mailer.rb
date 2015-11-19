@@ -5,9 +5,10 @@ class DigestMailer < ActionMailer::Base
   helper 'events'
   helper 'angular'
 
-  def digest(profile_id)
+  def digest(profile_id, notifications_ids)
     profile = Profile.find(profile_id)
-    @notifications_digest = BuildDigest.new(profile).notifications
+    notifications = SystemNotification.find(notifications_ids)
+    @notifications_digest = BuildDigest.new(profile, notifications).notifications
     @profile = profile
     mail to: profile.email, subject: "\xE2\x98\x95 Ontem no Dunno"
   end

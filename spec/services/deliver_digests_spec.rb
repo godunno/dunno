@@ -48,9 +48,21 @@ describe DeliverDigests do
   end
 
   it "only delivers the digest for the profiles with recent notifications" do
-    expect(delayed_mailer).to receive(:digest).with(profile_with_recent_notifications)
-    expect(delayed_mailer).not_to receive(:digest).with(profile_without_recent_notifications)
-    expect(delayed_mailer).not_to receive(:digest).with(profile_that_doesnt_receive_digests)
+    expect(delayed_mailer).to receive(:digest).with(
+      profile_with_recent_notifications.id,
+      [recent_notification.id]
+    )
+
+    expect(delayed_mailer).not_to receive(:digest).with(
+      profile_without_recent_notifications.id,
+      []
+    )
+
+    expect(delayed_mailer).not_to receive(:digest).with(
+      profile_that_doesnt_receive_digests.id,
+      []
+    )
+
     do_service
   end
 end

@@ -6,11 +6,6 @@ describe BuildDigest do
   let(:event) { create(:event, course: course) }
   let(:comment) { create(:comment, event: event) }
   let!(:event_without_notifications) { create(:event, course: course) }
-  let!(:old_notification) do
-    create :system_notification, :event_published,
-           profile: profile,
-           created_at: 2.days.ago
-  end
   let!(:event_published_notification) do
     create :system_notification, :event_published,
            notifiable: event,
@@ -31,7 +26,14 @@ describe BuildDigest do
            notifiable: course,
            profile: profile
   end
-  let(:digest) { BuildDigest.new(profile) }
+  let(:digest) do
+    BuildDigest.new(profile, [
+      event_published_notification,
+      event_canceled_notification,
+      new_comment_notification,
+      blocked_notification
+    ])
+  end
 
   let(:notifications_digest) do
     event_digest = EventDigest.new(event)

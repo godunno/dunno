@@ -68,7 +68,8 @@
                         i>
                           | #{comment_notification.notifiable.body}
                           - if comment_notification.notifiable.attachments.any?
-                            | (#{pluralize comment_notification.notifiable.attachments.count, "anexo"})
+                            span<
+                              | (#{pluralize comment_notification.notifiable.attachments.count, "anexo"})
                         /
                           a.digest__event__comment__link href="#{angular_comment_path(comment_notification.notifiable)}"
                             small
