@@ -1,0 +1,105 @@
+.course__analytics {
+  @include grid-container();
+
+  &__content {
+    @extend %content__box;
+    padding: 2rem 1rem;
+  }
+
+
+  &__header {
+    @include grid-block();
+  }
+
+  &__search {
+    flex-basis: 50%;
+  }
+
+  &__context {
+    margin-left: auto;
+
+    &__select {
+      @extend %button-group;
+      @extend %button-group-segmented;
+      @include button-group-size(small);
+      @include button-group-style(
+        $segmented: true,
+        $background: $dunno-dark-color,
+        $color: auto
+      );
+
+      input[type='radio']:checked + label:before,
+      input[type='radio'] + label:before {
+        display: none;
+      }
+    }
+  }
+
+  table {
+    border: $divider;
+    border-radius: $global-radius;
+    width: 100%;
+
+    td,
+    th {
+      padding: .5rem;
+    }
+
+    .sorted__column {
+      background: $yellow-color;
+    }
+
+
+    td {
+      border-top: $divider;
+    }
+
+    th {
+      font-size: .75rem;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    tfoot {
+      font-weight: $font-weight-bold;
+
+      td {
+        border-top: .125rem solid $light-grey-color;
+        padding-top: .75rem;
+      }
+    }
+
+    .data {
+      &__number {
+        font-family: $font-family-monospace;
+        font-size: .875rem;
+      }
+
+      &__image__column {
+        padding-right: 0;
+      }
+
+      &__text__column {
+        width: 100%;
+      }
+
+      &__number__column {
+        text-align: right;
+      }
+    }
+
+    .sort__by {
+      &.sort__by__ascending {
+        .icon-down {
+          display: none;
+        }
+      }
+
+      .icon {
+        line-height: 0;
+        margin-right: .25rem;
+        vertical-align: center;
+      }
+    }
+  }
+}
