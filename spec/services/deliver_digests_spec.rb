@@ -71,17 +71,17 @@ describe DeliverDigests do
 
     expect(delayed_mailer).not_to receive(:digest).with(
       profile_without_last_digest_sent_at.id,
-      anything()
+      anything
     )
 
     expect(delayed_mailer).not_to receive(:digest).with(
       profile_without_recent_notifications.id,
-      anything()
+      anything
     )
 
     expect(delayed_mailer).not_to receive(:digest).with(
       profile_that_doesnt_receive_digests.id,
-      anything()
+      anything
     )
 
     do_service

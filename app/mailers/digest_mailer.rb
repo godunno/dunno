@@ -10,6 +10,6 @@ class DigestMailer < ActionMailer::Base
     notifications = SystemNotification.find(notifications_ids)
     @notifications_digest = BuildDigest.new(profile, notifications).notifications
     @profile = profile
-    mail to: profile.email, subject: "\xE2\x98\x95 Ontem no Dunno"
+    mail to: profile.email, subject: "\xE2\x98\x95 Café da manhã com Dunno"
   end
 end

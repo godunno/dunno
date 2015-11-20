@@ -90,7 +90,7 @@ RSpec.describe DigestMailer, type: :mailer do
 
   it { expect(email.to).to eq [profile.email] }
   it do
-    expect(email.subject).to eq "\xE2\x98\x95 Ontem no Dunno"
+    expect(email.subject).to eq "\xE2\x98\x95 Café da manhã com Dunno"
   end
   it { expect(email.from).to eq ['contato@dunnoapp.com'] }
   it { expect(email.body).to include course.name }
