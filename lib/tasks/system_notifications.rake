@@ -4,4 +4,3 @@ namespace :system_notifications do
     DeliverDigests.new.deliver
   end
 end
-

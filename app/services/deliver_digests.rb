@@ -7,9 +7,9 @@ class DeliverDigests
     users.each do |user|
       profile = user.profile
       notifications = notifications_for(profile)
+      profile.update!(last_digest_sent_at: Time.current)
       next unless notifications.any?
       DigestMailer.delay.digest(profile.id, notifications.map(&:id))
-      profile.update!(last_digest_sent_at: Time.current)
     end
   end
 
@@ -20,6 +20,6 @@ class DeliverDigests
   def notifications_for(profile)
     profile
       .system_notifications
-      .more_recent_than(profile.last_digest_sent_at)
+      .more_recent_than(profile.last_digest_sent_at || Time.current)
   end
 end

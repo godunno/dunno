@@ -3,6 +3,7 @@ require 'spec_helper'
 describe DeliverDigests do
   let!(:profile_with_recent_notifications) { create(:profile, last_digest_sent_at: 1.day.ago) }
   let!(:profile_without_recent_notifications) { create(:profile, last_digest_sent_at: 1.day.ago) }
+  let!(:profile_without_last_digest_sent_at) { create(:profile, last_digest_sent_at: nil) }
   let!(:profile_that_doesnt_receive_digests) do
     create(:profile, user: create(:user, receive_digests: false))
   end
@@ -15,6 +16,10 @@ describe DeliverDigests do
     create :system_notification, :new_comment,
            profile: profile_without_recent_notifications,
            created_at: 2.days.ago
+  end
+
+  let!(:notification_for_user_without_last_digest_sent_at) do
+    create(:system_notification, :new_comment, profile: profile_without_last_digest_sent_at)
   end
 
   let!(:notification_for_user_who_doesnt_receive_digests) do
@@ -39,12 +44,23 @@ describe DeliverDigests do
 
   it do
     expect { do_service }
-      .to change { profile_with_recent_notifications.reload.last_digest_sent_at.change(usec: 0) }
-      .to(Time.current.change(usec: 0))
+      .to change {
+        profile_with_recent_notifications.reload.last_digest_sent_at.change(usec: 0)
+      }.to(Time.current.change(usec: 0))
   end
+
   it do
     expect { do_service }
-      .not_to change { profile_without_recent_notifications.reload.last_digest_sent_at }
+      .to change {
+        profile_without_last_digest_sent_at.reload.last_digest_sent_at.try(:change, usec: 0)
+      }.to(Time.current.change(usec: 0))
+  end
+
+  it do
+    expect { do_service }
+      .to change {
+        profile_without_recent_notifications.reload.last_digest_sent_at.change(usec: 0)
+      }.to(Time.current.change(usec: 0))
   end
 
   it "only delivers the digest for the profiles with recent notifications" do
@@ -54,13 +70,18 @@ describe DeliverDigests do
     )
 
     expect(delayed_mailer).not_to receive(:digest).with(
+      profile_without_last_digest_sent_at.id,
+      anything()
+    )
+
+    expect(delayed_mailer).not_to receive(:digest).with(
       profile_without_recent_notifications.id,
-      []
+      anything()
     )
 
     expect(delayed_mailer).not_to receive(:digest).with(
       profile_that_doesnt_receive_digests.id,
-      []
+      anything()
     )
 
     do_service
