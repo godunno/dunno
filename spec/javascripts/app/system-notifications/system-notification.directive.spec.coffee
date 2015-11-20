@@ -192,3 +192,38 @@ describe 'system-notification directive', ->
           'José bloqueou você há um dia atrás ' +
           'da disciplina Português.'
         )
+
+  describe "notification for new member", ->
+    beforeEach ->
+      systemNotification.notification_type = 'new_member'
+      systemNotification.notifiable = course
+      compile()
+
+    it "links to the course's members page", inject ($timeout, $state, $stateParams) ->
+      $state.go('app.courses')
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      element.find('a.system__notification').click()
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      expect($state.is('app.courses.show.members')).toBe(true)
+      expect($stateParams).toEqual jasmine.objectContaining(courseId: course.uuid)
+
+    it "has the author's name", ->
+      expect(element.html()).toContain(author.name)
+
+    it "has the author's avatar", ->
+      expect(element.find('[user-avatar="vm.notification.author"]').length).toBe(1)
+
+    it "shows the message for new comment", ->
+      expect(element.text().trim())
+        .toEqual(
+          'José entrou há um dia atrás ' +
+          'na disciplina Português.'
+        )
