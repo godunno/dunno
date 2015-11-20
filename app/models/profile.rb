@@ -11,6 +11,8 @@ class Profile < ActiveRecord::Base
 
   delegate :uuid, :email, :authentication_token, :name, :avatar_url, to: :user
 
+  after_create :set_last_digest_sent_at
+
   def role_in(course)
     has_course?(course) && membership_in(course).role
   end
@@ -56,5 +58,9 @@ class Profile < ActiveRecord::Base
 
   def membership_in!(course)
     memberships.find_by!(course: course)
+  end
+
+  def set_last_digest_sent_at
+    self.last_digest_sent_at = Time.current
   end
 end

@@ -20,6 +20,6 @@ class DeliverDigests
   def notifications_for(profile)
     profile
       .system_notifications
-      .more_recent_than(profile.last_digest_sent_at || Time.current)
+      .more_recent_than(profile.last_digest_sent_at)
   end
 end

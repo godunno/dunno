@@ -157,4 +157,14 @@ describe Profile, type: :model do
       expect(student.courses_with_blocked).to eq [course]
     end
   end
+
+  describe "#last_digest_sent_at" do
+    before { Timecop.freeze }
+    after { Timecop.return }
+
+    it "sets the attribute to the current time" do
+      profile = Profile.create!
+      expect(profile.last_digest_sent_at).to eq Time.current
+    end
+  end
 end
