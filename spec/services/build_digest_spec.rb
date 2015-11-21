@@ -26,12 +26,18 @@ describe BuildDigest do
            notifiable: course,
            profile: profile
   end
+  let!(:new_member_notification) do
+    create :system_notification, :new_member,
+           notifiable: course,
+           profile: profile
+  end
   let(:digest) do
     BuildDigest.new(profile, [
       event_published_notification,
       event_canceled_notification,
       new_comment_notification,
-      blocked_notification
+      blocked_notification,
+      new_member_notification
     ])
   end
 
@@ -41,6 +47,7 @@ describe BuildDigest do
 
     course_digest = CourseDigest.new(course)
     course_digest.blocked_notifications = [blocked_notification]
+    course_digest.new_member_notifications = [new_member_notification]
     course_digest.events = Set[event_digest]
 
     notifications_digest = NotificationsDigest.new

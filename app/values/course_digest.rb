@@ -1,16 +1,18 @@
 class CourseDigest
-  attr_accessor :course, :events, :blocked_notifications
+  attr_accessor :course, :events, :blocked_notifications, :new_member_notifications
   delegate :order, to: :course
 
   def initialize(course)
     self.course = course
     self.events = Set.new
     self.blocked_notifications = []
+    self.new_member_notifications = []
   end
 
   def <<(system_notification)
     case system_notification.notification_type
     when 'blocked' then blocked_notifications << system_notification
+    when 'new_member' then new_member_notifications << system_notification
     else
       event_digest_for(system_notification) << system_notification
     end
