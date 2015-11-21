@@ -37,6 +37,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     authorize @course
     course.add_student current_profile
     track_student_joining_course
+    NewMemberNotification.new(course, current_profile).deliver
     render :create
   rescue Pundit::NotAuthorizedError => exception
     rescue_unauthorized(exception)

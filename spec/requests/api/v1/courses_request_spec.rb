@@ -206,13 +206,19 @@ describe Api::V1::CoursesController do
 
   describe "POST /api/v1/courses/:uuid/register" do
     let(:new_course) { create :course, teacher: teacher }
+    let(:notification_double) { double("NewMemberNotification", deliver: nil) }
 
     it { expect(student.courses).not_to include(new_course) }
     it { expect(new_course.students).to eq([]) }
 
     context "valid content type" do
       def do_action
-        allow(TrackerWrapper).to receive_message_chain(:new, :track)
+        allow(TrackerWrapper)
+          .to receive_message_chain(:new, :track)
+        allow(NewMemberNotification)
+          .to receive(:new)
+          .with(new_course, student)
+          .and_return(notification_double)
         post "/api/v1/courses/#{identifier}/register.json", auth_params(student).to_json
       end
 
@@ -224,6 +230,7 @@ describe Api::V1::CoursesController do
         it { expect(last_response.status).to eq(200) }
         it { expect(new_course.students).to eq([student]) }
         it { expect(student.courses).to include(new_course) }
+        it { expect(notification_double).to have_received(:deliver) }
       end
 
       context "identifying by access code" do

@@ -4,13 +4,15 @@ RSpec.describe DigestMailer, type: :mailer do
   let(:profile) { create(:profile) }
 
   let(:teacher) { create(:profile) }
-  let(:course) { create(:course, teacher: teacher) }
+  let(:new_student) { create(:profile) }
+  let(:course_as_student) { create(:course, teacher: teacher) }
+  let(:course_as_teacher) { create(:course, teacher: profile, students: [new_student]) }
   let(:blocked_course) { create(:course, students: [profile]) }
-  let(:event) { create(:event, course: course) }
+  let(:event) { create(:event, course: course_as_student) }
   let(:comment) { create(:comment, event: event) }
   let(:event) do
     create :event, :published,
-           course: course,
+           course: course_as_student,
            topics: [topic, personal_topic],
            start_at: Time.zone.parse('2015-01-01 14:00')
   end
@@ -57,6 +59,12 @@ RSpec.describe DigestMailer, type: :mailer do
            notifiable: blocked_course,
            profile: profile
   end
+  let!(:new_member_notification) do
+    create :system_notification, :new_member,
+           notifiable: course_as_teacher,
+           profile: profile,
+           author: new_student
+  end
 
   before do
     profile.block_in!(blocked_course)
@@ -69,7 +77,9 @@ RSpec.describe DigestMailer, type: :mailer do
       new_comment_notification_with_multiple_attachments,
       event_published_notification,
       event_canceled_notification,
-      new_comment_notification
+      new_comment_notification,
+      blocked_notification,
+      new_member_notification
     ]
 
     # For some reason the array is coming reversed from ActiveRecord::find
@@ -93,7 +103,7 @@ RSpec.describe DigestMailer, type: :mailer do
     expect(email.subject).to eq "\xE2\x98\x95 Café da manhã com Dunno"
   end
   it { expect(email.from).to eq ['contato@dunnoapp.com'] }
-  it { expect(email.body).to include course.name }
+  it { expect(email.body).to include course_as_student.name }
   it { expect(email.body).to include teacher.name }
 
   it { expect(email.body).to include 'Quinta, 01/Jan - 14:00' }
@@ -110,4 +120,8 @@ RSpec.describe DigestMailer, type: :mailer do
   it { expect(email.body).to include blocked_course.name }
   it { expect(email.body).to include 'Você foi bloqueado desta disciplina.' }
   it { expect(email.body).not_to include comment_from_blocked_course.body }
+
+  it { expect(email.body).to include course_as_teacher.name }
+  it { expect(email.body).to include "Novos estudantes:" }
+  it { expect(email.body).to include new_student.name }
 end

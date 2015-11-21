@@ -21,4 +21,9 @@ describe AngularHelper do
     expect(helper.angular_comment_path(comment))
       .to eq "/dashboard#/courses/#{course.uuid}/events?#{params.to_param}"
   end
+
+  it do
+    expect(helper.angular_members_path(course))
+      .to eq "/dashboard#/courses/#{course.uuid}/members"
+  end
 end

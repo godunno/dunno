@@ -48,6 +48,13 @@ resource "SystemNotifications" do
              notifiable: course
     end
 
+    let!(:new_member_notification) do
+      create :system_notification, :new_member,
+             profile: profile,
+             created_at: 4.hours.ago,
+             notifiable: course
+    end
+
     let!(:notification_from_himself) do
       create :system_notification, :event_published,
              author: profile,
@@ -122,6 +129,20 @@ resource "SystemNotifications" do
           author: {
             name: blocked_notification.author.name,
             avatar_url: blocked_notification.author.avatar_url
+          },
+          notifiable: {
+            uuid: course.uuid,
+            name: course.name
+          }
+        },
+        {
+          id: new_member_notification.id,
+          notification_type: 'new_member',
+          created_at: new_member_notification.created_at.utc.iso8601,
+          read_at: nil,
+          author: {
+            name: new_member_notification.author.name,
+            avatar_url: new_member_notification.author.avatar_url
           },
           notifiable: {
             uuid: course.uuid,
