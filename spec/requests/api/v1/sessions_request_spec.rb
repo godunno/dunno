@@ -32,7 +32,8 @@ describe Api::V1::SessionsController do
           "courses_count" => 2,
           "students_count" => 10,
           "notifications_count" => 2,
-          "created_at" => profile.user.created_at.utc.iso8601
+          "created_at" => profile.user.created_at.utc.iso8601,
+          "receive_digests" => true
         )
       end
 

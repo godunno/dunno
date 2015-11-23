@@ -26,5 +26,5 @@ RSpec.describe EventCanceledMailer, type: :mailer do
   end
   it { expect(email.from).to eq ['contato@dunnoapp.com'] }
   it { expect(email.body).to include course.name }
-  it { expect(email.body).to include 'Quinta (01/Jan – 14:00' }
+  it { expect(email.body).to include 'Quinta (01/Jan – 14:00)' }
 end

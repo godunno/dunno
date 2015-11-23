@@ -7,7 +7,7 @@ class DeliverSystemNotifications
   end
 
   def deliver
-    course.memberships.find_each do |membership|
+    course.memberships.where.not(role: 'blocked').find_each do |membership|
       SystemNotification.create!(
         profile: membership.profile,
         author: author,

@@ -12,5 +12,6 @@ describe BlockedNotification do
     notification = student.system_notifications.last
     expect(notification.notification_type).to eq 'blocked'
     expect(notification.notifiable).to eq course
+    expect(notification.author).to eq teacher
   end
 end

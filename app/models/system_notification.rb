@@ -1,5 +1,5 @@
 class SystemNotification < ActiveRecord::Base
-  enum notification_type: %w(event_canceled event_published new_comment blocked)
+  enum notification_type: %w(event_canceled event_published new_comment blocked new_member)
 
   belongs_to :author, class_name: 'Profile'
   belongs_to :profile

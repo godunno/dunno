@@ -1,0 +1,18 @@
+a.system__notification[
+  ng-click="vm.trackAndMarkAsRead()"
+  ng-class="{'system__notification__unread': !vm.notification.read_at}"
+  ui-sref-opts="{reload: true}"
+  ui-sref="app.courses.show.members({ courseId: vm.notification.notifiable.uuid })"]
+  / Trying to get rid of cache
+  img.avatar.system__notification__author__avatar user-avatar="vm.notification.author"
+  span.system__notification__wrapper
+    strong.system__notification__author__name>
+      | {{ vm.notification.author.name }}
+    span.system__notification__type>
+      | entrou
+    span.system__notification__created__at> am-time-ago="vm.notification.created_at"
+    span.system__notification__course
+      | na disciplina
+      b<
+        | {{ vm.notification.notifiable.name }}
+    | .

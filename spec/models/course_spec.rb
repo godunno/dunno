@@ -152,4 +152,9 @@ describe Course do
       it { expect(course.students).to eq([student]) }
     end
   end
+
+  it "knows its color" do
+    course.save!
+    expect(course.color).to eq SHARED_CONFIG["v1"]["courses"]["schemes"][course.order % 12]
+  end
 end

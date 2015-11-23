@@ -1,0 +1,90 @@
+.digest
+  .digest__greeting
+    h2
+      | Bom dia, #{@profile.name}!
+      br
+      / we could have a random message? :)
+      | Já tomou seu café hoje?
+    p
+      | Confira o que rolou ontem no Dunno:
+  .digest__content
+    - @notifications_digest.courses.each do |course_digest|
+      .digest__course
+        .digest__course__header
+          a.digest__course__title[
+            href="#{angular_course_path(course_digest.course)}"
+            style="background-color: #{course_digest.course.color}"]
+            span>
+              | #{course_digest.course.name}
+            - if course_digest.course.class_name
+              span<>
+                | · #{course_digest.course.class_name}
+            - if course_digest.course.institution
+              span<>
+                | · #{course_digest.course.institution}
+          .digest__course__teacher
+            | #{course_digest.course.teacher.name}
+        - if @profile.blocked_in?(course_digest.course)
+          .digest__course__blocked
+            p
+              | Ooops! Você foi bloqueado desta disciplina.
+        - else
+          - if course_digest.new_member_notifications.any?
+            p
+              a href="#{angular_members_path(course_digest.course)}"
+                | Novos estudantes: 
+              = course_digest.new_member_notifications.map(&:author).map(&:name).join(', ')
+          - course_digest.events.each do |event_digest|
+            .digest__event
+              a.digest__event__info href="#{angular_event_path(event_digest.event)}"
+                span.digest__event__status>
+                  span< class="event__#{event_digest.status}"
+                    | #{readable_status(event_digest.status)}
+                span.digest__event__date<
+                  | #{l event_digest.start_at, format: '%A, %d/%b - %H:%M'}
+              - if event_digest.topics.any?
+                h5
+                  | Novos conteúdos
+                table.digest__event__topics
+                  - event_digest.topics.each do |topic|
+                    tr.digest__event__topic
+                      - if topic.media.present?
+                        td.digest__event__topic__icon
+                          - case topic.media.type
+                          - when 'url'
+                            .icon__link
+                              = image_tag 'mailers/link-icon.png'
+                          - when 'file'
+                            .icon__file
+                              = image_tag 'mailers/file-icon.png'
+                      - else
+                        td
+                      td.digest__event__topic__description
+                        | #{topic.description}
+              - if event_digest.comment_notifications.any?
+                h5
+                  | Novos comentários
+                table.digest__event__comments
+                  - event_digest.comment_notifications.each do |comment_notification|
+                    tr.digest__event__comment
+                      td.digest__event__comment__author
+                        | <b>#{comment_notification.author.name}</b> disse:
+                      td.digest__event__comment__body
+                        i>
+                          | #{comment_notification.notifiable.body}
+                          - if comment_notification.notifiable.attachments.any?
+                            span<
+                              | (#{pluralize comment_notification.notifiable.attachments.count, "anexo"})
+                        /
+                          a.digest__event__comment__link href="#{angular_comment_path(comment_notification.notifiable)}"
+                            small
+                              | ver no Dunno
+  .digest__unsubscribe
+    p
+      b
+        | Deseja parar de receber novidades diárias em seu email?
+      br
+      | Acesse sua
+      a.link__unsubscribe<> href="/dashboard#/profile/edit"
+        | página de perfil
+      | e desmarque a opção <i>Receber novidades diárias em meu email</i>.
