@@ -5,6 +5,7 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
     authorize event, :update?
     @topic = Topic.new(event: event)
     TopicForm.new(@topic, create_params).create!(event)
+    NewTopicNotification.new(topic, current_profile).deliver
     render status: :created
   end
 

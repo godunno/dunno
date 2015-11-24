@@ -23,6 +23,9 @@ describe 'system-notification directive', ->
     id: 1
     event: event
 
+  topic =
+    event: event
+
   compile = ->
     inject ($controller, $rootScope, $compile, $templateCache, SystemNotification) ->
       $scope = $rootScope.$new()
@@ -226,4 +229,39 @@ describe 'system-notification directive', ->
         .toEqual(
           'José entrou há um dia atrás ' +
           'na disciplina Português.'
+        )
+
+  describe "notification for new topic", ->
+    beforeEach ->
+      systemNotification.notification_type = 'new_topic'
+      systemNotification.notifiable = topic
+      compile()
+
+    it "links to the event containing the topic", inject ($timeout, $state, $stateParams) ->
+      element.find('a.system__notification').click()
+
+      $scope.$apply()
+      $timeout.flush()
+      $httpBackend.flush()
+
+      expect($state.is('app.courses.show.events')).toBe(true)
+      expect($stateParams).toEqual
+        courseId: course.uuid
+        startAt: event.start_at
+        commentId: null
+        month: undefined
+        trackEventCanceled: undefined
+
+    it "has the author's name", ->
+      expect(element.html()).toContain(author.name)
+
+    it "has the author's avatar", ->
+      expect(element.find('[user-avatar="vm.notification.author"]').length).toBe(1)
+
+    it "shows the message for new comment", ->
+      expect(element.text().trim())
+        .toEqual(
+          'José publicou há um dia atrás um novo conteúdo na aula de ' +
+          'Quarta-Feira (14/Out - 14:00) da ' +
+          'disciplina Português.'
         )
