@@ -40,14 +40,14 @@ RSpec.describe SystemNotification, type: :model do
   describe "#notification_type" do
     it do
       is_expected.to define_enum_for(:notification_type)
-      .with %w(
-              event_canceled
-              event_published
-              new_comment
-              blocked
-              new_member
-              new_topic
-            )
+        .with %w(
+                  event_canceled
+                  event_published
+                  new_comment
+                  blocked
+                  new_member
+                  new_topic
+                )
     end
   end
 

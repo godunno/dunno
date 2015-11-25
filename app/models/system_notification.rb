@@ -1,12 +1,12 @@
 class SystemNotification < ActiveRecord::Base
   enum notification_type: %w(
-                            event_canceled
-                            event_published
-                            new_comment
-                            blocked
-                            new_member
-                            new_topic
-                          )
+                              event_canceled
+                              event_published
+                              new_comment
+                              blocked
+                              new_member
+                              new_topic
+                            )
 
   belongs_to :author, class_name: 'Profile'
   belongs_to :profile

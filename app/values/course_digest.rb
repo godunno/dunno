@@ -33,7 +33,7 @@ class CourseDigest
   delegate :hash, to: :course
 
   def member_notifications
-    @member_notifications.uniq { |notification| notification.author }
+    @member_notifications.uniq(&:author)
   end
 
   private

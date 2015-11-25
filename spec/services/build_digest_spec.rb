@@ -113,8 +113,8 @@ describe BuildDigest do
   context "published then canceled in the same day" do
     let!(:event_canceled_notification) do
       create :system_notification, :event_canceled,
-        notifiable: event,
-        profile: profile
+             notifiable: event,
+             profile: profile
     end
 
     let(:digest) do
@@ -150,9 +150,9 @@ describe BuildDigest do
   context "student registered in the course twice in the same day" do
     let!(:another_new_member_notification) do
       create :system_notification, :new_member,
-        author: new_member_notification.author,
-        notifiable: course,
-        profile: profile
+             author: new_member_notification.author,
+             notifiable: course,
+             profile: profile
     end
     let(:digest) do
       BuildDigest.new(profile, [
