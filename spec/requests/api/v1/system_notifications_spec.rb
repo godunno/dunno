@@ -20,6 +20,7 @@ resource "SystemNotifications" do
     let(:course) { create(:course) }
     let(:event) { create(:event, course: course) }
     let(:comment) { create(:comment, event: event) }
+    let(:topic) { create(:topic, event: event) }
 
     let!(:new_comment_notification) do
       create :system_notification, :new_comment,
@@ -53,6 +54,13 @@ resource "SystemNotifications" do
              profile: profile,
              created_at: 4.hours.ago,
              notifiable: course
+    end
+
+    let!(:new_topic_notification) do
+      create :system_notification, :new_topic,
+             profile: profile,
+             created_at: 5.hours.ago,
+             notifiable: topic
     end
 
     let!(:notification_from_himself) do
@@ -147,6 +155,25 @@ resource "SystemNotifications" do
           notifiable: {
             uuid: course.uuid,
             name: course.name
+          }
+        },
+        {
+          id: new_topic_notification.id,
+          notification_type: 'new_topic',
+          created_at: new_topic_notification.created_at.utc.iso8601,
+          read_at: nil,
+          author: {
+            name: new_topic_notification.author.name,
+            avatar_url: new_topic_notification.author.avatar_url
+          },
+          notifiable: {
+            event: {
+              start_at: event.start_at.utc.iso8601,
+              course: {
+                uuid: course.uuid,
+                name: course.name
+              }
+            }
           }
         }
       ]

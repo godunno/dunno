@@ -96,18 +96,9 @@ describe Event do
   end
 
   describe "#status" do
-    %w(draft published canceled).each do |status|
-
-      before do
-        event.status = nil
-      end
-
-      it { is_expected.to respond_to "#{status}?" }
-      it "should be #{status}" do
-        expect do
-          event.status = status
-        end.to change { event.send("#{status}?") }.from(false).to(true)
-      end
+    it do
+      is_expected.to define_enum_for(:status)
+        .with %w(draft published canceled new_topic)
     end
   end
 
