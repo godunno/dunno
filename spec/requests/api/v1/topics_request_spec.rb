@@ -52,7 +52,7 @@ describe Api::V1::TopicsController do
         .to change { event.topics.count }.by(1)
       end
 
-      it "delivers system notifications for course members", :wip do
+      it "delivers system notifications for course members" do
         do_action
         expect(NewTopicNotification)
           .to have_received(:new).with(kind_of(Topic), teacher)

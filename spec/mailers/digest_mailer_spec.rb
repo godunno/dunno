@@ -9,7 +9,18 @@ RSpec.describe DigestMailer, type: :mailer do
   let(:course_as_teacher) { create(:course, teacher: profile, students: [new_student]) }
   let(:blocked_course) { create(:course, students: [profile]) }
   let(:event) { create(:event, course: course_as_student) }
+  let(:published_event) { create(:event, :published, course: course_as_student) }
   let(:comment) { create(:comment, event: event) }
+  let(:new_topic_from_published_event) do
+    create :topic,
+           event: published_event,
+           description: 'Some description'
+  end
+  let!(:topic_that_was_already_published) do
+    create :topic,
+           event: published_event,
+           description: 'Some other description'
+  end
   let(:event) do
     create :event, :published,
            course: course_as_student,
@@ -65,6 +76,11 @@ RSpec.describe DigestMailer, type: :mailer do
            profile: profile,
            author: new_student
   end
+  let!(:new_topic_notification) do
+    create :system_notification, :new_topic,
+           notifiable: new_topic_from_published_event,
+           profile: profile
+  end
 
   before do
     profile.block_in!(blocked_course)
@@ -79,7 +95,8 @@ RSpec.describe DigestMailer, type: :mailer do
       event_canceled_notification,
       new_comment_notification,
       blocked_notification,
-      new_member_notification
+      new_member_notification,
+      new_topic_notification
     ]
 
     # For some reason the array is coming reversed from ActiveRecord::find
@@ -124,4 +141,10 @@ RSpec.describe DigestMailer, type: :mailer do
   it { expect(email.body).to include course_as_teacher.name }
   it { expect(email.body).to include "Novos estudantes:" }
   it { expect(email.body).to include new_student.name }
+
+  it { expect(email.body).to include topic.description }
+  it { expect(email.body).to include new_topic_from_published_event.description }
+  it do
+    expect(email.body).not_to include topic_that_was_already_published.description
+  end
 end
