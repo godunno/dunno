@@ -1,5 +1,5 @@
 class EventCanceledMailer < ActionMailer::Base
-  include Roadie::Rails::Automatic
+  include Roadie::Rails::Mailer
 
   layout 'email'
 
@@ -7,7 +7,7 @@ class EventCanceledMailer < ActionMailer::Base
     @event_link = path_for(event)
     @start_at = format_time(event.start_at)
     @course = event.course
-    mail to: recipients_for(event), subject: subject_for(event)
+    roadie_mail to: recipients_for(event), subject: subject_for(event)
   end
 
   private

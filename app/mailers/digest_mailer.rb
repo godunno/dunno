@@ -1,5 +1,5 @@
 class DigestMailer < ActionMailer::Base
-  include Roadie::Rails::Automatic
+  include Roadie::Rails::Mailer
 
   layout 'email'
   helper 'events'
@@ -10,6 +10,6 @@ class DigestMailer < ActionMailer::Base
     notifications = SystemNotification.find(notifications_ids)
     @notifications_digest = BuildDigest.new(profile, notifications).notifications
     @profile = profile
-    mail to: profile.email, subject: "\xE2\x98\x95 Café da manhã com Dunno"
+    roadie_mail to: profile.email, subject: "\xE2\x98\x95 Café da manhã com Dunno"
   end
 end
