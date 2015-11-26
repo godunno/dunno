@@ -29,11 +29,11 @@
             p
               | Ooops! Você foi bloqueado desta disciplina.
         - else
-          - if course_digest.new_member_notifications.any?
+          - if course_digest.member_notifications.any?
             p
               a href="#{angular_members_path(course_digest.course)}"
                 | Novos estudantes: 
-              = course_digest.new_member_notifications.map(&:author).map(&:name).join(', ')
+              = course_digest.member_notifications.map(&:author).map(&:name).join(', ')
           - course_digest.events.each do |event_digest|
             .digest__event
               a.digest__event__info href="#{angular_event_path(event_digest.event)}"
@@ -61,6 +61,7 @@
                         td
                       td.digest__event__topic__description
                         | #{topic.description}
+
               - if event_digest.comment_notifications.any?
                 h5
                   | Novos comentários

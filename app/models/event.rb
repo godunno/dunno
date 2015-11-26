@@ -5,7 +5,7 @@ class Event < ActiveRecord::Base
 
   attr_writer :index_id
 
-  enum status: %w(draft published canceled)
+  enum status: %w(draft published canceled new_topic)
 
   belongs_to :course, touch: true
   has_many :topics

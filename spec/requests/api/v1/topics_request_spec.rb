@@ -3,10 +3,24 @@ require 'spec_helper'
 describe Api::V1::TopicsController do
   let!(:weekly_schedule) { create(:weekly_schedule, weekday: 1, start_time: '09:00', end_time: '11:00') }
   let!(:teacher) { create(:profile) }
-  let!(:course) { create(:course, teacher: teacher, weekly_schedules: [weekly_schedule]) }
-  let!(:event) { create(:event, course: course, start_at: Time.zone.local(2015, 7, 20, 9)) }
+  let!(:course) do
+    create :course,
+           teacher: teacher,
+           weekly_schedules: [weekly_schedule]
+  end
+  let!(:event) do
+    create :event, :published,
+           course: course,
+           start_at: Time.zone.local(2015, 7, 20, 9)
+  end
 
   describe "POST /api/v1/topics" do
+    let(:notification) { double('NewTopicNotification', deliver: nil) }
+
+    before do
+      allow(NewTopicNotification).to receive(:new).and_return(notification)
+    end
+
     def do_action
       post "/api/v1/topics.json", topic_params.merge(auth_params(teacher)).to_json
     end
@@ -36,6 +50,12 @@ describe Api::V1::TopicsController do
       it do
         expect { do_action }
         .to change { event.topics.count }.by(1)
+      end
+
+      it "delivers system notifications for course members" do
+        do_action
+        expect(NewTopicNotification)
+          .to have_received(:new).with(kind_of(Topic), teacher)
       end
 
       it do

@@ -27,5 +27,10 @@ FactoryGirl.define do
       notifiable { create(:course) }
       notification_type :new_member
     end
+
+    trait :new_topic do
+      notifiable { create(:topic) }
+      notification_type :new_topic
+    end
   end
 end

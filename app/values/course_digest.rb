@@ -1,25 +1,25 @@
 class CourseDigest
-  attr_accessor :course, :events, :blocked_notifications, :new_member_notifications
+  attr_accessor :course, :events, :blocked_notifications, :member_notifications
   delegate :order, to: :course
 
   def initialize(course)
     self.course = course
     self.events = Set.new
     self.blocked_notifications = []
-    self.new_member_notifications = []
+    self.member_notifications = []
   end
 
   def <<(system_notification)
     case system_notification.notification_type
     when 'blocked' then blocked_notifications << system_notification
-    when 'new_member' then new_member_notifications << system_notification
+    when 'new_member' then @member_notifications << system_notification
     else
       event_digest_for(system_notification) << system_notification
     end
   end
 
   def events
-    @events.to_a.sort_by(&:start_at)
+    @events.sort_by(&:start_at)
   end
 
   def ==(other)
@@ -32,13 +32,17 @@ class CourseDigest
 
   delegate :hash, to: :course
 
+  def member_notifications
+    @member_notifications.uniq(&:author)
+  end
+
   private
 
   def event_for(system_notification)
     notifiable = system_notification.notifiable
     case notifiable
     when Event then notifiable
-    when Comment then notifiable.event
+    when Comment, Topic then notifiable.event
     else raise "Unknown notifiable type: #{notifiable.inspect}"
     end
   end

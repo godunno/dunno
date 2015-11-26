@@ -30,7 +30,7 @@ class NotificationsDigest
     case notifiable
     when Course then notifiable
     when Event then notifiable.course
-    when Comment then notifiable.event.course
+    when Comment, Topic then notifiable.event.course
     else raise "Unknown notifiable type: #{notifiable.inspect}"
     end
   end
