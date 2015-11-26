@@ -1,5 +1,5 @@
 class NotificationMailer < ActionMailer::Base
-  include Roadie::Rails::Automatic
+  include Roadie::Rails::Mailer
 
   layout 'email'
 
@@ -10,6 +10,6 @@ class NotificationMailer < ActionMailer::Base
     @message = options.fetch(:message)
     @course = options.fetch(:course)
 
-    mail to: emails, subject: subject
+    roadie_mail to: emails, subject: subject
   end
 end
