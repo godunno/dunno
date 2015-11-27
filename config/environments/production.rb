@@ -24,8 +24,10 @@ Rails.application.configure do
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
+  config.assets.css_compressor = :sass
 
+  config.assets.prefix = '/assets'
+  config.action_controller.asset_host = "//#{ENV['AWS_BUCKET_NAME']}.s3.amazonaws.com"
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
 
@@ -63,7 +65,7 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.asset_host = 'http://dunnoapp.com'
+  # config.action_mailer.asset_host = 'http://dunnoapp.com'
 
   config.action_mailer.default_url_options = { host: 'beta.dunnoapp.com' }
   Rails.application.routes.default_url_options = { host: 'beta.dunnoapp.com' }
