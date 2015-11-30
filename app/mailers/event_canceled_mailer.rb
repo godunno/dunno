@@ -3,20 +3,17 @@ class EventCanceledMailer < ActionMailer::Base
 
   layout 'email'
 
-  def event_canceled_email(event)
+  def event_canceled_email(event_id, profile_id)
+    event = Event.find(event_id)
+    profile = Profile.find(profile_id)
+
     @event_link = path_for(event)
     @start_at = format_time(event.start_at)
     @course = event.course
-    roadie_mail to: recipients_for(event), subject: subject_for(event)
+    roadie_mail to: profile.email, subject: subject_for(event)
   end
 
   private
-
-  def recipients_for(event)
-    event.course.memberships.map do |membership|
-      membership.profile.email
-    end
-  end
 
   def subject_for(event)
     "[Dunno] Aula cancelada: #{event.course.name} - #{format_time(event.start_at)}"
