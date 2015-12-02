@@ -26,50 +26,78 @@
     table.course__analytics__datagrid
       col
       col
-      col.sorted__column
-      col
-      col
-      col
-      col
+      col ng-class="{ sorted__column: vm.sortingOptions.field == 'course_accessed_events' }"
+      col ng-class="{ sorted__column: vm.sortingOptions.field == 'file_downloaded_events' }"
+      col ng-class="{ sorted__column: vm.sortingOptions.field == 'url_clicked_events' }"
+      col ng-class="{ sorted__column: vm.sortingOptions.field == 'comment_created_events' }"
       thead
         tr
           th.data__image__column
           th.data__text__column
             | Nome
           th.data__number__column
-            a.sort__by.sort__by__ascending
+            a[
+              ng-class="{
+                sort__by: vm.sortingOptions.field == 'course_accessed_events',
+                sort__by__ascending: !vm.sortingOptions.reverse
+              }"
+              ng-click="vm.sortBy('course_accessed_events')"]
               i.icon.icon-up
               i.icon.icon-down
               | Acessos
           th.data__number__column
-            | Downloads
+            a[
+              ng-class="{
+                sort__by: vm.sortingOptions.field == 'file_downloaded_events',
+                sort__by__ascending: !vm.sortingOptions.reverse
+              }"
+              ng-click="vm.sortBy('file_downloaded_events')"]
+              i.icon.icon-up
+              i.icon.icon-down
+              | Downloads
           th.data__number__column
-            | Links acessados
+            a[
+              ng-class="{
+                sort__by: vm.sortingOptions.field == 'url_clicked_events',
+                sort__by__ascending: !vm.sortingOptions.reverse
+              }"
+              ng-click="vm.sortBy('url_clicked_events')"]
+              i.icon.icon-up
+              i.icon.icon-down
+              | Links acessados
           th.data__number__column
-            | Comentários feitos
+            a[
+              ng-class="{
+                sort__by: vm.sortingOptions.field == 'comment_created_events',
+                sort__by__ascending: !vm.sortingOptions.reverse
+              }"
+              ng-click="vm.sortBy('comment_created_events')"]
+              i.icon.icon-up
+              i.icon.icon-down
+              | Comentários feitos
       tbody
-        tr ng-repeat="member in course.members"
+        tr ng-repeat="member in vm.members | orderBy:vm.sortingOptions.field:vm.sortingOptions.reverse"
           td.data__avatar.data__image__column
             img.avatar user-avatar="member"
           td.data__name.data__text__column
-            | {{member.name}}
+            | {{ member.name }}
           td.data__number.data__number__column
-            | 23
+            | {{ member.course_accessed_events }}
           td.data__number.data__number__column
-            | 10
+            | {{ member.file_downloaded_events }}
           td.data__number.data__number__column
-            | 42
+            | {{ member.url_clicked_events }}
           td.data__number.data__number__column
-            | 7
+            | {{ member.comment_created_events }}
       tfoot
         tr
           td.data__text__column[colspan='2']
             | Médias
           td.data__number.data__number__column
-            | #{rand(1..10)}
+            | {{ vm.average('course_accessed_events', vm.members) }}
           td.data__number.data__number__column
-            | #{rand(1..10)}
+            | {{ vm.average('file_downloaded_events', vm.members) }}
           td.data__number.data__number__column
-            | #{rand(1..10)}
+            | {{ vm.average('url_clicked_events', vm.members) }}
           td.data__number.data__number__column
-            | #{rand(1..10)}
+            | {{ vm.average('comment_created_events', vm.members) }}

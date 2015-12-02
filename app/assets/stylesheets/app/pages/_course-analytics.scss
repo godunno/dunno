@@ -88,17 +88,31 @@
       }
     }
 
-    .sort__by {
-      &.sort__by__ascending {
-        .icon-down {
-          display: none;
-        }
+    .data__number__column {
+      .icon {
+        display: none;
       }
 
-      .icon {
-        line-height: 0;
-        margin-right: .25rem;
-        vertical-align: center;
+      .sort__by {
+        .icon-down {
+          display: inline;
+        }
+
+        &.sort__by__ascending {
+          .icon-up {
+            display: inline;
+          }
+
+          .icon-down {
+            display: none;
+          }
+        }
+
+        .icon {
+          line-height: 0;
+          margin-right: .25rem;
+          vertical-align: center;
+        }
       }
     }
   }
