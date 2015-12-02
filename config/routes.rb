@@ -59,6 +59,7 @@ Rails.application.routes.draw do
           get :search
           patch :block
           patch :unblock
+          get :analytics
         end
       end
       resources :weekly_schedules, only: [:create, :destroy] do

@@ -21,7 +21,11 @@ module Dunno
     end
 
     # add custom validators path
-    config.autoload_paths += %W["#{config.root}/app/validators/", "#{config.root}/app/values/"]
+    config.autoload_paths += %W[
+      "#{config.root}/app/validators/",
+      "#{config.root}/app/values/",
+      "#{config.root}/app/events"
+    ]
     config.autoload_paths << Rails.root.join('lib')
 
     config.assets.precompile += %w( modernizer.js mailers/base.css )

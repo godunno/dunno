@@ -27,9 +27,16 @@ resource "Comments" do
   post "/api/v1/comments.json" do
     before do
       Timecop.freeze Time.zone.parse('2015-10-20 00:00')
+      allow(TrackCommentCreatedEvent)
+        .to receive(:new)
+        .with(kind_of(Comment), teacher)
+        .and_return(tracker_double)
     end
+
     after { Timecop.return }
+
     let(:raw_post) { params.to_json }
+
     parameter :course_id, "Course's uuid", required: true, scope: :comment
     parameter :event_start_at, 'Event starting date time', required: true, scope: :comment
     parameter :body, 'Comment Body', required: true, scope: :comment
@@ -56,6 +63,8 @@ resource "Comments" do
     let(:attachment_ids) { [attachment.id] }
     let(:attachment) { create(:attachment) }
 
+    let(:tracker_double) { double("TrackCommentCreatedEvent", track: nil) }
+
     def event
       course.events.reload.last
     end
@@ -66,6 +75,10 @@ resource "Comments" do
 
     example 'creates non-persisted event' do
       expect { do_request }.to change { course.events.count }.by(1)
+    end
+
+    example_request 'tracks the comment_created event' do
+      expect(tracker_double).to have_received(:track)
     end
 
     example "comment attributes" do

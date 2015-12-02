@@ -7,6 +7,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def show
     authorize course(current_profile.courses_with_blocked)
+    TrackCourseAccessedEvent.new(@course, current_profile).track
   end
 
   def create
@@ -70,6 +71,11 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     render nothing: true
   end
 
+  def analytics
+    authorize course
+    @members = tracking_events(params[:since]).group_by(&:profile)
+  end
+
   private
 
   def track_student_joining_course
@@ -105,5 +111,10 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def student
     Profile.find(params[:course][:student_id])
+  end
+
+  def tracking_events(since)
+    since ||= 1.day.ago
+    course.tracking_events.where(created_at: since..Time.current)
   end
 end

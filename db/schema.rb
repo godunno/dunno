@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151120205536) do
+ActiveRecord::Schema.define(version: 20151130202604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,6 +210,20 @@ ActiveRecord::Schema.define(version: 20151120205536) do
   add_index "topics", ["event_id"], name: "index_topics_on_event_id", using: :btree
   add_index "topics", ["media_id"], name: "index_topics_on_media_id", using: :btree
   add_index "topics", ["uuid"], name: "index_topics_on_uuid", unique: true, using: :btree
+
+  create_table "tracking_events", force: true do |t|
+    t.integer  "event_type"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "profile_id"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tracking_events", ["course_id"], name: "index_tracking_events_on_course_id", using: :btree
+  add_index "tracking_events", ["profile_id"], name: "index_tracking_events_on_profile_id", using: :btree
+  add_index "tracking_events", ["trackable_id", "trackable_type"], name: "index_tracking_events_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name",                                  null: false

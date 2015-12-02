@@ -92,9 +92,15 @@ describe Api::V1::CoursesController do
                ]
       end
 
+      let(:tracker_double) { double("TrackCourseAccessedEvent", track: nil) }
+
       before do
         course.save!
         course.reload
+        allow(TrackCourseAccessedEvent)
+          .to receive(:new)
+          .with(course, profile)
+          .and_return(tracker_double)
       end
 
       def do_action(parameters = {})
@@ -109,6 +115,7 @@ describe Api::V1::CoursesController do
           subject { json["course"] }
 
           it { expect(last_response.status).to eq(200) }
+          it { expect(tracker_double).to have_received(:track) }
           it do
             expect(subject).to eq(
               "uuid" => course.uuid,
