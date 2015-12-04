@@ -12,15 +12,27 @@
       .course__analytics__context
         ul.course__analytics__context__select
           li
-            input#d-context[type='radio' name='context' value='d']
+            input#d-context[
+              ng-model="vm.selectedPeriod"
+              type='radio'
+              name='context'
+              value='1']
             label for='d-context'
               | 24h
           li
-            input#w-context[type='radio' name='context' value='w']
+            input#w-context[
+              ng-model="vm.selectedPeriod"
+              type='radio'
+              name='context'
+              value='7']
             label for='w-context'
               | 7 dias
           li
-            input#m-context[type='radio' name='context' value='m' checked='true']
+            input#m-context[
+              ng-model="vm.selectedPeriod"
+              type='radio'
+              name='context'
+              value='30']
             label for='m-context'
               | 30 dias
     table.course__analytics__datagrid

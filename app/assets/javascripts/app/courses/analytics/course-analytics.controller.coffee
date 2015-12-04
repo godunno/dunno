@@ -1,8 +1,15 @@
 CourseAnalyticsCtrl = ($scope, Course) ->
   vm = @
 
-  Course.$get($scope.course.$url('analytics')).then (members) ->
-    vm.members = members
+  vm.selectedPeriod = '1'
+
+  fetch = (since) ->
+    Course.$get($scope.course.$url('analytics'), since: since).then (members) ->
+      vm.members = members
+
+  $scope.$watch 'vm.selectedPeriod', (selectedPeriod) ->
+    since = moment().subtract(parseInt(selectedPeriod), 'days')
+    fetch(since)
 
   vm.average = (field, list) ->
     return 0 unless list?
