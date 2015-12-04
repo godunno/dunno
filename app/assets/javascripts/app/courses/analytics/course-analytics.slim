@@ -3,9 +3,7 @@
     .course__analytics__header
       .course__analytics__search
         search-input[
-          ng-model="q"
-          perform-search="search"
-          clear-search="clearSearch()"
+          ng-model="searchStudent"
           name="q"
           placeholder="Procurar estudante"
           focus-on="true"]
@@ -88,7 +86,12 @@
               i.icon.icon-down
               | Comentários feitos
       tbody
-        tr ng-repeat="member in vm.members | orderBy:vm.sortingOptions.field:vm.sortingOptions.reverse"
+        tr[
+          ng-repeat="
+            member in vm.members
+            | filter:searchStudent
+            | orderBy:vm.sortingOptions.field:vm.sortingOptions.reverse
+          "]
           td.data__avatar.data__image__column
             img.avatar user-avatar="member"
           td.data__name.data__text__column
