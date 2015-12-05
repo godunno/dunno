@@ -39,15 +39,15 @@ class Api::V1::MediasController < Api::V1::ApplicationController
   end
 
   def show
-    authorize media
-    TrackEvent::MediaAccessed.new(media, current_profile).track
+    authorize media(Media.all)
+    TrackEvent::MediaAccessed.new(media(Media.all), current_profile).track
     render nothing: true
   end
 
   private
 
-  def media
-    @media ||= current_profile.medias.find_by!(uuid: params[:id])
+  def media(scope = current_profile.medias)
+    @media ||= scope.find_by!(uuid: params[:id])
   end
 
   def media_params
