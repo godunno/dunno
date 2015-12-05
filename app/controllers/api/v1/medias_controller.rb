@@ -38,6 +38,12 @@ class Api::V1::MediasController < Api::V1::ApplicationController
     render nothing: true
   end
 
+  def show
+    authorize media
+    TrackMediaAccessedEvent.new(media, current_profile).track
+    render nothing: true
+  end
+
   private
 
   def media

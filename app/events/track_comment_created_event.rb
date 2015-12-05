@@ -7,7 +7,6 @@ class TrackCommentCreatedEvent
 
   def track
     assert_is_member
-    return if comment_already_tracked?
     create_tracking_event
   end
 
@@ -24,7 +23,7 @@ class TrackCommentCreatedEvent
   end
 
   def create_tracking_event
-    TrackingEvent.create!(
+    TrackingEvent.find_or_create_by!(
       course: course,
       profile: profile,
       event_type: event_type,
@@ -36,12 +35,8 @@ class TrackCommentCreatedEvent
     TrackingEvent.event_types[:comment_created]
   end
 
-  def comment_already_tracked?
-    profile.tracking_events.where(trackable: comment, event_type: event_type).any?
-  end
-
   def assert_is_member
-    return if profile.courses.include?(course)
+    return if profile.has_course?(course)
     fail TrackingEvent::NonMemberError, non_member_error_message 
   end
 

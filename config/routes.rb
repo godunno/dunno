@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :config, only: :show
       resources :notifications, only: [:create]
-      resources :medias, only: [:index, :create, :update, :destroy] do
+      resources :medias, only: [:index, :create, :update, :destroy, :show] do
         get 'preview', on: :collection
       end
       resources :topics, only: [:create, :update, :destroy] do
