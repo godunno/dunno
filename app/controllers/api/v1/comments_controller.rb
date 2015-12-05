@@ -8,6 +8,7 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
 
     if @comment.save
       NewCommentNotification.new(@comment, current_profile).deliver
+      TrackEvent::CommentCreated.new(@comment, current_profile).track
       render
     else
       render json: { errors: @comment.errors }, status: 422

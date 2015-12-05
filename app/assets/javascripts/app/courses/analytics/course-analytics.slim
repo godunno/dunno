@@ -1,0 +1,118 @@
+.course__analytics
+  .course__analytics__content
+    .course__analytics__header
+      .course__analytics__search
+        search-input[
+          ng-model="searchStudent"
+          name="q"
+          placeholder="Procurar estudante"
+          focus-on="true"]
+      .course__analytics__context
+        ul.course__analytics__context__select
+          li
+            input#d-context[
+              ng-model="vm.selectedPeriod"
+              type='radio'
+              name='context'
+              value='1']
+            label for='d-context'
+              | 24h
+          li
+            input#w-context[
+              ng-model="vm.selectedPeriod"
+              type='radio'
+              name='context'
+              value='7']
+            label for='w-context'
+              | 7 dias
+          li
+            input#m-context[
+              ng-model="vm.selectedPeriod"
+              type='radio'
+              name='context'
+              value='30']
+            label for='m-context'
+              | 30 dias
+    table.course__analytics__datagrid
+      col
+      col
+      col ng-class="{ sorted__column: vm.sortingOptions.field == 'course_accessed_events' }"
+      col ng-class="{ sorted__column: vm.sortingOptions.field == 'file_downloaded_events' }"
+      col ng-class="{ sorted__column: vm.sortingOptions.field == 'url_clicked_events' }"
+      col ng-class="{ sorted__column: vm.sortingOptions.field == 'comment_created_events' }"
+      thead
+        tr
+          th.data__image__column
+          th.data__text__column
+            | Nome
+          th.data__number__column
+            a[
+              ng-class="{
+                sort__by: vm.sortingOptions.field == 'course_accessed_events',
+                sort__by__ascending: !vm.sortingOptions.reverse
+              }"
+              ng-click="vm.sortBy('course_accessed_events')"]
+              i.icon.icon-up
+              i.icon.icon-down
+              | Acessos
+          th.data__number__column
+            a[
+              ng-class="{
+                sort__by: vm.sortingOptions.field == 'file_downloaded_events',
+                sort__by__ascending: !vm.sortingOptions.reverse
+              }"
+              ng-click="vm.sortBy('file_downloaded_events')"]
+              i.icon.icon-up
+              i.icon.icon-down
+              | Downloads
+          th.data__number__column
+            a[
+              ng-class="{
+                sort__by: vm.sortingOptions.field == 'url_clicked_events',
+                sort__by__ascending: !vm.sortingOptions.reverse
+              }"
+              ng-click="vm.sortBy('url_clicked_events')"]
+              i.icon.icon-up
+              i.icon.icon-down
+              | Links acessados
+          th.data__number__column
+            a[
+              ng-class="{
+                sort__by: vm.sortingOptions.field == 'comment_created_events',
+                sort__by__ascending: !vm.sortingOptions.reverse
+              }"
+              ng-click="vm.sortBy('comment_created_events')"]
+              i.icon.icon-up
+              i.icon.icon-down
+              | Comentários feitos
+      tbody
+        tr[
+          ng-repeat="
+            member in vm.members
+            | filter:searchStudent
+            | orderBy:vm.sortingOptions.field:vm.sortingOptions.reverse
+          "]
+          td.data__avatar.data__image__column
+            img.avatar user-avatar="member"
+          td.data__name.data__text__column
+            | {{ member.name }}
+          td.data__number.data__number__column
+            | {{ member.course_accessed_events }}
+          td.data__number.data__number__column
+            | {{ member.file_downloaded_events }}
+          td.data__number.data__number__column
+            | {{ member.url_clicked_events }}
+          td.data__number.data__number__column
+            | {{ member.comment_created_events }}
+      tfoot
+        tr
+          td.data__text__column[colspan='2']
+            | Médias
+          td.data__number.data__number__column
+            | {{ vm.average('course_accessed_events', vm.members) }}
+          td.data__number.data__number__column
+            | {{ vm.average('file_downloaded_events', vm.members) }}
+          td.data__number.data__number__column
+            | {{ vm.average('url_clicked_events', vm.members) }}
+          td.data__number.data__number__column
+            | {{ vm.average('comment_created_events', vm.members) }}

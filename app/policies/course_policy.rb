@@ -29,6 +29,8 @@ class CoursePolicy < ApplicationPolicy
 
   alias_method :unblock?, :update?
 
+  alias_method :analytics?, :show?
+
   private
 
   def has_course?

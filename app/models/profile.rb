@@ -8,6 +8,7 @@ class Profile < ActiveRecord::Base
   has_many :events, through: :courses
   has_many :medias, dependent: :destroy
   has_many :system_notifications, dependent: :destroy
+  has_many :tracking_events, dependent: :destroy
 
   delegate :uuid, :email, :authentication_token, :name, :avatar_url, to: :user
 

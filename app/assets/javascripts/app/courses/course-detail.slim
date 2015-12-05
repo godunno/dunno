@@ -35,15 +35,23 @@
       .course__navigation
         ul
           li ui-sref-active="is-active"
-            a.members__tab ui-sref=".events"
+            a.events__tab ui-sref=".events"
+              i.icon.icon-list
               | Aulas
           li ui-sref-active="is-active" if-teacher=true
             a.calendar__tab ui-sref=".schedule"
+              i.icon.icon-event
               | Cronograma
           li ui-sref-active="is-active"
             a.members__tab ui-sref=".members"
+              i.icon.icon-group
               | Integrantes ({{course.members.length}})
           li ui-sref-active="is-active"
             a.catalog__tab ui-sref=".catalog"
+              i.icon.icon-folder
               | Materiais ({{course.medias_count}})
+          li ui-sref-active="is-active" if-teacher=true
+            a.analytics__tab ui-sref=".analytics"
+              i.icon.icon-check
+              | Métricas
   ui-view.course__content
