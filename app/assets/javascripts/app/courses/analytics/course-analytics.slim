@@ -33,6 +33,12 @@
               value='30']
             label for='m-context'
               | 30 dias
+
+    chartist.ct-chart[
+      chartist-data="vm.chartData"
+      chartist-chart-type="Bar"
+      chartist-chart-options="vm.chartOptions"]
+
     table.course__analytics__datagrid
       col
       col
