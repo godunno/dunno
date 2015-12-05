@@ -373,7 +373,7 @@ describe Api::V1::MediasController do
     let(:topic) do
       create :topic, event: create(:event, course: course)
     end
-    let(:media) { create :media, profile: profile, topics: [topic] }
+    let(:media) { create :media, profile: course.teacher, topics: [topic] }
     let(:tracker_double) { double "TrackEvent::MediaAccessed", track: nil }
 
     def do_action
