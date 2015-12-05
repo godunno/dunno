@@ -73,7 +73,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def analytics
     authorize course
-    @members = tracking_events(params[:since]).group_by(&:profile)
+    @members = students_with_tracking_events(tracking_events(params[:since]))
   end
 
   private
@@ -116,5 +116,11 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
   def tracking_events(since)
     since ||= 1.day.ago
     course.tracking_events.where(created_at: since..Time.current)
+  end
+
+  def students_with_tracking_events(tracking_events)
+    @members = course.students.each_with_object({}) do |student, hash|
+      hash[student] = tracking_events.where(profile: student)
+    end
   end
 end

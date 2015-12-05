@@ -109,6 +109,7 @@ resource "Courses" do
     parameter :since, "Time since when to count the tracking events"
 
     before do
+      course.add_student(student_without_events)
       Timecop.freeze Time.zone.parse('2015-12-31 09:30')
     end
 
@@ -116,6 +117,7 @@ resource "Courses" do
 
     let(:id) { course.uuid }
 
+    let(:student_without_events) { create(:profile) }
     let!(:course_accessed_event) do
       create :tracking_event, :course_accessed,
              course: course,
@@ -159,6 +161,15 @@ resource "Courses" do
           "url_clicked_events" => 1,
           "comment_created_events" => 1
         },
+        {
+          "id" => student_without_events.id,
+          "name" => student_without_events.name,
+          "avatar_url" => student_without_events.avatar_url,
+          "course_accessed_events" => 0,
+          "file_downloaded_events" => 0,
+          "url_clicked_events" => 0,
+          "comment_created_events" => 0
+        },
       ])
     end
 
@@ -175,6 +186,15 @@ resource "Courses" do
           "file_downloaded_events" => 1,
           "url_clicked_events" => 1,
           "comment_created_events" => 1
+        },
+        {
+          "id" => student_without_events.id,
+          "name" => student_without_events.name,
+          "avatar_url" => student_without_events.avatar_url,
+          "course_accessed_events" => 0,
+          "file_downloaded_events" => 0,
+          "url_clicked_events" => 0,
+          "comment_created_events" => 0
         },
       ])
       end
