@@ -7,7 +7,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def show
     authorize course(current_profile.courses_with_blocked)
-    TrackCourseAccessedEvent.new(@course, current_profile).track
+    TrackEvent::CourseAccessed.new(@course, current_profile).track
   end
 
   def create

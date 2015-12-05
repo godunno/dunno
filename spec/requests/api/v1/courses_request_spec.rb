@@ -92,12 +92,12 @@ describe Api::V1::CoursesController do
                ]
       end
 
-      let(:tracker_double) { double("TrackCourseAccessedEvent", track: nil) }
+      let(:tracker_double) { double("TrackEvent::CourseAccessed", track: nil) }
 
       before do
         course.save!
         course.reload
-        allow(TrackCourseAccessedEvent)
+        allow(TrackEvent::CourseAccessed)
           .to receive(:new)
           .with(course, profile)
           .and_return(tracker_double)

@@ -27,7 +27,7 @@ resource "Comments" do
   post "/api/v1/comments.json" do
     before do
       Timecop.freeze Time.zone.parse('2015-10-20 00:00')
-      allow(TrackCommentCreatedEvent)
+      allow(TrackEvent::CommentCreated)
         .to receive(:new)
         .with(kind_of(Comment), teacher)
         .and_return(tracker_double)
@@ -63,7 +63,7 @@ resource "Comments" do
     let(:attachment_ids) { [attachment.id] }
     let(:attachment) { create(:attachment) }
 
-    let(:tracker_double) { double("TrackCommentCreatedEvent", track: nil) }
+    let(:tracker_double) { double("TrackEvent::CommentCreated", track: nil) }
 
     def event
       course.events.reload.last

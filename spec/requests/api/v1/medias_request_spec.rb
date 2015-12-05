@@ -368,29 +368,29 @@ describe Api::V1::MediasController do
     it { expect(Media.find_by(id: media.id)).to be_nil }
   end
 
-  describe "GET /api/v1/medias/:uuid.json", :wip do
+  describe "GET /api/v1/medias/:uuid.json" do
     let(:course) { create(:course, students: [profile]) }
     let(:topic) do
       create :topic, event: create(:event, course: course)
     end
     let(:media) { create :media, profile: profile, topics: [topic] }
-    let(:tracker) { double "TrackMediaAccessedEvent", track: nil }
+    let(:tracker_double) { double "TrackEvent::MediaAccessed", track: nil }
 
     def do_action
       get "/api/v1/medias/#{media.uuid}.json", auth_params(profile)
     end
 
     before do
-      allow(TrackMediaAccessedEvent)
+      allow(TrackEvent::MediaAccessed)
         .to receive(:new)
         .with(media, profile)
-        .and_return(tracker)
+        .and_return(tracker_double)
       do_action
     end
 
     it { expect(last_response.status).to eq(200) }
     it "tracks the file downloaded" do
-      expect(tracker).to have_received(:track)
+      expect(tracker_double).to have_received(:track)
     end
   end
 end

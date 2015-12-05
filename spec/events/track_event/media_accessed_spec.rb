@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TrackMediaAccessedEvent do
+describe TrackEvent::MediaAccessed do
   let(:course) { create(:course, students: [student]) }
   let(:topic) { create(:topic, event: create(:event, course: course)) }
   let(:media) { create(:media, topics: [topic]) }
@@ -8,7 +8,7 @@ describe TrackMediaAccessedEvent do
   let(:anyone) { create(:profile) }
 
   def track(profile)
-    TrackMediaAccessedEvent.new(media, profile).track
+    TrackEvent::MediaAccessed.new(media, profile).track
   end
 
   it "only allows one file_downloaded to be tracked by media" do

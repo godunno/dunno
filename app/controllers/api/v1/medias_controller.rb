@@ -40,7 +40,7 @@ class Api::V1::MediasController < Api::V1::ApplicationController
 
   def show
     authorize media
-    TrackMediaAccessedEvent.new(media, current_profile).track
+    TrackEvent::MediaAccessed.new(media, current_profile).track
     render nothing: true
   end
 
