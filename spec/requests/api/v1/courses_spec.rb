@@ -177,26 +177,26 @@ resource "Courses" do
       let(:since) { '2015-12-29T09:30:00-02:00' }
 
       example_request "returns members with the tracking events counts since the passed time" do
-      expect(json).to eq([
-        {
-          "id" => student.id,
-          "name" => student.name,
-          "avatar_url" => student.avatar_url,
-          "course_accessed_events" => 2,
-          "file_downloaded_events" => 1,
-          "url_clicked_events" => 1,
-          "comment_created_events" => 1
-        },
-        {
-          "id" => student_without_events.id,
-          "name" => student_without_events.name,
-          "avatar_url" => student_without_events.avatar_url,
-          "course_accessed_events" => 0,
-          "file_downloaded_events" => 0,
-          "url_clicked_events" => 0,
-          "comment_created_events" => 0
-        },
-      ])
+        expect(json).to eq([
+          {
+            "id" => student.id,
+            "name" => student.name,
+            "avatar_url" => student.avatar_url,
+            "course_accessed_events" => 2,
+            "file_downloaded_events" => 1,
+            "url_clicked_events" => 1,
+            "comment_created_events" => 1
+          },
+          {
+            "id" => student_without_events.id,
+            "name" => student_without_events.name,
+            "avatar_url" => student_without_events.avatar_url,
+            "course_accessed_events" => 0,
+            "file_downloaded_events" => 0,
+            "url_clicked_events" => 0,
+            "comment_created_events" => 0
+          },
+        ])
       end
     end
   end

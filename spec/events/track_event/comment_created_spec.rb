@@ -30,7 +30,7 @@ describe TrackEvent::CommentCreated do
   describe "recent created TrackingEvent" do
     before { track(student) }
 
-    let(:tracking_event) { student.tracking_events.last } 
+    let(:tracking_event) { student.tracking_events.last }
 
     it { expect(tracking_event.event_type).to eq 'comment_created' }
     it { expect(tracking_event.trackable).to eq comment }

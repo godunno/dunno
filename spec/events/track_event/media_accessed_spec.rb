@@ -26,7 +26,7 @@ describe TrackEvent::MediaAccessed do
 
   context "File media" do
     let(:media) { create(:media_with_file, topics: [topic]) }
-    let(:tracking_event) { student.tracking_events.last } 
+    let(:tracking_event) { student.tracking_events.last }
 
     before { track(student) }
 
@@ -38,7 +38,7 @@ describe TrackEvent::MediaAccessed do
 
   context "URL media" do
     let(:media) { create(:media_with_url, topics: [topic]) }
-    let(:tracking_event) { student.tracking_events.last } 
+    let(:tracking_event) { student.tracking_events.last }
 
     before { track(student) }
 

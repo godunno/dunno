@@ -15,14 +15,6 @@ module TrackEvent
 
     attr_accessor :comment, :profile, :course
 
-    def last_tracked_event
-      profile
-      .tracking_events
-      .where(trackable: course, event_type: event_type)
-      .order(created_at: :desc)
-      .first
-    end
-
     def create_tracking_event
       TrackingEvent.find_or_create_by!(
         course: course,
@@ -38,7 +30,7 @@ module TrackEvent
 
     def assert_is_member
       return if profile.has_course?(course)
-      fail TrackingEvent::NonMemberError, non_member_error_message 
+      fail TrackingEvent::NonMemberError, non_member_error_message
     end
 
     def non_member_error_message

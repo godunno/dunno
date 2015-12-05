@@ -18,9 +18,9 @@ module TrackEvent
     def event_type
       TrackingEvent.event_types[
         case media.type
-      when 'url' then :url_clicked
-      when 'file' then :file_downloaded
-      end
+        when 'url' then :url_clicked
+        when 'file' then :file_downloaded
+        end
       ]
     end
 
@@ -30,7 +30,7 @@ module TrackEvent
 
     def assert_is_member
       return unless courses.empty?
-      fail TrackingEvent::NonMemberError, non_member_error_message 
+      fail TrackingEvent::NonMemberError, non_member_error_message
     end
 
     def non_member_error_message

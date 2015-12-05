@@ -17,10 +17,10 @@ module TrackEvent
 
     def last_tracked_event
       profile
-      .tracking_events
-      .where(trackable: course, event_type: event_type)
-      .order(created_at: :desc)
-      .first
+        .tracking_events
+        .where(trackable: course, event_type: event_type)
+        .order(created_at: :desc)
+        .first
     end
 
     def create_tracking_event
@@ -42,7 +42,7 @@ module TrackEvent
 
     def assert_is_member
       return if profile.courses.include?(course)
-      fail TrackingEvent::NonMemberError, non_member_error_message 
+      fail TrackingEvent::NonMemberError, non_member_error_message
     end
 
     def non_member_error_message
