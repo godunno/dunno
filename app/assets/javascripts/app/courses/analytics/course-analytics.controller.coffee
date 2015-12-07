@@ -3,13 +3,25 @@ CourseAnalyticsCtrl = ($scope, Course) ->
 
   vm.selectedPeriod = '1'
 
+  vm.chartOptions =
+    axisY:
+      onlyInteger: true
+
+  setChartData = ->
+    return unless vm.members?
+    vm.chartData =
+      labels: vm.members.map((member) -> member.name)
+      series: vm.members.map((member) -> [member[vm.sortingOptions.field]])
+
   fetch = (since) ->
     Course.$get($scope.course.$url('analytics'), since: since).then (members) ->
       vm.members = members
 
   $scope.$watch 'vm.selectedPeriod', (selectedPeriod) ->
     since = moment().subtract(parseInt(selectedPeriod), 'days')
-    fetch(since)
+    fetch(since).then(setChartData)
+
+  $scope.$watch 'vm.sortingOptions.field', setChartData
 
   vm.average = (field, list) ->
     return 0 unless list?

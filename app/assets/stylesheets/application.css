@@ -16,5 +16,6 @@
  *= require angular-mighty-datepicker
  *= require ngtoast/ngToast
  *= require ngtoast/ngToast-animations
+ *= require chartist
  *= require app
  */

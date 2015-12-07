@@ -71,6 +71,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-mrodrigues--angular-mighty-datepicker', '0.0.18'
   gem 'rails-assets-ui-router-extras', '0.1.0'
   gem 'rails-assets-ngtoast', '1.5.6'
+  gem 'rails-assets-angular-chartist.js', '3.3.12'
 end
 
 group :production, :staging do
