@@ -85,6 +85,7 @@
               a.event__item__description[
                 ng-if="!!topic.media"
                 ng-href="{{topic.media.url}}"
+                ng-click="topic.media.get()"
                 target="_blank"
                 analytics-on="click"
                 analytics-event="Media Clicked"
