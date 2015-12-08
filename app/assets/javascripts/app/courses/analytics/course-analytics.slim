@@ -34,7 +34,16 @@
             label for='m-context'
               | 30 dias
 
+    a.button.toggle__chart ng-click="showChart = !showChart"
+      span ng-if="showChart"
+        | Esconder gráfico
+        i.icon.icon-up
+      span ng-if="!showChart"
+        | Mostrar gráfico
+        i.icon.icon-down
+
     chartist.ct-chart[
+      ng-class="{ hidden: !showChart }"
       chartist-data="vm.chartData"
       chartist-chart-type="Bar"
       chartist-chart-options="vm.chartOptions"]
