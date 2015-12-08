@@ -4,14 +4,29 @@ CourseAnalyticsCtrl = ($scope, Course) ->
   vm.selectedPeriod = '1'
 
   vm.chartOptions =
+    seriesBarDistance: 10,
+    horizontalBars: true,
     axisY:
+      offset: 70
+    axisX:
       onlyInteger: true
+
+  pluck = (field) ->
+    (object) ->
+      object[field]
 
   setChartData = ->
     return unless vm.members?
+
+    vm.chartOptions.height = 50 * vm.members.length + 'px'
+
+    field = vm.sortingOptions.field
+    sortedMembers = vm.members.sort (a, b) ->
+      (a[field] - b[field]) * if vm.sortingOptions.reverse then 1 else -1
+
     vm.chartData =
-      labels: vm.members.map((member) -> member.name)
-      series: vm.members.map((member) -> [member[vm.sortingOptions.field]])
+      labels: sortedMembers.map(pluck('name'))
+      series: [sortedMembers.map(pluck(field))]
 
   fetch = (since) ->
     Course.$get($scope.course.$url('analytics'), since: since).then (members) ->
@@ -29,13 +44,14 @@ CourseAnalyticsCtrl = ($scope, Course) ->
 
   vm.sortingOptions =
     field: 'course_accessed_events'
-    reversed: true
+    reverse: true
 
   vm.sortBy = (field) ->
     if vm.sortingOptions.field == field
       vm.sortingOptions.reverse = !vm.sortingOptions.reverse
     else
       vm.sortingOptions.field = field
+    setChartData()
 
   vm
 

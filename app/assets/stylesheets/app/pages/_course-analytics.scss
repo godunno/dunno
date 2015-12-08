@@ -35,6 +35,20 @@
     }
   }
 
+  .toggle__chart .icon {
+    margin-left: 10px;
+  }
+
+  .ct-chart {
+    .ct-chart-bar {
+      transition: all .2s ease-in-out;
+    }
+
+    &.hidden .ct-chart-bar {
+      height: 0 !important;
+    }
+  }
+
   table {
     border: $divider;
     border-radius: $global-radius;
