@@ -278,7 +278,9 @@
                     .catalog__item__info
                       strong.catalog__item__title
                         | {{media.title}}
-                      a.catalog__item__link ng-href="{{media.url}}" target="_blank"
+                      a.catalog__item__link[
+                        ng-href="{{media.url}}"
+                        target="_blank"]
                         i.icon>[
                           ng-class="{'icon-link': media.type == 'url', 'icon-file': media.type == 'file'}"]
                         span

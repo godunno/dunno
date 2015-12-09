@@ -414,11 +414,11 @@ describe Api::V1::EventsController do
           end
 
           it "doesn't deliver emails if not canceling event" do
-            allow(EventCanceledMailer)
-              .to receive(:event_canceled_email)
+            allow(NotifyEventCanceledMail)
+              .to receive(:new)
             do_action
-            expect(EventCanceledMailer)
-              .not_to have_received(:event_canceled_email)
+            expect(NotifyEventCanceledMail)
+              .not_to have_received(:new)
           end
         end
 
@@ -426,9 +426,12 @@ describe Api::V1::EventsController do
           let(:params_hash) { { event: { status: "canceled" } } }
 
           it "delivers email to all members" do
-            mail = double("mail", deliver: nil)
-            expect(EventCanceledMailer)
-              .to receive_message_chain(:delay, :event_canceled_email)
+            notifier_double = double("NotifyEventCanceledMail", deliver: nil)
+            expect(NotifyEventCanceledMail)
+              .to receive(:new)
+              .with(event)
+              .and_return(notifier_double)
+            expect(notifier_double).to receive(:deliver)
             do_action
           end
         end

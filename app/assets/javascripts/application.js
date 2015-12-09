@@ -18,6 +18,8 @@
 //= require angular-translate
 //= require angular-mighty-datepicker
 //= require angular-bindonce
+//= require chartist
+//= require angular-chartist.js.js
 //= require moment
 //= require moment/locale/pt-br
 //= require moment-timezone

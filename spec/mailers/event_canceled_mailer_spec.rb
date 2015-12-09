@@ -1,13 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe EventCanceledMailer, type: :mailer do
-  let(:teacher) { create(:profile) }
-  let(:student) { create(:profile) }
-  let(:course) { create(:course, teacher: teacher, students: [student]) }
+  let(:profile) { create(:profile) }
+  let(:course) { create(:course) }
   let(:event) { create(:event, course: course, start_at: Time.zone.parse('2015-01-01 14:00')) }
 
   before do
-    EventCanceledMailer.event_canceled_email(event).deliver
+    EventCanceledMailer.event_canceled_email(event.id, profile.id).deliver
   end
 
   after do
@@ -18,7 +17,7 @@ RSpec.describe EventCanceledMailer, type: :mailer do
 
   let(:email) { ActionMailer::Base.deliveries.first }
 
-  it { expect(email.to).to match_array [student.email, teacher.email] }
+  it { expect(email.to).to match_array [profile.email] }
   it do
     expect(email.subject).to eq(
       "[Dunno] Aula cancelada: #{course.name} - Quinta (01/Jan – 14:00)"
