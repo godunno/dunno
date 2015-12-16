@@ -79,6 +79,7 @@ Rails.application.routes.draw do
           post :mark_all_as_read
         end
       end
+      resources :folders, only: [:index, :create, :destroy]
     end
     namespace :v2 do
       resources :courses, only: [:index] do

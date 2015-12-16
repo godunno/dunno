@@ -6,6 +6,7 @@ describe Media do
   describe "associations" do
     it { is_expected.to belong_to(:mediable) }
     it { is_expected.to belong_to(:profile) }
+    it { is_expected.to belong_to(:folder) }
     it { is_expected.to have_many(:topics).dependent(:destroy) }
     it { is_expected.to have_many(:events).through(:topics) }
   end
@@ -222,6 +223,51 @@ describe Media do
 
     it "searches by tag" do
       expect(Media.search_by_course(course, q: "cool").records.to_a).to eq([old_media])
+    end
+  end
+
+  describe ".search_by_folder", :elasticsearch do
+    let(:course) { create(:course) }
+    let(:folder) { create(:folder, course: course) }
+    let(:another_folder) { create(:folder, course: course) }
+    let!(:old_media) do
+      create :media,
+             title: "Another Title",
+             tag_list: %w(cool stuff),
+             created_at: 1.hour.ago,
+             folder: folder
+    end
+    let!(:new_media) do
+      create :media,
+             title: "Some Title",
+             folder: folder
+    end
+    let!(:media_from_another_profile) { create(:media) }
+    let!(:media_from_another_folder) do
+      create :media,
+             folder: another_folder
+    end
+
+    before { refresh_index! }
+
+    it "can set a number of items per page" do
+      expect(Media.search_by_folder(folder, per_page: 1).records.to_a).to eq([new_media])
+    end
+
+    it "paginates" do
+      expect(Media.search_by_folder(folder, per_page: 1, page: 2).records.to_a).to eq([old_media])
+    end
+
+    it "orders all from newest to oldest" do
+      expect(Media.search_by_folder(folder, {}).records.to_a).to eq([new_media, old_media])
+    end
+
+    it "searches by title" do
+      expect(Media.search_by_folder(folder, q: "Some").records.to_a).to eq([new_media])
+    end
+
+    it "searches by tag" do
+      expect(Media.search_by_folder(folder, q: "cool").records.to_a).to eq([old_media])
     end
   end
 end

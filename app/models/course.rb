@@ -16,6 +16,7 @@ class Course < ActiveRecord::Base
   has_many :weekly_schedules
   has_many :notifications
   has_many :tracking_events, dependent: :destroy
+  has_many :folders, dependent: :destroy
 
   validates :name, :teacher, :start_date, presence: true
   validates :abbreviation, length: { maximum: 10 }

@@ -184,6 +184,66 @@ describe Api::V1::MediasController do
       end
     end
 
+    context "searching by folder" do
+      let(:course) { create(:course, students: [profile]) }
+      let(:folder) { create(:folder, course: course) }
+      let!(:awesome_media) do
+        create :media_with_url,
+               title: "awesome",
+               folder: folder
+      end
+      let!(:boring_media) do
+        create :media_with_url,
+               title: "boring",
+               folder: folder
+      end
+      let!(:media_from_another_course)  do
+        create :media_with_url, folder: create(:folder, course: course)
+      end
+      let(:params_hash) do
+        {
+          q: awesome_media.title,
+          folder_id: folder.id
+        }
+      end
+
+      context "accessing folder in a course he's registered in" do
+        before do
+          refresh_index!
+          do_action
+        end
+
+        it { expect(last_response.status).to eq(200) }
+        it "should return only the searched terms" do
+          expect(json["medias"]).to eq(
+            [{
+              "id"          => awesome_media.id,
+              "uuid"        => awesome_media.uuid,
+              "title"       => awesome_media.title,
+              "description" => awesome_media.description,
+              "preview"     => awesome_media.preview,
+              "type"        => awesome_media.type,
+              "thumbnail"   => awesome_media.thumbnail,
+              "filename"    => nil,
+              "tag_list"    => awesome_media.tag_list,
+              "url"         => awesome_media.url,
+              "created_at"  => awesome_media.created_at.iso8601(3),
+              "courses"     => []
+            }]
+          )
+        end
+      end
+
+      context "accessing folder in a non-registered course" do
+        let(:non_registered_course) { create(:course) }
+        let(:folder) { create(:folder, course: non_registered_course) }
+
+        it do
+          expect { do_action }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
+
     context "paginating" do
       let!(:medias) do
         (1..11).map do |i|

@@ -7,6 +7,9 @@ class Api::V1::MediasController < Api::V1::ApplicationController
                          .courses
                          .find_by_identifier!(params[:course_uuid])
                 Media.search_by_course(course, media_search_params)
+              elsif params[:folder_id].present?
+                folder = Folder.where(course: current_profile.courses).find(params[:folder_id])
+                Media.search_by_folder(folder, media_search_params)
               else
                 Media.search_by_profile(current_profile, media_search_params)
               end

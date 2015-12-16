@@ -10,6 +10,7 @@ describe Course do
     it { is_expected.to have_many(:weekly_schedules) }
     it { is_expected.to have_many(:notifications) }
     it { is_expected.to have_many(:tracking_events).dependent(:destroy) }
+    it { is_expected.to have_many(:folders).dependent(:destroy) }
   end
 
   describe "validations" do
