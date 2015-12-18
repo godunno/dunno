@@ -1,0 +1,22 @@
+h1 Pastas
+
+
+form[
+  name="vm.newFolderForm"
+  novalidate=true
+  ng-submit="vm.addFolder()"]
+
+  input[
+    type="text"
+    name="name"
+    ng-model="vm.newFolder.name"
+    required=true
+    validate=true]
+  errors for="vm.newFolderForm.name"
+
+  button
+    | Criar pasta
+
+ul
+  li ng-repeat="folder in vm.folders"
+    | {{ folder.name }}

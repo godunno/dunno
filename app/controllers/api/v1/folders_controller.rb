@@ -6,7 +6,7 @@ class Api::V1::FoldersController < Api::V1::ApplicationController
   end
 
   def create
-    @folder = Folder.new(folder_params)
+    @folder = course(params[:folder]).folders.build(folder_params)
     authorize @folder
     @folder.save!
   end
@@ -20,15 +20,15 @@ class Api::V1::FoldersController < Api::V1::ApplicationController
   private
 
   def folder_params
-    params.require(:folder).permit(:name, :course_id)
+    params.require(:folder).permit(:name)
   end
 
   def folder
     @folder ||= Folder.where(course: current_profile.courses).find(params[:id])
   end
 
-  def course
-    @course ||= Course.find(params[:course_id])
+  def course(scope = params)
+    @course ||= current_profile.courses.find_by_identifier!(scope[:course_id])
   end
 end
 

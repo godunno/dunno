@@ -2,7 +2,9 @@ setCoursesRoutes = (
   $stateProvider,
   CoursesResolver,
   CourseResolver,
-  EventsPaginationResolver) ->
+  EventsPaginationResolver,
+  FoldersResolver
+) ->
   $stateProvider
     .state 'app.courses',
       url: '/courses'
@@ -50,6 +52,13 @@ setCoursesRoutes = (
       controller: 'CourseCatalogCtrl as vm'
       templateUrl: 'courses/catalog/course-catalog'
 
+    .state 'app.courses.show.catalog.folders',
+      url: '/folders'
+      controller: 'CourseFoldersCtrl as vm'
+      templateUrl: 'courses/folders/course-folders'
+      resolve:
+        folders: FoldersResolver
+
     .state 'app.courses.show.analytics',
       url: '/analytics'
       controller: 'CourseAnalyticsCtrl as vm'
@@ -59,7 +68,9 @@ setCoursesRoutes.$inject = [
   '$stateProvider',
   'CoursesResolver',
   'CourseResolver',
-  'EventsPaginationResolver']
+  'EventsPaginationResolver',
+  'FoldersResolver'
+]
 
 angular
   .module('app.courses')

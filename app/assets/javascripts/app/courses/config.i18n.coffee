@@ -29,6 +29,14 @@ I18nConfig = ($translateProvider) ->
         endTime:
           time: 'Você deve preencher o horário de término da aula.'
 
+      newFolderForm:
+        name:
+          required: 'Você deve preencher o nome da pasta.'
+
+      changeFolderForm:
+        folder:
+          required: 'Você deve selecionar uma pasta.'
+
     'vm.notificationForm.message.required': 'Insira uma mensagem para seus estudantes.'
     'vm.notificationForm.message.repeated': 'Você não pode enviar duas mensagens iguais em sequência.'
     'vm.notificationForm.abbreviation.required': 'Identifique sua disciplina usando uma abreviação.'

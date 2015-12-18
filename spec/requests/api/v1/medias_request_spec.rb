@@ -383,7 +383,8 @@ describe Api::V1::MediasController do
       {
         media: {
           tag_list: tag_list,
-          title: title
+          title: title,
+          folder_id: folder.id
         }
       }
     end
@@ -395,6 +396,8 @@ describe Api::V1::MediasController do
 
     context "successfully updating media" do
       let(:media) { create :media, profile: profile }
+      let(:course) { create(:course, teacher: profile) }
+      let(:folder) { create(:folder, course: course) }
 
       before do
         do_action
@@ -404,12 +407,27 @@ describe Api::V1::MediasController do
       it { expect(last_response.status).to eq(200) }
       it { expect(media.tag_list).to match_array(%w(history math science)) }
       it { expect(media.title).to eq(title) }
+      it { expect(media.folder).to eq(folder) }
     end
 
     context "failing to update media" do
-      let(:media) { create :media, title: "Old title", tag_list: "chemistry", profile: create(:profile) }
+      let(:folder) { create(:folder, course: create(:course)) }
 
-      it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
+      context "from another profile" do
+        let(:media) { create :media, title: "Old title", tag_list: "chemistry", profile: create(:profile) }
+
+        it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
+
+      context "to a folder on another profile's course" do
+        let(:media) { create :media, profile: profile }
+
+        before do
+          do_action
+        end
+
+        it { expect(last_response.status).to be 403 }
+      end
     end
   end
 

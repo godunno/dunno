@@ -1,1 +1,2 @@
-json.(folder, :id, :name, :course_id)
+json.(folder, :id, :name)
+json.course_id(folder.course.uuid)

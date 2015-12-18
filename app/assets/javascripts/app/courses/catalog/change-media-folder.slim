@@ -1,0 +1,20 @@
+h1 Pastas
+
+form[
+  name="vm.changeFolderForm"
+  novalidate=true
+  ng-submit="vm.updateMedia(vm.media)"]
+  .folder ng-repeat="folder in vm.folders"
+    input[
+      type="radio"
+      name="folder"
+      ng-model="vm.media.folder_id"
+      ng-value="folder.id"
+      id="folder_{{folder.id}}"
+      required=true
+      validate=true]
+    label for="folder_{{folder.id}}"
+      | {{ folder.name }}
+  errors for="vm.changeFolderForm.folder"
+  button
+    | Colocar nessa pasta

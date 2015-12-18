@@ -14,7 +14,7 @@ resource "Folders" do
   get "/api/v1/folders.json" do
     parameter :course_id, "Course in which to find the folders", required: true
 
-    let(:course_id) { course.id }
+    let(:course_id) { course.uuid }
     let!(:folder) { create(:folder, course: course) }
 
     example_request "returns the folders attributes", document: :public do
@@ -39,7 +39,7 @@ resource "Folders" do
     let(:raw_post) { params.to_json }
 
     let(:name) { 'Apostila 2015' }
-    let(:course_id) { course.id }
+    let(:course_id) { course.uuid }
 
     context "valid" do
       let(:folder) { Folder.last }

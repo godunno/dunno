@@ -4,10 +4,13 @@ class MediaPolicy < ApplicationPolicy
   end
 
   def update?
-    record.profile == profile
+    record.profile == profile &&
+      (!record.folder || record.folder.course.teacher == profile)
   end
 
-  alias_method :destroy?, :update?
+  def destroy?
+    record.profile == profile
+  end
 
   def show?
     record.topics.map(&:event).map(&:course).select do |course|

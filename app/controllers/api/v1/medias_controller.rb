@@ -27,8 +27,9 @@ class Api::V1::MediasController < Api::V1::ApplicationController
   end
 
   def update
+    media.attributes = media_params
     authorize media
-    if media.update(media_params)
+    if media.save
       render nothing: true, status: 200
     else
       render media.errors, status: 422
@@ -54,7 +55,7 @@ class Api::V1::MediasController < Api::V1::ApplicationController
   end
 
   def media_params
-    params.require(:media).permit(:title, :tag_list, tag_list: [])
+    params.require(:media).permit(:title, :tag_list, :folder_id, tag_list: [])
   end
 
   def media_search_params

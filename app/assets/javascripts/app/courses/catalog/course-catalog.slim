@@ -1,4 +1,6 @@
-.catalog.grid-container
+.catalog.grid-container ui-view=true
+  a.folders ui-sref=".folders"
+    | Pastas
   .catalog__search
     search-input[
       ng-model="q"
@@ -51,6 +53,10 @@
                 i.icon.icon-more-horiz
             zf-as-content position="bottom"
               ul
+                li
+                  a.remove[
+                    ng-click="changeFolder(media)"]
+                    | Mudar pasta
                 li
                   a.remove[
                     ng-click="remove(media)"]

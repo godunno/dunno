@@ -1,4 +1,9 @@
-CourseCatalogCtrl = ($scope, MediaSearcher) ->
+CourseCatalogCtrl = (
+  $scope,
+  MediaSearcher,
+  ModalFactory,
+  FoldersResolver
+) ->
   MediaSearcher.extend($scope)
   $scope.fetch()
 
@@ -17,7 +22,28 @@ CourseCatalogCtrl = ($scope, MediaSearcher) ->
     if confirm(message)
       media.remove().then -> $scope.fetch()
 
-CourseCatalogCtrl.$inject = ['$scope', 'MediaSearcher']
+  reloadMedia = (media) ->
+    (updatedMedia) -> media.folder_id = updatedMedia.folder_id
+
+  $scope.changeFolder = (media) ->
+    new ModalFactory
+      templateUrl: 'courses/catalog/change-media-folder'
+      controller: 'ChangeMediaFolderCtrl'
+      controllerAs: 'vm'
+      bindToController: true
+      resolve:
+        media: -> angular.copy(media)
+        folders: FoldersResolver
+        callback: -> reloadMedia(media)
+      scope: $scope
+    .activate()
+
+CourseCatalogCtrl.$inject = [
+  '$scope',
+  'MediaSearcher',
+  'ModalFactory',
+  'FoldersResolver'
+]
 
 angular
   .module('app.courses')
