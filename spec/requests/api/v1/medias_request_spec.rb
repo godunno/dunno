@@ -37,6 +37,7 @@ describe Api::V1::MediasController do
             "filename"    => nil,
             "tag_list"    => media.tag_list,
             "url"         => media.url,
+            "folder_id"   => media.folder_id,
             "created_at"  => media.created_at.iso8601(3),
             "courses"     => [
               {
@@ -81,6 +82,7 @@ describe Api::V1::MediasController do
             "filename"    => media.original_filename,
             "tag_list"    => media.tag_list,
             "url"         => media.url,
+            "folder_id"   => media.folder_id,
             "created_at"  => media.created_at.iso8601(3),
             "courses"     => []
           }]
@@ -117,6 +119,7 @@ describe Api::V1::MediasController do
             "filename"    => nil,
             "tag_list"    => awesome_media.tag_list,
             "url"         => awesome_media.url,
+            "folder_id"   => awesome_media.folder_id,
             "created_at"  => awesome_media.created_at.iso8601(3),
             "courses"     => []
           }]
@@ -166,6 +169,7 @@ describe Api::V1::MediasController do
             "filename"    => nil,
             "tag_list"    => awesome_media.tag_list,
             "url"         => awesome_media.url,
+            "folder_id"   => awesome_media.folder_id,
             "created_at"  => awesome_media.created_at.iso8601(3),
             "courses"     => [
               {
@@ -227,6 +231,7 @@ describe Api::V1::MediasController do
               "filename"    => nil,
               "tag_list"    => awesome_media.tag_list,
               "url"         => awesome_media.url,
+              "folder_id"   => awesome_media.folder_id,
               "created_at"  => awesome_media.created_at.iso8601(3),
               "courses"     => []
             }]

@@ -26,6 +26,39 @@ resource "Folders" do
     end
   end
 
+  get "/api/v1/folders/:id.json" do
+    parameter :id, "Folder's id", required: true
+
+    let(:id) { folder.id }
+    let!(:folder) { create(:folder, course: course, medias: [media]) }
+    let(:media) { create(:media) }
+
+    example_request "returns the folder attributes along with its medias", document: :public do
+      expect(json).to eq(
+        "folder" => {
+          "id" => folder.id,
+          "name" => folder.name,
+          "course_id" => course.uuid,
+          "medias" => [
+            "id"          => media.id,
+            "uuid"        => media.uuid,
+            "title"       => media.title,
+            "description" => media.description,
+            "preview"     => media.preview,
+            "type"        => media.type,
+            "thumbnail"   => media.thumbnail,
+            "filename"    => nil,
+            "tag_list"    => media.tag_list,
+            "url"         => media.url,
+            "folder_id"   => folder.id,
+            "created_at"  => media.created_at.iso8601(3),
+            "courses"     => []
+          ]
+        }
+      )
+    end
+  end
+
   post "/api/v1/folders.json" do
     parameter :name, "Folder's name.",
               required: true,

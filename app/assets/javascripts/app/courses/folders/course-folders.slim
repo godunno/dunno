@@ -1,22 +1,27 @@
-h1 Pastas
+.folders ui-view=true
+  a ui-sref="^"
+    | Voltar para materiais
 
+  h1
+    | Pastas
 
-form[
-  name="vm.newFolderForm"
-  novalidate=true
-  ng-submit="vm.addFolder()"]
+  form[
+    name="vm.newFolderForm"
+    novalidate=true
+    ng-submit="vm.addFolder()"]
 
-  input[
-    type="text"
-    name="name"
-    ng-model="vm.newFolder.name"
-    required=true
-    validate=true]
-  errors for="vm.newFolderForm.name"
+    input[
+      type="text"
+      name="name"
+      ng-model="vm.newFolder.name"
+      required=true
+      validate=true]
+    errors for="vm.newFolderForm.name"
 
-  button
-    | Criar pasta
+    button
+      | Criar pasta
 
-ul
-  li ng-repeat="folder in vm.folders"
-    | {{ folder.name }}
+  ul
+    li ng-repeat="folder in vm.folders"
+      a ui-sref=".show({ folderId: folder.id })"
+        | {{ folder.name }}

@@ -5,6 +5,11 @@ class Api::V1::FoldersController < Api::V1::ApplicationController
     @folders = course.folders
   end
 
+  def show
+    skip_authorization
+    folder
+  end
+
   def create
     @folder = course(params[:folder]).folders.build(folder_params)
     authorize @folder

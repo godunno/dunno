@@ -102,7 +102,8 @@ describe Api::V1::TopicsController do
             "thumbnail" => nil,
             "filename" => nil,
             "tag_list" => [],
-            "url" => nil
+            "url" => nil,
+            "folder_id"   => media.folder_id,
           },
             "personal" => false,
             "uuid" => new_topic.uuid
