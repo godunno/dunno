@@ -6,6 +6,9 @@ courseActions = ->
     $scope.isTeacher = (course) ->
       course.user_role == 'teacher'
 
+    $scope.isModerator = (course) ->
+      course.user_role == 'moderator'
+
     $scope.unregister = (course) ->
       if confirm('Você tem certeza que deseja sair dessa disciplina?')
         PageLoading.resolve course.unregister().then ->

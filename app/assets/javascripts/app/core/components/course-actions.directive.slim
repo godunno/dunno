@@ -4,13 +4,13 @@ zf-action-sheet.course__actions
       i.icon.icon-more-vert
   zf-as-content position="bottom"
     ul
-      li ng-if="isStudent(course)"
+      li ng-if="isStudent(course) || isModerator(course)"
         a.unregister[
           zf-close=true
           ng-click="unregister(course)"]
           | Sair
       li
         a.course__edit[
-          ng-if="isTeacher(course)"
+          ng-if="isTeacher(course) || isModerator(course)"
           ng-click="openEditCourseForm(course)"]
           | Editar

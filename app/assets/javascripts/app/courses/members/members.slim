@@ -4,7 +4,7 @@
       | Essa disciplina ainda não possui nenhum estudante.
     p.members__invite
       a[
-        if-teacher=true
+        if-moderator=true
         ng-click="vm.openInviteMembers()"]
         i.icon-add>
         | Convidar Estudantes
@@ -23,9 +23,9 @@
           .member__name
             img.avatar user-avatar="member"
             | {{member.name}}
-          .member__access__toggle if-teacher=true
+          .member__access__toggle if-moderator=true
             a.member__access__block[
-              ng-if="member.role == 'student'"
+              ng-if="member.role == 'student' || member.role == 'moderator'"
               ng-click="vm.block(member)"]
               | Bloquear
             a.member__access__unblock[
