@@ -32,6 +32,22 @@ describe Membership do
       expect(membership).to be_valid
     end
 
+    it "allows to unblock student" do
+      membership = Membership.create! course: course,
+                                      profile: profile,
+                                      role: 'blocked'
+      membership.update(role: 'student')
+      expect(membership).to be_valid
+    end
+
+    it "allows to block moderator" do
+      membership = Membership.create! course: course,
+                                      profile: profile,
+                                      role: 'moderator'
+      membership.update(role: 'blocked')
+      expect(membership).to be_valid
+    end
+
     it "doesn't allow to block teacher" do
       membership = Membership.create! course: course,
                                       profile: profile,
@@ -41,17 +57,33 @@ describe Membership do
       expect(membership.errors.details).to include(role: [error: :is_teacher])
     end
 
-    it "only accepts valid role values" do
-      is_expected.to validate_inclusion_of(:role).in_array(%w(student teacher blocked))
-    end
-
-    it "doesn't allow to turn teacher to student" do
+    it "doesn't allow to turn teacher into student" do
       membership = Membership.create! course: course,
                                       profile: profile,
                                       role: 'teacher'
       membership.update(role: 'student')
       expect(membership).not_to be_valid
       expect(membership.errors.details).to include(role: [error: :is_teacher])
+    end
+
+    it "doesn't allow to turn teacher into moderator" do
+      membership = Membership.create! course: course,
+                                      profile: profile,
+                                      role: 'teacher'
+      membership.update(role: 'moderator')
+      expect(membership).not_to be_valid
+      expect(membership.errors.details).to include(role: [error: :is_teacher])
+    end
+
+    it "only accepts valid role values" do
+      is_expected
+        .to validate_inclusion_of(:role)
+        .in_array %w(
+          student
+          teacher
+          moderator
+          blocked
+        )
     end
   end
 

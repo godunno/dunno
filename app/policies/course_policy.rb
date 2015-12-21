@@ -8,6 +8,10 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def update?
+    profile == record.teacher || profile.moderator_in?(record)
+  end
+
+  def destroy?
     profile == record.teacher
   end
 
@@ -16,10 +20,8 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def unregister?
-    profile.role_in(record) == 'student' && !blocked?
+    !blocked? && (role == 'student' || role == 'moderator')
   end
-
-  alias_method :destroy?, :update?
 
   alias_method :send_notification?, :update?
 
@@ -39,5 +41,9 @@ class CoursePolicy < ApplicationPolicy
 
   def blocked?
     profile.blocked_in?(record)
+  end
+
+  def role
+    @role ||= profile.role_in(record)
   end
 end

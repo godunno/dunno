@@ -4,8 +4,14 @@ require 'pundit/rspec'
 describe CommentPolicy do
   let(:teacher) { create(:profile) }
   let(:student) { create(:profile) }
+  let(:moderator) { create(:profile) }
   let(:anyone) { create(:profile) }
-  let(:course) { create(:course, teacher: teacher, students: [student]) }
+  let(:course) do
+    create :course,
+           teacher: teacher,
+           students: [student],
+           moderators: [moderator]
+  end
   let(:other_teacher) { create(:profile) }
   let(:event) { create(:event, course: course) }
 
@@ -16,6 +22,7 @@ describe CommentPolicy do
 
     it { is_expected.to permit(teacher, comment) }
     it { is_expected.to permit(student, comment) }
+    it { is_expected.to permit(moderator, comment) }
     it { is_expected.not_to permit(anyone, comment) }
     it { is_expected.not_to permit(other_teacher, comment) }
 
@@ -24,6 +31,7 @@ describe CommentPolicy do
       let(:comment) { build(:comment, event: event) }
 
       it { is_expected.to permit(teacher, comment) }
+      it { is_expected.to permit(moderator, comment) }
       it { is_expected.not_to permit(student, comment) }
 
       it "allows to comment on the event if it was already created" do
@@ -58,6 +66,7 @@ describe CommentPolicy do
     let(:teacher_comment) { create(:comment, event: event, profile: teacher) }
 
     it { is_expected.to permit(teacher, comment) }
+    it { is_expected.to permit(moderator, comment) }
     it { is_expected.not_to permit(comment.profile, comment) }
     it { is_expected.not_to permit(student, comment) }
     it { is_expected.not_to permit(anyone, comment) }
@@ -75,6 +84,7 @@ describe CommentPolicy do
     let(:comment) { create(:comment, event: event) }
 
     it { is_expected.to permit(teacher, comment) }
+    it { is_expected.to permit(moderator, comment) }
     it { is_expected.not_to permit(comment.profile, comment) }
     it { is_expected.not_to permit(student, comment) }
     it { is_expected.not_to permit(anyone, comment) }
@@ -85,6 +95,7 @@ describe CommentPolicy do
       let(:comment) { create(:comment, event: event) }
 
       it { is_expected.to permit(teacher, comment) }
+      it { is_expected.to permit(moderator, comment) }
       it { is_expected.to permit(student, comment) }
       it { is_expected.not_to permit(anyone, comment) }
     end
@@ -93,6 +104,7 @@ describe CommentPolicy do
       let(:removed_comment) { create(:comment, :removed, event: event) }
 
       it { is_expected.not_to permit(teacher, removed_comment) }
+      it { is_expected.not_to permit(moderator, removed_comment) }
       it { is_expected.not_to permit(removed_comment.profile, removed_comment) }
       it { is_expected.not_to permit(student, removed_comment) }
       it { is_expected.not_to permit(anyone, removed_comment) }
@@ -102,6 +114,7 @@ describe CommentPolicy do
       let(:blocked_comment) { create(:comment, :blocked, event: event) }
 
       it { is_expected.to permit(teacher, blocked_comment) }
+      it { is_expected.to permit(moderator, blocked_comment) }
       it { is_expected.not_to permit(blocked_comment.profile, blocked_comment) }
       it { is_expected.not_to permit(student, blocked_comment) }
       it { is_expected.not_to permit(anyone, blocked_comment) }

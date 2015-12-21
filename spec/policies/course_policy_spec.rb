@@ -4,9 +4,15 @@ require 'pundit/rspec'
 describe CoursePolicy do
   let(:teacher) { create(:profile) }
   let(:student) { create(:profile) }
+  let(:moderator) { create(:profile) }
   let(:blocked_student) { create(:profile) }
   let(:anyone) { create(:profile) }
-  let(:course) { create(:course, teacher: teacher, students: [student, blocked_student]) }
+  let(:course) do
+    create :course,
+           teacher: teacher,
+           students: [student, blocked_student],
+           moderators: [moderator]
+  end
 
   before do
     blocked_student.block_in!(course)
@@ -16,6 +22,7 @@ describe CoursePolicy do
 
   permissions :show? do
     it { is_expected.to permit(teacher, course) }
+    it { is_expected.to permit(moderator, course) }
     it { is_expected.to permit(student, course) }
     it { is_expected.not_to permit(anyone, course) }
     it { is_expected.not_to permit(blocked_student, course) }
@@ -27,6 +34,7 @@ describe CoursePolicy do
 
   permissions :update? do
     it { is_expected.to permit(teacher, course) }
+    it { is_expected.to permit(moderator, course) }
     it { is_expected.not_to permit(student, course) }
     it { is_expected.not_to permit(anyone, course) }
     it { is_expected.not_to permit(blocked_student, course) }
@@ -34,6 +42,7 @@ describe CoursePolicy do
 
   permissions :destroy? do
     it { is_expected.to permit(teacher, course) }
+    it { is_expected.not_to permit(moderator, course) }
     it { is_expected.not_to permit(student, course) }
     it { is_expected.not_to permit(anyone, course) }
     it { is_expected.not_to permit(blocked_student, course) }
@@ -41,6 +50,7 @@ describe CoursePolicy do
 
   permissions :register? do
     it { is_expected.not_to permit(teacher, course) }
+    it { is_expected.not_to permit(moderator, course) }
     it { is_expected.not_to permit(student, course) }
     it { is_expected.to permit(anyone, course) }
     it { is_expected.not_to permit(blocked_student, course) }
@@ -48,6 +58,7 @@ describe CoursePolicy do
 
   permissions :unregister? do
     it { is_expected.not_to permit(teacher, course) }
+    it { is_expected.to permit(moderator, course) }
     it { is_expected.to permit(student, course) }
     it { is_expected.not_to permit(anyone, course) }
     it { is_expected.not_to permit(blocked_student, course) }
@@ -55,6 +66,7 @@ describe CoursePolicy do
 
   permissions :search? do
     it { is_expected.not_to permit(teacher, course) }
+    it { is_expected.not_to permit(moderator, course) }
     it { is_expected.not_to permit(student, course) }
     it { is_expected.to permit(anyone, course) }
     it { is_expected.not_to permit(blocked_student, course) }
@@ -62,6 +74,7 @@ describe CoursePolicy do
 
   permissions :send_notification? do
     it { is_expected.to permit(teacher, course) }
+    it { is_expected.to permit(moderator, course) }
     it { is_expected.not_to permit(student, course) }
     it { is_expected.not_to permit(anyone, course) }
     it { is_expected.not_to permit(blocked_student, course) }
@@ -69,6 +82,7 @@ describe CoursePolicy do
 
   permissions :block? do
     it { is_expected.to permit(teacher, course) }
+    it { is_expected.to permit(moderator, course) }
     it { is_expected.not_to permit(student, course) }
     it { is_expected.not_to permit(anyone, course) }
     it { is_expected.not_to permit(blocked_student, course) }
@@ -76,6 +90,7 @@ describe CoursePolicy do
 
   permissions :unblock? do
     it { is_expected.to permit(teacher, course) }
+    it { is_expected.to permit(moderator, course) }
     it { is_expected.not_to permit(student, course) }
     it { is_expected.not_to permit(anyone, course) }
     it { is_expected.not_to permit(blocked_student, course) }
@@ -83,6 +98,7 @@ describe CoursePolicy do
 
   permissions :analytics? do
     it { is_expected.to permit(teacher, course) }
+    it { is_expected.to permit(moderator, course) }
     it { is_expected.to permit(student, course) }
     it { is_expected.not_to permit(anyone, course) }
     it { is_expected.not_to permit(blocked_student, course) }
