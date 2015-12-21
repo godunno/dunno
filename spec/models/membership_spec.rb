@@ -12,11 +12,11 @@ describe Membership do
 
     it "doesn't allow associate the same profile to the same course more than once" do
       expect do
-        Membership.create!(course: course, profile: profile, role: 'some role')
+        Membership.create!(course: course, profile: profile, role: 'student')
       end.not_to raise_error
 
       expect do
-        Membership.create!(course: course, profile: profile, role: 'another role')
+        Membership.create!(course: course, profile: profile, role: 'student')
       end.to raise_error(ActiveRecord::RecordNotUnique)
     end
 
@@ -39,6 +39,10 @@ describe Membership do
       membership.update(role: 'blocked')
       expect(membership).not_to be_valid
       expect(membership.errors.details).to include(role: [error: :is_teacher])
+    end
+
+    it "only accepts valid role values" do
+      is_expected.to validate_inclusion_of(:role).in_array(%w(student teacher blocked))
     end
 
     it "doesn't allow to turn teacher to student" do
