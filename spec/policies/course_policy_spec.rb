@@ -96,6 +96,22 @@ describe CoursePolicy do
     it { is_expected.not_to permit(blocked_student, course) }
   end
 
+  permissions :promote_to_moderator? do
+    it { is_expected.to permit(teacher, course) }
+    it { is_expected.not_to permit(moderator, course) }
+    it { is_expected.not_to permit(student, course) }
+    it { is_expected.not_to permit(anyone, course) }
+    it { is_expected.not_to permit(blocked_student, course) }
+  end
+
+  permissions :downgrade_from_moderator? do
+    it { is_expected.to permit(teacher, course) }
+    it { is_expected.not_to permit(moderator, course) }
+    it { is_expected.not_to permit(student, course) }
+    it { is_expected.not_to permit(anyone, course) }
+    it { is_expected.not_to permit(blocked_student, course) }
+  end
+
   permissions :analytics? do
     it { is_expected.to permit(teacher, course) }
     it { is_expected.to permit(moderator, course) }

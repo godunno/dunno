@@ -31,6 +31,10 @@ class CoursePolicy < ApplicationPolicy
 
   alias_method :unblock?, :update?
 
+  alias_method :promote_to_moderator?, :destroy?
+
+  alias_method :downgrade_from_moderator?, :destroy?
+
   alias_method :analytics?, :show?
 
   private
