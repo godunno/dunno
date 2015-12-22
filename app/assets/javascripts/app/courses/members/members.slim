@@ -32,3 +32,12 @@
               ng-if="member.role == 'blocked'"
               ng-click="vm.unblock(member)"]
               | Desbloquear
+          .member__moderator__toggle ng-if="course.user_role == 'teacher'"
+            a.member__moderator__promote[
+              ng-if="member.role == 'student'"
+              ng-click="vm.promoteToModerator(member)"]
+              | Promover a moderador
+            a.member__moderator__downgrade[
+              ng-if="member.role == 'moderator'"
+              ng-click="vm.downgradeFromModerator(member)"]
+              | Rebaixar de moderador
