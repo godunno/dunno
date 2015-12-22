@@ -12,14 +12,14 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def create
     @course = Course.new
-    course_form = CourseForm.new(@course, course_params)
+    course_form = CourseForm.new(@course, course_create_params)
     authorize @course
     course_form.create!
   end
 
   def update
     authorize course
-    course_form = CourseForm.new(course, course_params)
+    course_form = CourseForm.new(course, course_update_params)
     if course_form.update!
       render :create
     else
@@ -76,6 +76,19 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     @members = students_with_tracking_events(tracking_events(params[:since]))
   end
 
+  def promote_to_moderator
+    authorize course
+    student.promote_to_moderator_in!(course)
+    PromotedToModeratorNotification.new(course, student).deliver
+    render nothing: true
+  end
+
+  def downgrade_from_moderator
+    authorize course
+    student.downgrade_from_moderator_in!(course)
+    render nothing: true
+  end
+
   private
 
   def track_student_joining_course
@@ -102,10 +115,14 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     @course ||= scope.find_by_identifier!(params[:id])
   end
 
-  def course_params
+  def course_update_params
     params
       .require(:course)
       .permit(:name, :start_date, :end_date, :class_name, :institution)
+  end
+
+  def course_create_params
+    course_update_params
       .merge(teacher: current_profile)
   end
 

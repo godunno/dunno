@@ -30,4 +30,12 @@ core.factory 'Course', ['RailsResource', 'railsSerializer', (RailsResource, rail
     unblock: (studentId) ->
       @student_id = studentId
       @$patch(@$url('/unblock'))
+
+    promoteToModerator: (studentId) ->
+      @student_id = studentId
+      @$patch(@$url('/promote_to_moderator'))
+
+    downgradeFromModerator: (studentId) ->
+      @student_id = studentId
+      @$patch(@$url('/downgrade_from_moderator'))
 ]

@@ -49,17 +49,24 @@ resource "SystemNotifications" do
              notifiable: course
     end
 
+    let!(:promoted_to_moderator_notification) do
+      create :system_notification, :promoted_to_moderator,
+             profile: profile,
+             created_at: 4.hours.ago,
+             notifiable: course
+    end
+
     let!(:new_member_notification) do
       create :system_notification, :new_member,
              profile: profile,
-             created_at: 4.hours.ago,
+             created_at: 5.hours.ago,
              notifiable: course
     end
 
     let!(:new_topic_notification) do
       create :system_notification, :new_topic,
              profile: profile,
-             created_at: 5.hours.ago,
+             created_at: 6.hours.ago,
              notifiable: topic
     end
 
@@ -137,6 +144,20 @@ resource "SystemNotifications" do
           author: {
             name: blocked_notification.author.name,
             avatar_url: blocked_notification.author.avatar_url
+          },
+          notifiable: {
+            uuid: course.uuid,
+            name: course.name
+          }
+        },
+        {
+          id: promoted_to_moderator_notification.id,
+          notification_type: 'promoted_to_moderator',
+          created_at: promoted_to_moderator_notification.created_at.utc.iso8601,
+          read_at: nil,
+          author: {
+            name: promoted_to_moderator_notification.author.name,
+            avatar_url: promoted_to_moderator_notification.author.avatar_url
           },
           notifiable: {
             uuid: course.uuid,

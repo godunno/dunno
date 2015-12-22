@@ -4,7 +4,7 @@ class CommentPolicy < ApplicationPolicy
 
   def create?
     can_see_event? &&
-      (teacher? ||
+      (teacher_or_moderator? ||
        event_exists? ||
        event_scheduled?)
   end
@@ -18,13 +18,13 @@ class CommentPolicy < ApplicationPolicy
   alias_method :restore?, :destroy?
 
   def block?
-    !record.removed? && teacher? && record.profile != profile
+    !record.removed? && teacher_or_moderator? && record.profile != profile
   end
 
   alias_method :unblock?, :block?
 
   def show?
-    can_see_event? && !record.removed? && (!record.blocked? || teacher?)
+    can_see_event? && !record.removed? && (!record.blocked? || teacher_or_moderator?)
   end
 
   private
@@ -37,8 +37,12 @@ class CommentPolicy < ApplicationPolicy
     event.persisted?
   end
 
-  def teacher?
-    profile.role_in(course) == 'teacher'
+  def teacher_or_moderator?
+    role == 'teacher' || role == 'moderator'
+  end
+
+  def role
+    @role ||= profile.role_in(course)
   end
 
   def event_scheduled?

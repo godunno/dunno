@@ -103,6 +103,97 @@ resource "Courses" do
     end
   end
 
+  patch "/api/v1/courses/:id/promote_to_moderator.json" do
+    parameter :student_id, "Student's id", required: true, scope: :course
+
+    let(:id) { course.uuid }
+    let(:raw_post) { params.to_json }
+
+    context "successfully promoting student to moderator" do
+      let(:student_id) { student.id }
+
+      example_request "should have promoted student" do
+        expect(student.reload.moderator_in?(course)).to be true
+      end
+
+      example "generates a SystemNotification for the student" do
+        deliverer = double("PromotedToModeratorNotification", deliver: nil)
+        expect(PromotedToModeratorNotification)
+          .to receive(:new).with(course, student).and_return(deliverer)
+
+        do_request
+
+        expect(deliverer).to have_received(:deliver)
+      end
+    end
+
+    context "trying to promote himself" do
+      let(:student_id) { teacher.id }
+
+      example_request "should not be able to promote" do
+        expect(json).to eq(
+          errors: {
+            role: [error: "is_teacher"]
+          }
+        )
+      end
+
+      example "doesn't generate a SystemNotification" do
+        expect(PromotedToModeratorNotification).not_to receive(:new)
+        do_request
+      end
+    end
+
+    context "trying to block someone who's not in the course" do
+      let(:other_profile) { create(:profile) }
+      let(:student_id) { other_profile.id }
+
+      example "should not be able to block" do
+        expect(PromotedToModeratorNotification).not_to receive(:new)
+        expect { do_request }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
+  patch "/api/v1/courses/:id/downgrade_from_moderator.json" do
+    parameter :student_id, "Student's id", required: true, scope: :course
+
+    let(:id) { course.uuid }
+    let(:raw_post) { params.to_json }
+
+    before do
+      student.promote_to_moderator_in!(course)
+    end
+
+    context "successfully downgrading student from moderator" do
+      let(:student_id) { student.id }
+
+      example_request "should have downgraded student" do
+        expect(student.reload.moderator_in?(course)).to be false
+      end
+    end
+
+    context "trying to downgrade himself" do
+      let(:student_id) { teacher.id }
+
+      example_request "should not be able to downgrade" do
+        expect(json).to eq(
+          errors: {
+            role: [error: "is_teacher"]
+          }
+        )
+      end
+    end
+
+    context "trying to downgrade someone who's not in the course" do
+      let(:student_id) { create(:profile).id }
+
+      example "should not be able to downgrade" do
+        expect { do_request }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
   get "/api/v1/courses/:id/analytics.json" do
     let(:json) { JSON.parse(response_body) }
 

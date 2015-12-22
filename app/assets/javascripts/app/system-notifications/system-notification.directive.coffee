@@ -26,7 +26,7 @@ systemNotification = ($compile, $templateCache) ->
   scope:
     notification: '='
   link: (scope, element, attrs) ->
-    notificationType = scope.vm.notification.notification_type.replace('_', '-')
+    notificationType = scope.vm.notification.notification_type.replace(/_/g, '-')
     viewPath = "system-notifications/#{notificationType}"
     element.html($templateCache.get(viewPath)).show()
     $compile(element.contents())(scope)

@@ -7,10 +7,14 @@ class Course < ActiveRecord::Base
           class_name: 'Membership'
   has_many :student_memberships, -> { where(role: 'student') },
            class_name: 'Membership'
+  has_many :moderator_memberships, -> { where(role: 'moderator') },
+           class_name: 'Membership'
   has_many :memberships
   has_one :teacher, through: :teacher_membership,
                     class_name: 'Profile', source: :profile
   has_many :students, through: :student_memberships,
+                      class_name: 'Profile', source: :profile
+  has_many :moderators, through: :moderator_memberships,
                       class_name: 'Profile', source: :profile
   has_many :events
   has_many :weekly_schedules

@@ -59,6 +59,8 @@ Rails.application.routes.draw do
           get :search
           patch :block
           patch :unblock
+          patch :promote_to_moderator
+          patch :downgrade_from_moderator
           get :analytics
         end
       end
