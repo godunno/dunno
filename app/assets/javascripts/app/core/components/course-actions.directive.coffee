@@ -25,6 +25,12 @@ courseActions = ->
         scope: $scope
       .activate()
 
+    $scope.archiveCourse = (course) ->
+      if confirm "Tem certeza de que deseja arquivar esta disciplina?"
+        course.end_date = moment().subtract(1, 'day').format('DD/MM/YYYY')
+        PageLoading.resolve course.update().then ->
+          $state.go('.', $state.params, reload: true)
+
   courseActionsCtrl.$inject = ['$scope', '$state', 'PageLoading', 'ModalFactory']
   templateUrl: 'core/components/course-actions.directive'
   restrict: 'E'

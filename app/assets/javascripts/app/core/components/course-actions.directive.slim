@@ -14,3 +14,8 @@ zf-action-sheet.course__actions
           ng-if="isTeacher(course) || isModerator(course)"
           ng-click="openEditCourseForm(course)"]
           | Editar
+      li
+        a.course__archive[
+          ng-if="isTeacher(course) && course.active"
+          ng-click="archiveCourse(course)"]
+          | Arquivar
