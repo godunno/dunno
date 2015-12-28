@@ -23,6 +23,11 @@ FactoryGirl.define do
       notification_type :blocked
     end
 
+    trait :promoted_to_moderator do
+      notifiable { create(:course) }
+      notification_type :promoted_to_moderator 
+    end
+
     trait :new_member do
       notifiable { create(:course) }
       notification_type :new_member

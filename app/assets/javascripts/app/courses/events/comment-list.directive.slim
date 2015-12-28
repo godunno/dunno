@@ -10,13 +10,13 @@
       title="Remover comentário"]
       i.icon.icon-cancel
     a.comment__block[
-      if-teacher=true
+      if-moderator=true
       ng-if="vm.canBlockComment(comment)"
       ng-click="vm.blockComment(comment)"
       title="Bloquear comentário"]
       i.icon.icon-block
     a.comment__unblock[
-      if-teacher=true
+      if-moderator=true
       ng-if="vm.canUnblockComment(comment)"
       ng-click="vm.unblockComment(comment)"
       title="Desbloquear comentário"]
@@ -30,12 +30,12 @@
       ui-sref="{commentId: comment.id, startAt: vm.event.start_at}"]
     .comment__body ng-class="{ removed: vm.isRemoved(comment) }"
       a.comment__blocked__show[
-        if-teacher=true
+        if-moderator=true
         ng-if="vm.isBlocked(comment) && !comment._showBody"
         ng-click="vm.showBlockedBody(comment)"]
         | mostrar comentário bloqueado
       a.comment__blocked__hide[
-        if-teacher=true
+        if-moderator=true
         ng-if="vm.isBlocked(comment) && comment._showBody"
         ng-click="vm.hideBlockedBody(comment)"]
         | esconder comentário bloqueado

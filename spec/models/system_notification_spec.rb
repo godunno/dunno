@@ -45,6 +45,7 @@ RSpec.describe SystemNotification, type: :model do
                   event_published
                   new_comment
                   blocked
+                  promoted_to_moderator
                   new_member
                   new_topic
                 )

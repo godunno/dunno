@@ -6,6 +6,7 @@ describe Course do
   describe "associations" do
     it { is_expected.to have_one(:teacher) }
     it { is_expected.to have_many(:students) }
+    it { is_expected.to have_many(:moderators) }
     it { is_expected.to have_many(:events) }
     it { is_expected.to have_many(:weekly_schedules) }
     it { is_expected.to have_many(:notifications) }
@@ -142,9 +143,10 @@ describe Course do
   end
 
   describe "memberships" do
-    let(:course) { create(:course, teacher: teacher, students: [student]) }
+    let(:course) { create(:course, teacher: teacher, students: [student], moderators: [moderator]) }
     let(:teacher) { create(:profile) }
     let(:student) { create(:profile) }
+    let(:moderator) { create(:profile) }
 
     describe "#teacher" do
       it { expect(course.teacher).to eq(teacher) }
@@ -152,6 +154,10 @@ describe Course do
 
     describe "#students" do
       it { expect(course.students).to eq([student]) }
+    end
+
+    describe "#moderators" do
+      it { expect(course.moderators).to eq([moderator]) }
     end
   end
 

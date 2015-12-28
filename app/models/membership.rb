@@ -7,6 +7,7 @@ class Membership < ActiveRecord::Base
   default_scope -> { order(:id) }
 
   validates :profile, :role, presence: true
+  validates :role, inclusion: { in: %w(student teacher moderator blocked) }
   validate :assert_did_not_change_teacher
 
   private

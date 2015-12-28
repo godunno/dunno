@@ -15,7 +15,7 @@
             | {{course.teacher.name}}
         span.course__dates< ng-if="course.end_date"
           | · {{course.start_date | amDateFormat: 'DD/MMM/YY'}}–{{course.end_date | amDateFormat: 'DD/MMM/YY'}}
-      .course__actions if-teacher=true
+      .course__actions if-moderator=true
         zf-action-sheet
           zf-as-button
             a.course__actions__show
@@ -38,7 +38,7 @@
             a.events__tab ui-sref=".events"
               i.icon.icon-list
               | Aulas
-          li ui-sref-active="is-active" if-teacher=true
+          li ui-sref-active="is-active" if-moderator=true
             a.calendar__tab ui-sref=".schedule"
               i.icon.icon-event
               | Cronograma
@@ -50,7 +50,7 @@
             a.catalog__tab ui-sref=".catalog"
               i.icon.icon-folder
               | Materiais ({{course.medias_count}})
-          li ui-sref-active="is-active" if-teacher=true
+          li ui-sref-active="is-active" if-moderator=true
             a.analytics__tab ui-sref=".analytics"
               i.icon.icon-check
               | Métricas

@@ -5,10 +5,12 @@ CourseMembersCtrl = (course, ModalFactory, PageLoading) ->
   @order = (members) ->
     if role(members) == "teacher"
       0
-    else if role(members) == "student"
+    else if role(members) == "moderator"
       1
-    else
+    else if role(members) == "student"
       2
+    else
+      3
 
   @roleName = (members) ->
     @translateRole(role(members))
@@ -16,6 +18,7 @@ CourseMembersCtrl = (course, ModalFactory, PageLoading) ->
   @translateRole = (role) ->
     rolesInPortuguese =
       teacher: 'Professor'
+      moderator: 'Moderador'
       student: 'Estudante'
       blocked: 'Bloqueado'
     rolesInPortuguese[role]
@@ -42,6 +45,20 @@ CourseMembersCtrl = (course, ModalFactory, PageLoading) ->
 
   @unblock = (member) ->
     PageLoading.resolve(course.unblock(member.id)).then ->
+      member.role = 'student'
+
+  @promoteToModerator = (member) ->
+    message = """
+      Atenção:
+      Um moderador tem as mesmas permissões de acesso que um professor em uma disciplina.
+      Tem certeza que deseja prosseguir?
+    """
+    return unless confirm(message)
+    PageLoading.resolve(course.promoteToModerator(member.id)).then ->
+      member.role = 'moderator'
+
+  @downgradeFromModerator = (member) ->
+    PageLoading.resolve(course.downgradeFromModerator(member.id)).then ->
       member.role = 'student'
 
   @
