@@ -1,0 +1,48 @@
+form.edit__event__dates[
+  name="vm.editEventDatesForm"
+  ng-submit="vm.save()"]
+  .vertical.medium-horizontal.grid-block
+    .grid-container
+      .date
+        mighty-datepicker[
+          ng-model="vm.date"
+          options="vm.calendarOptions"]
+    .vertical.grid-block
+      .grid-block.noscroll
+        .start__time
+          label.text-center for="start_time"
+            | Início
+          input#start_time[
+            name="startTime"
+            ng-model="vm.startTime"
+            ng-model-options="{ allowInvalid: true }"
+            ui-timepicker="{ timeFormat: 'H:i' }"
+            type="text"
+            required=true
+            validate=true]
+        span.text-center
+          | às
+        .end__time
+          label.text-center for="end_time"
+            | Término
+          input#end_time[
+            name="endTime"
+            ng-model="vm.endTime"
+            ng-model-options="{ allowInvalid: true }"
+            ui-timepicker="{ showDuration: true, durationTime: vm.getStartTime, timeFormat: 'H:i' }"
+            type="text"
+            required=true
+            validate=true]
+      errors for="vm.editEventDatesForm.startTime"
+      errors for="vm.editEventDatesForm.endTime"
+      .classroom
+        label.text-center for="classroom"
+          | Sala
+        input#classroom[
+          ng-model="vm.event.classroom"
+          type="text"]
+  submit-button.submit[
+    blocked-when="vm.submitting"
+    label="Salvar"
+    blocked-label="Salvando…"
+    has-spinner=true]

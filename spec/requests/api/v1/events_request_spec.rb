@@ -398,11 +398,52 @@ describe Api::V1::EventsController do
 
       context "successfully updating" do
         context "updating attributes" do
-          let(:params_hash) { { event: { status: "published" } } }
+          let(:event) do
+            create :event,
+                   start_at: previous_start_at,
+                   end_at: previous_end_at,
+                   classroom: previous_classroom,
+                   course: course
+          end
+          let(:previous_start_at) { Time.current.change(usec: 0) }
+          let(:previous_end_at) { previous_start_at + 2.hours }
+          let(:new_start_at) { event.start_at + 1.day }
+          let(:new_end_at) { event.end_at + 1.day }
+          let(:previous_classroom) { 'previous classroom' }
+          let(:new_classroom) { 'new classroom' }
+          let(:params_hash) do
+            {
+              event: {
+                status: "published",
+                start_at: new_start_at.iso8601,
+                end_at: new_end_at.iso8601,
+                classroom: new_classroom
+              }
+            }
+          end
+
           it do
             expect { do_action }
               .to change { event.reload.status }
               .from("draft").to("published")
+          end
+
+          it do
+            expect { do_action }
+              .to change { event.reload.start_at }
+              .from(previous_start_at).to(new_start_at)
+          end
+
+          it do
+            expect { do_action }
+              .to change { event.reload.end_at }
+              .from(previous_end_at).to(new_end_at)
+          end
+
+          it do
+            expect { do_action }
+              .to change { event.reload.classroom }
+              .from(previous_classroom).to(new_classroom)
           end
 
           it "delivers system notifications for course members" do

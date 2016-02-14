@@ -44,6 +44,6 @@ class Api::V1::EventsController < Api::V1::ApplicationController
   end
 
   def update_params
-    params.require(:event).permit(:status, topics: [:uuid])
+    params.require(:event).permit(:status, :start_at, :end_at, :classroom, topics: [:uuid])
   end
 end
