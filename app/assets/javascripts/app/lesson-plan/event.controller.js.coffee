@@ -6,7 +6,9 @@ EventCtrl = (
   Event,
   AnalyticsTracker,
   Utils,
-  DateUtils) ->
+  DateUtils,
+  ModalFactory
+) ->
 
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
@@ -49,6 +51,15 @@ EventCtrl = (
   $scope.$on 'transferTopic', (_, topic) ->
     $scope.event.next.topics.push(topic)
 
+  $scope.openEditDates = ->
+    new ModalFactory
+      templateUrl: 'lesson-plan/dates-edit'
+      controller: 'EditEventDatesCtrl as vm'
+      class: 'medium event__dates__edit'
+      resolve:
+        event: -> angular.copy($scope.event)
+    .activate()
+
 EventCtrl.$inject = [
   '$scope',
   '$window',
@@ -57,7 +68,9 @@ EventCtrl.$inject = [
   'Event',
   'AnalyticsTracker',
   'Utils',
-  'DateUtils']
+  'DateUtils',
+  'ModalFactory'
+]
 
 angular
   .module('app.lessonPlan')
