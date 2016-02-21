@@ -10,7 +10,8 @@ CourseFoldersCtrl = ($scope, folders, Folder) ->
   vm.folders = folders
 
   vm.addFolder = () ->
-    new Folder(vm.newFolder).create().then((folder) -> vm.folders.push(folder))
+    vm.submitting = new Folder(vm.newFolder).create().then (folder) ->
+      vm.folders.push(folder)
     reset()
 
   @

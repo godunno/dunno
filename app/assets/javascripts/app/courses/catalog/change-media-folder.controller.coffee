@@ -5,7 +5,7 @@ ChangeMediaFolderCtrl = (media, folders, callback, modalInstance) ->
   vm.folders = folders
 
   vm.updateMedia = ->
-    vm.media.update().then ->
+    vm.submitting = vm.media.update().then ->
       modalInstance.destroy()
       callback(vm.media)
 

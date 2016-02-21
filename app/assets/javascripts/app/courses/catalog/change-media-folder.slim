@@ -16,5 +16,8 @@ form[
     label for="folder_{{folder.id}}"
       | {{ folder.name }}
   errors for="vm.changeFolderForm.folder"
-  button
-    | Colocar nessa pasta
+  submit-button.submit[
+    blocked-when="vm.submitting"
+    label="Colocar nessa pasta"
+    blocked-label="Salvando…"
+    has-spinner=true]

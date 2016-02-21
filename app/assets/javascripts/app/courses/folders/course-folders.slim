@@ -1,10 +1,4 @@
 .folders ui-view=true
-  a ui-sref="^"
-    | Voltar para materiais
-
-  h1
-    | Pastas
-
   form[
     name="vm.newFolderForm"
     novalidate=true
@@ -18,8 +12,11 @@
       validate=true]
     errors for="vm.newFolderForm.name"
 
-    button
-      | Criar pasta
+    submit-button.submit[
+      blocked-when="vm.submitting"
+      label="Criar pasta"
+      blocked-label="Criando…"
+      has-spinner=true]
 
   ul
     li ng-repeat="folder in vm.folders"

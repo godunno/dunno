@@ -4,6 +4,12 @@
   overflow: visible;
   padding: 1rem;
 
+  .menu-bar {
+    .active {
+      background: darken($dunno-green-color, 10%);
+    }
+  }
+
   &__search {
     position: relative;
 
