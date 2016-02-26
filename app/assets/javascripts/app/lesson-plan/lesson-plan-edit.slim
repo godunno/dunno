@@ -56,6 +56,8 @@
             i.icon.icon-room
             b
               | {{event.classroom}}
+          a.edit__dates ng-click="openEditDates()"
+            | Editar
         span.lesson__status.lesson__draft ng-show="event.status == 'draft'"
           | Rascunho
         span.lesson__status.lesson__published ng-show="event.status == 'published'"

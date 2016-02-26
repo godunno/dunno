@@ -47,6 +47,19 @@ class Profile < ActiveRecord::Base
     membership && membership.role == 'blocked'
   end
 
+  def promote_to_moderator_in!(course)
+    membership_in!(course).update!(role: 'moderator')
+  end
+
+  def downgrade_from_moderator_in!(course)
+    membership_in!(course).update!(role: 'student')
+  end
+
+  def moderator_in?(course)
+    membership = membership_in(course)
+    membership && membership.role == 'moderator'
+  end
+
   private
 
   def courses_as_teacher

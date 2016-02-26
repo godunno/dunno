@@ -1,10 +1,13 @@
 # Avoid overriding ng-if using the following method:
 # http://stackoverflow.com/a/29010910/2908285
-ifTeacher = (ngIfDirective) ->
+ifModerator = (ngIfDirective) ->
   ngIf = ngIfDirective[0]
 
   link = (scope, element, attrs) ->
-    composeNgIf((-> scope.course.user_role == 'teacher'), arguments...)
+    isModerator = ->
+      scope.course.user_role == 'teacher' ||
+        scope.course.user_role == 'moderator'
+    composeNgIf(isModerator, arguments...)
 
   composeNgIf = (predicate, scope, element, attrs, rest...) ->
     initialNgIf = attrs.ngIf
@@ -20,8 +23,8 @@ ifTeacher = (ngIfDirective) ->
   terminal: ngIf.terminal
   restrict: ngIf.restrict
 
-ifTeacher.$inject = ['ngIfDirective']
+ifModerator.$inject = ['ngIfDirective']
 
 angular
   .module('app.courses')
-  .directive('ifTeacher', ifTeacher)
+  .directive('ifModerator', ifModerator)

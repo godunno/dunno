@@ -103,6 +103,17 @@ describe Profile, type: :model do
     end
   end
 
+  describe "#blocked_in?" do
+    let(:course) { create(:course, students: [student]) }
+    let(:student) { create(:profile) }
+
+    it { expect(student).not_to be_blocked_in(course) }
+    it do
+      student.memberships.find_by(course: course).update!(role: 'blocked')
+      expect(student).to be_blocked_in(course)
+    end
+  end
+
   describe "#block_in!" do
     let(:course) { create(:course, teacher: teacher, students: [student]) }
     let(:teacher) { create(:profile) }
@@ -146,6 +157,59 @@ describe Profile, type: :model do
 
     it do
       expect { other_profile.unblock_in!(course) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
+
+  describe "#moderator_in?" do
+    let(:course) { create(:course, students: [student]) }
+    let(:student) { create(:profile) }
+
+    it { expect(student).not_to be_moderator_in(course) }
+    it do
+      student.memberships.find_by(course: course).update!(role: 'moderator')
+      expect(student).to be_moderator_in(course)
+    end
+  end
+
+  describe "#promote_to_moderator_in!" do
+    let(:course) { create(:course, teacher: teacher, students: [student]) }
+    let(:teacher) { create(:profile) }
+    let(:student) { create(:profile) }
+    let(:other_profile) { create(:profile) }
+
+    it do
+      student.promote_to_moderator_in!(course)
+      expect(student.moderator_in?(course)).to be true
+    end
+
+    it do
+      expect { teacher.promote_to_moderator_in!(course) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(teacher.moderator_in?(course)).to be false
+    end
+
+    it do
+      expect { other_profile.promote_to_moderator_in!(course) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect(other_profile.moderator_in?(course)).to be nil
+    end
+  end
+
+  describe "#downgrade_from_moderator_in!" do
+    let(:course) { create(:course, teacher: teacher, moderators: [moderator]) }
+    let(:teacher) { create(:profile) }
+    let(:moderator) { create(:profile) }
+    let(:other_profile) { create(:profile) }
+
+    it do
+      moderator.downgrade_from_moderator_in!(course)
+      expect(moderator.moderator_in?(course)).to be false
+    end
+
+    it do
+      expect { teacher.downgrade_from_moderator_in!(course) }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it do
+      expect { other_profile.downgrade_from_moderator_in!(course) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
