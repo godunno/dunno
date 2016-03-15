@@ -34,6 +34,10 @@
               a href="#{angular_members_path(course_digest.course)}"
                 | Novos estudantes: 
               = course_digest.member_notifications.map(&:author).map(&:name).join(', ')
+          - if course_digest.promoted_to_moderator_notifications.any?
+            p
+              a href="#{angular_members_path(course_digest.course)}"
+                | Você foi promovido à moderador.
           - course_digest.events.each do |event_digest|
             .digest__event
               a.digest__event__info href="#{angular_event_path(event_digest.event)}"

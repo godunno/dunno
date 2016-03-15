@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe BuildDigest do
   let(:profile) { create(:profile, last_digest_sent_at: 1.day.ago) }
+  let(:moderator) { create(:profile) }
   let(:course) { create(:course) }
   let(:event) { create(:event, course: course) }
   let(:another_event) { create(:event, course: course) }
@@ -36,13 +37,19 @@ describe BuildDigest do
            notifiable: topic,
            profile: profile
   end
+  let!(:promoted_to_moderator_notification) do
+    create :system_notification, :promoted_to_moderator,
+           notifiable: course,
+           profile: moderator
+  end
   let(:digest) do
     BuildDigest.new(profile, [
       event_published_notification,
       new_comment_notification,
       blocked_notification,
       new_member_notification,
-      new_topic_notification
+      new_topic_notification,
+      promoted_to_moderator_notification
     ])
   end
 
@@ -64,6 +71,10 @@ describe BuildDigest do
 
   it do
     expect(course_digest.member_notifications).to eq [new_member_notification]
+  end
+
+  it do
+    expect(course_digest.promoted_to_moderator_notifications).to eq [promoted_to_moderator_notification]
   end
 
   it do
