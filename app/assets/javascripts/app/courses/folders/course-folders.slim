@@ -1,0 +1,24 @@
+.folders ui-view=true
+  form[
+    name="vm.newFolderForm"
+    novalidate=true
+    ng-submit="vm.addFolder()"]
+
+    input[
+      type="text"
+      name="name"
+      ng-model="vm.newFolder.name"
+      required=true
+      validate=true]
+    errors for="vm.newFolderForm.name"
+
+    submit-button.submit[
+      blocked-when="vm.submitting"
+      label="Criar pasta"
+      blocked-label="Criando…"
+      has-spinner=true]
+
+  ul
+    li ng-repeat="folder in vm.folders"
+      a ui-sref=".show({ folderId: folder.id })"
+        | {{ folder.name }}

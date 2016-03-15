@@ -16,6 +16,11 @@ describe MediaPolicy do
     create :topic, event: create(:event, course: course)
   end
   let(:media) { create(:media, profile: author, topics: [topic]) }
+  let(:another_profile_folder) { create(:folder, course: create(:course)) }
+  let(:media_updated_to_another_profile_folder) do
+    media.folders = [another_profile_folder]
+    media
+  end
 
   subject { described_class }
 
@@ -26,6 +31,7 @@ describe MediaPolicy do
   permissions :update? do
     it { is_expected.to permit(author, media) }
     it { is_expected.not_to permit(anyone, media) }
+    it { is_expected.not_to permit(author, media_updated_to_another_profile_folder) }
   end
 
   permissions :destroy? do

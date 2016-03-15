@@ -37,6 +37,7 @@ describe Api::V1::MediasController do
             "filename"    => nil,
             "tag_list"    => media.tag_list,
             "url"         => media.url,
+            "folder_id"   => media.folder_id,
             "created_at"  => media.created_at.iso8601(3),
             "courses"     => [
               {
@@ -81,6 +82,7 @@ describe Api::V1::MediasController do
             "filename"    => media.original_filename,
             "tag_list"    => media.tag_list,
             "url"         => media.url,
+            "folder_id"   => media.folder_id,
             "created_at"  => media.created_at.iso8601(3),
             "courses"     => []
           }]
@@ -104,7 +106,7 @@ describe Api::V1::MediasController do
       end
 
       it { expect(last_response.status).to eq(200) }
-      it "should return only the searched terms" do
+      it "should return only the searched terms", :wip do
         expect(json["medias"]).to eq(
           [{
             "id"          => awesome_media.id,
@@ -117,6 +119,7 @@ describe Api::V1::MediasController do
             "filename"    => nil,
             "tag_list"    => awesome_media.tag_list,
             "url"         => awesome_media.url,
+            "folder_id"   => awesome_media.folder_id,
             "created_at"  => awesome_media.created_at.iso8601(3),
             "courses"     => []
           }]
@@ -166,6 +169,7 @@ describe Api::V1::MediasController do
             "filename"    => nil,
             "tag_list"    => awesome_media.tag_list,
             "url"         => awesome_media.url,
+            "folder_id"   => awesome_media.folder_id,
             "created_at"  => awesome_media.created_at.iso8601(3),
             "courses"     => [
               {
@@ -181,6 +185,67 @@ describe Api::V1::MediasController do
             ]
           }]
         )
+      end
+    end
+
+    context "searching by folder" do
+      let(:course) { create(:course, students: [profile]) }
+      let(:folder) { create(:folder, course: course) }
+      let!(:awesome_media) do
+        create :media_with_url,
+               title: "awesome",
+               folder: folder
+      end
+      let!(:boring_media) do
+        create :media_with_url,
+               title: "boring",
+               folder: folder
+      end
+      let!(:media_from_another_course)  do
+        create :media_with_url, folder: create(:folder, course: course)
+      end
+      let(:params_hash) do
+        {
+          q: awesome_media.title,
+          folder_id: folder.id
+        }
+      end
+
+      context "accessing folder in a course he's registered in" do
+        before do
+          refresh_index!
+          do_action
+        end
+
+        it { expect(last_response.status).to eq(200) }
+        it "should return only the searched terms" do
+          expect(json["medias"]).to eq(
+            [{
+              "id"          => awesome_media.id,
+              "uuid"        => awesome_media.uuid,
+              "title"       => awesome_media.title,
+              "description" => awesome_media.description,
+              "preview"     => awesome_media.preview,
+              "type"        => awesome_media.type,
+              "thumbnail"   => awesome_media.thumbnail,
+              "filename"    => nil,
+              "tag_list"    => awesome_media.tag_list,
+              "url"         => awesome_media.url,
+              "folder_id"   => awesome_media.folder_id,
+              "created_at"  => awesome_media.created_at.iso8601(3),
+              "courses"     => []
+            }]
+          )
+        end
+      end
+
+      context "accessing folder in a non-registered course" do
+        let(:non_registered_course) { create(:course) }
+        let(:folder) { create(:folder, course: non_registered_course) }
+
+        it do
+          expect { do_action }.to raise_error(ActiveRecord::RecordNotFound)
+        end
       end
     end
 
@@ -323,7 +388,8 @@ describe Api::V1::MediasController do
       {
         media: {
           tag_list: tag_list,
-          title: title
+          title: title,
+          folder_id: folder.id
         }
       }
     end
@@ -335,6 +401,8 @@ describe Api::V1::MediasController do
 
     context "successfully updating media" do
       let(:media) { create :media, profile: profile }
+      let(:course) { create(:course, teacher: profile) }
+      let(:folder) { create(:folder, course: course) }
 
       before do
         do_action
@@ -344,12 +412,27 @@ describe Api::V1::MediasController do
       it { expect(last_response.status).to eq(200) }
       it { expect(media.tag_list).to match_array(%w(history math science)) }
       it { expect(media.title).to eq(title) }
+      it { expect(media.folder).to eq(folder) }
     end
 
     context "failing to update media" do
-      let(:media) { create :media, title: "Old title", tag_list: "chemistry", profile: create(:profile) }
+      let(:folder) { create(:folder, course: create(:course)) }
 
-      it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
+      context "from another profile" do
+        let(:media) { create :media, title: "Old title", tag_list: "chemistry", profile: create(:profile) }
+
+        it { expect { do_action }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
+
+      context "to a folder on another profile's course" do
+        let(:media) { create :media, profile: profile }
+
+        before do
+          do_action
+        end
+
+        it { expect(last_response.status).to be 403 }
+      end
     end
   end
 

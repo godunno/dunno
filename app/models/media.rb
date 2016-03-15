@@ -8,6 +8,7 @@ class Media < ActiveRecord::Base
 
   belongs_to :mediable, polymorphic: true
   belongs_to :profile
+  has_and_belongs_to_many :folders
   has_many :topics, dependent: :destroy
   has_many :events, through: :topics
 
@@ -54,6 +55,7 @@ class Media < ActiveRecord::Base
       indexes :tags, type: :string, analyzer: :custom_analyzer
       indexes :profile_id, type: :integer
       indexes :course_id, type: :integer
+      indexes :folder_id, type: :integer
       indexes :created_at, type: :date
     end
   end
@@ -65,6 +67,7 @@ class Media < ActiveRecord::Base
       tags: tag_list.to_a,
       profile_id: profile_id,
       course_id: topics.map(&:event).select(&:published?).map(&:course_id),
+      folder_id: folder_ids,
       created_at: created_at
     }
   end
@@ -84,6 +87,10 @@ class Media < ActiveRecord::Base
 
   def self.search_by_course(course, options)
     search(options.merge(filter: { course_id: course.id }))
+  end
+
+  def self.search_by_folder(folder, options)
+    search(options.merge(filter: { folder_id: folder.id }))
   end
 
   def self.search(options = {})

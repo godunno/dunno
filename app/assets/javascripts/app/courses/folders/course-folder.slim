@@ -1,0 +1,31 @@
+.folder
+  h1
+    | {{ vm.folder.name }}
+
+  .catalog__items
+    .catalog__empty ng-if="!vm.folder.medias.length"
+      | Nenhum material encontrado.
+      span.sad<
+    .catalog__item ng-repeat="media in vm.folder.medias"
+      .catalog__item__info
+        strong.catalog__item__title>
+          | {{media.title}}
+        a[
+          ui-sref="app.courses.show.events({
+            startAt: eventFor(media).start_at,
+            courseId: course.uuid
+          })"]
+          small.catalog__item__date__added
+            | adicionado
+            span< am-time-ago="media.created_at"
+        a.catalog__item__link[
+          ng-href="{{media.url}}"
+          ng-click="media.get()"
+          target="_blank"]
+          i.icon[
+            ng-class="{
+              'icon-link': media.type == 'url',
+              'icon-file': media.type == 'file'
+            }"]
+          span<
+            | {{formatMediaUrl(media)}}

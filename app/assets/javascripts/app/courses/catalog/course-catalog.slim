@@ -1,63 +1,75 @@
 .catalog.grid-container
-  .catalog__search
-    search-input[
-      ng-model="q"
-      perform-search="search"
-      clear-search="clearSearch()"
-      name="q"
-      placeholder="Procurar material"
-      focus-on="true"]
-    i.icon.icon-search.catalog__search__icon
-    i.icon.icon-cancel.catalog__search__clear ng-click="clearSearch()"
-  .catalog__items
-    .catalog__empty ng-if="!medias.length"
-      | Nenhum material encontrado.
-      span.sad<
-    .catalog__item ng-repeat="media in medias"
-      .catalog__item__info
-        strong.catalog__item__title>
-          | {{media.title}}
-        a[
-          ui-sref="app.courses.show.events({
-            startAt: eventFor(media).start_at,
-            courseId: course.uuid
-          })"]
-          small.catalog__item__date__added
-            | adicionado
-            span< am-time-ago="media.created_at"
-        a.catalog__item__link[
-          ng-href="{{media.url}}"
-          ng-click="media.get()"
-          target="_blank"]
-          i.icon[
-            ng-class="{
-              'icon-link': media.type == 'url',
-              'icon-file': media.type == 'file'
-            }"]
-          span<
-            | {{formatMediaUrl(media)}}
-      .catalog__item__actions
-        a.catalog__item__download[
-          ng-if="media.type == 'file'"
-          ng-href="{{media.url}}"
-          ng-click="media.get()"
-          target="_blank"]
-          i.icon.icon-download
-          | baixar arquivo
-        span.catalog__item__more__actions if-moderator=true
-          zf-action-sheet
-            zf-as-button
-              a
-                i.icon.icon-more-horiz
-            zf-as-content position="bottom"
-              ul
-                li
-                  a.remove[
-                    ng-click="remove(media)"]
-                    | Remover
+  ul.primary.menu-bar
+    li
+      a.folders ui-sref="." ui-sref-active-eq="active"
+        | Busca
+    li
+      a.folders ui-sref=".folders" ui-sref-active-eq="active"
+        | Pastas
+  ui-view
+    .catalog__search
+      search-input[
+        ng-model="q"
+        perform-search="search"
+        clear-search="clearSearch()"
+        name="q"
+        placeholder="Procurar material"
+        focus-on="true"]
+      i.icon.icon-search.catalog__search__icon
+      i.icon.icon-cancel.catalog__search__clear ng-click="clearSearch()"
+    .catalog__items
+      .catalog__empty ng-if="!medias.length"
+        | Nenhum material encontrado.
+        span.sad<
+      .catalog__item ng-repeat="media in medias"
+        .catalog__item__info
+          strong.catalog__item__title>
+            | {{media.title}}
+          a[
+            ui-sref="app.courses.show.events({
+              startAt: eventFor(media).start_at,
+              courseId: course.uuid
+            })"]
+            small.catalog__item__date__added
+              | adicionado
+              span< am-time-ago="media.created_at"
+          a.catalog__item__link[
+            ng-href="{{media.url}}"
+            ng-click="media.get()"
+            target="_blank"]
+            i.icon[
+              ng-class="{
+                'icon-link': media.type == 'url',
+                'icon-file': media.type == 'file'
+              }"]
+            span<
+              | {{formatMediaUrl(media)}}
+        .catalog__item__actions
+          a.catalog__item__download[
+            ng-if="media.type == 'file'"
+            ng-href="{{media.url}}"
+            ng-click="media.get()"
+            target="_blank"]
+            i.icon.icon-download
+            | baixar arquivo
+          span.catalog__item__more__actions if-moderator=true
+            zf-action-sheet
+              zf-as-button
+                a
+                  i.icon.icon-more-horiz
+              zf-as-content position="bottom"
+                ul
+                  li
+                    a.remove[
+                      ng-click="changeFolder(media)"]
+                      | Mudar pasta
+                  li
+                    a.remove[
+                      ng-click="remove(media)"]
+                      | Remover
 
-    .catalog__load__more ng-if="next_page"
-      div[
-        ng-click="paginate(next_page)"
-        cg-busy="loadingNextPage"]
-        | Carregar mais…
+      .catalog__load__more ng-if="next_page"
+        div[
+          ng-click="paginate(next_page)"
+          cg-busy="loadingNextPage"]
+          | Carregar mais…
