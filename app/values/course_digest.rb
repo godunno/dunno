@@ -45,7 +45,7 @@ class CourseDigest
     case notifiable
     when Event then notifiable
     when Comment, Topic then notifiable.event
-    else raise "Unknown notifiable type: #{notifiable.inspect}"
+    else raise "Unknown notifiable type #{notifiable.inspect} for #{system_notification.inspect}"
     end
   end
 
