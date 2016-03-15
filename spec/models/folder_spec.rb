@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Folder, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:course) }
-    it { is_expected.to have_many(:medias) }
+    it { is_expected.to have_and_belong_to_many(:medias) }
   end
 
   describe "validations" do

@@ -106,7 +106,7 @@ describe Api::V1::MediasController do
       end
 
       it { expect(last_response.status).to eq(200) }
-      it "should return only the searched terms" do
+      it "should return only the searched terms", :wip do
         expect(json["medias"]).to eq(
           [{
             "id"          => awesome_media.id,

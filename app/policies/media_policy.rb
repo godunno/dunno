@@ -5,7 +5,7 @@ class MediaPolicy < ApplicationPolicy
 
   def update?
     record.profile == profile &&
-      (!record.folder || record.folder.course.teacher == profile)
+      !record.folders.detect { |folder| folder.course.teacher != profile }
   end
 
   def destroy?

@@ -8,7 +8,7 @@ class Media < ActiveRecord::Base
 
   belongs_to :mediable, polymorphic: true
   belongs_to :profile
-  belongs_to :folder
+  has_and_belongs_to_many :folders
   has_many :topics, dependent: :destroy
   has_many :events, through: :topics
 
@@ -67,7 +67,7 @@ class Media < ActiveRecord::Base
       tags: tag_list.to_a,
       profile_id: profile_id,
       course_id: topics.map(&:event).select(&:published?).map(&:course_id),
-      folder_id: folder_id,
+      folder_id: folder_ids,
       created_at: created_at
     }
   end

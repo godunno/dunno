@@ -6,7 +6,7 @@ describe Media do
   describe "associations" do
     it { is_expected.to belong_to(:mediable) }
     it { is_expected.to belong_to(:profile) }
-    it { is_expected.to belong_to(:folder) }
+    it { is_expected.to have_and_belong_to_many(:folders) }
     it { is_expected.to have_many(:topics).dependent(:destroy) }
     it { is_expected.to have_many(:events).through(:topics) }
   end
@@ -235,17 +235,17 @@ describe Media do
              title: "Another Title",
              tag_list: %w(cool stuff),
              created_at: 1.hour.ago,
-             folder: folder
+             folders: [folder]
     end
     let!(:new_media) do
       create :media,
              title: "Some Title",
-             folder: folder
+             folders: [folder]
     end
     let!(:media_from_another_profile) { create(:media) }
     let!(:media_from_another_folder) do
       create :media,
-             folder: another_folder
+             folders: [another_folder]
     end
 
     before { refresh_index! }

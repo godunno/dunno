@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211230143) do
+ActiveRecord::Schema.define(version: 20160221231751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,14 @@ ActiveRecord::Schema.define(version: 20151211230143) do
 
   add_index "folders", ["course_id"], name: "index_folders_on_course_id", using: :btree
 
+  create_table "folders_medias", id: false, force: true do |t|
+    t.integer "folder_id"
+    t.integer "media_id"
+  end
+
+  add_index "folders_medias", ["folder_id"], name: "index_folders_medias_on_folder_id", using: :btree
+  add_index "folders_medias", ["media_id"], name: "index_folders_medias_on_media_id", using: :btree
+
   create_table "medias", force: true do |t|
     t.string   "title"
     t.string   "description"
@@ -124,10 +132,8 @@ ActiveRecord::Schema.define(version: 20151211230143) do
     t.string   "original_filename"
     t.string   "file_url"
     t.integer  "profile_id"
-    t.integer  "folder_id"
   end
 
-  add_index "medias", ["folder_id"], name: "index_medias_on_folder_id", using: :btree
   add_index "medias", ["mediable_id", "mediable_type"], name: "index_medias_on_mediable_id_and_mediable_type", using: :btree
   add_index "medias", ["profile_id"], name: "index_medias_on_profile_id", using: :btree
   add_index "medias", ["teacher_id"], name: "index_medias_on_teacher_id", using: :btree
