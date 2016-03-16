@@ -14,6 +14,52 @@ RSpec.describe SystemNotification, type: :model do
     it { is_expected.to validate_presence_of(:profile) }
     it { is_expected.to validate_presence_of(:notifiable) }
     it { is_expected.to validate_presence_of(:notification_type) }
+
+    describe "notifiable validations" do
+      let(:event) { build(:event) }
+      let(:course) { build(:course) }
+      let(:comment) { build(:comment) }
+      let(:topic) { build(:topic) }
+
+      def test_notifiable_matches_notification_type(notification_type, notifiable, not_notifiable)
+        notification = build :system_notification,
+                             notification_type: notification_type,
+                             notifiable: notifiable
+        expect(notification).to be_valid
+
+        notification.notifiable = not_notifiable
+        expect(notification).not_to be_valid
+        expect(notification.errors).to have_key :notifiable
+      end
+
+      it "validates that an event_canceled notification has an event as notifiable" do
+        test_notifiable_matches_notification_type(:event_canceled, event, course)
+      end
+
+      it "validates that an event_published notification has an event as notifiable" do
+        test_notifiable_matches_notification_type(:event_published, event, course)
+      end
+
+      it "validates that a new_comment notification has a comment as notifiable" do
+        test_notifiable_matches_notification_type(:new_comment, comment, course)
+      end
+
+      it "validates that a blocked notification has a course as notifiable" do
+        test_notifiable_matches_notification_type(:blocked, course, event)
+      end
+
+      it "validates that a promoted_to_moderator notification has a course as notifiable" do
+        test_notifiable_matches_notification_type(:promoted_to_moderator, course, event)
+      end
+
+      it "validates that a new_member notification has a course as notifiable" do
+        test_notifiable_matches_notification_type(:new_member, course, event)
+      end
+
+      it "validates that a new_topic notification has a course as notifiable" do
+        test_notifiable_matches_notification_type(:new_topic, topic, event)
+      end
+    end
   end
 
   describe ".more_recent_than" do

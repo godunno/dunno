@@ -7,6 +7,8 @@ describe Event do
   describe "associations" do
     it { is_expected.to belong_to(:course).touch(true) }
     it { is_expected.to have_many(:topics) }
+    it { is_expected.to have_many(:comments).dependent(:destroy) }
+    it { is_expected.to have_many(:system_notifications).dependent(:destroy) }
   end
 
   describe "validations" do

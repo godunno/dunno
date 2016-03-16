@@ -2,8 +2,9 @@ class Topic < ActiveRecord::Base
   include HasUuid
 
   belongs_to :event, touch: true
-  has_many :ratings, as: :rateable
   belongs_to :media, touch: true
+  has_many :ratings, as: :rateable
+  has_many :system_notifications, dependent: :destroy, as: :notifiable
 
   validate :ensure_description_or_media_present
 

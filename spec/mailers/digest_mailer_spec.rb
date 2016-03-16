@@ -6,7 +6,8 @@ RSpec.describe DigestMailer, type: :mailer do
   let(:teacher) { create(:profile) }
   let(:new_student) { create(:profile) }
   let(:course_as_student) { create(:course, teacher: teacher) }
-  let(:course_as_teacher) { create(:course, teacher: profile, students: [new_student]) }
+  let(:course_as_teacher) { create(:course, teacher: teacher, students: [new_student]) }
+  let(:course_as_moderator) { create(:course, teacher: teacher, moderators: [profile]) }
   let(:blocked_course) { create(:course, students: [profile]) }
   let(:event) { create(:event, course: course_as_student) }
   let(:published_event) { create(:event, :published, course: course_as_student) }
@@ -81,6 +82,11 @@ RSpec.describe DigestMailer, type: :mailer do
            notifiable: new_topic_from_published_event,
            profile: profile
   end
+  let!(:promoted_to_moderator_notification) do
+    create :system_notification, :promoted_to_moderator,
+           notifiable: course_as_moderator,
+           profile: profile
+  end
 
   before do
     profile.block_in!(blocked_course)
@@ -96,7 +102,8 @@ RSpec.describe DigestMailer, type: :mailer do
       new_comment_notification,
       blocked_notification,
       new_member_notification,
-      new_topic_notification
+      new_topic_notification,
+      promoted_to_moderator_notification
     ]
 
     # For some reason the array is coming reversed from ActiveRecord::find
@@ -147,4 +154,6 @@ RSpec.describe DigestMailer, type: :mailer do
   it do
     expect(email.body).not_to include topic_that_was_already_published.description
   end
+
+  it { expect(email.body).to include "Você foi promovido à moderador." }
 end
