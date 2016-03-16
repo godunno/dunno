@@ -7,6 +7,7 @@ RSpec.describe Comment, type: :model do
     it { is_expected.to belong_to :profile }
     it { is_expected.to belong_to :event }
     it { is_expected.to have_many(:attachments).dependent(:destroy) }
+    it { is_expected.to have_many(:system_notifications).dependent(:destroy) }
   end
 
   describe "validations" do

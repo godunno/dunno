@@ -7,6 +7,7 @@ describe Topic do
   describe "associations" do
     it { is_expected.to belong_to(:event).touch(true) }
     it { is_expected.to belong_to(:media).touch(true) }
+    it { is_expected.to have_many(:system_notifications).dependent(:destroy) }
   end
 
   describe "validations" do

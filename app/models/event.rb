@@ -10,6 +10,7 @@ class Event < ActiveRecord::Base
   belongs_to :course, touch: true
   has_many :topics
   has_many :comments, dependent: :destroy
+  has_many :system_notifications, dependent: :destroy, as: :notifiable
 
   delegate :teacher, to: :course
 
