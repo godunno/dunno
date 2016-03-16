@@ -2,6 +2,7 @@ class Comment < ActiveRecord::Base
   belongs_to :profile
   belongs_to :event
   has_many :attachments, dependent: :destroy
+  has_many :system_notifications, dependent: :destroy, as: :notifiable
 
   validates :profile, :event, :body, presence: true
 

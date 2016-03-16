@@ -14,7 +14,7 @@ class EventDigest
     when /event_published|event_canceled/ then @status_notifications << system_notification
     when 'new_comment' then comment_notifications << system_notification
     when 'new_topic' then topic_notifications << system_notification
-    else raise "Unknown notification type: #{system_notification.notification_type}"
+    else raise "Unknown notification type #{system_notification.notification_type} for #{system_notification.inspect}"
     end
   end
 
