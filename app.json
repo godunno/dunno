@@ -28,7 +28,7 @@
     "REDIS_PROVIDER":{
       "required":true
     },
-    "BONSAI_URL":{
+    "SEARCHBOX_SSL_URL":{
       "required":true
     },
     "ELASTICSEARCH_URL":{
@@ -44,7 +44,7 @@
   "addons":[
     "memcachier",
     "redistogo",
-    "bonsai",
+    "searchbox",
     "mandrill",
     "heroku-postgresql"
   ]
