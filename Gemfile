@@ -77,7 +77,6 @@ end
 group :production, :staging do
   gem 'rails_12factor',            '0.0.3'
   gem 'memcachier',                '0.0.2'
-  gem 'bonsai-elasticsearch-rails', '0.0.4'
 end
 
 gem 'database_cleaner',           '1.4.1',     require: false
