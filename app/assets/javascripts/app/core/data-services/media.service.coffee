@@ -1,4 +1,6 @@
 Media = (RailsResource, Upload, $q, AWSCredentials, SessionManager) ->
+  UPLOAD_LIMIT = 10 * 1024 * 1024 # 10 MB
+
   class Media extends RailsResource
     @configure(
       url: '/api/v1/medias'
@@ -13,6 +15,9 @@ Media = (RailsResource, Upload, $q, AWSCredentials, SessionManager) ->
     upload: ->
       deferred = $q.defer()
       original_filename = @file.name
+      if @file.size > UPLOAD_LIMIT
+        deferred.reject error: 'too_large'
+        return deferred.promise
       user_id = SessionManager.currentUser().id
       timestamp = new Date().getTime()
       path = "uploads/#{user_id}/#{timestamp}_#{original_filename}"
