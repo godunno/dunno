@@ -6,6 +6,9 @@
 
   &__meter {
     transition: width .2s ease;
+    background: $dunno-green-color;
+    display: block;
+    height: 1em;
 
     &:before {
       color: $medium-grey-color;
