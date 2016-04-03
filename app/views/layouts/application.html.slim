@@ -41,8 +41,7 @@ html lang="pt" ng-app="app" ng-strict-di=true
             | Menu
         span.right
           a.system__notifications__toggle[
-            ui-sref="panel.system-notifications"
-            ng-click="trackNotificationsAccessed()"]
+            ng-click="trackAndOpenNotifications()"]
             span.system__notifications__count ng-if="newNotificationsCount > 0"
               | {{newNotificationsCount}}
             i.icon ng-class="{'icon-notification-off': newNotificationsCount == 0, 'icon-notification-on': newNotificationsCount > 0}"
