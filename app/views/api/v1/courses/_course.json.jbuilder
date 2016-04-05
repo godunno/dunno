@@ -1,5 +1,5 @@
 json.(course, :uuid, :name, :uuid, :start_date, :end_date, :abbreviation,
-      :grade, :class_name, :order, :access_code, :institution)
+      :grade, :class_name, :order, :access_code, :institution, :premium)
 json.color(course.color)
 json.user_role(current_profile.role_in(course))
 json.students_count(course.students.count)

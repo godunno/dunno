@@ -35,6 +35,7 @@ describe Api::V1::CoursesController do
           "uuid" => course.uuid,
           "name" => course.name,
           "active" => true,
+          "premium" => course.premium,
           "start_date" => course.start_date.to_s,
           "end_date" => course.end_date.to_s,
           "abbreviation" => course.abbreviation,
@@ -120,6 +121,7 @@ describe Api::V1::CoursesController do
             expect(subject).to eq(
               "uuid" => course.uuid,
               "active" => true,
+              "premium" => course.premium,
               "name" => course.name,
               "start_date" => course.start_date.to_s,
               "end_date" => course.end_date.to_s,
@@ -530,6 +532,7 @@ describe Api::V1::CoursesController do
             "students_count" => 0,
             "teacher" => { "name" => "Teacher", "avatar_url" => nil },
             "active" => true,
+            "premium" => unregistered_course.premium,
             "weekly_schedules" => [],
             "members_count" => 1,
             "members" => [{

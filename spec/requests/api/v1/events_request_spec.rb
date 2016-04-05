@@ -293,6 +293,7 @@ describe Api::V1::EventsController do
             "user_role" => "teacher",
             "students_count" => 0,
             "active" => true,
+            "premium" => new_course.premium,
             "teacher" => { "name" => profile.name, "avatar_url" => nil },
             "weekly_schedules" => [
               "uuid" => weekly_schedule.uuid,
