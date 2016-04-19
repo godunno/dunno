@@ -3,8 +3,7 @@ attachmentUploader = ->
     S3Upload,
     Attachment,
     Utils,
-    NullPromise,
-    UPLOAD_LIMIT
+    NullPromise
   ) ->
     vm = @
     vm.filePromises ?= []
@@ -27,8 +26,8 @@ attachmentUploader = ->
     abort = null
 
     promiseFor = (file) ->
-      promise = if file.size <= UPLOAD_LIMIT
-                  S3Upload.upload(file)
+      promise = if file.size <= vm.course.file_size_limit
+                  S3Upload.upload(file, vm.course)
                 else
                   new NullPromise()
 
@@ -66,14 +65,14 @@ attachmentUploader = ->
     'S3Upload',
     'Attachment',
     'Utils',
-    'NullPromise',
-    'UPLOAD_LIMIT'
+    'NullPromise'
   ]
 
   restrict: 'E'
   scope:
     attachmentIds: '='
     filePromises: '='
+    course: '='
   controller: attachmentUploaderCtrl
   controllerAs: 'vm'
   bindToController: true

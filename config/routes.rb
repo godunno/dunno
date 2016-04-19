@@ -70,9 +70,6 @@ Rails.application.routes.draw do
           get :affected_events_on_transfer
         end
       end
-      namespace :utils do
-        get 's3/credentials' => 's3#credentials'
-      end
       resources :attachments, only: [:create, :destroy]
       resources :system_notifications, only: [:index, :show] do
         collection do

@@ -1,4 +1,4 @@
-S3Upload = (Upload, SessionManager, AWSCredentials) ->
+S3Upload = (Upload, SessionManager) ->
   timestamp = ->
     new Date().getTime()
 
@@ -14,16 +14,17 @@ S3Upload = (Upload, SessionManager, AWSCredentials) ->
     else
       'application/octet-stream'
 
-  upload = (file) ->
-    Upload.upload
-      url: AWSCredentials.baseUrl
+  upload = (file, course) ->
+    credentials = course.s3_credentials
+    promise = Upload.upload
+      url: credentials.base_url
       method: 'POST'
       data:
         key: pathFor(file)
-        AWSAccessKeyId: AWSCredentials.accessKeyId
+        AWSAccessKeyId: credentials.access_key
         acl: 'private'
-        policy: AWSCredentials.policy
-        signature: AWSCredentials.signature
+        policy: credentials.encoded_policy
+        signature: credentials.signature
         "Content-Type": typeFor(file)
         filename: file.name
         file: file
@@ -32,7 +33,7 @@ S3Upload = (Upload, SessionManager, AWSCredentials) ->
     upload: upload
   }
 
-S3Upload.$inject = ['Upload', 'SessionManager', 'AWSCredentials']
+S3Upload.$inject = ['Upload', 'SessionManager']
 angular
   .module('app.core')
   .factory('S3Upload', S3Upload)
