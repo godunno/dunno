@@ -20,6 +20,9 @@ describe "attachment-item directive", ->
   Attachment =
     delete: (->)
 
+  course =
+    file_size_limit: 1024 * 1024 * 10
+
   abortCallback = jasmine.createSpy('abortCallback')
   deleteCallback = jasmine.createSpy('deleteCallback')
 
@@ -33,7 +36,8 @@ describe "attachment-item directive", ->
      ng-model="file"
      promise="promise"
      on-delete="deleteCallback"
-     on-abort="abortCallback">
+     on-abort="abortCallback"
+     course="course">
   """
 
   beforeEach ->
@@ -51,6 +55,7 @@ describe "attachment-item directive", ->
       scope.promise = promise
       scope.abortCallback = abortCallback
       scope.deleteCallback = deleteCallback
+      scope.course = course
 
       element = $compile(template)(scope)
       element.appendTo(document.body)
@@ -97,14 +102,13 @@ describe "attachment-item directive", ->
     expect(ctrl.isUploading()).toBe(false)
 
   it "shows error for file too big", ->
-    inject (UPLOAD_LIMIT) ->
-      scope.file = { name: 'file.txt', size: UPLOAD_LIMIT + 1, promise: promise }
-      otherElement = $compile(template)(scope)
-      scope.$digest()
-      ctrl = otherElement.controller('attachmentItem')
-      expect(ctrl.hasError('file_too_big')).toBe(true)
-      expect(otherElement.find('.message__error').length).toBe(1)
-      otherElement.remove()
+    scope.file = { name: 'file.txt', size: course.file_size_limit + 1, promise: promise }
+    otherElement = $compile(template)(scope)
+    scope.$digest()
+    ctrl = otherElement.controller('attachmentItem')
+    expect(ctrl.hasError('file_too_big')).toBe(true)
+    expect(otherElement.find('.message__error').length).toBe(1)
+    otherElement.remove()
 
   describe "after upload", ->
     beforeEach ->

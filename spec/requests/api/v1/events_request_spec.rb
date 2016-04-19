@@ -14,7 +14,16 @@ describe Api::V1::EventsController do
   let(:event) { create(:event, course: course) }
 
   describe "GET /api/v1/events/:start_at" do
+    let(:aws_credentials) do
+      double "AwsCredentials",
+             access_key: 'access_key',
+             signature: 'signature',
+             encoded_policy: 'encoded_policy',
+             base_url: 'base_url'
+    end
+
     before do
+      allow(AwsCredentials).to receive(:new).and_return(aws_credentials)
       Timecop.freeze Time.zone.local(2015, 1, 2, 9)
       (0..6).each do |weekday|
         create(:weekly_schedule, weekday: weekday, course: course)
@@ -294,6 +303,7 @@ describe Api::V1::EventsController do
             "students_count" => 0,
             "active" => true,
             "premium" => new_course.premium,
+            "file_size_limit" => new_course.file_size_limit,
             "teacher" => { "name" => profile.name, "avatar_url" => nil },
             "weekly_schedules" => [
               "uuid" => weekly_schedule.uuid,
@@ -308,7 +318,13 @@ describe Api::V1::EventsController do
               "name" => profile.name,
               "role" => "teacher",
               "avatar_url" => nil
-            ]
+            ],
+            "s3_credentials" => {
+              "access_key" => aws_credentials.access_key,
+              "signature" => aws_credentials.signature,
+              "encoded_policy" => aws_credentials.encoded_policy,
+              "base_url" => aws_credentials.base_url
+            }
           },
           "topics" => []
         )

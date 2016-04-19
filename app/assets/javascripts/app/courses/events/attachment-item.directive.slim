@@ -31,4 +31,4 @@
     a.attachment__delete ng-click="vm.abort()"
       i.icon.icon-delete
     .message__error ng-if="vm.hasError('file_too_big')"
-      | Arquivo deve ter no máximo 10MB.
+      | Arquivo deve ter no máximo {{ vm.course.file_size_limit | bytes }}.

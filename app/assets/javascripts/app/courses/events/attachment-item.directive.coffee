@@ -1,13 +1,12 @@
 attachmentItem = ->
   attachmentItemController = (
-    $element,
-    UPLOAD_LIMIT
+    $element
   ) ->
     vm = @
     ngModelCtrl = $element.controller('ngModel')
     state = 'uploading'
 
-    if vm.file.size > UPLOAD_LIMIT
+    if vm.file.size > vm.course.file_size_limit
       ngModelCtrl.$setValidity('file_too_big', false)
       state = 'error.file_too_big'
 
@@ -32,8 +31,7 @@ attachmentItem = ->
     vm
 
   attachmentItemController.$inject = [
-    '$element',
-    'UPLOAD_LIMIT'
+    '$element'
   ]
 
   restrict: 'E'
@@ -43,6 +41,7 @@ attachmentItem = ->
     promise: '='
     onAbort: '&'
     onDelete: '&'
+    course: '='
   controller: attachmentItemController
   controllerAs: 'vm'
   bindToController: true

@@ -171,7 +171,7 @@
                   | Enviar foto, vídeo ou documento
                   br
                   small
-                    | (Máximo 10MB)
+                    | (Máximo {{ event.course.file_size_limit | bytes }})
                 label.item__button.media__file__button.small.button[
                   for="topic-file"]
                   | Buscar arquivo

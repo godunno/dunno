@@ -14,11 +14,12 @@ describe "S3Upload service", ->
   user =
     id: 1
 
+  course =
+    s3_credentials: credentials
+
   beforeEach ->
     inject ($injector, $httpBackend, _Upload_, SessionManager) ->
       $httpBackend.whenGET('/api/v1/utils/s3/credentials').respond 200, credentials
-      $injector.get('AWSCredentials')
-      $httpBackend.flush()
 
       spyOn(Date.prototype, 'getTime').and.returnValue(timestamp)
 
@@ -30,7 +31,7 @@ describe "S3Upload service", ->
     spyOn(Upload, 'upload')
 
     file = { name: 'file.txt', type: 'image/jpg' }
-    S3Upload.upload(file)
+    S3Upload.upload(file, course)
     expect(Upload.upload).toHaveBeenCalledWith
       url: credentials.base_url
       method: 'POST'
@@ -38,7 +39,7 @@ describe "S3Upload service", ->
         key: "uploads/1/1234567890_file.txt"
         AWSAccessKeyId: credentials.access_key
         acl: 'private'
-        policy: credentials.policy
+        policy: credentials.encoded_policy
         signature: credentials.signature
         "Content-Type": file.type
         filename: file.name
@@ -48,7 +49,7 @@ describe "S3Upload service", ->
     spyOn(Upload, 'upload')
 
     file = { name: 'file', type: '' }
-    S3Upload.upload(file)
+    S3Upload.upload(file, course)
     expect(Upload.upload).toHaveBeenCalledWith
       url: credentials.base_url
       method: 'POST'
@@ -56,7 +57,7 @@ describe "S3Upload service", ->
         key: "uploads/1/1234567890_file"
         AWSAccessKeyId: credentials.access_key
         acl: 'private'
-        policy: credentials.policy
+        policy: credentials.encoded_policy
         signature: credentials.signature
         "Content-Type": 'application/octet-stream'
         filename: file.name

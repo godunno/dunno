@@ -6,9 +6,20 @@ describe Api::V1::CoursesController do
   let!(:course) { create(:course, start_date: 1.month.ago, end_date: 1.month.from_now, teacher: teacher, students: [student]) }
   let!(:weekly_schedule) { create(:weekly_schedule, course: course) }
   let(:event) { create(:event, course: course) }
+  let(:aws_credentials) do
+    double "AwsCredentials",
+           access_key: 'access_key',
+           signature: 'signature',
+           encoded_policy: 'encoded_policy',
+           base_url: 'base_url'
+  end
 
   def last_course
     Course.order('created_at desc').first
+  end
+
+  before do
+    allow(AwsCredentials).to receive(:new).and_return(aws_credentials)
   end
 
   describe "GET /api/v1/courses.json" do
@@ -36,6 +47,7 @@ describe Api::V1::CoursesController do
           "name" => course.name,
           "active" => true,
           "premium" => course.premium,
+          "file_size_limit" => course.file_size_limit,
           "start_date" => course.start_date.to_s,
           "end_date" => course.end_date.to_s,
           "abbreviation" => course.abbreviation,
@@ -69,7 +81,13 @@ describe Api::V1::CoursesController do
               "role" => "student",
               "avatar_url" => nil
             }
-          ]
+          ],
+          "s3_credentials" => {
+            "access_key" => aws_credentials.access_key,
+            "signature" => aws_credentials.signature,
+            "encoded_policy" => aws_credentials.encoded_policy,
+            "base_url" => aws_credentials.base_url
+          }
         }])
       end
     end
@@ -122,6 +140,7 @@ describe Api::V1::CoursesController do
               "uuid" => course.uuid,
               "active" => true,
               "premium" => course.premium,
+              "file_size_limit" => course.file_size_limit,
               "name" => course.name,
               "start_date" => course.start_date.to_s,
               "end_date" => course.end_date.to_s,
@@ -157,7 +176,13 @@ describe Api::V1::CoursesController do
                   "avatar_url" => nil
                 }
               ],
-              "user_role" => role
+              "user_role" => role,
+              "s3_credentials" => {
+                "access_key" => aws_credentials.access_key,
+                "signature" => aws_credentials.signature,
+                "encoded_policy" => aws_credentials.encoded_policy,
+                "base_url" => aws_credentials.base_url
+              }
             )
           end
         end
@@ -533,6 +558,7 @@ describe Api::V1::CoursesController do
             "teacher" => { "name" => "Teacher", "avatar_url" => nil },
             "active" => true,
             "premium" => unregistered_course.premium,
+            "file_size_limit" => unregistered_course.file_size_limit,
             "weekly_schedules" => [],
             "members_count" => 1,
             "members" => [{
@@ -540,7 +566,13 @@ describe Api::V1::CoursesController do
               "name" => "Teacher",
               "role" => "teacher",
               "avatar_url" => nil
-            }]
+            }],
+            "s3_credentials" => {
+              "access_key" => aws_credentials.access_key,
+              "signature" => aws_credentials.signature,
+              "encoded_policy" => aws_credentials.encoded_policy,
+              "base_url" => aws_credentials.base_url
+            }
           }
         )
       end

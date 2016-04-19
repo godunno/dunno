@@ -1,5 +1,18 @@
-json.(course, :uuid, :name, :uuid, :start_date, :end_date, :abbreviation,
-      :grade, :class_name, :order, :access_code, :institution, :premium)
+json.(course,
+      :uuid,
+      :name,
+      :uuid,
+      :start_date,
+      :end_date,
+      :abbreviation,
+      :grade,
+      :class_name,
+      :order,
+      :access_code,
+      :institution,
+      :premium,
+      :file_size_limit
+     )
 json.color(course.color)
 json.user_role(current_profile.role_in(course))
 json.students_count(course.students.count)
@@ -15,4 +28,8 @@ json.members_count(course.memberships.count)
 json.members course.memberships do |membership|
   json.(membership.profile, :id, :name, :avatar_url)
   json.(membership, :role)
+end
+
+json.s3_credentials do
+  json.(AwsCredentials.new(course), :access_key, :signature, :encoded_policy, :base_url)
 end

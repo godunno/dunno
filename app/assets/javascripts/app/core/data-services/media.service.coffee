@@ -1,6 +1,4 @@
-Media = (RailsResource, Upload, $q, AWSCredentials, SessionManager) ->
-  UPLOAD_LIMIT = 10 * 1024 * 1024 # 10 MB
-
+Media = (RailsResource, Upload, $q, SessionManager) ->
   class Media extends RailsResource
     @configure(
       url: '/api/v1/medias'
@@ -12,26 +10,27 @@ Media = (RailsResource, Upload, $q, AWSCredentials, SessionManager) ->
     preview: ->
       Media.$get("#{@$url()}/preview", url: @url)
 
-    upload: ->
+    upload: (course) ->
       deferred = $q.defer()
       original_filename = @file.name
-      if @file.size > UPLOAD_LIMIT
+      if @file.size > course.file_size_limit
         deferred.reject error: 'too_large'
         return deferred.promise
       user_id = SessionManager.currentUser().id
       timestamp = new Date().getTime()
       path = "uploads/#{user_id}/#{timestamp}_#{original_filename}"
 
+      credentials = course.s3_credentials
       # https://github.com/danialfarid/angular-file-upload#s3
       Upload.upload(
-        url: AWSCredentials.baseUrl
+        url: credentials.base_url
         method: 'POST'
         data:
           key: path
-          AWSAccessKeyId: AWSCredentials.accessKeyId
+          AWSAccessKeyId: credentials.access_key
           acl: 'private'
-          policy: AWSCredentials.policy
-          signature: AWSCredentials.signature
+          policy: credentials.encoded_policy
+          signature: credentials.signature
           "Content-Type": if @file.type != '' then @file.type else 'application/octet-stream'
           filename: original_filename
           file: @file
@@ -82,7 +81,7 @@ Media = (RailsResource, Upload, $q, AWSCredentials, SessionManager) ->
 
   Media
 
-Media.$inject = ['RailsResource', 'Upload', '$q', 'AWSCredentials', 'SessionManager']
+Media.$inject = ['RailsResource', 'Upload', '$q', 'SessionManager']
 
 angular
   .module('app.core')

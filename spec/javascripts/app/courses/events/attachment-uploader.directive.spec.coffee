@@ -33,6 +33,9 @@ describe "attachment-uploader directive", ->
     original_filename: file1.name
     file_size: file1.size
 
+  course =
+    file_size_limit: 1024 * 1024 * 10
+
   beforeEach ->
     inject ($compile, $rootScope, _$httpBackend_, _$q_, _$timeout_, _NullPromise_) ->
       $httpBackend = _$httpBackend_
@@ -43,10 +46,12 @@ describe "attachment-uploader directive", ->
       scope = $rootScope.$new()
       scope.attachmentIds = undefined
       scope.filePromises = undefined
+      scope.course = course
       template = """
         <attachment-uploader
          attachment-ids="attachmentIds"
-         file-promises="filePromises">
+         file-promises="filePromises"
+         course="course">
       """
       element = $compile(template)(scope)
       element.appendTo(document.body)
@@ -63,8 +68,8 @@ describe "attachment-uploader directive", ->
     ctrl.upload([file1, file2])
 
     calls = mockS3Upload.upload.calls.all()
-    expect(calls[0].args).toEqual([file1])
-    expect(calls[1].args).toEqual([file2])
+    expect(calls[0].args).toEqual([file1, course])
+    expect(calls[1].args).toEqual([file2, course])
 
   xit "has a button with ngfSelect which calls upload", ->
     # Stupid ng-file-upload puts the file input at the
