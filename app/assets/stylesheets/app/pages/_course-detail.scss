@@ -114,8 +114,6 @@
 
       .action-sheet,
       .action-sheet.is-active {
-        transform: translateX(-96.7%) translateY(106%);
-
         &::before,
         &::after {
           left: 96.5%;
