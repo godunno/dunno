@@ -24,6 +24,7 @@
       align-self: flex-end;
       flex-basis: 100%;
       padding-top: 1rem;
+      overflow-x: scroll;
 
       @include breakpoint(small only) {
         align-self: center;
@@ -72,6 +73,8 @@
         a {
           border-radius: $global-radius $global-radius 0 0;
         }
+
+        overflow-x: auto;
       }
     }
 
@@ -114,8 +117,6 @@
 
       .action-sheet,
       .action-sheet.is-active {
-        transform: translateX(-96.7%) translateY(106%);
-
         &::before,
         &::after {
           left: 96.5%;

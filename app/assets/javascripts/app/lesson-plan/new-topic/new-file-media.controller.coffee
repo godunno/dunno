@@ -28,7 +28,7 @@ NewFileMediaCtrl = ($scope, Media) ->
     $scope.status = 'submittingMedia'
     media = new Media()
     media.file = $files[0]
-    media.upload()
+    media.upload($scope.event.course)
       .then(success)
       .catch(failure)
       # promise.then(success, failure, notify)

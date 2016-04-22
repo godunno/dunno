@@ -1,4 +1,8 @@
 class AwsCredentials
+  def initialize(course)
+    self.course = course
+  end
+
   def encoded_policy
     AwsEncryption.new(policy.strip).encode.gsub("\n", "")
   end
@@ -16,6 +20,8 @@ class AwsCredentials
   end
 
   private
+
+  attr_accessor :course
 
   def policy
     {
@@ -36,6 +42,6 @@ class AwsCredentials
   end
 
   def size_limit
-    500.megabytes
+    course.file_size_limit.megabytes
   end
 end
