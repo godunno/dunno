@@ -35,7 +35,7 @@ describe AuthenticateUserFromFacebook do
       it { expect(created_user.profile).to be_persisted }
       it do
         created_user
-        expect(CreateCourseFromTemplate).to have_received(:new).with(template_course, teacher: created_user)
+        expect(CreateCourseFromTemplate).to have_received(:new).with(template_course, teacher: created_user.profile)
       end
       it do
         created_user

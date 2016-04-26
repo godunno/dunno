@@ -30,13 +30,15 @@ class CreateCourseFromTemplate
       students: students,
       weekly_schedules: weekly_schedules,
       start_date: start_date,
-
-      # TODO: test course without end_date
-      end_date: start_date + (template.end_date - template.start_date).to_i.days
+      end_date: end_date
     )
   end
 
   def schedule
     CourseScheduler.new(course, course.start_date..course.end_date)
+  end
+
+  def end_date
+    start_date + (template.end_date - template.start_date).to_i.days if template.end_date?
   end
 end

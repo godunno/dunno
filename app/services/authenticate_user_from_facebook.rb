@@ -6,7 +6,7 @@ class AuthenticateUserFromFacebook
 
   def authenticate
     user = (find_user_by_email || find_or_initialize_user_by_facebook_uid)
-    CreateCourseFromTemplate.new(template_course, teacher: user).create if user.new_record? && template_course
+    CreateCourseFromTemplate.new(template_course, teacher: user.profile).create if user.new_record? && template_course
     user.update(facebook_uid: facebook_uid, avatar_url: user_info.image) && user
   end
 

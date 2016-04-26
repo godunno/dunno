@@ -132,4 +132,14 @@ describe CreateCourseFromTemplate do
     it { expect(event.topics.count).to be 0 }
     it { expect(event.comments.count).to be 0 }
   end
+
+  context "template course without end date" do
+    let(:template) do
+      create :course,
+             name: "Template course",
+             end_date: nil
+    end
+
+    it { expect(new_course.end_date).to be_nil }
+  end
 end

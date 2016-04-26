@@ -37,7 +37,7 @@ describe Dashboard::UsersController do
       it { expect(User.count).to eq(2) }
       it { expect(saved_user.email).to eq(user.email) }
       it { expect(saved_user.name).to eq(user.name) }
-      it { expect(CreateCourseFromTemplate).to have_received(:new).with(template_course, teacher: saved_user) }
+      it { expect(CreateCourseFromTemplate).to have_received(:new).with(template_course, teacher: saved_user.profile) }
       it { expect(create_course_from_template).to have_received(:create) }
 
       context "doesn't have a template course" do

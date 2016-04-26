@@ -6,7 +6,7 @@ class Dashboard::UsersController < Devise::RegistrationsController
       super do |user|
         if user.update(profile: Profile.new)
           TrackerWrapper.new(user).track('User Signed Up')
-          CreateCourseFromTemplate.new(template_course, teacher: user).create if template_course
+          CreateCourseFromTemplate.new(template_course, teacher: user.profile).create if template_course
         end
       end
     end
