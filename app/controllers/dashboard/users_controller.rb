@@ -6,6 +6,7 @@ class Dashboard::UsersController < Devise::RegistrationsController
       super do |user|
         if user.update(profile: Profile.new)
           TrackerWrapper.new(user).track('User Signed Up')
+          create_course_from_template(user) if template_course
         end
       end
     end
@@ -24,5 +25,17 @@ class Dashboard::UsersController < Devise::RegistrationsController
 
   def update_params
     params.require(:user).permit(:password)
+  end
+
+  def template_course
+    Course.find_by(id: ENV["TUTORIAL_COURSE_ID"])
+  end
+
+  def create_course_from_template(user)
+    CreateCourseFromTemplate.new(
+      template_course,
+      teacher: user.profile,
+      weekly_schedules: template_course.weekly_schedules.map(&:dup)
+    ).create
   end
 end
