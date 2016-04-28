@@ -21,7 +21,7 @@ describe AuthenticateUserFromFacebook do
       let(:template_course) { create(:course) }
 
       before do
-        ENV["TEMPLATE_COURSE_ID"] = template_course.id.to_s
+        ENV["TUTORIAL_COURSE_ID"] = template_course.id.to_s
       end
 
       it { expect(created_user).to be_a User }
@@ -35,7 +35,13 @@ describe AuthenticateUserFromFacebook do
       it { expect(created_user.profile).to be_persisted }
       it do
         created_user
-        expect(CreateCourseFromTemplate).to have_received(:new).with(template_course, teacher: created_user.profile)
+        expect(CreateCourseFromTemplate)
+        .to have_received(:new)
+        .with(
+          template_course,
+          teacher: created_user.profile,
+          weekly_schedules: WeeklySchedule.last(3)
+        )
       end
       it do
         created_user
@@ -44,7 +50,7 @@ describe AuthenticateUserFromFacebook do
 
       context "doesn't have a template course" do
         before do
-          ENV["TEMPLATE_COURSE_ID"] = nil
+          ENV["TUTORIAL_COURSE_ID"] = nil
         end
 
         it do
@@ -58,7 +64,7 @@ describe AuthenticateUserFromFacebook do
       let(:template_course) { create(:course) }
 
       before do
-        ENV["TEMPLATE_COURSE_ID"] = template_course.id.to_s
+        ENV["TUTORIAL_COURSE_ID"] = template_course.id.to_s
       end
 
       context "with no previous facebook info" do

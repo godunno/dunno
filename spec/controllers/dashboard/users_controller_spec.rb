@@ -26,7 +26,7 @@ describe Dashboard::UsersController do
       let(:create_course_from_template) { instance_double("CreateCourseFromTemplate", create: nil) }
 
       before do
-        ENV["TEMPLATE_COURSE_ID"] = template_course.id.to_s
+        ENV["TUTORIAL_COURSE_ID"] = template_course.id.to_s
         allow(TrackerWrapper).to receive_message_chain(:new, :track)
         allow(CreateCourseFromTemplate).to receive(:new).and_return(create_course_from_template)
         do_action
@@ -37,7 +37,15 @@ describe Dashboard::UsersController do
       it { expect(User.count).to eq(2) }
       it { expect(saved_user.email).to eq(user.email) }
       it { expect(saved_user.name).to eq(user.name) }
-      it { expect(CreateCourseFromTemplate).to have_received(:new).with(template_course, teacher: saved_user.profile) }
+      it do
+        expect(CreateCourseFromTemplate)
+          .to have_received(:new)
+          .with(
+            template_course,
+            teacher: saved_user.profile,
+            weekly_schedules: WeeklySchedule.last(3)
+          )
+      end
       it { expect(create_course_from_template).to have_received(:create) }
 
       context "doesn't have a template course" do

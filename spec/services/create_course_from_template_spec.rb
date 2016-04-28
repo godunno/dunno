@@ -137,9 +137,11 @@ describe CreateCourseFromTemplate do
     let(:template) do
       create :course,
              name: "Template course",
-             end_date: nil
+             end_date: nil,
+             events: [published_event_with_text_topics]
     end
 
     it { expect(new_course.end_date).to be_nil }
+    it { expect(new_course.events.count).to be 1 }
   end
 end

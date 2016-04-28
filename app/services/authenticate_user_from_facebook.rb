@@ -6,7 +6,7 @@ class AuthenticateUserFromFacebook
 
   def authenticate
     user = (find_user_by_email || find_or_initialize_user_by_facebook_uid)
-    CreateCourseFromTemplate.new(template_course, teacher: user.profile).create if user.new_record? && template_course
+    create_course_from_template(user) if user.new_record? && template_course
     user.update(facebook_uid: facebook_uid, avatar_url: user_info.image) && user
   end
 
@@ -28,6 +28,14 @@ class AuthenticateUserFromFacebook
   end
 
   def template_course
-    Course.find_by(id: ENV["TEMPLATE_COURSE_ID"])
+    Course.find_by(id: ENV["TUTORIAL_COURSE_ID"])
+  end
+
+  def create_course_from_template(user)
+    CreateCourseFromTemplate.new(
+      template_course,
+      teacher: user.profile,
+      weekly_schedules: template_course.weekly_schedules.map(&:dup)
+    ).create
   end
 end
