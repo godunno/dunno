@@ -63,7 +63,7 @@ describe CreateCourseFromTemplate do
                                 )
   end
 
-  let(:new_course) { service.create }
+  let(:new_course) { service.create.reload }
 
   it { expect(new_course.name).to eq template.name }
   it { expect(new_course.start_date).to eq start_date }
@@ -118,7 +118,9 @@ describe CreateCourseFromTemplate do
       it { expect(topic.description).to eq media_topic.description }
       it { expect(topic.order).to eq media_topic.order }
       it { expect(topic.done).to eq media_topic.done }
-      it { expect(topic.media).to eq media_topic.media }
+      it { expect(topic.media).not_to eq media_topic.media }
+      it { expect(topic.media.url).to eq media_topic.media.url }
+      it { expect(topic.media.profile).to eq teacher }
     end
   end
 

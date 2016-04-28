@@ -10,7 +10,7 @@ class CreateCourseFromTemplate
   def create
     template.events.each_with_index do |template_event, index|
       event = schedule.events[index]
-      event.topics = template_event.topics.map(&:dup)
+      event.topics = template_event.topics.map(&dup_topic)
       event.status = template_event.status
       event.classroom = template_event.classroom
       event.save!
@@ -44,5 +44,19 @@ class CreateCourseFromTemplate
 
   def maximum_course_end_date
     course.start_date + template.events.count.weeks
+  end
+
+  def dup_topic
+    -> (topic) do
+      new_topic = topic.dup
+
+      new_topic.media = dup_media(new_topic.media) if new_topic.media.present?
+
+      new_topic
+    end
+  end
+
+  def dup_media(media)
+    media.dup.tap { |m| m.profile = teacher }
   end
 end
