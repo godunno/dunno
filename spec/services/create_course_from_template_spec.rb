@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe CreateCourseFromTemplate do
+  pending "reproduce bug when schedule finishes in the same day as the last event"
   let(:published_event_with_text_topics) do
     build :event, :published,
           topics: [public_text_topic, personal_text_topic],
