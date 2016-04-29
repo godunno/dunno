@@ -35,7 +35,10 @@ class CreateCourseFromTemplate
   end
 
   def schedule
-    CourseScheduler.new(course, course.start_date..(course.end_date || maximum_course_end_date))
+    CourseScheduler.new(
+      course,
+      course.start_date.beginning_of_day..(course.end_date || maximum_course_end_date).end_of_day
+    )
   end
 
   def end_date
