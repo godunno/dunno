@@ -36,12 +36,12 @@ describe AuthenticateUserFromFacebook do
       it do
         created_user
         expect(CreateCourseFromTemplate)
-        .to have_received(:new)
-        .with(
-          template_course,
-          teacher: created_user.profile,
-          weekly_schedules: WeeklySchedule.last(3)
-        )
+          .to have_received(:new)
+          .with(
+            template_course,
+            teacher: created_user.profile,
+            weekly_schedules: WeeklySchedule.last(3)
+          )
       end
       it do
         created_user

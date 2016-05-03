@@ -1,4 +1,5 @@
 class Api::V1::CoursesController < Api::V1::ApplicationController
+  before_action :skip_authorization, only: :clone
   respond_to :json
 
   def index
@@ -87,6 +88,18 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     authorize course
     student.downgrade_from_moderator_in!(course)
     render nothing: true
+  end
+
+  def clone
+    @course = course(Course.all)
+    @created_course = CreateCourseFromTemplate.new(
+      @course,
+      teacher: current_profile,
+      weekly_schedules: @course.weekly_schedules.map(&:dup),
+      name: params[:name],
+      start_date: params[:start_date],
+      end_date: params[:end_date]
+    ).create
   end
 
   private

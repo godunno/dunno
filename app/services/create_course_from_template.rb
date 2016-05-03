@@ -1,9 +1,11 @@
 class CreateCourseFromTemplate
-  def initialize(template, teacher:, students: [], start_date: Date.current, weekly_schedules: [])
+  def initialize(template, teacher:, name: nil, students: [], start_date: Date.current, end_date: nil, weekly_schedules: [])
     self.template = template
     self.teacher = teacher
+    self.name = name
     self.students = students
     self.start_date = start_date
+    self.end_date = end_date
     self.weekly_schedules = weekly_schedules
   end
 
@@ -22,10 +24,11 @@ class CreateCourseFromTemplate
   private
 
   attr_accessor :template, :teacher, :students, :start_date, :weekly_schedules
+  attr_writer :name, :end_date
 
   def course
     @course ||= Course.create(
-      name: template.name,
+      name: name,
       teacher: teacher,
       students: students,
       weekly_schedules: weekly_schedules,
@@ -42,7 +45,12 @@ class CreateCourseFromTemplate
   end
 
   def end_date
-    start_date + (template.end_date - template.start_date).to_i.days if template.end_date?
+    return @end_date if @end_date.present?
+    @end_date = start_date + (template.end_date - template.start_date).to_i.days if template.end_date?
+  end
+
+  def name
+    @name ||= template.name
   end
 
   def maximum_course_end_date

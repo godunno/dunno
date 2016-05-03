@@ -147,4 +147,43 @@ describe CreateCourseFromTemplate do
     it { expect(new_course.end_date).to be_nil }
     it { expect(new_course.events.count).to be 1 }
   end
+
+  context "overriding end date" do
+    let(:new_end_date) { Date.parse('2016-12-01') }
+    let(:service) do
+      CreateCourseFromTemplate.new(template,
+                                   teacher: teacher,
+                                   students: [student],
+                                   weekly_schedules: [every_tuesday],
+                                   end_date: new_end_date
+                                  )
+    end
+
+    it { expect(new_course.end_date).to eq new_end_date }
+  end
+
+  context "overriding name" do
+    let(:new_name) { "New name" }
+    let(:service) do
+      CreateCourseFromTemplate.new(template,
+                                   teacher: teacher,
+                                   weekly_schedules: [every_tuesday],
+                                   name: new_name
+                                  )
+    end
+
+    it { expect(new_course.name).to eq new_name }
+  end
+
+  context "overriding with nil" do
+    let(:service) do
+      CreateCourseFromTemplate.new(template,
+                                   teacher: teacher,
+                                   weekly_schedules: [every_tuesday],
+                                   name: nil
+                                  )
+    end
+
+    it { expect(new_course.name).to eq template.name }
+  end
 end
