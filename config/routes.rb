@@ -62,6 +62,7 @@ Rails.application.routes.draw do
           patch :promote_to_moderator
           patch :downgrade_from_moderator
           get :analytics
+          post :clone
         end
       end
       resources :weekly_schedules, only: [:create, :destroy] do

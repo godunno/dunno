@@ -1,0 +1,17 @@
+.course__confirm
+  .course__confirm__content
+    h3
+      | Confirmação de cópia
+    p
+      | Deseja clonar essa Disciplina?
+    .label.alert ng-if="error"
+      | {{error}}
+    course-card
+    form ng-submit="clone(course)"
+      submit-button.button[
+        blocked-when="submitting"
+        label="Confirmo, é essa mesmo!"
+        blocked-label="Clonando…"
+        has-spinner=true]
+    a ui-sref="app.courses"
+      | Cancelar e voltar para minhas Disciplinas

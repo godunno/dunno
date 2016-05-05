@@ -17,7 +17,8 @@ FactoryGirl.define do
 
       weekly_schedules do
         [
-          create(:weekly_schedule,
+          build(:weekly_schedule,
+                 course: nil,
                  weekday: start_date.to_date.wday,
                  start_time: start_time,
                  end_time: end_time)
@@ -37,6 +38,7 @@ FactoryGirl.define do
           draft: 2.weeks
         }.map do |status, weeks|
           build(:event, status,
+                course: nil,
                 start_at: base_start_at + weeks,
                 end_at: base_end_at + weeks)
         end

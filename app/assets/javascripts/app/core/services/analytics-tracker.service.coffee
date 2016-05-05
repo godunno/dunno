@@ -38,6 +38,10 @@ AnalyticsTracker = ($analytics) ->
     $analytics.eventTrack 'Course Joined',
       courseAttrs(course)
 
+  courseCloned = (course) ->
+    $analytics.eventTrack 'Course Cloned',
+      courseAttrs(course)
+
   scheduleCreated = (weeklySchedule) ->
     $analytics.eventTrack 'Schedule Created',
       weeklyScheduleAttrs(weeklySchedule)
@@ -107,6 +111,7 @@ AnalyticsTracker = ($analytics) ->
   courseCreated: courseCreated
   courseEdited: courseEdited
   courseJoined: courseJoined
+  courseCloned: courseCloned
   eventAccessed: eventAccessed
   eventCanceledAccessed: eventCanceledAccessed
   scheduleCreated: scheduleCreated

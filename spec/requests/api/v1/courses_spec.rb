@@ -10,7 +10,7 @@ resource "Courses" do
   let(:json) { JSON.parse(response_body).deep_symbolize_keys }
   let(:teacher) { create(:profile) }
   let(:student) { create(:profile) }
-  let!(:course) { create(:course, teacher: teacher, students: [student]) }
+  let(:course) { create(:course, teacher: teacher, students: [student]) }
 
   patch "/api/v1/courses/:id/block.json" do
     parameter :student_id, "Student's id", required: true, scope: :course
@@ -289,6 +289,101 @@ resource "Courses" do
           },
         ])
       end
+    end
+  end
+
+  post "/api/v1/courses/:access_code/clone.json" do
+    parameter :start_date, "Cloned course's start date"
+    parameter :end_date, "[Optional] Cloned course's end date"
+    parameter :name, "[Optional] Cloned course's new name"
+
+    let(:user_email) { profile.email }
+    let(:user_token) { profile.authentication_token }
+    let(:profile) { create(:profile) }
+
+    let(:access_code) { template.access_code }
+    let(:template) { create(:course, :with_events) }
+    let(:start_date) { Date.tomorrow.to_s }
+    let(:end_date) { 1.month.from_now.to_date.to_s }
+    let(:name) { "New course name" }
+
+    let(:raw_post) { params.to_json }
+
+    let(:course) { Course.last }
+    let(:weekly_schedule) { WeeklySchedule.order(created_at: :desc).first }
+    let(:aws_credentials) do
+      double "AwsCredentials",
+        access_key: 'access_key',
+        signature: 'signature',
+        encoded_policy: 'encoded_policy',
+        base_url: 'base_url'
+    end
+
+    before do
+      allow(AwsCredentials).to receive(:new).and_return(aws_credentials)
+    end
+
+    example "creates a new course using the referred as a template" do
+      allow(CreateCourseFromTemplate).to receive(:new).and_call_original
+
+      expect { do_request }.to change { profile.courses.count }.by(1)
+      expect(CreateCourseFromTemplate)
+        .to have_received(:new)
+        .with(
+          template,
+          teacher: profile,
+          name: name,
+          weekly_schedules: [weekly_schedule],
+          start_date: start_date,
+          end_date: end_date
+        )
+    end
+
+    example_request "returns the new course" do
+      expect(json).to eq(
+        course: {
+          uuid: course.uuid,
+          name: course.name,
+          active: true,
+          premium: course.premium,
+          file_size_limit: course.file_size_limit,
+          start_date: course.start_date.to_s,
+          end_date: course.end_date.to_s,
+          abbreviation: course.abbreviation,
+          grade: course.grade,
+          class_name: course.class_name,
+          order: course.order,
+          access_code: course.access_code,
+          institution: course.institution,
+          color: SHARED_CONFIG["v1"]["courses"]["schemes"][course.order],
+          user_role: "teacher",
+          students_count: course.students.count,
+          teacher: {
+            name: profile.name,
+            avatar_url: nil
+          },
+          weekly_schedules: [
+            uuid: weekly_schedule.uuid,
+            weekday: weekly_schedule.weekday,
+            start_time: weekly_schedule.start_time,
+            end_time: weekly_schedule.end_time,
+            classroom: weekly_schedule.classroom
+          ],
+          members_count: 1,
+          members: [
+            id: profile.id,
+            name: profile.name,
+            role: "teacher",
+            avatar_url: nil
+          ],
+          s3_credentials: {
+            access_key: aws_credentials.access_key,
+            signature: aws_credentials.signature,
+            encoded_policy: aws_credentials.encoded_policy,
+            base_url: aws_credentials.base_url
+          }
+        }
+      )
     end
   end
 end
