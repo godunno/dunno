@@ -10,6 +10,8 @@
 //= require angular-sanitize
 //= require ng-file-upload
 //= require ngtoast
+//= require clipboard
+//= require ngclipboard
 //= require angular-validation-match
 //= require angular-busy
 //= require angular-filter

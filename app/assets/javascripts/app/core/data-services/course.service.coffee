@@ -11,11 +11,11 @@ core.factory 'Course', ['RailsResource', 'railsSerializer', (RailsResource, rail
         @resource('weekly_schedules', 'WeeklySchedule')
     )
 
-    @search: (identifier) ->
-      new Course(uuid: identifier).search()
+    @search: (identifier, params = {}) ->
+      new Course(uuid: identifier).search(params)
 
-    search: ->
-      Course.$get(@$url('search'))
+    search: (params = {}) ->
+      Course.$get(@$url('search'), params)
 
     register: ->
       @$post(@$url('/register'))
@@ -38,4 +38,7 @@ core.factory 'Course', ['RailsResource', 'railsSerializer', (RailsResource, rail
     downgradeFromModerator: (studentId) ->
       @student_id = studentId
       @$patch(@$url('/downgrade_from_moderator'))
+
+    clone: ->
+      @$post(@$url('/clone'))
 ]

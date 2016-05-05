@@ -388,6 +388,7 @@ GEM
     rails-assets-angularjs-rails-resource (1.2.1)
       rails-assets-angular
     rails-assets-chartist (0.9.5)
+    rails-assets-clipboard (1.5.10)
     rails-assets-greensock (1.17.0)
     rails-assets-jquery (2.1.4)
     rails-assets-jquery-timepicker-jt (1.8.3)
@@ -417,6 +418,9 @@ GEM
       rails-assets-ng-file-upload (> 6.0.3)
     rails-assets-ng-sortable (1.3.1)
       rails-assets-angular (>= 1.3.0)
+    rails-assets-ngclipboard (1.1.1)
+      rails-assets-angular (>= 1.2.0)
+      rails-assets-clipboard (~> 1.5.5)
     rails-assets-ngtoast (1.5.6)
       rails-assets-angular (>= 1.2.15, < 1.5)
       rails-assets-angular-animate (>= 1.2.17, < 1.5)
@@ -649,6 +653,7 @@ DEPENDENCIES
   rails-assets-angular-ui-router-title (= 0.0.4)!
   rails-assets-angular-validation-match (= 1.3.0)!
   rails-assets-angularjs-rails-resource (= 1.2.1)!
+  rails-assets-clipboard (= 1.5.10)!
   rails-assets-greensock (= 1.17.0)!
   rails-assets-jquery (= 2.1.4)!
   rails-assets-lunks--angulartics (= 0.18.0)!
@@ -659,6 +664,7 @@ DEPENDENCIES
   rails-assets-ng-file-upload (= 8.0.4)!
   rails-assets-ng-file-upload-shim (= 8.0.4)!
   rails-assets-ng-sortable (= 1.3.1)!
+  rails-assets-ngclipboard (= 1.1.1)!
   rails-assets-ngtoast (= 1.5.6)!
   rails-assets-scrollmagic (= 2.0.5)!
   rails-assets-ui-router (= 0.2.15)!

@@ -1,5 +1,5 @@
 class Api::V1::CoursesController < Api::V1::ApplicationController
-  before_action :skip_authorization, only: :clone
+  before_action :skip_authorization, only: [:search, :clone]
   respond_to :json
 
   def index
@@ -54,7 +54,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def search
     @course = course(Course.all)
-    authorize @course
+    authorize @course unless params[:skip_authorization]
   rescue Pundit::NotAuthorizedError => exception
     rescue_unauthorized(exception)
   end
@@ -96,9 +96,9 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
       @course,
       teacher: current_profile,
       weekly_schedules: @course.weekly_schedules.map(&:dup),
-      name: params[:name],
-      start_date: params[:start_date],
-      end_date: params[:end_date]
+      name: params[:course][:name],
+      start_date: params[:course][:start_date],
+      end_date: params[:course][:end_date]
     ).create
   end
 

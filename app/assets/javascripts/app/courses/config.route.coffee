@@ -2,6 +2,7 @@ setCoursesRoutes = (
   $stateProvider,
   CoursesResolver,
   CourseResolver,
+  CourseCloneResolver,
   EventsPaginationResolver) ->
   $stateProvider
     .state 'app.courses',
@@ -15,6 +16,15 @@ setCoursesRoutes = (
     .state 'app.courses.inactive',
       url: '/inactive'
       templateUrl: 'courses/courses-inactive'
+
+    .state 'app.courses.clone-confirm',
+      url: '/clone/:courseId?name&startDate&endDate'
+      controller: 'ConfirmCloneCourseCtrl'
+      templateUrl: 'courses/clone/confirm'
+      resolve:
+        course: CourseCloneResolver
+        $title: ['$translate', 'course', ($translate, course) ->
+          $translate('courses.title.course-clone-confirm', course: course)]
 
     .state 'app.courses.show',
       url: '/:courseId'
@@ -59,6 +69,7 @@ setCoursesRoutes.$inject = [
   '$stateProvider',
   'CoursesResolver',
   'CourseResolver',
+  'CourseCloneResolver',
   'EventsPaginationResolver']
 
 angular

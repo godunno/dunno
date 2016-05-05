@@ -292,7 +292,7 @@ resource "Courses" do
     end
   end
 
-  post "/api/v1/courses/:id/clone.json" do
+  post "/api/v1/courses/:access_code/clone.json" do
     parameter :start_date, "Cloned course's start date"
     parameter :end_date, "[Optional] Cloned course's end date"
     parameter :name, "[Optional] Cloned course's new name"
@@ -301,7 +301,7 @@ resource "Courses" do
     let(:user_token) { profile.authentication_token }
     let(:profile) { create(:profile) }
 
-    let(:id) { template.uuid }
+    let(:access_code) { template.access_code }
     let(:template) { create(:course, :with_events) }
     let(:start_date) { Date.tomorrow.to_s }
     let(:end_date) { 1.month.from_now.to_date.to_s }

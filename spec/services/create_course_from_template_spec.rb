@@ -160,6 +160,21 @@ describe CreateCourseFromTemplate do
     end
 
     it { expect(new_course.end_date).to eq new_end_date }
+
+    context "new end date is not enough to fit all the events" do
+      let(:service) do
+        CreateCourseFromTemplate.new(template,
+                                     teacher: teacher,
+                                     students: [student],
+                                     weekly_schedules: [every_tuesday],
+                                     start_date: '2016-12-01',
+                                     end_date: '2016-12-02'
+                                    )
+      end
+
+      it { expect(new_course.events.count).to be 3 }
+      it { expect(new_course.end_date).to eq Date.parse('2016-12-22') }
+    end
   end
 
   context "overriding name" do
