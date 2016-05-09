@@ -8,8 +8,6 @@ CloneCourseDialogCtrl = (
 ) ->
   vm = @
 
-  window.$window = $window
-
   vm.course = course
   vm.startDate = moment(vm.course.start_date)
   vm.endDate = moment(vm.course.end_date || undefined)
@@ -30,10 +28,10 @@ CloneCourseDialogCtrl = (
     hasEndDate = false
 
   vm.trackAndClose = (course) ->
-    AnalyticsTracker.courseCloned(course)
     modalInstance.destroy()
 
   vm.clone = ->
+    AnalyticsTracker.cloneCourseLinkCreated(course)
     vm.course.start_date = formatDate(vm.startDate)
     vm.course.end_date = formatDate(vm.endDate) if vm.hasEndDate()
     vm.cloneLink = $window.location.origin + $window.location.pathname + $state.href(
