@@ -1,0 +1,83 @@
+a.close-button zf-close=true
+  | ×
+.modal__header
+  h5
+    | Clonar disciplina
+.modal__content
+  .link ng-if="vm.cloneLink"
+    ul
+      li
+        | Qualquer pessoa com este link poderá clonar sua disciplina.
+      li
+        | Você não precisa criar um novo link quando fizer modificações nesta disciplina: os dados copiados serão aqueles presentes no momento em que a pessoa com o link confirmar a cópia.
+    input[
+      type="text"
+      name="clone__link"
+      ng-model="vm.cloneLink"
+      readonly=true
+      select-on="vm.clicked || vm.cloneLink"
+      ng-click="vm.clicked = {}"]
+    a(ng-click="vm.cloneLink = undefined")
+      | Voltar
+    button.button.float-right[ngclipboard data-clipboard-text="{{vm.cloneLink}}"]
+      | Copiar link
+  .form ng-if="!vm.cloneLink"
+    form[
+      name="vm.cloneCourseForm"
+      novalidate=true
+      ng-submit="vm.cloneCourseForm.$valid && vm.clone()"]
+
+      label for="course__name"
+        | Novo nome da disciplina
+        span.required<
+          | *
+      input#course__name[
+        name="name"
+        ng-model="vm.course.name"
+        required=true
+        validate=true
+        type="text"]
+      errors for="vm.cloneCourseForm.name"
+
+      .course__date
+        .course__date__title
+          label
+            | Período Letivo
+
+        .course__start__date
+          label for="course__start__date"
+            | Inicia em
+            span.required<
+              | *
+          mighty-datepicker.start__date#course__start__date[
+            ng-model="vm.startDate"
+            options="vm.calendarOptions"]
+          input[
+            type="hidden"
+            name="startDate"
+            ng-model="vm.startDate"
+            validate=true]
+          errors for="vm.courseForm.startDate"
+
+        .course__end__date
+          a.add__course__end__date[
+            ng-if="!vm.hasEndDate()"
+            ng-click="vm.addEndDate()"]
+            i.icon.icon-event>
+            | Definir quando termina
+          a.remove__course__end__date[
+            ng-if="vm.hasEndDate()"
+            ng-click="vm.removeEndDate()"]
+            small
+              i.icon.icon-cancel>
+              | Remover, não sei quando termina
+          label[
+            for="course__end__date"
+            ng-show="vm.hasEndDate()"]
+            | Termina em
+          mighty-datepicker.end__date#course__end__date[
+            ng-if="vm.hasEndDate()"
+            ng-model="vm.endDate"
+            options="vm.calendarOptions"]
+
+      submit-button.submit label="Criar link"

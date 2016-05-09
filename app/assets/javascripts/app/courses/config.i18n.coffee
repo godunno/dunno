@@ -6,6 +6,7 @@ I18nConfig = ($translateProvider) ->
       title:
         courses: 'Disciplinas'
         'course-detail': '{{course.name}} › {{course.class_name}}'
+        'course-clone-confirm': 'Clonar {{course.name}}'
     'vm.courseForm':
       name:
         required: 'Nós precisamos de um nome para a sua disciplina.'

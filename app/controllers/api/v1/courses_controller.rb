@@ -1,4 +1,5 @@
 class Api::V1::CoursesController < Api::V1::ApplicationController
+  before_action :skip_authorization, only: [:search, :clone]
   respond_to :json
 
   def index
@@ -53,7 +54,7 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
 
   def search
     @course = course(Course.all)
-    authorize @course
+    authorize @course unless params[:skip_authorization]
   rescue Pundit::NotAuthorizedError => exception
     rescue_unauthorized(exception)
   end
@@ -87,6 +88,18 @@ class Api::V1::CoursesController < Api::V1::ApplicationController
     authorize course
     student.downgrade_from_moderator_in!(course)
     render nothing: true
+  end
+
+  def clone
+    @course = course(Course.all)
+    @created_course = CreateCourseFromTemplate.new(
+      @course,
+      teacher: current_profile,
+      weekly_schedules: @course.weekly_schedules.map(&:dup),
+      name: params[:course][:name],
+      start_date: params[:course][:start_date],
+      end_date: params[:course][:end_date]
+    ).create
   end
 
   private

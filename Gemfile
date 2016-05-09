@@ -72,6 +72,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-ui-router-extras', '0.1.0'
   gem 'rails-assets-ngtoast', '1.5.6'
   gem 'rails-assets-angular-chartist.js', '3.3.12'
+  gem 'rails-assets-clipboard', '1.5.10'
+  gem 'rails-assets-ngclipboard', '1.1.1'
 end
 
 group :production, :staging do

@@ -27,6 +27,10 @@
                   i.icon.icon-settings>
                   | editar disciplina
               li
+                a ng-click="openCloneCourseForm()"
+                  i.icon.icon-copy>
+                  | clonar disciplina
+              li
                 a[
                   ng-click="openNotification()"
                   ng-if="course.members.length > 1"]

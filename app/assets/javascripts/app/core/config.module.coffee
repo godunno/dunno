@@ -23,5 +23,6 @@ angular
     'ui.timepicker',
     'pascalprecht.translate',
     'ngToast',
-    'angular-chartist'
+    'angular-chartist',
+    'ngclipboard'
   ]

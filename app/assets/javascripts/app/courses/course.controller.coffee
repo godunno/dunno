@@ -12,6 +12,17 @@ CourseCtrl = ($scope, ModalFactory, course) ->
       scope: $scope
     .activate()
 
+  $scope.openCloneCourseForm = ->
+    new ModalFactory
+      templateUrl: 'courses/clone/dialog'
+      controller: 'CloneCourseDialogCtrl'
+      class: 'medium course__edit'
+      controllerAs: 'vm'
+      bindToController: true
+      resolve: { course: -> angular.copy($scope.course) }
+      scope: $scope
+    .activate()
+
   $scope.openNotification = ->
     new ModalFactory
       templateUrl: 'courses/notify/notify-members'
