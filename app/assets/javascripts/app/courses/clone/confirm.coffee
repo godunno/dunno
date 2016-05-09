@@ -12,7 +12,7 @@ ConfirmCloneCourseCtrl = (
   $scope.course = new Course(course)
 
   success = (course) ->
-    $state.go('app.courses.show.events', { courseId: course.uuid })
+    $state.go('app.courses.show.events', { courseId: course.uuid }, { reload: true })
 
   failure = -> $scope.error = "Ocorreu um erro ao clonar essa disciplina"
 
