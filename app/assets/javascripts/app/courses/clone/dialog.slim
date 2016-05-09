@@ -5,6 +5,11 @@ a.close-button zf-close=true
     | Clonar disciplina
 .modal__content
   .link ng-if="vm.cloneLink"
+    ul
+      li
+        | Qualquer pessoa com este link poderá clonar sua disciplina.
+      li
+        | Você não precisa criar um novo link quando fizer modificações nesta disciplina: os dados copiados serão aqueles presentes no momento em que a pessoa com o link confirmar a cópia.
     input[
       type="text"
       name="clone__link"
