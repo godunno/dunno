@@ -4,7 +4,11 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
   def create
     authorize event, :update?
     @topic = Topic.new(event: event)
-    TopicForm.new(@topic, create_params).create!(event)
+
+    Topic.transaction do
+      event.save!
+      TopicForm.new(@topic, create_params).create!(event)
+    end
     NewTopicNotification.new(topic, current_profile).deliver
     render status: :created
   end
@@ -54,7 +58,7 @@ class Api::V1::TopicsController < Api::V1::ApplicationController
   end
 
   def event_params
-    params.require(:topic).require(:event).permit(:start_at, :order)
+    params.require(:topic).require(:event).permit(:start_at, :end_at, :order)
   end
 
   def event
