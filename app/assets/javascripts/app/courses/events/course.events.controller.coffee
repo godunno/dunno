@@ -1,6 +1,7 @@
 CourseEventsCtrl = (
   $scope,
   $templateCache,
+  $state,
   pagination,
   AnalyticsTracker,
   PageLoading,
@@ -55,12 +56,18 @@ CourseEventsCtrl = (
     for event in @eventsDates
       return event if event.isSame(date, 'day')
 
+  isStudent = ->
+    $scope.course.user_role == 'student'
+
   @calendarOptions =
-    filter: filterDates
+    filter: if isStudent() then filterDates
     start: @currentMonth
     template: $templateCache.get('courses/events/angular-mighty-datepicker')
     callback: (date) =>
-      @selectedDate = date
+      if filterDates(date)
+        @selectedDate = date
+      else
+        $state.go('^.event', { startAt: date.clone().hours(9).format() })
 
   @eventsMarkers = @eventsDates.map (date) ->
     day: date
@@ -95,6 +102,7 @@ CourseEventsCtrl = (
 CourseEventsCtrl.$inject = [
   '$scope',
   '$templateCache',
+  '$state',
   'pagination',
   'AnalyticsTracker',
   'PageLoading',

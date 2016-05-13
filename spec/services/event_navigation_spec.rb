@@ -47,4 +47,27 @@ describe EventNavigation do
     it { expect(service.previous.start_at).to eq fourth_date }
     it { expect(service.next.start_at).to eq sixth_date }
   end
+
+  context "non-scheduled event" do
+    context "before all the scheduled ones" do
+      let(:start_at) { first_date - 1.day }
+
+      it { expect(service.previous).to be_nil }
+      it { expect(service.next.start_at).to eq first_date }
+    end
+
+    context "in the middle of the scheduled ones" do
+      let(:start_at) { first_date + 1.day }
+
+      it { expect(service.previous.start_at).to eq first_date }
+      it { expect(service.next.start_at).to eq second_date }
+    end
+
+    context "after all the scheduled ones" do
+      let(:start_at) { fifth_date + 1.day }
+
+      it { expect(service.previous.start_at).to eq fifth_date }
+      it { expect(service.next).to be_nil }
+    end
+  end
 end
