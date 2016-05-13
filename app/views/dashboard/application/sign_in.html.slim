@@ -60,5 +60,5 @@ ruby:
         label="Acessar"
         tabindex="3"]
       .signup.text-center
-        | Ainda não está no Dunno? #{link_to "Crie sua conta", new_registration_path, tabindex: 6}.
+        | Ainda não está no Dunno? <a href="/sign_up?redirectTo={{redirectTo || '' | encodeURIComponent}}" tabindex="6">Crie sua conta</a>.
     = render "application/login_links"
