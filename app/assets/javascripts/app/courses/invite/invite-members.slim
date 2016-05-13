@@ -6,6 +6,24 @@ a.close-button zf-close="" ng-click="$close()"
   p
     | Para convidar estudantes para sua disciplina, eles precisam fazer o seguinte:
 .modal__content
+  label for="register-link"
+    | Copiar o endereço:
+
+    span.inline-label
+      input#register-link[
+        type="text"
+        name="register__link"
+        ng-model="vm.registerLink"
+        readonly=true
+        select-on="vm.clicked || vm.registerLink"
+        ng-click="vm.clicked = {}"]
+
+      button.button[ngclipboard data-clipboard-text="{{vm.registerLink}}"]
+        | Copiar link
+
+  h2
+    | ou
+
   ol
     li
       p

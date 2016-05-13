@@ -1,5 +1,15 @@
-InviteMembersController = (ModalFactory, course) ->
+InviteMembersController = (
+  $window,
+  $state,
+  ModalFactory,
+  course
+) ->
   @course = course
+  @registerLink =
+    $window.location.origin +
+    $window.location.pathname +
+    $state.href('app.courses.confirm_registration', id: course.access_code)
+
   @openInviteMembersFullscreen = ->
     new ModalFactory
       templateUrl: 'courses/invite/invite-fullscreen'
@@ -12,7 +22,12 @@ InviteMembersController = (ModalFactory, course) ->
 
   @
 
-InviteMembersController.$inject = ['ModalFactory', 'course']
+InviteMembersController.$inject = [
+  '$window',
+  '$state',
+  'ModalFactory',
+  'course'
+]
 
 angular
   .module('app.courses')

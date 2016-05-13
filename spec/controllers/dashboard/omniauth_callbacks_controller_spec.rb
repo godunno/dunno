@@ -7,6 +7,7 @@ describe Dashboard::OmniauthCallbacksController do
     before do
       request.env["devise.mapping"] = Devise.mappings[:user]
       request.env["omniauth.auth"] = omniauth_response
+      request.env["omniauth.params"] = {}
     end
 
     def do_action
@@ -27,6 +28,12 @@ describe Dashboard::OmniauthCallbacksController do
         request.env["omniauth.origin"] = "http://example.org/previous_page"
         do_action
         expect(subject).to redirect_to "http://example.org/previous_page"
+      end
+
+      it "redirects to param if present" do
+        request.env["omniauth.params"] = { "redirectTo" => "http://example.org/redirected_page" }
+        do_action
+        expect(subject).to redirect_to "http://example.org/redirected_page"
       end
 
       it "redirects to angular app when there is no previous location" do
