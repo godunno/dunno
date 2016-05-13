@@ -5,7 +5,8 @@ describe "CourseEventsCtrl", ->
   AnalyticsTracker =
     eventAccessed: (->)
 
-  course = {}
+  course =
+    user_role: 'student'
 
   $scope =
     course: course
@@ -117,6 +118,7 @@ describe "CourseEventsCtrl", ->
       expect(ctrl.showToday()).toBe(true)
 
   describe "calendar widget", ->
+    $state = { go: (->) }
     startAt = moment(event.start_at)
     inSameDay = startAt.clone().add(2, 'hours')
     eventInSameDay =
@@ -128,6 +130,7 @@ describe "CourseEventsCtrl", ->
       inject ($controller) ->
         ctrl = $controller 'CourseEventsCtrl',
           $scope: $scope
+          $state: $state
           pagination: calendarPagination
           AnalyticsTracker: AnalyticsTracker
 
@@ -149,10 +152,16 @@ describe "CourseEventsCtrl", ->
       dayAfter = startAt.clone().add(1, 'day')
       expect(filter(dayAfter)).not.toBeDefined()
 
-    it "assigns the selected date on the callback", ->
-      date = moment()
+    it "assigns a scheduled selected date on the callback", ->
+      date = moment(event.start_at)
       ctrl.calendarOptions.callback(date)
       expect(ctrl.selectedDate).toBe(date)
+
+    it "redirects to new event when selected date is outside the schedule", ->
+      spyOn($state, 'go')
+      date = moment(event.start_at).add(1, 'day')
+      ctrl.calendarOptions.callback(date)
+      expect($state.go).toHaveBeenCalledWith('^.event', { startAt: date.clone().hours(9).format() })
 
     it "moves to the first event in the same day", ->
       expect(ctrl.moveToEvent(event)).not.toBeDefined()
