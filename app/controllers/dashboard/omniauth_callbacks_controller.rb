@@ -2,7 +2,7 @@ class Dashboard::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
   def facebook
     if (@user = AuthenticateUserFromFacebook.new(request.env["omniauth.auth"]).authenticate)
       sign_in @user, event: :authentication
-      redirect_to request.env["omniauth.origin"] || after_sign_in_path_for(@user)
+      redirect_to redirect_to_from_params || origin || after_sign_in_path_for(@user)
     else
       redirect_to user_omniauth_authorize_path(
         provider: :facebook,
@@ -11,4 +11,14 @@ class Dashboard::OmniauthCallbacksController < Devise::OmniauthCallbacksControll
       )
     end
   end
+
+  private
+
+    def redirect_to_from_params
+      request.env["omniauth.params"]["redirectTo"].presence
+    end
+
+    def origin
+      request.env["omniauth.origin"]
+    end
 end
