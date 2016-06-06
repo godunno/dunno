@@ -9,9 +9,10 @@ EventCtrl = (
   DateUtils,
   ModalFactory
 ) ->
-
   angular.extend($scope, Utils)
   angular.extend($scope, DateUtils)
+
+  event.end_at ?= moment(event.start_at).add(2, 'hours').format()
 
   initializeEvent = (event) ->
     $scope.event = event

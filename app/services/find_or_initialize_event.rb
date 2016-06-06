@@ -1,5 +1,5 @@
 class FindOrInitializeEvent
-  attr_reader :course, :start_at
+  attr_reader :course, :start_at, :end_at
 
   def self.by(course, attributes)
     new(course, attributes).find
@@ -7,14 +7,15 @@ class FindOrInitializeEvent
 
   def initialize(course, attributes)
     @course     = course
-    attributes = attributes.with_indifferent_access
+    attributes  = attributes.with_indifferent_access
     @start_at   = attributes.delete('start_at').to_time
+    @end_at     = attributes.delete('end_at')
   end
 
   def find
     event = course.events.by_start_at(start_at)
     return event if event.present?
-    course.events.build(start_at: start_at).tap do |event|
+    course.events.build(start_at: start_at, end_at: end_at).tap do |event|
       return event if event.persisted?
       service = FindWeeklySchedule.new(event.start_at, course.weekly_schedules)
       return event unless service.weekly_schedule?

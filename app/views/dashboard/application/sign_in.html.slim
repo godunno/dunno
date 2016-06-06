@@ -21,7 +21,7 @@ ruby:
             | Confira seus dados e tente novamente.
           p.session__amnesia
             = link_to "Esqueceu sua senha?", new_dashboard_password_path
-        login-with-facebook
+        login-with-facebook redirect-to="redirectTo"
       .session__or
         span
           | ou
@@ -60,5 +60,5 @@ ruby:
         label="Acessar"
         tabindex="3"]
       .signup.text-center
-        | Ainda não está no Dunno? #{link_to "Crie sua conta", new_registration_path, tabindex: 6}.
+        | Ainda não está no Dunno? <a href="/sign_up?redirectTo={{redirectTo || '' | encodeURIComponent}}" tabindex="6">Crie sua conta</a>.
     = render "application/login_links"

@@ -1,3 +1,4 @@
-a.connect__with__facebook href="/users/auth/facebook"
+a.connect__with__facebook[
+  href="/users/auth/facebook?redirectTo={{redirectTo || '' | encodeURIComponent}}"]
   i.icon.icon-facebook
   | Conectar usando Facebook

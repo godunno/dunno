@@ -6,17 +6,26 @@ class EventNavigation
   end
 
   def previous
-    events[event_index - 1] if event_index && event_index > 0
+    return unless event_index > 0
+    events[event_index - 1]
   end
 
   def next
-    events[event_index + 1]
+    if scheduled?
+      events[event_index + 1]
+    else
+      events[event_index]
+    end
   end
 
   private
 
   def event_index
-    @event_index ||= events.find_index { |e| e.start_at == event.start_at }
+    @event_index ||= events.take_while { |e| e.start_at < event.start_at }.count
+  end
+
+  def scheduled?
+    @scheduled ||= events.find_index { |e| e.start_at == event.start_at }.present?
   end
 
   def events

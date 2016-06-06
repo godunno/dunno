@@ -1,7 +1,7 @@
 AuthInjector = ($window, $q, NonLoggedRoutes) ->
   responseError: (response) ->
     if response.status == 401 && !NonLoggedRoutes.isNonLoggedRoute()
-      $window.location.href = '/sign_in'
+      $window.location.href = "/sign_in?redirectTo=#{encodeURIComponent($window.location.href)}"
     $q.reject(response)
 
 AuthInjector.$inject = ['$window', '$q', 'NonLoggedRoutes']

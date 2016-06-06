@@ -1,7 +1,4 @@
 class Dashboard::ApplicationController < ApplicationController
-  before_action :authenticate_user!
-  skip_before_action :authenticate_user!, only: [:sign_in, :sign_up]
-
   def index
     render text: '', layout: true
   end
