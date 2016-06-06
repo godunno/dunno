@@ -10,12 +10,14 @@ class CreateCourseFromTemplate
   end
 
   def create
-    template.events.each_with_index do |template_event, index|
-      event = schedule.events[index]
-      event.topics = template_event.topics.map(&dup_topic)
-      event.status = template_event.status
-      event.classroom = template_event.classroom
-      event.save!
+    Course.transaction do
+      template.events.each_with_index do |template_event, index|
+        event = scheduled_events[index]
+        event.topics = template_event.topics.map(&dup_topic)
+        event.status = template_event.status
+        event.classroom = template_event.classroom
+        event.save!
+      end
     end
 
     course
@@ -38,11 +40,11 @@ class CreateCourseFromTemplate
     )
   end
 
-  def schedule
-    CourseScheduler.new(
+  def scheduled_events
+    @scheduled_events ||= CourseScheduler.new(
       course,
       course.start_date.beginning_of_day..maximum_course_end_date.end_of_day
-    )
+    ).events
   end
 
   def name
