@@ -53,7 +53,7 @@ class Event < ActiveRecord::Base
   end
 
   def index_id
-    @index_id ||= "#{course.id}/#{start_at.iso8601}"
+    @index_id ||= "#{course.id}_#{start_at.iso8601}"
   end
 
   def was_canceled?
