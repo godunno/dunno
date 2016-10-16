@@ -2,7 +2,7 @@ a.system__notification[
   ng-click="vm.trackAndMarkAsRead() && vm.reload('app.courses')"
   ng-class="{'system__notification__unread': !vm.notification.read_at}"
   ui-sref="app.courses.show.events({ courseId: vm.notification.notifiable.uuid })"]
-  img.avatar.system__notification__author__avatar user-avatar="vm.notification.author"
+  i.icon.icon-block.system__notification__icon
   span.system__notification__wrapper
     strong.system__notification__author__name>
       | {{ vm.notification.author.name }}
